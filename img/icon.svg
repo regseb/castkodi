@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+     viewBox="0 0 100 100">
+  <defs>
+    <mask id="wave">
+      <g fill="none" stroke="white">
+        <circle cx="0" cy="50" r="5"  stroke-width="10" />
+        <circle cx="0" cy="50" r="25" stroke-width="10" />
+        <circle cx="0" cy="50" r="45" stroke-width="10" />
+        <circle cx="0" cy="50" r="80" stroke-width="40" />
+      </g>
+    </mask>
+  </defs>
+
+  <g mask="url(#wave)">
+    <polygon points="5,50 50,5 95,50 50,95" fill="#31aef1" stroke="#31afe1"
+             stroke-width="10" stroke-linejoin="round" />
+  </g>
+</svg>

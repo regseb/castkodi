@@ -1,0 +1,29 @@
+{
+    "applications": {
+        "gecko": {
+            "id": "castkodi@regseb.github.io",
+            "strict_min_version": "54.0"
+        }
+    },
+
+    "manifest_version": 2,
+    "name": "Cast Kodi",
+    "version": "0.1.0",
+
+    "description": "Diffuser des vidéos sur Kodi.",
+    "icons": {
+        "48": "img/icon.svg",
+        "96": "img/icon.svg"
+    },
+
+    "author": "Sébastien Règne <regseb@gmail.com>",
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "homepage_url": "https://github.com/regseb/castkodi",
+    "options_ui": {
+        "browser_style": true,
+        "page": "options/index.html"
+    },
+    "permissions": ["<all_urls>", "contextMenus", "notifications", "storage"]
+}

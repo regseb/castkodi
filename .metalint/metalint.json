@@ -1,0 +1,23 @@
+{
+    "patterns": ["!.git/**", "**"],
+    "hidden": true,
+    "verbose": 2,
+    "checkers": [
+        {
+            "patterns": "**/*.js",
+            "linters": "eslint"
+        }, {
+            "patterns": "**/*.html",
+            "linters": "htmlhint"
+        }, {
+            "patterns": "**/*.css",
+            "linters": "stylelint"
+        }, {
+            "patterns": "**/*.md",
+            "linters": "markdownlint"
+        }, {
+            "patterns": "**/*.json",
+            "linters": { "jsonlint": { "comments": false } }
+        }
+    ]
+}
