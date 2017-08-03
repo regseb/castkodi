@@ -1,0 +1,50 @@
+{
+    "manifest_description": {
+        "message": "Diffuser des vidéos / fichiers audio sur Kodi."
+    },
+
+    "contextMenus_parent": {
+        "message": "Diffuser sur Kodi"
+    },
+    "contextMenus_play": {
+        "message": "Lire"
+    },
+    "contextMenus_add": {
+        "message": "Placer en file d'attente"
+    },
+
+    "notifications_error": {
+        "message": "Impossible de diffuser le média sur Kodi."
+    },
+
+    "options_intro_content": {
+        "message": "Pour envoyer des médias sur Kodi, vous devez <em>Autoriser le contrôle à distance via HTTP</em>. Ce règlage se fait dans la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em> de Kodi."
+    },
+    "options_port_content": {
+        "message": "Port :"
+    },
+    "options_username_content": {
+        "message": "Nom d'utilisateur :"
+    },
+    "options_password_content": {
+        "message": "Mot de passe :"
+    },
+    "options_helpHost_content": {
+        "message": "L'adresse du serveur Web est disponible dans la page <em>Paramètres</em> / <em>Infos sur le système</em> / <em>Résumé</em>."
+    },
+    "options_host_content": {
+        "message": "Adresse IP :"
+    },
+    "options_test_content": {
+        "message": "Tester"
+    },
+    "options_result_pending": {
+        "message": "..."
+    },
+    "options_result_succes": {
+        "message": "Connexion établie."
+    },
+    "options_result_fail": {
+        "message": "Impossible de se connecter."
+    }
+}

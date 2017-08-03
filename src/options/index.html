@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cast Kodi</title>
+    <link rel="stylesheet" href="extension.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form>
+      <p data-i18n-content="intro"></p>
+      <div>
+        <label for="port" data-i18n-content="port"></label>
+        <input type="text" id="port" name="port" pattern="[0-9]+" />
+      </div>
+      <div>
+        <label for="username" data-i18n-content="username"></label>
+        <input type="text" id="username" name="username" />
+      </div>
+      <div>
+        <label for="password" data-i18n-content="password"></label>
+        <input type="password" id="password" name="password" />
+      </div>
+
+      <p data-i18n-content="helpHost"></p>
+      <div>
+        <label for="host" data-i18n-content="host"></label>
+        <input type="text" id="host" name="host" />
+        <button id="test" data-i18n-content="test"></button>
+        <span id="result"></span>
+      </div>
+    </form>
+    <script src="/lib/browser-polyfill.js"></script>
+    <script data-main="script" src="/lib/require.js"></script>
+  </body>
+</html>

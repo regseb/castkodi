@@ -1,0 +1,34 @@
+{
+    "name": "castkodi",
+    "version": "0.3.0",
+    "description": "WebExtension pour diffuser des vidéos / audio sur Kodi.",
+    "keyword": [
+        "cast", "kodi", "webextension", "firefox", "youtube", "vimeo",
+        "dailymotion", "soundcloud"
+    ],
+    "homepage": "https://addons.mozilla.org/fr/firefox/addon/castkodi/",
+    "bugs": {
+        "url": "https://github.com/regseb/castkodi/issues"
+    },
+    "license": "EUPL-1.2",
+    "author": "Sébastien Règne <regseb@gmail.com> (https://github.com/regseb)",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/regseb/castkodi.git"
+    },
+    "scripts": {
+        "lint": "metalint"
+    },
+    "dependencies": {
+        "requirejs": "^2.3.4",
+        "webextension-polyfill": "^0.1.1"
+    },
+    "devDependencies": {
+        "eslint": "^4.3.0",
+        "htmlhint": "^0.9.13",
+        "jsonlint": "^1.6.2",
+        "markdownlint": "^0.6.0",
+        "metalint": "^0.7.1",
+        "stylelint": "^8.0.0"
+    }
+}

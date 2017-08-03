@@ -1,5 +1,3 @@
-/* stylelint-disable property-no-vendor-prefix */
-/* stylelint-disable property-no-vendor-prefix */
 /* Base */
 button,
 select,
@@ -28,7 +26,6 @@ body * {
   text-align: start;
 }
 
-/* stylelint-disable property-no-vendor-prefix */
 /* Buttons */
 button,
 select {
@@ -365,7 +362,6 @@ textarea:focus:hover {
   box-shadow: 0 0 0 2px rgba(97, 181, 255, 0.75);
 }
 
-/* stylelint-disable property-no-vendor-prefix */
 .panel-section {
   display: flex;
   flex-direction: row;

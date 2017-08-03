@@ -1,0 +1,50 @@
+{
+    "manifest_description": {
+        "message": "Cast video / audio to Kodi."
+    },
+
+    "contextMenus_parent": {
+        "message": "Cast to Kodi"
+    },
+    "contextMenus_play": {
+        "message": "Play"
+    },
+    "contextMenus_add": {
+        "message": "Queue item"
+    },
+
+    "notifications_error": {
+        "message": "Impossible to cast media to Kodi."
+    },
+
+    "options_intro_content": {
+        "message": "To cast media to Kodi, you must <em>Allow remote control via HTTP</em>. This option is on <em>Settings</em> / <em>Services</em> / <em>Control</em> page in Kodi."
+    },
+    "options_port_content": {
+        "message": "Port:"
+    },
+    "options_username_content": {
+        "message": "Username:"
+    },
+    "options_password_content": {
+        "message": "Password:"
+    },
+    "options_helpHost_content": {
+        "message": "IP address of Web server is display on <em>Settings</em> / <em>System info</em> / <em>Summary</em> page."
+    },
+    "options_host_content": {
+        "message": "IP address:"
+    },
+    "options_test_content": {
+        "message": "Test"
+    },
+    "options_result_pending": {
+        "message": "..."
+    },
+    "options_result_succes": {
+        "message": "Connection succesful."
+    },
+    "options_result_fail": {
+        "message": "Connection failed."
+    }
+}
