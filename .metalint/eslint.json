@@ -7,13 +7,6 @@
         }
     },
 
-    "env": {
-        "browser": true,
-        "es6": true,
-        "amd": true,
-        "webextensions": true
-    },
-
     "rules": {
         "for-direction": 2,
         "no-await-in-loop": 2,

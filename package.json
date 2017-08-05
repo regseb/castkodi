@@ -17,12 +17,18 @@
         "url": "https://github.com/regseb/castkodi.git"
     },
     "scripts": {
-        "lint": "metalint"
+        "lint": "metalint",
+        "test": "mocha test/",
+        "cover": "istanbul cover --hook-run-in-context _mocha -- test/",
+        "coveralls": "npm run cover -- --report lcovonly && cat coverage/lcov.info | coveralls"
     },
     "dependencies": {
         "requirejs": "^2.3.4"
     },
     "devDependencies": {
+        "coveralls": "^2.13.1",
+        "istanbul": "^0.4.5",
+        "mocha": "^3.5.0",
         "eslint": "^4.3.0",
         "htmlhint": "^0.9.13",
         "jsonlint": "^1.6.2",
