@@ -27,21 +27,21 @@ define(function () {
      */
     const extract = function (url) {
         if ("www.youtube.com" === url.hostname && "/watch" === url.pathname &&
-                url.searchParams.has("v")) {
-            return Promise.resolve({
-                "playlistid": PLAYLIST_ID,
-                "file":       PLUGIN_URL +
-                                         "?action=play_video" +
-                                         "&videoid=" + url.searchParams.get("v")
-            });
-        }
-        if ("www.youtube.com" === url.hostname && "/watch" === url.pathname &&
                 url.searchParams.has("list")) {
             return Promise.resolve({
                 "playlistid": PLAYLIST_ID,
                 "file":       PLUGIN_URL +
                                      "?action=play_all" +
                                      "&playlist=" + url.searchParams.get("list")
+            });
+        }
+        if ("www.youtube.com" === url.hostname && "/watch" === url.pathname &&
+                url.searchParams.has("v")) {
+            return Promise.resolve({
+                "playlistid": PLAYLIST_ID,
+                "file":       PLUGIN_URL +
+                                         "?action=play_video" +
+                                         "&videoid=" + url.searchParams.get("v")
             });
         }
         if ("youtu.be" === url.hostname) {
