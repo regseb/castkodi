@@ -20,8 +20,7 @@
         "lint": "metalint"
     },
     "dependencies": {
-        "requirejs": "^2.3.4",
-        "webextension-polyfill": "^0.1.1"
+        "requirejs": "^2.3.4"
     },
     "devDependencies": {
         "eslint": "^4.3.0",
