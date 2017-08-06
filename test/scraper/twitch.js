@@ -27,21 +27,21 @@ describe("scraper/twitch", function () {
     });
 
     describe("#extract()", function () {
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a Twitch page", function () {
             const url = new URL("https://fr.wikipedia.org/wiki/Twitch");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a Twitch video", function () {
             const url = new URL("https://www.twitch.tv/directory");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should suport Twitch video URL", function () {
             const url = new URL("https://www.twitch.tv/videos/164088111");
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";

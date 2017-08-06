@@ -27,21 +27,21 @@ describe("scraper/vimeo", function () {
     });
 
     describe("#extract()", function () {
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a Vimeo page", function () {
             const url = new URL("https://fr.wikipedia.org/wiki/Vimeo");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a Vimeo video", function () {
             const url = new URL("https://vimeo.com/categories");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support Vimeo video URL", function () {
             const url = new URL("https://vimeo.com/195613867");
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=195613867";

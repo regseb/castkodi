@@ -27,21 +27,21 @@ describe("scraper/dailymotion", function () {
     });
 
     describe("#extract()", function () {
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a Dailymotion page", function () {
             const url = new URL("https://fr.wikipedia.org/wiki/Dailymotion");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a Dailymotion video", function () {
             const url = new URL("https://www.dailymotion.com/fr/feed");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support Dailymotion video URL", function () {
             const url = new URL("https://www.dailymotion.com/video/x17qw0a");
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
@@ -52,7 +52,7 @@ describe("scraper/dailymotion", function () {
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support Dailymotion video short URL", function () {
             const url = new URL("http://dai.ly/x5riqme");
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +

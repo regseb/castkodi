@@ -27,28 +27,28 @@ describe("scraper/youtube", function () {
     });
 
     describe("#extract()", function () {
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a YouTube page", function () {
             const url = new URL("https://fr.wikipedia.org/wiki/YouTube");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a YouTube video", function () {
             const url = new URL("https://www.youtube.com/feed/trending");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a YouTube video", function () {
             const url = new URL("https://www.youtube.com/watch?x=123456");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support YouTube playlist URL", function () {
             const url = new URL("https://www.youtube.com/watch" +
                                     "?v=avt4ZWlVjdY" +
                                     "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum");
@@ -61,7 +61,7 @@ describe("scraper/youtube", function () {
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support YouTube video URL", function () {
             const url = new URL("https://www.youtube.com/watch?v=sWfAtMQa_yo");
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
@@ -72,7 +72,7 @@ describe("scraper/youtube", function () {
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support YouTube mobile video URL", function () {
             const url = new URL("https://m.youtube.com/watch?v=dQw4w9WgXcQ");
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
@@ -83,7 +83,7 @@ describe("scraper/youtube", function () {
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support YouTube mobile playlist URL", function () {
             const url = new URL("https://m.youtube.com/playlist" +
                                                     "?list=PL3A5849BDE0581B19");
             const expected = "plugin://plugin.video.youtube/" +
@@ -95,7 +95,7 @@ describe("scraper/youtube", function () {
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support YouTube video short URL", function () {
             const url = new URL("https://youtu.be/NSFbekvYOlI");
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +

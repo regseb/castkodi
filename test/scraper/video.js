@@ -27,14 +27,14 @@ describe("scraper/video", function () {
     });
 
     describe("#extract()", function () {
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a video file", function () {
             const url = new URL("https://fr.wikipedia.org/wiki/AVI");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support video file", function () {
             const url = new URL("http://arcagenis.org/mirror/mango/ToS/" +
                                                      "tears_of_steel_720p.mkv");
             const expected = url.toString();

@@ -27,14 +27,14 @@ describe("scraper/audio", function () {
     });
 
     describe("#extract()", function () {
-        it("should return null when the url is invalid", function () {
+        it("should return null when it's not a audio file", function () {
             const url = new URL("https://fr.wikipedia.org/wiki/MP3");
             return scraper.extract(url).then(function (data) {
                 assert.strictEqual(data, null);
             });
         });
 
-        it("should return playlistid/file when the url is valid", function () {
+        it("should support audio file", function () {
             const url = new URL("http://podcasts.dequaliter.com/Studio404/" +
                                                      "Studio404_Avril2017.mp3");
             const expected = url.toString();
