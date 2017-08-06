@@ -15,7 +15,10 @@ define(function () {
     /**
      * La liste des patrons des URLs gérées.
      */
-    const patterns = ["https://www.youtube.com/watch*", "https://youtu.be/*"];
+    const patterns = [
+        "https://www.youtube.com/watch*", "https://youtu.be/*",
+        "https://m.youtube.com/watch*"
+    ];
 
     /**
      * Extrait (éventuellement) les informations nécessaire pour lire la vidéo
@@ -35,8 +38,18 @@ define(function () {
                                      "&playlist=" + url.searchParams.get("list")
             });
         }
-        if ("www.youtube.com" === url.hostname && "/watch" === url.pathname &&
-                url.searchParams.has("v")) {
+        if ("m.youtube.com" === url.hostname && "/playlist" === url.pathname &&
+                url.searchParams.has("list")) {
+            return Promise.resolve({
+                "playlistid": PLAYLIST_ID,
+                "file":       PLUGIN_URL +
+                                     "?action=play_all" +
+                                     "&playlist=" + url.searchParams.get("list")
+            });
+        }
+        if (("www.youtube.com" === url.hostname ||
+                "m.youtube.com" === url.hostname) &&
+                "/watch" === url.pathname && url.searchParams.has("v")) {
             return Promise.resolve({
                 "playlistid": PLAYLIST_ID,
                 "file":       PLUGIN_URL +
