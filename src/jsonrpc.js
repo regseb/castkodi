@@ -2,7 +2,14 @@
 
 define(function () {
 
-    return function (method, params = {}) {
+    /**
+     * Envoie une requête à Kodi en utilisant le protocol JSON-RPC.
+     *
+     * @param {string} method La méthode envoyée à Kodi.
+     * @param {Object} params Les paramètres de la méthode.
+     * @return {Promise} La réponse de Kodi.
+     */
+    const jsonrpc = function (method, params = {}) {
         const keys = ["port", "username", "password", "host"];
         return browser.storage.local.get(keys).then(function (config) {
             const url = "http://" + config.host +
@@ -30,5 +37,7 @@ define(function () {
             }
             return response.result;
         });
-    };
+    }; // jsonrpc()
+
+    return jsonrpc;
 });
