@@ -5,7 +5,7 @@
 [![Coverage][img-coverage]][link-coverage]
 [![License][img-license]][link-license]
 
-> WebExtension pour diffuser des vidéos et des fichiers audio sur Kodi.
+> WebExtension pour diffuser des vidéos et musiques sur Kodi.
 
 ## Description
 
@@ -14,11 +14,11 @@ sur **Kodi** :
 
 - des vidéos : liens directs (*avi*, *mkv*, ...), YouTube, Vimeo et
   Dailymotion ;
-- des fichiers audio : liens directs (*mp3*, *flac*, ...) et SoundCloud.
+- des musiques : liens directs (*mp3*, *flac*, ...) et SoundCloud.
 
 Une nouvelle option « *Diffuser sur Kodi* » est ajoutée dans le menu contextuel
-des liens / pages / sélections de vidéos ou de fichiers audio. Puis deux choix
-sont disponibles : *Lire* le média ou le *Placer en file d'attente*.
+des liens / pages / sélections de vidéos ou de musiques. Puis deux choix sont
+disponibles : *Lire* le média ou le *Placer en file d'attente*.
 
 ## Installation
 
@@ -34,8 +34,8 @@ d'utilisateur* et le *Mot de passe*. Il faut fournir l'*Adresse IP* du serveur
 hébergeant Kodi ; cette information est disponible dans la page *Paramètres* /
 *Infos sur le système* / *Résumé*.
 
-Pour lire les vidéos et les fichiers audio hébergés sur des plateformes, il faut
-installer les extensions
+Pour lire les vidéos / musiques hébergées sur des plateformes, il faut installer
+les extensions
 [YouTube](//kodi.tv/addon/plugins-video-add-ons/youtube),
 [Vimeo](//kodi.tv/addon/plugins-video-add-ons/vimeo),
 [DailyMotion.com](//kodi.tv/addon/plugins-video-add-ons/dailymotioncom) ou

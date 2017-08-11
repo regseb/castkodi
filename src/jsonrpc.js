@@ -1,6 +1,6 @@
 "use strict";
 
-define(function () {
+define(["pebkac"], function (PebkacError) {
 
     /**
      * Envoie une requête à Kodi en utilisant le protocol JSON-RPC.
@@ -12,6 +12,10 @@ define(function () {
     const jsonrpc = function (method, params = {}) {
         const keys = ["port", "username", "password", "host"];
         return browser.storage.local.get(keys).then(function (config) {
+            if (!("host" in config && "port" in config)) {
+                throw new PebkacError("unconfigured");
+            }
+
             const url = "http://" + config.host +
                               ":" + config.port + "/jsonrpc";
             const init = {

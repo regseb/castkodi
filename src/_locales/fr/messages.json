@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "Diffuser des vidéos / fichiers audio sur Kodi."
+        "message": "Diffuser des vidéos / musiques sur Kodi."
     },
 
     "contextMenus_parent": {
@@ -13,12 +13,50 @@
         "message": "Placer en file d'attente"
     },
 
-    "notifications_error": {
-        "message": "Impossible de diffuser le média sur Kodi."
+    "notifications_unknown_title": {
+        "message": "Erreur inconnue"
+    },
+
+    "notifications_unconfigured_title": {
+        "message": "Aucune configuration"
+    },
+    "notifications_unconfigured_message": {
+        "message": "L'adresse IP et le port de Kodi ne sont pas renseignés dans les préférences."
+    },
+
+    "notifications_unsupported_title": {
+        "message": "Lien non supporté"
+    },
+    "notifications_unsupported_message": {
+        "message": "Le lien n'est pas géré par Kodi."
+    },
+
+    "notifications_novideo_title": {
+        "message": "Lien non supporté"
+    },
+    "notifications_novideo_message": {
+        "message": "Le lien n'est pas une vidéo de $HOSTER$.",
+        "placeholders": {
+            "hoster": {
+                "content": "$1"
+            }
+        }
+    },
+
+    "notifications_noaudio_title": {
+        "message": "Lien non supporté"
+    },
+    "notifications_noaudio_message": {
+        "message": "Le lien n'est pas une musique de $HOSTER$.",
+        "placeholders": {
+            "hoster": {
+                "content": "$1"
+            }
+        }
     },
 
     "options_intro_content": {
-        "message": "Pour envoyer des médias sur Kodi, vous devez <em>Autoriser le contrôle à distance via HTTP</em>. Ce règlage se fait dans la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em> de Kodi."
+        "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez <em>Autoriser le contrôle à distance via HTTP</em>. Ce règlage se fait dans la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em> de Kodi."
     },
     "options_port_content": {
         "message": "Port :"

@@ -4,48 +4,55 @@ const assert    = require("assert");
 const { URL }   = require("url");
 const requirejs = require("requirejs");
 
+global.browser = require("../mock/browser");
+
 requirejs.config({
     "baseUrl":     "src",
     "nodeRequire": require
 });
 
 describe("scraper/vimeo", function () {
-    let scraper;
+    let module;
 
     before(function (done) {
-        requirejs(["scraper/vimeo"], function (vimeo) {
-            scraper = vimeo;
+        requirejs(["scrapers"], function (scrapers) {
+            module = scrapers;
             done();
         });
     });
 
     describe("#patterns", function () {
-        it("should be a non-empty array", function () {
-            assert.strictEqual(Array.isArray(scraper.patterns), true);
-            assert.notStrictEqual(scraper.patterns.length, 0);
+        it("should return error when it's not a video", function () {
+            const url = new URL("https://developer.vimeo.com/");
+            const expected = "unsupported";
+            return module.extract(url).then(function () {
+                assert.fail();
+            }, function (error) {
+                assert.strictEqual(error.name, "PebkacError");
+                assert.ok(error.title.includes(expected));
+                assert.ok(error.message.includes(expected));
+            });
         });
     });
 
-    describe("#extract()", function () {
-        it("should return null when it's not a Vimeo page", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/Vimeo");
-            return scraper.extract(url).then(function (data) {
-                assert.strictEqual(data, null);
+    describe("https://vimeo.com/*", function () {
+        it("should return error when it's not a video", function () {
+            const url = new URL("https://vimeo.com/channels");
+            const expected = "novideo";
+            return module.extract(url).then(function () {
+                assert.fail();
+            }, function (error) {
+                assert.strictEqual(error.name, "PebkacError");
+                assert.ok(error.title.includes(expected));
+                assert.ok(error.message.includes(expected));
             });
         });
 
-        it("should return null when it's not a Vimeo video", function () {
-            const url = new URL("https://vimeo.com/categories");
-            return scraper.extract(url).then(function (data) {
-                assert.strictEqual(data, null);
-            });
-        });
-
-        it("should support Vimeo video URL", function () {
-            const url = new URL("https://vimeo.com/195613867");
+        it("should return video id", function () {
+            const url = new URL("https://vimeo.com/228786490");
             const expected = "plugin://plugin.video.vimeo/play/" +
-                                                          "?video_id=195613867";
-            return scraper.extract(url).then(function ({ playlistid, file }) {
+                                                          "?video_id=228786490";
+            return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });

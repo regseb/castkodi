@@ -3,7 +3,7 @@
 define(function () {
 
     /**
-     * L'identifiant de la file d'attente des fichiers audio.
+     * L'identifiant de la file d'attente des musiques.
      */
     const PLAYLIST_ID = 0;
 
@@ -16,23 +16,21 @@ define(function () {
     ];
 
     /**
-     * Extrait (éventuellement) les informations nécessaire pour lire le fichier
-     * audio sur Kodi.
+     * Génère les informations nécessaire pour lire le fichier audio sur Kodi.
      *
-     * @param {String} url L'URL qui sera analysée.
-     * @return {Promise} L'identifiant de la file d'attente et l'URL du
-     *                   fichier audio ; ou <code>null</code>.
+     * @param {String} url L'URL de la musique.
+     * @return {Promise} L'identifiant de la file d'attente et l'URL de la
+     *                   musique.
      */
-    const extract = function (url) {
-        const ext = url.pathname.substr(url.pathname.lastIndexOf(".") + 1);
-        if (["aac", "flac", "*m4a", "mka", "mp3", "ogg", "pls"].includes(ext)) {
-            return Promise.resolve({
-                "playlistid": PLAYLIST_ID,
-                "file":       url.toString()
-            });
-        }
-        return Promise.resolve(null);
-    }; // extract()
+    const action = function (url) {
+        return Promise.resolve({
+            "playlistid": PLAYLIST_ID,
+            "file":       url.toString()
+        });
+    }; // action()
 
-    return { patterns, extract };
+    return patterns.reduce(function (rules, pattern) {
+        rules[pattern] = action;
+        return rules;
+    }, {});
 });

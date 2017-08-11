@@ -16,23 +16,21 @@ define(function () {
     ];
 
     /**
-     * Extrait (éventuellement) les informations nécessaire pour lire la vidéo
-     * sur Kodi.
+     * Génère les informations nécessaire pour lire la video sur Kodi.
      *
-     * @param {String} url L'URL qui sera analysée.
+     * @param {String} url L'URL d'une vidéo.
      * @return {Promise} L'identifiant de la file d'attente et l'URL de la
-     *                   vidéo ; ou <code>null</code>.
+     *                   vidéo.
      */
-    const extract = function (url) {
-        const ext = url.pathname.substr(url.pathname.lastIndexOf(".") + 1);
-        if (["asf", "avi", "flv", "mkv", "mov", "mp4", "wmv"].includes(ext)) {
-            return Promise.resolve({
-                "playlistid": PLAYLIST_ID,
-                "file":       url.toString()
-            });
-        }
-        return Promise.resolve(null);
-    }; // extract()
+    const action = function (url) {
+        return Promise.resolve({
+            "playlistid": PLAYLIST_ID,
+            "file":       url.toString()
+        });
+    }; // action()
 
-    return { patterns, extract };
+    return patterns.reduce(function (rules, pattern) {
+        rules[pattern] = action;
+        return rules;
+    }, {});
 });

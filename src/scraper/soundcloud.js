@@ -1,9 +1,9 @@
 "use strict";
 
-define(function () {
+define(["pebkac"], function (PebkacError) {
 
     /**
-     * L'identifiant de la file d'attente des fichiers audio.
+     * L'identifiant de la file d'attente des musiques.
      */
     const PLAYLIST_ID = 0;
 
@@ -13,35 +13,39 @@ define(function () {
     const PLUGIN_URL = "plugin://plugin.audio.soundcloud/";
 
     /**
-     * La liste des patrons des URLs gérées.
+     * La liste des règles avec les patrons et leur action.
      */
-    const patterns = ["https://soundcloud.com/*"];
+    const rules = {};
 
     /**
-     * Extrait (éventuellement) les informations nécessaire pour lire la vidéo
-     * sur Kodi.
+     * Extrait les informations nécessaire pour lire une musique sur Kodi.
      *
-     * @param {String} url L'URL qui sera analysée.
+     * @param {String} url L'URL d'un fichier audio SoundCloud.
      * @return {Promise} L'identifiant de la file d'attente et l'URL du
-     *                   <em>fichier</em> ; ou <code>null</code>.
+     *                   <em>fichier</em>.
      */
-    const extract = function (url) {
-        if ("soundcloud.com" === url.hostname &&
-                0 !== url.pathname.lastIndexOf("/"))  {
-            return fetch("https://soundcloud.com/oembed?url=" +
-                         encodeURIComponent(url)).then(function (response) {
-                return response.text();
-            }).then(function (response) {
-                const RE = /api.soundcloud.com%2Ftracks%2F([^&]+)&/;
-                return {
-                    "playlistid": PLAYLIST_ID,
-                    "file":       PLUGIN_URL + "play/" +
-                                             "?audio_id=" + RE.exec(response)[1]
-                };
-            });
+    rules["https://soundcloud.com/*/*"] = function (url) {
+        // Si le chemin contient plusieurs barres obliques.
+        if (url.pathname.indexOf("/", 1) !== url.pathname.lastIndexOf("/"))  {
+            return Promise.reject(new PebkacError("noaudio", "SoundCloud"));
         }
-        return Promise.resolve(null);
-    }; // extract()
 
-    return { patterns, extract };
+        return fetch("https://soundcloud.com/oembed?url=" +
+                     encodeURIComponent(url.toString())).then(
+                                                           function (response) {
+            return response.text();
+        }).then(function (response) {
+            const RE = /api.soundcloud.com%2Ftracks%2F([^&]+)&/;
+            const result = RE.exec(response);
+            if (null === result) {
+                throw new PebkacError("noaudio", "SoundCloud");
+            }
+            return {
+                "playlistid": PLAYLIST_ID,
+                "file":       PLUGIN_URL + "play/?audio_id=" + result[1]
+            };
+        });
+    };
+
+    return rules;
 });

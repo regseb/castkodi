@@ -10,35 +10,86 @@ requirejs.config({
 });
 
 describe("scraper/audio", function () {
-    let scraper;
+    let module;
 
     before(function (done) {
-        requirejs(["scraper/audio"], function (audio) {
-            scraper = audio;
+        requirejs(["scrapers"], function (scrapers) {
+            module = scrapers;
             done();
         });
     });
 
-    describe("#patterns", function () {
-        it("should be a non-empty array", function () {
-            assert.strictEqual(Array.isArray(scraper.patterns), true);
-            assert.notStrictEqual(scraper.patterns.length, 0);
+    describe("*://*/*.aac", function () {
+        it("should return the same URL", function () {
+            const url = new URL("https://fr.wikipedia.org/wiki/MP3.aac");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(file, url.toString());
+            });
         });
     });
 
-    describe("#extract()", function () {
-        it("should return null when it's not a audio file", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3");
-            return scraper.extract(url).then(function (data) {
-                assert.strictEqual(data, null);
+    describe("*://*/*.flac", function () {
+        it("should return the same URL", function () {
+            const url = new URL("https://fr.wikipedia.org/wiki/MP3.flac");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(file, expected);
             });
         });
+    });
 
-        it("should support audio file", function () {
-            const url = new URL("http://podcasts.dequaliter.com/Studio404/" +
-                                                     "Studio404_Avril2017.mp3");
+    describe("*://*/*.m4a", function () {
+        it("should return the same URL", function () {
+            const url = new URL("https://fr.wikipedia.org/wiki.m4a");
             const expected = url.toString();
-            return scraper.extract(url).then(function ({ playlistid, file }) {
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://*/*.mka", function () {
+        it("should return the same URL", function () {
+            const url = new URL("https://fr.wikipedia.org/wiki/MP3.mka");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://*/*.mp3", function () {
+        it("should return the same URL", function () {
+            const url = new URL("https://fr.wikipedia.org/wiki.MP3");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://*/*.ogg", function () {
+        it("should return the same URL", function () {
+            const url = new URL("https://fr.wikipedia.org/wiki/MP3.ogg");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://*/*.pls", function () {
+        it("should return the same URL", function () {
+            const url = new URL("https://fr.wikipedia.org/wiki/MP3.pls");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
                 assert.strictEqual(file, expected);
             });

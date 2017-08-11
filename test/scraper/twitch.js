@@ -10,42 +10,35 @@ requirejs.config({
 });
 
 describe("scraper/twitch", function () {
-    let scraper;
+    let module;
 
     before(function (done) {
-        requirejs(["scraper/twitch"], function (twitch) {
-            scraper = twitch;
+        requirejs(["scrapers"], function (scrapers) {
+            module = scrapers;
             done();
         });
     });
 
     describe("#patterns", function () {
-        it("should be a non-empty array", function () {
-            assert.strictEqual(Array.isArray(scraper.patterns), true);
-            assert.notStrictEqual(scraper.patterns.length, 0);
+        it("should return error when it's not a video", function () {
+            const url = new URL("https://www.twitch.tv/directory");
+            const expected = "unsupported";
+            return module.extract(url).then(function () {
+                assert.fail();
+            }, function (error) {
+                assert.strictEqual(error.name, "PebkacError");
+                assert.ok(error.title.includes(expected));
+                assert.ok(error.message.includes(expected));
+            });
         });
     });
 
-    describe("#extract()", function () {
-        it("should return null when it's not a Twitch page", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/Twitch");
-            return scraper.extract(url).then(function (data) {
-                assert.strictEqual(data, null);
-            });
-        });
-
-        it("should return null when it's not a Twitch video", function () {
-            const url = new URL("https://www.twitch.tv/directory");
-            return scraper.extract(url).then(function (data) {
-                assert.strictEqual(data, null);
-            });
-        });
-
-        it("should suport Twitch video URL", function () {
+    describe("https://www.twitch.tv/videos/*", function () {
+        it("should return video id", function () {
             const url = new URL("https://www.twitch.tv/videos/164088111");
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
-            return scraper.extract(url).then(function ({ playlistid, file }) {
+            return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });

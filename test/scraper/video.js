@@ -10,35 +10,87 @@ requirejs.config({
 });
 
 describe("scraper/video", function () {
-    let scraper;
+    let module;
 
     before(function (done) {
-        requirejs(["scraper/video"], function (video) {
-            scraper = video;
+        requirejs(["scrapers"], function (scrapers) {
+            module = scrapers;
             done();
         });
     });
 
-    describe("#patterns", function () {
-        it("should be a non-empty array", function () {
-            assert.strictEqual(Array.isArray(scraper.patterns), true);
-            assert.notStrictEqual(scraper.patterns.length, 0);
+    describe("*://*/*.asf", function () {
+        it("should return the same URL", function () {
+            const url = new URL("http://example.org/video.asf");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
         });
     });
 
-    describe("#extract()", function () {
-        it("should return null when it's not a video file", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/AVI");
-            return scraper.extract(url).then(function (data) {
-                assert.strictEqual(data, null);
+    describe("*://*/*.avi", function () {
+        it("should return the same URL", function () {
+            const url = new URL("http://example.org/video.avi");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
             });
         });
+    });
 
-        it("should support video file", function () {
+    describe("*://*/*.flv", function () {
+        it("should return the same URL", function () {
+            const url = new URL("http://example.org/video.flv");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://*/*.mkv", function () {
+        it("should return the same URL", function () {
             const url = new URL("http://arcagenis.org/mirror/mango/ToS/" +
                                                      "tears_of_steel_720p.mkv");
             const expected = url.toString();
-            return scraper.extract(url).then(function ({ playlistid, file }) {
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://*/*.mov", function () {
+        it("should return the same URL", function () {
+            const url = new URL("http://example.org/video.mov");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://*/*.mp4", function () {
+        it("should return the same URL", function () {
+            const url = new URL("http://example.org/video.mp4");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://*/*.wmv", function () {
+        it("should return the same URL", function () {
+            const url = new URL("http://example.org/video.wmv");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });

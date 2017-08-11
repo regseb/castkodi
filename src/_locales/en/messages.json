@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "Cast video / audio to Kodi."
+        "message": "Cast video / music to Kodi."
     },
 
     "contextMenus_parent": {
@@ -13,12 +13,50 @@
         "message": "Queue item"
     },
 
-    "notifications_error": {
-        "message": "Impossible to cast media to Kodi."
+    "notifications_unknown_title": {
+        "message": "Unknown error"
+    },
+
+    "notifications_unconfigured_title": {
+        "message": "No configuration"
+    },
+    "notifications_unconfigured_message": {
+        "message": "IP address and port of Kodi aren't filled on options."
+    },
+
+    "notifications_unsupported_title": {
+        "message": "Unsupported link"
+    },
+    "notifications_unsupported_message": {
+        "message": "Link isn't unsupported by Kodi."
+    },
+
+    "notifications_novideo_title": {
+        "message": "Unsupported link"
+    },
+    "notifications_novideo_message": {
+        "message": "Link isn't a $HOSTER$ video.",
+        "placeholders": {
+            "hoster": {
+                "content": "$1"
+            }
+        }
+    },
+
+    "notifications_noaudio_title": {
+        "message": "Unsupported link"
+    },
+    "notifications_noaudio_message": {
+        "message": "Link isn't a $HOSTER$ music.",
+        "placeholders": {
+            "hoster": {
+                "content": "$1"
+            }
+        }
     },
 
     "options_intro_content": {
-        "message": "To cast media to Kodi, you must <em>Allow remote control via HTTP</em>. This option is on <em>Settings</em> / <em>Services</em> / <em>Control</em> page in Kodi."
+        "message": "To cast videos / musics to Kodi, you must <em>Allow remote control via HTTP</em>. This option is on <em>Settings</em> / <em>Services</em> / <em>Control</em> page in Kodi."
     },
     "options_port_content": {
         "message": "Port:"

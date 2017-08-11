@@ -1,6 +1,10 @@
 "use strict";
 
-define(["../jsonrpc"], function (jsonrpc) {
+require.config({
+    "baseUrl": ".."
+});
+
+define(["jsonrpc"], function (jsonrpc) {
 
     /**
      * La liste des paramètres de l'extension.

@@ -10,54 +10,49 @@ requirejs.config({
 });
 
 describe("scraper/dailymotion", function () {
-    let scraper;
+    let module;
 
     before(function (done) {
-        requirejs(["scraper/dailymotion"], function (dailymotion) {
-            scraper = dailymotion;
+        requirejs(["scrapers"], function (scrapers) {
+            module = scrapers;
             done();
         });
     });
 
     describe("#patterns", function () {
-        it("should be a non-empty array", function () {
-            assert.strictEqual(Array.isArray(scraper.patterns), true);
-            assert.notStrictEqual(scraper.patterns.length, 0);
+        it("should return error when it's not a video", function () {
+            const url = new URL("http://www.dailymotion.com/fr/feed");
+            const expected = "unsupported";
+            return module.extract(url).then(function () {
+                assert.fail();
+            }, function (error) {
+                assert.strictEqual(error.name, "PebkacError");
+                assert.ok(error.title.includes(expected));
+                assert.ok(error.message.includes(expected));
+            });
         });
     });
 
-    describe("#extract()", function () {
-        it("should return null when it's not a Dailymotion page", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/Dailymotion");
-            return scraper.extract(url).then(function (data) {
-                assert.strictEqual(data, null);
-            });
-        });
-
-        it("should return null when it's not a Dailymotion video", function () {
-            const url = new URL("https://www.dailymotion.com/fr/feed");
-            return scraper.extract(url).then(function (data) {
-                assert.strictEqual(data, null);
-            });
-        });
-
-        it("should support Dailymotion video URL", function () {
+	describe("*://www.dailymotion.com/video/*", function () {
+		it("should return video id", function () {
             const url = new URL("https://www.dailymotion.com/video/x17qw0a");
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x17qw0a";
-            return scraper.extract(url).then(function ({ playlistid, file }) {
+            return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
         });
+	});
 
-        it("should support Dailymotion video short URL", function () {
+	describe("*://dai.ly/*", function () {
+        it("should return video id", function () {
             const url = new URL("http://dai.ly/x5riqme");
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x5riqme";
-            return scraper.extract(url).then(function ({ playlistid, file }) {
+            return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
