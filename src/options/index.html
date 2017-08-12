@@ -9,24 +9,25 @@
   <body>
     <form>
       <p data-i18n-content="intro"></p>
-      <div>
+      <div class="browser-style">
         <label for="port" data-i18n-content="port"></label>
         <input type="text" id="port" name="port" pattern="[0-9]+" />
       </div>
-      <div>
+      <div class="browser-style">
         <label for="username" data-i18n-content="username"></label>
         <input type="text" id="username" name="username" />
       </div>
-      <div>
+      <div class="browser-style">
         <label for="password" data-i18n-content="password"></label>
         <input type="password" id="password" name="password" />
       </div>
 
       <p data-i18n-content="helpHost"></p>
-      <div>
+      <div class="browser-style">
         <label for="host" data-i18n-content="host"></label>
         <input type="text" id="host" name="host" />
-        <button id="test" data-i18n-content="test"></button>
+        <button id="test" data-i18n-content="test"
+                class="browser-style"></button>
         <span id="result"></span>
       </div>
     </form>

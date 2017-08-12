@@ -9,21 +9,21 @@ input {
     width: 8em;
 }
 
-input[type="password"] {
+.browser-style > input[type="password"] {
     background-color: #fff;
     border: 1px solid #b1b1b1;
     box-shadow: 0 0 0 0 rgba(97, 181, 255, 0);
     font: caption;
     height: 24px;
-    padding: 0 6px;
+    padding: 0 6px 0;
     transition-duration: 250ms;
     transition-property: box-shadow;
 }
-input[type="password"]:hover {
+.browser-style > input[type="password"]:hover {
     border: 1px solid #858585;
 }
-input[type="password"]:focus,
-input[type="password"]:focus:hover {
+.browser-style > input[type="password"]:focus,
+.browser-style > input[type="password"]:focus:hover {
     border-color: #0996f8;
     box-shadow: 0 0 0 2px rgba(97, 181, 255, 0.75);
 }
