@@ -12,7 +12,7 @@
 Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
 sur **Kodi** :
 
-- des vidéos : liens directs (*avi*, *mkv*, ...), YouTube, Vimeo et
+- des vidéos : liens directs (*avi*, *mkv*, ...), YouTube, Facebook, Vimeo et
   Dailymotion ;
 - des musiques : liens directs (*mp3*, *flac*, ...) et SoundCloud.
 
