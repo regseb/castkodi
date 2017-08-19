@@ -21,7 +21,21 @@
         "message": "Aucune configuration"
     },
     "notifications_unconfigured_message": {
-        "message": "L'adresse IP et le port de Kodi ne sont pas renseignés dans les préférences."
+        "message": "L'adresse IP ou le port ne sont pas renseignés dans les préférences."
+    },
+
+    "notifications_notfound_title": {
+        "message": "Kodi non trouvé"
+    },
+    "notifications_notfound_message": {
+        "message": "L'adresse IP ou le port sont invalides ; ou le contrôle à distance n'est pas activé dans Kodi."
+    },
+
+    "notifications_unauthorized_title": {
+        "message": "Identification échouée"
+    },
+    "notifications_unauthorized_message": {
+        "message": "Le nom d'utilisateur ou le mot de passe est invalide."
     },
 
     "notifications_unsupported_title": {
@@ -55,6 +69,13 @@
         }
     },
 
+    "notifications_success_title": {
+        "message": "Connexion établiée"
+    },
+    "notifications_success_message": {
+        "message": "Le serveur Web de Kodi a été trouvé."
+    },
+
     "options_intro_content": {
         "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez <em>Autoriser le contrôle à distance via HTTP</em>. Ce règlage se fait dans la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em> de Kodi."
     },
@@ -75,14 +96,5 @@
     },
     "options_test_content": {
         "message": "Tester"
-    },
-    "options_result_pending": {
-        "message": "..."
-    },
-    "options_result_succes": {
-        "message": "Connexion établie."
-    },
-    "options_result_fail": {
-        "message": "Impossible de se connecter."
     }
 }

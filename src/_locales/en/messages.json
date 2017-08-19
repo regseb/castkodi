@@ -21,7 +21,21 @@
         "message": "No configuration"
     },
     "notifications_unconfigured_message": {
-        "message": "IP address and port of Kodi aren't filled on options."
+        "message": "IP address and port aren't filled on options."
+    },
+
+    "notifications_notfound_title": {
+        "message": "Kodi not found"
+    },
+    "notifications_notfound_message": {
+        "message": "IP address or port are invalid ; or remote control isn't active on Kodi."
+    },
+
+    "notifications_unauthorized_title": {
+        "message": "Authentication failed"
+    },
+    "notifications_unauthorized_message": {
+        "message": "Username or password are invalid."
     },
 
     "notifications_unsupported_title": {
@@ -55,6 +69,13 @@
         }
     },
 
+    "notifications_success_title": {
+        "message": "Connexion successful"
+    },
+    "notifications_success_message": {
+        "message": "Web server of Kodi has been found."
+    },
+
     "options_intro_content": {
         "message": "To cast videos / musics to Kodi, you must <em>Allow remote control via HTTP</em>. This option is on <em>Settings</em> / <em>Services</em> / <em>Control</em> page in Kodi."
     },
@@ -75,14 +96,5 @@
     },
     "options_test_content": {
         "message": "Test"
-    },
-    "options_result_pending": {
-        "message": "..."
-    },
-    "options_result_succes": {
-        "message": "Connection succesful."
-    },
-    "options_result_fail": {
-        "message": "Connection failed."
     }
 }

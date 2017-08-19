@@ -15,7 +15,6 @@ define(["jsonrpc"], function (jsonrpc) {
      * Active / Désactive le bouton pour tester les paramètres.
      */
     const activate = function () {
-        document.getElementById("result").innerHTML = "";
         browser.storage.local.get(["host", "port"]).then(function (config) {
             document.getElementById("test").disabled =
                                                2 !== Object.keys(config).length;
@@ -45,12 +44,24 @@ define(["jsonrpc"], function (jsonrpc) {
      */
     const test = function (event) {
         event.preventDefault();
-        const result = document.getElementById("result");
-        result.innerHTML = browser.i18n.getMessage("options_result_pending");
         jsonrpc("JSONRPC.Version").then(function () {
-            result.innerHTML = browser.i18n.getMessage("options_result_succes");
-        }, function () {
-            result.innerHTML = browser.i18n.getMessage("options_result_fail");
+            browser.notifications.create(null, {
+                "type":    "basic",
+                "iconUrl": "img/icon.svg",
+                "title":
+                         browser.i18n.getMessage("notifications_success_title"),
+                "message":
+                        browser.i18n.getMessage("notifications_success_message")
+            });
+        }, function (error) {
+            browser.notifications.create(null, {
+                "type":    "basic",
+                "iconUrl": "img/icon.svg",
+                "title":   "PebkacError" === error.name
+                       ? error.title
+                       : browser.i18n.getMessage("notifications_unknown_title"),
+                "message": error.message
+            });
         });
     }; // test()
 

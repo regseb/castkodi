@@ -3,6 +3,11 @@
 define(["pebkac"], function (PebkacError) {
 
     /**
+     * Le message d'erreur si la connexion a échouée.
+     */
+    const NETWORK_ERROR = "NetworkError when attempting to fetch resource.";
+
+    /**
      * Envoie une requête à Kodi en utilisant le protocol JSON-RPC.
      *
      * @param {string} method La méthode envoyée à Kodi.
@@ -34,12 +39,27 @@ define(["pebkac"], function (PebkacError) {
             }
             return fetch(url, init);
         }).then(function (response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            }
+
+            if (400 === response.status) {
+                throw new PebkacError("notfound");
+            }
+            if (401 === response.status) {
+                throw new PebkacError("unauthorized");
+            }
+            throw new Error(response.statusText);
         }).then(function (response) {
             if ("error" in response) {
-                throw new Error(response.error);
+                throw new Error(response.error.message);
             }
             return response.result;
+        }).catch(function (error) {
+            if (NETWORK_ERROR === error.message) {
+                throw new PebkacError("notfound");
+            }
+            throw error;
         });
     }; // jsonrpc()
 
