@@ -25,7 +25,7 @@ describe("scraper/audio", function () {
             const expected = url.toString();
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
-                assert.strictEqual(file, url.toString());
+                assert.strictEqual(file, expected);
             });
         });
     });

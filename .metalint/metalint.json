@@ -8,7 +8,7 @@
             "patterns": "src/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_webext.json"] }
         }, {
-            "patterns": "bin/**/*.js",
+            "patterns": "test/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_nodejs.json"] }
         }, {
             "patterns": "**/*.html",

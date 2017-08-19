@@ -1,10 +1,16 @@
 {
     "name": "castkodi",
     "version": "0.3.0",
-    "description": "WebExtension pour diffuser des vidéos / audio sur Kodi.",
+    "description": "WebExtension pour diffuser des vidéos / musiques sur Kodi.",
     "keyword": [
-        "cast", "kodi", "webextension", "firefox", "youtube", "vimeo",
-        "dailymotion", "soundcloud"
+        "cast",
+        "kodi",
+        "webextension",
+        "firefox",
+        "youtube",
+        "vimeo",
+        "dailymotion",
+        "soundcloud"
     ],
     "homepage": "https://addons.mozilla.org/fr/firefox/addon/castkodi/",
     "bugs": {
@@ -27,13 +33,14 @@
     },
     "devDependencies": {
         "coveralls": "^2.13.1",
-        "istanbul": "^0.4.5",
-        "mocha": "^3.5.0",
         "eslint": "^4.3.0",
         "htmlhint": "^0.9.13",
+        "istanbul": "^0.4.5",
         "jsonlint": "^1.6.2",
         "markdownlint": "^0.6.0",
         "metalint": "^0.7.1",
+        "mocha": "^3.5.0",
+        "node-fetch": "^1.7.2",
         "stylelint": "^8.0.0"
     }
 }
