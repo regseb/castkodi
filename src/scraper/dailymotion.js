@@ -13,9 +13,9 @@ define([], function () {
     const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/";
 
     /**
-     * La liste des règles avec les patrons et leur action.
+     * Les règles avec les patrons et leur action.
      */
-    const rules = {};
+    const rules = new Map();
 
     /**
      * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
@@ -24,13 +24,13 @@ define([], function () {
      * @return {Promise} L'identifiant de la file d'attente et l'URL du
      *                   <em>fichier</em>.
      */
-    rules["*://www.dailymotion.com/video/*"] = function (url) {
+    rules.set(["*://www.dailymotion.com/video/*"], function (url) {
         return Promise.resolve({
             "playlistid": PLAYLIST_ID,
             "file":       PLUGIN_URL + "?mode=playVideo" +
                                        "&url=" + url.pathname.substr(7)
         });
-    };
+    });
 
     /**
      * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
@@ -39,13 +39,13 @@ define([], function () {
      * @return {Promise} L'identifiant de la file d'attente et l'URL du
      *                   <em>fichier</em>.
      */
-    rules["*://dai.ly/*"] = function (url) {
+    rules.set(["*://dai.ly/*"], function (url) {
         return Promise.resolve({
             "playlistid": PLAYLIST_ID,
             "file":       PLUGIN_URL + "?mode=playVideo" +
                                        "&url=" + url.pathname.substr(1)
         });
-    };
+    });
 
     return rules;
 });

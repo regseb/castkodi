@@ -1,7 +1,8 @@
 "use strict";
 
 const SCRAPERS = [
-    "dailymotion", "soundcloud", "twitch", "vimeo", "youtube", "video", "audio"
+    "dailymotion", "facebook", "soundcloud", "twitch", "vimeo", "youtube",
+    "video", "audio"
 ].map((s) => "scraper/" + s);
 
 define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
@@ -21,12 +22,14 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
             "/" + sanitize(path).replace(/\\\*/g, ".*") + "$", "i");
     }; // compile()
 
-    const patterns = [];
+    const PATTERNS = [];
 
     const RULES = scrapers.reduce(function (rules, scraper) {
-        for (const pattern of Object.keys(scraper)) {
-            patterns.push(pattern);
-            rules.set(compile(pattern), scraper[pattern]);
+        for (const [patterns, action] of scraper.entries()) {
+            for (const pattern of patterns) {
+                PATTERNS.push(pattern);
+                rules.set(compile(pattern), action);
+            }
         }
         return rules;
     }, new Map());
@@ -40,6 +43,6 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
         return Promise.reject(new PebkacError("unsupported"));
     }; // extract()
 
-    return { patterns, extract };
+    return { "patterns": PATTERNS, extract };
 });
 

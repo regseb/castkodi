@@ -8,29 +8,25 @@ define(function () {
     const PLAYLIST_ID = 1;
 
     /**
-     * La liste des patrons des URLs gérées.
+     * Les règles avec les patrons et leur action.
      */
-    const patterns = [
-        "*://*/*.asf", "*://*/*.avi", "*://*/*.flv", "*://*/*.mkv",
-        "*://*/*.mov", "*://*/*.mp4", "*://*/*.wmv"
-    ];
+    const rules = new Map();
 
     /**
-     * Génère les informations nécessaire pour lire la video sur Kodi.
+     * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
      *
      * @param {String} url L'URL d'une vidéo.
-     * @return {Promise} L'identifiant de la file d'attente et l'URL de la
-     *                   vidéo.
+     * @return {Promise} L'identifiant de la file d'attente et l'URL du fichier.
      */
-    const action = function (url) {
+    rules.set([
+        "*://*/*.asf", "*://*/*.avi", "*://*/*.flv", "*://*/*.mkv",
+        "*://*/*.mov", "*://*/*.mp4", "*://*/*.wmv"
+    ], function (url) {
         return Promise.resolve({
             "playlistid": PLAYLIST_ID,
             "file":       url.toString()
         });
-    }; // action()
+    });
 
-    return patterns.reduce(function (rules, pattern) {
-        rules[pattern] = action;
-        return rules;
-    }, {});
+    return rules;
 });

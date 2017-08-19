@@ -8,29 +8,25 @@ define(function () {
     const PLAYLIST_ID = 0;
 
     /**
-     * La liste des patrons des URLs gérées.
+     * Les règles avec les patrons et leur action.
      */
-    const patterns = [
-        "*://*/*.aac", "*://*/*.flac", "*://*/*.m4a", "*://*/*.mka",
-        "*://*/*.mp3", "*://*/*.ogg", "*://*/*.pls"
-    ];
+    const rules = new Map();
 
     /**
-     * Génère les informations nécessaire pour lire le fichier audio sur Kodi.
+     * Extrait les informations nécessaire pour lire la musique sur Kodi.
      *
-     * @param {String} url L'URL de la musique.
-     * @return {Promise} L'identifiant de la file d'attente et l'URL de la
-     *                   musique.
+     * @param {String} url L'URL d'un fichier audio.
+     * @return {Promise} L'identifiant de la file d'attente et l'URL du fichier.
      */
-    const action = function (url) {
+    rules.set([
+        "*://*/*.aac", "*://*/*.flac", "*://*/*.m4a", "*://*/*.mka",
+        "*://*/*.mp3", "*://*/*.ogg", "*://*/*.pls"
+    ], function (url) {
         return Promise.resolve({
             "playlistid": PLAYLIST_ID,
             "file":       url.toString()
         });
-    }; // action()
+    });
 
-    return patterns.reduce(function (rules, pattern) {
-        rules[pattern] = action;
-        return rules;
-    }, {});
+    return rules;
 });

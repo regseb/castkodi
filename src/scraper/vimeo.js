@@ -13,9 +13,9 @@ define(["pebkac"], function (PebkacError) {
     const PLUGIN_URL = "plugin://plugin.video.vimeo/";
 
     /**
-     * La liste des règles avec les patrons et leur action.
+     * Les règles avec les patrons et leur action.
      */
-    const rules = {};
+    const rules = new Map();
 
     /**
      * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
@@ -24,7 +24,7 @@ define(["pebkac"], function (PebkacError) {
      * @return {Promise} L'identifiant de la file d'attente et l'URL du
      *                   <em>fichier</em>.
      */
-    rules["https://vimeo.com/*"] = function (url) {
+    rules.set(["https://vimeo.com/*"], function (url) {
         if (!(/^\/[0-9]+$/).test(url.pathname)) {
             return Promise.reject(new PebkacError("novideo", "Vimeo"));
         }
@@ -34,7 +34,7 @@ define(["pebkac"], function (PebkacError) {
             "file":       PLUGIN_URL + "play/" +
                                            "?video_id=" + url.pathname.substr(1)
         });
-    };
+    });
 
     return rules;
 });
