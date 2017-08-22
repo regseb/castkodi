@@ -63,7 +63,7 @@
         "custom-property-pattern": null,
 
         "property-blacklist": null,
-        "property-no-vendor-prefix": true,
+        "property-no-vendor-prefix": null,
         "property-whitelist": null,
 
         "declaration-no-important": null,

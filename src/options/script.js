@@ -15,10 +15,9 @@ define(["jsonrpc"], function (jsonrpc) {
      * Active / Désactive le bouton pour tester les paramètres.
      */
     const activate = function () {
-        browser.storage.local.get(["host", "port"]).then(function (config) {
-            document.getElementById("test").disabled =
-                                               2 !== Object.keys(config).length;
-        });
+        document.getElementById("test").disabled =
+                             !(document.getElementById("port").validity.valid &&
+                                document.getElementById("host").validity.valid);
     }; // activate()
 
     /**

@@ -24,6 +24,13 @@
         "message": "L'adresse IP ou le port ne sont pas renseignés dans les préférences."
     },
 
+    "notifications_badhost_title": {
+        "message": "Adresse IP invalide"
+    },
+    "notifications_badhost_message": {
+        "message": "L'adresse du serveur Web est invalide."
+    },
+
     "notifications_notfound_title": {
         "message": "Kodi non trouvé"
     },
@@ -70,7 +77,7 @@
     },
 
     "notifications_success_title": {
-        "message": "Connexion établiée"
+        "message": "Connexion établie"
     },
     "notifications_success_message": {
         "message": "Le serveur Web de Kodi a été trouvé."

@@ -24,6 +24,13 @@
         "message": "IP address and port aren't filled on options."
     },
 
+    "notifications_badhost_title": {
+        "message": "IP address invalid"
+    },
+    "notifications_badhost_message": {
+        "message": "IP address of Web server is invalid."
+    },
+
     "notifications_notfound_title": {
         "message": "Kodi not found"
     },

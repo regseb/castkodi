@@ -224,7 +224,7 @@
         "one-var": 0,
         "operator-assignment": 2,
         "operator-linebreak": 2,
-        "padded-blocks": [1, { "blocks": "never",
+        "padded-blocks": [0, { "blocks": "never",
                                "switches": "never" }],
         "padding-line-between-statements": [2,
             { "blankLine": "always", "prev": "directive", "next": "*" }

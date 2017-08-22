@@ -11,7 +11,8 @@
       <p data-i18n-content="intro"></p>
       <div class="browser-style">
         <label for="port" data-i18n-content="port"></label>
-        <input type="text" id="port" name="port" pattern="[0-9]+" />
+        <input type="number" id="port" name="port" min="1" max="65535"
+               required="required" />
       </div>
       <div class="browser-style">
         <label for="username" data-i18n-content="username"></label>
@@ -25,7 +26,7 @@
       <p data-i18n-content="helpHost"></p>
       <div class="browser-style">
         <label for="host" data-i18n-content="host"></label>
-        <input type="text" id="host" name="host" />
+        <input type="text" id="host" name="host" required="required" />
         <button id="test" data-i18n-content="test"
                 class="browser-style"></button>
       </div>

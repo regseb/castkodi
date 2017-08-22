@@ -56,6 +56,9 @@ define(["pebkac"], function (PebkacError) {
             }
             return response.result;
         }).catch(function (error) {
+            if (error.message.endsWith(" is not a valid URL.")) {
+                throw new PebkacError("badhost");
+            }
             if (NETWORK_ERROR === error.message) {
                 throw new PebkacError("notfound");
             }
