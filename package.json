@@ -1,6 +1,6 @@
 {
     "name": "castkodi",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "WebExtension pour diffuser des vidéos / musiques sur Kodi.",
     "keyword": [
         "cast",
@@ -29,11 +29,11 @@
         "coveralls": "npm run cover -- --report lcovonly && cat coverage/lcov.info | coveralls"
     },
     "dependencies": {
-        "requirejs": "^2.3.4"
+        "requirejs": "^2.3.5"
     },
     "devDependencies": {
         "coveralls": "^2.13.1",
-        "eslint": "^4.3.0",
+        "eslint": "^4.5.0",
         "htmlhint": "^0.9.13",
         "istanbul": "^0.4.5",
         "jsonlint": "^1.6.2",
