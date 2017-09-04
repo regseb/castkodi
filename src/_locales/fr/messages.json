@@ -101,7 +101,7 @@
     "options_host_content": {
         "message": "Adresse IP :"
     },
-    "options_test_content": {
+    "options_check_content": {
         "message": "Tester"
     }
 }

@@ -8,11 +8,6 @@ define(["jsonrpc", "pebkac", "notify"],
        function (jsonrpc, PebkacError, notify) {
 
     /**
-     * La liste des paramètres de l'extension.
-     */
-    const INPUTS = ["port", "username", "password", "host"];
-
-    /**
      * Active / Désactive le bouton pour tester les paramètres.
      */
     const activate = function () {
@@ -57,7 +52,7 @@ define(["jsonrpc", "pebkac", "notify"],
     }
 
     // Pré-remplir les champs du formulaire.
-    browser.storage.local.get(INPUTS).then(function (results) {
+    browser.storage.local.get().then(function (results) {
         for (const key of Object.keys(results)) {
             document.querySelector("input[name=\"" + key + "\"]").value =
                                                                    results[key];
