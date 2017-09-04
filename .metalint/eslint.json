@@ -198,7 +198,7 @@
         "no-negated-condition": 2,
         "no-nested-ternary": 0,
         "no-new-object": 2,
-        "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
+        "no-plusplus": 0,
         "no-restricted-syntax": [2, [
             "EmptyStatement", "FunctionDeclaration", "LabeledStatement",
             "MetaProperty", "Program", "TemplateElement",
