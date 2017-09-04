@@ -13,7 +13,7 @@
   </defs>
 
   <g mask="url(#wave)">
-    <polygon points="5,50 50,5 95,50 50,95" fill="#31aef1" stroke="#31afe1"
+    <polygon points="5,50 50,5 95,50 50,95" fill="#0a84ff" stroke="#0a84ff"
              stroke-width="10" stroke-linejoin="round" />
   </g>
 </svg>

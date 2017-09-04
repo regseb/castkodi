@@ -4,10 +4,10 @@ const assert    = require("assert");
 const { URL }   = require("url");
 const requirejs = require("requirejs");
 
-global.browser = require("./mock/browser");
+global.browser = require("../mock/browser");
 
 requirejs.config({
-    "baseUrl":     "src",
+    "baseUrl":     "src/core",
     "nodeRequire": require
 });
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+  <g fill="black" stroke="black">
+    <polygon points="9,2 4,6.5 4,11.5 9,16" stroke-width="0" />
+    <rect x="3" y="7.5" width="3" height="3" stroke-width="4"
+          stroke-linejoin="round" />
+
+    <line x1="16.5" y1="6.5" x2="11.5" y2="11.5" stroke-width="1" />
+    <line x1="11.5" y1="6.5" x2="16.5" y2="11.5" stroke-width="1" />
+  </g>
+</svg>

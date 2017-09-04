@@ -1,10 +1,11 @@
 "use strict";
 
 require.config({
-    "baseUrl": ".."
+    "baseUrl": "../core"
 });
 
-define(["jsonrpc"], function (jsonrpc) {
+define(["jsonrpc", "pebkac", "notify"],
+       function (jsonrpc, PebkacError, notify) {
 
     /**
      * La liste des paramètres de l'extension.
@@ -15,7 +16,7 @@ define(["jsonrpc"], function (jsonrpc) {
      * Active / Désactive le bouton pour tester les paramètres.
      */
     const activate = function () {
-        document.getElementById("test").disabled =
+        document.getElementById("check").disabled =
                              !(document.getElementById("port").validity.valid &&
                                 document.getElementById("host").validity.valid);
     }; // activate()
@@ -41,28 +42,12 @@ define(["jsonrpc"], function (jsonrpc) {
      *
      * @param {Event} event L'évènement du clic.
      */
-    const test = function (event) {
+    const check = function (event) {
         event.preventDefault();
-        jsonrpc("JSONRPC.Version").then(function () {
-            browser.notifications.create(null, {
-                "type":    "basic",
-                "iconUrl": "img/icon.svg",
-                "title":
-                         browser.i18n.getMessage("notifications_success_title"),
-                "message":
-                        browser.i18n.getMessage("notifications_success_message")
-            });
-        }, function (error) {
-            browser.notifications.create(null, {
-                "type":    "basic",
-                "iconUrl": "img/icon.svg",
-                "title":   "PebkacError" === error.name
-                       ? error.title
-                       : browser.i18n.getMessage("notifications_unknown_title"),
-                "message": error.message
-            });
-        });
-    }; // test()
+        jsonrpc.check().then(function () {
+            notify(new PebkacError("success"));
+        }).catch(notify);
+    }; // check()
 
     // Afficher les textes dans la langue courante.
     for (const element of document.querySelectorAll("[data-i18n-content]")) {
@@ -84,5 +69,5 @@ define(["jsonrpc"], function (jsonrpc) {
     for (const input of document.getElementsByTagName("input")) {
         input.addEventListener("input", save);
     }
-    document.getElementById("test").addEventListener("click", test);
+    document.getElementById("check").addEventListener("click", check);
 });

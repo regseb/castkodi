@@ -4,15 +4,14 @@ const assert    = require("assert");
 const { URL }   = require("url");
 const requirejs = require("requirejs");
 
-global.fetch   = require("node-fetch");
-global.browser = require("../mock/browser");
+global.browser = require("../../mock/browser");
 
 requirejs.config({
-    "baseUrl":     "src",
+    "baseUrl":     "src/core",
     "nodeRequire": require
 });
 
-describe("scraper/facebook", function () {
+describe("scraper/vimeo", function () {
     let module;
 
     before(function (done) {
@@ -24,7 +23,7 @@ describe("scraper/facebook", function () {
 
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("https://www.facebook.com/mozilla/");
+            const url = new URL("https://developer.vimeo.com/");
             const expected = "unsupported";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -36,9 +35,9 @@ describe("scraper/facebook", function () {
         });
     });
 
-    describe("https://www.facebook.com/*/videos/*/*", function () {
+    describe("https://vimeo.com/*", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("https://www.facebook.com/XBMC/videos/666/");
+            const url = new URL("https://vimeo.com/channels");
             const expected = "novideo";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -50,13 +49,12 @@ describe("scraper/facebook", function () {
         });
 
         it("should return video id", function () {
-            const url = new URL("https://www.facebook.com/XBMC/videos/" +
-                                                          "10152476888501641/");
-            const expected = "https://video-cdg2-1.xx.fbcdn.net/v/t43.1792-2/" +
-                                  "10810554_10152476888596641_2070058545_n.mp4";
+            const url = new URL("https://vimeo.com/228786490");
+            const expected = "plugin://plugin.video.vimeo/play/" +
+                                                          "?video_id=228786490";
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
-                assert.ok(file.startsWith(expected));
+                assert.strictEqual(file, expected);
             });
         });
     });

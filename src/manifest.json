@@ -16,6 +16,16 @@
         "96": "img/icon.svg"
     },
 
+    "browser_action": {
+        "browser_style": true,
+        "default_icon": {
+            "19": "img/icon.svg",
+            "38": "img/icon.svg"
+        },
+        "default_title": "Cast Kodi",
+        "default_popup": "popup/index.html"
+    },
+
     "author": "Sébastien Règne <regseb@gmail.com>",
     "background": {
         "scripts": [
@@ -28,5 +38,7 @@
         "browser_style": true,
         "page": "options/index.html"
     },
-    "permissions": ["<all_urls>", "contextMenus", "notifications", "storage"]
+    "permissions": [
+        "<all_urls>", "contextMenus", "notifications", "storage", "tabs"
+    ]
 }

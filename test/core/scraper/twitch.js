@@ -5,11 +5,11 @@ const { URL }   = require("url");
 const requirejs = require("requirejs");
 
 requirejs.config({
-    "baseUrl":     "src",
+    "baseUrl":     "src/core",
     "nodeRequire": require
 });
 
-describe("scraper/dailymotion", function () {
+describe("scraper/twitch", function () {
     let module;
 
     before(function (done) {
@@ -21,7 +21,7 @@ describe("scraper/dailymotion", function () {
 
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("http://www.dailymotion.com/fr/feed");
+            const url = new URL("https://www.twitch.tv/directory");
             const expected = "unsupported";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -33,25 +33,11 @@ describe("scraper/dailymotion", function () {
         });
     });
 
-    describe("*://www.dailymotion.com/video/*", function () {
+    describe("https://www.twitch.tv/videos/*", function () {
         it("should return video id", function () {
-            const url = new URL("https://www.dailymotion.com/video/x17qw0a");
-            const expected = "plugin://plugin.video.dailymotion_com/" +
-                                                             "?mode=playVideo" +
-                                                             "&url=x17qw0a";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
-                assert.strictEqual(file, expected);
-            });
-        });
-    });
-
-    describe("*://dai.ly/*", function () {
-        it("should return video id", function () {
-            const url = new URL("http://dai.ly/x5riqme");
-            const expected = "plugin://plugin.video.dailymotion_com/" +
-                                                             "?mode=playVideo" +
-                                                             "&url=x5riqme";
+            const url = new URL("https://www.twitch.tv/videos/164088111");
+            const expected = "plugin://plugin.video.twitch/?mode=play" +
+                                                          "&video_id=164088111";
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);

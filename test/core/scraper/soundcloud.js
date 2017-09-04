@@ -5,10 +5,10 @@ const { URL }   = require("url");
 const requirejs = require("requirejs");
 
 global.fetch   = require("node-fetch");
-global.browser = require("../mock/browser");
+global.browser = require("../../mock/browser");
 
 requirejs.config({
-    "baseUrl":     "src",
+    "baseUrl":     "src/core",
     "nodeRequire": require
 });
 

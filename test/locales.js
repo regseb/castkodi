@@ -29,7 +29,7 @@ const compare = function (messages1, messages2) {
 
 describe("_locales", function () {
 
-    it("should be a non-empty array", function () {
+    it("should have same messages", function () {
         const fr = require("../src/_locales/fr/messages.json");
         const en = require("../src/_locales/en/messages.json");
         compare(fr, en);

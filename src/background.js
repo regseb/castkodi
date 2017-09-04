@@ -1,52 +1,11 @@
 "use strict";
 
-require(["jsonrpc", "scrapers"], function (jsonrpc, scrapers) {
+require.config({
+    "baseUrl": "core"
+});
 
-    /**
-     * Notifie l'utilisateur d'un message d'erreur.
-     *
-     * @param {Object} error L'erreur affichée dans la notification.
-     */
-    const notify = function (error) {
-        browser.notifications.create(null, {
-            "type":    "basic",
-            "iconUrl": "img/icon.svg",
-            "title":   "PebkacError" === error.name
-                       ? error.title
-                       : browser.i18n.getMessage("notifications_unknown_title"),
-            "message": error.message
-        });
-    }; // notify()
-
-    /**
-     * Lit un média.
-     *
-     * @param {number} playlistid <code>0</code> pour la liste de lecture des
-     *                            musiques ; <code>1</code> pour les vidéos.
-     * @param {string} file       L'URL envoyé à Kodi.
-     * @return {Promise} La réponse de Kodi.
-     */
-    const play = function (playlistid, file) {
-        // Vider la liste de lecture, ajouter le nouveau média et lancer la
-        // lecture.
-        return jsonrpc("Playlist.Clear", { playlistid }).then(function () {
-            return jsonrpc("Playlist.Add", { playlistid, "item": { file } });
-        }).then(function () {
-            return jsonrpc("Player.Open", { "item": { playlistid } });
-        });
-    }; // play()
-
-    /**
-     * Ajoute un média à la liste de lecture.
-     *
-     * @param {number} playlistid <code>0</code> pour la liste de lecture des
-     *                            musiques ; <code>1</code> pour les vidéos.
-     * @param {string} file       L'URL envoyé à Kodi.
-     * @return {Promise} La réponse de Kodi.
-     */
-    const add = function (playlistid, file) {
-        return jsonrpc("Playlist.Add", { playlistid, "item": { file } });
-    }; // add()
+require(["notify", "scrapers", "jsonrpc"],
+        function (notify, scrapers, jsonrpc) {
 
     /**
      * Diffuse un média sur Kodi.
@@ -58,8 +17,9 @@ require(["jsonrpc", "scrapers"], function (jsonrpc, scrapers) {
                       info.pageUrl];
         const url = new URL(urls.find((u) => undefined !== u && "" !== u));
         scrapers.extract(url).then(function ({ playlistid, file }) {
-            return info.menuItemId.startsWith("play") ? play(playlistid, file)
-                                                      : add(playlistid, file);
+            return info.menuItemId.startsWith("play")
+                                                ? jsonrpc.send(playlistid, file)
+                                                : jsonrpc.add(playlistid, file);
         }).catch(notify);
     }; // cast()
 

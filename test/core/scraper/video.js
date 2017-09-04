@@ -5,11 +5,11 @@ const { URL }   = require("url");
 const requirejs = require("requirejs");
 
 requirejs.config({
-    "baseUrl":     "src",
+    "baseUrl":     "src/core",
     "nodeRequire": require
 });
 
-describe("scraper/audio", function () {
+describe("scraper/video", function () {
     let module;
 
     before(function (done) {
@@ -19,78 +19,79 @@ describe("scraper/audio", function () {
         });
     });
 
-    describe("*://*/*.aac", function () {
+    describe("*://*/*.asf", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.aac");
+            const url = new URL("http://example.org/video.asf");
             const expected = url.toString();
             return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
         });
     });
 
-    describe("*://*/*.flac", function () {
+    describe("*://*/*.avi", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.flac");
+            const url = new URL("http://example.org/video.avi");
             const expected = url.toString();
             return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
         });
     });
 
-    describe("*://*/*.m4a", function () {
+    describe("*://*/*.flv", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki.m4a");
+            const url = new URL("http://example.org/video.flv");
             const expected = url.toString();
             return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
         });
     });
 
-    describe("*://*/*.mka", function () {
+    describe("*://*/*.mkv", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.mka");
+            const url = new URL("http://arcagenis.org/mirror/mango/ToS/" +
+                                                     "tears_of_steel_720p.mkv");
             const expected = url.toString();
             return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
         });
     });
 
-    describe("*://*/*.mp3", function () {
+    describe("*://*/*.mov", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki.MP3");
+            const url = new URL("http://example.org/video.mov");
             const expected = url.toString();
             return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
         });
     });
 
-    describe("*://*/*.ogg", function () {
+    describe("*://*/*.mp4", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.ogg");
+            const url = new URL("http://example.org/video.mp4");
             const expected = url.toString();
             return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
         });
     });
 
-    describe("*://*/*.pls", function () {
+    describe("*://*/*.wmv", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.pls");
+            const url = new URL("http://example.org/video.wmv");
             const expected = url.toString();
             return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+                assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
             });
         });

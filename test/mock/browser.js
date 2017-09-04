@@ -11,6 +11,12 @@ const browser = {
             }
             return key + ": " + substitutions;
         } // getMessage()
+    },
+
+    "notifications": {
+        "create": function () {
+            // Ne rien faire.
+        }
     }
 };
 
