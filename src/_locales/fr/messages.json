@@ -84,7 +84,7 @@
     },
 
     "options_intro_content": {
-        "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez <em>Autoriser le contrôle à distance via HTTP</em>. Ce règlage se fait dans la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em> de Kodi."
+        "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez Autoriser le contrôle à distance via HTTP. Ce règlage se fait dans la page Paramètres / Services / Contrôle de Kodi."
     },
     "options_port_content": {
         "message": "Port :"
@@ -96,7 +96,7 @@
         "message": "Mot de passe :"
     },
     "options_helpHost_content": {
-        "message": "L'adresse du serveur Web est disponible dans la page <em>Paramètres</em> / <em>Infos sur le système</em> / <em>Résumé</em>."
+        "message": "L'adresse du serveur Web est disponible dans la page Paramètres / Infos sur le système / Résumé."
     },
     "options_host_content": {
         "message": "Adresse IP :"

@@ -48,7 +48,7 @@ define(["jsonrpc", "pebkac", "notify"],
     for (const element of document.querySelectorAll("[data-i18n-content]")) {
         const key = "options_" + element.getAttribute("data-i18n-content") +
                     "_content";
-        element.innerHTML = browser.i18n.getMessage(key);
+        element.textContent = browser.i18n.getMessage(key);
     }
 
     // Pré-remplir les champs du formulaire.

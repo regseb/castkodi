@@ -84,7 +84,7 @@
     },
 
     "options_intro_content": {
-        "message": "To cast videos / musics to Kodi, you must <em>Allow remote control via HTTP</em>. This option is on <em>Settings</em> / <em>Services</em> / <em>Control</em> page in Kodi."
+        "message": "To cast videos / musics to Kodi, you must Allow remote control via HTTP. This option is on Settings / Services / Control page in Kodi."
     },
     "options_port_content": {
         "message": "Port:"
@@ -96,7 +96,7 @@
         "message": "Password:"
     },
     "options_helpHost_content": {
-        "message": "IP address of Web server is display on <em>Settings</em> / <em>System info</em> / <em>Summary</em> page."
+        "message": "IP address of Web server is display on Settings / System info / Summary page."
     },
     "options_host_content": {
         "message": "IP address:"
