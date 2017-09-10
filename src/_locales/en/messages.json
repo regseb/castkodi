@@ -77,7 +77,7 @@
     },
 
     "notifications_success_title": {
-        "message": "Connexion successful"
+        "message": "Connection successful"
     },
     "notifications_success_message": {
         "message": "Web server of Kodi has been found."
