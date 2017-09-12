@@ -1,1 +1,1 @@
-Cast videos and musics to Kodi with options on context menu.
+Cast videos and music to Kodi.
