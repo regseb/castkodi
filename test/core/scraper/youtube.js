@@ -15,6 +15,7 @@ describe("scraper/youtube", function () {
     let module;
 
     before(function (done) {
+        global.browser.storage.local.set({ "youtube-playlist": "playlist" });
         requirejs(["scrapers"], function (scrapers) {
             module = scrapers;
             done();
@@ -73,45 +74,6 @@ describe("scraper/youtube", function () {
         });
     });
 
-    describe("https://m.youtube.com/playlist*", function () {
-        it("should return error when it's not a playlist", function () {
-            const url = new URL("https://www.youtube.com/playlist?foo=bar");
-            const expected = "novideo";
-            return module.extract(url).then(function () {
-                assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
-            });
-        });
-
-        it("should return playlist id", function () {
-            const url = new URL("https://www.youtube.com/playlist" +
-                                    "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9");
-            const expected = "plugin://plugin.video.youtube/" +
-                                 "?action=play_all" +
-                                 "&playlist=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
-                assert.strictEqual(file, expected);
-            });
-        });
-    });
-
-    describe("https://youtu.be/*", function () {
-        it("should return video id", function () {
-            const url = new URL("https://youtu.be/NSFbekvYOlI");
-            const expected = "plugin://plugin.video.youtube/" +
-                                                         "?action=play_video" +
-                                                         "&videoid=NSFbekvYOlI";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
-                assert.strictEqual(file, expected);
-            });
-        });
-    });
-
     describe("https://m.youtube.com/watch*", function () {
         it("should return error when it's not a video", function () {
             const url = new URL("https://m.youtube.com/watch?a=dQw4w9WgXcQ");
@@ -130,6 +92,33 @@ describe("scraper/youtube", function () {
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
                                                          "&videoid=dQw4w9WgXcQ";
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("https://www.youtube.com/playlist*", function () {
+        it("should return error when it's not a playlist", function () {
+            const url = new URL("https://www.youtube.com/playlist" +
+                                                              "?v=dQw4w9WgXcQ");
+            const expected = "novideo";
+            return module.extract(url).then(function () {
+                assert.fail();
+            }, function (error) {
+                assert.strictEqual(error.name, "PebkacError");
+                assert.ok(error.title.includes(expected));
+                assert.ok(error.message.includes(expected));
+            });
+        });
+
+        it("should return playlist id", function () {
+            const url = new URL("https://www.youtube.com/playlist" +
+                                    "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9");
+            const expected = "plugin://plugin.video.youtube/" +
+                                 "?action=play_all" +
+                                 "&playlist=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
@@ -157,6 +146,19 @@ describe("scraper/youtube", function () {
             const expected = "plugin://plugin.video.youtube/" +
                                                  "?action=play_all" +
                                                  "&playlist=PL3A5849BDE0581B19";
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("https://youtu.be/*", function () {
+        it("should return video id", function () {
+            const url = new URL("https://youtu.be/NSFbekvYOlI");
+            const expected = "plugin://plugin.video.youtube/" +
+                                                         "?action=play_video" +
+                                                         "&videoid=NSFbekvYOlI";
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);

@@ -1,1 +1,1 @@
-Cast videos and music to Kodi.
+Cast videos / music (YouTube, Facebook, SoundCloud, ...) to Kodi with context menu and remote control.

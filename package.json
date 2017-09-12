@@ -37,9 +37,9 @@
         "htmlhint": "^0.9.13",
         "istanbul": "^0.4.5",
         "jsonlint": "^1.6.2",
-        "markdownlint": "^0.6.0",
+        "markdownlint": "^0.6.1",
         "metalint": "^0.7.1",
-        "mocha": "^3.5.0",
+        "mocha": "^3.5.1",
         "node-fetch": "^1.7.3",
         "stylelint": "^8.1.1"
     }

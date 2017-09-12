@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "Diffuser des vidéos / musiques sur Kodi."
+        "message": "Diffuser des vidéos et des musiques sur Kodi."
     },
 
     "contextMenus_parent": {
@@ -83,25 +83,48 @@
         "message": "Le serveur Web de Kodi a été trouvé."
     },
 
-    "options_intro_content": {
+    "options_connection-title_content": {
+        "message": "Connexion"
+    },
+    "options_connection-intro_content": {
         "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez Autoriser le contrôle à distance via HTTP. Ce règlage se fait dans la page Paramètres / Services / Contrôle de Kodi."
     },
-    "options_port_content": {
+    "options_connection-port_content": {
         "message": "Port :"
     },
-    "options_username_content": {
+    "options_connection-username_content": {
         "message": "Nom d'utilisateur :"
     },
-    "options_password_content": {
+    "options_connection-password_content": {
         "message": "Mot de passe :"
     },
-    "options_helpHost_content": {
+    "options_connection-helpHost_content": {
         "message": "L'adresse du serveur Web est disponible dans la page Paramètres / Infos sur le système / Résumé."
     },
-    "options_host_content": {
+    "options_connection-host_content": {
         "message": "Adresse IP :"
     },
-    "options_check_content": {
-        "message": "Tester"
+    "options_connection-check_content": {
+        "message": "Tester la connexion"
+    },
+
+    "options_general-title_content": {
+        "message": "Général"
+    },
+    "options_general-history_content": {
+        "message": "Ajouter les liens diffusés sur Kodi dans l'historique du navigateur."
+    },
+
+    "options_youtube-title_content": {
+        "message": "YouTube"
+    },
+    "options_youtube-playlist_content": {
+        "message": "Pour les liens vers une vidéo dans une playlist :"
+    },
+    "options_youtube-playlist-playlist_content": {
+        "message": "diffuser toutes les vidéos de la playlist."
+    },
+    "options_youtube-playlist-video_content": {
+        "message": "diffuser seulement la vidéo."
     }
 }

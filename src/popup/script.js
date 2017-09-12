@@ -179,6 +179,13 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
                                                function ({ playlistid, file }) {
                 return jsonrpc.send(playlistid, file);
             }).then(function () {
+                return browser.storage.local.get(["general-history"]);
+            }).then(function (results) {
+                if (results["general-history"]) {
+                    return browser.history.addUrl({ url });
+                }
+                return Promise.resolve();
+            }).then(function () {
                 window.close();
             }).catch(notify);
         });
@@ -194,6 +201,13 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             scrapers.extract(new URL(url)).then(
                                                function ({ playlistid, file }) {
                 return jsonrpc.add(playlistid, file);
+            }).then(function () {
+                return browser.storage.local.get(["general-history"]);
+            }).then(function (results) {
+                if (results["general-history"]) {
+                    return browser.history.addUrl({ url });
+                }
+                return Promise.resolve();
             }).then(function () {
                 window.close();
             }).catch(notify);

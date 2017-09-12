@@ -3,34 +3,66 @@
   <head>
     <meta charset="utf-8" />
     <title>Cast Kodi</title>
-    <link rel="stylesheet" href="extension.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <form>
-      <p data-i18n-content="intro"></p>
+    <form id="connection">
+      <h3 data-i18n-content="connection-title"></h3>
+      <p data-i18n-content="connection-intro"></p>
       <div class="browser-style">
-        <label for="port" data-i18n-content="port"></label>
-        <input type="number" id="port" name="port" min="1" max="65535"
-               required="required" />
+        <label for="connection-port"
+               data-i18n-content="connection-port"></label>
+        <input type="number" id="connection-port" name="port" min="1"
+               max="65535" required="required" />
       </div>
       <div class="browser-style">
-        <label for="username" data-i18n-content="username"></label>
-        <input type="text" id="username" name="username" />
+        <label for="connection-username"
+               data-i18n-content="connection-username"></label>
+        <input type="text" id="connection-username" name="username" />
       </div>
       <div class="browser-style">
-        <label for="password" data-i18n-content="password"></label>
-        <input type="password" id="password" name="password" />
+        <label for="connection-password"
+               data-i18n-content="connection-password"></label>
+        <input type="password" id="connection-password" name="password" />
       </div>
 
-      <p data-i18n-content="helpHost"></p>
+      <p data-i18n-content="connection-helpHost"></p>
       <div class="browser-style">
-        <label for="host" data-i18n-content="host"></label>
-        <input type="text" id="host" name="host" required="required" />
-        <button id="check" data-i18n-content="check"
+        <label for="connection-host"
+               data-i18n-content="connection-host"></label>
+        <input type="text" id="connection-host" name="host"
+               required="required" />
+        <button id="connection-check" data-i18n-content="connection-check"
                 class="browser-style"></button>
       </div>
     </form>
+
+    <form id="general">
+      <h3 data-i18n-content="general-title"></h3>
+      <div class="browser-style">
+        <input type="checkbox" id="general-history" name="history" />
+        <label for="general-history"
+               data-i18n-content="general-history"></label>
+      </div>
+    </form>
+
+    <form id="youtube">
+      <h3 data-i18n-content="youtube-title"></h3>
+      <p data-i18n-content="youtube-playlist"></p>
+      <div class="browser-style">
+        <input type="radio" id="youtube-playlist-playlist" name="playlist"
+               value="playlist" />
+        <label for="youtube-playlist-playlist"
+               data-i18n-content="youtube-playlist-playlist"></label>
+      </div>
+      <div class="browser-style">
+        <input type="radio" id="youtube-playlist-video" name="playlist"
+               value="video" />
+        <label for="youtube-playlist-video"
+               data-i18n-content="youtube-playlist-video"></label>
+      </div>
+    </form>
+
     <script data-main="script" src="/lib/require.js"></script>
   </body>
 </html>

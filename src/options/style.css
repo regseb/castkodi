@@ -1,7 +1,7 @@
 body {
     padding: 10px;
 }
-label {
+#connection label {
     display: inline-block;
     width: 12em;
 }
@@ -13,7 +13,9 @@ input[type="number"] {
     -moz-appearance: textfield;
     appearance: textfield;
 }
-.browser-style > input[type="password"], .browser-style > input[type="number"] {
+.browser-style > input[type="text"],
+.browser-style > input[type="password"],
+.browser-style > input[type="number"] {
     background-color: #fff;
     border: 1px solid #b1b1b1;
     box-shadow: 0 0 0 0 rgba(97, 181, 255, 0);
@@ -23,10 +25,13 @@ input[type="number"] {
     transition-duration: 250ms;
     transition-property: box-shadow;
 }
+.browser-style > input[type="text"]:hover,
 .browser-style > input[type="password"]:hover,
 .browser-style > input[type="number"]:hover {
     border: 1px solid #858585;
 }
+.browser-style > input[type="text"]:focus,
+.browser-style > input[type="text"]:focus:hover,
 .browser-style > input[type="password"]:focus,
 .browser-style > input[type="password"]:focus:hover,
 .browser-style > input[type="number"]:focus,

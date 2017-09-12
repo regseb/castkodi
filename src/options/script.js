@@ -11,10 +11,23 @@ define(["jsonrpc", "pebkac", "notify"],
      * Active / Désactive le bouton pour tester les paramètres.
      */
     const activate = function () {
-        document.getElementById("check").disabled =
-                             !(document.getElementById("port").validity.valid &&
-                                document.getElementById("host").validity.valid);
+        document.getElementById("connection-check").disabled =
+                  !(document.getElementById("connection-port").validity.valid &&
+                     document.getElementById("connection-host").validity.valid);
     }; // activate()
+
+    const ask = function (input, checked) {
+        const permissions = { "permissions": ["history"] };
+        if (checked) {
+            browser.permissions.request(permissions).then(function (response) {
+                input.checked = response;
+                browser.storage.local.set({ "general-history": response });
+            });
+        } else {
+            browser.permissions.remove(permissions);
+            browser.storage.local.set({ "general-history": false });
+        }
+    }; // ask()
 
     /**
      * Enregistre une paramètre.
@@ -22,13 +35,17 @@ define(["jsonrpc", "pebkac", "notify"],
      * @this HTMLInputElement
      */
     const save = function () {
-        if (0 === this.value.length) {
-            browser.storage.local.remove(this.name);
+        const key = this.form.id + "-" + this.name;
+        if ("checkbox" === this.type) {
+            ask(this, this.checked);
+        } else if ("radio" === this.type) {
+            browser.storage.local.set({ [key]: this.value });
+        } else if (0 === this.value.length) {
+            browser.storage.local.remove(key);
         } else {
-            browser.storage.local.set({
-                [this.name]: this.value
-            });
+            browser.storage.local.set({ [key]: this.value });
         }
+
         activate();
     }; // save()
 
@@ -54,8 +71,21 @@ define(["jsonrpc", "pebkac", "notify"],
     // Pré-remplir les champs du formulaire.
     browser.storage.local.get().then(function (results) {
         for (const key of Object.keys(results)) {
-            document.querySelector("input[name=\"" + key + "\"]").value =
-                                                                   results[key];
+            const [form, name] = key.split("-");
+            const inputs = document.querySelectorAll(
+                                   "#" + form + " input[name=\"" + name + "\"");
+            if (1 === inputs.length) {
+                const input = inputs[0];
+                if ("checkbox" === input.type) {
+                    input.checked = results[key];
+                } else {
+                    input.value = results[key];
+                }
+            } else { // Sinon c'est un radio bouton.
+                for (const input of inputs) {
+                    input.checked = results[key] === input.value;
+                }
+            }
         }
         activate();
     });
@@ -64,5 +94,6 @@ define(["jsonrpc", "pebkac", "notify"],
     for (const input of document.getElementsByTagName("input")) {
         input.addEventListener("input", save);
     }
-    document.getElementById("check").addEventListener("click", check);
+    document.getElementById("connection-check").addEventListener("click",
+                                                                 check);
 });

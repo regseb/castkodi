@@ -1,5 +1,7 @@
 "use strict";
 
+const storage = {};
+
 const browser = {
     "i18n": {
         "getMessage": function (key, substitutions = []) {
@@ -16,6 +18,17 @@ const browser = {
     "notifications": {
         "create": function () {
             // Ne rien faire.
+        }
+    },
+
+    "storage": {
+        "local": {
+            "get": function () {
+                return Promise.resolve(storage);
+            },
+            "set": function (values) {
+                Object.assign(storage, values);
+            }
         }
     }
 };

@@ -7,6 +7,25 @@ require.config({
 require(["notify", "scrapers", "jsonrpc"],
         function (notify, scrapers, jsonrpc) {
 
+    browser.storage.local.get().then(function (results) {
+        // Migrer les anciennes données (avant la version 0.6.0).
+        for (const name of ["port", "username", "password", "host"]) {
+            if (name in results) {
+                browser.storage.local.set({
+                    ["connection-" + name]: results[name]
+                });
+                browser.storage.local.remove(name);
+            }
+        }
+        // Définir des valeurs par défaut.
+        if (!("general-history" in results)) {
+            browser.storage.local.set({ "general-history": false });
+        }
+        if (!("youtube-playlist" in results)) {
+            browser.storage.local.set({ "youtube-playlist": "playlist" });
+        }
+    });
+
     /**
      * Diffuse un média sur Kodi.
      *
@@ -20,6 +39,13 @@ require(["notify", "scrapers", "jsonrpc"],
             return info.menuItemId.startsWith("play")
                                                 ? jsonrpc.send(playlistid, file)
                                                 : jsonrpc.add(playlistid, file);
+        }).then(function () {
+            return browser.storage.local.get(["general-history"]);
+        }).then(function (results) {
+            if (results["general-history"]) {
+                return browser.history.addUrl({ "url": url.toString() });
+            }
+            return null;
         }).catch(notify);
     }; // cast()
 

@@ -15,14 +15,17 @@ define(["pebkac"], function (PebkacError) {
      * @return {Promise} La réponse de Kodi.
      */
     const request = function (method, params = {}) {
-        const keys = ["port", "username", "password", "host"];
+        const keys = [
+            "connection-port", "connection-username", "connection-password",
+            "connection-host"
+        ];
         return browser.storage.local.get(keys).then(function (config) {
-            if (!("host" in config && "port" in config)) {
+            if (!("connection-host" in config && "connection-port" in config)) {
                 throw new PebkacError("unconfigured");
             }
 
-            const url = "http://" + config.host +
-                              ":" + config.port + "/jsonrpc";
+            const url = "http://" + config["connection-host"] +
+                              ":" + config["connection-port"] + "/jsonrpc";
             const init = {
                 "method":  "POST",
                 "headers": { "Content-Type": "application/json" },
@@ -33,9 +36,10 @@ define(["pebkac"], function (PebkacError) {
                     "params":  params
                 })
             };
-            if ("username" in config) {
+            if ("connection-username" in config) {
                 init.headers.Authorization =
-                       "Basic " + btoa(config.username + ":" + config.password);
+                       "Basic " + btoa(config["connection-username"] + ":" +
+                                       config["connection-password"]);
             }
             return fetch(url, init);
         }).then(function (response) {

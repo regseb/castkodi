@@ -2,7 +2,7 @@
     "applications": {
         "gecko": {
             "id": "castkodi@regseb.github.io",
-            "strict_min_version": "54.0"
+            "strict_min_version": "55.0"
         }
     },
 
@@ -34,6 +34,7 @@
     },
     "default_locale": "en",
     "homepage_url": "https://github.com/regseb/castkodi",
+    "optional_permissions": ["history"],
     "options_ui": {
         "browser_style": true,
         "page": "options/index.html"

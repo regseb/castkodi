@@ -18,15 +18,49 @@ define(["pebkac"], function (PebkacError) {
     const rules = new Map();
 
     /**
-     * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+     * Extrait les informations nécessaire pour lire la vidéo ou la playlist sur
+     * Kodi.
      *
-     * @param {String} url L'URL d'une playlist ou vidéo YouTube.
+     * @param {String} url L'URL d'une vidéo ou playlist YouTube.
      * @return {Promise} L'identifiant de la file d'attente et l'URL du
      *                   <em>fichier</em>.
      */
     rules.set([
-        "https://www.youtube.com/playlist*", "https://www.youtube.com/watch*",
-        "https://m.youtube.com/playlist*", "https://m.youtube.com/watch*"
+        "https://www.youtube.com/watch*", "https://m.youtube.com/watch*"
+    ], function (url) {
+        return browser.storage.local.get(["youtube-playlist"]).then(
+                                                            function (results) {
+            if (url.searchParams.has("list") &&
+                    "playlist" === results["youtube-playlist"]) {
+                return Promise.resolve({
+                    "playlistid": PLAYLIST_ID,
+                    "file":       PLUGIN_URL +
+                                     "?action=play_all" +
+                                     "&playlist=" + url.searchParams.get("list")
+                });
+            }
+            if (url.searchParams.has("v")) {
+                return Promise.resolve({
+                    "playlistid": PLAYLIST_ID,
+                    "file":       PLUGIN_URL +
+                                         "?action=play_video" +
+                                         "&videoid=" + url.searchParams.get("v")
+                });
+            }
+
+            return Promise.reject(new PebkacError("novideo", "YouTube"));
+        });
+    });
+
+    /**
+     * Extrait les informations nécessaire pour lire la playlist sur Kodi.
+     *
+     * @param {String} url L'URL d'une playlist YouTube.
+     * @return {Promise} L'identifiant de la file d'attente et l'URL du
+     *                   <em>fichier</em>.
+     */
+    rules.set([
+        "https://www.youtube.com/playlist*", "https://m.youtube.com/playlist*"
     ], function (url) {
         if (url.searchParams.has("list")) {
             return Promise.resolve({
@@ -34,14 +68,6 @@ define(["pebkac"], function (PebkacError) {
                 "file":       PLUGIN_URL +
                                      "?action=play_all" +
                                      "&playlist=" + url.searchParams.get("list")
-            });
-        }
-        if (url.searchParams.has("v")) {
-            return Promise.resolve({
-                "playlistid": PLAYLIST_ID,
-                "file":       PLUGIN_URL +
-                                         "?action=play_video" +
-                                         "&videoid=" + url.searchParams.get("v")
             });
         }
 
