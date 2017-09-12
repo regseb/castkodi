@@ -35,7 +35,7 @@
         "message": "Kodi not found."
     },
     "notifications_notfound_message": {
-        "message": "IP address or port are invalid or remote control isn't active on Kodi."
+        "message": "Either the IP/port are invalid or Kodi's remote control isn't enabled."
     },
 
     "notifications_unauthorized_title": {
