@@ -14,46 +14,46 @@
     },
 
     "notifications_unknown_title": {
-        "message": "Unknown error"
+        "message": "Unknown error."
     },
 
     "notifications_unconfigured_title": {
-        "message": "No configuration"
+        "message": "No configuration."
     },
     "notifications_unconfigured_message": {
-        "message": "IP address and port aren't filled on options."
+        "message": "IP address and port are missing in options."
     },
 
     "notifications_badhost_title": {
-        "message": "IP address invalid"
+        "message": "IP address invalid."
     },
     "notifications_badhost_message": {
         "message": "IP address of Web server is invalid."
     },
 
     "notifications_notfound_title": {
-        "message": "Kodi not found"
+        "message": "Kodi not found."
     },
     "notifications_notfound_message": {
-        "message": "IP address or port are invalid ; or remote control isn't active on Kodi."
+        "message": "IP address or port are invalid or remote control isn't active on Kodi."
     },
 
     "notifications_unauthorized_title": {
-        "message": "Authentication failed"
+        "message": "Authentication failed."
     },
     "notifications_unauthorized_message": {
         "message": "Username or password are invalid."
     },
 
     "notifications_unsupported_title": {
-        "message": "Unsupported link"
+        "message": "Unsupported link."
     },
     "notifications_unsupported_message": {
-        "message": "Link isn't unsupported by Kodi."
+        "message": "Link isn't supported by Kodi."
     },
 
     "notifications_novideo_title": {
-        "message": "Unsupported link"
+        "message": "Unsupported link."
     },
     "notifications_novideo_message": {
         "message": "Link isn't a $HOSTER$ video.",
@@ -65,10 +65,10 @@
     },
 
     "notifications_noaudio_title": {
-        "message": "Unsupported link"
+        "message": "Unsupported link."
     },
     "notifications_noaudio_message": {
-        "message": "Link isn't a $HOSTER$ music.",
+        "message": "Link isn't a $HOSTER$ audio track.",
         "placeholders": {
             "hoster": {
                 "content": "$1"
@@ -77,14 +77,14 @@
     },
 
     "notifications_success_title": {
-        "message": "Connexion successful"
+        "message": "Connection successful."
     },
     "notifications_success_message": {
         "message": "Web server of Kodi has been found."
     },
 
     "options_intro_content": {
-        "message": "To cast videos / musics to Kodi, you must Allow remote control via HTTP. This option is on Settings / Services / Control page in Kodi."
+        "message": "To cast videos / music to Kodi, you must Allow remote control via HTTP. This option is in Settings / Services / Control page in Kodi."
     },
     "options_port_content": {
         "message": "Port:"
@@ -96,12 +96,12 @@
         "message": "Password:"
     },
     "options_helpHost_content": {
-        "message": "IP address of Web server is display on Settings / System info / Summary page."
+        "message": "IP address of Web server is displayed on Settings / System info / Summary page."
     },
     "options_host_content": {
         "message": "IP address:"
     },
     "options_check_content": {
-        "message": "Test"
+        "message": "Test Connection"
     }
 }
