@@ -1,7 +1,7 @@
 # Cast Kodi
 
 [![Version][img-version]][link-version]
-[![Build][img-build]][link-build]
+[![Dependencies][img-dependencies]][link-dependencies]
 [![Coverage][img-coverage]][link-coverage]
 [![License][img-license]][link-license]
 
@@ -47,12 +47,12 @@ L'extension est publiée sous la [licence publique de l’Union européenne - EU
 v1.2](//joinup.ec.europa.eu/community/eupl/og_page/eupl-text-11-12).
 
 [img-version]:https://img.shields.io/amo/v/castkodi.svg
-[img-build]:https://img.shields.io/travis/regseb/castkodi.svg
+[img-dependencies]:https://img.shields.io/david/regseb/castkodi.svg
 [img-coverage]:https://img.shields.io/coveralls/regseb/castkodi.svg
 [img-license]:https://img.shields.io/badge/license-EUPL-blue.svg
 
 [link-version]://addons.mozilla.org/fr/firefox/addon/castkodi/
-[link-build]://travis-ci.org/regseb/castkodi
+[link-dependencies]://david-dm.org/regseb/castkodi
 [link-coverage]://coveralls.io/github/regseb/castkodi
 [link-license]://joinup.ec.europa.eu/community/eupl/og_page/eupl-text-11-12/
                "Licence Publique de l’Union européenne"

@@ -1,6 +1,6 @@
 {
     "name": "castkodi",
-    "version": "0.5.1",
+    "version": "1.0.0",
     "description": "WebExtension pour diffuser des vidéos / musiques sur Kodi.",
     "keyword": [
         "cast",
@@ -39,7 +39,7 @@
         "jsonlint": "^1.6.2",
         "markdownlint": "^0.6.1",
         "metalint": "^0.7.1",
-        "mocha": "^3.5.1",
+        "mocha": "^3.5.3",
         "node-fetch": "^1.7.3",
         "stylelint": "^8.1.1"
     }

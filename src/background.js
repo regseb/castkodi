@@ -8,7 +8,7 @@ require(["notify", "scrapers", "jsonrpc"],
         function (notify, scrapers, jsonrpc) {
 
     browser.storage.local.get().then(function (results) {
-        // Migrer les anciennes données (avant la version 0.6.0).
+        // Migrer les anciennes données (avant la version 1.0.0).
         for (const name of ["port", "username", "password", "host"]) {
             if (name in results) {
                 browser.storage.local.set({
