@@ -1,11 +1,7 @@
 "use strict";
 
 const assert    = require("assert");
-const { URL }   = require("url");
 const requirejs = require("requirejs");
-
-global.fetch   = require("node-fetch");
-global.browser = require("../../mock/browser");
 
 requirejs.config({
     "baseUrl":     "src/core",

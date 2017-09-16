@@ -3,5 +3,10 @@
         "node": true,
         "es6": true,
         "mocha": true
+    },
+    "globals": {
+        "URL": true,
+        "fetch": true,
+        "browser": true
     }
 }

@@ -2,8 +2,6 @@
 
 const requirejs = require("requirejs");
 
-global.browser = require("../mock/browser");
-
 requirejs.config({
     "baseUrl":     "src/core",
     "nodeRequire": require
