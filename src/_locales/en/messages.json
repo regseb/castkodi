@@ -87,7 +87,7 @@
         "message": "Connection"
     },
     "options_connection-intro_content": {
-        "message": "To cast videos / music to Kodi, you must Allow remote control via HTTP. This option is in Settings / Services / Control page in Kodi."
+        "message": "To cast videos/music to Kodi, you must Allow remote control via HTTP. This option is in Settings / Services / Control page in Kodi."
     },
     "options_connection-port_content": {
         "message": "Port:"
