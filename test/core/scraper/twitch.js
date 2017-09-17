@@ -18,10 +18,22 @@ describe("scraper/twitch", function () {
         });
     });
 
-    describe("#patterns", function () {
-        it("should return error when it's not a video", function () {
+    describe("https://www.twitch.tv/videos/*", function () {
+        it("should return video id", function () {
+            const url = new URL("https://www.twitch.tv/videos/164088111");
+            const expected = "plugin://plugin.video.twitch/?mode=play" +
+                                                          "&video_id=164088111";
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("https://www.twitch.tv/*", function () {
+        it("should return error when it's not a channel", function () {
             const url = new URL("https://www.twitch.tv/directory");
-            const expected = "unsupported";
+            const expected = "novideo";
             return module.extract(url).then(function () {
                 assert.fail();
             }, function (error) {
@@ -30,13 +42,11 @@ describe("scraper/twitch", function () {
                 assert.ok(error.message.includes(expected));
             });
         });
-    });
 
-    describe("https://www.twitch.tv/videos/*", function () {
-        it("should return video id", function () {
-            const url = new URL("https://www.twitch.tv/videos/164088111");
+        it("should return channel id", function () {
+            const url = new URL("https://www.twitch.tv/nolife");
             const expected = "plugin://plugin.video.twitch/?mode=play" +
-                                                          "&video_id=164088111";
+                                                         "&channel_id=86118798";
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);

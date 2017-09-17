@@ -1,6 +1,6 @@
 "use strict";
 
-define([], function () {
+define(["pebkac"], function (PebkacError) {
 
     /**
      * L'identifiant de la file d'attente des vidéos.
@@ -29,6 +29,32 @@ define([], function () {
             "playlistid": PLAYLIST_ID,
             "file":       PLUGIN_URL + "?mode=play" +
                                        "&video_id=" + url.pathname.substr(8)
+        });
+    });
+
+    /**
+     * Extrait les informations nécessaire pour lire le <em>live</em> sur Kodi.
+     *
+     * @param {String} url L'URL d'un <em>live</em> Twitch.
+     * @return {Promise} L'identifiant de la file d'attente et l'URL du
+     *                   <em>fichier</em>.
+     */
+    rules.set(["https://www.twitch.tv/*"], function (url) {
+        return fetch("https://api.twitch.tv/kraken/streams" + url.pathname,
+                     { "headers": { "Client-ID": null } }).then(
+                                                           function (response) {
+            return response.json();
+        }).then(function (response) {
+            if (null === response.stream) {
+                throw new PebkacError("novideo", "Twitch");
+            }
+
+            return {
+                "playlistid": PLAYLIST_ID,
+                "file":       PLUGIN_URL +
+                                 "?mode=play" +
+                                 "&channel_id=" + response.stream.channel["_id"]
+            };
         });
     });
 
