@@ -74,15 +74,16 @@ require(["notify", "scrapers", "jsonrpc"],
         "title":             browser.i18n.getMessage("contextMenus_add")
     });
 
-    // Ajouter des options dans le menu contextuel des pages.
+    // Ajouter des options dans le menu contextuel des pages et du bouton de
+    // l'extension.
     browser.contextMenus.create({
-        "contexts":            ["page"],
+        "contexts":            ["browser_action", "page", "tab"],
         "id":                  "parent_document",
         "documentUrlPatterns": scrapers.patterns,
         "title":               browser.i18n.getMessage("contextMenus_parent")
     });
     browser.contextMenus.create({
-        "contexts":            ["page"],
+        "contexts":            ["browser_action", "page", "tab"],
         "id":                  "play_document",
         "onclick":             cast,
         "parentId":            "parent_document",
@@ -90,7 +91,7 @@ require(["notify", "scrapers", "jsonrpc"],
         "title":               browser.i18n.getMessage("contextMenus_play")
     });
     browser.contextMenus.create({
-        "contexts":            ["page"],
+        "contexts":            ["browser_action", "page", "tab"],
         "id":                  "add_document",
         "onclick":             cast,
         "parentId":            "parent_document",
