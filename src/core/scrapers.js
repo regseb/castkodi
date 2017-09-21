@@ -1,8 +1,8 @@
 "use strict";
 
 const SCRAPERS = [
-    "dailymotion", "facebook", "soundcloud", "twitch", "vimeo", "youtube",
-    "video", "audio"
+    "collegehumor", "dailymotion", "facebook", "soundcloud", "twitch", "vimeo",
+    "youtube", "video", "audio"
 ].map((s) => "scraper/" + s);
 
 define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
