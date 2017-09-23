@@ -12,7 +12,7 @@ describe("scraper/youtube", function () {
     let module;
 
     before(function (done) {
-        global.browser.storage.local.set({ "youtube-playlist": "playlist" });
+        browser.storage.local.set({ "youtube-playlist": "playlist" });
         requirejs(["scrapers"], function (scrapers) {
             module = scrapers;
             done();
