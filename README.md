@@ -13,7 +13,7 @@ Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
 sur **Kodi** :
 
 - des vidéos : liens directs (*avi*, *mkv*, ...), YouTube, Facebook, Twitch,
-  Vimeo, Dailymotion et CollegeHumor ;
+  Vimeo, Dailymotion, CollegeHumor et Dumpert ;
 - des musiques : liens directs (*mp3*, *flac*, ...) et SoundCloud.
 
 Une nouvelle option « *Diffuser sur Kodi* » est ajoutée dans le menu contextuel
@@ -40,7 +40,8 @@ les extensions
 [Twitch](//kodi.tv/addon/plugins-video-add-ons/twitch),
 [Vimeo](//kodi.tv/addon/plugins-video-add-ons/vimeo),
 [DailyMotion.com](//kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
-[CollegeHumor](//kodi.tv/addon/plugins-video-add-ons/collegehumor) ou
+[CollegeHumor](//kodi.tv/addon/plugins-video-add-ons/collegehumor),
+[Dumpert](//kodi.tv/addon/plugins-video-add-ons/dumpert) ou
 [SoundCloud](//kodi.tv/addon/music-add-ons-plugins/soundcloud) dans Kodi.
 
 ## Licence
