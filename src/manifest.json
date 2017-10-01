@@ -2,13 +2,13 @@
     "applications": {
         "gecko": {
             "id": "castkodi@regseb.github.io",
-            "strict_min_version": "55.0"
+            "strict_min_version": "56.0"
         }
     },
 
     "manifest_version": 2,
     "name": "Cast Kodi",
-    "version": "1.0.0",
+    "version": "1.1.0",
 
     "description": "__MSG_manifest_description__",
     "icons": {
