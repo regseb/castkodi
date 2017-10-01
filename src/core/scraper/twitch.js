@@ -40,21 +40,19 @@ define(["pebkac"], function (PebkacError) {
      *                   <em>fichier</em>.
      */
     rules.set(["https://www.twitch.tv/*"], function (url) {
-        return fetch("https://api.twitch.tv/kraken/streams" + url.pathname,
+        return fetch("https://api.twitch.tv/kraken/channels" + url.pathname,
                      { "headers": { "Client-ID": null } }).then(
                                                            function (response) {
             return response.json();
         }).then(function (response) {
-            if (null === response.stream) {
-                throw new PebkacError("novideo", "Twitch");
+            if ("_id" in response) {
+                return {
+                    "playlistid": PLAYLIST_ID,
+                    "file":       PLUGIN_URL + "?mode=play" +
+                                               "&channel_id=" + response["_id"]
+                };
             }
-
-            return {
-                "playlistid": PLAYLIST_ID,
-                "file":       PLUGIN_URL +
-                                 "?mode=play" +
-                                 "&channel_id=" + response.stream.channel["_id"]
-            };
+            throw new PebkacError("novideo", "Twitch");
         });
     });
 
