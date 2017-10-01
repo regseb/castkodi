@@ -14,7 +14,7 @@
             "patterns": "**/*.html",
             "linters": "htmlhint"
         }, {
-            "patterns": ["!**/extension.css", "**/*.css"],
+            "patterns": "**/*.css",
             "linters": "stylelint"
         }, {
             "patterns": "**/*.md",
