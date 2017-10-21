@@ -23,7 +23,7 @@ disponibles : *Lire* le média ou le *Placer en file d'attente*.
 ## Installation
 
 L'extension est disponible sur le
-**[Mozilla Add-ons](//addons.mozilla.org/fr/firefox/addon/castkodi/)**.
+**[Mozilla Add-ons](https://addons.mozilla.org/fr/firefox/addon/castkodi/)**.
 
 Dans Kodi, il faut *Autoriser le contrôle à distance via HTTP*. Ce règlage se
 fait dans la page *Paramètres* / *Services* / *Contrôle*.
@@ -36,26 +36,26 @@ hébergeant Kodi ; cette information est disponible dans la page *Paramètres* /
 
 Pour lire les vidéos / musiques hébergées sur des plateformes, il faut installer
 les extensions
-[YouTube](//kodi.tv/addon/plugins-video-add-ons/youtube),
-[Twitch](//kodi.tv/addon/plugins-video-add-ons/twitch),
-[Vimeo](//kodi.tv/addon/plugins-video-add-ons/vimeo),
-[DailyMotion.com](//kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
-[CollegeHumor](//kodi.tv/addon/plugins-video-add-ons/collegehumor),
-[Dumpert](//kodi.tv/addon/plugins-video-add-ons/dumpert) ou
-[SoundCloud](//kodi.tv/addon/music-add-ons-plugins/soundcloud) dans Kodi.
+[YouTube](https://kodi.tv/addon/plugins-video-add-ons/youtube),
+[Twitch](https://kodi.tv/addon/plugins-video-add-ons/twitch),
+[Vimeo](https://kodi.tv/addon/plugins-video-add-ons/vimeo),
+[DailyMotion.com](https://kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
+[CollegeHumor](https://kodi.tv/addon/plugins-video-add-ons/collegehumor),
+[Dumpert](https://kodi.tv/addon/plugins-video-add-ons/dumpert) ou
+[SoundCloud](https://kodi.tv/addon/music-add-ons-plugins/soundcloud) dans Kodi.
 
 ## Licence
 
 L'extension est publiée sous la [licence publique de l’Union européenne - EUPL
-v1.2](//joinup.ec.europa.eu/community/eupl/og_page/eupl-text-11-12).
+v1.2](https://joinup.ec.europa.eu/page/eupl-text-11-12).
 
 [img-version]:https://img.shields.io/amo/v/castkodi.svg
 [img-dependencies]:https://img.shields.io/david/regseb/castkodi.svg
 [img-coverage]:https://img.shields.io/coveralls/regseb/castkodi.svg
 [img-license]:https://img.shields.io/badge/license-EUPL-blue.svg
 
-[link-version]://addons.mozilla.org/fr/firefox/addon/castkodi/
-[link-dependencies]://david-dm.org/regseb/castkodi
-[link-coverage]://coveralls.io/github/regseb/castkodi
-[link-license]://joinup.ec.europa.eu/community/eupl/og_page/eupl-text-11-12/
+[link-version]:https://addons.mozilla.org/fr/firefox/addon/castkodi/
+[link-dependencies]:https://david-dm.org/regseb/castkodi
+[link-coverage]:https://coveralls.io/github/regseb/castkodi
+[link-license]:https://joinup.ec.europa.eu/page/eupl-text-11-12
                "Licence Publique de l’Union européenne"
