@@ -32,15 +32,16 @@
         "requirejs": "^2.3.5"
     },
     "devDependencies": {
-        "coveralls": "^2.13.1",
-        "eslint": "^4.6.1",
+        "coveralls": "^3.0.0",
+        "eslint": "^4.9.0",
         "htmlhint": "^0.9.13",
         "istanbul": "^0.4.5",
+        "jsdom": "^11.3.0",
         "jsonlint": "^1.6.2",
         "markdownlint": "^0.6.1",
         "metalint": "^0.7.1",
-        "mocha": "^3.5.3",
-        "node-fetch": "^2.0.0-alpha.8",
-        "stylelint": "^8.1.1"
+        "mocha": "^4.0.1",
+        "node-fetch": "^2.0.0-alpha.9",
+        "stylelint": "^8.2.0"
     }
 }
