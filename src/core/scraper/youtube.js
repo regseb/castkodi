@@ -29,9 +29,9 @@ define(["pebkac"], function (PebkacError) {
         "https://www.youtube.com/watch*", "https://m.youtube.com/watch*"
     ], function (url) {
         return browser.storage.local.get(["youtube-playlist"]).then(
-                                                            function (results) {
+                                                             function (config) {
             if (url.searchParams.has("list") &&
-                    "playlist" === results["youtube-playlist"]) {
+                    "playlist" === config["youtube-playlist"]) {
                 return Promise.resolve({
                     "playlistid": PLAYLIST_ID,
                     "file":       PLUGIN_URL +

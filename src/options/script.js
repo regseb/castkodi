@@ -69,21 +69,21 @@ define(["jsonrpc", "pebkac", "notify"],
     }
 
     // Pré-remplir les champs du formulaire.
-    browser.storage.local.get().then(function (results) {
-        for (const key of Object.keys(results)) {
+    browser.storage.local.get().then(function (config) {
+        for (const key of Object.keys(config)) {
             const [form, name] = key.split("-");
             const inputs = document.querySelectorAll(
                                    "#" + form + " input[name=\"" + name + "\"");
             if (1 === inputs.length) {
                 const input = inputs[0];
                 if ("checkbox" === input.type) {
-                    input.checked = results[key];
+                    input.checked = config[key];
                 } else {
-                    input.value = results[key];
+                    input.value = config[key];
                 }
             } else { // Sinon c'est un radio bouton.
                 for (const input of inputs) {
-                    input.checked = results[key] === input.value;
+                    input.checked = config[key] === input.value;
                 }
             }
         }

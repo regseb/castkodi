@@ -7,21 +7,21 @@ require.config({
 require(["notify", "scrapers", "jsonrpc"],
         function (notify, scrapers, jsonrpc) {
 
-    browser.storage.local.get().then(function (results) {
+    browser.storage.local.get().then(function (config) {
         // Migrer les anciennes données (avant la version 1.0.0).
         for (const name of ["port", "username", "password", "host"]) {
-            if (name in results) {
+            if (name in config) {
                 browser.storage.local.set({
-                    ["connection-" + name]: results[name]
+                    ["connection-" + name]: config[name]
                 });
                 browser.storage.local.remove(name);
             }
         }
         // Définir des valeurs par défaut.
-        if (!("general-history" in results)) {
+        if (!("general-history" in config)) {
             browser.storage.local.set({ "general-history": false });
         }
-        if (!("youtube-playlist" in results)) {
+        if (!("youtube-playlist" in config)) {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
         }
     });
@@ -41,8 +41,8 @@ require(["notify", "scrapers", "jsonrpc"],
                                                 : jsonrpc.add(playlistid, file);
         }).then(function () {
             return browser.storage.local.get(["general-history"]);
-        }).then(function (results) {
-            if (results["general-history"]) {
+        }).then(function (config) {
+            if (config["general-history"]) {
                 return browser.history.addUrl({ "url": url.toString() });
             }
             return null;

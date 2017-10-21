@@ -180,8 +180,8 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
                 return jsonrpc.send(playlistid, file);
             }).then(function () {
                 return browser.storage.local.get(["general-history"]);
-            }).then(function (results) {
-                if (results["general-history"]) {
+            }).then(function (config) {
+                if (config["general-history"]) {
                     return browser.history.addUrl({ url });
                 }
                 return Promise.resolve();
@@ -203,8 +203,8 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
                 return jsonrpc.add(playlistid, file);
             }).then(function () {
                 return browser.storage.local.get(["general-history"]);
-            }).then(function (results) {
-                if (results["general-history"]) {
+            }).then(function (config) {
+                if (config["general-history"]) {
                     return browser.history.addUrl({ url });
                 }
                 return Promise.resolve();
