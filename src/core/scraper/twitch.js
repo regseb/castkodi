@@ -40,9 +40,9 @@ define(["pebkac"], function (PebkacError) {
      *                   <em>fichier</em>.
      */
     rules.set(["https://www.twitch.tv/*"], function (url) {
+        const headers = { "client-id": "jzkbprff40iqj646a697cyrvl0zt2m6" };
         return fetch("https://api.twitch.tv/kraken/channels" + url.pathname,
-                     { "headers": { "Client-ID": null } }).then(
-                                                           function (response) {
+                     { headers }).then(function (response) {
             return response.json();
         }).then(function (response) {
             if ("_id" in response) {
