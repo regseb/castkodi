@@ -10,8 +10,8 @@ define([], function () {
             this.name = "PebkacError";
             this.title = browser.i18n.getMessage("notifications_" + key +
                                                  "_title");
-        } // constructor()
-    }; // PebkacError
+        }
+    };
 
     return PebkacError;
 });

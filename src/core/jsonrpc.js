@@ -68,7 +68,7 @@ define(["pebkac"], function (PebkacError) {
             }
             throw error;
         });
-    }; // request()
+    };
 
     /**
      * Teste la connexion à Kodi.
@@ -78,7 +78,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const check = function () {
         return request("JSONRPC.Version");
-    }; // check()
+    };
 
     /**
      * Ajoute un média à la liste de lecture.
@@ -90,7 +90,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const add = function (playlistid, file) {
         return request("Playlist.Add", { playlistid, "item": { file } });
-    }; // add()
+    };
 
     /**
      * Envoi un média.
@@ -108,7 +108,7 @@ define(["pebkac"], function (PebkacError) {
         }).then(function () {
             return request("Player.Open", { "item": { playlistid } });
         });
-    }; // send()
+    };
 
     /**
      * Passe au précédent média dans la liste de lecture.
@@ -119,7 +119,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const previous = function (playerid) {
         return request("Player.GoTo", { playerid, "to": "previous" });
-    }; // previous()
+    };
 
     /**
      * Arrête la lecture.
@@ -130,7 +130,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const stop = function (playerid) {
         return request("Player.Stop", { playerid });
-    }; // stop()
+    };
 
     /**
      * Lance ou mets en pause la lecture.
@@ -141,7 +141,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const playPause = function (playerid) {
         return request("Player.PlayPause", { playerid });
-    }; // playPause()
+    };
 
     /**
      * Passe au prochain média dans la liste de lecture.
@@ -152,7 +152,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const next = function (playerid) {
         return request("Player.GoTo", { playerid, "to": "next" });
-    }; // next()
+    };
 
     /**
      * Change la vitesse de lecture.
@@ -164,7 +164,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const setSpeed = function (playerid, speed) {
         return request("Player.SetSpeed", { playerid, speed });
-    }; // setSpeed()
+    };
 
     /**
      * Coupe ou remets le son.
@@ -175,7 +175,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const setMute = function (mute) {
         return request("Application.SetMute", { mute });
-    }; // setMute()
+    };
 
     /**
      * Change la volume.
@@ -186,7 +186,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const setVolume = function (volume) {
         return request("Application.SetVolume", { volume });
-    }; // setVolume()
+    };
 
     /**
      * Répète la liste de lecture.
@@ -197,7 +197,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const setRepeat = function (playerid) {
         return request("Player.SetRepeat", { playerid, "repeat": "cycle" });
-    }; // setRepeat()
+    };
 
     /**
      * Mélange la liste de lecture.
@@ -210,7 +210,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const setShuffle = function (playerid, shuffle) {
         return request("Player.SetShuffle", { playerid, shuffle });
-    }; // setShuffle()
+    };
 
     /**
      * Vide la liste de lecture.
@@ -221,7 +221,7 @@ define(["pebkac"], function (PebkacError) {
      */
     const clear = function (playlistid) {
         return request("Playlist.Clear", { playlistid });
-    }; // clear()
+    };
 
     /**
      * Récupère les propriétés de Kodi.
@@ -260,7 +260,7 @@ define(["pebkac"], function (PebkacError) {
                 return properties;
             });
         });
-    }; // getProperties()
+    };
 
     return {
         check,

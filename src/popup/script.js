@@ -77,11 +77,11 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
                 document.getElementById("play").style.display = "inline";
             }
         }
-    }; // paint()
+    };
 
     const previous = function () {
         jsonrpc.previous(playerid).then(paint).catch(notify);
-    }; // previous()
+    };
 
     const rewind = function () {
         switch (speed) {
@@ -90,24 +90,24 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             default: --speed;
         }
         jsonrpc.setSpeed(playerid, SPEEDS[speed]).then(paint).catch(notify);
-    }; // rewind()
+    };
 
     const stop = function () {
         jsonrpc.stop(playerid).then(function () {
             playerid = null;
             paint();
         }).catch(notify);
-    }; // stop()
+    };
 
     const pause = function () {
         speed = -1;
         jsonrpc.playPause(playerid).then(paint).catch(notify);
-    }; // pause()
+    };
 
     const play = function () {
         speed = 5;
         jsonrpc.playPause(playerid).then(paint).catch(notify);
-    }; // play()
+    };
 
     const forward = function () {
         switch (speed) {
@@ -116,21 +116,21 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             default: ++speed;
         }
         jsonrpc.setSpeed(playerid, SPEEDS[speed]).then(paint).catch(notify);
-    }; // forward()
+    };
 
     const next = function () {
         jsonrpc.next(playerid).then(paint).catch(notify);
-    }; // next()
+    };
 
     const mute = function () {
         document.getElementsByName("mute")[0].checked = true;
         jsonrpc.setMute(true).then(paint).catch(notify);
-    }; // mute()
+    };
 
     const sound = function () {
         document.getElementsByName("mute")[0].checked = false;
         jsonrpc.setMute(false).then(paint).catch(notify);
-    }; // mute()
+    };
 
     const setVolume = function () {
         volume = parseInt(document.getElementById("volume").value, 10);
@@ -139,7 +139,7 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             sound();
         }
         jsonrpc.setVolume(volume).then(paint).catch(notify);
-    }; // setVolume()
+    };
 
     const repeat = function () {
         const off = document.getElementsByName("repeat")[0];
@@ -156,17 +156,17 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             off.checked = true;
         }
         jsonrpc.setRepeat(playerid).then(paint).catch(notify);
-    }; // repeat()
+    };
 
     const shuffle = function () {
         const input = document.getElementsByName("shuffle")[0];
         input.checked = !input.checked;
         jsonrpc.setShuffle(playerid, input.checked).then(paint).catch(notify);
-    }; // shuffle()
+    };
 
     const clear = function () {
         jsonrpc.clear(playerid).then(paint).catch(notify);
-    }; // clear()
+    };
 
     const send = function () {
         // Récupérer l'URL de l'onglet courant.
@@ -189,7 +189,7 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
                 window.close();
             }).catch(notify);
         });
-    }; // send()
+    };
 
     const add = function () {
         // Récupérer l'URL de l'onglet courant.
@@ -212,20 +212,20 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
                 window.close();
             }).catch(notify);
         });
-    }; // add()
+    };
 
     const preferences = function () {
         browser.runtime.openOptionsPage().then(function () {
             window.close();
         });
-    }; // preferences()
+    };
 
     const check = function () {
         jsonrpc.check().then(function () {
             paint();
             notify(new PebkacError("success"));
         }).catch(notify);
-    }; // check()
+    };
 
     jsonrpc.getProperties().then(function (properties) {
         document.getElementsByName("mute")[0].checked = properties.muted;

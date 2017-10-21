@@ -47,7 +47,7 @@ require(["notify", "scrapers", "jsonrpc"],
             }
             return null;
         }).catch(notify);
-    }; // cast()
+    };
 
     // Ajouter des options dans le menu contextuel des liens, éléments audio et
     // video.

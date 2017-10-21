@@ -12,7 +12,7 @@ const browser = {
                 return key + ": " + substitutions.join(", ");
             }
             return key + ": " + substitutions;
-        } // getMessage()
+        }
     },
 
     "notifications": {

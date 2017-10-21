@@ -9,7 +9,7 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
 
     const sanitize = function (pattern) {
         return pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }; // sanitize()
+    };
 
     const compile = function (pattern) {
         const RE = /^(\*|https?|file|ftp):\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/i;
@@ -20,7 +20,7 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
             ("*" === host ? "[^/]+"
                           : sanitize(host).replace(/^\\\*/g, "[^./]+")) +
             "/" + sanitize(path).replace(/\\\*/g, ".*") + "$", "i");
-    }; // compile()
+    };
 
     const PATTERNS = [];
 
@@ -41,8 +41,7 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
             }
         }
         return Promise.reject(new PebkacError("unsupported"));
-    }; // extract()
+    };
 
     return { "patterns": PATTERNS, extract };
 });
-

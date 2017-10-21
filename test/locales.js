@@ -25,7 +25,7 @@ const compare = function (messages1, messages2) {
             }
         }
     }
-}; // compare()
+};
 
 describe("_locales", function () {
 

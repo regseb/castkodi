@@ -14,7 +14,7 @@ define(["jsonrpc", "pebkac", "notify"],
         document.getElementById("connection-check").disabled =
                   !(document.getElementById("connection-port").validity.valid &&
                      document.getElementById("connection-host").validity.valid);
-    }; // activate()
+    };
 
     const ask = function (input, checked) {
         const permissions = { "permissions": ["history"] };
@@ -27,7 +27,7 @@ define(["jsonrpc", "pebkac", "notify"],
             browser.permissions.remove(permissions);
             browser.storage.local.set({ "general-history": false });
         }
-    }; // ask()
+    };
 
     /**
      * Enregistre une paramètre.
@@ -47,7 +47,7 @@ define(["jsonrpc", "pebkac", "notify"],
         }
 
         activate();
-    }; // save()
+    };
 
     /**
      * Teste la connexion à Kodi.
@@ -59,7 +59,7 @@ define(["jsonrpc", "pebkac", "notify"],
         jsonrpc.check().then(function () {
             notify(new PebkacError("success"));
         }).catch(notify);
-    }; // check()
+    };
 
     // Afficher les textes dans la langue courante.
     for (const element of document.querySelectorAll("[data-i18n-content]")) {

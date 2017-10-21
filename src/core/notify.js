@@ -16,7 +16,7 @@ define([], function () {
                        : browser.i18n.getMessage("notifications_unknown_title"),
             "message": error.message
         });
-    }; // notify()
+    };
 
     return notify;
 });
