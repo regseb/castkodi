@@ -14,7 +14,7 @@ sur **Kodi** :
 
 - des vidéos : liens directs (*avi*, *mkv*, ...), YouTube, Facebook, Twitch,
   Vimeo, Dailymotion, CollegeHumor, Air Mozilla et Dumpert ;
-- des musiques : liens directs (*mp3*, *flac*, ...) et SoundCloud.
+- des musiques : liens directs (*mp3*, *flac*, ...), SoundCloud et Mixcloud.
 
 Une nouvelle option « *Diffuser sur Kodi* » est ajoutée dans le menu contextuel
 des liens / pages / sélections de vidéos ou de musiques. Puis deux choix sont
@@ -41,8 +41,9 @@ les extensions
 [Vimeo](https://kodi.tv/addon/plugins-video-add-ons/vimeo),
 [DailyMotion.com](https://kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
 [CollegeHumor](https://kodi.tv/addon/plugins-video-add-ons/collegehumor),
-[Dumpert](https://kodi.tv/addon/plugins-video-add-ons/dumpert) ou
-[SoundCloud](https://kodi.tv/addon/music-add-ons-plugins/soundcloud) dans Kodi.
+[Dumpert](https://kodi.tv/addon/plugins-video-add-ons/dumpert),
+[SoundCloud](https://kodi.tv/addon/music-add-ons-plugins/soundcloud) ou
+[Mixcloud](https://kodi.tv/addon/music-add-ons-plugins/mixcloud) dans Kodi.
 
 ## Licence
 
