@@ -24,6 +24,9 @@ require(["notify", "scrapers", "jsonrpc"],
         if (!("youtube-playlist" in config)) {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
         }
+        if (!("airmozilla-format" in config)) {
+            browser.storage.local.set({ "airmozilla-format": "hd_webm" });
+        }
     });
 
     /**

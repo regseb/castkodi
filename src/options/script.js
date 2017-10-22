@@ -73,7 +73,7 @@ define(["jsonrpc", "pebkac", "notify"],
         for (const key of Object.keys(config)) {
             const [form, name] = key.split("-");
             const inputs = document.querySelectorAll(
-                                   "#" + form + " input[name=\"" + name + "\"");
+                                        "#" + form + " [name=\"" + name + "\"");
             if (1 === inputs.length) {
                 const input = inputs[0];
                 if ("checkbox" === input.type) {
@@ -90,8 +90,8 @@ define(["jsonrpc", "pebkac", "notify"],
         activate();
     });
 
-    // Écouter les actions dans le formulaire (champs et bouton).
-    for (const input of document.getElementsByTagName("input")) {
+    // Écouter les actions dans le formulaire.
+    for (const input of document.querySelectorAll("[name]")) {
         input.addEventListener("input", save);
     }
     document.getElementById("connection-check").addEventListener("click",

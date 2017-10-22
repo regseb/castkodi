@@ -126,5 +126,24 @@
     },
     "options_youtube-playlist-video_content": {
         "message": "cast only the video."
+    },
+
+    "options_airmozilla-title_content": {
+        "message": "Air Mozilla"
+    },
+    "options_airmozilla-format_content": {
+        "message": "Preferred video format:"
+    },
+    "options_airmozilla-hdwebm_content": {
+        "message": "WebM (HD)"
+    },
+    "options_airmozilla-webm_content": {
+        "message": "WebM"
+    },
+    "options_airmozilla-hdmp4_content": {
+        "message": "MP4 (HD)"
+    },
+    "options_airmozilla-mp4_content": {
+        "message": "MP4"
     }
 }
