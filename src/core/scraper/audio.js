@@ -19,8 +19,8 @@ define(function () {
      * @return {Promise} L'identifiant de la file d'attente et l'URL du fichier.
      */
     rules.set([
-        "*://*/*.aac", "*://*/*.flac", "*://*/*.m4a", "*://*/*.mka",
-        "*://*/*.mp3", "*://*/*.ogg", "*://*/*.pls"
+        "*://*/*aac", "*://*/*flac", "*://*/*m4a", "*://*/*mka", "*://*/*mp3",
+        "*://*/*ogg", "*://*/*pls"
     ], function (url) {
         return Promise.resolve({
             "playlistid": PLAYLIST_ID,

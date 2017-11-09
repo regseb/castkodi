@@ -25,24 +25,26 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
 
     const PATTERNS = [];
 
-    const RULES = scrapers.reduce(function (rules, scraper) {
-        for (const [patterns, action] of scraper.entries()) {
-            for (const pattern of patterns) {
-                PATTERNS.push(pattern);
-                rules.set(compile(pattern), action);
-            }
-        }
-        return rules;
-    }, new Map());
+    const RULES = new Map();
 
     const extract = function (url) {
+        const prefix = url.protocol + "//" + url.hostname + url.pathname;
         for (const [pattern, action] of RULES) {
-            if (pattern.test(url.toString())) {
+            if (pattern.test(prefix)) {
                 return action(url);
             }
         }
         return Promise.reject(new PebkacError("unsupported"));
     };
+
+    for (const scraper of scrapers) {
+        for (const [patterns, action] of scraper.entries()) {
+            for (const pattern of patterns) {
+                PATTERNS.push(pattern);
+                RULES.set(compile(pattern), action);
+            }
+        }
+    }
 
     return { "patterns": PATTERNS, extract };
 });

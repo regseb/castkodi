@@ -42,15 +42,11 @@ describe("scrapers", function () {
             });
         });
 
-        it("should support correctly point in pattern", function () {
-            const url = new URL("https://en.wikipedia.org/wiki/MP3");
-            const expected = "unsupported";
-            return module.extract(url).then(function () {
-                assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+        it("should support correctly question mark in pattern", function () {
+            const url = new URL("https://vid.ly/i2x4g5.mp4?quality=hd");
+            const expected = url.toString();
+            return module.extract(url).then(function ({ file }) {
+                assert.strictEqual(file, expected);
             });
         });
 
