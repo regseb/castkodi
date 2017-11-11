@@ -32,23 +32,23 @@ define(["pebkac"], function (PebkacError) {
                                                              function (config) {
             if (url.searchParams.has("list") &&
                     "playlist" === config["youtube-playlist"]) {
-                return Promise.resolve({
+                return {
                     "playlistid": PLAYLIST_ID,
                     "file":       PLUGIN_URL +
                                      "?action=play_all" +
                                      "&playlist=" + url.searchParams.get("list")
-                });
+                };
             }
             if (url.searchParams.has("v")) {
-                return Promise.resolve({
+                return {
                     "playlistid": PLAYLIST_ID,
                     "file":       PLUGIN_URL +
                                          "?action=play_video" +
                                          "&videoid=" + url.searchParams.get("v")
-                });
+                };
             }
 
-            return Promise.reject(new PebkacError("novideo", "YouTube"));
+            throw new PebkacError("novideo", "YouTube");
         });
     });
 
