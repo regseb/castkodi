@@ -24,7 +24,7 @@ define(["pebkac"], function (PebkacError) {
      * @return {Promise} L'identifiant de la file d'attente et l'URL du
      *                   <em>fichier</em>.
      */
-    rules.set(["https://www.twitch.tv/videos/*"], function (url) {
+    rules.set(["https://*.twitch.tv/videos/*"], function (url) {
         return Promise.resolve({
             "playlistid": PLAYLIST_ID,
             "file":       PLUGIN_URL + "?mode=play" +
@@ -39,7 +39,7 @@ define(["pebkac"], function (PebkacError) {
      * @return {Promise} L'identifiant de la file d'attente et l'URL du
      *                   <em>fichier</em>.
      */
-    rules.set(["https://www.twitch.tv/*"], function (url) {
+    rules.set(["https://*.twitch.tv/*"], function (url) {
         const headers = { "client-id": "jzkbprff40iqj646a697cyrvl0zt2m6" };
         return fetch("https://api.twitch.tv/kraken/channels" + url.pathname,
                      { headers }).then(function (response) {
