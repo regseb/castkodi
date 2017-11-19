@@ -3,13 +3,19 @@
         "message": "Diffuser des vidéos et des musiques sur Kodi."
     },
 
-    "contextMenus_parent": {
+    "menus_first-parent": {
         "message": "Diffuser sur Kodi"
     },
-    "contextMenus_play": {
+    "menus_first-play": {
+        "message": "Lire avec Kodi"
+    },
+    "menus_first-add": {
+        "message": "Placer en file d'attente de Kodi"
+    },
+    "menus_second-play": {
         "message": "Lire"
     },
-    "contextMenus_add": {
+    "menus_second-add": {
         "message": "Placer en file d'attente"
     },
 
@@ -113,6 +119,19 @@
     },
     "options_general-history_content": {
         "message": "Ajouter les liens diffusés sur Kodi dans l'historique du navigateur."
+    },
+
+    "options_menus-title_content": {
+        "message": "Menu contextuel"
+    },
+    "options_menus-description_content": {
+        "message": "Sélectionner les options ajoutées dans le menu contextuel :"
+    },
+    "options_menus-play_content": {
+        "message": "Lire avec Kodi"
+    },
+    "options_menus-add_content": {
+        "message": "Placer en file d'attente de Kodi"
     },
 
     "options_youtube-title_content": {

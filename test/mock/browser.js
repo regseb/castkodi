@@ -1,8 +1,32 @@
 "use strict";
 
-const storage = {};
-
 const browser = {
+    "gimmick": {
+        "menus": {
+            "items":     [],
+            "listeners": []
+        },
+        "storage": {}
+    },
+
+    "menus": {
+        "removeAll": function () {
+            browser.gimmick.menus.items.length = 0;
+            return Promise.resolve();
+        },
+        "create": function (item) {
+            browser.gimmick.menus.items.push(item);
+        },
+        "onClicked": {
+            "addListener": function (listener) {
+                browser.gimmick.menus.listeners.push(listener);
+            },
+            "hasListener": function (listener) {
+                return browser.gimmick.menus.listeners.includes(listener);
+            }
+        }
+    },
+
     "i18n": {
         "getMessage": function (key, substitutions = []) {
             if (Array.isArray(substitutions)) {
@@ -24,10 +48,10 @@ const browser = {
     "storage": {
         "local": {
             "get": function () {
-                return Promise.resolve(storage);
+                return Promise.resolve(browser.gimmick.storage);
             },
             "set": function (values) {
-                Object.assign(storage, values);
+                Object.assign(browser.gimmick.storage, values);
             }
         }
     }

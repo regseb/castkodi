@@ -7,27 +7,28 @@ require.config({
 require(["notify", "scrapers", "jsonrpc"],
         function (notify, scrapers, jsonrpc) {
 
-    browser.storage.local.get().then(function (config) {
-        // Migrer les anciennes données (avant la version 1.0.0).
-        for (const name of ["port", "username", "password", "host"]) {
-            if (name in config) {
-                browser.storage.local.set({
-                    ["connection-" + name]: config[name]
-                });
-                browser.storage.local.remove(name);
-            }
+    /**
+     * La liste des options qui seront ajoutées dans le menu contextuel pour :
+     * <ul>
+     *   <li>les éléments audio, les liens et les vidéos ;</li>
+     *   <li>le bouton de l'exntesion, les <em>iframe</em>, la page et
+     *        l'onglet ;</li>
+     *   <li>les textes sélectionnés.</li>
+     * </ul>
+     */
+    const KINDS = {
+        "target": {
+            "contexts":          ["audio", "link", "video"],
+            "targetUrlPatterns": scrapers.patterns
+        },
+        "document": {
+            "contexts":            ["browser_action", "frame", "page", "tab"],
+            "documentUrlPatterns": scrapers.patterns
+        },
+        "selection": {
+            "contexts": ["selection"]
         }
-        // Définir des valeurs par défaut.
-        if (!("general-history" in config)) {
-            browser.storage.local.set({ "general-history": false });
-        }
-        if (!("youtube-playlist" in config)) {
-            browser.storage.local.set({ "youtube-playlist": "playlist" });
-        }
-        if (!("airmozilla-format" in config)) {
-            browser.storage.local.set({ "airmozilla-format": "hd_webm" });
-        }
-    });
+    };
 
     /**
      * Diffuse un média sur Kodi.
@@ -36,7 +37,7 @@ require(["notify", "scrapers", "jsonrpc"],
      */
     const cast = function (info) {
         const urls = [info.selectionText, info.linkUrl, info.srcUrl,
-                      info.pageUrl];
+                      info.frameUrl, info.pageUrl];
         const url = new URL(urls.find((u) => undefined !== u && "" !== u));
         scrapers.extract(url).then(function ({ playlistid, file }) {
             return info.menuItemId.startsWith("play")
@@ -52,74 +53,92 @@ require(["notify", "scrapers", "jsonrpc"],
         }).catch(notify);
     };
 
-    // Ajouter des options dans le menu contextuel des liens, éléments audio et
-    // video.
-    browser.contextMenus.create({
-        "contexts":          ["audio", "link", "video"],
-        "id":                "parent_target",
-        "targetUrlPatterns": scrapers.patterns,
-        "title":             browser.i18n.getMessage("contextMenus_parent")
-    });
-    browser.contextMenus.create({
-        "contexts":          ["audio", "link", "video"],
-        "id":                "play_target",
-        "onclick":           cast,
-        "parentId":          "parent_target",
-        "targetUrlPatterns": scrapers.patterns,
-        "title":             browser.i18n.getMessage("contextMenus_play")
-    });
-    browser.contextMenus.create({
-        "contexts":          ["audio", "link", "video"],
-        "id":                "add_target",
-        "onclick":           cast,
-        "parentId":          "parent_target",
-        "targetUrlPatterns": scrapers.patterns,
-        "title":             browser.i18n.getMessage("contextMenus_add")
-    });
+    /**
+     * Ajoute les options dans les menus contextuels.
+     *
+     * @param {Object} changes Les paramètres de la configuration modifiés.
+     */
+    const menu = function (changes) {
+        // Ignorer tous les paramètres sauf ceux liés au menu contextuel.
+        if (!("menus-play" in changes) && !("menus-add" in changes)) {
+            return;
+        }
+        browser.storage.local.get().then(function (config) {
+            // Vider les options du menu contextuel, puis ajouter les options.
+            return browser.menus.removeAll().then(function () {
+                if (config["menus-play"] && config["menus-add"]) {
+                    for (const key in KINDS) {
+                        browser.menus.create(Object.assign({}, KINDS[key], {
+                            "id":    "parent_" + key,
+                            "title": browser.i18n.getMessage(
+                                                           "menus_first-parent")
+                        }));
+                        browser.menus.create({
+                            "id":       "play_" + key,
+                            "parentId": "parent_" + key,
+                            "title":    browser.i18n.getMessage(
+                                                            "menus_second-play")
+                        });
+                        browser.menus.create({
+                            "id":       "add_" + key,
+                            "parentId": "parent_" + key,
+                            "title":    browser.i18n.getMessage(
+                                                             "menus_second-add")
+                        });
+                    }
+                } else if (config["menus-play"]) {
+                    for (const key in KINDS) {
+                        browser.menus.create(Object.assign({}, KINDS[key], {
+                            "id":    "play_" + key,
+                            "title": browser.i18n.getMessage("menus_first-play")
+                        }));
+                    }
+                } else if (config["menus-add"]) {
+                    for (const key in KINDS) {
+                        browser.menus.create(Object.assign({}, KINDS[key], {
+                            "id":    "add_" + key,
+                            "title": browser.i18n.getMessage("menus_first-add")
+                        }));
+                    }
+                }
 
-    // Ajouter des options dans le menu contextuel des pages et du bouton de
-    // l'extension.
-    browser.contextMenus.create({
-        "contexts":            ["browser_action", "page", "tab"],
-        "id":                  "parent_document",
-        "documentUrlPatterns": scrapers.patterns,
-        "title":               browser.i18n.getMessage("contextMenus_parent")
-    });
-    browser.contextMenus.create({
-        "contexts":            ["browser_action", "page", "tab"],
-        "id":                  "play_document",
-        "onclick":             cast,
-        "parentId":            "parent_document",
-        "documentUrlPatterns": scrapers.patterns,
-        "title":               browser.i18n.getMessage("contextMenus_play")
-    });
-    browser.contextMenus.create({
-        "contexts":            ["browser_action", "page", "tab"],
-        "id":                  "add_document",
-        "onclick":             cast,
-        "parentId":            "parent_document",
-        "documentUrlPatterns": scrapers.patterns,
-        "title":               browser.i18n.getMessage("contextMenus_add")
-    });
+                if (!browser.menus.onClicked.hasListener(cast)) {
+                    browser.menus.onClicked.addListener(cast);
+                }
+            });
+        });
+    };
 
-    // Ajouter des options dans le menu contextuel des textes sélectionnés.
-    browser.contextMenus.create({
-        "contexts": ["selection"],
-        "id":       "parent_selection",
-        "title":    browser.i18n.getMessage("contextMenus_parent")
-    });
-    browser.contextMenus.create({
-        "contexts": ["selection"],
-        "id":       "play_selection",
-        "onclick":  cast,
-        "parentId": "parent_selection",
-        "title":    browser.i18n.getMessage("contextMenus_play")
-    });
-    browser.contextMenus.create({
-        "contexts": ["selection"],
-        "id":       "add_selection",
-        "onclick":  cast,
-        "parentId": "parent_selection",
-        "title":    browser.i18n.getMessage("contextMenus_add")
+    browser.storage.local.get().then(function (config) {
+        // Migrer les anciennes données (avant la version 1.0.0).
+        for (const name of ["port", "username", "password", "host"]) {
+            if (name in config) {
+                browser.storage.local.set({
+                    ["connection-" + name]: config[name]
+                });
+                browser.storage.local.remove(name);
+            }
+        }
+        // Définir des valeurs par défaut.
+        if (!("general-history" in config)) {
+            browser.storage.local.set({ "general-history": false });
+        }
+        if (!("menus-play" in config)) {
+            browser.storage.local.set({ "menus-play": true });
+        }
+        if (!("menus-add" in config)) {
+            browser.storage.local.set({ "menus-add": true });
+        }
+        if (!("youtube-playlist" in config)) {
+            browser.storage.local.set({ "youtube-playlist": "playlist" });
+        }
+        if (!("airmozilla-format" in config)) {
+            browser.storage.local.set({ "airmozilla-format": "hd_webm" });
+        }
+
+        // Ajouter les options dans les menus contextuels et surveiller les
+        // futures changement de la configuration.
+        menu({ "menus-play": null, "menus-add": null });
+        browser.storage.onChanged.addListener(menu);
     });
 });

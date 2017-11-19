@@ -3,13 +3,19 @@
         "message": "Cast videos and music to Kodi."
     },
 
-    "contextMenus_parent": {
+    "menus_first-parent": {
         "message": "Cast to Kodi"
     },
-    "contextMenus_play": {
+    "menus_first-play": {
+        "message": "Play to Kodi"
+    },
+    "menus_first-add": {
+        "message": "Queue item to Kodi"
+    },
+    "menus_second-play": {
         "message": "Play"
     },
-    "contextMenus_add": {
+    "menus_second-add": {
         "message": "Queue item"
     },
 
@@ -105,7 +111,7 @@
         "message": "IP address:"
     },
     "options_connection-check_content": {
-        "message": "Test Connection"
+        "message": "Test connection"
     },
 
     "options_general-title_content": {
@@ -113,6 +119,19 @@
     },
     "options_general-history_content": {
         "message": "Add casted links in browser history."
+    },
+
+    "options_menus-title_content": {
+        "message": "Context menu"
+    },
+    "options_menus-description_content": {
+        "message": "Choose items added to the context menu :"
+    },
+    "options_menus-play_content": {
+        "message": "Play to Kodi"
+    },
+    "options_menus-add_content": {
+        "message": "Queue item to Kodi"
     },
 
     "options_youtube-title_content": {

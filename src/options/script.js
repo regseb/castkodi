@@ -30,14 +30,18 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     /**
-     * Enregistre une paramètre.
+     * Enregistre un paramètre.
      *
      * @this HTMLInputElement
      */
     const save = function () {
         const key = this.form.id + "-" + this.name;
         if ("checkbox" === this.type) {
-            ask(this, this.checked);
+            if ("history" === this.name) {
+                ask(this, this.checked);
+            } else {
+                browser.storage.local.set({ [key]: this.checked });
+            }
         } else if ("radio" === this.type) {
             browser.storage.local.set({ [key]: this.value });
         } else if (0 === this.value.length) {
@@ -73,7 +77,7 @@ define(["jsonrpc", "pebkac", "notify"],
         for (const key of Object.keys(config)) {
             const [form, name] = key.split("-");
             const inputs = document.querySelectorAll(
-                                        "#" + form + " [name=\"" + name + "\"");
+                                       "#" + form + " [name=\"" + name + "\"]");
             if (1 === inputs.length) {
                 const input = inputs[0];
                 if ("checkbox" === input.type) {
