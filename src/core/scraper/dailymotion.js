@@ -47,5 +47,20 @@ define([], function () {
         });
     });
 
+    /**
+     * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+     *
+     * @param {String} url L'URL d'une vidéo Dailymotion.
+     * @return {Promise} L'identifiant de la file d'attente et l'URL du
+     *                   <em>fichier</em>.
+     */
+    rules.set(["*://www.dailymotion.com/embed/video/*"], function (url) {
+        return Promise.resolve({
+            "playlistid": PLAYLIST_ID,
+            "file":       PLUGIN_URL + "?mode=playVideo" +
+                                       "&url=" + url.pathname.substr(13)
+        });
+    });
+
     return rules;
 });

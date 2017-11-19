@@ -46,11 +46,25 @@ describe("scraper/dailymotion", function () {
     });
 
     describe("*://dai.ly/*", function () {
-        it("should return video id", function () {
+        it("should return tiny video id", function () {
             const url = new URL("http://dai.ly/x5riqme");
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x5riqme";
+            return module.extract(url).then(function ({ playlistid, file }) {
+                assert.strictEqual(playlistid, 1);
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://www.dailymotion.com/embed/video/*", function () {
+        it("should return embed video id", function () {
+            const url = new URL("https://www.dailymotion.com/embed/video/" +
+                                                                     "a12bc3d");
+            const expected = "plugin://plugin.video.dailymotion_com/" +
+                                                             "?mode=playVideo" +
+                                                             "&url=a12bc3d";
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 1);
                 assert.strictEqual(file, expected);
