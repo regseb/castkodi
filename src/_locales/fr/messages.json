@@ -89,6 +89,64 @@
         "message": "Le serveur Web de Kodi a été trouvé."
     },
 
+    "popup_send_title": {
+        "message": "Lire avec Kodi"
+    },
+    "popup_add_title": {
+        "message": "Placer en file d'attente de Kodi"
+    },
+    "popup_paste_title": {
+        "message": "Coller un lien"
+    },
+    "popup_preferences_title": {
+        "message": "Configurer"
+    },
+    "popup_love_title": {
+        "message": "Évaluer votre expérience"
+    },
+    "popup_warning_title": {
+        "message": "Tester la connexion"
+    },
+    "popup_reviews_url": {
+        "message": "https://addons.mozilla.org/fr/firefox/addon/castkodi/reviews/"
+    },
+    "popup_previous_title": {
+        "message": "Revenir au précédent"
+    },
+    "popup_rewind_title": {
+        "message": "Rembobiner"
+    },
+    "popup_stop_title": {
+        "message": "Arrêter"
+    },
+    "popup_pause_title": {
+        "message": "Mettre sur pause"
+    },
+    "popup_play_title": {
+        "message": "Lire"
+    },
+    "popup_forward_title": {
+        "message": "Avancer rapidement"
+    },
+    "popup_next_title": {
+        "message": "Passer au suivant"
+    },
+    "popup_mute_title": {
+        "message": "Remettre le son"
+    },
+    "popup_sound_title": {
+        "message": "Couper le son"
+    },
+    "popup_repeat_title": {
+        "message": "Répéter"
+    },
+    "popup_shuffle_title": {
+        "message": "Mélanger"
+    },
+    "popup_clear_title": {
+        "message": "Effacer"
+    },
+
     "options_connection-title_content": {
         "message": "Connexion"
     },

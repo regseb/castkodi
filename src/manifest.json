@@ -17,7 +17,7 @@
     },
 
     "browser_action": {
-        "browser_style": true,
+        "browser_style": false,
         "default_icon": "img/icon.svg",
         "default_title": "Cast Kodi",
         "default_popup": "popup/index.html"

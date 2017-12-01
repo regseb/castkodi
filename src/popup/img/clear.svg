@@ -1,25 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <line x1="3" y1="4" x2="14" y2="4" stroke-width="2"
-          stroke-linecap="round" />
-    <defs>
-      <mask id="tray">
-        <rect x="3" y="4" width="11" height="14" fill="white"
-              stroke-width="0" />
-      </mask>
-    </defs>
-
-    <g mask="url(#tray)">
-      <rect x="4" y="3" width="9" height="13" rx="2" ry="2" fill="none"
-            stroke-width="2" />
-    </g>
-    <path d="M 6.5,3.5 A 2,2 0 0,1 10.5,3.5" fill="none" stroke-width="1" />
-    <line x1="6.5" y1="6.5" x2="6.5" y2="12.5" stroke-width="1"
-          stroke-linecap="round" />
-    <line x1="8.5" y1="6.5" x2="8.5" y2="12.5" stroke-width="1"
-          stroke-linecap="round" />
-    <line x1="10.5" y1="6.5" x2="10.5" y2="12.5" stroke-width="1"
-          stroke-linecap="round" />
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+  <g fill="#737373">
+    <path d="M6.5 12a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 0 .5.5zm2 0a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 0 .5.5zm2 0a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 0 .5.5z"
+          stroke-width="0" />
+    <path d="M14 2h-3.05a2.5 2.5 0 0 0-4.9 0H3a1 1 0 0 0 0 2v9a3 3 0 0 0 3 3h5a3 3 0 0 0 3-3V4a1 1 0 0 0 0-2zM8.5 1a1.489 1.489 0 0 1 1.391 1H7.109A1.489 1.489 0 0 1 8.5 1zM12 13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4h7z"
+          stroke-width="0" />
   </g>
 </svg>

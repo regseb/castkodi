@@ -89,6 +89,64 @@
         "message": "Web server of Kodi has been found."
     },
 
+    "popup_send_title": {
+        "message": "Play to Kodi"
+    },
+    "popup_add_title": {
+        "message": "Queue item to Kodi"
+    },
+    "popup_paste_title": {
+        "message": "Paste link"
+    },
+    "popup_preferences_title": {
+        "message": "Configure"
+    },
+    "popup_love_title": {
+        "message": "Rate your experience"
+    },
+    "popup_warning_title": {
+        "message": "Test connection"
+    },
+    "popup_reviews_url": {
+        "message": "https://addons.mozilla.org/en-US/firefox/addon/castkodi/reviews/"
+    },
+    "popup_previous_title": {
+        "message": "Go to previous"
+    },
+    "popup_rewind_title": {
+        "message": "Rewind"
+    },
+    "popup_stop_title": {
+        "message": "Stop"
+    },
+    "popup_pause_title": {
+        "message": "Pause"
+    },
+    "popup_play_title": {
+        "message": "Play"
+    },
+    "popup_forward_title": {
+        "message": "Fast forward"
+    },
+    "popup_next_title": {
+        "message": "Go to next"
+    },
+    "popup_mute_title": {
+        "message": "Unmute"
+    },
+    "popup_sound_title": {
+        "message": "Mute"
+    },
+    "popup_repeat_title": {
+        "message": "Repeat"
+    },
+    "popup_shuffle_title": {
+        "message": "Shuffle"
+    },
+    "popup_clear_title": {
+        "message": "Clear"
+    },
+
     "options_connection-title_content": {
         "message": "Connection"
     },

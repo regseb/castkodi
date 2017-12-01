@@ -15,6 +15,15 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
 
     const paint = function () {
         if (null === volume) {
+            document.getElementById("send").disabled = true;
+            document.getElementById("add").disabled = true;
+            document.getElementsByName("paste")[0].disabled = true;
+            document.getElementById("preferences").disabled = false;
+            document.getElementById("love").disabled = false;
+            document.getElementById("warning").disabled = false;
+            document.getElementById("love").style.display = "none";
+            document.getElementById("warning").style.display = "inline";
+
             document.getElementById("previous").disabled = true;
             document.getElementById("rewind").disabled = true;
             document.getElementById("stop").disabled = true;
@@ -22,6 +31,7 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             document.getElementById("play").disabled = true;
             document.getElementById("forward").disabled = true;
             document.getElementById("next").disabled = true;
+
             document.getElementsByName("mute")[0].disabled = true;
             document.getElementById("sound").disabled = true;
             document.getElementById("volume").disabled = true;
@@ -30,22 +40,31 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             }
             document.getElementsByName("shuffle")[0].disabled = true;
             document.getElementById("clear").disabled = true;
-            document.getElementById("send").disabled = true;
-            document.getElementById("add").disabled = true;
-            document.getElementById("preferences").disabled = false;
-            document.getElementById("check").disabled = false;
-            document.getElementById("warning").disabled = false;
-
-            document.getElementById("check").style.display = "none";
-            document.getElementById("warning").style.display = "inline";
         } else {
+            document.getElementById("send").disabled = false;
+            document.getElementById("add").disabled = false;
+            document.getElementsByName("paste")[0].disabled = false;
+            document.getElementById("preferences").disabled = false;
+            document.getElementById("love").disabled = false;
+            document.getElementById("warning").disabled = false;
+            document.getElementById("warning").style.display = "none";
+            document.getElementById("love").style.display = "inline-block";
+
             document.getElementById("previous").disabled = null === playerid;
             document.getElementById("rewind").disabled = null === playerid;
             document.getElementById("stop").disabled = null === playerid;
             document.getElementById("pause").disabled = null === playerid;
             document.getElementById("play").disabled = null === playerid;
+            if (5 === speed) {
+                document.getElementById("play").style.display = "none";
+                document.getElementById("pause").style.display = "inline";
+            } else {
+                document.getElementById("pause").style.display = "none";
+                document.getElementById("play").style.display = "inline";
+            }
             document.getElementById("forward").disabled = null === playerid;
             document.getElementById("next").disabled = null === playerid;
+
             document.getElementsByName("mute")[0].disabled = false;
             document.getElementById("sound").disabled = false;
             document.getElementById("volume").disabled = false;
@@ -60,23 +79,97 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             document.getElementsByName("shuffle")[0].disabled =
                                                               null === playerid;
             document.getElementById("clear").disabled = null === playerid;
-            document.getElementById("send").disabled = false;
-            document.getElementById("add").disabled = false;
-            document.getElementById("preferences").disabled = false;
-            document.getElementById("check").disabled = false;
-            document.getElementById("warning").disabled = false;
-
-            document.getElementById("warning").style.display = "none";
-            document.getElementById("check").style.display = "inline";
-
-            if (5 === speed) {
-                document.getElementById("play").style.display = "none";
-                document.getElementById("pause").style.display = "inline";
-            } else {
-                document.getElementById("pause").style.display = "none";
-                document.getElementById("play").style.display = "inline";
-            }
         }
+    };
+
+    const send = function () {
+        let input;
+        if (document.getElementsByName("paste")[0].checked) {
+            input = Promise.resolve(
+                            document.getElementsByTagName("textarea")[0].value);
+        } else {
+            // Récupérer l'URL de l'onglet courant.
+            const queryInfo = {
+                "active":        true,
+                "currentWindow": true
+            };
+            input = browser.tabs.query(queryInfo).then(([{ url }]) => url);
+        }
+
+        input.then(function (url) {
+            scrapers.extract(new URL(url)).then(
+                                               function ({ playlistid, file }) {
+                return jsonrpc.send(playlistid, file);
+            }).then(function () {
+                return browser.storage.local.get(["general-history"]);
+            }).then(function (config) {
+                if (config["general-history"]) {
+                    return browser.history.addUrl({ url });
+                }
+                return Promise.resolve();
+            }).then(close).catch(notify);
+        });
+    };
+
+    const add = function () {
+        let input;
+        if (document.getElementsByName("paste")[0].checked) {
+            input = Promise.resolve(
+                            document.getElementsByTagName("textarea")[0].value);
+        } else {
+            // Récupérer l'URL de l'onglet courant.
+            const queryInfo = {
+                "active":        true,
+                "currentWindow": true
+            };
+            input = browser.tabs.query(queryInfo).then(([{ url }]) => url);
+        }
+
+        input.then(function (url) {
+            scrapers.extract(new URL(url)).then(
+                                               function ({ playlistid, file }) {
+                return jsonrpc.add(playlistid, file);
+            }).then(function () {
+                return browser.storage.local.get(["general-history"]);
+            }).then(function (config) {
+                if (config["general-history"]) {
+                    return browser.history.addUrl({ url });
+                }
+                return Promise.resolve();
+            }).then(close).catch(notify);
+        });
+    };
+
+    const paste = function () {
+        const input = document.getElementsByName("paste")[0];
+        if (input.checked) {
+            input.checked = false;
+            document.getElementById("preferences").disabled = false;
+            document.getElementById("love").disabled = false;
+        } else {
+            input.checked = true;
+            document.getElementById("preferences").disabled = true;
+            document.getElementById("love").disabled = true;
+            document.getElementsByTagName("textarea")[0].focus();
+        }
+    };
+
+    const preferences = function () {
+        browser.runtime.openOptionsPage().then(close);
+    };
+
+    const love = function () {
+        browser.tabs.create({
+            "url": browser.i18n.getMessage("popup_reviews_url")
+        });
+        window.close();
+    };
+
+    const warning = function () {
+        jsonrpc.check().then(function () {
+            paint();
+            notify(new PebkacError("success"));
+        }).catch(notify);
     };
 
     const previous = function () {
@@ -168,65 +261,6 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
         jsonrpc.clear(playerid).then(paint).catch(notify);
     };
 
-    const send = function () {
-        // Récupérer l'URL de l'onglet courant.
-        const queryInfo = {
-            "active":        true,
-            "currentWindow": true
-        };
-        browser.tabs.query(queryInfo).then(function ([{ url }]) {
-            scrapers.extract(new URL(url)).then(
-                                               function ({ playlistid, file }) {
-                return jsonrpc.send(playlistid, file);
-            }).then(function () {
-                return browser.storage.local.get(["general-history"]);
-            }).then(function (config) {
-                if (config["general-history"]) {
-                    return browser.history.addUrl({ url });
-                }
-                return Promise.resolve();
-            }).then(function () {
-                window.close();
-            }).catch(notify);
-        });
-    };
-
-    const add = function () {
-        // Récupérer l'URL de l'onglet courant.
-        const queryInfo = {
-            "active":        true,
-            "currentWindow": true
-        };
-        browser.tabs.query(queryInfo).then(function ([{ url }]) {
-            scrapers.extract(new URL(url)).then(
-                                               function ({ playlistid, file }) {
-                return jsonrpc.add(playlistid, file);
-            }).then(function () {
-                return browser.storage.local.get(["general-history"]);
-            }).then(function (config) {
-                if (config["general-history"]) {
-                    return browser.history.addUrl({ url });
-                }
-                return Promise.resolve();
-            }).then(function () {
-                window.close();
-            }).catch(notify);
-        });
-    };
-
-    const preferences = function () {
-        browser.runtime.openOptionsPage().then(function () {
-            window.close();
-        });
-    };
-
-    const check = function () {
-        jsonrpc.check().then(function () {
-            paint();
-            notify(new PebkacError("success"));
-        }).catch(notify);
-    };
-
     jsonrpc.getProperties().then(function (properties) {
         document.getElementsByName("mute")[0].checked = properties.muted;
         volume = properties.volume;
@@ -262,9 +296,27 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
 
     document.getElementById("send").addEventListener("click", send);
     document.getElementById("add").addEventListener("click", add);
+    document.getElementById("paste").addEventListener("click", paste);
 
     document.getElementById("preferences").addEventListener("click",
                                                             preferences);
-    document.getElementById("check").addEventListener("click", check);
-    document.getElementById("warning").addEventListener("click", check);
+    document.getElementById("love").addEventListener("click", love);
+    document.getElementById("warning").addEventListener("click", warning);
+
+    for (const element of document.getElementsByTagName("object")) {
+        fetch(element.getAttribute("data")).then(function (response) {
+            return response.text();
+        }).then(function (svg) {
+            element.innerHTML = svg;
+            element.removeAttribute("data");
+        });
+    }
+
+    // Afficher les textes dans la langue courante.
+    for (const element of document.querySelectorAll("[data-i18n-title]")) {
+        const key = "popup_" + element.getAttribute("data-i18n-title") +
+                    "_title";
+        element.setAttribute("title", browser.i18n.getMessage(key));
+    }
+
 });

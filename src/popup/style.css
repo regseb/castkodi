@@ -1,20 +1,18 @@
 body {
     background-color: #2a2a2e;
-    cursor: default;
-    margin: 0;
-    margin-top: 8px;
+    margin: 4px 0;
 }
 
 hr {
-    width: 100%;
     border: 0;
     border-bottom: 1px solid #737373;
+    margin: 0;
+    width: 100%;
 }
 ul {
     align-items: center;
     display: flex;
-    margin: 0;
-    margin-bottom: 8px;
+    margin: 0 4px;
     padding-left: 0;
 }
 li {
@@ -25,24 +23,26 @@ li {
 li.colspan-2 {
     flex: 2;
 }
-svg {
-    display: block;
+object {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
 }
 button {
     background: none;
     border: 0;
-    display: inline-block;
-    padding: 4px 8px;
+    height: 40px;
+    padding: 12px 8px;
 }
-button > svg > *, span > svg > * {
+button svg > *, span svg > * {
     fill: #f9f9fa;
     stroke: #f9f9fa;
 }
-button:hover > svg > *, span:hover > svg > * {
+button:hover svg > *, span:hover svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
-button:disabled > svg > *, input:disabled ~ span > svg > * {
+button:disabled svg > *, input:disabled ~ span svg > * {
     fill: #737373;
     stroke: #737373;
 }
@@ -53,7 +53,7 @@ input[type="radio"], input[type="checkbox"] {
 
 input[type="range"] {
     margin: 0;
-    padding: 0;
+    padding: 5px 0;
     border: 0;
     width: 100%;
 }
@@ -63,10 +63,9 @@ input[type="range"]::-moz-focus-outer {
 input[type="range"]::-moz-range-thumb {
     background-color: white;
     border: 0;
-    border-radius: 50%;
     filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.65));
-    height: 13px;
-    width: 13px;
+    height: 12px;
+    width: 12px;
 }
 input[type="range"]::-moz-range-thumb:hover {
     background-color: #48a0f7;
@@ -87,15 +86,10 @@ input[type="range"]:disabled::-moz-range-progress {
     background-color: #737373;
 }
 
-table {
-    width: 100%;
-}
-td {
-    text-align: center;
-}
 span {
     display: inline-block;
-    padding: 4px 8px;
+    height: 16px;
+    padding: 12px 8px;
 }
 
 input[name="mute"]:checked ~ #sound {
@@ -104,7 +98,7 @@ input[name="mute"]:checked ~ #sound {
 input[name="mute"]:checked ~ #mute {
     display: inline-block;
 }
-input[name="mute"]:checked ~ #mute > svg > * {
+input[name="mute"]:checked ~ #mute svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
@@ -119,15 +113,32 @@ input[name="repeat"][value="one"]:checked ~ #repeat-one,
 input[name="repeat"][value="all"]:checked ~ #repeat-all {
     display: inline-block;
 }
-input[name="repeat"][value="one"]:checked ~ #repeat-one > svg > *,
-input[name="repeat"][value="all"]:checked ~ #repeat-all > svg > * {
+input[name="repeat"][value="one"]:checked ~ #repeat-one svg > *,
+input[name="repeat"][value="all"]:checked ~ #repeat-all svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
 
-input[name="shuffle"]:checked ~ span > svg > * {
+input[name="paste"]:checked ~ span svg > *,
+input[name="shuffle"]:checked ~ span svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
+}
+
+input[name="paste"] ~ textarea {
+    bottom: 8px;
+    border: 0;
+    display: none;
+    left: 8px;
+    padding: 8px;
+    position: fixed;
+    resize: none;
+    width: calc(100% - 32px);
+    height: calc(100% - 78px);
+    z-index: 1;
+}
+input[name="paste"]:checked ~ textarea {
+    display: block;
 }
 
 #pause, #mute, #warning {

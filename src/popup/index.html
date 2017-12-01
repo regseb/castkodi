@@ -8,79 +8,83 @@
   <body>
     <ul>
       <li>
-        <button id="previous" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <line x1="5" y1="4" x2="5" y2="14" stroke-width="2"
-          stroke-linecap="round" />
-    <polygon points="13,4 7,9 13,14" stroke-width="2" stroke-linejoin="round" />
-  </g>
-</svg>
+        <button id="send" disabled="disabled" data-i18n-title="send">
+          <object data="img/send.svg"></object>
         </button>
       </li>
 
       <li>
-        <button id="rewind" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <polygon points="9,4 3,9 9,14" stroke-width="2" stroke-linejoin="round" />
-    <polygon points="15,4 9,9 15,14" stroke-width="2" stroke-linejoin="round" />
-  </g>
-</svg>
+        <button id="add" disabled="disabled" data-i18n-title="add">
+          <object data="img/add.svg"></object>
         </button>
       </li>
 
       <li>
-        <button id="stop" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <rect x="3" y="3" width="12" height="12" stroke-width="2"
-          stroke-linejoin="round" />
-  </g>
-</svg>
+        <input type="checkbox" name="paste" disabled="disabled" />
+        <span id="paste" data-i18n-title="paste">
+          <object data="img/paste.svg"></object>
+        </span>
+        <textarea></textarea>
+      </li>
+
+      <li></li>
+
+      <li>
+        <button id="preferences" disabled="disabled"
+                data-i18n-title="preferences">
+          <object data="img/preferences.svg"></object>
         </button>
       </li>
 
       <li>
-        <button id="pause" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <line x1="6" y1="4.5" x2="6" y2="13.5" stroke-width="3"
-          stroke-linecap="round" />
-    <line x1="12" y1="4.5" x2="12" y2="13.5" stroke-width="3"
-          stroke-linecap="round" />
- </g>
-</svg>
+        <button id="love" disabled="disabled" data-i18n-title="love">
+          <object data="img/love.svg"></object>
         </button>
-        <button id="play" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <polygon points="5,4 13,9 5,14" stroke-width="2" stroke-linejoin="round" />
-  </g>
-</svg>
+        <button id="warning" data-i18n-title="warning">
+          <object data="img/warning.svg"></object>
+        </button>
+      </li>
+    </ul>
+
+    <hr />
+
+    <ul>
+      <li>
+        <button id="previous" disabled="disabled" data-i18n-title="previous">
+          <object data="img/previous.svg"></object>
         </button>
       </li>
 
       <li>
-        <button id="forward" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <polygon points="3,4 9,9 3,14" stroke-width="2" stroke-linejoin="round" />
-    <polygon points="9,4 15,9 9,14" stroke-width="2" stroke-linejoin="round" />
-  </g>
-</svg>
+        <button id="rewind" disabled="disabled" data-i18n-title="rewind">
+          <object data="img/rewind.svg"></object>
         </button>
       </li>
 
       <li>
-        <button id="next" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <polygon points="5,4 11,9 5,14" stroke-width="2" stroke-linejoin="round" />
-    <line x1="13" y1="4" x2="13" y2="14" stroke-width="2"
-          stroke-linecap="round" />
-  </g>
-</svg>
+        <button id="stop" disabled="disabled" data-i18n-title="stop">
+          <object data="img/stop.svg"></object>
+        </button>
+      </li>
+
+      <li>
+        <button id="pause" disabled="disabled" data-i18n-title="pause">
+          <object data="img/pause.svg"></object>
+        </button>
+        <button id="play" disabled="disabled" data-i18n-title="play">
+          <object data="img/play.svg"></object>
+        </button>
+      </li>
+
+      <li>
+        <button id="forward" disabled="disabled" data-i18n-title="forward">
+          <object data="img/forward.svg"></object>
+        </button>
+      </li>
+
+      <li>
+        <button id="next" disabled="disabled" data-i18n-title="next">
+          <object data="img/next.svg"></object>
         </button>
       </li>
     </ul>
@@ -88,38 +92,11 @@
     <ul>
       <li>
         <input type="checkbox" name="mute" disabled="disabled" />
-        <span id="mute">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <polygon points="9,2 4,6.5 4,11.5 9,16" stroke-width="0" />
-    <rect x="3" y="7.5" width="3" height="3" stroke-width="4"
-          stroke-linejoin="round" />
-
-    <line x1="16.5" y1="6.5" x2="11.5" y2="11.5" stroke-width="1" />
-    <line x1="11.5" y1="6.5" x2="16.5" y2="11.5" stroke-width="1" />
-  </g>
-</svg>
+        <span id="mute" data-i18n-title="mute">
+          <object data="img/mute.svg"></object>
         </span>
-        <span id="sound">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <polygon points="9,2 4,6.5 4,11.5 9,16" stroke-width="0" />
-    <rect x="3" y="7.5" width="3" height="3" stroke-width="4"
-          stroke-linejoin="round" />
-
-    <defs>
-      <mask id="dir">
-        <polygon points="17,2 13,2 10.5,7.75 10.5,10.25 13,16 17,16"
-                 fill="white" />
-      </mask>
-    </defs>
-    <g mask="url(#dir)">
-      <circle cx="10.5" cy="9" r="1" stroke-width="1" />
-      <circle cx="10.5" cy="9" r="3.5" fill="none" stroke-width="1" />
-      <circle cx="10.5" cy="9" r="6" fill="none" stroke-width="1" />
-    </g>
-  </g>
-</svg>
+        <span id="sound" data-i18n-title="sound">
+          <object data="img/sound.svg"></object>
         </span>
       </li>
 
@@ -132,174 +109,24 @@
                disabled="disabled" />
         <input type="radio" name="repeat" value="all" disabled="disabled" />
         <input type="radio" name="repeat" value="one" disabled="disabled" />
-        <span id="repeat-all">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <polyline points="4,8 4,4 16,4" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="14,2 16,4 14,6" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="14,10 14,14 2,14" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="4,16 2,14 4,12" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-  </g>
-</svg>
+        <span id="repeat-all" data-i18n-title="repeat">
+          <object data="img/repeat_all.svg"></object>
         </span>
-        <span id="repeat-one">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <polyline points="4,8 4,4 16,4" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="14,2 16,4 14,6" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="14,10 14,14 2,14" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="4,16 2,14 4,12" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="8.5,8 9.5,7 9.5,11" fill="none" stroke-width="1"
-              stroke-linecap="round" stroke-linejoin="round" />
-  </g>
-</svg>
+        <span id="repeat-one" data-i18n-title="repeat">
+          <object data="img/repeat_one.svg"></object>
         </span>
       </li>
 
       <li>
         <input type="checkbox" name="shuffle" disabled="disabled" />
-        <span id="shuffle">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <line x1="2" y1="2" x2="16" y2="16" stroke-width="2"
-          stroke-linecap="round" />
-    <polyline points="16,12 16,16 12,16" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-    <line x1="2" y1="16" x2="16" y2="2" stroke-width="2"
-          stroke-linecap="round" />
-    <polyline points="16,6 16,2 12,2" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-  </g>
-</svg>
+        <span id="shuffle" data-i18n-title="shuffle">
+          <object data="img/shuffle.svg"></object>
         </span>
       </li>
 
       <li>
-        <button id="clear" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <line x1="3" y1="4" x2="14" y2="4" stroke-width="2"
-          stroke-linecap="round" />
-    <defs>
-      <mask id="tray">
-        <rect x="3" y="4" width="11" height="14" fill="white"
-              stroke-width="0" />
-      </mask>
-    </defs>
-
-    <g mask="url(#tray)">
-      <rect x="4" y="3" width="9" height="13" rx="2" ry="2" fill="none"
-            stroke-width="2" />
-    </g>
-    <path d="M 6.5,3.5 A 2,2 0 0,1 10.5,3.5" fill="none" stroke-width="1" />
-    <line x1="6.5" y1="6.5" x2="6.5" y2="12.5" stroke-width="1"
-          stroke-linecap="round" />
-    <line x1="8.5" y1="6.5" x2="8.5" y2="12.5" stroke-width="1"
-          stroke-linecap="round" />
-    <line x1="10.5" y1="6.5" x2="10.5" y2="12.5" stroke-width="1"
-          stroke-linecap="round" />
-  </g>
-</svg>
-        </button>
-      </li>
-    </ul>
-
-    <hr />
-
-    <ul>
-      <li>
-        <button id="send" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <polygon points="1.25,2.25 1.25,7.25 12,9 1.25,10.75 1.25,15.75 16.75,9"
-             stroke-width="0.5" stroke-linejoin="round" />
-  </g>
-</svg>
-        </button>
-      </li>
-
-      <li>
-        <button id="add" disabled="disabled">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <line x1="2" y1="2" x2="11" y2="2" stroke-width="2"
-          stroke-linecap="round" />
-    <line x1="2" y1="7.5" x2="11" y2="7.5" stroke-width="2"
-          stroke-linecap="round" />
-    <line x1="2" y1="13" x2="7" y2="13" stroke-width="2"
-          stroke-linecap="round" />
-    <line x1="10" y1="13" x2="16" y2="13" stroke-width="2"
-          stroke-linecap="round" />
-    <line x1="13" y1="10" x2="13" y2="16" stroke-width="2"
-          stroke-linecap="round" />
-  </g>
-</svg>
-        </button>
-      </li>
-
-      <li></li>
-      <li></li>
-
-      <li>
-        <button id="preferences">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <defs>
-      <line id="mark" x1="9" y1="4" x2="9" y2="2" stroke-width="2"
-            stroke-linecap="round" />
-    </defs>
-
-    <circle cx="9" cy="9" r="5" fill="none" stroke-width="2" />
-    <use xlink:href="#mark" transform="rotate(0,   9, 9)" />
-    <use xlink:href="#mark" transform="rotate(45,  9, 9)" />
-    <use xlink:href="#mark" transform="rotate(90,  9, 9)" />
-    <use xlink:href="#mark" transform="rotate(135, 9, 9)" />
-    <use xlink:href="#mark" transform="rotate(180, 9, 9)" />
-    <use xlink:href="#mark" transform="rotate(225, 9, 9)" />
-    <use xlink:href="#mark" transform="rotate(270, 9, 9)" />
-    <use xlink:href="#mark" transform="rotate(315, 9, 9)" />
-  </g>
-</svg>
-        </button>
-      </li>
-
-      <li>
-        <button id="check">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g stroke="black">
-    <polyline points="3,11 8,15 15,3" fill="none" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-  </g>
-</svg>
-        </button>
-        <button id="warning">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-  <g fill="black" stroke="black">
-    <defs>
-      <mask id="exclamation">
-        <rect x="0" y="0" width="100%" height="100%" fill="white"
-              stroke-width="0" />
-        <rect x="8.5" y="6" width="1" height="4.5" rx="0.25" ry="0.25"
-              fill="black" stroke-width="0" />
-        <rect x="8.5" y="12" width="1" height="1" rx="0.25" ry="0.25"
-              fill="black" stroke-width="0" />
-      </mask>
-    </defs>
-
-    <g mask="url(#exclamation)">
-      <polyline points="2,15.5 9,2.5 15,15.5" stroke-width="2"
-                stroke-linejoin="round" />
-    </g>
-  </g>
-</svg>
+        <button id="clear" disabled="disabled" data-i18n-title="clear">
+          <object data="img/clear.svg"></object>
         </button>
       </li>
     </ul>
