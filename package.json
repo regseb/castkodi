@@ -33,15 +33,15 @@
     },
     "devDependencies": {
         "coveralls": "^3.0.0",
-        "eslint": "^4.10.0",
+        "eslint": "^4.12.1",
         "htmlhint": "^0.9.13",
         "istanbul": "^0.4.5",
-        "jsdom": "^11.3.0",
+        "jsdom": "^11.5.1",
         "jsonlint": "^1.6.2",
-        "markdownlint": "^0.6.2",
+        "markdownlint": "^0.6.4",
         "metalint": "^0.7.1",
         "mocha": "^4.0.1",
         "node-fetch": "^1.7.3",
-        "stylelint": "^8.2.0"
+        "stylelint": "^8.3.1"
     }
 }

@@ -11,8 +11,13 @@
             "patterns": "test/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_nodejs.json"] }
         }, {
-            "patterns": "**/*.html",
+            "patterns": ["**/options/*.html", "**/popup/*.html"],
             "linters": "htmlhint"
+        }, {
+            "patterns": "**/_locales/**/*.html",
+            "linters": {
+                "htmlhint": ["htmlhint.json", { "doctype-first": false }]
+            }
         }, {
             "patterns": "**/*.css",
             "linters": "stylelint"
