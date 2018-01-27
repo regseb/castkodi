@@ -107,9 +107,6 @@
     "popup_warning_title": {
         "message": "Test connection"
     },
-    "popup_reviews_url": {
-        "message": "https://addons.mozilla.org/en-US/firefox/addon/castkodi/reviews/"
-    },
     "popup_previous_title": {
         "message": "Go to previous"
     },

@@ -25,7 +25,7 @@ disponibles : *Lire* le média ou le *Placer en file d'attente*.
 ## Installation
 
 L'extension est disponible sur le
-**[Mozilla Add-ons](https://addons.mozilla.org/fr/firefox/addon/castkodi/)**.
+**[Mozilla Add-ons](https://addons.mozilla.org/addon/castkodi/)**.
 
 Dans Kodi, il faut *Autoriser le contrôle à distance via HTTP*. Ce réglage se
 fait dans la page *Paramètres* / *Services* / *Contrôle*.
@@ -58,9 +58,9 @@ v1.2](https://joinup.ec.europa.eu/page/eupl-text-11-12).
 [img-users]:https://img.shields.io/amo/users/castkodi.svg
 [img-stars]:https://img.shields.io/amo/stars/castkodi.svg
 
-[link-version]:https://addons.mozilla.org/fr/firefox/addon/castkodi/
+[link-version]:https://addons.mozilla.org/addon/castkodi/
 [link-dependencies]:https://david-dm.org/regseb/castkodi
 [link-license]:https://joinup.ec.europa.eu/page/eupl-text-11-12
                "Licence Publique de l’Union européenne"
-[link-users]:https://addons.mozilla.org/fr/firefox/addon/castkodi/statistics/?last=90
-[link-stars]:https://addons.mozilla.org/fr/firefox/addon/castkodi/reviews/
+[link-users]:https://addons.mozilla.org/addon/castkodi/statistics/?last=90
+[link-stars]:https://addons.mozilla.org/addon/castkodi/reviews/

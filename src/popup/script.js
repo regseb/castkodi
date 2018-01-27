@@ -160,7 +160,7 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
 
     const love = function () {
         browser.tabs.create({
-            "url": browser.i18n.getMessage("popup_reviews_url")
+            "url": "https://addons.mozilla.org/addon/castkodi/reviews/"
         });
         window.close();
     };
