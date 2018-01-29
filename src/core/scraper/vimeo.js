@@ -36,5 +36,24 @@ define(["pebkac"], function (PebkacError) {
         });
     });
 
+    /**
+     * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+     *
+     * @param {String} url L'URL du lecteur de Vimeo avec une vidéo.
+     * @return {Promise} L'identifiant de la file d'attente et l'URL du
+     *                   <em>fichier</em>.
+     */
+    rules.set(["https://player.vimeo.com/video/*"], function (url) {
+        if (!(/^\/video\/[0-9]+$/).test(url.pathname)) {
+            return Promise.reject(new PebkacError("novideo", "Vimeo"));
+        }
+
+        return Promise.resolve({
+            "playlistid": PLAYLIST_ID,
+            "file":       PLUGIN_URL + "play/" +
+                                           "?video_id=" + url.pathname.substr(7)
+        });
+    });
+
     return rules;
 });
