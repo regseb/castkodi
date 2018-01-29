@@ -21,12 +21,13 @@ define(["pebkac"], function (PebkacError) {
      * Extrait les informations nécessaire pour lire la vidéo ou la playlist sur
      * Kodi.
      *
-     * @param {String} url L'URL d'une vidéo ou playlist YouTube.
+     * @param {String} url L'URL d'une vidéo ou playlist YouTube (ou HookTube).
      * @return {Promise} L'identifiant de la file d'attente et l'URL du
      *                   <em>fichier</em>.
      */
     rules.set([
-        "https://www.youtube.com/watch*", "https://m.youtube.com/watch*"
+        "https://www.youtube.com/watch*", "https://m.youtube.com/watch*",
+        "https://hooktube.com/watch*"
     ], function (url) {
         return browser.storage.local.get(["youtube-playlist"]).then(
                                                              function (config) {
