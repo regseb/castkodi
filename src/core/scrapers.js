@@ -27,12 +27,17 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
 
     const RULES = new Map();
 
-    const extract = function (url) {
-        const prefix = url.protocol + "//" + url.hostname + url.pathname;
-        for (const [pattern, action] of RULES) {
-            if (pattern.test(prefix)) {
-                return action(url);
+    const extract = function (input) {
+        try {
+            const url = new URL(input);
+            const prefix = url.protocol + "//" + url.hostname + url.pathname;
+            for (const [pattern, action] of RULES) {
+                if (pattern.test(prefix)) {
+                    return action(url);
+                }
             }
+        } catch (_) {
+            // Ignorer l'erreur, puis retourner une promesse rejetée.
         }
         return Promise.reject(new PebkacError("unsupported"));
     };

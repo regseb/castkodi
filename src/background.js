@@ -33,14 +33,17 @@ require(["notify", "scrapers", "jsonrpc"],
     /**
      * Diffuse un média sur Kodi.
      *
-     * @param {Object} info Les informations fournies par le menu contextuel.
+     * @param {Object} info Les informations fournies par le menu contextuel ou
+     *                      la popup.
+     * @return {Promise} Une promesse se réalisant directement (pour fermer la
+     *                   popup).
      */
     const cast = function (info) {
         const urls = [info.selectionText, info.linkUrl, info.srcUrl,
-                      info.frameUrl, info.pageUrl];
-        const url = new URL(urls.find((u) => undefined !== u && "" !== u));
+                      info.frameUrl, info.pageUrl, info.popupUrl];
+        const url = urls.find((u) => undefined !== u && "" !== u);
         scrapers.extract(url).then(function ({ playlistid, file }) {
-            return info.menuItemId.startsWith("play")
+            return info.menuItemId.startsWith("send")
                                                 ? jsonrpc.send(playlistid, file)
                                                 : jsonrpc.add(playlistid, file);
         }).then(function () {
@@ -51,6 +54,7 @@ require(["notify", "scrapers", "jsonrpc"],
             }
             return null;
         }).catch(notify);
+        return Promise.resolve(true);
     };
 
     /**
@@ -60,24 +64,24 @@ require(["notify", "scrapers", "jsonrpc"],
      */
     const menu = function (changes) {
         // Ignorer tous les paramètres sauf ceux liés au menu contextuel.
-        if (!("menus-play" in changes) && !("menus-add" in changes)) {
+        if (!("menus-send" in changes) && !("menus-add" in changes)) {
             return;
         }
         browser.storage.local.get().then(function (config) {
             // Vider les options du menu contextuel, puis ajouter les options.
             return browser.menus.removeAll().then(function () {
-                if (config["menus-play"] && config["menus-add"]) {
-                    for (const key in KINDS) {
-                        browser.menus.create(Object.assign({}, KINDS[key], {
+                if (config["menus-send"] && config["menus-add"]) {
+                    for (const [key, kind] of Object.entries(KINDS)) {
+                        browser.menus.create(Object.assign({}, kind, {
                             "id":    "parent_" + key,
                             "title": browser.i18n.getMessage(
                                                            "menus_first-parent")
                         }));
                         browser.menus.create({
-                            "id":       "play_" + key,
+                            "id":       "send_" + key,
                             "parentId": "parent_" + key,
                             "title":    browser.i18n.getMessage(
-                                                            "menus_second-play")
+                                                            "menus_second-send")
                         });
                         browser.menus.create({
                             "id":       "add_" + key,
@@ -86,16 +90,16 @@ require(["notify", "scrapers", "jsonrpc"],
                                                              "menus_second-add")
                         });
                     }
-                } else if (config["menus-play"]) {
-                    for (const key in KINDS) {
-                        browser.menus.create(Object.assign({}, KINDS[key], {
-                            "id":    "play_" + key,
-                            "title": browser.i18n.getMessage("menus_first-play")
+                } else if (config["menus-send"]) {
+                    for (const [key, kind] of Object.entries(KINDS)) {
+                        browser.menus.create(Object.assign({}, kind, {
+                            "id":    "send_" + key,
+                            "title": browser.i18n.getMessage("menus_first-send")
                         }));
                     }
                 } else if (config["menus-add"]) {
-                    for (const key in KINDS) {
-                        browser.menus.create(Object.assign({}, KINDS[key], {
+                    for (const [key, kind] of Object.entries(KINDS)) {
+                        browser.menus.create(Object.assign({}, kind, {
                             "id":    "add_" + key,
                             "title": browser.i18n.getMessage("menus_first-add")
                         }));
@@ -111,20 +115,26 @@ require(["notify", "scrapers", "jsonrpc"],
 
     browser.storage.local.get().then(function (config) {
         // Migrer les anciennes données (avant la version 1.0.0).
-        for (const name of ["port", "username", "password", "host"]) {
-            if (name in config) {
+        for (const key of ["port", "username", "password", "host"]) {
+            if (key in config) {
                 browser.storage.local.set({
-                    ["connection-" + name]: config[name]
+                    ["connection-" + key]: config[key]
                 });
-                browser.storage.local.remove(name);
+                browser.storage.local.remove(key);
             }
         }
+        // Migrer la propriété "menus-play" (avant la version 1.5.0).
+        if ("menus-play" in config) {
+            browser.storage.local.set({ "menus-send": config["menus-play"] });
+            browser.storage.local.remove("menus-play");
+        }
+
         // Définir des valeurs par défaut.
         if (!("general-history" in config)) {
             browser.storage.local.set({ "general-history": false });
         }
-        if (!("menus-play" in config)) {
-            browser.storage.local.set({ "menus-play": true });
+        if (!("menus-send" in config)) {
+            browser.storage.local.set({ "menus-send": true });
         }
         if (!("menus-add" in config)) {
             browser.storage.local.set({ "menus-add": true });
@@ -138,7 +148,9 @@ require(["notify", "scrapers", "jsonrpc"],
 
         // Ajouter les options dans les menus contextuels et surveiller les
         // futures changement de la configuration.
-        menu({ "menus-play": null, "menus-add": null });
+        menu({ "menus-send": null, "menus-add": null });
         browser.storage.onChanged.addListener(menu);
     });
+
+    browser.runtime.onMessage.addListener(cast);
 });

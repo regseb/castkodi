@@ -20,7 +20,7 @@ describe("scraper/facebook", function () {
 
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("https://www.facebook.com/mozilla/");
+            const url = "https://www.facebook.com/mozilla/";
             const expected = "unsupported";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -34,7 +34,7 @@ describe("scraper/facebook", function () {
 
     describe("https://www.facebook.com/*/videos/*/*", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("https://www.facebook.com/XBMC/videos/666/");
+            const url = "https://www.facebook.com/XBMC/videos/666/";
             const expected = "novideo";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -46,8 +46,8 @@ describe("scraper/facebook", function () {
         });
 
         it("should return video id", function () {
-            const url = new URL("https://www.facebook.com/XBMC/videos/" +
-                                                          "10152476888501641/");
+            const url = "https://www.facebook.com/XBMC/videos/" +
+                                                           "10152476888501641/";
             const expected = "https://video-cdg2-1.xx.fbcdn.net/v/t43.1792-2/" +
                                   "10810554_10152476888596641_2070058545_n.mp4";
             return module.extract(url).then(function ({ playlistid, file }) {

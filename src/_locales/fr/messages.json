@@ -6,13 +6,13 @@
     "menus_first-parent": {
         "message": "Diffuser sur Kodi"
     },
-    "menus_first-play": {
+    "menus_first-send": {
         "message": "Lire avec Kodi"
     },
     "menus_first-add": {
         "message": "Placer en file d'attente de Kodi"
     },
-    "menus_second-play": {
+    "menus_second-send": {
         "message": "Lire"
     },
     "menus_second-add": {
@@ -101,6 +101,9 @@
     "popup_preferences_title": {
         "message": "Configurer"
     },
+    "popup_loading_title": {
+        "message": "Connexion en cours…"
+    },
     "popup_love_title": {
         "message": "Évaluer votre expérience"
     },
@@ -182,7 +185,7 @@
     "options_menus-description_content": {
         "message": "Sélectionner les options ajoutées dans le menu contextuel :"
     },
-    "options_menus-play_content": {
+    "options_menus-send_content": {
         "message": "Lire avec Kodi"
     },
     "options_menus-add_content": {

@@ -21,7 +21,7 @@ describe("scraper/youtube", function () {
 
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("https://www.youtube.com/feed/trending");
+            const url = "https://www.youtube.com/feed/trending";
             const expected = "unsupported";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -35,7 +35,7 @@ describe("scraper/youtube", function () {
 
     describe("https://www.youtube.com/watch*", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("https://www.youtube.com/watch?x=123456");
+            const url = "https://www.youtube.com/watch?x=123456";
             const expected = "novideo";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -47,9 +47,9 @@ describe("scraper/youtube", function () {
         });
 
         it("should return playlist id", function () {
-            const url = new URL("https://www.youtube.com/watch" +
-                                    "?v=avt4ZWlVjdY" +
-                                    "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum");
+            const url = "https://www.youtube.com/watch" +
+                                     "?v=avt4ZWlVjdY" +
+                                     "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
             const expected = "plugin://plugin.video.youtube/" +
                                  "?action=play_all" +
                                  "&playlist=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
@@ -60,7 +60,7 @@ describe("scraper/youtube", function () {
         });
 
         it("should return video id", function () {
-            const url = new URL("https://www.youtube.com/watch?v=sWfAtMQa_yo");
+            const url = "https://www.youtube.com/watch?v=sWfAtMQa_yo";
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
                                                          "&videoid=sWfAtMQa_yo";
@@ -73,7 +73,7 @@ describe("scraper/youtube", function () {
 
     describe("https://m.youtube.com/watch*", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("https://m.youtube.com/watch?a=dQw4w9WgXcQ");
+            const url = "https://m.youtube.com/watch?a=dQw4w9WgXcQ";
             const expected = "novideo";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -85,7 +85,7 @@ describe("scraper/youtube", function () {
         });
 
         it("should return video id", function () {
-            const url = new URL("https://m.youtube.com/watch?v=dQw4w9WgXcQ");
+            const url = "https://m.youtube.com/watch?v=dQw4w9WgXcQ";
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
                                                          "&videoid=dQw4w9WgXcQ";
@@ -98,8 +98,7 @@ describe("scraper/youtube", function () {
 
     describe("https://www.youtube.com/playlist*", function () {
         it("should return error when it's not a playlist", function () {
-            const url = new URL("https://www.youtube.com/playlist" +
-                                                              "?v=dQw4w9WgXcQ");
+            const url = "https://www.youtube.com/playlist?v=dQw4w9WgXcQ";
             const expected = "novideo";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -111,8 +110,8 @@ describe("scraper/youtube", function () {
         });
 
         it("should return playlist id", function () {
-            const url = new URL("https://www.youtube.com/playlist" +
-                                    "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9");
+            const url = "https://www.youtube.com/playlist" +
+                                     "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
             const expected = "plugin://plugin.video.youtube/" +
                                  "?action=play_all" +
                                  "&playlist=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
@@ -125,8 +124,8 @@ describe("scraper/youtube", function () {
 
     describe("https://m.youtube.com/playlist*", function () {
         it("should return error when it's not a playlist", function () {
-            const url = new URL("https://m.youtube.com/playlist" +
-                                                   "?video=PL3A5849BDE0581B19");
+            const url = "https://m.youtube.com/playlist" +
+                                                    "?video=PL3A5849BDE0581B19";
             const expected = "novideo";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -138,8 +137,8 @@ describe("scraper/youtube", function () {
         });
 
         it("should return playlist id", function () {
-            const url = new URL("https://m.youtube.com/playlist" +
-                                                    "?list=PL3A5849BDE0581B19");
+            const url = "https://m.youtube.com/playlist" +
+                                                     "?list=PL3A5849BDE0581B19";
             const expected = "plugin://plugin.video.youtube/" +
                                                  "?action=play_all" +
                                                  "&playlist=PL3A5849BDE0581B19";
@@ -152,7 +151,7 @@ describe("scraper/youtube", function () {
 
     describe("https://youtu.be/*", function () {
         it("should return video id", function () {
-            const url = new URL("https://youtu.be/NSFbekvYOlI");
+            const url = "https://youtu.be/NSFbekvYOlI";
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
                                                          "&videoid=NSFbekvYOlI";

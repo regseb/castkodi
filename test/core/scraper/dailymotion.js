@@ -20,7 +20,7 @@ describe("scraper/dailymotion", function () {
 
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("http://www.dailymotion.com/fr/feed");
+            const url = "http://www.dailymotion.com/fr/feed";
             const expected = "unsupported";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -34,7 +34,7 @@ describe("scraper/dailymotion", function () {
 
     describe("*://www.dailymotion.com/video/*", function () {
         it("should return video id", function () {
-            const url = new URL("https://www.dailymotion.com/video/x17qw0a");
+            const url = "https://www.dailymotion.com/video/x17qw0a";
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x17qw0a";
@@ -47,7 +47,7 @@ describe("scraper/dailymotion", function () {
 
     describe("*://dai.ly/*", function () {
         it("should return tiny video id", function () {
-            const url = new URL("http://dai.ly/x5riqme");
+            const url = "http://dai.ly/x5riqme";
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x5riqme";
@@ -60,8 +60,7 @@ describe("scraper/dailymotion", function () {
 
     describe("*://www.dailymotion.com/embed/video/*", function () {
         it("should return embed video id", function () {
-            const url = new URL("https://www.dailymotion.com/embed/video/" +
-                                                                     "a12bc3d");
+            const url = "https://www.dailymotion.com/embed/video/a12bc3d";
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=a12bc3d";

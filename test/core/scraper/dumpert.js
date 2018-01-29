@@ -20,7 +20,7 @@ describe("scraper/dumpert", function () {
 
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("http://www.dumpert.nl/toppers/");
+            const url = "http://www.dumpert.nl/toppers/";
             const expected = "unsupported";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -34,8 +34,8 @@ describe("scraper/dumpert", function () {
 
     describe("*://www.dumpert.nl/mediabase/*", function () {
         it("should return video id", function () {
-            const url = new URL("http://www.dumpert.nl/mediabase/7248279/" +
-                                                 "47066e59/wheelie_in_ny.html");
+            const url = "http://www.dumpert.nl/mediabase/7248279/" +
+                                                  "47066e59/wheelie_in_ny.html";
             const expected = "plugin://plugin.video.dumpert/?action=play" +
                              "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
                              "%2Fmediabase%2F7248279%2F47066e59" +

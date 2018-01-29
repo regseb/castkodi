@@ -4,14 +4,14 @@ require.config({
     "baseUrl": "../core"
 });
 
-define(["scrapers", "jsonrpc", "pebkac", "notify"],
-       function (scrapers, jsonrpc, PebkacError, notify) {
+define(["jsonrpc", "pebkac", "notify"],
+       function (jsonrpc, PebkacError, notify) {
 
     const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
 
-    let volume = null;
+    let volume   = null;
     let playerid = null;
-    let speed = null;
+    let speed    = null;
 
     const paint = function () {
         if (null === volume) {
@@ -19,8 +19,8 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             document.getElementById("add").disabled = true;
             document.getElementsByName("paste")[0].disabled = true;
             document.getElementById("preferences").disabled = false;
-            document.getElementById("love").disabled = false;
             document.getElementById("warning").disabled = false;
+            document.getElementById("loading").style.display = "none";
             document.getElementById("love").style.display = "none";
             document.getElementById("warning").style.display = "inline";
 
@@ -46,7 +46,7 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
             document.getElementsByName("paste")[0].disabled = false;
             document.getElementById("preferences").disabled = false;
             document.getElementById("love").disabled = false;
-            document.getElementById("warning").disabled = false;
+            document.getElementById("loading").style.display = "none";
             document.getElementById("warning").style.display = "none";
             document.getElementById("love").style.display = "inline-block";
 
@@ -97,17 +97,10 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
         }
 
         input.then(function (url) {
-            scrapers.extract(new URL(url)).then(
-                                               function ({ playlistid, file }) {
-                return jsonrpc.send(playlistid, file);
-            }).then(function () {
-                return browser.storage.local.get(["general-history"]);
-            }).then(function (config) {
-                if (config["general-history"]) {
-                    return browser.history.addUrl({ url });
-                }
-                return Promise.resolve();
-            }).then(close).catch(notify);
+            browser.runtime.sendMessage({
+                "popupUrl":   url,
+                "menuItemId": "send_popup"
+            }).then(close);
         });
     };
 
@@ -126,17 +119,10 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
         }
 
         input.then(function (url) {
-            scrapers.extract(new URL(url)).then(
-                                               function ({ playlistid, file }) {
-                return jsonrpc.add(playlistid, file);
-            }).then(function () {
-                return browser.storage.local.get(["general-history"]);
-            }).then(function (config) {
-                if (config["general-history"]) {
-                    return browser.history.addUrl({ url });
-                }
-                return Promise.resolve();
-            }).then(close).catch(notify);
+            browser.runtime.sendMessage({
+                "popupUrl":   url,
+                "menuItemId": "add_popup"
+            }).then(close);
         });
     };
 
@@ -161,8 +147,7 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
     const love = function () {
         browser.tabs.create({
             "url": "https://addons.mozilla.org/addon/castkodi/reviews/"
-        });
-        window.close();
+        }).then(close);
     };
 
     const warning = function () {
@@ -304,12 +289,14 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
     document.getElementById("warning").addEventListener("click", warning);
 
     for (const element of document.getElementsByTagName("object")) {
-        fetch(element.getAttribute("data")).then(function (response) {
-            return response.text();
-        }).then(function (svg) {
-            element.innerHTML = svg;
-            element.removeAttribute("data");
-        });
+        if ("loading" !== element.parentNode.id) {
+            fetch(element.getAttribute("data")).then(function (response) {
+                return response.text();
+            }).then(function (svg) {
+                element.innerHTML = svg;
+                element.removeAttribute("data");
+            });
+        }
     }
 
     // Afficher les textes dans la langue courante.
@@ -318,5 +305,4 @@ define(["scrapers", "jsonrpc", "pebkac", "notify"],
                     "_title";
         element.setAttribute("title", browser.i18n.getMessage(key));
     }
-
 });

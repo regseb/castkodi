@@ -6,13 +6,13 @@
     "menus_first-parent": {
         "message": "Cast to Kodi"
     },
-    "menus_first-play": {
+    "menus_first-send": {
         "message": "Play to Kodi"
     },
     "menus_first-add": {
         "message": "Queue item to Kodi"
     },
-    "menus_second-play": {
+    "menus_second-send": {
         "message": "Play"
     },
     "menus_second-add": {
@@ -101,6 +101,9 @@
     "popup_preferences_title": {
         "message": "Configure"
     },
+    "popup_loading_title": {
+        "message": "Connecting..."
+    },
     "popup_love_title": {
         "message": "Rate your experience"
     },
@@ -182,7 +185,7 @@
     "options_menus-description_content": {
         "message": "Choose items added to the context menu :"
     },
-    "options_menus-play_content": {
+    "options_menus-send_content": {
         "message": "Play to Kodi"
     },
     "options_menus-add_content": {

@@ -141,7 +141,7 @@ input[name="paste"]:checked ~ textarea {
     display: block;
 }
 
-#pause, #mute, #warning {
+#pause, #mute, #love, #warning {
     display: none;
 }
 

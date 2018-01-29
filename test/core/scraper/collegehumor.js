@@ -20,7 +20,7 @@ describe("scraper/collegehumor", function () {
 
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("http://www.collegehumor.com/videos");
+            const url = "http://www.collegehumor.com/videos";
             const expected = "unsupported";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -34,8 +34,7 @@ describe("scraper/collegehumor", function () {
 
     describe("*://www.collegehumor.com/video/*", function () {
         it("should return error when it's not a video", function () {
-            const url = new URL("https://www.collegehumor.com/video/lorem/" +
-                                                                       "ipsum");
+            const url = "https://www.collegehumor.com/video/lorem/ipsum";
             const expected = "novideo";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -47,8 +46,8 @@ describe("scraper/collegehumor", function () {
         });
 
         it("should return video id", function () {
-            const url = new URL("http://www.collegehumor.com/video/6947898/" +
-                                                             "google-is-a-guy");
+            const url = "http://www.collegehumor.com/video/6947898/" +
+                                                              "google-is-a-guy";
             const expected = "plugin://plugin.video.collegehumor/watch/" +
                                                                       "6947898";
             return module.extract(url).then(function ({ playlistid, file }) {

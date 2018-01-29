@@ -20,7 +20,7 @@ describe("scraper/soundcloud", function () {
 
     describe("#patterns", function () {
         it("should return error when it's not a music", function () {
-            const url = new URL("https://soundcloud.com/stream");
+            const url = "https://soundcloud.com/stream";
             const expected = "unsupported";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -34,8 +34,8 @@ describe("scraper/soundcloud", function () {
 
     describe("https://soundcloud.com/*", function () {
         it("should return error when it's not a music", function () {
-            const url = new URL("https://soundcloud.com/a-tribe-called-red/" +
-                                                            "sets/trapline-ep");
+            const url = "https://soundcloud.com/a-tribe-called-red/" +
+                                                             "sets/trapline-ep";
             const expected = "noaudio";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -47,7 +47,7 @@ describe("scraper/soundcloud", function () {
         });
 
         it("should return error when it's not a music", function () {
-            const url = new URL("https://soundcloud.com/you/collection");
+            const url = "https://soundcloud.com/you/collection";
             const expected = "noaudio";
             return module.extract(url).then(function () {
                 assert.fail();
@@ -59,7 +59,7 @@ describe("scraper/soundcloud", function () {
         });
 
         it("should return music id", function () {
-            const url = new URL("https://soundcloud.com/esa/a-singing-comet");
+            const url = "https://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                           "?audio_id=176387011";
             return module.extract(url).then(function ({ playlistid, file }) {
@@ -69,8 +69,8 @@ describe("scraper/soundcloud", function () {
         });
 
         it("should return music id", function () {
-            const url = new URL("https://mobi.soundcloud.com/" +
-                                    "a-tribe-called-red/electric-pow-wow-drum");
+            const url = "https://mobi.soundcloud.com/" +
+                                     "a-tribe-called-red/electric-pow-wow-drum";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                             "?audio_id=8481452";
             return module.extract(url).then(function ({ playlistid, file }) {

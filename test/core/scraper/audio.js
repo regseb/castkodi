@@ -20,8 +20,8 @@ describe("scraper/audio", function () {
 
     describe("*://*/*.aac", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.aac");
-            const expected = url.toString();
+            const url = "https://fr.wikipedia.org/wiki/MP3.aac";
+            const expected = url;
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
                 assert.strictEqual(file, expected);
@@ -31,8 +31,8 @@ describe("scraper/audio", function () {
 
     describe("*://*/*.flac", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.flac");
-            const expected = url.toString();
+            const url = "https://fr.wikipedia.org/wiki/MP3.flac";
+            const expected = url;
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
                 assert.strictEqual(file, expected);
@@ -42,8 +42,8 @@ describe("scraper/audio", function () {
 
     describe("*://*/*.m4a", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki.m4a");
-            const expected = url.toString();
+            const url = "https://fr.wikipedia.org/wiki.m4a";
+            const expected = url;
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
                 assert.strictEqual(file, expected);
@@ -53,8 +53,8 @@ describe("scraper/audio", function () {
 
     describe("*://*/*.mka", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.mka");
-            const expected = url.toString();
+            const url = "https://fr.wikipedia.org/wiki/MP3.mka";
+            const expected = url;
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
                 assert.strictEqual(file, expected);
@@ -64,8 +64,8 @@ describe("scraper/audio", function () {
 
     describe("*://*/*.mp3", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki.MP3");
-            const expected = url.toString();
+            const url = "https://fr.wikipedia.org/wiki.MP3";
+            const expected = url;
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
                 assert.strictEqual(file, expected);
@@ -75,8 +75,8 @@ describe("scraper/audio", function () {
 
     describe("*://*/*.ogg", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.ogg");
-            const expected = url.toString();
+            const url = "https://fr.wikipedia.org/wiki/MP3.ogg";
+            const expected = url;
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
                 assert.strictEqual(file, expected);
@@ -86,8 +86,8 @@ describe("scraper/audio", function () {
 
     describe("*://*/*.pls", function () {
         it("should return the same URL", function () {
-            const url = new URL("https://fr.wikipedia.org/wiki/MP3.pls");
-            const expected = url.toString();
+            const url = "https://fr.wikipedia.org/wiki/MP3.pls";
+            const expected = url;
             return module.extract(url).then(function ({ playlistid, file }) {
                 assert.strictEqual(playlistid, 0);
                 assert.strictEqual(file, expected);
