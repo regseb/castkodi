@@ -3,8 +3,7 @@
 const assert = require("assert");
 
 const compare = function (messages1, messages2) {
-    for (const name in messages1) {
-        const message = messages1[name];
+    for (const [name, message] of Object.entries(messages1)) {
         if (!("message" in message)) {
             assert.fail(name);
         }
@@ -15,12 +14,13 @@ const compare = function (messages1, messages2) {
             if (!("placeholders" in message)) {
                 assert.fail(name);
             }
-            for (const placeholder in message.placeholders) {
-                if (!("content" in message.placeholders[placeholder])) {
-                    assert.fail(message + "." + placeholder);
+            for (const [key, placeholder] of
+                                         Object.entries(message.placeholders)) {
+                if (!("content" in placeholder)) {
+                    assert.fail(message + "." + key);
                 }
-                if (!(placeholder in messages2[name].placeholders)) {
-                    assert.fail(message + "." + placeholder);
+                if (!(key in messages2[name].placeholders)) {
+                    assert.fail(message + "." + key);
                 }
             }
         }

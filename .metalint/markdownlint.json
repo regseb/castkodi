@@ -38,5 +38,6 @@
     "first-line-h1": true,
     "no-empty-links": true,
     "required-headers": true,
-    "proper-names": false
+    "proper-names": false,
+    "no-alt-text": true
 }
