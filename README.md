@@ -13,14 +13,16 @@
 Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
 sur **Kodi** :
 
-- des vidéos : liens directs (*avi*, *mkv*, ...), YouTube, Twitch, Vimeo,
-  Facebook, Dailymotion, CollegeHumor, Air Mozilla et Dumpert ;
-- des musiques : liens directs (*mp3*, *flac*, ...), SoundCloud, Mixcloud et
-  Arte Radio.
+- des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo, Facebook,
+  Dailymotion, CollegeHumor, Air Mozilla et Dumpert ;
+- des musiques : liens directs (*mp3*, *flac*…), SoundCloud, Mixcloud et Arte
+  Radio.
 
-Une nouvelle option « *Diffuser sur Kodi* » est ajoutée dans le menu contextuel
-des liens / pages / sélections de vidéos ou de musiques. Puis deux choix sont
-disponibles : *Lire* le média ou le *Placer en file d'attente*.
+Deux options peuvent être ajoutées dans le menu contextuel des liens / pages /
+sélections de vidéos ou de musiques : *Lire avec Kodi* et *Place en file
+d'attente de Kodi*. Une télécommande (accessible depuis un bouton de la barre
+d'outils) est aussi présente pour diffuser l'onglet courant sur Kodi et pour :
+mettre en pause, passer au prochain élément, régler le volume…
 
 ## Installation
 

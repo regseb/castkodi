@@ -1,1 +1,1 @@
-Diffuser des vidéos / musiques (YouTube, Twitch, Vimeo, Facebook, SoundCloud, ...) sur Kodi avec le menu contextuel et une télécommande.
+Diffuser des vidéos / musiques (YouTube, Twitch, Vimeo, Facebook, SoundCloud…) sur Kodi avec le menu contextuel et une télécommande.
