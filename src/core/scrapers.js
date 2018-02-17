@@ -2,8 +2,8 @@
 
 const SCRAPERS = [
     "airmozilla", "arteradio", "dumpert", "collegehumor", "dailymotion",
-    "facebook", "mixcloud", "soundcloud", "twitch", "vimeo", "youtube", "video",
-    "audio"
+    "facebook", "mixcloud", "rutube", "soundcloud", "twitch", "vimeo",
+    "youtube", "video", "audio"
 ].map((s) => "scraper/" + s);
 
 define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
