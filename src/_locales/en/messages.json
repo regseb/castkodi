@@ -90,13 +90,13 @@
     },
 
     "popup_send_title": {
-        "message": "Play to Kodi"
+        "message": "Play to Kodi [P]"
     },
     "popup_add_title": {
-        "message": "Queue item to Kodi"
+        "message": "Queue item to Kodi [Q]"
     },
     "popup_paste_title": {
-        "message": "Paste link"
+        "message": "Paste link [V]"
     },
     "popup_preferences_title": {
         "message": "Configure"
@@ -111,31 +111,31 @@
         "message": "Test connection"
     },
     "popup_previous_title": {
-        "message": "Go to previous"
+        "message": "Go to previous [PageDown]"
     },
     "popup_rewind_title": {
-        "message": "Rewind"
+        "message": "Rewind [R]"
     },
     "popup_stop_title": {
-        "message": "Stop"
+        "message": "Stop [X]"
     },
     "popup_pause_title": {
-        "message": "Pause"
+        "message": "Pause [Space]"
     },
     "popup_play_title": {
-        "message": "Play"
+        "message": "Play [Space]"
     },
     "popup_forward_title": {
-        "message": "Fast forward"
+        "message": "Fast forward [F]"
     },
     "popup_next_title": {
-        "message": "Go to next"
+        "message": "Go to next [PageUp]"
     },
     "popup_mute_title": {
-        "message": "Unmute"
+        "message": "Unmute [M]"
     },
     "popup_sound_title": {
-        "message": "Mute"
+        "message": "Mute [M]"
     },
     "popup_repeat_title": {
         "message": "Repeat"

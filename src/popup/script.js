@@ -221,6 +221,26 @@ define(["jsonrpc", "pebkac", "notify"],
         jsonrpc.setVolume(volume).then(paint).catch(notify);
     };
 
+    const subVolume = function () {
+        volume = parseInt(document.getElementById("volume").value, 10);
+        volume = Math.max(volume - 10, 0);
+        document.getElementById("volume").value = volume;
+        document.getElementById("volume").dispatchEvent(new Event("input", {
+            "bubbles":    true,
+            "cancelable": true
+        }));
+    };
+
+    const addVolume = function () {
+        volume = parseInt(document.getElementById("volume").value, 10);
+        volume = Math.min(volume + 10, 100);
+        document.getElementById("volume").value = volume;
+        document.getElementById("volume").dispatchEvent(new Event("input", {
+            "bubbles":    true,
+            "cancelable": true
+        }));
+    };
+
     const repeat = function () {
         const off = document.getElementsByName("repeat")[0];
         const all = document.getElementsByName("repeat")[1];
@@ -300,6 +320,33 @@ define(["jsonrpc", "pebkac", "notify"],
             });
         }
     }
+
+    window.focus();
+    window.onkeyup = function (event) {
+        // Ignorer les entrées dans une zone de texte ou avec une touche de
+        // modification.
+        if ("TEXTAREA" === event.target.tagName || event.altKey ||
+                event.ctrlKey || event.metaKey || event.shiftKey) {
+            return;
+        }
+        switch (event.key) {
+            case "p": case "P": send();      break;
+            case "q": case "Q": add();       break;
+            case "v": case "V": paste();     break;
+            case "PageDown":    previous();  break;
+            case "r": case "R": rewind();    break;
+            case "x": case "X": stop();      break;
+            case " ":           playPause(); break;
+            case "f": case "F": forward();   break;
+            case "PageUp":      next();      break;
+            case "m": case "M": muteSound(); break;
+            case "-":           subVolume(); break;
+            case "+": case "=": addVolume(); break;
+            // Appliquer le traitement par défaut pour les autres entrées.
+            default: return;
+        }
+        event.preventDefault();
+    };
 
     // Afficher les textes dans la langue courante.
     for (const element of document.querySelectorAll("[data-i18n-title]")) {

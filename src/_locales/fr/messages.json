@@ -90,13 +90,13 @@
     },
 
     "popup_send_title": {
-        "message": "Lire avec Kodi"
+        "message": "Lire avec Kodi [P]"
     },
     "popup_add_title": {
-        "message": "Placer en file d'attente de Kodi"
+        "message": "Placer en file d'attente de Kodi [Q]"
     },
     "popup_paste_title": {
-        "message": "Coller un lien"
+        "message": "Coller un lien [V]"
     },
     "popup_preferences_title": {
         "message": "Configurer"
@@ -111,31 +111,31 @@
         "message": "Tester la connexion"
     },
     "popup_previous_title": {
-        "message": "Revenir au précédent"
+        "message": "Revenir au précédent [PageDown]"
     },
     "popup_rewind_title": {
-        "message": "Rembobiner"
+        "message": "Rembobiner [R]"
     },
     "popup_stop_title": {
-        "message": "Arrêter"
+        "message": "Arrêter [X]"
     },
     "popup_pause_title": {
-        "message": "Mettre sur pause"
+        "message": "Mettre sur pause [Space]"
     },
     "popup_play_title": {
-        "message": "Lire"
+        "message": "Lire [Space]"
     },
     "popup_forward_title": {
-        "message": "Avancer rapidement"
+        "message": "Avancer rapidement [F]"
     },
     "popup_next_title": {
-        "message": "Passer au suivant"
+        "message": "Passer au suivant [PageUp]"
     },
     "popup_mute_title": {
-        "message": "Remettre le son"
+        "message": "Remettre le son [M]"
     },
     "popup_sound_title": {
-        "message": "Couper le son"
+        "message": "Couper le son [M]"
     },
     "popup_repeat_title": {
         "message": "Répéter"
