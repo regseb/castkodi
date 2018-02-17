@@ -3,11 +3,6 @@
 define(["pebkac"], function (PebkacError) {
 
     /**
-     * L'identifiant de la file d'attente des vidéos.
-     */
-    const PLAYLIST_ID = 1;
-
-    /**
      * L'ordre des formats vidéo selon l'option choisie.
      */
     const FORMATS = {
@@ -26,7 +21,7 @@ define(["pebkac"], function (PebkacError) {
      * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
      *
      * @param {String} url L'URL d'une vidéo Air Mozilla.
-     * @return {Promise} L'identifiant de la file d'attente et l'URL du fichier.
+     * @return {Promise} L'URL du fichier.
      */
     rules.set(["https://air.mozilla.org/*/"], function (url) {
         return browser.storage.local.get(["airmozilla-format"]).then(
@@ -51,10 +46,7 @@ define(["pebkac"], function (PebkacError) {
                 if (null === file) {
                     throw new PebkacError("novideo", "Air Mozilla");
                 }
-                return {
-                    "playlistid": PLAYLIST_ID,
-                    "file":       file.toString()
-                };
+                return file.toString();
             });
         });
     });

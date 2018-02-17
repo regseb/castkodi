@@ -62,8 +62,7 @@ describe("scraper/soundcloud", function () {
             const url = "https://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                           "?audio_id=176387011";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -73,8 +72,7 @@ describe("scraper/soundcloud", function () {
                                      "a-tribe-called-red/electric-pow-wow-drum";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                             "?audio_id=8481452";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

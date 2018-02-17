@@ -53,8 +53,7 @@ describe("scraper/youtube", function () {
             const expected = "plugin://plugin.video.youtube/" +
                                  "?action=play_all" +
                                  "&playlist=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -64,8 +63,7 @@ describe("scraper/youtube", function () {
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
                                                          "&videoid=sWfAtMQa_yo";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -89,8 +87,7 @@ describe("scraper/youtube", function () {
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
                                                          "&videoid=dQw4w9WgXcQ";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -115,8 +112,7 @@ describe("scraper/youtube", function () {
             const expected = "plugin://plugin.video.youtube/" +
                                  "?action=play_all" +
                                  "&playlist=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -142,8 +138,7 @@ describe("scraper/youtube", function () {
             const expected = "plugin://plugin.video.youtube/" +
                                                  "?action=play_all" +
                                                  "&playlist=PL3A5849BDE0581B19";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -155,8 +150,7 @@ describe("scraper/youtube", function () {
             const expected = "plugin://plugin.video.youtube/" +
                                                          "?action=play_video" +
                                                          "&videoid=NSFbekvYOlI";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

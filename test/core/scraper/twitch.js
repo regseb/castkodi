@@ -23,8 +23,7 @@ describe("scraper/twitch", function () {
             const url = "https://www.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -47,8 +46,7 @@ describe("scraper/twitch", function () {
             const url = "https://www.twitch.tv/nolife";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                          "&channel_id=86118798";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

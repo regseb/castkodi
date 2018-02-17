@@ -40,8 +40,7 @@ describe("scraper/dumpert", function () {
                              "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
                              "%2Fmediabase%2F7248279%2F47066e59" +
                              "%2Fwheelie_in_ny.html";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

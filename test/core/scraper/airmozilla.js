@@ -51,8 +51,7 @@ describe("scraper/airmozilla", function () {
             const url = "https://air.mozilla.org/add-ons-community-meeting/";
             const expected = "https://vid.ly/i2x4g5?content=video" +
                                                   "&format=hd_webm";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -61,8 +60,7 @@ describe("scraper/airmozilla", function () {
             browser.storage.local.set({ "airmozilla-format": "webm" });
             const url = "https://air.mozilla.org/add-ons-community-meeting/";
             const expected = "https://vid.ly/i2x4g5?content=video&format=webm";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -72,8 +70,7 @@ describe("scraper/airmozilla", function () {
             const url = "https://air.mozilla.org/add-ons-community-meeting/";
             const expected = "https://vid.ly/i2x4g5?content=video" +
                                                   "&format=hd_mp4";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -82,8 +79,7 @@ describe("scraper/airmozilla", function () {
             browser.storage.local.set({ "airmozilla-format": "mp4" });
             const url = "https://air.mozilla.org/add-ons-community-meeting/";
             const expected = "https://vid.ly/i2x4g5?content=video&format=mp4";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

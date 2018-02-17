@@ -49,8 +49,7 @@ describe("scraper/vimeo", function () {
             const url = "https://vimeo.com/228786490";
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=228786490";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -73,8 +72,7 @@ describe("scraper/vimeo", function () {
             const url = "https://player.vimeo.com/video/228786490";
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=228786490";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

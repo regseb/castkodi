@@ -50,8 +50,7 @@ describe("scraper/collegehumor", function () {
                                                               "google-is-a-guy";
             const expected = "plugin://plugin.video.collegehumor/watch/" +
                                                                       "6947898";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

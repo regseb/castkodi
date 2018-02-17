@@ -3,11 +3,6 @@
 define(["pebkac"], function (PebkacError) {
 
     /**
-     * L'identifiant de la file d'attente des musiques.
-     */
-    const PLAYLIST_ID = 0;
-
-    /**
      * L'URL de l'extension pour lire des musiques issues de SoundCloud.
      */
     const PLUGIN_URL = "plugin://plugin.audio.soundcloud/";
@@ -21,8 +16,7 @@ define(["pebkac"], function (PebkacError) {
      * Extrait les informations nécessaire pour lire une musique sur Kodi.
      *
      * @param {String} url L'URL d'une musique SoundCloud.
-     * @return {Promise} L'identifiant de la file d'attente et l'URL du
-     *                   <em>fichier</em>.
+     * @return {Promise} L'URL du <em>fichier</em>.
      */
     rules.set([
         "https://soundcloud.com/*/*", "https://mobi.soundcloud.com/*/*"
@@ -43,10 +37,7 @@ define(["pebkac"], function (PebkacError) {
             if (null === result) {
                 throw new PebkacError("noaudio", "SoundCloud");
             }
-            return {
-                "playlistid": PLAYLIST_ID,
-                "file":       PLUGIN_URL + "play/?audio_id=" + result[1]
-            };
+            return PLUGIN_URL + "play/?audio_id=" + result[1];
         });
     });
 

@@ -42,10 +42,9 @@ require(["notify", "scrapers", "jsonrpc"],
         const urls = [info.selectionText, info.linkUrl, info.srcUrl,
                       info.frameUrl, info.pageUrl, info.popupUrl];
         const url = urls.find((u) => undefined !== u && "" !== u);
-        scrapers.extract(url).then(function ({ playlistid, file }) {
-            return info.menuItemId.startsWith("send")
-                                                ? jsonrpc.send(playlistid, file)
-                                                : jsonrpc.add(playlistid, file);
+        scrapers.extract(url).then(function (file) {
+            return info.menuItemId.startsWith("send") ? jsonrpc.send(file)
+                                                      : jsonrpc.add(file);
         }).then(function () {
             return browser.storage.local.get(["general-history"]);
         }).then(function (config) {

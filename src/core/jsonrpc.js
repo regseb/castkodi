@@ -83,87 +83,82 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Ajoute un média à la liste de lecture.
      *
-     * @param {number} playlistid <code>0</code> pour la liste de lecture des
-     *                            musiques ; <code>1</code> pour les vidéos.
-     * @param {string} file       L'URL envoyé à Kodi.
+     * @param {string} file L'URL envoyé à Kodi.
      * @return {Promise} La réponse de Kodi.
      */
-    const add = function (playlistid, file) {
-        return request("Playlist.Add", { playlistid, "item": { file } });
+    const add = function (file) {
+        return request("Playlist.Add", { "playlistid": 1, "item": { file } });
     };
 
     /**
      * Envoi un média.
      *
-     * @param {number} playlistid <code>0</code> pour la liste de lecture des
-     *                            musiques ; <code>1</code> pour les vidéos.
-     * @param {string} file       L'URL envoyé à Kodi.
+     * @param {string} file L'URL envoyé à Kodi.
      * @return {Promise} La réponse de Kodi.
      */
-    const send = function (playlistid, file) {
+    const send = function (file) {
         // Vider la liste de lecture, ajouter le nouveau média et lancer la
         // lecture.
-        return request("Playlist.Clear", { playlistid }).then(function () {
-            return add(playlistid, file);
+        return request("Playlist.Clear", { "playlistid": 1 }).then(function () {
+            return add(file);
         }).then(function () {
-            return request("Player.Open", { "item": { playlistid } });
+            return request("Player.Open", { "item": { "playlistid": 1 } });
         });
     };
 
     /**
      * Passe au précédent média dans la liste de lecture.
      *
-     * @param {number} playerid <code>0</code> pour la liste de lecture des
-     *                          musiques ; <code>1</code> pour les vidéos.
      * @return {Promise} La réponse de Kodi.
      */
-    const previous = function (playerid) {
-        return request("Player.GoTo", { playerid, "to": "previous" });
+    const previous = function () {
+        return request("Player.GoTo", { "playerid": 1, "to": "previous" });
     };
 
     /**
      * Arrête la lecture.
      *
-     * @param {number} playerid <code>0</code> pour la liste de lecture des
-     *                          musiques ; <code>1</code> pour les vidéos.
      * @return {Promise} La réponse de Kodi.
      */
-    const stop = function (playerid) {
-        return request("Player.Stop", { playerid });
+    const stop = function () {
+        return request("Player.Stop", { "playerid": 1 });
+    };
+
+    /**
+     * Démarre la lecture.
+     *
+     * @return {Promise} La réponse de Kodi.
+     */
+    const open = function () {
+        return request("Player.Open", { "item": { "playlistid": 1 } });
     };
 
     /**
      * Lance ou mets en pause la lecture.
      *
-     * @param {number} playerid <code>0</code> pour la liste de lecture des
-     *                          musiques ; <code>1</code> pour les vidéos.
      * @return {Promise} La réponse de Kodi.
      */
-    const playPause = function (playerid) {
-        return request("Player.PlayPause", { playerid });
+    const playPause = function () {
+        return request("Player.PlayPause", { "playerid": 1 });
     };
 
     /**
      * Passe au prochain média dans la liste de lecture.
      *
-     * @param {number} playerid <code>0</code> pour la liste de lecture des
-     *                          musiques ; <code>1</code> pour les vidéos.
      * @return {Promise} La réponse de Kodi.
      */
-    const next = function (playerid) {
-        return request("Player.GoTo", { playerid, "to": "next" });
+    const next = function () {
+        return request("Player.GoTo", { "playerid": 1, "to": "next" });
     };
 
     /**
      * Change la vitesse de lecture.
      *
-     * @param {number} playerid <code>0</code> pour la liste de lecture des
-     *                          musiques ; <code>1</code> pour les vidéos.
-     * @param {number} speed    La nouvelle vitesse.
+     * @param {number} speed La nouvelle vitesse.
      * @return {Promise} La réponse de Kodi.
      */
-    const setSpeed = function (playerid, speed) {
-        return request("Player.SetSpeed", { playerid, speed });
+    const setSpeed = function (speed) {
+        return request("Player.SetSpeed", { "playerid": 1, speed });
     };
 
     /**
@@ -191,36 +186,31 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Répète la liste de lecture.
      *
-     * @param {number} playerid <code>0</code> pour la liste de lecture des
-     *                          musiques ; <code>1</code> pour les vidéos.
      * @return {Promise} La réponse de Kodi.
      */
-    const setRepeat = function (playerid) {
-        return request("Player.SetRepeat", { playerid, "repeat": "cycle" });
+    const setRepeat = function () {
+        return request("Player.SetRepeat",
+                       { "playerid": 1, "repeat": "cycle" });
     };
 
     /**
      * Mélange la liste de lecture.
      *
-     * @param {number} playerid <code>0</code> pour la liste de lecture des
-     *                          musiques ; <code>1</code> pour les vidéos.
      * @param {boolean} shuffle <code>true</<code> pour mélanger la liste de
      *                          lecture ; sinon <code>false</code>.
      * @return {Promise} La réponse de Kodi.
      */
-    const setShuffle = function (playerid, shuffle) {
-        return request("Player.SetShuffle", { playerid, shuffle });
+    const setShuffle = function (shuffle) {
+        return request("Player.SetShuffle", { "playerid": 1, shuffle });
     };
 
     /**
      * Vide la liste de lecture.
      *
-     * @param {number} playlistid <code>0</code> pour la liste de lecture des
-     *                            musiques ; <code>1</code> pour les vidéos.
      * @return {Promise} La réponse de Kodi.
      */
-    const clear = function (playlistid) {
-        return request("Playlist.Clear", { playlistid });
+    const clear = function () {
+        return request("Playlist.Clear", { "playlistid": 1 });
     };
 
     /**
@@ -229,35 +219,24 @@ define(["pebkac"], function (PebkacError) {
      * @return {Promise} La réponse de Kodi.
      */
     const getProperties = function () {
-        return request("Player.GetActivePlayers").then(function (playerids) {
-            const promises = [];
-            promises.push(request("Application.GetProperties", {
-                "properties": ["muted", "volume"]
-            }));
-
-            if (0 !== playerids.length) {
-                promises.push(request("Player.GetProperties", {
-                    "playerid":   playerids[0].playerid,
-                    "properties": ["playlistid", "speed", "repeat", "shuffled"]
-                }));
-            }
-
-            return Promise.all(promises).then(function (results) {
-                const properties = {
-                    "muted":    results[0].muted,
-                    "volume":   results[0].volume,
-                    "playerid": null,
-                    "speed":    0,
-                    "repeat":   "off",
-                    "shuffled": false
-                };
-                if (2 === results.length) {
-                    properties.playerid = results[1].playlistid;
-                    properties.speed    = results[1].speed;
-                    properties.repeat   = results[1].repeat;
-                    properties.shuffled = results[1].shuffled;
+        return request("Application.GetProperties",
+                       { "properties": ["muted", "volume"] })
+                                                  .then(function (application) {
+            return request("Player.GetActivePlayers")
+                                                    .then(function (playerids) {
+                if (0 === playerids.length || 1 !== playerids[0].playerid) {
+                    return {
+                        "speed":    null,
+                        "repeat":   "off",
+                        "shuffled": false
+                    };
                 }
-                return properties;
+                return request("Player.GetProperties", {
+                    "playerid":   1,
+                    "properties": ["speed", "repeat", "shuffled"]
+                });
+            }).then(function (player) {
+                return Object.assign(application, player);
             });
         });
     };
@@ -268,6 +247,7 @@ define(["pebkac"], function (PebkacError) {
         send,
         previous,
         stop,
+        open,
         playPause,
         next,
         setSpeed,

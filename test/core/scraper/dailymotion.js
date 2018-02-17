@@ -38,8 +38,7 @@ describe("scraper/dailymotion", function () {
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x17qw0a";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -51,8 +50,7 @@ describe("scraper/dailymotion", function () {
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x5riqme";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -64,8 +62,7 @@ describe("scraper/dailymotion", function () {
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=a12bc3d";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

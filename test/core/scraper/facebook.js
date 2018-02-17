@@ -50,8 +50,7 @@ describe("scraper/facebook", function () {
                                                            "10152476888501641/";
             const expected = "https://video-cdg2-1.xx.fbcdn.net/v/t43.1792-2/" +
                                   "10810554_10152476888596641_2070058545_n.mp4";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.ok(file.startsWith(expected));
             });
         });

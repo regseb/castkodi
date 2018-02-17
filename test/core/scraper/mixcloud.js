@@ -52,8 +52,7 @@ describe("scraper/mixcloud", function () {
                               "?mode=40" +
                               "&key=%2FLesGar%25C3%25A7onsBienElev%25C3%25A9s" +
                                    "%2Fn101%2F";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

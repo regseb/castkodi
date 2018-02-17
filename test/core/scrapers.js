@@ -29,7 +29,7 @@ describe("scrapers", function () {
         it("should support valid URL", function () {
             const url = "http://www.dailymotion.com/video/x17qw0a";
             const expected = "plugin://plugin.video.dailymotion_com/";
-            return module.extract(url).then(function ({ file }) {
+            return module.extract(url).then(function (file) {
                 assert.ok(file.startsWith(expected));
             });
         });
@@ -37,7 +37,7 @@ describe("scrapers", function () {
         it("should support uppercase valid URL", function () {
             const url = "HTTPS://VIMEO.COM/195613867";
             const expected = "plugin://plugin.video.vimeo/";
-            return module.extract(url).then(function ({ file }) {
+            return module.extract(url).then(function (file) {
                 assert.ok(file.startsWith(expected));
             });
         });
@@ -45,7 +45,7 @@ describe("scrapers", function () {
         it("should support correctly question mark in pattern", function () {
             const url = "https://vid.ly/i2x4g5.mp4?quality=hd";
             const expected = url.toString();
-            return module.extract(url).then(function ({ file }) {
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

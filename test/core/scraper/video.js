@@ -22,8 +22,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.asf";
             const expected = url;
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -33,8 +32,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.avi";
             const expected = url;
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -44,8 +42,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.flv";
             const expected = url;
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -56,8 +53,7 @@ describe("scraper/video", function () {
             const url = "http://arcagenis.org/mirror/mango/ToS/" +
                                                       "tears_of_steel_720p.mkv";
             const expected = url;
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -67,8 +63,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.mov";
             const expected = url;
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -78,8 +73,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.mp4";
             const expected = url;
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -89,8 +83,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.wmv";
             const expected = url;
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 1);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

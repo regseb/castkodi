@@ -38,8 +38,7 @@ describe("scraper/arteradio", function () {
             const expected = "https://download.www.arte.tv/permanent/" +
                              "arteradio/sites/default/files/sons/" +
                              "01faismoiouir_hq_fr.mp3";
-            return module.extract(url).then(function ({ playlistid, file }) {
-                assert.strictEqual(playlistid, 0);
+            return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

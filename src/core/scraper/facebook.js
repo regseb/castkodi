@@ -3,11 +3,6 @@
 define(["pebkac"], function (PebkacError) {
 
     /**
-     * L'identifiant de la file d'attente des vidéos.
-     */
-    const PLAYLIST_ID = 1;
-
-    /**
      * Les règles avec les patrons et leur action.
      */
     const rules = new Map();
@@ -16,7 +11,7 @@ define(["pebkac"], function (PebkacError) {
      * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
      *
      * @param {String} url L'URL d'une vidéo Facebook.
-     * @return {Promise} L'identifiant de la file d'attente et l'URL du fichier.
+     * @return {Promise} L'URL du fichier.
      */
     rules.set(["https://www.facebook.com/*/videos/*/*"], function (url) {
         return fetch(url.toString()).then(function (response) {
@@ -27,10 +22,7 @@ define(["pebkac"], function (PebkacError) {
             if (null === result) {
                 throw new PebkacError("novideo", "Facebook");
             }
-            return {
-                "playlistid": PLAYLIST_ID,
-                "file":       result[1]
-            };
+            return result[1];
         });
     });
 

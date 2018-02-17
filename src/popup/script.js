@@ -9,9 +9,8 @@ define(["jsonrpc", "pebkac", "notify"],
 
     const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
 
-    let volume   = null;
-    let playerid = null;
-    let speed    = null;
+    let volume = null;
+    let speed  = null;
 
     const paint = function () {
         if (null === volume) {
@@ -50,11 +49,11 @@ define(["jsonrpc", "pebkac", "notify"],
             document.getElementById("warning").style.display = "none";
             document.getElementById("love").style.display = "inline-block";
 
-            document.getElementById("previous").disabled = null === playerid;
-            document.getElementById("rewind").disabled = null === playerid;
-            document.getElementById("stop").disabled = null === playerid;
-            document.getElementById("pause").disabled = null === playerid;
-            document.getElementById("play").disabled = null === playerid;
+            document.getElementById("previous").disabled = null === speed;
+            document.getElementById("rewind").disabled = null === speed;
+            document.getElementById("stop").disabled = null === speed;
+            document.getElementById("pause").disabled = null === speed;
+            document.getElementById("play").disabled = false;
             if (5 === speed) {
                 document.getElementById("play").style.display = "none";
                 document.getElementById("pause").style.display = "inline";
@@ -62,8 +61,8 @@ define(["jsonrpc", "pebkac", "notify"],
                 document.getElementById("pause").style.display = "none";
                 document.getElementById("play").style.display = "inline";
             }
-            document.getElementById("forward").disabled = null === playerid;
-            document.getElementById("next").disabled = null === playerid;
+            document.getElementById("forward").disabled = null === speed;
+            document.getElementById("next").disabled = null === speed;
 
             document.getElementsByName("mute")[0].disabled = false;
             document.getElementById("sound").disabled = false;
@@ -74,11 +73,10 @@ define(["jsonrpc", "pebkac", "notify"],
                 document.getElementById("volume").value = volume;
             }
             for (const input of document.getElementsByName("repeat")) {
-                input.disabled = null === playerid;
+                input.disabled = null === speed;
             }
-            document.getElementsByName("shuffle")[0].disabled =
-                                                              null === playerid;
-            document.getElementById("clear").disabled = null === playerid;
+            document.getElementsByName("shuffle")[0].disabled = null === speed;
+            document.getElementById("clear").disabled = null === speed;
         }
     };
 
@@ -158,7 +156,7 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const previous = function () {
-        jsonrpc.previous(playerid).then(paint).catch(notify);
+        jsonrpc.previous().then(paint).catch(notify);
     };
 
     const rewind = function () {
@@ -167,24 +165,28 @@ define(["jsonrpc", "pebkac", "notify"],
             case 0:  speed = 5; break;
             default: --speed;
         }
-        jsonrpc.setSpeed(playerid, SPEEDS[speed]).then(paint).catch(notify);
+        jsonrpc.setSpeed(SPEEDS[speed]).then(paint).catch(notify);
     };
 
     const stop = function () {
-        jsonrpc.stop(playerid).then(function () {
-            playerid = null;
+        jsonrpc.stop().then(function () {
+            speed = null;
             paint();
         }).catch(notify);
     };
 
-    const pause = function () {
-        speed = -1;
-        jsonrpc.playPause(playerid).then(paint).catch(notify);
-    };
-
-    const play = function () {
-        speed = 5;
-        jsonrpc.playPause(playerid).then(paint).catch(notify);
+    const playPause = function () {
+        if (5 === speed) {
+            jsonrpc.playPause().then(paint).catch(notify);
+            speed = -1;
+        } else if (null !== volume) {
+            if (null === speed) {
+                jsonrpc.open().then(paint).catch(notify);
+            } else {
+                jsonrpc.playPause().then(paint).catch(notify);
+            }
+            speed = 5;
+        }
     };
 
     const forward = function () {
@@ -193,28 +195,28 @@ define(["jsonrpc", "pebkac", "notify"],
             case 10: speed = 5; break;
             default: ++speed;
         }
-        jsonrpc.setSpeed(playerid, SPEEDS[speed]).then(paint).catch(notify);
+        jsonrpc.setSpeed(SPEEDS[speed]).then(paint).catch(notify);
     };
 
     const next = function () {
-        jsonrpc.next(playerid).then(paint).catch(notify);
+        jsonrpc.next().then(paint).catch(notify);
     };
 
-    const mute = function () {
-        document.getElementsByName("mute")[0].checked = true;
-        jsonrpc.setMute(true).then(paint).catch(notify);
-    };
-
-    const sound = function () {
-        document.getElementsByName("mute")[0].checked = false;
-        jsonrpc.setMute(false).then(paint).catch(notify);
+    const muteSound = function () {
+        if (document.getElementsByName("mute")[0].checked) {
+            document.getElementsByName("mute")[0].checked = false;
+            jsonrpc.setMute(false).then(paint).catch(notify);
+        } else {
+            document.getElementsByName("mute")[0].checked = true;
+            jsonrpc.setMute(true).then(paint).catch(notify);
+        }
     };
 
     const setVolume = function () {
         volume = parseInt(document.getElementById("volume").value, 10);
 
         if (document.getElementsByName("mute")[0].checked) {
-            sound();
+            muteSound();
         }
         jsonrpc.setVolume(volume).then(paint).catch(notify);
     };
@@ -233,24 +235,24 @@ define(["jsonrpc", "pebkac", "notify"],
             one.checked = false;
             off.checked = true;
         }
-        jsonrpc.setRepeat(playerid).then(paint).catch(notify);
+        jsonrpc.setRepeat().then(paint).catch(notify);
     };
 
     const shuffle = function () {
         const input = document.getElementsByName("shuffle")[0];
         input.checked = !input.checked;
-        jsonrpc.setShuffle(playerid, input.checked).then(paint).catch(notify);
+        jsonrpc.setShuffle(input.checked).then(paint).catch(notify);
     };
 
     const clear = function () {
-        jsonrpc.clear(playerid).then(paint).catch(notify);
+        jsonrpc.clear().then(paint).catch(notify);
     };
 
     jsonrpc.getProperties().then(function (properties) {
         document.getElementsByName("mute")[0].checked = properties.muted;
         volume = properties.volume;
-        playerid = properties.playerid;
-        speed = SPEEDS.indexOf(properties.speed);
+        speed = null === properties.speed ? null
+                                          : SPEEDS.indexOf(properties.speed);
         if ("off" === properties.repeat) {
             document.getElementsByName("repeat")[0].checked = true;
         } else if ("all" === properties.repeat) {
@@ -265,13 +267,13 @@ define(["jsonrpc", "pebkac", "notify"],
     document.getElementById("previous").addEventListener("click", previous);
     document.getElementById("rewind").addEventListener("click", rewind);
     document.getElementById("stop").addEventListener("click", stop);
-    document.getElementById("pause").addEventListener("click", pause);
-    document.getElementById("play").addEventListener("click", play);
+    document.getElementById("pause").addEventListener("click", playPause);
+    document.getElementById("play").addEventListener("click", playPause);
     document.getElementById("forward").addEventListener("click", forward);
     document.getElementById("next").addEventListener("click", next);
 
-    document.getElementById("mute").addEventListener("click", sound);
-    document.getElementById("sound").addEventListener("click", mute);
+    document.getElementById("mute").addEventListener("click", muteSound);
+    document.getElementById("sound").addEventListener("click", muteSound);
     document.getElementById("volume").addEventListener("input", setVolume);
 
     document.getElementById("repeat-all").addEventListener("click", repeat);
