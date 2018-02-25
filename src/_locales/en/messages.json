@@ -107,7 +107,7 @@
     "popup_love_title": {
         "message": "Rate your experience"
     },
-    "popup_warning_title": {
+    "popup_error_title": {
         "message": "Test connection"
     },
     "popup_previous_title": {

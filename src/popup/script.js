@@ -18,10 +18,10 @@ define(["jsonrpc", "pebkac", "notify"],
             document.getElementById("add").disabled = true;
             document.getElementsByName("paste")[0].disabled = true;
             document.getElementById("preferences").disabled = false;
-            document.getElementById("warning").disabled = false;
+            document.getElementById("error").disabled = false;
             document.getElementById("loading").style.display = "none";
             document.getElementById("love").style.display = "none";
-            document.getElementById("warning").style.display = "inline";
+            document.getElementById("error").style.display = "inline";
 
             document.getElementById("previous").disabled = true;
             document.getElementById("rewind").disabled = true;
@@ -46,7 +46,7 @@ define(["jsonrpc", "pebkac", "notify"],
             document.getElementById("preferences").disabled = false;
             document.getElementById("love").disabled = false;
             document.getElementById("loading").style.display = "none";
-            document.getElementById("warning").style.display = "none";
+            document.getElementById("error").style.display = "none";
             document.getElementById("love").style.display = "inline-block";
 
             document.getElementById("previous").disabled = null === speed;
@@ -148,7 +148,7 @@ define(["jsonrpc", "pebkac", "notify"],
         }).then(close);
     };
 
-    const warning = function () {
+    const error = function () {
         jsonrpc.check().then(function () {
             paint();
             notify(new PebkacError("success"));
@@ -308,7 +308,7 @@ define(["jsonrpc", "pebkac", "notify"],
     document.getElementById("preferences").addEventListener("click",
                                                             preferences);
     document.getElementById("love").addEventListener("click", love);
-    document.getElementById("warning").addEventListener("click", warning);
+    document.getElementById("error").addEventListener("click", error);
 
     for (const element of document.getElementsByTagName("object")) {
         if ("loading" !== element.parentNode.id) {
