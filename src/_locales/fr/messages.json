@@ -7,13 +7,19 @@
         "message": "Diffuser sur Kodi"
     },
     "menus_first-send": {
-        "message": "Lire avec Kodi"
+        "message": "Lire maintenant avec Kodi"
+    },
+    "menus_first-insert": {
+        "message": "Lire ensuite avec Kodi"
     },
     "menus_first-add": {
         "message": "Placer en file d'attente de Kodi"
     },
     "menus_second-send": {
-        "message": "Lire"
+        "message": "Lire maintenant"
+    },
+    "menus_second-insert": {
+        "message": "Lire ensuite"
     },
     "menus_second-add": {
         "message": "Placer en file d'attente"
@@ -90,7 +96,10 @@
     },
 
     "popup_send_title": {
-        "message": "Lire avec Kodi [P]"
+        "message": "Lire maintenant avec Kodi [P]"
+    },
+    "popup_insert_title": {
+        "message": "Lire ensuite avec Kodi [N]"
     },
     "popup_add_title": {
         "message": "Placer en file d'attente de Kodi [Q]"
@@ -186,10 +195,13 @@
         "message": "Sélectionner les options ajoutées dans le menu contextuel :"
     },
     "options_menus-send_content": {
-        "message": "Lire avec Kodi"
+        "message": "Lire maintenant"
+    },
+    "options_menus-insert_content": {
+        "message": "Lire ensuite"
     },
     "options_menus-add_content": {
-        "message": "Placer en file d'attente de Kodi"
+        "message": "Placer en file d'attente"
     },
 
     "options_youtube-title_content": {

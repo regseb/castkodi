@@ -107,6 +107,23 @@ define(["pebkac"], function (PebkacError) {
     };
 
     /**
+     * Ajoute un média à la liste de lecture.
+     *
+     * @param {string} file L'URL envoyé à Kodi.
+     * @return {Promise} La réponse de Kodi.
+     */
+    const insert = function (file) {
+        return request("Player.GetProperties",
+                       { "playerid": 1, "properties": ["position"] }).then(
+                                                         function (properties) {
+            return request("Playlist.Insert",
+                           { "playlistid": 1,
+                             "position":   properties.position + 1,
+                             "item":       { file } });
+        });
+    };
+
+    /**
      * Passe au précédent média dans la liste de lecture.
      *
      * @return {Promise} La réponse de Kodi.
@@ -245,6 +262,7 @@ define(["pebkac"], function (PebkacError) {
         check,
         add,
         send,
+        insert,
         previous,
         stop,
         open,

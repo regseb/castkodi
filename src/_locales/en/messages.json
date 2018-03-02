@@ -7,13 +7,19 @@
         "message": "Cast to Kodi"
     },
     "menus_first-send": {
-        "message": "Play to Kodi"
+        "message": "Play now to Kodi"
+    },
+    "menus_first-insert": {
+        "message": "Play next to Kodi"
     },
     "menus_first-add": {
         "message": "Queue item to Kodi"
     },
     "menus_second-send": {
-        "message": "Play"
+        "message": "Play now"
+    },
+    "menus_second-insert": {
+        "message": "Play next"
     },
     "menus_second-add": {
         "message": "Queue item"
@@ -90,7 +96,10 @@
     },
 
     "popup_send_title": {
-        "message": "Play to Kodi [P]"
+        "message": "Play now to Kodi [P]"
+    },
+    "popup_insert_title": {
+        "message": "Play next to Kodi [N]"
     },
     "popup_add_title": {
         "message": "Queue item to Kodi [Q]"
@@ -186,10 +195,13 @@
         "message": "Choose items added to the context menu :"
     },
     "options_menus-send_content": {
-        "message": "Play to Kodi"
+        "message": "Play now"
+    },
+    "options_menus-insert_content": {
+        "message": "Play next"
     },
     "options_menus-add_content": {
-        "message": "Queue item to Kodi"
+        "message": "Queue item"
     },
 
     "options_youtube-title_content": {

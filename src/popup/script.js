@@ -15,6 +15,7 @@ define(["jsonrpc", "pebkac", "notify"],
     const paint = function () {
         if (null === volume) {
             document.getElementById("send").disabled = true;
+            document.getElementById("insert").disabled = true;
             document.getElementById("add").disabled = true;
             document.getElementsByName("paste")[0].disabled = true;
             document.getElementById("preferences").disabled = false;
@@ -41,6 +42,7 @@ define(["jsonrpc", "pebkac", "notify"],
             document.getElementById("clear").disabled = true;
         } else {
             document.getElementById("send").disabled = false;
+            document.getElementById("insert").disabled = false;
             document.getElementById("add").disabled = false;
             document.getElementsByName("paste")[0].disabled = false;
             document.getElementById("preferences").disabled = false;
@@ -98,6 +100,28 @@ define(["jsonrpc", "pebkac", "notify"],
             browser.runtime.sendMessage({
                 "popupUrl":   url,
                 "menuItemId": "send_popup"
+            }).then(close);
+        });
+    };
+
+    const insert = function () {
+        let input;
+        if (document.getElementsByName("paste")[0].checked) {
+            input = Promise.resolve(
+                            document.getElementsByTagName("textarea")[0].value);
+        } else {
+            // Récupérer l'URL de l'onglet courant.
+            const queryInfo = {
+                "active":        true,
+                "currentWindow": true
+            };
+            input = browser.tabs.query(queryInfo).then(([{ url }]) => url);
+        }
+
+        input.then(function (url) {
+            browser.runtime.sendMessage({
+                "popupUrl":   url,
+                "menuItemId": "insert_popup"
             }).then(close);
         });
     };
@@ -302,6 +326,7 @@ define(["jsonrpc", "pebkac", "notify"],
     document.getElementById("clear").addEventListener("click", clear);
 
     document.getElementById("send").addEventListener("click", send);
+    document.getElementById("insert").addEventListener("click", insert);
     document.getElementById("add").addEventListener("click", add);
     document.getElementById("paste").addEventListener("click", paste);
 
@@ -331,6 +356,7 @@ define(["jsonrpc", "pebkac", "notify"],
         }
         switch (event.key) {
             case "p": case "P": send();      break;
+            case "n": case "N": insert();    break;
             case "q": case "Q": add();       break;
             case "v": case "V": paste();     break;
             case "PageDown":    previous();  break;

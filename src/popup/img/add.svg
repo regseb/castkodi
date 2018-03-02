@@ -1,15 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-  <g stroke="#f9f9fa">
-    <line x1="8" y1="9.5" x2="14" y2="9.5" stroke-width="2"
-          stroke-linecap="round" />
-    <line x1="11" y1="12.5" x2="11" y2="6.5" stroke-width="2"
-          stroke-linecap="round" />
-
-    <line x1="1.5" y1="9.5" x2="5.5" y2="9.5" stroke-width="1"
-          stroke-linecap="round" />
-    <line x1="1.5" y1="6.25" x2="8.5" y2="6.25" stroke-width="1"
-          stroke-linecap="round" />
-    <line x1="1.5" y1="3" x2="8.5" y2="3" stroke-width="1"
-          stroke-linecap="round" />
+  <g fill="#f9f9fa">
+    <path d="M14 7H9V2a1 1 0 0 0-2 0v5H2a1 1 0 1 0 0 2h5v5a1 1 0 0 0 2 0V9h5a1 1 0 0 0 0-2z"
+          stroke-width="0" />
   </g>
 </svg>
