@@ -4,6 +4,9 @@ require.config({
     "baseUrl": "../core"
 });
 
+/**
+ * @module popup/script
+ */
 define(["jsonrpc", "pebkac", "notify"],
        function (jsonrpc, PebkacError, notify) {
 

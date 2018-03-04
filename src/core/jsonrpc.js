@@ -1,15 +1,21 @@
 "use strict";
 
+/**
+ * @module core/jsonrpc
+ */
 define(["pebkac"], function (PebkacError) {
 
     /**
      * Le message d'erreur si la connexion a échouée.
+     *
+     * @constant {string} NETWORK_ERROR
      */
     const NETWORK_ERROR = "NetworkError when attempting to fetch resource.";
 
     /**
      * Envoie une requête à Kodi en utilisant le protocol JSON-RPC.
      *
+     * @function request
      * @param {string} method La méthode envoyée à Kodi.
      * @param {Object} params Les paramètres de la méthode.
      * @return {Promise} La réponse de Kodi.
@@ -73,6 +79,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Teste la connexion à Kodi.
      *
+     * @function check
      * @param {Event} event L'évènement du clic.
      * @return {Promise} La réponse de Kodi.
      */
@@ -83,6 +90,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Ajoute un média à la liste de lecture.
      *
+     * @function add
      * @param {string} file L'URL envoyé à Kodi.
      * @return {Promise} La réponse de Kodi.
      */
@@ -93,6 +101,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Envoi un média.
      *
+     * @function send
      * @param {string} file L'URL envoyé à Kodi.
      * @return {Promise} La réponse de Kodi.
      */
@@ -109,6 +118,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Ajoute un média à la liste de lecture.
      *
+     * @function insert
      * @param {string} file L'URL envoyé à Kodi.
      * @return {Promise} La réponse de Kodi.
      */
@@ -126,6 +136,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Passe au précédent média dans la liste de lecture.
      *
+     * @function previous
      * @return {Promise} La réponse de Kodi.
      */
     const previous = function () {
@@ -135,6 +146,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Arrête la lecture.
      *
+     * @function stop
      * @return {Promise} La réponse de Kodi.
      */
     const stop = function () {
@@ -144,6 +156,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Démarre la lecture.
      *
+     * @function open
      * @return {Promise} La réponse de Kodi.
      */
     const open = function () {
@@ -153,6 +166,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Lance ou mets en pause la lecture.
      *
+     * @function playPause
      * @return {Promise} La réponse de Kodi.
      */
     const playPause = function () {
@@ -162,6 +176,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Passe au prochain média dans la liste de lecture.
      *
+     * @function next
      * @return {Promise} La réponse de Kodi.
      */
     const next = function () {
@@ -171,6 +186,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Change la vitesse de lecture.
      *
+     * @function setSpeed
      * @param {number} speed La nouvelle vitesse.
      * @return {Promise} La réponse de Kodi.
      */
@@ -181,6 +197,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Coupe ou remets le son.
      *
+     * @function setMute
      * @param {boolean} mute <code>true</code> pour couper le son ; sinon
      *                       <code>false</code>.
      * @return {Promise} La réponse de Kodi.
@@ -192,6 +209,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Change la volume.
      *
+     * @function setVolume
      * @param {number} volume Le nouveau volume (entre <code>0</code> et
                               <code>100</code>).
      * @return {Promise} La réponse de Kodi.
@@ -203,6 +221,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Répète la liste de lecture.
      *
+     * @function setRepeat
      * @return {Promise} La réponse de Kodi.
      */
     const setRepeat = function () {
@@ -213,6 +232,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Mélange la liste de lecture.
      *
+     * @function setShuffle
      * @param {boolean} shuffle <code>true</<code> pour mélanger la liste de
      *                          lecture ; sinon <code>false</code>.
      * @return {Promise} La réponse de Kodi.
@@ -224,6 +244,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Vide la liste de lecture.
      *
+     * @function clear
      * @return {Promise} La réponse de Kodi.
      */
     const clear = function () {
@@ -233,6 +254,7 @@ define(["pebkac"], function (PebkacError) {
     /**
      * Récupère les propriétés de Kodi.
      *
+     * @function getProperties
      * @return {Promise} La réponse de Kodi.
      */
     const getProperties = function () {

@@ -1,14 +1,21 @@
 "use strict";
 
+/**
+ * @module core/scraper/rutube
+ */
 define(["pebkac"], function (PebkacError) {
 
     /**
      * L'URL de l'API de Rutube pour obtenir des informations sur une vidéo.
+     *
+     * @constant {string} API_URL
      */
     const API_URL = "https://rutube.ru/api/play/options/";
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

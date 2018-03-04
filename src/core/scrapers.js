@@ -6,6 +6,9 @@ const SCRAPERS = [
     "youtube", "video", "audio"
 ].map((s) => "scraper/" + s);
 
+/**
+ * @module core/scrapers
+ */
 define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
 
     const sanitize = function (pattern) {

@@ -4,6 +4,9 @@ require.config({
     "baseUrl": "core"
 });
 
+/**
+ * @module background
+ */
 require(["notify", "scrapers", "jsonrpc"],
         function (notify, scrapers, jsonrpc) {
 
@@ -11,10 +14,12 @@ require(["notify", "scrapers", "jsonrpc"],
      * La liste des options qui seront ajoutées dans le menu contextuel pour :
      * <ul>
      *   <li>les éléments audio, les liens et les vidéos ;</li>
-     *   <li>le bouton de l'exntesion, les <em>iframe</em>, la page et
+     *   <li>le bouton de l'extension, les <em>iframe</em>, la page et
      *        l'onglet ;</li>
      *   <li>les textes sélectionnés.</li>
      * </ul>
+     *
+     * @constant {Object.<string, Object>} KINDS
      */
     const KINDS = {
         "target": {
@@ -33,6 +38,7 @@ require(["notify", "scrapers", "jsonrpc"],
     /**
      * Diffuse un média sur Kodi.
      *
+     * @function cast
      * @param {Object} info Les informations fournies par le menu contextuel ou
      *                      la popup.
      * @return {Promise} Une promesse se réalisant directement (pour fermer la
@@ -64,6 +70,7 @@ require(["notify", "scrapers", "jsonrpc"],
     /**
      * Ajoute les options dans les menus contextuels.
      *
+     * @function menu
      * @param {Object} changes Les paramètres de la configuration modifiés.
      */
     const menu = function (changes) {

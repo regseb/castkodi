@@ -1,14 +1,21 @@
 "use strict";
 
+/**
+ * @module core/scraper/soundcloud
+ */
 define(["pebkac"], function (PebkacError) {
 
     /**
      * L'URL de l'extension pour lire des musiques issues de SoundCloud.
+     *
+     * @constant {string} PLUGIN_URL
      */
     const PLUGIN_URL = "plugin://plugin.audio.soundcloud/";
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

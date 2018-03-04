@@ -1,9 +1,14 @@
 "use strict";
 
+/**
+ * @module core/scraper/airmozilla
+ */
 define(["pebkac"], function (PebkacError) {
 
     /**
      * L'ordre des formats vidéo selon l'option choisie.
+     *
+     * @constant {Object.<string,Array>} FORMATS
      */
     const FORMATS = {
         "hd_webm": ["hd_mp4", "mp4", "webm", "hd_webm"],
@@ -14,6 +19,8 @@ define(["pebkac"], function (PebkacError) {
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

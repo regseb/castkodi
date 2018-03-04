@@ -1,5 +1,8 @@
 "use strict";
 
+/**
+ * @module core/pebkac
+ */
 define([], function () {
 
     const PebkacError = class extends Error {

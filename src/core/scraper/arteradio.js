@@ -1,15 +1,22 @@
 "use strict";
 
+/**
+ * @module core/scraper/arteradio
+ */
 define([], function () {
 
     /**
      * L'URL du répertoire où sont les sons de Arte Radio.
+     *
+     * @constant {string} BASE_URL
      */
     const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
                                                          "/default/files/sons/";
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

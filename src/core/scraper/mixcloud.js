@@ -1,14 +1,21 @@
 "use strict";
 
+/**
+ * @module core/scraper/mixcloud
+ */
 define(["pebkac"], function (PebkacError) {
 
     /**
      * L'URL de l'extension pour lire des musiques issues de Mixcloud.
+     *
+     * @constant {string} PLUGIN_URL
      */
     const PLUGIN_URL = "plugin://plugin.audio.mixcloud/";
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

@@ -1,9 +1,14 @@
 "use strict";
 
+/**
+ * @module core/scraper/audio
+ */
 define(function () {
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

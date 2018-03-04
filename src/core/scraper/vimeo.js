@@ -1,14 +1,21 @@
 "use strict";
 
+/**
+ * @module core/scraper/vimeo
+ */
 define(["pebkac"], function (PebkacError) {
 
     /**
      * L'URL de l'extension pour lire des vidéos issues de Vimeo.
+     *
+     * @constant {string} PLUGIN_URL
      */
     const PLUGIN_URL = "plugin://plugin.video.vimeo/";
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

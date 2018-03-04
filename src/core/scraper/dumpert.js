@@ -1,14 +1,21 @@
 "use strict";
 
+/**
+ * @module core/scraper/dumpert
+ */
 define([], function () {
 
     /**
      * L'URL de l'extension pour lire des vidéos issues de Dumpert.
+     *
+     * @constant {string} PLUGIN_URL
      */
     const PLUGIN_URL = "plugin://plugin.video.dumpert/";
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

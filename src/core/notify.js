@@ -1,10 +1,14 @@
 "use strict";
 
+/**
+ * @module core/notify
+ */
 define([], function () {
 
     /**
      * Notifie l'utilisateur d'un message d'erreur.
      *
+     * @function notify
      * @param {Object} error L'erreur affichée dans la notification.
      */
     const notify = function (error) {

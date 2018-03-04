@@ -4,11 +4,16 @@ require.config({
     "baseUrl": "../core"
 });
 
+/**
+ * @module options/script
+ */
 define(["jsonrpc", "pebkac", "notify"],
        function (jsonrpc, PebkacError, notify) {
 
     /**
      * Active / Désactive le bouton pour tester les paramètres.
+     *
+     * @function active
      */
     const activate = function () {
         document.getElementById("connection-check").disabled =
@@ -16,6 +21,13 @@ define(["jsonrpc", "pebkac", "notify"],
                      document.getElementById("connection-host").validity.valid);
     };
 
+    /**
+     * Demande (ou enlève) le droit de modifier l'historique du navigateur.
+     *
+     * @function ask
+     * @param {Object}  input   La case à cocher.
+     * @param {boolean} checked La valeur de la case.
+     */
     const ask = function (input, checked) {
         const permissions = { "permissions": ["history"] };
         if (checked) {
@@ -32,6 +44,7 @@ define(["jsonrpc", "pebkac", "notify"],
     /**
      * Enregistre un paramètre.
      *
+     * @function save
      * @this HTMLInputElement
      */
     const save = function () {
@@ -56,6 +69,7 @@ define(["jsonrpc", "pebkac", "notify"],
     /**
      * Teste la connexion à Kodi.
      *
+     * @function check
      * @param {Event} event L'évènement du clic.
      */
     const check = function (event) {

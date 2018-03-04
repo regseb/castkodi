@@ -1,9 +1,14 @@
 "use strict";
 
+/**
+ * @module core/scraper/facebook
+ */
 define(["pebkac"], function (PebkacError) {
 
     /**
      * Les règles avec les patrons et leur action.
+     *
+     * @constant {Map} rules
      */
     const rules = new Map();
 

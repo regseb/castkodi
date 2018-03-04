@@ -26,7 +26,8 @@
         "lint": "metalint",
         "test": "mocha test/",
         "cover": "istanbul cover --hook-run-in-context _mocha -- test/",
-        "coveralls": "npm run cover -- --report lcovonly && cat coverage/lcov.info | coveralls"
+        "coveralls": "npm run cover -- --report lcovonly && cat coverage/lcov.info | coveralls",
+        "docs": "jsdoc -r -d docs/ src/"
     },
     "dependencies": {
         "requirejs": "^2.3.5"
@@ -36,6 +37,7 @@
         "eslint": "^4.16.0",
         "htmlhint": "^0.9.13",
         "istanbul": "^0.4.5",
+        "jsdoc": "^3.5.5",
         "jsdom": "^11.6.2",
         "jsonlint": "^1.6.2",
         "markdownlint": "^0.7.0",
