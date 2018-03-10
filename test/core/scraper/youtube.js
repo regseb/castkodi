@@ -22,13 +22,8 @@ describe("scraper/youtube", function () {
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
             const url = "https://www.youtube.com/feed/trending";
-            const expected = "unsupported";
-            return module.extract(url).then(function () {
-                assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+            return module.extract(url).then(function (file) {
+                assert.strictEqual(file, url);
             });
         });
     });
@@ -50,9 +45,8 @@ describe("scraper/youtube", function () {
             const url = "https://www.youtube.com/watch" +
                                      "?v=avt4ZWlVjdY" +
                                      "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
-            const expected = "plugin://plugin.video.youtube/" +
-                                 "?action=play_all" +
-                                 "&playlist=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                              "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
             return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -60,9 +54,8 @@ describe("scraper/youtube", function () {
 
         it("should return video id", function () {
             const url = "https://www.youtube.com/watch?v=sWfAtMQa_yo";
-            const expected = "plugin://plugin.video.youtube/" +
-                                                         "?action=play_video" +
-                                                         "&videoid=sWfAtMQa_yo";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=sWfAtMQa_yo";
             return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -84,9 +77,8 @@ describe("scraper/youtube", function () {
 
         it("should return video id", function () {
             const url = "https://m.youtube.com/watch?v=dQw4w9WgXcQ";
-            const expected = "plugin://plugin.video.youtube/" +
-                                                         "?action=play_video" +
-                                                         "&videoid=dQw4w9WgXcQ";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=dQw4w9WgXcQ";
             return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -109,9 +101,8 @@ describe("scraper/youtube", function () {
         it("should return playlist id", function () {
             const url = "https://www.youtube.com/playlist" +
                                      "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
-            const expected = "plugin://plugin.video.youtube/" +
-                                 "?action=play_all" +
-                                 "&playlist=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                              "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
             return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -135,9 +126,8 @@ describe("scraper/youtube", function () {
         it("should return playlist id", function () {
             const url = "https://m.youtube.com/playlist" +
                                                      "?list=PL3A5849BDE0581B19";
-            const expected = "plugin://plugin.video.youtube/" +
-                                                 "?action=play_all" +
-                                                 "&playlist=PL3A5849BDE0581B19";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                              "?playlist_id=PL3A5849BDE0581B19";
             return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -147,9 +137,8 @@ describe("scraper/youtube", function () {
     describe("https://youtu.be/*", function () {
         it("should return video id", function () {
             const url = "https://youtu.be/NSFbekvYOlI";
-            const expected = "plugin://plugin.video.youtube/" +
-                                                         "?action=play_video" +
-                                                         "&videoid=NSFbekvYOlI";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=NSFbekvYOlI";
             return module.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });

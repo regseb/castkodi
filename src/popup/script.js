@@ -7,13 +7,14 @@ require.config({
 /**
  * @module popup/script
  */
-define(["jsonrpc", "pebkac", "notify"],
-       function (jsonrpc, PebkacError, notify) {
+define(["jsonrpc", "pebkac", "notify", "scrapers"],
+       function (jsonrpc, PebkacError, notify, scrapers) {
 
     const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
 
     let volume = null;
     let speed  = null;
+    let tabUrl = null;
 
     const paint = function () {
         if (null === volume) {
@@ -44,9 +45,16 @@ define(["jsonrpc", "pebkac", "notify"],
             document.getElementsByName("shuffle")[0].disabled = true;
             document.getElementById("clear").disabled = true;
         } else {
-            document.getElementById("send").disabled = false;
-            document.getElementById("insert").disabled = false;
-            document.getElementById("add").disabled = false;
+            // Si l'URL de l'onglet courant respecte un des patrons.
+            if (scrapers.regexps.some((r) => r.test(tabUrl))) {
+                document.getElementById("send").disabled = false;
+                document.getElementById("insert").disabled = false;
+                document.getElementById("add").disabled = false;
+            } else {
+                document.getElementById("send").disabled = true;
+                document.getElementById("insert").disabled = true;
+                document.getElementById("add").disabled = true;
+            }
             document.getElementsByName("paste")[0].disabled = false;
             document.getElementById("preferences").disabled = false;
             document.getElementById("love").disabled = false;
@@ -85,80 +93,51 @@ define(["jsonrpc", "pebkac", "notify"],
         }
     };
 
-    const send = function () {
-        let input;
-        if (document.getElementsByName("paste")[0].checked) {
-            input = Promise.resolve(
-                            document.getElementsByTagName("textarea")[0].value);
-        } else {
-            // Récupérer l'URL de l'onglet courant.
-            const queryInfo = {
-                "active":        true,
-                "currentWindow": true
-            };
-            input = browser.tabs.query(queryInfo).then(([{ url }]) => url);
+    const cast = function ({ "target": { "id": action } }) {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementById(action).disabled) {
+            return;
         }
 
-        input.then(function (url) {
-            browser.runtime.sendMessage({
-                "popupUrl":   url,
-                "menuItemId": "send_popup"
-            }).then(close);
-        });
-    };
-
-    const insert = function () {
-        let input;
+        let popupUrl;
         if (document.getElementsByName("paste")[0].checked) {
-            input = Promise.resolve(
-                            document.getElementsByTagName("textarea")[0].value);
+            popupUrl = document.getElementsByTagName("textarea")[0].value;
         } else {
-            // Récupérer l'URL de l'onglet courant.
-            const queryInfo = {
-                "active":        true,
-                "currentWindow": true
-            };
-            input = browser.tabs.query(queryInfo).then(([{ url }]) => url);
+            popupUrl = tabUrl;
         }
 
-        input.then(function (url) {
-            browser.runtime.sendMessage({
-                "popupUrl":   url,
-                "menuItemId": "insert_popup"
-            }).then(close);
-        });
-    };
-
-    const add = function () {
-        let input;
-        if (document.getElementsByName("paste")[0].checked) {
-            input = Promise.resolve(
-                            document.getElementsByTagName("textarea")[0].value);
-        } else {
-            // Récupérer l'URL de l'onglet courant.
-            const queryInfo = {
-                "active":        true,
-                "currentWindow": true
-            };
-            input = browser.tabs.query(queryInfo).then(([{ url }]) => url);
-        }
-
-        input.then(function (url) {
-            browser.runtime.sendMessage({
-                "popupUrl":   url,
-                "menuItemId": "add_popup"
-            }).then(close);
-        });
+        browser.runtime.sendMessage({
+            "popupUrl":   popupUrl,
+            "menuItemId": action + "_popup"
+        }).then(close);
     };
 
     const paste = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementsByName("paste")[0].disabled) {
+            return;
+        }
+
         const input = document.getElementsByName("paste")[0];
         if (input.checked) {
             input.checked = false;
+            // Si l'URL de l'onglet courant respecte un des patrons.
+            if (scrapers.regexps.some((r) => r.test(tabUrl))) {
+                document.getElementById("send").disabled = false;
+                document.getElementById("insert").disabled = false;
+                document.getElementById("add").disabled = false;
+            } else {
+                document.getElementById("send").disabled = true;
+                document.getElementById("insert").disabled = true;
+                document.getElementById("add").disabled = true;
+            }
             document.getElementById("preferences").disabled = false;
             document.getElementById("love").disabled = false;
         } else {
             input.checked = true;
+            document.getElementById("send").disabled = false;
+            document.getElementById("insert").disabled = false;
+            document.getElementById("add").disabled = false;
             document.getElementById("preferences").disabled = true;
             document.getElementById("love").disabled = true;
             document.getElementsByTagName("textarea")[0].focus();
@@ -183,10 +162,20 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const previous = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementById("previous").disabled) {
+            return;
+        }
+
         jsonrpc.previous().then(paint).catch(notify);
     };
 
     const rewind = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementById("rewind").disabled) {
+            return;
+        }
+
         switch (speed) {
             case -1: speed = 4; break;
             case 0:  speed = 5; break;
@@ -196,6 +185,11 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const stop = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementById("stop").disabled) {
+            return;
+        }
+
         jsonrpc.stop().then(function () {
             speed = null;
             paint();
@@ -203,10 +197,15 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const playPause = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (null === volume) {
+            return;
+        }
+
         if (5 === speed) {
             jsonrpc.playPause().then(paint).catch(notify);
             speed = -1;
-        } else if (null !== volume) {
+        } else {
             if (null === speed) {
                 jsonrpc.open().then(paint).catch(notify);
             } else {
@@ -217,6 +216,11 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const forward = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementById("forward").disabled) {
+            return;
+        }
+
         switch (speed) {
             case -1: speed = 6; break;
             case 10: speed = 5; break;
@@ -226,10 +230,20 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const next = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementById("next").disabled) {
+            return;
+        }
+
         jsonrpc.next().then(paint).catch(notify);
     };
 
     const muteSound = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementsByName("mute")[0].disabled) {
+            return;
+        }
+
         if (document.getElementsByName("mute")[0].checked) {
             document.getElementsByName("mute")[0].checked = false;
             jsonrpc.setMute(false).then(paint).catch(notify);
@@ -240,6 +254,10 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const setVolume = function () {
+        if (document.getElementById("volume").disabled) {
+            return;
+        }
+
         volume = parseInt(document.getElementById("volume").value, 10);
 
         if (document.getElementsByName("mute")[0].checked) {
@@ -249,6 +267,11 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const subVolume = function () {
+        // Annuler l'action si le bouton de potentiel est désactivé.
+        if (document.getElementById("volume").disabled) {
+            return;
+        }
+
         volume = parseInt(document.getElementById("volume").value, 10);
         volume = Math.max(volume - 10, 0);
         document.getElementById("volume").value = volume;
@@ -259,6 +282,11 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const addVolume = function () {
+        // Annuler l'action si le bouton de potentiel est désactivé.
+        if (document.getElementById("volume").disabled) {
+            return;
+        }
+
         volume = parseInt(document.getElementById("volume").value, 10);
         volume = Math.min(volume + 10, 100);
         document.getElementById("volume").value = volume;
@@ -269,6 +297,11 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const repeat = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementsByName("repeat")[0].disabled) {
+            return;
+        }
+
         const off = document.getElementsByName("repeat")[0];
         const all = document.getElementsByName("repeat")[1];
         const one = document.getElementsByName("repeat")[2];
@@ -286,20 +319,40 @@ define(["jsonrpc", "pebkac", "notify"],
     };
 
     const shuffle = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementsByName("shuffle")[0].disabled) {
+            return;
+        }
+
         const input = document.getElementsByName("shuffle")[0];
         input.checked = !input.checked;
         jsonrpc.setShuffle(input.checked).then(paint).catch(notify);
     };
 
     const clear = function () {
+        // Annuler l'action si le bouton est désactivé.
+        if (document.getElementById("clear").disabled) {
+            return;
+        }
+
         jsonrpc.clear().then(paint).catch(notify);
     };
 
     jsonrpc.getProperties().then(function (properties) {
+        // Récupérer l'URL de l'onglet courant.
+        const queryInfo = {
+            "active":        true,
+            "currentWindow": true
+        };
+        return browser.tabs.query(queryInfo).then(function ([{ url }]) {
+            return Object.assign(properties, { "tabUrl": url });
+        });
+    }).then(function (properties) {
         document.getElementsByName("mute")[0].checked = properties.muted;
         volume = properties.volume;
         speed = null === properties.speed ? null
                                           : SPEEDS.indexOf(properties.speed);
+        tabUrl = properties.tabUrl;
         if ("off" === properties.repeat) {
             document.getElementsByName("repeat")[0].checked = true;
         } else if ("all" === properties.repeat) {
@@ -310,6 +363,15 @@ define(["jsonrpc", "pebkac", "notify"],
         document.getElementsByName("shuffle")[0].checked = properties.shuffled;
         paint();
     }).catch(paint);
+
+    document.getElementById("send").addEventListener("click", cast);
+    document.getElementById("insert").addEventListener("click", cast);
+    document.getElementById("add").addEventListener("click", cast);
+    document.getElementById("paste").addEventListener("click", paste);
+    document.getElementById("preferences").addEventListener("click",
+                                                            preferences);
+    document.getElementById("love").addEventListener("click", love);
+    document.getElementById("error").addEventListener("click", error);
 
     document.getElementById("previous").addEventListener("click", previous);
     document.getElementById("rewind").addEventListener("click", rewind);
@@ -328,16 +390,8 @@ define(["jsonrpc", "pebkac", "notify"],
     document.getElementById("shuffle").addEventListener("click", shuffle);
     document.getElementById("clear").addEventListener("click", clear);
 
-    document.getElementById("send").addEventListener("click", send);
-    document.getElementById("insert").addEventListener("click", insert);
-    document.getElementById("add").addEventListener("click", add);
-    document.getElementById("paste").addEventListener("click", paste);
-
-    document.getElementById("preferences").addEventListener("click",
-                                                            preferences);
-    document.getElementById("love").addEventListener("click", love);
-    document.getElementById("error").addEventListener("click", error);
-
+    // Insérer le code SVG des icônes dans la page pour pouvoir changer leur
+    // couleur avec la feuille de style.
     for (const element of document.getElementsByTagName("object")) {
         if ("loading" !== element.parentNode.id) {
             fetch(element.getAttribute("data")).then(function (response) {
@@ -358,9 +412,9 @@ define(["jsonrpc", "pebkac", "notify"],
             return;
         }
         switch (event.key) {
-            case "p": case "P": send();      break;
-            case "n": case "N": insert();    break;
-            case "q": case "Q": add();       break;
+            case "p": case "P": cast({ "target": { "id": "send"   } }); break;
+            case "n": case "N": cast({ "target": { "id": "insert" } }); break;
+            case "q": case "Q": cast({ "target": { "id": "add"    } }); break;
             case "v": case "V": paste();     break;
             case "PageDown":    previous();  break;
             case "r": case "R": rewind();    break;
@@ -379,8 +433,7 @@ define(["jsonrpc", "pebkac", "notify"],
 
     // Afficher les textes dans la langue courante.
     for (const element of document.querySelectorAll("[data-i18n-title]")) {
-        const key = "popup_" + element.getAttribute("data-i18n-title") +
-                    "_title";
+        const key = `popup_${element.getAttribute("data-i18n-title")}_title`;
         element.setAttribute("title", browser.i18n.getMessage(key));
     }
 });

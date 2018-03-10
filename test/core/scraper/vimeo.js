@@ -21,13 +21,8 @@ describe("scraper/vimeo", function () {
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
             const url = "https://developer.vimeo.com/";
-            const expected = "unsupported";
-            return module.extract(url).then(function () {
-                assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+            return module.extract(url).then(function (file) {
+                assert.strictEqual(file, url);
             });
         });
     });

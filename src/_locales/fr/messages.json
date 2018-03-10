@@ -57,11 +57,11 @@
         "message": "Le nom d'utilisateur ou le mot de passe est invalide."
     },
 
-    "notifications_unsupported_title": {
+    "notifications_nolink_title": {
         "message": "Lien non supporté"
     },
-    "notifications_unsupported_message": {
-        "message": "Le lien n'est pas géré par Kodi."
+    "notifications_nolink_message": {
+        "message": "Le texte n'est pas un lien valide."
     },
 
     "notifications_novideo_title": {

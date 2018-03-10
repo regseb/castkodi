@@ -57,11 +57,11 @@
         "message": "Username or password are invalid."
     },
 
-    "notifications_unsupported_title": {
+    "notifications_nolink_title": {
         "message": "Unsupported link"
     },
-    "notifications_unsupported_message": {
-        "message": "Link isn't supported by Kodi."
+    "notifications_nolink_message": {
+        "message": "Text isn't a valid link."
     },
 
     "notifications_novideo_title": {

@@ -50,21 +50,16 @@ describe("scrapers", function () {
             });
         });
 
-        it("should return error when it's not a URL supported", function () {
+        it("should return URL when it's not supported", function () {
             const url = "https://kodi.tv/";
-            const expected = "unsupported";
-            return module.extract(url).then(function () {
-                assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+            return module.extract(url).then(function (file) {
+                assert.strictEqual(file, url);
             });
         });
 
         it("should return error when it's empty string", function () {
             const url = "";
-            const expected = "unsupported";
+            const expected = "nolink";
             return module.extract(url).then(function () {
                 assert.fail();
             }, function (error) {
@@ -76,7 +71,19 @@ describe("scrapers", function () {
 
         it("should return error when it's undefined", function () {
             const url = undefined;
-            const expected = "unsupported";
+            const expected = "nolink";
+            return module.extract(url).then(function () {
+                assert.fail();
+            }, function (error) {
+                assert.strictEqual(error.name, "PebkacError");
+                assert.ok(error.title.includes(expected));
+                assert.ok(error.message.includes(expected));
+            });
+        });
+
+        it("should return error when it isn't a valid link", function () {
+            const url = "foobar";
+            const expected = "nolink";
             return module.extract(url).then(function () {
                 assert.fail();
             }, function (error) {

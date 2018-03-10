@@ -10,7 +10,7 @@ define(["pebkac"], function (PebkacError) {
      *
      * @constant {string} PLUGIN_URL
      */
-    const PLUGIN_URL = "plugin://plugin.video.vimeo/";
+    const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
 
     /**
      * Les règles avec les patrons et leur action.
@@ -30,8 +30,7 @@ define(["pebkac"], function (PebkacError) {
             return Promise.reject(new PebkacError("novideo", "Vimeo"));
         }
 
-        return Promise.resolve(
-            PLUGIN_URL + "play/?video_id=" + url.pathname.substr(1));
+        return Promise.resolve(PLUGIN_URL + url.pathname.substr(1));
     });
 
     /**
@@ -45,8 +44,7 @@ define(["pebkac"], function (PebkacError) {
             return Promise.reject(new PebkacError("novideo", "Vimeo"));
         }
 
-        return Promise.resolve(
-            PLUGIN_URL + "play/?video_id=" + url.pathname.substr(7));
+        return Promise.resolve(PLUGIN_URL + url.pathname.substr(7));
     });
 
     return rules;

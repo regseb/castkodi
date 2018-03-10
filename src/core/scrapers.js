@@ -26,7 +26,19 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
             "/" + sanitize(path).replace(/\\\*/g, ".*") + "$", "i");
     };
 
+    /**
+     * Les patrons (sous formes de modèles de correspondance) des URLs gérées.
+     *
+     * @const PATTERNS
+     */
     const PATTERNS = [];
+
+    /**
+     * Les patrons (sous formes d'expressions rationnelles) des URLs gérées.
+     *
+     * @const REGEXPS
+     */
+    const REGEXPS = [];
 
     const RULES = new Map();
 
@@ -39,20 +51,26 @@ define(["pebkac", ...SCRAPERS], function (PebkacError, ...scrapers) {
                     return action(url);
                 }
             }
+            // Si l'URL n'est pas gérée par les scrapers : envoyer directement
+            // l'URL à Kodi.
+            return Promise.resolve(input);
         } catch (_) {
-            // Ignorer l'erreur, puis retourner une promesse rejetée.
+            // Ignorer l'erreur (provenant d'une URL invalide), puis retourner
+            // une promesse rejetée.
+            return Promise.reject(new PebkacError("nolink"));
         }
-        return Promise.reject(new PebkacError("unsupported"));
     };
 
     for (const scraper of scrapers) {
         for (const [patterns, action] of scraper.entries()) {
             for (const pattern of patterns) {
                 PATTERNS.push(pattern);
-                RULES.set(compile(pattern), action);
+                const regexp = compile(pattern);
+                REGEXPS.push(regexp);
+                RULES.set(regexp, action);
             }
         }
     }
 
-    return { "patterns": PATTERNS, extract };
+    return { "patterns": PATTERNS, "regexps": REGEXPS, extract };
 });

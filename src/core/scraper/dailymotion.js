@@ -10,7 +10,8 @@ define([], function () {
      *
      * @constant {string} PLUGIN_URL
      */
-    const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/";
+    const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                             "&url=";
 
     /**
      * Les règles avec les patrons et leur action.
@@ -26,8 +27,7 @@ define([], function () {
      * @return {Promise} L'URL du <em>fichier</em>.
      */
     rules.set(["*://www.dailymotion.com/video/*"], function (url) {
-        return Promise.resolve(
-            PLUGIN_URL + "?mode=playVideo&url=" + url.pathname.substr(7));
+        return Promise.resolve(PLUGIN_URL + url.pathname.substr(7));
     });
 
     /**
@@ -37,8 +37,7 @@ define([], function () {
      * @return {Promise} L'URL du <em>fichier</em>.
      */
     rules.set(["*://dai.ly/*"], function (url) {
-        return Promise.resolve(
-            PLUGIN_URL + "?mode=playVideo&url=" + url.pathname.substr(1));
+        return Promise.resolve(PLUGIN_URL + url.pathname.substr(1));
     });
 
     /**
@@ -48,8 +47,7 @@ define([], function () {
      * @return {Promise} L'URL du <em>fichier</em>.
      */
     rules.set(["*://www.dailymotion.com/embed/video/*"], function (url) {
-        return Promise.resolve(
-            PLUGIN_URL + "?mode=playVideo&url=" + url.pathname.substr(13));
+        return Promise.resolve(PLUGIN_URL + url.pathname.substr(13));
     });
 
     return rules;

@@ -10,7 +10,7 @@ define(["pebkac"], function (PebkacError) {
      *
      * @constant {string} PLUGIN_URL
      */
-    const PLUGIN_URL = "plugin://plugin.audio.mixcloud/";
+    const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
 
     /**
      * Les règles avec les patrons et leur action.
@@ -30,8 +30,7 @@ define(["pebkac"], function (PebkacError) {
             return Promise.reject(new PebkacError("noaudio", "Mixcloud"));
         }
 
-        return Promise.resolve(
-            PLUGIN_URL + "?mode=40&key=" + encodeURIComponent(url.pathname));
+        return Promise.resolve(PLUGIN_URL + encodeURIComponent(url.pathname));
     });
 
     return rules;

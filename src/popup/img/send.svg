@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-  <g fill="#f9f9fa" stroke="#f9f9fa">
+  <g fill="#737373" stroke="#737373">
     <polygon points="1.25,2.25 1.25,6.5 10.5,8 1.25,9.5 1.25,13.75 14.75,8"
              stroke-width="0.5" stroke-linejoin="round" />
   </g>

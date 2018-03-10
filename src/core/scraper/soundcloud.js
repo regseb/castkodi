@@ -10,7 +10,7 @@ define(["pebkac"], function (PebkacError) {
      *
      * @constant {string} PLUGIN_URL
      */
-    const PLUGIN_URL = "plugin://plugin.audio.soundcloud/";
+    const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?audio_id=";
 
     /**
      * Les règles avec les patrons et leur action.
@@ -44,7 +44,7 @@ define(["pebkac"], function (PebkacError) {
             if (null === result) {
                 throw new PebkacError("noaudio", "SoundCloud");
             }
-            return PLUGIN_URL + "play/?audio_id=" + result[1];
+            return PLUGIN_URL + result[1];
         });
     });
 

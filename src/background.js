@@ -13,8 +13,9 @@ require(["notify", "scrapers", "jsonrpc"],
     /**
      * La liste des options qui seront ajoutées dans le menu contextuel pour :
      * <ul>
-     *   <li>les éléments audio, les liens et les vidéos ;</li>
-     *   <li>le bouton de l'extension, les <em>iframe</em>, la page et
+     *   <li>les éléments audio et les vidéos ;</li>
+     *   <li>les liens ;</li>
+     *   <li>le bouton de l'extension, les <code>iframe</code>, la page et
      *        l'onglet ;</li>
      *   <li>les textes sélectionnés.</li>
      * </ul>
@@ -22,8 +23,12 @@ require(["notify", "scrapers", "jsonrpc"],
      * @constant {Object.<string, Object>} KINDS
      */
     const KINDS = {
-        "target": {
-            "contexts":          ["audio", "link", "video"],
+        "media": {
+            "contexts":          ["audio", "video"],
+            "targetUrlPatterns": ["*://*/*"]
+        },
+        "link": {
+            "contexts":          ["link"],
             "targetUrlPatterns": scrapers.patterns
         },
         "document": {

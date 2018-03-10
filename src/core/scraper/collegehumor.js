@@ -10,7 +10,7 @@ define(["pebkac"], function (PebkacError) {
      *
      * @constant {string} PLUGIN_URL
      */
-    const PLUGIN_URL = "plugin://plugin.video.collegehumor/";
+    const PLUGIN_URL = "plugin://plugin.video.collegehumor/watch/";
 
     /**
      * Les règles avec les patrons et leur action.
@@ -31,7 +31,7 @@ define(["pebkac"], function (PebkacError) {
         if (null === result) {
             return Promise.reject(new PebkacError("novideo", "CollegeHumor"));
         }
-        return Promise.resolve(PLUGIN_URL + "watch/" + result[1]);
+        return Promise.resolve(PLUGIN_URL + result[1]);
     });
 
     return rules;

@@ -10,7 +10,8 @@ define([], function () {
      *
      * @constant {string} PLUGIN_URL
      */
-    const PLUGIN_URL = "plugin://plugin.video.dumpert/";
+    const PLUGIN_URL = "plugin://plugin.video.dumpert/?action=play" +
+                                                     "&video_page_url=";
 
     /**
      * Les règles avec les patrons et leur action.
@@ -25,12 +26,8 @@ define([], function () {
      * @param {String} url L'URL d'une vidéo Dumpert.
      * @return {Promise} L'URL du <em>fichier</em>.
      */
-    rules.set([
-        "*://www.dumpert.nl/mediabase/*"
-    ], function (url) {
-        return Promise.resolve(
-            PLUGIN_URL + "?action=play&video_page_url=" +
-                                            encodeURIComponent(url.toString()));
+    rules.set(["*://www.dumpert.nl/mediabase/*"], function (url) {
+        return Promise.resolve(PLUGIN_URL + encodeURIComponent(url.toString()));
     });
 
     return rules;

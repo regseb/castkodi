@@ -8,9 +8,17 @@ define(["pebkac"], function (PebkacError) {
     /**
      * L'URL de l'extension pour lire des vidéos issues de YouTube.
      *
-     * @constant {string} PLUGIN_URL
+     * @constant {string} PLUGIN_VIDEO_URL
      */
-    const PLUGIN_URL = "plugin://plugin.video.youtube/";
+    const PLUGIN_VIDEO_URL = "plugin://plugin.video.youtube/play/?video_id=";
+
+    /**
+     * L'URL de l'extension pour lire des playlists issues de YouTube.
+     *
+     * @constant {string} PLUGIN_PLAYLIST_URL
+     */
+    const PLUGIN_PLAYLIST_URL = "plugin://plugin.video.youtube/play/" +
+                                                                "?playlist_id=";
 
     /**
      * Les règles avec les patrons et leur action.
@@ -34,12 +42,10 @@ define(["pebkac"], function (PebkacError) {
                                                              function (config) {
             if (url.searchParams.has("list") &&
                     "playlist" === config["youtube-playlist"]) {
-                return PLUGIN_URL + "?action=play_all" +
-                                    "&playlist=" + url.searchParams.get("list");
+                return PLUGIN_PLAYLIST_URL + url.searchParams.get("list");
             }
             if (url.searchParams.has("v")) {
-                return PLUGIN_URL + "?action=play_video" +
-                                    "&videoid=" + url.searchParams.get("v");
+                return PLUGIN_VIDEO_URL + url.searchParams.get("v");
             }
 
             throw new PebkacError("novideo", "YouTube");
@@ -57,8 +63,7 @@ define(["pebkac"], function (PebkacError) {
     ], function (url) {
         if (url.searchParams.has("list")) {
             return Promise.resolve(
-                PLUGIN_URL + "?action=play_all" +
-                             "&playlist=" + url.searchParams.get("list"));
+                            PLUGIN_PLAYLIST_URL + url.searchParams.get("list"));
         }
 
         return Promise.reject(new PebkacError("novideo", "YouTube"));
@@ -72,9 +77,7 @@ define(["pebkac"], function (PebkacError) {
      *                   <em>fichier</em>.
      */
     rules.set(["https://youtu.be/*"], function (url) {
-        return Promise.resolve(
-            PLUGIN_URL + "?action=play_video" +
-                         "&videoid=" + url.pathname.substr(1));
+        return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(1));
     });
 
     return rules;
