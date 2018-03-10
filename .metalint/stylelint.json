@@ -77,6 +77,8 @@
         "selector-attribute-operator-blacklist": null,
         "selector-attribute-operator-whitelist": null,
         "selector-class-pattern": null,
+        "selector-combinator-blacklist": null,
+        "selector-combinator-whitelist": null,
         "selector-id-pattern": null,
         "selector-max-attribute": null,
         "selector-max-class": null,
@@ -92,6 +94,8 @@
         "selector-no-vendor-prefix": true,
         "selector-pseudo-class-blacklist": null,
         "selector-pseudo-class-whitelist": null,
+        "selector-pseudo-element-blacklist": null,
+        "selector-pseudo-element-whitelist": null,
 
         "media-feature-name-blacklist": null,
         "media-feature-name-no-vendor-prefix": true,

@@ -24,26 +24,23 @@
     },
     "scripts": {
         "lint": "metalint",
-        "test": "mocha test/",
-        "cover": "istanbul cover --hook-run-in-context _mocha -- test/",
-        "coveralls": "npm run cover -- --report lcovonly && cat coverage/lcov.info | coveralls",
+        "test": "nyc mocha test/",
         "docs": "jsdoc -r -d docs/ src/"
     },
     "dependencies": {
         "requirejs": "^2.3.5"
     },
     "devDependencies": {
-        "coveralls": "^3.0.0",
-        "eslint": "^4.16.0",
+        "eslint": "^4.19.0",
         "htmlhint": "^0.9.13",
-        "istanbul": "^0.4.5",
         "jsdoc": "^3.5.5",
         "jsdom": "^11.6.2",
-        "jsonlint": "^1.6.2",
-        "markdownlint": "^0.7.0",
+        "jsonlint": "^1.6.3",
+        "markdownlint": "^0.8.0",
         "metalint": "^0.7.1",
-        "mocha": "^5.0.0",
-        "node-fetch": "^1.7.3",
-        "stylelint": "^8.4.0"
+        "mocha": "^5.0.4",
+        "node-fetch": "^2.1.1",
+        "nyc": "^11.6.0",
+        "stylelint": "^9.1.3"
     }
 }

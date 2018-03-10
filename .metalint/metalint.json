@@ -1,6 +1,6 @@
 {
     "patterns": [
-        "!.git/**", "!coverage/**", "!docs/**", "!node_modules/**",
+        "!.git/**", "!nyc_output/**", "!docs/**", "!node_modules/**",
         "!src/lib/**", "**"
     ],
     "hidden": true,
