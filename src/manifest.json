@@ -8,7 +8,7 @@
 
     "manifest_version": 2,
     "name": "Cast Kodi",
-    "version": "1.5.0",
+    "version": "2.0.0",
 
     "description": "__MSG_manifest_description__",
     "icons": {
@@ -23,7 +23,7 @@
         "default_popup": "popup/index.html"
     },
 
-    "author": "Sébastien Règne <regseb@gmail.com>",
+    "author": "Sébastien Règne",
     "background": {
         "scripts": [
             "lib/require.js", "background.js"
