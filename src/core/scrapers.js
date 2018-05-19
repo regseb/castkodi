@@ -10,6 +10,7 @@ import { rules as collegehumor } from "./scraper/collegehumor.js";
 import { rules as dailymotion }  from "./scraper/dailymotion.js";
 import { rules as facebook }     from "./scraper/facebook.js";
 import { rules as mixcloud }     from "./scraper/mixcloud.js";
+import { rules as peertube }     from "./scraper/peertube.js";
 import { rules as rutube }       from "./scraper/rutube.js";
 import { rules as soundcloud }   from "./scraper/soundcloud.js";
 import { rules as twitch }       from "./scraper/twitch.js";
@@ -20,7 +21,7 @@ import { rules as audio }        from "./scraper/audio.js";
 
 const SCRAPERS = [
     airmozilla, arteradio, dumpert, collegehumor, dailymotion, facebook,
-    mixcloud, rutube, soundcloud, twitch, vimeo, youtube, video, audio
+    mixcloud, peertube, rutube, soundcloud, twitch, vimeo, youtube, video, audio
 ];
 
 const sanitize = function (pattern) {
