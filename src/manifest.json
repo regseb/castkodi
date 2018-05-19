@@ -2,7 +2,7 @@
     "applications": {
         "gecko": {
             "id": "castkodi@regseb.github.io",
-            "strict_min_version": "58.0"
+            "strict_min_version": "60.0"
         }
     },
 
@@ -25,9 +25,7 @@
 
     "author": "Sébastien Règne",
     "background": {
-        "scripts": [
-            "lib/require.js", "background.js"
-        ]
+        "page": "background.html"
     },
     "default_locale": "en",
     "homepage_url": "https://github.com/regseb/castkodi",

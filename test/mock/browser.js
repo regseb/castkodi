@@ -1,6 +1,4 @@
-"use strict";
-
-const browser = {
+export const browser = {
     "gimmick": {
         "menus": {
             "items":     [],
@@ -56,5 +54,3 @@ const browser = {
         }
     }
 };
-
-module.exports = browser;

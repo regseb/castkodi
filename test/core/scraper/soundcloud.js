@@ -1,27 +1,11 @@
-"use strict";
-
-const assert    = require("assert");
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import assert      from "assert";
+import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/soundcloud", function () {
-    let module;
-
-    before(function (done) {
-        requirejs(["scrapers"], function (scrapers) {
-            module = scrapers;
-            done();
-        });
-    });
-
     describe("#patterns", function () {
         it("should return error when it's not a music", function () {
             const url = "https://soundcloud.com/stream";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
             });
         });
@@ -32,7 +16,7 @@ describe("scraper/soundcloud", function () {
             const url = "https://soundcloud.com/a-tribe-called-red/" +
                                                              "sets/trapline-ep";
             const expected = "noaudio";
-            return module.extract(url).then(function () {
+            return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
@@ -44,7 +28,7 @@ describe("scraper/soundcloud", function () {
         it("should return error when it's not a music", function () {
             const url = "https://soundcloud.com/you/collection";
             const expected = "noaudio";
-            return module.extract(url).then(function () {
+            return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
@@ -57,7 +41,7 @@ describe("scraper/soundcloud", function () {
             const url = "https://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                           "?audio_id=176387011";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -67,7 +51,7 @@ describe("scraper/soundcloud", function () {
                                      "a-tribe-called-red/electric-pow-wow-drum";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                             "?audio_id=8481452";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

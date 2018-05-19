@@ -1,27 +1,11 @@
-"use strict";
-
-const assert    = require("assert");
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import assert      from "assert";
+import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/collegehumor", function () {
-    let module;
-
-    before(function (done) {
-        requirejs(["scrapers"], function (scrapers) {
-            module = scrapers;
-            done();
-        });
-    });
-
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
             const url = "http://www.collegehumor.com/videos";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
             });
         });
@@ -31,7 +15,7 @@ describe("scraper/collegehumor", function () {
         it("should return error when it's not a video", function () {
             const url = "https://www.collegehumor.com/video/lorem/ipsum";
             const expected = "novideo";
-            return module.extract(url).then(function () {
+            return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
@@ -45,7 +29,7 @@ describe("scraper/collegehumor", function () {
                                                               "google-is-a-guy";
             const expected = "plugin://plugin.video.collegehumor/watch/" +
                                                                       "6947898";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

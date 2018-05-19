@@ -1,27 +1,11 @@
-"use strict";
-
-const assert    = require("assert");
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import assert      from "assert";
+import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/dumpert", function () {
-    let module;
-
-    before(function (done) {
-        requirejs(["scrapers"], function (scrapers) {
-            module = scrapers;
-            done();
-        });
-    });
-
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
             const url = "http://www.dumpert.nl/toppers/";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
             });
         });
@@ -35,7 +19,7 @@ describe("scraper/dumpert", function () {
                              "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
                              "%2Fmediabase%2F7248279%2F47066e59" +
                              "%2Fwheelie_in_ny.html";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

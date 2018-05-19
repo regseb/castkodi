@@ -24,23 +24,22 @@
     },
     "scripts": {
         "lint": "metalint",
-        "test": "nyc mocha test/",
+        "test": "nyc --require esm mocha test/",
         "docs": "jsdoc -r -d docs/ src/"
     },
-    "dependencies": {
-        "requirejs": "^2.3.5"
-    },
     "devDependencies": {
-        "eslint": "^4.19.0",
+        "david": "^11.0.0",
+        "eslint": "^4.19.1",
+        "esm": "^3.0.34",
         "htmlhint": "^0.9.13",
         "jsdoc": "^3.5.5",
-        "jsdom": "^11.6.2",
+        "jsdom": "^11.10.0",
         "jsonlint": "^1.6.3",
-        "markdownlint": "^0.8.0",
-        "metalint": "^0.7.1",
-        "mocha": "^5.0.4",
-        "node-fetch": "^2.1.1",
-        "nyc": "^11.6.0",
-        "stylelint": "^9.1.3"
+        "markdownlint": "^0.9.0",
+        "metalint": "^0.8.0",
+        "mocha": "^5.2.0",
+        "node-fetch": "^2.1.2",
+        "nyc": "^11.8.0",
+        "stylelint": "9.2.1"
     }
 }

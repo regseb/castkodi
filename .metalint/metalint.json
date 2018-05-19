@@ -1,10 +1,7 @@
 {
     "patterns": [
-        "!.git/**", "!nyc_output/**", "!docs/**", "!node_modules/**",
-        "!src/lib/**", "**"
+        "!.git/", "!nyc_output/", "!docs/", "!node_modules/", "**"
     ],
-    "hidden": true,
-    "verbose": 2,
     "checkers": [
         {
             "patterns": "src/**/*.js",
@@ -28,7 +25,10 @@
             "linters": "markdownlint"
         }, {
             "patterns": "**/*.json",
-            "linters": { "jsonlint": { "comments": false } }
+            "linters": { "jsonlint": null }
+        }, {
+            "patterns": "package.json",
+            "linters": "david"
         }
     ]
 }

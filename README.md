@@ -52,7 +52,7 @@ les extensions
 ## Licence
 
 L'extension est publiée sous la [licence publique de l’Union européenne - EUPL
-v1.2](https://joinup.ec.europa.eu/page/eupl-text-11-12).
+v1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
 
 [img-version]:https://img.shields.io/amo/v/castkodi.svg
 [img-dependencies]:https://img.shields.io/david/regseb/castkodi.svg
@@ -62,7 +62,7 @@ v1.2](https://joinup.ec.europa.eu/page/eupl-text-11-12).
 
 [link-version]:https://addons.mozilla.org/addon/castkodi/
 [link-dependencies]:https://david-dm.org/regseb/castkodi
-[link-license]:https://joinup.ec.europa.eu/page/eupl-text-11-12
-               "Licence Publique de l’Union européenne"
+[link-license]:https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12
+               "Licence publique de l’Union européenne"
 [link-users]:https://addons.mozilla.org/addon/castkodi/statistics/?last=90
 [link-stars]:https://addons.mozilla.org/addon/castkodi/reviews/

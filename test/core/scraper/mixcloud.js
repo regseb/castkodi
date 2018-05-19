@@ -1,27 +1,11 @@
-"use strict";
-
-const assert    = require("assert");
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import assert      from "assert";
+import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/mixcloud", function () {
-    let module;
-
-    before(function (done) {
-        requirejs(["scrapers"], function (scrapers) {
-            module = scrapers;
-            done();
-        });
-    });
-
     describe("#patterns", function () {
         it("should return error when it's not a music", function () {
             const url = "https://www.mixcloud.com/upload/";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
             });
         });
@@ -31,7 +15,7 @@ describe("scraper/mixcloud", function () {
         it("should return error when it's not a music", function () {
             const url = "https://www.mixcloud.com/discover/jazz/";
             const expected = "noaudio";
-            return module.extract(url).then(function () {
+            return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
@@ -47,7 +31,7 @@ describe("scraper/mixcloud", function () {
                               "?mode=40" +
                               "&key=%2FLesGar%25C3%25A7onsBienElev%25C3%25A9s" +
                                    "%2Fn101%2F";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

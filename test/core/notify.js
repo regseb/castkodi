@@ -1,22 +1,6 @@
-"use strict";
-
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import { notify } from "../../src/core/notify.js";
 
 describe("notify", function () {
-    let notify;
-
-    before(function (done) {
-        requirejs(["notify"], function (module) {
-            notify = module;
-            done();
-        });
-    });
-
     it("should accept Error", function () {
         notify(new Error("Message."));
     });

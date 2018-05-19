@@ -1,37 +1,33 @@
-"use strict";
-
 /**
  * @module core/scraper/mixcloud
  */
-define(["pebkac"], function (PebkacError) {
 
-    /**
-     * L'URL de l'extension pour lire des musiques issues de Mixcloud.
-     *
-     * @constant {string} PLUGIN_URL
-     */
-    const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
+import { PebkacError } from "../pebkac.js";
 
-    /**
-     * Les règles avec les patrons et leur action.
-     *
-     * @constant {Map} rules
-     */
-    const rules = new Map();
+/**
+ * L'URL de l'extension pour lire des musiques issues de Mixcloud.
+ *
+ * @constant {string} PLUGIN_URL
+ */
+const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
 
-    /**
-     * Extrait les informations nécessaire pour lire une musique sur Kodi.
-     *
-     * @param {String} url L'URL d'une musique Mixcloud.
-     * @return {Promise} L'URL du <em>fichier</em>.
-     */
-    rules.set(["https://www.mixcloud.com/*/*/"], function (url) {
-        if (url.pathname.startsWith("/discover/")) {
-            return Promise.reject(new PebkacError("noaudio", "Mixcloud"));
-        }
+/**
+ * Les règles avec les patrons et leur action.
+ *
+ * @constant {Map} rules
+ */
+export const rules = new Map();
 
-        return Promise.resolve(PLUGIN_URL + encodeURIComponent(url.pathname));
-    });
+/**
+ * Extrait les informations nécessaire pour lire une musique sur Kodi.
+ *
+ * @param {String} url L'URL d'une musique Mixcloud.
+ * @return {Promise} L'URL du <em>fichier</em>.
+ */
+rules.set(["https://www.mixcloud.com/*/*/"], function (url) {
+    if (url.pathname.startsWith("/discover/")) {
+        return Promise.reject(new PebkacError("noaudio", "Mixcloud"));
+    }
 
-    return rules;
+    return Promise.resolve(PLUGIN_URL + encodeURIComponent(url.pathname));
 });

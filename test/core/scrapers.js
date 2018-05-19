@@ -1,27 +1,22 @@
-"use strict";
-
-const assert    = require("assert");
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import assert        from "assert";
+import * as scrapers from "../../src/core/scrapers.js";
 
 describe("scrapers", function () {
-    let module;
-
-    before(function (done) {
-        requirejs(["scrapers"], function (scrapers) {
-            module = scrapers;
-            done();
+    describe("#PATTERNS", function () {
+        it("should be a non-empty array", function () {
+            assert.ok(Array.isArray(scrapers.PATTERNS));
+            assert.notStrictEqual(scrapers.PATTERNS.length, 0);
+            assert.strictEqual(scrapers.PATTERNS.length,
+                               scrapers.REGEXPS.length);
         });
     });
 
-    describe("#patterns", function () {
+    describe("#REGEXPS", function () {
         it("should be a non-empty array", function () {
-            assert.strictEqual(Array.isArray(module.patterns), true);
-            assert.notStrictEqual(module.patterns.length, 0);
+            assert.ok(Array.isArray(scrapers.REGEXPS));
+            assert.notStrictEqual(scrapers.REGEXPS.length, 0);
+            assert.strictEqual(scrapers.REGEXPS.length,
+                               scrapers.PATTERNS.length);
         });
     });
 
@@ -29,7 +24,7 @@ describe("scrapers", function () {
         it("should support valid URL", function () {
             const url = "http://www.dailymotion.com/video/x17qw0a";
             const expected = "plugin://plugin.video.dailymotion_com/";
-            return module.extract(url).then(function (file) {
+            return scrapers.extract(url).then(function (file) {
                 assert.ok(file.startsWith(expected));
             });
         });
@@ -37,7 +32,7 @@ describe("scrapers", function () {
         it("should support uppercase valid URL", function () {
             const url = "HTTPS://VIMEO.COM/195613867";
             const expected = "plugin://plugin.video.vimeo/";
-            return module.extract(url).then(function (file) {
+            return scrapers.extract(url).then(function (file) {
                 assert.ok(file.startsWith(expected));
             });
         });
@@ -45,14 +40,14 @@ describe("scrapers", function () {
         it("should support correctly question mark in pattern", function () {
             const url = "https://vid.ly/i2x4g5.mp4?quality=hd";
             const expected = url.toString();
-            return module.extract(url).then(function (file) {
+            return scrapers.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
 
         it("should return URL when it's not supported", function () {
             const url = "https://kodi.tv/";
-            return module.extract(url).then(function (file) {
+            return scrapers.extract(url).then(function (file) {
                 assert.strictEqual(file, url);
             });
         });
@@ -60,7 +55,7 @@ describe("scrapers", function () {
         it("should return error when it's empty string", function () {
             const url = "";
             const expected = "nolink";
-            return module.extract(url).then(function () {
+            return scrapers.extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
@@ -72,7 +67,7 @@ describe("scrapers", function () {
         it("should return error when it's undefined", function () {
             const url = undefined;
             const expected = "nolink";
-            return module.extract(url).then(function () {
+            return scrapers.extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
@@ -84,7 +79,7 @@ describe("scrapers", function () {
         it("should return error when it isn't a valid link", function () {
             const url = "foobar";
             const expected = "nolink";
-            return module.extract(url).then(function () {
+            return scrapers.extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");

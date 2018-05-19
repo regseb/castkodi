@@ -1,28 +1,12 @@
-"use strict";
-
-const assert    = require("assert");
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import assert      from "assert";
+import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/video", function () {
-    let module;
-
-    before(function (done) {
-        requirejs(["scrapers"], function (scrapers) {
-            module = scrapers;
-            done();
-        });
-    });
-
     describe("*://*/*.asf", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.asf";
             const expected = url;
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -32,7 +16,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.avi";
             const expected = url;
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -42,7 +26,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.flv";
             const expected = url;
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -53,7 +37,7 @@ describe("scraper/video", function () {
             const url = "http://arcagenis.org/mirror/mango/ToS/" +
                                                       "tears_of_steel_720p.mkv";
             const expected = url;
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -63,7 +47,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.mov";
             const expected = url;
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -73,7 +57,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.mp4";
             const expected = url;
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -83,7 +67,7 @@ describe("scraper/video", function () {
         it("should return the same URL", function () {
             const url = "http://example.org/video.wmv";
             const expected = url;
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

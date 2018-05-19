@@ -1,27 +1,11 @@
-"use strict";
-
-const assert    = require("assert");
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import assert      from "assert";
+import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/dailymotion", function () {
-    let module;
-
-    before(function (done) {
-        requirejs(["scrapers"], function (scrapers) {
-            module = scrapers;
-            done();
-        });
-    });
-
     describe("#patterns", function () {
         it("should return error when it's not a video", function () {
             const url = "http://www.dailymotion.com/fr/feed";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
             });
         });
@@ -33,7 +17,7 @@ describe("scraper/dailymotion", function () {
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x17qw0a";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -45,7 +29,7 @@ describe("scraper/dailymotion", function () {
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=x5riqme";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -57,7 +41,7 @@ describe("scraper/dailymotion", function () {
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                              "?mode=playVideo" +
                                                              "&url=a12bc3d";
-            return module.extract(url).then(function (file) {
+            return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

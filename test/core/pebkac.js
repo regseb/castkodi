@@ -1,23 +1,7 @@
-"use strict";
-
-const assert    = require("assert");
-const requirejs = require("requirejs");
-
-requirejs.config({
-    "baseUrl":     "src/core",
-    "nodeRequire": require
-});
+import assert          from "assert";
+import { PebkacError } from "../../src/core/pebkac.js";
 
 describe("pebkac", function () {
-    let PebkacError;
-
-    before(function (done) {
-        requirejs(["pebkac"], function (module) {
-            PebkacError = module;
-            done();
-        });
-    });
-
     describe("constructor", function () {
         it("should accept one parameter", function () {
             const error = new PebkacError("foo");

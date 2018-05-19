@@ -1,15 +1,14 @@
-"use strict";
+import { JSDOM } from "jsdom";
 
-const jsdom = require("jsdom");
+export const DOMParser = class {
 
-const DOMParser = class {
-    constructor() {
-        this.JSDOM = jsdom.JSDOM;
-    }
-
+    /**
+     * Analyse un document HTML.
+     *
+     * @param {string} data La chaine de caractères contenant du HTML.
+     * @return {Document} Le document HTML.
+     */
     parseFromString(data) {
-        return new this.JSDOM(data).window.document;
+        return new JSDOM(data).window.document;
     }
 };
-
-module.exports = DOMParser;

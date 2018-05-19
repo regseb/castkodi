@@ -1,6 +1,6 @@
-"use strict";
-
-const assert = require("assert");
+import assert from "assert";
+import fr     from "../src/_locales/fr/messages.json";
+import en     from "../src/_locales/en/messages.json";
 
 const compare = function (messages1, messages2) {
     for (const [name, message] of Object.entries(messages1)) {
@@ -28,10 +28,7 @@ const compare = function (messages1, messages2) {
 };
 
 describe("_locales", function () {
-
     it("should have same messages", function () {
-        const fr = require("../src/_locales/fr/messages.json");
-        const en = require("../src/_locales/en/messages.json");
         compare(fr, en);
         compare(en, fr);
     });

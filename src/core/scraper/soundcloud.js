@@ -1,52 +1,48 @@
-"use strict";
-
 /**
  * @module core/scraper/soundcloud
  */
-define(["pebkac"], function (PebkacError) {
 
-    /**
-     * L'URL de l'extension pour lire des musiques issues de SoundCloud.
-     *
-     * @constant {string} PLUGIN_URL
-     */
-    const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?audio_id=";
+import { PebkacError } from "../pebkac.js";
 
-    /**
-     * Les règles avec les patrons et leur action.
-     *
-     * @constant {Map} rules
-     */
-    const rules = new Map();
+/**
+ * L'URL de l'extension pour lire des musiques issues de SoundCloud.
+ *
+ * @constant {string} PLUGIN_URL
+ */
+const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?audio_id=";
 
-    /**
-     * Extrait les informations nécessaire pour lire une musique sur Kodi.
-     *
-     * @param {String} url L'URL d'une musique SoundCloud.
-     * @return {Promise} L'URL du <em>fichier</em>.
-     */
-    rules.set([
-        "https://soundcloud.com/*/*", "https://mobi.soundcloud.com/*/*"
-    ], function (url) {
-        // Si le chemin contient plusieurs barres obliques.
-        if (url.pathname.indexOf("/", 1) !== url.pathname.lastIndexOf("/"))  {
-            return Promise.reject(new PebkacError("noaudio", "SoundCloud"));
+/**
+ * Les règles avec les patrons et leur action.
+ *
+ * @constant {Map} rules
+ */
+export const rules = new Map();
+
+/**
+ * Extrait les informations nécessaire pour lire une musique sur Kodi.
+ *
+ * @param {String} url L'URL d'une musique SoundCloud.
+ * @return {Promise} L'URL du <em>fichier</em>.
+ */
+rules.set([
+    "https://soundcloud.com/*/*", "https://mobi.soundcloud.com/*/*"
+], function (url) {
+    // Si le chemin contient plusieurs barres obliques.
+    if (url.pathname.indexOf("/", 1) !== url.pathname.lastIndexOf("/"))  {
+        return Promise.reject(new PebkacError("noaudio", "SoundCloud"));
+    }
+
+    return fetch("https://soundcloud.com/oembed?url=" +
+                 encodeURIComponent(url.toString()
+                                       .replace("//mobi.", "//"))).then(
+                                                           function (response) {
+        return response.text();
+    }).then(function (response) {
+        const RE = /api.soundcloud.com%2Ftracks%2F([^&]+)/;
+        const result = RE.exec(response);
+        if (null === result) {
+            throw new PebkacError("noaudio", "SoundCloud");
         }
-
-        return fetch("https://soundcloud.com/oembed?url=" +
-                     encodeURIComponent(url.toString()
-                                           .replace("//mobi.", "//")))
-                                                     .then(function (response) {
-            return response.text();
-        }).then(function (response) {
-            const RE = /api.soundcloud.com%2Ftracks%2F([^&]+)/;
-            const result = RE.exec(response);
-            if (null === result) {
-                throw new PebkacError("noaudio", "SoundCloud");
-            }
-            return PLUGIN_URL + result[1];
-        });
+        return PLUGIN_URL + result[1];
     });
-
-    return rules;
 });
