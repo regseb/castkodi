@@ -1,33 +1,34 @@
 {
     "patterns": [
-        "!.git/", "!nyc_output/", "!docs/", "!node_modules/", "**"
+        "!/.git/", "!/.nyc_output/", "!/coverage/", "!/docs/",
+        "!/node_modules/", "**"
     ],
     "checkers": [
         {
-            "patterns": "src/**/*.js",
+            "patterns": "/src/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_webext.json"] }
         }, {
-            "patterns": "test/**/*.js",
+            "patterns": "/test/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_nodejs.json"] }
         }, {
-            "patterns": ["**/options/*.html", "**/popup/*.html"],
+            "patterns": ["!/src/_locales/", "*.html"],
             "linters": "htmlhint"
         }, {
-            "patterns": "**/_locales/**/*.html",
+            "patterns": "/src/_locales/**/*.html",
             "linters": {
                 "htmlhint": ["htmlhint.json", { "doctype-first": false }]
             }
         }, {
-            "patterns": "**/*.css",
+            "patterns": "*.css",
             "linters": "stylelint"
         }, {
-            "patterns": "**/*.md",
+            "patterns": "*.md",
             "linters": "markdownlint"
         }, {
-            "patterns": "**/*.json",
+            "patterns": "*.json",
             "linters": { "jsonlint": null }
         }, {
-            "patterns": "package.json",
+            "patterns": "/package.json",
             "linters": "david"
         }
     ]

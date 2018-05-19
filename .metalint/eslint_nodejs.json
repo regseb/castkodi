@@ -5,8 +5,6 @@
         "mocha": true
     },
     "globals": {
-        "URL": true,
-        "fetch": true,
         "browser": true
     }
 }
