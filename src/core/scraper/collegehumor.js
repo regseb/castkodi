@@ -28,7 +28,7 @@ rules.set(["*://www.collegehumor.com/video/*/*"], function (url) {
     const RE = /^\/video\/([0-9]+)\//;
     const result = RE.exec(url.pathname);
     if (null === result) {
-        return Promise.reject(new PebkacError("novideo", "CollegeHumor"));
+        return Promise.reject(new PebkacError("noVideo", "CollegeHumor"));
     }
     return Promise.resolve(PLUGIN_URL + result[1]);
 });

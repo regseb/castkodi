@@ -2,6 +2,15 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/peertube", function () {
+    describe("#patterns", function () {
+        it("should return the URL when it's a unsupported URL", function () {
+            const url = "https://joinpeertube.org/fr/";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+    });
+
     describe("https://PEERTUBE/videos/watch/*", function () {
         it("should return video id", function () {
             const url = "https://framatube.org/videos/watch/" +
@@ -15,7 +24,7 @@ describe("scraper/peertube", function () {
 
         it("should return error when it's not a video", function () {
             const url = "https://peertube.mastodon.host/videos/watch/uuid";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {

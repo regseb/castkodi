@@ -26,7 +26,7 @@ export const rules = new Map();
  */
 rules.set(["https://www.mixcloud.com/*/*/"], function (url) {
     if (url.pathname.startsWith("/discover/")) {
-        return Promise.reject(new PebkacError("noaudio", "Mixcloud"));
+        return Promise.reject(new PebkacError("noAudio", "Mixcloud"));
     }
 
     return Promise.resolve(PLUGIN_URL + encodeURIComponent(url.pathname));

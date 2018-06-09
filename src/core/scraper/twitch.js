@@ -40,7 +40,9 @@ export const rules = new Map();
  * @param {String} url L'URL d'une vidéo Twitch.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["https://*.twitch.tv/videos/*"], function (url) {
+rules.set([
+    "https://www.twitch.tv/videos/*", "https://go.twitch.tv/videos/*"
+], function (url) {
     return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(8));
 });
 
@@ -50,7 +52,9 @@ rules.set(["https://*.twitch.tv/videos/*"], function (url) {
  * @param {String} url L'URL d'un <em>live</em> Twitch.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["https://*.twitch.tv/*"], function (url) {
+rules.set([
+    "https://www.twitch.tv/*", "https://go.twitch.tv/*"
+], function (url) {
     const init = {
         "headers": { "client-id": "jzkbprff40iqj646a697cyrvl0zt2m6" }
     };
@@ -58,7 +62,7 @@ rules.set(["https://*.twitch.tv/*"], function (url) {
         return response.json();
     }).then(function (response) {
         if (!("_id" in response)) {
-            throw new PebkacError("novideo", "Twitch");
+            throw new PebkacError("noVideo", "Twitch");
         }
         return PLUGIN_CHANNEL_URL + response["_id"];
     });

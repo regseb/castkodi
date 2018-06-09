@@ -24,7 +24,7 @@ rules.set(["https://www.facebook.com/*/videos/*/*"], function (url) {
         const RE = /hd_src_no_ratelimit:"([^"]+)/;
         const result = RE.exec(response);
         if (null === result) {
-            throw new PebkacError("novideo", "Facebook");
+            throw new PebkacError("noVideo", "Facebook");
         }
         return result[1];
     });

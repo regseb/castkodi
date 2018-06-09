@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/mixcloud", function () {
     describe("#patterns", function () {
-        it("should return error when it's not a music", function () {
+        it("should return the URL when it's a unsupported URL", function () {
             const url = "https://www.mixcloud.com/upload/";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
@@ -14,7 +14,7 @@ describe("scraper/mixcloud", function () {
     describe("https://www.mixcloud.com/*/*/", function () {
         it("should return error when it's not a music", function () {
             const url = "https://www.mixcloud.com/discover/jazz/";
-            const expected = "noaudio";
+            const expected = "noAudio";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {

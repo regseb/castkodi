@@ -68,9 +68,9 @@ export const extract = function (input) {
         // à Kodi.
         return Promise.resolve(input);
     } catch (_) {
-        // Ignorer l'erreur (provenant d'une URL invalide), puis retourner une
-        // promesse rejetée.
-        return Promise.reject(new PebkacError("nolink"));
+        // Ignorer l'erreur (provenant d'une URL invalide), puis rejeter une
+        // promesse.
+        return Promise.reject(new PebkacError("noLink"));
     }
 };
 

@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/soundcloud", function () {
     describe("#patterns", function () {
-        it("should return error when it's not a music", function () {
+        it("should return the URL when it's a unsupported URL", function () {
             const url = "https://soundcloud.com/stream";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
@@ -11,11 +11,11 @@ describe("scraper/soundcloud", function () {
         });
     });
 
-    describe("https://soundcloud.com/*", function () {
+    describe("https://soundcloud.com/*/*", function () {
         it("should return error when it's not a music", function () {
             const url = "https://soundcloud.com/a-tribe-called-red/" +
                                                              "sets/trapline-ep";
-            const expected = "noaudio";
+            const expected = "noAudio";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
@@ -27,7 +27,7 @@ describe("scraper/soundcloud", function () {
 
         it("should return error when it's not a music", function () {
             const url = "https://soundcloud.com/you/collection";
-            const expected = "noaudio";
+            const expected = "noAudio";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {

@@ -3,25 +3,25 @@
         "message": "Cast videos and music to Kodi."
     },
 
-    "menus_first-parent": {
+    "menus_firstParent": {
         "message": "Cast to Kodi"
     },
-    "menus_first-send": {
+    "menus_firstSend": {
         "message": "Play now to Kodi"
     },
-    "menus_first-insert": {
+    "menus_firstInsert": {
         "message": "Play next to Kodi"
     },
-    "menus_first-add": {
+    "menus_firstAdd": {
         "message": "Queue item to Kodi"
     },
-    "menus_second-send": {
+    "menus_secondSend": {
         "message": "Play now"
     },
-    "menus_second-insert": {
+    "menus_secondInsert": {
         "message": "Play next"
     },
-    "menus_second-add": {
+    "menus_secondAdd": {
         "message": "Queue item"
     },
 
@@ -36,17 +36,17 @@
         "message": "IP address and port are missing in options."
     },
 
-    "notifications_badhost_title": {
+    "notifications_badHost_title": {
         "message": "IP address invalid"
     },
-    "notifications_badhost_message": {
+    "notifications_badHost_message": {
         "message": "IP address of Web server is invalid."
     },
 
-    "notifications_notfound_title": {
+    "notifications_notFound_title": {
         "message": "Kodi not found"
     },
-    "notifications_notfound_message": {
+    "notifications_notFound_message": {
         "message": "Either the IP/port are invalid or Kodi's remote control isn't enabled."
     },
 
@@ -57,17 +57,17 @@
         "message": "Username or password are invalid."
     },
 
-    "notifications_nolink_title": {
+    "notifications_noLink_title": {
         "message": "Unsupported link"
     },
-    "notifications_nolink_message": {
+    "notifications_noLink_message": {
         "message": "Text isn't a valid link."
     },
 
-    "notifications_novideo_title": {
+    "notifications_noVideo_title": {
         "message": "Unsupported link"
     },
-    "notifications_novideo_message": {
+    "notifications_noVideo_message": {
         "message": "Link isn't a $HOSTER$ video.",
         "placeholders": {
             "hoster": {
@@ -76,10 +76,10 @@
         }
     },
 
-    "notifications_noaudio_title": {
+    "notifications_noAudio_title": {
         "message": "Unsupported link"
     },
-    "notifications_noaudio_message": {
+    "notifications_noAudio_message": {
         "message": "Link isn't a $HOSTER$ audio track.",
         "placeholders": {
             "hoster": {
@@ -156,83 +156,83 @@
         "message": "Clear"
     },
 
-    "options_connection-title_content": {
+    "options_connectionTitle_content": {
         "message": "Connection"
     },
-    "options_connection-intro_content": {
+    "options_connectionIntro_content": {
         "message": "To cast videos/music to Kodi, you must Allow remote control via HTTP. This option is in Settings / Services / Control page in Kodi."
     },
-    "options_connection-port_content": {
+    "options_connectionPort_content": {
         "message": "Port:"
     },
-    "options_connection-username_content": {
+    "options_connectionUsername_content": {
         "message": "Username:"
     },
-    "options_connection-password_content": {
+    "options_connectionPassword_content": {
         "message": "Password:"
     },
-    "options_connection-helpHost_content": {
+    "options_connectionHelpHost_content": {
         "message": "IP address of Web server is displayed on Settings / System info / Summary page."
     },
-    "options_connection-host_content": {
+    "options_connectionHost_content": {
         "message": "IP address:"
     },
-    "options_connection-check_content": {
+    "options_connectionCheck_content": {
         "message": "Test connection"
     },
 
-    "options_general-title_content": {
+    "options_generalTitle_content": {
         "message": "General"
     },
-    "options_general-history_content": {
+    "options_generalHistory_content": {
         "message": "Add casted links in browser history."
     },
 
-    "options_menus-title_content": {
+    "options_menusTitle_content": {
         "message": "Context menu"
     },
-    "options_menus-description_content": {
+    "options_menusDescription_content": {
         "message": "Choose items added to the context menu :"
     },
-    "options_menus-send_content": {
+    "options_menusSend_content": {
         "message": "Play now"
     },
-    "options_menus-insert_content": {
+    "options_menusInsert_content": {
         "message": "Play next"
     },
-    "options_menus-add_content": {
+    "options_menusAdd_content": {
         "message": "Queue item"
     },
 
-    "options_youtube-title_content": {
+    "options_youtubeTitle_content": {
         "message": "YouTube"
     },
-    "options_youtube-playlist_content": {
+    "options_youtubePlaylist_content": {
         "message": "For links to video in playlist:"
     },
-    "options_youtube-playlist-playlist_content": {
+    "options_youtubePlaylistPlaylist_content": {
         "message": "cast all videos of playlist."
     },
-    "options_youtube-playlist-video_content": {
+    "options_youtubePlaylistVideo_content": {
         "message": "cast only the video."
     },
 
-    "options_airmozilla-title_content": {
+    "options_airmozillaTitle_content": {
         "message": "Air Mozilla"
     },
-    "options_airmozilla-format_content": {
+    "options_airmozillaFormat_content": {
         "message": "Preferred video format:"
     },
-    "options_airmozilla-hdwebm_content": {
+    "options_airmozillaHdwebm_content": {
         "message": "WebM (HD)"
     },
-    "options_airmozilla-webm_content": {
+    "options_airmozillaWebm_content": {
         "message": "WebM"
     },
-    "options_airmozilla-hdmp4_content": {
+    "options_airmozillaHdmp4_content": {
         "message": "MP4 (HD)"
     },
-    "options_airmozilla-mp4_content": {
+    "options_airmozillaMp4_content": {
         "message": "MP4"
     }
 }

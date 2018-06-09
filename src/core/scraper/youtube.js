@@ -46,7 +46,7 @@ rules.set([
             return PLUGIN_VIDEO_URL + url.searchParams.get("v");
         }
 
-        throw new PebkacError("novideo", "YouTube");
+        throw new PebkacError("noVideo", "YouTube");
     });
 });
 
@@ -64,7 +64,7 @@ rules.set([
                             PLUGIN_PLAYLIST_URL + url.searchParams.get("list"));
     }
 
-    return Promise.reject(new PebkacError("novideo", "YouTube"));
+    return Promise.reject(new PebkacError("noVideo", "YouTube"));
 });
 
 /**

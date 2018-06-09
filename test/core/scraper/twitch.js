@@ -2,6 +2,15 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/twitch", function () {
+    describe("#patterns", function () {
+        it("should return the URL when it's a unsupported URL", function () {
+            const url = "https://app.twitch.tv/download";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+    });
+
     describe("https://www.twitch.tv/videos/*", function () {
         it("should return video id", function () {
             const url = "https://www.twitch.tv/videos/164088111";
@@ -16,7 +25,7 @@ describe("scraper/twitch", function () {
     describe("https://www.twitch.tv/*", function () {
         it("should return error when it's not a channel", function () {
             const url = "https://www.twitch.tv/directory";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {

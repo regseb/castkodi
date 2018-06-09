@@ -31,12 +31,12 @@ rules.set([
                            .replace(/^\/play\/embed\//, "")
                            .replace(/\/$/, "");
     if (!(/^[0-9a-z]+$/).test(id)) {
-        return Promise.reject(new PebkacError("novideo", "Rutube"));
+        return Promise.reject(new PebkacError("noVideo", "Rutube"));
     }
 
     return fetch(API_URL + id + "?format=json").then(function (response) {
         if (404 === response.status) {
-            throw new PebkacError("novideo", "Rutube");
+            throw new PebkacError("noVideo", "Rutube");
         }
         return response.json();
     }).then(function (response) {

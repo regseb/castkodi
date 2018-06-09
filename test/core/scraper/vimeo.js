@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/vimeo", function () {
     describe("#patterns", function () {
-        it("should return error when it's not a video", function () {
+        it("should return the URL when it's a unsupported URL", function () {
             const url = "https://developer.vimeo.com/";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
@@ -14,7 +14,7 @@ describe("scraper/vimeo", function () {
     describe("https://vimeo.com/*", function () {
         it("should return error when it's not a video", function () {
             const url = "https://vimeo.com/channels";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
@@ -37,7 +37,7 @@ describe("scraper/vimeo", function () {
     describe("https://player.vimeo.com/video/*", function () {
         it("should return error when it's not a video", function () {
             const url = "https://player.vimeo.com/video/foobar";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {

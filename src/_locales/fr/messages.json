@@ -3,25 +3,25 @@
         "message": "Diffuser des vidéos et des musiques sur Kodi."
     },
 
-    "menus_first-parent": {
+    "menus_firstParent": {
         "message": "Diffuser sur Kodi"
     },
-    "menus_first-send": {
+    "menus_firstSend": {
         "message": "Lire maintenant avec Kodi"
     },
-    "menus_first-insert": {
+    "menus_firstInsert": {
         "message": "Lire ensuite avec Kodi"
     },
-    "menus_first-add": {
+    "menus_firstAdd": {
         "message": "Placer en file d'attente de Kodi"
     },
-    "menus_second-send": {
+    "menus_secondSend": {
         "message": "Lire maintenant"
     },
-    "menus_second-insert": {
+    "menus_secondInsert": {
         "message": "Lire ensuite"
     },
-    "menus_second-add": {
+    "menus_secondAdd": {
         "message": "Placer en file d'attente"
     },
 
@@ -36,17 +36,17 @@
         "message": "L'adresse IP ou le port ne sont pas renseignés dans les préférences."
     },
 
-    "notifications_badhost_title": {
+    "notifications_badHost_title": {
         "message": "Adresse IP invalide"
     },
-    "notifications_badhost_message": {
+    "notifications_badHost_message": {
         "message": "L'adresse du serveur Web est invalide."
     },
 
-    "notifications_notfound_title": {
+    "notifications_notFound_title": {
         "message": "Kodi non trouvé"
     },
-    "notifications_notfound_message": {
+    "notifications_notFound_message": {
         "message": "L'adresse IP ou le port sont invalides ; ou le contrôle à distance n'est pas activé dans Kodi."
     },
 
@@ -57,17 +57,17 @@
         "message": "Le nom d'utilisateur ou le mot de passe est invalide."
     },
 
-    "notifications_nolink_title": {
+    "notifications_noLink_title": {
         "message": "Lien non supporté"
     },
-    "notifications_nolink_message": {
+    "notifications_noLink_message": {
         "message": "Le texte n'est pas un lien valide."
     },
 
-    "notifications_novideo_title": {
+    "notifications_noVideo_title": {
         "message": "Lien non supporté"
     },
-    "notifications_novideo_message": {
+    "notifications_noVideo_message": {
         "message": "Le lien n'est pas une vidéo de $HOSTER$.",
         "placeholders": {
             "hoster": {
@@ -76,10 +76,10 @@
         }
     },
 
-    "notifications_noaudio_title": {
+    "notifications_noAudio_title": {
         "message": "Lien non supporté"
     },
-    "notifications_noaudio_message": {
+    "notifications_noAudio_message": {
         "message": "Le lien n'est pas une musique de $HOSTER$.",
         "placeholders": {
             "hoster": {
@@ -156,83 +156,83 @@
         "message": "Effacer"
     },
 
-    "options_connection-title_content": {
+    "options_connectionTitle_content": {
         "message": "Connexion"
     },
-    "options_connection-intro_content": {
+    "options_connectionIntro_content": {
         "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez Autoriser le contrôle à distance via HTTP. Ce règlage se fait dans la page Paramètres / Services / Contrôle de Kodi."
     },
-    "options_connection-port_content": {
+    "options_connectionPort_content": {
         "message": "Port :"
     },
-    "options_connection-username_content": {
+    "options_connectionUsername_content": {
         "message": "Nom d'utilisateur :"
     },
-    "options_connection-password_content": {
+    "options_connectionPassword_content": {
         "message": "Mot de passe :"
     },
-    "options_connection-helpHost_content": {
+    "options_connectionHelpHost_content": {
         "message": "L'adresse du serveur Web est disponible dans la page Paramètres / Infos sur le système / Résumé."
     },
-    "options_connection-host_content": {
+    "options_connectionHost_content": {
         "message": "Adresse IP :"
     },
-    "options_connection-check_content": {
+    "options_connectionCheck_content": {
         "message": "Tester la connexion"
     },
 
-    "options_general-title_content": {
+    "options_generalTitle_content": {
         "message": "Général"
     },
-    "options_general-history_content": {
+    "options_generalHistory_content": {
         "message": "Ajouter les liens diffusés sur Kodi dans l'historique du navigateur."
     },
 
-    "options_menus-title_content": {
+    "options_menusTitle_content": {
         "message": "Menu contextuel"
     },
-    "options_menus-description_content": {
+    "options_menusDescription_content": {
         "message": "Sélectionner les options ajoutées dans le menu contextuel :"
     },
-    "options_menus-send_content": {
+    "options_menusSend_content": {
         "message": "Lire maintenant"
     },
-    "options_menus-insert_content": {
+    "options_menusInsert_content": {
         "message": "Lire ensuite"
     },
-    "options_menus-add_content": {
+    "options_menusAdd_content": {
         "message": "Placer en file d'attente"
     },
 
-    "options_youtube-title_content": {
+    "options_youtubeTitle_content": {
         "message": "YouTube"
     },
-    "options_youtube-playlist_content": {
+    "options_youtubePlaylist_content": {
         "message": "Pour les liens vers une vidéo dans une playlist :"
     },
-    "options_youtube-playlist-playlist_content": {
+    "options_youtubePlaylistPlaylist_content": {
         "message": "diffuser toutes les vidéos de la playlist."
     },
-    "options_youtube-playlist-video_content": {
+    "options_youtubePlaylistVideo_content": {
         "message": "diffuser seulement la vidéo."
     },
 
-    "options_airmozilla-title_content": {
+    "options_airmozillaTitle_content": {
         "message": "Air Mozilla"
     },
-    "options_airmozilla-format_content": {
+    "options_airmozillaFormat_content": {
         "message": "Format de la vidéo à privilégier :"
     },
-    "options_airmozilla-hdwebm_content": {
+    "options_airmozillaHdwebm_content": {
         "message": "WebM (HD)"
     },
-    "options_airmozilla-webm_content": {
+    "options_airmozillaWebm_content": {
         "message": "WebM"
     },
-    "options_airmozilla-hdmp4_content": {
+    "options_airmozillaHdmp4_content": {
         "message": "MP4 (HD)"
     },
-    "options_airmozilla-mp4_content": {
+    "options_airmozillaMp4_content": {
         "message": "MP4"
     }
 }

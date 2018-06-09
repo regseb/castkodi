@@ -5,14 +5,14 @@
 import { PebkacError } from "./pebkac.js";
 
 /**
- * Le message d'erreur si la connexion a échouée.
+ * Le message d'erreur si la connexion a échoué.
  *
  * @constant {string} NETWORK_ERROR
  */
 const NETWORK_ERROR = "NetworkError when attempting to fetch resource.";
 
 /**
- * Envoie une requête à Kodi en utilisant le protocol JSON-RPC.
+ * Envoie une requête à Kodi en utilisant le protocole JSON-RPC.
  *
  * @function request
  * @param {string} method La méthode envoyée à Kodi.
@@ -53,7 +53,7 @@ const request = function (method, params = {}) {
         }
 
         if (400 === response.status) {
-            throw new PebkacError("notfound");
+            throw new PebkacError("notFound");
         }
         if (401 === response.status) {
             throw new PebkacError("unauthorized");
@@ -66,10 +66,10 @@ const request = function (method, params = {}) {
         return response.result;
     }).catch(function (error) {
         if (error.message.endsWith(" is not a valid URL.")) {
-            throw new PebkacError("badhost");
+            throw new PebkacError("badHost");
         }
         if (NETWORK_ERROR === error.message) {
-            throw new PebkacError("notfound");
+            throw new PebkacError("notFound");
         }
         throw error;
     });
@@ -90,7 +90,7 @@ export const check = function () {
  * Ajoute un média à la liste de lecture.
  *
  * @function add
- * @param {string} file L'URL envoyé à Kodi.
+ * @param {string} file L'URL envoyée à Kodi.
  * @return {Promise} La réponse de Kodi.
  */
 export const add = function (file) {
@@ -101,7 +101,7 @@ export const add = function (file) {
  * Envoi un média.
  *
  * @function send
- * @param {string} file L'URL envoyé à Kodi.
+ * @param {string} file L'URL envoyée à Kodi.
  * @return {Promise} La réponse de Kodi.
  */
 export const send = function (file) {
@@ -118,7 +118,7 @@ export const send = function (file) {
  * Ajoute un média à la liste de lecture.
  *
  * @function insert
- * @param {string} file L'URL envoyé à Kodi.
+ * @param {string} file L'URL envoyée à Kodi.
  * @return {Promise} La réponse de Kodi.
  */
 export const insert = function (file) {
@@ -206,7 +206,7 @@ export const setMute = function (mute) {
 };
 
 /**
- * Change la volume.
+ * Change le volume.
  *
  * @function setVolume
  * @param {number} volume Le nouveau volume (entre <code>0</code> et
@@ -253,7 +253,7 @@ export const clear = function () {
  * Récupère les propriétés de Kodi.
  *
  * @function getProperties
- * @return {Promise} La réponse de Kodi.
+ * @return {Promise} Les valeurs des propriétés.
  */
 export const getProperties = function () {
     return request("Application.GetProperties",

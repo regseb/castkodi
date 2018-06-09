@@ -129,6 +129,6 @@ rules.set([
             return response.files[0].fileUrl;
         }
 
-        throw new PebkacError("novideo", "PeerTube");
+        throw new PebkacError("noVideo", "PeerTube");
     });
 });

@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/arteradio", function () {
     describe("#patterns", function () {
-        it("should return error when it's not a sound", function () {
+        it("should return the URL when it's a unsupported URL", function () {
             const url = "https://www.arteradio.com/content/au_hasard";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);

@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/collegehumor", function () {
     describe("#patterns", function () {
-        it("should return error when it's not a video", function () {
+        it("should return the URL when it's a unsupported URL", function () {
             const url = "http://www.collegehumor.com/videos";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
@@ -14,7 +14,7 @@ describe("scraper/collegehumor", function () {
     describe("*://www.collegehumor.com/video/*", function () {
         it("should return error when it's not a video", function () {
             const url = "https://www.collegehumor.com/video/lorem/ipsum";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {

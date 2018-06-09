@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/airmozilla", function () {
     describe("#patterns", function () {
-        it("should return error when it's not a video", function () {
+        it("should return the URL when it's a unsupported URL", function () {
             const url = "https://www.mozilla.org/fr/";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
@@ -14,7 +14,7 @@ describe("scraper/airmozilla", function () {
     describe("https://air.mozilla.org/*/", function () {
         it("should return error when it's not a video", function () {
             const url = "https://air.mozilla.org/about/";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {

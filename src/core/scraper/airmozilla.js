@@ -50,7 +50,7 @@ rules.set(["https://air.mozilla.org/*/"], function (url) {
             }
 
             if (null === file) {
-                throw new PebkacError("novideo", "Air Mozilla");
+                throw new PebkacError("noVideo", "Air Mozilla");
             }
             return file.toString();
         });

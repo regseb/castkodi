@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/youtube", function () {
     describe("#patterns", function () {
-        it("should return error when it's not a video", function () {
+        it("should return the URL when it's a unsupported URL", function () {
             const url = "https://www.youtube.com/feed/trending";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
@@ -16,13 +16,15 @@ describe("scraper/youtube", function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
 
             const url = "https://www.youtube.com/watch?x=123456";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
                 assert.ok(error.title.includes(expected));
                 assert.ok(error.message.includes(expected));
+
+                browser.storage.local.clear();
             });
         });
 
@@ -36,6 +38,8 @@ describe("scraper/youtube", function () {
                               "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
             });
         });
 
@@ -49,6 +53,8 @@ describe("scraper/youtube", function () {
                                                         "?video_id=avt4ZWlVjdY";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
             });
         });
 
@@ -60,6 +66,8 @@ describe("scraper/youtube", function () {
                                                         "?video_id=sWfAtMQa_yo";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
             });
         });
     });
@@ -69,13 +77,15 @@ describe("scraper/youtube", function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
 
             const url = "https://m.youtube.com/watch?a=dQw4w9WgXcQ";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
                 assert.ok(error.title.includes(expected));
                 assert.ok(error.message.includes(expected));
+
+                browser.storage.local.clear();
             });
         });
 
@@ -87,6 +97,8 @@ describe("scraper/youtube", function () {
                                                         "?video_id=dQw4w9WgXcQ";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
             });
         });
     });
@@ -94,7 +106,7 @@ describe("scraper/youtube", function () {
     describe("https://www.youtube.com/playlist*", function () {
         it("should return error when it's not a playlist", function () {
             const url = "https://www.youtube.com/playlist?v=dQw4w9WgXcQ";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
@@ -119,7 +131,7 @@ describe("scraper/youtube", function () {
         it("should return error when it's not a playlist", function () {
             const url = "https://m.youtube.com/playlist" +
                                                     "?video=PL3A5849BDE0581B19";
-            const expected = "novideo";
+            const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
             }, function (error) {
