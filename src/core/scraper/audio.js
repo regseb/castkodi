@@ -16,9 +16,9 @@ export const rules = new Map();
  * @return {Promise} L'URL du fichier.
  */
 rules.set([
-    "*://*/*aac",  "*://*/*aiff", "*://*/*ape", "*://*/*flac", "*://*/*m4a",
-    "*://*/*midi", "*://*/*mka",  "*://*/*mp3", "*://*/*ogg",  "*://*/*pls",
-    "*://*/*wav",  "*://*/*wma"
+    "*://*/*aac*", "*://*/*aiff*", "*://*/*ape*", "*://*/*flac*", "*://*/*m4a*",
+    "*://*/*midi*", "*://*/*mka*", "*://*/*mp3*", "*://*/*ogg*", "*://*/*pls*",
+    "*://*/*wav*", "*://*/*wma*"
 ], function (url) {
     return Promise.resolve(url.toString());
 });

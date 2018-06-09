@@ -2,72 +2,131 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("scraper/audio", function () {
-    describe("*://*/*.aac", function () {
+    describe("*://*/*aac*", function () {
         it("should return the same URL", function () {
             const url = "https://fr.wikipedia.org/wiki/MP3.aac";
-            const expected = url;
             return extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.strictEqual(file, url);
+            });
+        });
+
+        it("should return the same URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/MP3.aac?kbps=128";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
             });
         });
     });
 
-    describe("*://*/*.flac", function () {
+    describe("*://*/*aiff*", function () {
+        it("should return the same URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/music.aiff";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+
+        it("should return the same URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/music.aiff#c2";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+    });
+
+    describe("*://*/*ape", function () {
+        it("should return the same URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/zic.ape";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+
+        it("should return the same URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/ape";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+    });
+
+    describe("*://*/*flac*", function () {
         it("should return the same URL", function () {
             const url = "https://fr.wikipedia.org/wiki/MP3.flac";
-            const expected = url;
             return extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.strictEqual(file, url);
             });
         });
     });
 
-    describe("*://*/*.m4a", function () {
+    describe("*://*/*m4a*", function () {
         it("should return the same URL", function () {
             const url = "https://fr.wikipedia.org/wiki.m4a";
-            const expected = url;
             return extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.strictEqual(file, url);
             });
         });
     });
 
-    describe("*://*/*.mka", function () {
+    describe("*://*/*midi*", function () {
+        it("should return the same URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/midi?foo#bar";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+    });
+
+    describe("*://*/*mka*", function () {
         it("should return the same URL", function () {
             const url = "https://fr.wikipedia.org/wiki/MP3.mka";
-            const expected = url;
             return extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.strictEqual(file, url);
             });
         });
     });
 
-    describe("*://*/*.mp3", function () {
+    describe("*://*/*mp3*", function () {
         it("should return the same URL", function () {
             const url = "https://fr.wikipedia.org/wiki.MP3";
-            const expected = url;
             return extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.strictEqual(file, url);
             });
         });
     });
 
-    describe("*://*/*.ogg", function () {
+    describe("*://*/*ogg*", function () {
         it("should return the same URL", function () {
             const url = "https://fr.wikipedia.org/wiki/MP3.ogg";
-            const expected = url;
             return extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.strictEqual(file, url);
             });
         });
     });
 
-    describe("*://*/*.pls", function () {
+    describe("*://*/*pls*", function () {
         it("should return the same URL", function () {
             const url = "https://fr.wikipedia.org/wiki/MP3.pls";
-            const expected = url;
             return extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.strictEqual(file, url);
+            });
+        });
+    });
+
+    describe("*://*/*wav*", function () {
+        it("should return the same URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/file.wav";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+    });
+
+    describe("*://*/*wma*", function () {
+        it("should return the same URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/aaa.wma";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, url);
             });
         });
     });

@@ -16,8 +16,8 @@ export const rules = new Map();
  * @return {Promise} L'URL du fichier.
  */
 rules.set([
-    "*://*/*asf", "*://*/*avi", "*://*/*flv", "*://*/*mkv",  "*://*/*mov",
-    "*://*/*m4v", "*://*/*mp4", "*://*/*ogv", "*://*/*webm", "*://*/*wmv"
+    "*://*/*asf*", "*://*/*avi*", "*://*/*flv*", "*://*/*mkv*", "*://*/*mov*",
+    "*://*/*m4v*", "*://*/*mp4*", "*://*/*ogv*", "*://*/*webm*", "*://*/*wmv*"
 ], function (url) {
     return Promise.resolve(url.toString());
 });
