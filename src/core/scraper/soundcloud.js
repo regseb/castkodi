@@ -25,7 +25,7 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
-    "https://soundcloud.com/*/*", "https://mobi.soundcloud.com/*/*"
+    "*://soundcloud.com/*/*", "*://mobi.soundcloud.com/*/*"
 ], function (url) {
     // Si le chemin contient plusieurs barres obliques.
     if (url.pathname.indexOf("/", 1) !== url.pathname.lastIndexOf("/"))  {

@@ -29,7 +29,7 @@ export const rules = new Map();
  * @param {String} url L'URL d'une vidéo Air Mozilla.
  * @return {Promise} L'URL du fichier.
  */
-rules.set(["https://air.mozilla.org/*/"], function (url) {
+rules.set(["*://air.mozilla.org/*/"], function (url) {
     return browser.storage.local.get(["airmozilla-format"]).then(
                                                              function (config) {
         const formats = FORMATS[config["airmozilla-format"]];

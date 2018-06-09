@@ -117,10 +117,11 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
-    ...INSTANCES.map((i) => `https://${i}/videos/watch/*`),
-    ...INSTANCES.map((i) => `https://${i}/videos/embed/*`)
+    ...INSTANCES.map((i) => `*://${i}/videos/watch/*`),
+    ...INSTANCES.map((i) => `*://${i}/videos/embed/*`)
 ], function (url) {
-    const api = url.toString().replace("videos/watch", "api/v1/videos")
+    const api = url.toString().replace(/^http:/i, "https:")
+                              .replace("videos/watch", "api/v1/videos")
                               .replace("videos/embed", "api/v1/videos");
     return fetch(api).then(function (response) {
         return response.json();

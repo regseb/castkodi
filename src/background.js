@@ -41,31 +41,31 @@ const KINDS = {
  *
  * @function cast
  * @param {Object} info Les informations fournies par le menu contextuel ou la
- *                      popup.
- * @return {Promise} Une promesse se réalisant directement (pour fermer la
- *                   popup).
+ *                      pop-up.
  */
 const cast = function (info) {
     const urls = [info.selectionText, info.linkUrl, info.srcUrl, info.frameUrl,
                   info.pageUrl, info.popupUrl];
-    const url = urls.find((u) => undefined !== u && "" !== u);
+    let url = urls.find((u) => undefined !== u && "" !== u);
+    // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
+    if (!(/^[a-z]+:/i).test(url)) {
+        url = url.replace(/^\/*/, "http://");
+    }
+
     scrapers.extract(url).then(function (file) {
         const action = info.menuItemId.split("_")[0];
         switch (action) {
             case "send":   return jsonrpc.send(file);
             case "insert": return jsonrpc.insert(file);
             case "add":    return jsonrpc.add(file);
-            default: throw new Error(action + " is not supported");
+            default:       throw new Error(action + " is not supported");
         }
     }).then(function () {
         return browser.storage.local.get(["general-history"]);
     }).then(function (config) {
-        if (config["general-history"]) {
-            return browser.history.addUrl({ "url": url.toString() });
-        }
-        return null;
+        return config["general-history"] ? browser.history.addUrl({ url })
+                                         : Promise.resolve();
     }).catch(notify);
-    return Promise.resolve(true);
 };
 
 /**
@@ -75,74 +75,74 @@ const cast = function (info) {
  * @param {Object} changes Les paramètres de la configuration modifiés.
  */
 const menu = function (changes) {
-    // Ignorer tous les paramètres sauf ceux liés au menu contextuel.
+    // Ignorer tous les changements sauf ceux liés au menu contextuel.
     if (!("menus-send" in changes) && !("menus-insert" in changes) &&
             !("menus-add" in changes)) {
         return;
     }
-    browser.storage.local.get().then(function (config) {
-        // Vider les options du menu contextuel, puis ajouter les options.
-        return browser.menus.removeAll().then(function () {
-            if (config["menus-send"] && config["menus-insert"] ||
-                    config["menus-send"] && config["menus-add"] ||
-                    config["menus-insert"] && config["menus-add"]) {
-                for (const [key, kind] of Object.entries(KINDS)) {
-                    browser.menus.create(Object.assign({}, kind, {
-                        "id":    "parent_" + key,
-                        "title": browser.i18n.getMessage("menus_first-parent")
-                    }));
-                    if (config["menus-send"]) {
-                        browser.menus.create({
-                            "id":       "send_" + key,
-                            "parentId": "parent_" + key,
-                            "title":    browser.i18n.getMessage(
-                                                            "menus_second-send")
-                        });
-                    }
-                    if (config["menus-insert"]) {
-                        browser.menus.create({
-                            "id":       "insert_" + key,
-                            "parentId": "parent_" + key,
-                            "title":    browser.i18n.getMessage(
-                                                          "menus_second-insert")
-                        });
-                    }
-                    if (config["menus-add"]) {
-                        browser.menus.create({
-                            "id":       "add_" + key,
-                            "parentId": "parent_" + key,
-                            "title":    browser.i18n.getMessage(
-                                                             "menus_second-add")
-                        });
-                    }
+    // Vider les options du menu contextuel, puis ajouter les options.
+    browser.menus.removeAll().then(function () {
+        return browser.storage.local.get();
+    }).then(function (config) {
+        // Si au moins deux options doivent être affichées : les regrouper dans
+        // une option parente.
+        if (config["menus-send"] && config["menus-insert"] ||
+                config["menus-send"] && config["menus-add"] ||
+                config["menus-insert"] && config["menus-add"]) {
+            for (const [key, kind] of Object.entries(KINDS)) {
+                browser.menus.create(Object.assign({}, kind, {
+                    "id":    "parent_" + key,
+                    "title": browser.i18n.getMessage("menus_firstParent")
+                }));
+                if (config["menus-send"]) {
+                    browser.menus.create({
+                        "id":       "send_" + key,
+                        "parentId": "parent_" + key,
+                        "title":    browser.i18n.getMessage("menus_secondSend")
+                    });
                 }
-            } else if (config["menus-send"]) {
-                for (const [key, kind] of Object.entries(KINDS)) {
-                    browser.menus.create(Object.assign({}, kind, {
-                        "id":    "send_" + key,
-                        "title": browser.i18n.getMessage("menus_first-send")
-                    }));
+                if (config["menus-insert"]) {
+                    browser.menus.create({
+                        "id":       "insert_" + key,
+                        "parentId": "parent_" + key,
+                        "title":    browser.i18n.getMessage(
+                                                           "menus_secondInsert")
+                    });
                 }
-            } else if (config["menus-insert"]) {
-                for (const [key, kind] of Object.entries(KINDS)) {
-                    browser.menus.create(Object.assign({}, kind, {
-                        "id":    "insert_" + key,
-                        "title": browser.i18n.getMessage("menus_first-insert")
-                    }));
-                }
-            } else if (config["menus-add"]) {
-                for (const [key, kind] of Object.entries(KINDS)) {
-                    browser.menus.create(Object.assign({}, kind, {
-                        "id":    "add_" + key,
-                        "title": browser.i18n.getMessage("menus_first-add")
-                    }));
+                if (config["menus-add"]) {
+                    browser.menus.create({
+                        "id":       "add_" + key,
+                        "parentId": "parent_" + key,
+                        "title":    browser.i18n.getMessage("menus_secondAdd")
+                    });
                 }
             }
+        } else if (config["menus-send"]) {
+            for (const [key, kind] of Object.entries(KINDS)) {
+                browser.menus.create(Object.assign({}, kind, {
+                    "id":    "send_" + key,
+                    "title": browser.i18n.getMessage("menus_firstSend")
+                }));
+            }
+        } else if (config["menus-insert"]) {
+            for (const [key, kind] of Object.entries(KINDS)) {
+                browser.menus.create(Object.assign({}, kind, {
+                    "id":    "insert_" + key,
+                    "title": browser.i18n.getMessage("menus_firstInsert")
+                }));
+            }
+        } else if (config["menus-add"]) {
+            for (const [key, kind] of Object.entries(KINDS)) {
+                browser.menus.create(Object.assign({}, kind, {
+                    "id":    "add_" + key,
+                    "title": browser.i18n.getMessage("menus_firstAdd")
+                }));
+            }
+        }
 
-            if (!browser.menus.onClicked.hasListener(cast)) {
-                browser.menus.onClicked.addListener(cast);
-            }
-        });
+        if (!browser.menus.onClicked.hasListener(cast)) {
+            browser.menus.onClicked.addListener(cast);
+        }
     });
 };
 

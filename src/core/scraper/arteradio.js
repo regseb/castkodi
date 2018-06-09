@@ -23,7 +23,7 @@ export const rules = new Map();
  * @param {String} url L'URL d'un son de Arte Radio.
  * @return {Promise} L'URL du fichier.
  */
-rules.set(["https://www.arteradio.com/son/*"], function (url) {
+rules.set(["*://www.arteradio.com/son/*"], function (url) {
     return fetch(url.toString()).then(function (response) {
         return response.text();
     }).then(function (data) {

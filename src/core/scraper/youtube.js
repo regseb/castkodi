@@ -33,13 +33,14 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
-    "https://www.youtube.com/watch*", "https://m.youtube.com/watch*",
-    "https://hooktube.com/watch*"
+    "*://www.youtube.com/watch*", "*://m.youtube.com/watch*",
+    "*://hooktube.com/watch*"
 ], function (url) {
     return browser.storage.local.get(["youtube-playlist"]).then(
                                                              function (config) {
         if (url.searchParams.has("list") &&
-                "playlist" === config["youtube-playlist"]) {
+                ("playlist" === config["youtube-playlist"] ||
+                 !url.searchParams.has("v"))) {
             return PLUGIN_PLAYLIST_URL + url.searchParams.get("list");
         }
         if (url.searchParams.has("v")) {
@@ -57,7 +58,7 @@ rules.set([
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
-    "https://www.youtube.com/playlist*", "https://m.youtube.com/playlist*"
+    "*://www.youtube.com/playlist*", "*://m.youtube.com/playlist*"
 ], function (url) {
     if (url.searchParams.has("list")) {
         return Promise.resolve(
@@ -74,6 +75,6 @@ rules.set([
  * @return {Promise} L'identifiant de la file d'attente et l'URL du
  *                   <em>fichier</em>.
  */
-rules.set(["https://youtu.be/*"], function (url) {
+rules.set(["*://youtu.be/*"], function (url) {
     return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(1));
 });

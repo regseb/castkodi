@@ -11,7 +11,7 @@ describe("scraper/facebook", function () {
         });
     });
 
-    describe("https://www.facebook.com/*/videos/*/*", function () {
+    describe("*://www.facebook.com/*/videos/*/*", function () {
         it("should return error when it's not a video", function () {
             const url = "https://www.facebook.com/XBMC/videos/666/";
             const expected = "noVideo";
@@ -26,6 +26,16 @@ describe("scraper/facebook", function () {
 
         it("should return video id", function () {
             const url = "https://www.facebook.com/XBMC/videos/" +
+                                                           "10152476888501641/";
+            const expected = "https://video-cdg2-1.xx.fbcdn.net/v/t43.1792-2/" +
+                                  "10810554_10152476888596641_2070058545_n.mp4";
+            return extract(url).then(function (file) {
+                assert.ok(file.startsWith(expected));
+            });
+        });
+
+        it("should return video id when protocol is HTTP", function () {
+            const url = "http://www.facebook.com/XBMC/videos/" +
                                                            "10152476888501641/";
             const expected = "https://video-cdg2-1.xx.fbcdn.net/v/t43.1792-2/" +
                                   "10810554_10152476888596641_2070058545_n.mp4";

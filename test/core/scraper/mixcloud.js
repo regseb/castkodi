@@ -11,7 +11,7 @@ describe("scraper/mixcloud", function () {
         });
     });
 
-    describe("https://www.mixcloud.com/*/*/", function () {
+    describe("*://www.mixcloud.com/*/*/", function () {
         it("should return error when it's not a music", function () {
             const url = "https://www.mixcloud.com/discover/jazz/";
             const expected = "noAudio";
@@ -26,6 +26,18 @@ describe("scraper/mixcloud", function () {
 
         it("should return music id", function () {
             const url = "https://www.mixcloud.com" +
+                                        "/LesGar%C3%A7onsBienElev%C3%A9s/n101/";
+            const expected = "plugin://plugin.audio.mixcloud/" +
+                              "?mode=40" +
+                              "&key=%2FLesGar%25C3%25A7onsBienElev%25C3%25A9s" +
+                                   "%2Fn101%2F";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+
+        it("should return music id when protocol is HTTP", function () {
+            const url = "http://www.mixcloud.com" +
                                         "/LesGar%C3%A7onsBienElev%C3%A9s/n101/";
             const expected = "plugin://plugin.audio.mixcloud/" +
                               "?mode=40" +

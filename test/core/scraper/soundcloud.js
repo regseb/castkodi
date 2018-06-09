@@ -11,7 +11,7 @@ describe("scraper/soundcloud", function () {
         });
     });
 
-    describe("https://soundcloud.com/*/*", function () {
+    describe("*://soundcloud.com/*/*", function () {
         it("should return error when it's not a music", function () {
             const url = "https://soundcloud.com/a-tribe-called-red/" +
                                                              "sets/trapline-ep";
@@ -46,6 +46,17 @@ describe("scraper/soundcloud", function () {
             });
         });
 
+        it("should return music id when protocol is HTTP", function () {
+            const url = "http://soundcloud.com/esa/a-singing-comet";
+            const expected = "plugin://plugin.audio.soundcloud/play/" +
+                                                          "?audio_id=176387011";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://mobi.soundcloud.com/*/*", function () {
         it("should return music id", function () {
             const url = "https://mobi.soundcloud.com/" +
                                      "a-tribe-called-red/electric-pow-wow-drum";

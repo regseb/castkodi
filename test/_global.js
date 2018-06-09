@@ -1,7 +1,7 @@
 import { URL }       from "url";
 import fetch         from "node-fetch";
-import { browser }   from "./mock/browser";
-import { DOMParser } from "./mock/domparser";
+import { browser }   from "./mock/browser.js";
+import { DOMParser } from "./mock/domparser.js";
 
 global.URL       = URL;
 global.fetch     = fetch;

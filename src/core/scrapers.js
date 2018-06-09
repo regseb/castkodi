@@ -29,11 +29,9 @@ const sanitize = function (pattern) {
 };
 
 const compile = function (pattern) {
-    const RE = /^(\*|https?|file|ftp):\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/i;
-    const [, scheme, host, path] = RE.exec(pattern);
-    return new RegExp("^" +
-        ("*" === scheme ? "https?"
-                        : sanitize(scheme)) + "://" +
+    const RE = /^\*:\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/i;
+    const [, host, path] = RE.exec(pattern);
+    return new RegExp("^https?://" +
         ("*" === host ? "[^/]+"
                       : sanitize(host).replace(/^\\\*/g, "[^./]+")) +
         "/" + sanitize(path).replace(/\\\*/g, ".*") + "$", "i");
@@ -55,18 +53,18 @@ export const REGEXPS = [];
 
 const RULES = new Map();
 
-export const extract = function (input) {
+export const extract = function (url) {
     try {
-        const url = new URL(input);
-        const prefix = url.protocol + "//" + url.hostname + url.pathname;
-        for (const [pattern, action] of RULES) {
-            if (pattern.test(prefix)) {
-                return action(url);
+        for (const [regexps, action] of RULES) {
+            for (const regexp of regexps) {
+                if (regexp.test(url)) {
+                    return action(new URL(url));
+                }
             }
         }
         // Si l'URL n'est pas gérée par les scrapers : envoyer directement l'URL
         // à Kodi.
-        return Promise.resolve(input);
+        return Promise.resolve(url);
     } catch (_) {
         // Ignorer l'erreur (provenant d'une URL invalide), puis rejeter une
         // promesse.
@@ -75,12 +73,10 @@ export const extract = function (input) {
 };
 
 for (const scraper of SCRAPERS) {
-    for (const [patterns, action] of scraper.entries()) {
-        for (const pattern of patterns) {
-            PATTERNS.push(pattern);
-            const regexp = compile(pattern);
-            REGEXPS.push(regexp);
-            RULES.set(regexp, action);
-        }
+    for (const [patterns, action] of scraper) {
+        PATTERNS.push(...patterns);
+        const regexps = patterns.map(compile);
+        REGEXPS.push(...regexps);
+        RULES.set(regexps, action);
     }
 }

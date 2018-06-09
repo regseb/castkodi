@@ -11,7 +11,7 @@ describe("scraper/rutube", function () {
         });
     });
 
-    describe("https://rutube.ru/video/*/", function () {
+    describe("*://rutube.ru/video/*/*", function () {
         it("should return error when it's not a video", function () {
             const url = "https://rutube.ru/video/no_id/";
             const expected = "noVideo";
@@ -45,9 +45,20 @@ describe("scraper/rutube", function () {
                 assert.ok(file.startsWith(expected));
             });
         });
+    });
+
+    describe("*://rutube.ru/play/embed/*", function () {
+        it("should return video id when protocol is HTTP ", function () {
+            const url = "http://rutube.ru/play/embed/7575145";
+            const expected = "https://bl.rutube.ru/route/" +
+                                        "588572c42e63e719645ce41b28c5ee13.m3u8";
+            return extract(url).then(function (file) {
+                assert.ok(file.startsWith(expected));
+            });
+        });
 
         it("should return video id", function () {
-            const url = "http://rutube.ru/play/embed/7575145";
+            const url = "https://rutube.ru/play/embed/7575145";
             const expected = "https://bl.rutube.ru/route/" +
                                         "588572c42e63e719645ce41b28c5ee13.m3u8";
             return extract(url).then(function (file) {

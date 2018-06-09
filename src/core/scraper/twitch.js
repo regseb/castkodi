@@ -41,7 +41,7 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
-    "https://www.twitch.tv/videos/*", "https://go.twitch.tv/videos/*"
+    "*://www.twitch.tv/videos/*", "*://go.twitch.tv/videos/*"
 ], function (url) {
     return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(8));
 });
@@ -53,7 +53,7 @@ rules.set([
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
-    "https://www.twitch.tv/*", "https://go.twitch.tv/*"
+    "*://www.twitch.tv/*", "*://go.twitch.tv/*"
 ], function (url) {
     const init = {
         "headers": { "client-id": "jzkbprff40iqj646a697cyrvl0zt2m6" }

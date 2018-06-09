@@ -11,9 +11,19 @@ describe("scraper/peertube", function () {
         });
     });
 
-    describe("https://PEERTUBE/videos/watch/*", function () {
+    describe("*://PEERTUBE/videos/watch/*", function () {
         it("should return video id", function () {
             const url = "https://framatube.org/videos/watch/" +
+                                         "0b04f13d-1e18-4f1d-814e-4979aa7c9c44";
+            const expected = "https://peertube.datagueule.tv/static/webseed/" +
+                                "0b04f13d-1e18-4f1d-814e-4979aa7c9c44-1080.mp4";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+
+        it("should return video id when protocol is HTTP", function () {
+            const url = "http://framatube.org/videos/watch/" +
                                          "0b04f13d-1e18-4f1d-814e-4979aa7c9c44";
             const expected = "https://peertube.datagueule.tv/static/webseed/" +
                                 "0b04f13d-1e18-4f1d-814e-4979aa7c9c44-1080.mp4";
@@ -35,7 +45,7 @@ describe("scraper/peertube", function () {
         });
     });
 
-    describe("https://PEERTUBE/videos/embed/*", function () {
+    describe("*://PEERTUBE/videos/embed/*", function () {
         it("should return video id", function () {
             const url = "https://framatube.org/videos/watch/" +
                                          "0900bd2e-7306-4c39-b48b-2d0cd611742e";

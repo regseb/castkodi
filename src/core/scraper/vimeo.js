@@ -24,7 +24,7 @@ export const rules = new Map();
  * @param {String} url L'URL d'une vidéo Vimeo.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["https://vimeo.com/*"], function (url) {
+rules.set(["*://vimeo.com/*"], function (url) {
     if (!(/^\/[0-9]+$/).test(url.pathname)) {
         return Promise.reject(new PebkacError("noVideo", "Vimeo"));
     }
@@ -38,7 +38,7 @@ rules.set(["https://vimeo.com/*"], function (url) {
  * @param {String} url L'URL du lecteur de Vimeo avec une vidéo.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["https://player.vimeo.com/video/*"], function (url) {
+rules.set(["*://player.vimeo.com/video/*"], function (url) {
     if (!(/^\/video\/[0-9]+$/).test(url.pathname)) {
         return Promise.reject(new PebkacError("noVideo", "Vimeo"));
     }

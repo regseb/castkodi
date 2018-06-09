@@ -25,6 +25,16 @@ describe("scraper/collegehumor", function () {
         });
 
         it("should return video id", function () {
+            const url = "https://www.collegehumor.com/video/6947898/" +
+                                                              "google-is-a-guy";
+            const expected = "plugin://plugin.video.collegehumor/watch/" +
+                                                                      "6947898";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+
+        it("should return video id when protocol is HTTP", function () {
             const url = "http://www.collegehumor.com/video/6947898/" +
                                                               "google-is-a-guy";
             const expected = "plugin://plugin.video.collegehumor/watch/" +

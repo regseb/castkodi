@@ -10,7 +10,7 @@ describe("scraper/audio", function () {
             });
         });
 
-        it("should return the same URL", function () {
+        it("should return the same URL with query", function () {
             const url = "https://fr.wikipedia.org/wiki/MP3.aac?kbps=128";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
@@ -26,7 +26,7 @@ describe("scraper/audio", function () {
             });
         });
 
-        it("should return the same URL", function () {
+        it("should return the same URL with hash", function () {
             const url = "https://fr.wikipedia.org/wiki/music.aiff#c2";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
@@ -69,7 +69,7 @@ describe("scraper/audio", function () {
     });
 
     describe("*://*/*midi*", function () {
-        it("should return the same URL", function () {
+        it("should return the same URL with query and hash", function () {
             const url = "https://fr.wikipedia.org/wiki/midi?foo#bar";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);

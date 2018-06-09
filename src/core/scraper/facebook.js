@@ -17,7 +17,7 @@ export const rules = new Map();
  * @param {String} url L'URL d'une vidéo Facebook.
  * @return {Promise} L'URL du fichier.
  */
-rules.set(["https://www.facebook.com/*/videos/*/*"], function (url) {
+rules.set(["*://www.facebook.com/*/videos/*/*"], function (url) {
     return fetch(url.toString()).then(function (response) {
         return response.text();
     }).then(function (response) {

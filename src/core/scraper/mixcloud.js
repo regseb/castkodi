@@ -24,7 +24,7 @@ export const rules = new Map();
  * @param {String} url L'URL d'une musique Mixcloud.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["https://www.mixcloud.com/*/*/"], function (url) {
+rules.set(["*://www.mixcloud.com/*/*/"], function (url) {
     if (url.pathname.startsWith("/discover/")) {
         return Promise.reject(new PebkacError("noAudio", "Mixcloud"));
     }

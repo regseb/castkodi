@@ -21,7 +21,7 @@ describe("scrapers", function () {
     });
 
     describe("#extract()", function () {
-        it("should support valid URL", function () {
+        it("should support URL", function () {
             const url = "http://www.dailymotion.com/video/x17qw0a";
             const expected = "plugin://plugin.video.dailymotion_com/";
             return scrapers.extract(url).then(function (file) {
@@ -29,7 +29,7 @@ describe("scrapers", function () {
             });
         });
 
-        it("should support uppercase valid URL", function () {
+        it("should support uppercase URL", function () {
             const url = "HTTPS://VIMEO.COM/195613867";
             const expected = "plugin://plugin.video.vimeo/";
             return scrapers.extract(url).then(function (file) {
@@ -39,46 +39,21 @@ describe("scrapers", function () {
 
         it("should support correctly question mark in pattern", function () {
             const url = "https://vid.ly/i2x4g5.mp4?quality=hd";
-            const expected = url.toString();
             return scrapers.extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.strictEqual(file, url);
             });
         });
 
-        it("should return URL when it's not supported", function () {
+        it("should return the URL when it's a unsupported URL", function () {
             const url = "https://kodi.tv/";
             return scrapers.extract(url).then(function (file) {
                 assert.strictEqual(file, url);
             });
         });
 
-        it("should return error when it's empty string", function () {
-            const url = "";
-            const expected = "nolink";
-            return scrapers.extract(url).then(function () {
-                assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
-            });
-        });
-
-        it("should return error when it's undefined", function () {
-            const url = undefined;
-            const expected = "nolink";
-            return scrapers.extract(url).then(function () {
-                assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
-            });
-        });
-
-        it("should return error when it isn't a valid link", function () {
-            const url = "foobar";
-            const expected = "nolink";
+        it("should return error when it's a invalid URL", function () {
+            const url = "http://Cast Kodi/flac";
+            const expected = "noLink";
             return scrapers.extract(url).then(function () {
                 assert.fail();
             }, function (error) {

@@ -25,7 +25,7 @@ export const rules = new Map();
  * @return {Promise} L'URL du fichier.
  */
 rules.set([
-    "https://rutube.ru/video/*/*", "*://rutube.ru/play/embed/*"
+    "*://rutube.ru/video/*/*", "*://rutube.ru/play/embed/*"
 ], function (url) {
     const id = url.pathname.replace(/^\/video\//, "")
                            .replace(/^\/play\/embed\//, "")

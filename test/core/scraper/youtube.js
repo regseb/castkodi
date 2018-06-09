@@ -11,7 +11,7 @@ describe("scraper/youtube", function () {
         });
     });
 
-    describe("https://www.youtube.com/watch*", function () {
+    describe("*://www.youtube.com/watch*", function () {
         it("should return error when it's not a video", function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
 
@@ -70,9 +70,22 @@ describe("scraper/youtube", function () {
                 browser.storage.local.clear();
             });
         });
+
+        it("should return video id when protocol is HTTP", function () {
+            browser.storage.local.set({ "youtube-playlist": "playlist" });
+
+            const url = "http://www.youtube.com/watch?v=sWfAtMQa_yo";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=sWfAtMQa_yo";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
+            });
+        });
     });
 
-    describe("https://m.youtube.com/watch*", function () {
+    describe("*://m.youtube.com/watch*", function () {
         it("should return error when it's not a video", function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
 
@@ -103,7 +116,7 @@ describe("scraper/youtube", function () {
         });
     });
 
-    describe("https://www.youtube.com/playlist*", function () {
+    describe("*://www.youtube.com/playlist*", function () {
         it("should return error when it's not a playlist", function () {
             const url = "https://www.youtube.com/playlist?v=dQw4w9WgXcQ";
             const expected = "noVideo";
@@ -127,7 +140,7 @@ describe("scraper/youtube", function () {
         });
     });
 
-    describe("https://m.youtube.com/playlist*", function () {
+    describe("*://m.youtube.com/playlist*", function () {
         it("should return error when it's not a playlist", function () {
             const url = "https://m.youtube.com/playlist" +
                                                     "?video=PL3A5849BDE0581B19";
@@ -152,7 +165,7 @@ describe("scraper/youtube", function () {
         });
     });
 
-    describe("https://youtu.be/*", function () {
+    describe("*://youtu.be/*", function () {
         it("should return video id", function () {
             const url = "https://youtu.be/NSFbekvYOlI";
             const expected = "plugin://plugin.video.youtube/play/" +

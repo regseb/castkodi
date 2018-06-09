@@ -11,7 +11,7 @@ describe("scraper/vimeo", function () {
         });
     });
 
-    describe("https://vimeo.com/*", function () {
+    describe("*://vimeo.com/*", function () {
         it("should return error when it's not a video", function () {
             const url = "https://vimeo.com/channels";
             const expected = "noVideo";
@@ -32,9 +32,18 @@ describe("scraper/vimeo", function () {
                 assert.strictEqual(file, expected);
             });
         });
+
+        it("should return video id when protocol is HTTP", function () {
+            const url = "http://vimeo.com/228786490";
+            const expected = "plugin://plugin.video.vimeo/play/" +
+                                                          "?video_id=228786490";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
     });
 
-    describe("https://player.vimeo.com/video/*", function () {
+    describe("*://player.vimeo.com/video/*", function () {
         it("should return error when it's not a video", function () {
             const url = "https://player.vimeo.com/video/foobar";
             const expected = "noVideo";
