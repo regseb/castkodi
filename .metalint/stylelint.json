@@ -48,6 +48,7 @@
         "function-url-scheme-whitelist": null,
         "function-whitelist": null,
 
+        "keyframes-name-pattern": null,
         "number-max-precision": 2,
 
         "time-min-milliseconds": 100,
@@ -100,6 +101,7 @@
 
         "media-feature-name-blacklist": null,
         "media-feature-name-no-vendor-prefix": true,
+        "media-feature-name-value-whitelist": null,
         "media-feature-name-whitelist": null,
 
         "custom-media-pattern": null,
