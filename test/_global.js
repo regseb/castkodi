@@ -1,9 +1,11 @@
 import { URL }       from "url";
-import fetch         from "node-fetch";
 import { browser }   from "./mock/browser.js";
+import { btoa }      from "./mock/btoa.js";
 import { DOMParser } from "./mock/domparser.js";
+import { fetch }     from "./mock/fetch.js";
 
 global.URL       = URL;
-global.fetch     = fetch;
 global.browser   = browser;
+global.btoa      = btoa;
 global.DOMParser = DOMParser;
+global.fetch     = fetch;
