@@ -2,9 +2,9 @@
  * @module options/script
  */
 
+import * as jsonrpc    from "../core/jsonrpc.js";
 import { notify }      from "../core/notify.js";
 import { PebkacError } from "../core/pebkac.js";
-import * as jsonrpc    from "../core/jsonrpc.js";
 
 /**
  * Active / Désactive le bouton pour tester les paramètres.

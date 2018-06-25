@@ -2,9 +2,9 @@
  * @module background
  */
 
-import { notify }    from "./core/notify.js";
-import * as scrapers from "./core/scrapers.js";
-import * as jsonrpc  from "./core/jsonrpc.js";
+import * as jsonrpc          from "./core/jsonrpc.js";
+import { notify }            from "./core/notify.js";
+import { SCRAPERS, extract } from "./core/scrapers.js";
 
 /**
  * La liste des options qui seront ajoutées dans le menu contextuel pour :
@@ -25,11 +25,11 @@ const KINDS = {
     },
     "link": {
         "contexts":          ["link"],
-        "targetUrlPatterns": scrapers.PATTERNS
+        "targetUrlPatterns": SCRAPERS.map((s) => s.pattern)
     },
     "document": {
         "contexts":            ["browser_action", "frame", "page", "tab"],
-        "documentUrlPatterns": scrapers.PATTERNS
+        "documentUrlPatterns": SCRAPERS.map((s) => s.pattern)
     },
     "selection": {
         "contexts": ["selection"]
@@ -52,7 +52,7 @@ const cast = function (info) {
         url = url.replace(/^\/*/, "http://");
     }
 
-    scrapers.extract(url).then(function (file) {
+    extract(url).then(function (file) {
         const action = info.menuItemId.split("_")[0];
         switch (action) {
             case "send":   return jsonrpc.send(file);
@@ -139,10 +139,6 @@ const menu = function (changes) {
                 }));
             }
         }
-
-        if (!browser.menus.onClicked.hasListener(cast)) {
-            browser.menus.onClicked.addListener(cast);
-        }
     });
 };
 
@@ -188,4 +184,5 @@ browser.storage.local.get().then(function (config) {
     browser.storage.onChanged.addListener(menu);
 });
 
+browser.menus.onClicked.addListener(cast);
 browser.runtime.onMessage.addListener(cast);

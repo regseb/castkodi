@@ -21,7 +21,7 @@ import { rules as youtube }      from "./scraper/youtube.js";
 import { rules as video }        from "./scraper/video.js";
 import { rules as audio }        from "./scraper/audio.js";
 
-const SCRAPERS = [
+const scrapers = [
     airmozilla, allocine, arteradio, dumpert, collegehumor, dailymotion,
     facebook, jeuxvideocom, mixcloud, peertube, rutube, soundcloud, twitch,
     vimeo, youtube, video, audio
@@ -43,33 +43,28 @@ const compile = function (pattern) {
 };
 
 /**
- * Les patrons (sous formes de modèles de correspondance) des URLs gérées.
+ * Les patrons (sous formes de modèles de correspondance et d'expressons
+ * rationnelles) des URLs gérées ainsi que leur action.
  *
- * @const PATTERNS
+ * @constant {Array.<Object.<string,*>>} SCRAPERS
  */
-export const PATTERNS = [];
+export const SCRAPERS = [];
 
 /**
- * Les patrons (sous formes d'expressions rationnelles) des URLs gérées.
+ * Extrait le <em>fichier</em> d'une URL.
  *
- * @const REGEXPS
+ * @param {string} url L'URL d'une page Internet.
+ * @returns {Promse} L'URL du <em>fichier</em>.
  */
-export const REGEXPS = [];
-
-const RULES = new Map();
-
 export const extract = function (url) {
-    try {
-        for (const [regexps, action] of RULES) {
-            for (const regexp of regexps) {
-                if (regexp.test(url)) {
-                    return action(new URL(url));
-                }
-            }
-        }
-        // Si l'URL n'est pas gérée par les scrapers : envoyer directement l'URL
-        // à Kodi.
+    const scraper = SCRAPERS.find((s) => s.regexp.test(url));
+    // Si l'URL n'est pas gérée par les scrapers : envoyer directement l'URL.
+    if (undefined === scraper) {
         return Promise.resolve(url);
+    }
+
+    try {
+        return scraper.action(new URL(url));
     } catch (_) {
         // Ignorer l'erreur (provenant d'une URL invalide), puis rejeter une
         // promesse.
@@ -77,11 +72,14 @@ export const extract = function (url) {
     }
 };
 
-for (const scraper of SCRAPERS) {
+for (const scraper of scrapers) {
     for (const [patterns, action] of scraper) {
-        PATTERNS.push(...patterns);
-        const regexps = patterns.map(compile);
-        REGEXPS.push(...regexps);
-        RULES.set(regexps, action);
+        for (const pattern of patterns) {
+            SCRAPERS.push({
+                "pattern": pattern,
+                "regexp":  compile(pattern),
+                "action":  action
+            });
+        }
     }
 }

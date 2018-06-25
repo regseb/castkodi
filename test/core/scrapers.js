@@ -2,21 +2,28 @@ import assert        from "assert";
 import * as scrapers from "../../src/core/scrapers.js";
 
 describe("scrapers", function () {
-    describe("#PATTERNS", function () {
+    describe("#SCRAPERS", function () {
         it("should be a non-empty array", function () {
-            assert.ok(Array.isArray(scrapers.PATTERNS));
-            assert.notStrictEqual(scrapers.PATTERNS.length, 0);
-            assert.strictEqual(scrapers.PATTERNS.length,
-                               scrapers.REGEXPS.length);
+            assert.ok(Array.isArray(scrapers.SCRAPERS));
+            assert.notStrictEqual(scrapers.SCRAPERS.length, 0);
         });
-    });
 
-    describe("#REGEXPS", function () {
-        it("should be a non-empty array", function () {
-            assert.ok(Array.isArray(scrapers.REGEXPS));
-            assert.notStrictEqual(scrapers.REGEXPS.length, 0);
-            assert.strictEqual(scrapers.REGEXPS.length,
-                               scrapers.PATTERNS.length);
+        it("should have 'pattern' property", function () {
+            for (const scraper of scrapers.SCRAPERS) {
+                assert.ok("pattern" in scraper);
+            }
+        });
+
+        it("should have 'regexp' property", function () {
+            for (const scraper of scrapers.SCRAPERS) {
+                assert.ok("regexp" in scraper);
+            }
+        });
+
+        it("should have 'action' property", function () {
+            for (const scraper of scrapers.SCRAPERS) {
+                assert.ok("action" in scraper);
+            }
         });
     });
 

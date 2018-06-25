@@ -3,9 +3,9 @@
  */
 
 import * as jsonrpc    from "../core/jsonrpc.js";
-import { PebkacError } from "../core/pebkac.js";
 import { notify }      from "../core/notify.js";
-import * as scrapers   from "../core/scrapers.js";
+import { PebkacError } from "../core/pebkac.js";
+import { SCRAPERS }    from "../core/scrapers.js";
 
 const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
 
@@ -43,7 +43,7 @@ const paint = function () {
         document.getElementById("clear").disabled = true;
     } else {
         // Si l'URL de l'onglet courant respecte un des patrons.
-        if (scrapers.REGEXPS.some((r) => r.test(tabUrl))) {
+        if (SCRAPERS.some((s) => s.regexp.test(tabUrl))) {
             document.getElementById("send").disabled = false;
             document.getElementById("insert").disabled = false;
             document.getElementById("add").disabled = false;
@@ -119,7 +119,7 @@ const paste = function () {
     if (input.checked) {
         input.checked = false;
         // Si l'URL de l'onglet courant respecte un des patrons.
-        if (scrapers.REGEXPS.some((r) => r.test(tabUrl))) {
+        if (SCRAPERS.some((s) => s.regexp.test(tabUrl))) {
             document.getElementById("send").disabled = false;
             document.getElementById("insert").disabled = false;
             document.getElementById("add").disabled = false;
