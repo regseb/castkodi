@@ -38,10 +38,38 @@
         "use-isnan": 2,
         "valid-jsdoc": [2, {
             "prefer": {
-                "returns": "return",
-                "class": "constructor"
+                "virtual": "abstract",
+                "extends": "augments",
+                "constructor": "class",
+                "const": "constant",
+                "defaultvalue": "default",
+                "desc": "description",
+                "host": "external",
+                "fileoverview": "file",
+                "overview": "file",
+                "emits": "fires",
+                "func": "function",
+                "method": "function",
+                "var": "member",
+                "arg": "param",
+                "argument": "param",
+                "prop": "property",
+                "return": "returns",
+                "exception": "throws",
+                "yield": "yields",
+                "linkcode": "link",
+                "linkplain":" link"
             },
-            "requireReturn": false
+            "preferType": {
+                "array": "Array",
+                "object": "Object",
+                "function": "Function"
+            },
+            "requireReturn": false,
+            "requireReturnType": true,
+            "requireParamDescription": true,
+            "requireReturnDescription": true,
+            "requireParamType": true
         }],
         "valid-typeof": 2,
 
@@ -57,6 +85,7 @@
         "dot-notation": [2, { "allowKeywords": true, "allowPattern": "_" }],
         "eqeqeq": 2,
         "guard-for-in": 0,
+        "max-classes-per-file": 2,
         "no-alert": 2,
         "no-caller": 2,
         "no-case-declarations": 2,
@@ -118,7 +147,6 @@
         "strict": [2, "never"],
 
         "init-declarations": 0,
-        "no-catch-shadow": 2,
         "no-delete-var": 2,
         "no-label-var": 0,
         "no-restricted-globals": 0,
@@ -161,7 +189,7 @@
         "consistent-this": 2,
         "eol-last": 2,
         "func-call-spacing": [2, "never"],
-        "func-name-matching": 2,
+        "func-name-matching": [2, { "considerPropertyDescriptor": true }],
         "func-names": 0,
         "func-style": 2,
         "id-blacklist": 0,
@@ -179,6 +207,9 @@
         "max-depth": [1, { "max": 5 }],
         "max-len": 1,
         "max-lines": [1, { "skipBlankLines": true, "skipComments": true }],
+        "max-lines-per-function": [1,
+            { "max": 100, "skipBlankLines": true, "skipComments": true }
+        ],
         "max-nested-callbacks": 1,
         "max-params": [1, { "max": 5 }],
         "max-statements": [1, { "max": 30 }],
@@ -189,7 +220,7 @@
         "new-parens": 2,
         "newline-per-chained-call": 0,
         "no-array-constructor": 2,
-        "no-bitwise": 2,
+        "no-bitwise": 0,
         "no-continue": 0,
         "no-inline-comments": 0,
         "no-lonely-if": 2,
@@ -215,7 +246,7 @@
         "no-unneeded-ternary": 2,
         "no-whitespace-before-property": 2,
         "nonblock-statement-body-position": 2,
-        "object-curly-newline": [2, { "consistent": true }],
+        "object-curly-newline": 2,
         "object-curly-spacing": [2, "always"],
         "object-property-newline": [2, {
             "allowAllPropertiesOnSameLine": true
@@ -228,13 +259,14 @@
         "padding-line-between-statements": [2,
             { "blankLine": "always", "prev": "directive", "next": "*" }
         ],
+        "prefer-object-spread": 0,
         "quote-props": 2,
         "quotes": 2,
         "require-jsdoc": [2, {
             "require": {
                 "FunctionDeclaration": true,
-                "MethodDefinition": true,
-                "ClassDeclaration": true
+                "ClassDeclaration": true,
+                "MethodDefinition": true
             }
         }],
         "semi": 2,

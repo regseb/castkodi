@@ -7,7 +7,7 @@ export const PebkacError = class extends Error {
     /**
      * Crée une erreur avec un message et un titre.
      *
-     * @param {string}         key           La clé des messages d'erreur.
+     * @param {string}         key           La clé du message d'erreur.
      * @param {Array.<string>} substitutions Les substitutions qui seront
      *                                       insérées dans le message.
      */

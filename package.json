@@ -30,8 +30,8 @@
     },
     "devDependencies": {
         "david": "^11.0.0",
-        "eslint": "^4.19.1",
         "esm": "^3.0.51",
+        "eslint": "^5.1.0",
         "htmlhint": "^0.9.13",
         "jsdoc": "^3.5.5",
         "jsdom": "^11.11.0",

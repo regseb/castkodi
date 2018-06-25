@@ -17,7 +17,7 @@ const NETWORK_ERROR = "NetworkError when attempting to fetch resource.";
  * @function request
  * @param {string} method La méthode envoyée à Kodi.
  * @param {Object} params Les paramètres de la méthode.
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 const request = function (method, params = {}) {
     const keys = [
@@ -80,7 +80,7 @@ const request = function (method, params = {}) {
  *
  * @function check
  * @param {Event} event L'évènement du clic.
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const check = function () {
     return request("JSONRPC.Version");
@@ -91,7 +91,7 @@ export const check = function () {
  *
  * @function add
  * @param {string} file L'URL envoyée à Kodi.
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const add = function (file) {
     return request("Playlist.Add", { "playlistid": 1, "item": { file } });
@@ -102,7 +102,7 @@ export const add = function (file) {
  *
  * @function send
  * @param {string} file L'URL envoyée à Kodi.
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const send = function (file) {
     // Vider la liste de lecture, ajouter le nouveau média et lancer la
@@ -119,7 +119,7 @@ export const send = function (file) {
  *
  * @function insert
  * @param {string} file L'URL envoyée à Kodi.
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const insert = function (file) {
     return request("Player.GetProperties",
@@ -136,7 +136,7 @@ export const insert = function (file) {
  * Passe au précédent média dans la liste de lecture.
  *
  * @function previous
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const previous = function () {
     return request("Player.GoTo", { "playerid": 1, "to": "previous" });
@@ -146,7 +146,7 @@ export const previous = function () {
  * Arrête la lecture.
  *
  * @function stop
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const stop = function () {
     return request("Player.Stop", { "playerid": 1 });
@@ -156,7 +156,7 @@ export const stop = function () {
  * Démarre la lecture.
  *
  * @function open
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const open = function () {
     return request("Player.Open", { "item": { "playlistid": 1 } });
@@ -166,7 +166,7 @@ export const open = function () {
  * Lance ou mets en pause la lecture.
  *
  * @function playPause
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const playPause = function () {
     return request("Player.PlayPause", { "playerid": 1 });
@@ -176,7 +176,7 @@ export const playPause = function () {
  * Passe au prochain média dans la liste de lecture.
  *
  * @function next
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const next = function () {
     return request("Player.GoTo", { "playerid": 1, "to": "next" });
@@ -187,7 +187,7 @@ export const next = function () {
  *
  * @function setSpeed
  * @param {number} speed La nouvelle vitesse.
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const setSpeed = function (speed) {
     return request("Player.SetSpeed", { "playerid": 1, speed });
@@ -199,7 +199,7 @@ export const setSpeed = function (speed) {
  * @function setMute
  * @param {boolean} mute <code>true</code> pour couper le son ; sinon
  *                       <code>false</code>.
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const setMute = function (mute) {
     return request("Application.SetMute", { mute });
@@ -211,7 +211,7 @@ export const setMute = function (mute) {
  * @function setVolume
  * @param {number} volume Le nouveau volume (entre <code>0</code> et
                           <code>100</code>).
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const setVolume = function (volume) {
     return request("Application.SetVolume", { volume });
@@ -221,7 +221,7 @@ export const setVolume = function (volume) {
  * Répète la liste de lecture.
  *
  * @function setRepeat
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const setRepeat = function () {
     return request("Player.SetRepeat", { "playerid": 1, "repeat": "cycle" });
@@ -233,7 +233,7 @@ export const setRepeat = function () {
  * @function setShuffle
  * @param {boolean} shuffle <code>true</<code> pour mélanger la liste de
  *                          lecture ; sinon <code>false</code>.
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const setShuffle = function (shuffle) {
     return request("Player.SetShuffle", { "playerid": 1, shuffle });
@@ -243,7 +243,7 @@ export const setShuffle = function (shuffle) {
  * Vide la liste de lecture.
  *
  * @function clear
- * @return {Promise} La réponse de Kodi.
+ * @returns {Promise} La réponse de Kodi.
  */
 export const clear = function () {
     return request("Playlist.Clear", { "playlistid": 1 });
@@ -253,7 +253,7 @@ export const clear = function () {
  * Récupère les propriétés de Kodi.
  *
  * @function getProperties
- * @return {Promise} Les valeurs des propriétés.
+ * @returns {Promise} Les valeurs des propriétés.
  */
 export const getProperties = function () {
     return request("Application.GetProperties",
