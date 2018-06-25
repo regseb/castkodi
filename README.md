@@ -19,16 +19,17 @@ sur **Kodi** :
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud, Mixcloud et Arte
   Radio.
 
-Deux options peuvent être ajoutées dans le menu contextuel des liens / pages /
-sélections de vidéos ou de musiques : *Lire avec Kodi* et *Place en file
-d'attente de Kodi*. Une télécommande (accessible depuis un bouton de la barre
-d'outils) est aussi présente pour diffuser l'onglet courant sur Kodi et pour :
-mettre en pause, passer au prochain élément, régler le volume…
+Trois options peuvent être ajoutées dans le menu contextuel des liens / pages /
+sélections de vidéos ou de musiques : *Lire maintenant avec Kodi*, *Lire ensuite
+avec Kodi* et *Place en file d'attente de Kodi*. Une télécommande (accessible
+depuis un bouton de la barre d'outils) est aussi présente pour diffuser l'onglet
+courant sur Kodi et pour : mettre en pause, passer au prochain élément, régler
+le volume…
 
 ## Installation
 
 L'extension est disponible sur le
-**[Mozilla Add-ons](https://addons.mozilla.org/addon/castkodi/)**.
+**[Firefox Add-ons](https://addons.mozilla.org/addon/castkodi/)**.
 
 Dans Kodi, il faut *Autoriser le contrôle à distance via HTTP*. Ce réglage se
 fait dans la page *Paramètres* / *Services* / *Contrôle*.

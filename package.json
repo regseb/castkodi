@@ -8,8 +8,8 @@
         "webextension",
         "firefox",
         "youtube",
+        "twitch",
         "vimeo",
-        "dailymotion",
         "soundcloud"
     ],
     "homepage": "https://addons.mozilla.org/addon/castkodi/",
