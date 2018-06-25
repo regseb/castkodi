@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom";
+import jsdom from "jsdom";
 
 export const DOMParser = class {
 
@@ -9,6 +9,7 @@ export const DOMParser = class {
      * @returns {Document} Le document HTML.
      */
     parseFromString(data) {
-        return new JSDOM(data).window.document;
+        const virtualConsole = new jsdom.VirtualConsole();
+        return new jsdom.JSDOM(data, { virtualConsole }).window.document;
     }
 };
