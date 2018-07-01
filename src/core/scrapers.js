@@ -6,6 +6,7 @@ import { PebkacError }           from "./pebkac.js";
 import { rules as airmozilla }   from "./scraper/airmozilla.js";
 import { rules as allocine }     from "./scraper/allocine.js";
 import { rules as arteradio }    from "./scraper/arteradio.js";
+import { rules as devtube }      from "./scraper/devtube.js";
 import { rules as dumpert }      from "./scraper/dumpert.js";
 import { rules as collegehumor } from "./scraper/collegehumor.js";
 import { rules as dailymotion }  from "./scraper/dailymotion.js";
@@ -22,9 +23,9 @@ import { rules as video }        from "./scraper/video.js";
 import { rules as audio }        from "./scraper/audio.js";
 
 const scrapers = [
-    airmozilla, allocine, arteradio, dumpert, collegehumor, dailymotion,
-    facebook, jeuxvideocom, mixcloud, peertube, rutube, soundcloud, twitch,
-    vimeo, youtube, video, audio
+    airmozilla, allocine, arteradio, devtube, dumpert, collegehumor,
+    dailymotion, facebook, jeuxvideocom, mixcloud, peertube, rutube, soundcloud,
+    twitch, vimeo, youtube, video, audio
 ];
 
 const sanitize = function (pattern) {
