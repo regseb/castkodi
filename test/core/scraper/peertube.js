@@ -33,7 +33,7 @@ describe("scraper/peertube", function () {
         });
 
         it("should return error when it's not a video", function () {
-            const url = "https://peertube.mastodon.host/videos/watch/uuid";
+            const url = "https://video.blender.org/videos/watch/uuid";
             const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
