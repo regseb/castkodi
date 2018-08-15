@@ -25,7 +25,7 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.collegehumor.com/video/*/*"], function (url) {
-    const RE = /^\/video\/([0-9]+)\//;
+    const RE = /^\/video\/([0-9]+)\//u;
     const result = RE.exec(url.pathname);
     if (null === result) {
         return Promise.reject(new PebkacError("noVideo", "CollegeHumor"));

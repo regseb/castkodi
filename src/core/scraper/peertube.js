@@ -158,7 +158,7 @@ rules.set([
     ...INSTANCES.map((i) => `*://${i}/videos/watch/*`),
     ...INSTANCES.map((i) => `*://${i}/videos/embed/*`)
 ], function (url) {
-    const api = url.toString().replace(/^http:/i, "https:")
+    const api = url.toString().replace(/^http:/iu, "https:")
                               .replace("videos/watch", "api/v1/videos")
                               .replace("videos/embed", "api/v1/videos");
     return fetch(api).then(function (response) {

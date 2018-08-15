@@ -27,10 +27,10 @@ export const rules = new Map();
 rules.set([
     "*://rutube.ru/video/*/*", "*://rutube.ru/play/embed/*"
 ], function (url) {
-    const id = url.pathname.replace(/^\/video\//, "")
-                           .replace(/^\/play\/embed\//, "")
-                           .replace(/\/$/, "");
-    if (!(/^[0-9a-z]+$/).test(id)) {
+    const id = url.pathname.replace(/^\/video\//u, "")
+                           .replace(/^\/play\/embed\//u, "")
+                           .replace(/\/$/u, "");
+    if (!(/^[0-9a-z]+$/u).test(id)) {
         return Promise.reject(new PebkacError("noVideo", "Rutube"));
     }
 

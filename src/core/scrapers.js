@@ -29,18 +29,18 @@ const scrapers = [
 ];
 
 const sanitize = function (pattern) {
-    return pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return pattern.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
 };
 
 const compile = function (pattern) {
-    const RE = /^(\*|https?):\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/i;
+    const RE = /^(\*|https?):\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/iu;
     const [, scheme, host, path] = RE.exec(pattern);
     return new RegExp("^" +
         ("*" === scheme ? "https?"
                         : sanitize(scheme)) + "://" +
         ("*" === host ? "[^/]+"
-                      : sanitize(host).replace(/^\\\*/g, "[^./]+")) +
-        "/" + sanitize(path).replace(/\\\*/g, ".*") + "$", "i");
+                      : sanitize(host).replace(/^\\\*/gu, "[^./]+")) +
+        "/" + sanitize(path).replace(/\\\*/gu, ".*") + "$", "iu");
 };
 
 /**

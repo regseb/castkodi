@@ -21,7 +21,7 @@ rules.set(["*://www.facebook.com/*/videos/*/*"], function (url) {
     return fetch(url.toString()).then(function (response) {
         return response.text();
     }).then(function (response) {
-        const RE = /hd_src_no_ratelimit:"([^"]+)/;
+        const RE = /hd_src_no_ratelimit:"([^"]+)/u;
         const result = RE.exec(response);
         if (null === result) {
             throw new PebkacError("noVideo", "Facebook");

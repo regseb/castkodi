@@ -225,6 +225,7 @@
         "comment-whitespace-inside": "always",
 
         "indentation": 4,
+        "linebreaks": "unix",
         "max-empty-lines": 2,
         "max-line-length": [80, { "severity": "warning" }],
         "no-eol-whitespace": true,
