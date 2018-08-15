@@ -19,7 +19,7 @@ export const fetch = function (input, init = {}) {
             case "response.error":
                 return Promise.resolve({
                     "ok":   true,
-                    "json": () => ({ "error": { "message": "foo" } })
+                    "json": () => ({ "error": { "message": "response.error" } })
                 });
             case "response.properties.noPlayer":
                 if (init.body.includes("Application.GetProperties")) {

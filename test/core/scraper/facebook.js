@@ -19,8 +19,10 @@ describe("scraper/facebook", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
             });
         });
 
@@ -29,7 +31,8 @@ describe("scraper/facebook", function () {
                                                            "10152476888501641/";
             const expected = "10810554_10152476888596641_2070058545_n.mp4";
             return extract(url).then(function (file) {
-                assert.ok(file.includes(expected));
+                assert.ok(file.includes(expected),
+                          `"${file}".includes(expected)`);
             });
         });
 
@@ -38,7 +41,8 @@ describe("scraper/facebook", function () {
                                                            "10152476888501641/";
             const expected = "10810554_10152476888596641_2070058545_n.mp4";
             return extract(url).then(function (file) {
-                assert.ok(file.includes(expected));
+                assert.ok(file.includes(expected),
+                          `"${file}".includes(expected)`);
             });
         });
     });

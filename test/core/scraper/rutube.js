@@ -19,8 +19,10 @@ describe("scraper/rutube", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
             });
         });
 
@@ -31,8 +33,10 @@ describe("scraper/rutube", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
             });
         });
 
@@ -42,27 +46,44 @@ describe("scraper/rutube", function () {
             const expected = "https://bl.rutube.ru/route/" +
                                         "c666623cab5ea368a8153b915dcdd028.m3u8";
             return extract(url).then(function (file) {
-                assert.ok(file.startsWith(expected));
+                assert.ok(file.startsWith(expected),
+                          `"${file}".startsWith(expected)`);
             });
         });
     });
 
     describe("*://rutube.ru/play/embed/*", function () {
         it("should return video id when protocol is HTTP ", function () {
-            const url = "http://rutube.ru/play/embed/7575145";
+            const url = "http://rutube.ru/play/embed/11318635";
             const expected = "https://bl.rutube.ru/route/" +
-                                        "588572c42e63e719645ce41b28c5ee13.m3u8";
+                                        "7fa99a98331d643cc44d4f529fba762a.m3u8";
             return extract(url).then(function (file) {
-                assert.ok(file.startsWith(expected));
+                assert.ok(file.startsWith(expected),
+                          `"${file}".startsWith(expected)`);
             });
         });
 
         it("should return video id", function () {
-            const url = "https://rutube.ru/play/embed/7575145";
+            const url = "https://rutube.ru/play/embed/11318635";
             const expected = "https://bl.rutube.ru/route/" +
-                                        "588572c42e63e719645ce41b28c5ee13.m3u8";
+                                        "7fa99a98331d643cc44d4f529fba762a.m3u8";
             return extract(url).then(function (file) {
-                assert.ok(file.startsWith(expected));
+                assert.ok(file.startsWith(expected),
+                          `"${file}".startsWith(expected)`);
+            });
+        });
+
+        it("should return error when access isn't allowed", function () {
+            const url = "https://rutube.ru/play/embed/7575145";
+            const expected = "noVideo";
+            return extract(url).then(function () {
+                assert.fail();
+            }, function (error) {
+                assert.strictEqual(error.name, "PebkacError");
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
             });
         });
     });

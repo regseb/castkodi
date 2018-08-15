@@ -20,8 +20,10 @@ describe("scraper/soundcloud", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
             });
         });
 
@@ -32,8 +34,10 @@ describe("scraper/soundcloud", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
             });
         });
 

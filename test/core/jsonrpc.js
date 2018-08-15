@@ -64,8 +64,10 @@ describe("jsonrpc", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
 
                 browser.storage.local.clear();
             });
@@ -79,8 +81,10 @@ describe("jsonrpc", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
 
                 browser.storage.local.clear();
             });
@@ -97,8 +101,10 @@ describe("jsonrpc", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
 
                 browser.storage.local.clear();
             });
@@ -115,8 +121,10 @@ describe("jsonrpc", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
 
                 browser.storage.local.clear();
             });
@@ -133,8 +141,10 @@ describe("jsonrpc", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
 
                 browser.storage.local.clear();
             });
@@ -151,8 +161,10 @@ describe("jsonrpc", function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected));
-                assert.ok(error.message.includes(expected));
+                assert.ok(error.title.includes(expected),
+                          `"${error.title}".includes(expected)`);
+                assert.ok(error.message.includes(expected),
+                          `"${error.message}".includes(expected)`);
 
                 browser.storage.local.clear();
             });
@@ -164,12 +176,11 @@ describe("jsonrpc", function () {
                 "connection-port": "8080"
             });
 
-            const expected = "foo";
             return jsonrpc.check().then(function () {
                 assert.fail();
             }, function (error) {
                 assert.strictEqual(error.name, "Error");
-                assert.ok(error.message, expected);
+                assert.strictEqual(error.message, "response.error");
 
                 browser.storage.local.clear();
             });
