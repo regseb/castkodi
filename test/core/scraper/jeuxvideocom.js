@@ -37,8 +37,6 @@ describe("scraper/jeuxvideocom", function () {
         });
 
         it("should return video URL", function () {
-            browser.storage.local.set({ "airmozilla-format": "webm" });
-
             const url = "http://www.jeuxvideo.com/extraits-videos-jeux/0002/" +
                               "00023827/portal-2-pc-meet-wheatley-00008311.htm";
             const expected = "http://videohd.jeuxvideo.com/extraits/201104/" +

@@ -215,24 +215,5 @@
     },
     "options_youtubePlaylistVideo_content": {
         "message": "diffuser seulement la vidéo."
-    },
-
-    "options_airmozillaTitle_content": {
-        "message": "Air Mozilla"
-    },
-    "options_airmozillaFormat_content": {
-        "message": "Format de la vidéo à privilégier :"
-    },
-    "options_airmozillaHdwebm_content": {
-        "message": "WebM (HD)"
-    },
-    "options_airmozillaWebm_content": {
-        "message": "WebM"
-    },
-    "options_airmozillaHdmp4_content": {
-        "message": "MP4 (HD)"
-    },
-    "options_airmozillaMp4_content": {
-        "message": "MP4"
     }
 }

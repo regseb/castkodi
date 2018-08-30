@@ -48,8 +48,8 @@ const cast = function (info) {
                   info.pageUrl, info.popupUrl];
     let url = urls.find((u) => undefined !== u && "" !== u);
     // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
-    if (!(/^[a-z]+:/i).test(url)) {
-        url = url.replace(/^\/*/, "http://");
+    if (!(/^[a-z]+:/iu).test(url)) {
+        url = url.replace(/^\/*/u, "http://");
     }
 
     extract(url).then(function (file) {
@@ -157,6 +157,8 @@ browser.storage.local.get().then(function (config) {
         browser.storage.local.set({ "menus-send": config["menus-play"] });
         browser.storage.local.remove("menus-play");
     }
+    // Supprimer la propriété "airmozilla-format" (avant la version 3.0.0).
+    browser.storage.local.remove("airmozilla-format");
 
     // Définir des valeurs par défaut.
     if (!("general-history" in config)) {
@@ -173,9 +175,6 @@ browser.storage.local.get().then(function (config) {
     }
     if (!("youtube-playlist" in config)) {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
-    }
-    if (!("airmozilla-format" in config)) {
-        browser.storage.local.set({ "airmozilla-format": "hd_webm" });
     }
 
     // Ajouter les options dans les menus contextuels et surveiller les futurs
