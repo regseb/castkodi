@@ -12,6 +12,7 @@ import { rules as collegehumor } from "./scraper/collegehumor.js";
 import { rules as dailymotion }  from "./scraper/dailymotion.js";
 import { rules as facebook }     from "./scraper/facebook.js";
 import { rules as jeuxvideocom } from "./scraper/jeuxvideocom.js";
+import { rules as liveleak }     from "./scraper/liveleak.js";
 import { rules as mixcloud }     from "./scraper/mixcloud.js";
 import { rules as peertube }     from "./scraper/peertube.js";
 import { rules as rutube }       from "./scraper/rutube.js";
@@ -24,8 +25,8 @@ import { rules as audio }        from "./scraper/audio.js";
 
 const scrapers = [
     airmozilla, allocine, arteradio, devtube, dumpert, collegehumor,
-    dailymotion, facebook, jeuxvideocom, mixcloud, peertube, rutube, soundcloud,
-    twitch, vimeo, youtube, video, audio
+    dailymotion, facebook, jeuxvideocom, liveleak, mixcloud, peertube, rutube,
+    soundcloud, twitch, vimeo, youtube, video, audio
 ];
 
 const sanitize = function (pattern) {
