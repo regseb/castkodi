@@ -22,6 +22,12 @@
             "patterns": "*.css",
             "linters": "stylelint"
         }, {
+            "patterns": "/src/options/*.css",
+            "linters": { "purgecss": { "content": "/src/options/*.html" } }
+        }, {
+            "patterns": "/src/popup/*.css",
+            "linters": { "purgecss": { "content": "/src/popup/*.html" } }
+        }, {
             "patterns": "*.md",
             "linters": "markdownlint"
         }, {
