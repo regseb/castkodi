@@ -13,11 +13,11 @@
 Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
 sur **Kodi** :
 
-- des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo, ainsi que
-  AlloCiné, CollegeHumor, Dailymotion, DevTube, Dumpert, Facebook, JeuxVideoCom,
-  Liveleak, PeerTube et Rutube ;
-- des musiques : liens directs (*mp3*, *flac*…), SoundCloud, ainsi que Arte
-  Radio et Mixcloud.
+- des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo et
+  AlloCiné, AP News, CollegeHumor, Dailymotion, DevTube, Dumpert, Facebook,
+  Full30, JeuxVideoCom, LiveLeak, PeerTube, Rutube, StormoTV, Útvarp Saga…
+- des musiques : liens directs (*mp3*, *flac*…), SoundCloud et Arte Radio,
+  Mixcloud…
 
 Trois options peuvent être ajoutées dans le menu contextuel des liens / pages /
 sélections de vidéos ou de musiques : *Lire maintenant avec Kodi*, *Lire ensuite
