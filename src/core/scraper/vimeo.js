@@ -25,11 +25,11 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://vimeo.com/*"], function (url) {
-    if (!(/^\/[0-9]+$/u).test(url.pathname)) {
-        return Promise.reject(new PebkacError("noVideo", "Vimeo"));
+    if ((/^\/[0-9]+$/u).test(url.pathname)) {
+        return Promise.resolve(PLUGIN_URL + url.pathname.substr(1));
     }
 
-    return Promise.resolve(PLUGIN_URL + url.pathname.substr(1));
+    return Promise.reject(new PebkacError("noVideo", "Vimeo"));
 });
 
 /**
@@ -39,9 +39,9 @@ rules.set(["*://vimeo.com/*"], function (url) {
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://player.vimeo.com/video/*"], function (url) {
-    if (!(/^\/video\/[0-9]+$/u).test(url.pathname)) {
-        return Promise.reject(new PebkacError("noVideo", "Vimeo"));
+    if ((/^\/video\/[0-9]+$/u).test(url.pathname)) {
+        return Promise.resolve(PLUGIN_URL + url.pathname.substr(7));
     }
 
-    return Promise.resolve(PLUGIN_URL + url.pathname.substr(7));
+    return Promise.reject(new PebkacError("noVideo", "Vimeo"));
 });

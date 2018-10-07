@@ -11,7 +11,7 @@ describe("scraper/allocine", function () {
         });
     });
 
-    describe("*://www.allocine.fr/*", function () {
+    describe("http://www.allocine.fr/*", function () {
         it("should return error when it's not a video", function () {
             const url = "http://www.allocine.fr/video/";
             const expected = "noVideo";

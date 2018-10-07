@@ -61,9 +61,9 @@ rules.set([
     return fetch(API_URL + url.pathname, init).then(function (response) {
         return response.json();
     }).then(function (response) {
-        if (!("_id" in response)) {
-            throw new PebkacError("noVideo", "Twitch");
+        if ("_id" in response) {
+            return PLUGIN_CHANNEL_URL + response["_id"];
         }
-        return PLUGIN_CHANNEL_URL + response["_id"];
+        throw new PebkacError("noVideo", "Twitch");
     });
 });

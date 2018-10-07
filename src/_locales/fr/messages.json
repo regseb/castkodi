@@ -54,7 +54,7 @@
         "message": "Identification échouée"
     },
     "notifications_unauthorized_message": {
-        "message": "Le nom d'utilisateur ou le mot de passe est invalide."
+        "message": "Le nom d'utilisateur ou le mot de passe sont invalides."
     },
 
     "notifications_noLink_title": {

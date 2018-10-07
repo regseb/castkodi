@@ -32,6 +32,33 @@ const scrapers = [
     twitch, vimeo, youtube, torrent, acestream, video, audio, generic
 ];
 
+/**
+ * Teste si une chaine de caractères est une URL.
+ *
+ * @param {string} url La chaine de caractères pouvant contenir une URL.
+ * @returns {boolean} <code>true</code> c'est une URL ; sinon
+ *                    <code>false</code>.
+ */
+const isUrl = function (url) {
+    try {
+        return Boolean(new URL(url)) && (
+               (/^https?:\/\/[^/]+\/.*$/iu).test(url) ||
+               (/^magnet:.*$/iu).test(url) ||
+               (/^acestream:.*$/iu).test(url));
+    } catch (_) {
+        // Ignorer l'erreur provenant d'une URL invalide.
+        return false;
+    }
+};
+
+/**
+ * Protège les caractères spéciaux pour les expressions rationnelles.
+ *
+ * @function sanitize
+ * @param {string} pattern Une chaine de caractères.
+ * @returns {string} La chaine de caractères avec les caractères spéciaux
+ *                   protégés.
+ */
 const sanitize = function (pattern) {
     return pattern.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
 };

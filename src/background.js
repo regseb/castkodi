@@ -7,34 +7,14 @@ import { notify }            from "./core/notify.js";
 import { SCRAPERS, extract } from "./core/scrapers.js";
 
 /**
- * La liste des options qui seront ajoutées dans le menu contextuel pour :
- * <ul>
- *   <li>les éléments audio et les vidéos ;</li>
- *   <li>les liens ;</li>
- *   <li>le bouton de l'extension, les <code>iframe</code>, la page et
- *       l'onglet ;</li>
- *   <li>les textes sélectionnés.</li>
- * </ul>
+ * La liste des contextes où seront ajouté les options dans le menu contextuel.
  *
- * @constant {Object.<string, Object>} KINDS
+ * @constant {Array.<string>} CONTEXTS
  */
-const KINDS = {
-    "target": {
-        "contexts":          ["audio", "link", "video"],
-        "targetUrlPatterns": ["*://*/*", "magnet:*", "acestream:*"]
-    },
-    "link": {
-        "contexts":          ["link"],
-        "targetUrlPatterns": SCRAPERS.map((s) => s.pattern)
-    },
-    "document": {
-        "contexts":            ["browser_action", "frame", "page", "tab"],
-        "documentUrlPatterns": SCRAPERS.map((s) => s.pattern)
-    },
-    "selection": {
-        "contexts": ["selection"]
-    }
-};
+const CONTEXTS = [
+    "audio", "browser_action", "frame", "link", "page", "selection", "tab",
+    "video"
+];
 
 /**
  * Diffuse un média sur Kodi.
@@ -53,12 +33,11 @@ const cast = function (info) {
     }
 
     extract(url).then(function (file) {
-        const action = info.menuItemId.split("_")[0];
-        switch (action) {
+        switch (info.menuItemId) {
             case "send":   return jsonrpc.send(file);
             case "insert": return jsonrpc.insert(file);
             case "add":    return jsonrpc.add(file);
-            default:       throw new Error(action + " is not supported");
+            default: throw new Error(info.menuItemId + " is not supported");
         }
     }).then(function () {
         return browser.storage.local.get(["general-history"]);
@@ -89,55 +68,50 @@ const menu = function (changes) {
         if (config["menus-send"] && config["menus-insert"] ||
                 config["menus-send"] && config["menus-add"] ||
                 config["menus-insert"] && config["menus-add"]) {
-            for (const [key, kind] of Object.entries(KINDS)) {
-                browser.menus.create(Object.assign({}, kind, {
-                    "id":    "parent_" + key,
-                    "title": browser.i18n.getMessage("menus_firstParent")
-                }));
-                if (config["menus-send"]) {
-                    browser.menus.create({
-                        "id":       "send_" + key,
-                        "parentId": "parent_" + key,
-                        "title":    browser.i18n.getMessage("menus_secondSend")
-                    });
-                }
-                if (config["menus-insert"]) {
-                    browser.menus.create({
-                        "id":       "insert_" + key,
-                        "parentId": "parent_" + key,
-                        "title":    browser.i18n.getMessage(
-                                                           "menus_secondInsert")
-                    });
-                }
-                if (config["menus-add"]) {
-                    browser.menus.create({
-                        "id":       "add_" + key,
-                        "parentId": "parent_" + key,
-                        "title":    browser.i18n.getMessage("menus_secondAdd")
-                    });
-                }
+            browser.menus.create({
+                "contexts": CONTEXTS,
+                "id":       "parent",
+                "title":    browser.i18n.getMessage("menus_firstParent")
+            });
+            if (config["menus-send"]) {
+                browser.menus.create({
+                    "id":       "send",
+                    "parentId": "parent",
+                    "title":    browser.i18n.getMessage("menus_secondSend")
+                });
+            }
+            if (config["menus-insert"]) {
+                browser.menus.create({
+                    "id":       "insert",
+                    "parentId": "parent",
+                    "title":    browser.i18n.getMessage("menus_secondInsert")
+                });
+            }
+            if (config["menus-add"]) {
+                browser.menus.create({
+                    "id":       "add",
+                    "parentId": "parent",
+                    "title":    browser.i18n.getMessage("menus_secondAdd")
+                });
             }
         } else if (config["menus-send"]) {
-            for (const [key, kind] of Object.entries(KINDS)) {
-                browser.menus.create(Object.assign({}, kind, {
-                    "id":    "send_" + key,
-                    "title": browser.i18n.getMessage("menus_firstSend")
-                }));
-            }
+            browser.menus.create({
+                "contexts": CONTEXTS,
+                "id":       "send",
+                "title":    browser.i18n.getMessage("menus_firstSend")
+            });
         } else if (config["menus-insert"]) {
-            for (const [key, kind] of Object.entries(KINDS)) {
-                browser.menus.create(Object.assign({}, kind, {
-                    "id":    "insert_" + key,
-                    "title": browser.i18n.getMessage("menus_firstInsert")
-                }));
-            }
+            browser.menus.create({
+                "contexts": CONTEXTS,
+                "id":       "insert",
+                "title":    browser.i18n.getMessage("menus_firstInsert")
+            });
         } else if (config["menus-add"]) {
-            for (const [key, kind] of Object.entries(KINDS)) {
-                browser.menus.create(Object.assign({}, kind, {
-                    "id":    "add_" + key,
-                    "title": browser.i18n.getMessage("menus_firstAdd")
-                }));
-            }
+            browser.menus.create({
+                "contexts": CONTEXTS,
+                "id":       "add",
+                "title":    browser.i18n.getMessage("menus_firstAdd")
+            });
         }
     });
 };

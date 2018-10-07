@@ -32,6 +32,6 @@ rules.set(["*://www.jeuxvideo.com/*"], function (url) {
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        return data.sources.find((source) => "true" === source.default).file;
+        return data.sources.find((s) => "true" === s.default).file;
     });
 });

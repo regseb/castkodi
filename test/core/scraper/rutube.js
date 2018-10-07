@@ -42,9 +42,9 @@ describe("scraper/rutube", function () {
 
         it("should return video id", function () {
             const url = "https://rutube.ru/video/" +
-                 "c666623cab5ea368a8153b915dcdd028/?pl_id=12041&pl_type=source";
+                 "c3290999478b6c11addf33b26f4ca81c/?pl_id=2664175&pl_type=user";
             const expected = "https://bl.rutube.ru/route/" +
-                                        "c666623cab5ea368a8153b915dcdd028.m3u8";
+                                        "c3290999478b6c11addf33b26f4ca81c.m3u8";
             return extract(url).then(function (file) {
                 assert.ok(file.startsWith(expected),
                           `"${file}".startsWith(expected)`);

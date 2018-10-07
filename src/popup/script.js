@@ -7,11 +7,16 @@ import { notify }      from "../core/notify.js";
 import { PebkacError } from "../core/pebkac.js";
 import { SCRAPERS }    from "../core/scrapers.js";
 
+/**
+ * La liste des vitesses de lecture.
+ *
+ * @constant {Array.<number>} SPEEDS
+ * @see speed
+ */
 const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
 
 let volume = null;
 let speed  = null;
-let tabUrl = null;
 
 const paint = function () {
     if (null === volume) {
@@ -20,7 +25,6 @@ const paint = function () {
         document.getElementById("add").disabled = true;
         document.getElementsByName("paste")[0].disabled = true;
         document.getElementById("preferences").disabled = false;
-        document.getElementById("error").disabled = false;
         document.getElementById("loading").style.display = "none";
         document.getElementById("love").style.display = "none";
         document.getElementById("error").style.display = "inline";
@@ -30,6 +34,8 @@ const paint = function () {
         document.getElementById("stop").disabled = true;
         document.getElementById("pause").disabled = true;
         document.getElementById("play").disabled = true;
+        document.getElementById("pause").style.display = "none";
+        document.getElementById("play").style.display = "inline";
         document.getElementById("forward").disabled = true;
         document.getElementById("next").disabled = true;
 
@@ -42,19 +48,11 @@ const paint = function () {
         document.getElementsByName("shuffle")[0].disabled = true;
         document.getElementById("clear").disabled = true;
     } else {
-        // Si l'URL de l'onglet courant respecte un des patrons.
-        if (SCRAPERS.some((s) => s.regexp.test(tabUrl))) {
-            document.getElementById("send").disabled = false;
-            document.getElementById("insert").disabled = false;
-            document.getElementById("add").disabled = false;
-        } else {
-            document.getElementById("send").disabled = true;
-            document.getElementById("insert").disabled = true;
-            document.getElementById("add").disabled = true;
-        }
+        document.getElementById("send").disabled = false;
+        document.getElementById("insert").disabled = false;
+        document.getElementById("add").disabled = false;
         document.getElementsByName("paste")[0].disabled = false;
         document.getElementById("preferences").disabled = false;
-        document.getElementById("love").disabled = false;
         document.getElementById("loading").style.display = "none";
         document.getElementById("error").style.display = "none";
         document.getElementById("love").style.display = "inline-block";
@@ -96,16 +94,24 @@ const cast = function ({ "target": { "id": action } }) {
         return;
     }
 
-    let popupUrl;
+    // Récupérer l'URL dans la zone de saisie ou celle de l'onglet courant.
+    let promise;
     if (document.getElementsByName("paste")[0].checked) {
-        popupUrl = document.getElementsByTagName("textarea")[0].value;
+        promise = Promise.resolve(
+                            document.getElementsByTagName("textarea")[0].value);
     } else {
-        popupUrl = tabUrl;
+        const queryInfo = {
+            "active":        true,
+            "currentWindow": true
+        };
+        promise = browser.tabs.query(queryInfo).then(([{ url }]) => url);
     }
 
-    browser.runtime.sendMessage({
-        "popupUrl":   popupUrl,
-        "menuItemId": action + "_popup"
+    promise.then(function (popupUrl) {
+        return browser.runtime.sendMessage({
+            "popupUrl":   popupUrl,
+            "menuItemId": action
+        });
     }).then(close);
 };
 
@@ -118,23 +124,10 @@ const paste = function () {
     const input = document.getElementsByName("paste")[0];
     if (input.checked) {
         input.checked = false;
-        // Si l'URL de l'onglet courant respecte un des patrons.
-        if (SCRAPERS.some((s) => s.regexp.test(tabUrl))) {
-            document.getElementById("send").disabled = false;
-            document.getElementById("insert").disabled = false;
-            document.getElementById("add").disabled = false;
-        } else {
-            document.getElementById("send").disabled = true;
-            document.getElementById("insert").disabled = true;
-            document.getElementById("add").disabled = true;
-        }
         document.getElementById("preferences").disabled = false;
         document.getElementById("love").disabled = false;
     } else {
         input.checked = true;
-        document.getElementById("send").disabled = false;
-        document.getElementById("insert").disabled = false;
-        document.getElementById("add").disabled = false;
         document.getElementById("preferences").disabled = true;
         document.getElementById("love").disabled = true;
         document.getElementsByTagName("textarea")[0].focus();
@@ -164,7 +157,7 @@ const previous = function () {
         return;
     }
 
-    jsonrpc.previous().then(paint).catch(notify);
+    jsonrpc.previous().catch(notify);
 };
 
 const rewind = function () {
@@ -199,16 +192,15 @@ const playPause = function () {
         return;
     }
 
-    if (5 === speed) {
-        jsonrpc.playPause().then(paint).catch(notify);
-        speed = -1;
-    } else {
-        if (null === speed) {
-            jsonrpc.open().then(paint).catch(notify);
-        } else {
-            jsonrpc.playPause().then(paint).catch(notify);
-        }
+    if (null === speed) {
         speed = 5;
+        jsonrpc.open().then(paint).catch(notify);
+    } else if (5 === speed) {
+        speed = -1;
+        jsonrpc.playPause().then(paint).catch(notify);
+    } else {
+        speed = 5;
+        jsonrpc.playPause().then(paint).catch(notify);
     }
 };
 
@@ -232,7 +224,7 @@ const next = function () {
         return;
     }
 
-    jsonrpc.next().then(paint).catch(notify);
+    jsonrpc.next().catch(notify);
 };
 
 const muteSound = function () {
@@ -241,13 +233,9 @@ const muteSound = function () {
         return;
     }
 
-    if (document.getElementsByName("mute")[0].checked) {
-        document.getElementsByName("mute")[0].checked = false;
-        jsonrpc.setMute(false).then(paint).catch(notify);
-    } else {
-        document.getElementsByName("mute")[0].checked = true;
-        jsonrpc.setMute(true).then(paint).catch(notify);
-    }
+    const input = document.getElementsByName("mute")[0];
+    input.checked = !input.checked;
+    jsonrpc.setMute(input.checked).then(paint).catch(notify);
 };
 
 const setVolume = function () {
@@ -269,10 +257,10 @@ const subVolume = function () {
         return;
     }
 
-    volume = parseInt(document.getElementById("volume").value, 10);
-    volume = Math.max(volume - 10, 0);
-    document.getElementById("volume").value = volume;
-    document.getElementById("volume").dispatchEvent(new Event("input", {
+    const input = document.getElementById("volume");
+    volume = Math.max(parseInt(input.value, 10) - 10, 0);
+    input.value = volume;
+    input.dispatchEvent(new Event("input", {
         "bubbles":    true,
         "cancelable": true
     }));
@@ -284,10 +272,10 @@ const addVolume = function () {
         return;
     }
 
-    volume = parseInt(document.getElementById("volume").value, 10);
-    volume = Math.min(volume + 10, 100);
-    document.getElementById("volume").value = volume;
-    document.getElementById("volume").dispatchEvent(new Event("input", {
+    const input = document.getElementById("volume");
+    volume = Math.min(parseInt(input.value, 10) + 10, 100);
+    input.value = volume;
+    input.dispatchEvent(new Event("input", {
         "bubbles":    true,
         "cancelable": true
     }));
@@ -299,9 +287,7 @@ const repeat = function () {
         return;
     }
 
-    const off = document.getElementsByName("repeat")[0];
-    const all = document.getElementsByName("repeat")[1];
-    const one = document.getElementsByName("repeat")[2];
+    const [off, all, one] = document.getElementsByName("repeat");
     if (off.checked) {
         off.checked = false;
         all.checked = true;
@@ -332,24 +318,14 @@ const clear = function () {
         return;
     }
 
-    jsonrpc.clear().then(paint).catch(notify);
+    jsonrpc.clear().catch(notify);
 };
 
 jsonrpc.getProperties().then(function (properties) {
-    // Récupérer l'URL de l'onglet courant.
-    const queryInfo = {
-        "active":        true,
-        "currentWindow": true
-    };
-    return browser.tabs.query(queryInfo).then(function ([{ url }]) {
-        return Object.assign(properties, { "tabUrl": url });
-    });
-}).then(function (properties) {
     document.getElementsByName("mute")[0].checked = properties.muted;
     volume = properties.volume;
     speed = null === properties.speed ? null
                                       : SPEEDS.indexOf(properties.speed);
-    tabUrl = properties.tabUrl;
     if ("off" === properties.repeat) {
         document.getElementsByName("repeat")[0].checked = true;
     } else if ("all" === properties.repeat) {

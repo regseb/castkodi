@@ -11,11 +11,14 @@ const compare = function (messages1, messages2) {
             assert.fail(name);
         }
         if ("placeholders" in message) {
-            if (!("placeholders" in message)) {
+            if (!("placeholders" in messages2[name])) {
                 assert.fail(name);
             }
             for (const [key, placeholder] of
                                          Object.entries(message.placeholders)) {
+                if (!message.message.includes("$" + key.toUpperCase() + "$")) {
+                    assert.fail(message + "." + key);
+                }
                 if (!("content" in placeholder)) {
                     assert.fail(message + "." + key);
                 }

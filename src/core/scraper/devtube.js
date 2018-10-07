@@ -5,9 +5,9 @@
 /**
  * L'URL de l'extension pour lire des vidéos issues de YouTube.
  *
- * @constant {string} PLUGIN_VIDEO_URL
+ * @constant {string} PLUGIN_URL
  */
-const PLUGIN_VIDEO_URL = "plugin://plugin.video.youtube/play/?video_id=";
+const PLUGIN_URL = "plugin://plugin.video.youtube/play/?video_id=";
 
 /**
  * Les règles avec les patrons et leur action.
@@ -23,5 +23,5 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://dev.tube/video/*"], function (url) {
-    return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(7));
+    return Promise.resolve(PLUGIN_URL + url.pathname.substr(7));
 });

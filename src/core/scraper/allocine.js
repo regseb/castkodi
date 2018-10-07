@@ -41,9 +41,7 @@ rules.set(["http://www.allocine.fr/*"], function (url) {
         }
         const sources = JSON.parse(figure.getAttribute("data-model")).videos[0]
                                                                      .sources;
-        if ("high" in sources) {
-            return "http:" + sources.high;
-        }
-        return "http:" + sources.medium;
+        return "http:" + ("high" in sources ? sources.high
+                                            : sources.medium);
     });
 });

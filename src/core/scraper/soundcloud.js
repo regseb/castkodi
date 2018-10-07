@@ -5,6 +5,13 @@
 import { PebkacError } from "../pebkac.js";
 
 /**
+ * L'expression rationnelle pour extraire l'URL de la vidéo.
+ *
+ * @constant {RegExp} URL_REGEXP
+ */
+const URL_REGEXP = /api.soundcloud.com%2Ftracks%2F([^&]+)/iu;
+
+/**
  * L'URL de l'extension pour lire des musiques issues de SoundCloud.
  *
  * @constant {string} PLUGIN_URL
@@ -38,8 +45,7 @@ rules.set([
                                                            function (response) {
         return response.text();
     }).then(function (response) {
-        const RE = /api.soundcloud.com%2Ftracks%2F([^&]+)/u;
-        const result = RE.exec(response);
+        const result = URL_REGEXP.exec(response);
         if (null === result) {
             throw new PebkacError("noAudio", "SoundCloud");
         }

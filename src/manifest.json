@@ -35,6 +35,6 @@
         "page": "options/index.html"
     },
     "permissions": [
-        "<all_urls>", "menus", "notifications", "storage", "tabs"
+        "<all_urls>", "activeTab", "menus", "notifications", "storage"
     ]
 }

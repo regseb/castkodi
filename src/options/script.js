@@ -21,12 +21,11 @@ const activate = function () {
  * Demande (ou enlève) le droit de modifier l'historique du navigateur.
  *
  * @function ask
- * @param {Object}  input   La case à cocher.
- * @param {boolean} checked La valeur de la case.
+ * @param {Object} input La case à cocher.
  */
-const ask = function (input, checked) {
+const ask = function (input) {
     const permissions = { "permissions": ["history"] };
-    if (checked) {
+    if (input.checked) {
         browser.permissions.request(permissions).then(function (response) {
             input.checked = response;
             browser.storage.local.set({ "general-history": response });
@@ -47,7 +46,7 @@ const save = function () {
     const key = this.form.id + "-" + this.name;
     if ("checkbox" === this.type) {
         if ("history" === this.name) {
-            ask(this, this.checked);
+            ask(this);
         } else {
             browser.storage.local.set({ [key]: this.checked });
         }
