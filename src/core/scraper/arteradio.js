@@ -30,7 +30,7 @@ rules.set(["*://www.arteradio.com/son/*"], function (url) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         return BASE_URL + doc.querySelector(".player-main-playlist" +
-                                            " a[data-sound-href]")
+                                            " *[data-sound-href]")
                              .getAttribute("data-sound-href");
     });
 });
