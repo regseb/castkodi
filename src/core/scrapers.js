@@ -21,13 +21,15 @@ import { rules as stormotv }     from "./scraper/stormotv.js";
 import { rules as twitch }       from "./scraper/twitch.js";
 import { rules as vimeo }        from "./scraper/vimeo.js";
 import { rules as youtube }      from "./scraper/youtube.js";
+import { rules as torrent }      from "./scraper/torrent.js";
+import { rules as acestream }    from "./scraper/acestream.js";
 import { rules as video }        from "./scraper/video.js";
 import { rules as audio }        from "./scraper/audio.js";
 
 const scrapers = [
     allocine, arteradio, devtube, dumpert, collegehumor, dailymotion, facebook,
     full30, jeuxvideocom, mixcloud, peertube, rutube, soundcloud, stormotv,
-    twitch, vimeo, youtube, video, audio, generic
+    twitch, vimeo, youtube, torrent, acestream, video, audio, generic
 ];
 
 const sanitize = function (pattern) {
@@ -35,6 +37,11 @@ const sanitize = function (pattern) {
 };
 
 const compile = function (pattern) {
+    if (pattern.startsWith("magnet:") || pattern.startsWith("acestream")) {
+        return new RegExp("^" + sanitize(pattern).replace(/\\\*/gu, ".*") + "$",
+                          "iu");
+    }
+
     const RE = /^(\*|https?):\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/iu;
     const [, scheme, host, path] = RE.exec(pattern);
     return new RegExp("^" +

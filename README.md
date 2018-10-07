@@ -13,9 +13,10 @@
 Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
 sur **Kodi** :
 
-- des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo et
-  AlloCiné, AP News, CollegeHumor, Dailymotion, DevTube, Dumpert, Facebook,
-  Full30, JeuxVideoCom, LiveLeak, PeerTube, Rutube, StormoTV, Útvarp Saga…
+- des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo, torrents,
+  magnets et AceStream, AlloCiné, AP News, CollegeHumor, Dailymotion, DevTube,
+  Dumpert, Facebook, Full30, JeuxVideoCom, LiveLeak, PeerTube, Rutube, StormoTV,
+  Útvarp Saga…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud et Arte Radio,
   Mixcloud…
 
@@ -45,8 +46,10 @@ les extensions
 [YouTube](https://kodi.tv/addon/plugins-video-add-ons/youtube),
 [Twitch](https://kodi.tv/addon/plugins-video-add-ons/twitch),
 [Vimeo](https://kodi.tv/addon/plugins-video-add-ons/vimeo),
-[DailyMotion.com](https://kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
+[Elementum](https://github.com/elgatito/plugin.video.elementum) (torrents /
+magnets), [Plexus](https://github.com/tvaddonsco/program.plexus) (AceStream),
 [CollegeHumor](https://kodi.tv/addon/plugins-video-add-ons/collegehumor),
+[DailyMotion.com](https://kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
 [Dumpert](https://kodi.tv/addon/plugins-video-add-ons/dumpert),
 [SoundCloud](https://kodi.tv/addon/music-add-ons-plugins/soundcloud) ou
 [Mixcloud](https://kodi.tv/addon/music-add-ons-plugins/mixcloud) dans Kodi.

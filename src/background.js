@@ -19,9 +19,9 @@ import { SCRAPERS, extract } from "./core/scrapers.js";
  * @constant {Object.<string, Object>} KINDS
  */
 const KINDS = {
-    "media": {
-        "contexts":          ["audio", "video"],
-        "targetUrlPatterns": ["*://*/*"]
+    "target": {
+        "contexts":          ["audio", "link", "video"],
+        "targetUrlPatterns": ["*://*/*", "magnet:*", "acestream:*"]
     },
     "link": {
         "contexts":          ["link"],
