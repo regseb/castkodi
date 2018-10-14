@@ -71,6 +71,17 @@ rules.set([
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
+ * @param {String} url L'URL d'une vidéo YouTube intégrée.
+ * @return {Promise} L'identifiant de la file d'attente et l'URL du
+ *                   <em>fichier</em>.
+ */
+rules.set(["*://www.youtube.com/embed/*"], function (url) {
+    return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(7));
+});
+
+/**
+ * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+ *
  * @param {String} url L'URL minifié d'une vidéo YouTube.
  * @return {Promise} L'identifiant de la file d'attente et l'URL du
  *                   <em>fichier</em>.

@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("scraper/peertube", function () {
     describe("#patterns", function () {
         it("should return the URL when it's a unsupported URL", function () {
-            const url = "https://joinpeertube.org/fr/";
+            const url = "https://joinpeertube.org/fr/faq/";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, url);
             });

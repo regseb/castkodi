@@ -5,7 +5,6 @@
 import * as jsonrpc    from "../core/jsonrpc.js";
 import { notify }      from "../core/notify.js";
 import { PebkacError } from "../core/pebkac.js";
-import { SCRAPERS }    from "../core/scrapers.js";
 
 /**
  * La liste des vitesses de lecture.

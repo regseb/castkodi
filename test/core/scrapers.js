@@ -2,32 +2,6 @@ import assert        from "assert";
 import * as scrapers from "../../src/core/scrapers.js";
 
 describe("scrapers", function () {
-    describe("#SCRAPERS", function () {
-        it("should be a non-empty array", function () {
-            assert.ok(Array.isArray(scrapers.SCRAPERS),
-                      `Array.isArray(${scrapers.SCRAPERS})`);
-            assert.notStrictEqual(scrapers.SCRAPERS.length, 0);
-        });
-
-        it("should have 'pattern' property", function () {
-            for (const scraper of scrapers.SCRAPERS) {
-                assert.ok("pattern" in scraper, `"pattern" in ${scraper}`);
-            }
-        });
-
-        it("should have 'regexp' property", function () {
-            for (const scraper of scrapers.SCRAPERS) {
-                assert.ok("regexp" in scraper, `"regexp" in ${scraper}`);
-            }
-        });
-
-        it("should have 'action' property", function () {
-            for (const scraper of scrapers.SCRAPERS) {
-                assert.ok("action" in scraper, `"action" in ${scraper}`);
-            }
-        });
-    });
-
     describe("#extract()", function () {
         it("should support URL", function () {
             const url = "http://www.dailymotion.com/video/x17qw0a";
@@ -72,6 +46,75 @@ describe("scrapers", function () {
                           `"${error.title}".includes(expected)`);
                 assert.ok(error.message.includes(expected),
                           `"${error.message}".includes(expected)`);
+            });
+        });
+    });
+
+    describe("#rummage()", function () {
+        it("should return the URL when it's not a page HTML", function () {
+            const url = "https://kodi.tv/sites/default/themes/kodi/" +
+                                                                 "logo-sbs.svg";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+
+        it("should return the MP3 URL", function () {
+            const url = "https://fr.wikipedia.org/wiki/awesome.MP3";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+
+        it("should return the AVI URL", function () {
+            const url = "http://example.org/video.avi";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, url);
+            });
+        });
+
+        it("should return LiveLeak URL", function () {
+            const url = "https://www.liveleak.com/view?t=HfVq_1535497667";
+            const expected = "https://cdn.liveleak.com/80281E/ll_a_s/2018/" +
+                                                                     "Aug/28/" +
+                  "LiveLeak-dot-com-Untitled_1535497475.wmv.5b85d54bbb2dd.mp4?";
+            return scrapers.extract(url).then(function (file) {
+                assert.ok(file.startsWith(expected),
+                          `"${file}".startsWith(expected)`);
+            });
+        });
+
+        it("should return LiveLeak URL even when URL contains" +
+                                                       " \"mp4\"", function () {
+            const url = "https://www.liveleak.com/view?t=Cmp4X_1539969642";
+            const expected = "https://cdn.liveleak.com/80281E/ll_a_s/2018/" +
+                                                                     "Oct/19/" +
+                  "LiveLeak-dot-com-LaunchPadWaterDelugeSystemTestatNASAKenn_" +
+                                            "1539969608.mp4.5bca1334cea29.mp4?";
+            return scrapers.extract(url).then(function (file) {
+                assert.ok(file.startsWith(expected),
+                          `"${file}".startsWith(expected)`);
+            });
+        });
+
+        it("should return AP News URL", function () {
+            const url = "https://www.apnews.com/" +
+                                           "0c79987fb474441abc6061e7f263c7a5/" +
+                      "Obama-tells-voters-to-step-up-or-'things-can-get-worse'";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=rasYw3qlNzU";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+
+        it("should return Útvarp Saga URL", function () {
+            const url = "http://utvarpsaga.is/" +
+                             "snjallsimarnir-eru-farnir-ad-stjorna-lifi-folks/";
+            const expected = "http://utvarpsaga.is/file/" +
+                                                     "síðdegi-a-7.9.18.mp3?_=1";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
     });

@@ -2,9 +2,9 @@
  * @module background
  */
 
-import * as jsonrpc          from "./core/jsonrpc.js";
-import { notify }            from "./core/notify.js";
-import { SCRAPERS, extract } from "./core/scrapers.js";
+import * as jsonrpc from "./core/jsonrpc.js";
+import { notify }   from "./core/notify.js";
+import { extract }  from "./core/scrapers.js";
 
 /**
  * La liste des contextes où seront ajouté les options dans le menu contextuel.

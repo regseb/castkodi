@@ -12,7 +12,6 @@ import { rules as dailymotion }  from "./scraper/dailymotion.js";
 import { rules as facebook }     from "./scraper/facebook.js";
 import { rules as full30 }       from "./scraper/full30.js";
 import { rules as jeuxvideocom } from "./scraper/jeuxvideocom.js";
-import { rules as liveleak }     from "./scraper/liveleak.js";
 import { rules as mixcloud }     from "./scraper/mixcloud.js";
 import { rules as peertube }     from "./scraper/peertube.js";
 import { rules as rutube }       from "./scraper/rutube.js";
@@ -23,13 +22,11 @@ import { rules as vimeo }        from "./scraper/vimeo.js";
 import { rules as youtube }      from "./scraper/youtube.js";
 import { rules as torrent }      from "./scraper/torrent.js";
 import { rules as acestream }    from "./scraper/acestream.js";
-import { rules as video }        from "./scraper/video.js";
-import { rules as audio }        from "./scraper/audio.js";
 
 const scrapers = [
-    allocine, arteradio, devtube, dumpert, collegehumor, dailymotion, facebook,
-    full30, jeuxvideocom, mixcloud, peertube, rutube, soundcloud, stormotv,
-    twitch, vimeo, youtube, torrent, acestream, video, audio, generic
+    allocine, arteradio, devtube, dumpert, dailymotion, facebook, full30,
+    jeuxvideocom, mixcloud, peertube, rutube, soundcloud, stormotv, twitch,
+    vimeo, youtube, torrent, acestream
 ];
 
 /**
@@ -64,7 +61,7 @@ const sanitize = function (pattern) {
 };
 
 const compile = function (pattern) {
-    if (pattern.startsWith("magnet:") || pattern.startsWith("acestream")) {
+    if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
         return new RegExp("^" + sanitize(pattern).replace(/\\\*/gu, ".*") + "$",
                           "iu");
     }
@@ -85,36 +82,80 @@ const compile = function (pattern) {
  *
  * @constant {Array.<Object.<string,*>>} SCRAPERS
  */
-export const SCRAPERS = [];
+const SCRAPERS = [];
+
+/**
+ * Appelle le bon scraper selon l'URL d'une page Internet.
+ *
+ * @param {string} url L'URL d'une page Internet.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code> si aucun
+ *                    scraper ne gère cette URL.
+ */
+const dispatch = function (url) {
+    const scraper = SCRAPERS.find((s) => s.pattern.test(url));
+    return undefined === scraper ? null
+                                 : scraper.action(new URL(url));
+};
+
+/**
+ * Fouille la page (si c'est du HTML) pour en extraire des éléments
+ * <code>video</code>, <code>audio</code> ou <code>iframe</code>.
+ *
+ * @param {String} url L'URL d'une page Internet.
+ * @returns {Promise} L'URL du fichier.
+ */
+const rummage = function (url) {
+    return fetch(url).then(function (response) {
+        const type = response.headers.get("Content-Type");
+        if (type.startsWith("text/html") ||
+                type.startsWith("application/xhtml+xml")) {
+            return response.text();
+        }
+        // Si ce n'est pas une page HTML : simuler une page vide.
+        return "";
+    }).then(function (data) {
+        const doc = new DOMParser().parseFromString(data, "text/html");
+
+        const selector = "video source, video, audio source, audio, iframe";
+        for (const element of doc.querySelectorAll(selector)) {
+            if (element.hasAttribute("src") &&
+                    isUrl(element.getAttribute("src"))) {
+                if ("IFRAME" === element.tagName) {
+                    const file = dispatch(element.getAttribute("src"));
+                    if (null !== file) {
+                        return file;
+                    }
+                } else {
+                    return element.getAttribute("src");
+                }
+            }
+        }
+
+        return url;
+    });
+};
 
 /**
  * Extrait le <em>fichier</em> d'une URL.
  *
  * @param {string} url L'URL d'une page Internet.
- * @returns {Promse} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 export const extract = function (url) {
-    const scraper = SCRAPERS.find((s) => s.regexp.test(url));
-    // Si l'URL n'est pas gérée par les scrapers : envoyer directement l'URL.
-    if (undefined === scraper) {
-        return Promise.resolve(url);
-    }
-
-    try {
-        return scraper.action(new URL(url));
-    } catch (_) {
-        // Ignorer l'erreur (provenant d'une URL invalide), puis rejeter une
-        // promesse.
+    if (!isUrl(url)) {
         return Promise.reject(new PebkacError("noLink"));
     }
+
+    const file = dispatch(url);
+    return null === file ? rummage(url)
+                         : file;
 };
 
 for (const scraper of scrapers) {
     for (const [patterns, action] of scraper) {
         for (const pattern of patterns) {
             SCRAPERS.push({
-                "pattern": pattern,
-                "regexp":  compile(pattern),
+                "pattern": compile(pattern),
                 "action":  action
             });
         }

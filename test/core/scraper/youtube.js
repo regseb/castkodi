@@ -173,6 +173,17 @@ describe("scraper/youtube", function () {
         });
     });
 
+    describe("*://youtube.com/embed/*", function () {
+        it("should return video id", function () {
+            const url = "https://www.youtube.com/embed/v3gefWEggSc";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=v3gefWEggSc";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
     describe("*://youtu.be/*", function () {
         it("should return video id", function () {
             const url = "https://youtu.be/NSFbekvYOlI";

@@ -14,18 +14,22 @@ Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
 sur **Kodi** :
 
 - des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo, torrents,
-  magnets et AceStream, AlloCiné, AP News, CollegeHumor, Dailymotion, DevTube,
-  Dumpert, Facebook, Full30, JeuxVideoCom, LiveLeak, PeerTube, Rutube, StormoTV,
-  Útvarp Saga…
+  magnets et AceStream, AlloCiné, Dailymotion, DevTube, Dumpert, Facebook,
+  Full30, JeuxVideoCom, PeerTube, Rutube, StormoTV…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud et Arte Radio,
   Mixcloud…
 
-Trois options peuvent être ajoutées dans le menu contextuel des liens / pages /
-sélections de vidéos ou de musiques : *Lire maintenant avec Kodi*, *Lire ensuite
-avec Kodi* et *Place en file d'attente de Kodi*. Une télécommande (accessible
-depuis un bouton de la barre d'outils) est aussi présente pour diffuser l'onglet
-courant sur Kodi et pour : mettre en pause, passer au prochain élément, régler
-le volume…
+Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
+des intégrations de plateformes externes. Par exemple, si une page affiche une
+vidéo YouTube, cette vidéo sera envoyée à Kodi. Les sites suivants (et surement
+d'autres) sont gérés : AP News, LiveLeak, Útvarp Saga…
+
+Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le
+menu contextuel des liens / pages / sélections de vidéos ou de musiques : *Lire
+maintenant avec Kodi*, *Lire ensuite avec Kodi* et *Place en file d'attente de
+Kodi*. Une télécommande (accessible depuis un bouton de la barre d'outils) est
+aussi présente pour diffuser l'onglet courant sur Kodi et pour : mettre en
+pause, passer au prochain élément, régler le volume…
 
 ## Installation
 
