@@ -29,7 +29,7 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire la vidéo ou la playlist sur
  * Kodi.
  *
- * @param {String} url L'URL d'une vidéo ou playlist YouTube (ou HookTube).
+ * @param {string} url L'URL d'une vidéo ou playlist YouTube (ou HookTube).
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
@@ -54,7 +54,7 @@ rules.set([
 /**
  * Extrait les informations nécessaire pour lire la playlist sur Kodi.
  *
- * @param {String} url L'URL d'une playlist YouTube.
+ * @param {string} url L'URL d'une playlist YouTube.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
@@ -71,9 +71,8 @@ rules.set([
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL d'une vidéo YouTube intégrée.
- * @return {Promise} L'identifiant de la file d'attente et l'URL du
- *                   <em>fichier</em>.
+ * @param {string} url L'URL d'une vidéo YouTube intégrée.
+ * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.youtube.com/embed/*"], function (url) {
     return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(7));
@@ -82,9 +81,8 @@ rules.set(["*://www.youtube.com/embed/*"], function (url) {
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL minifié d'une vidéo YouTube.
- * @return {Promise} L'identifiant de la file d'attente et l'URL du
- *                   <em>fichier</em>.
+ * @param {string} url L'URL minifié d'une vidéo YouTube.
+ * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://youtu.be/*"], function (url) {
     return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(1));

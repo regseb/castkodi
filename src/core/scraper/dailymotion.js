@@ -19,7 +19,7 @@ export const rules = new Map();
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL d'une vidéo Dailymotion.
+ * @param {string} url L'URL d'une vidéo Dailymotion.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.dailymotion.com/video/*"], function (url) {
@@ -29,7 +29,7 @@ rules.set(["*://www.dailymotion.com/video/*"], function (url) {
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL minifié d'une vidéo Dailymotion.
+ * @param {string} url L'URL minifié d'une vidéo Dailymotion.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://dai.ly/*"], function (url) {
@@ -39,7 +39,7 @@ rules.set(["*://dai.ly/*"], function (url) {
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL d'une vidéo Dailymotion.
+ * @param {string} url L'URL d'une vidéo Dailymotion intégrée.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.dailymotion.com/embed/video/*"], function (url) {

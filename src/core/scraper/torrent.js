@@ -19,8 +19,8 @@ export const rules = new Map();
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {String} url L'URL d'un torrent ou d'un magnet.
- * @return {Promise} L'URL du fichier.
+ * @param {string} url L'URL d'un torrent ou d'un magnet.
+ * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://*/*.torrent", "magnet:*"], function (url) {
     return Promise.resolve(PLUGIN_URL + encodeURIComponent(url.toString()));

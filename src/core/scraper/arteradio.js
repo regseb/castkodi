@@ -20,8 +20,8 @@ export const rules = new Map();
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
- * @param {String} url L'URL d'un son de Arte Radio.
- * @return {Promise} L'URL du fichier.
+ * @param {string} url L'URL d'un son de Arte Radio.
+ * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.arteradio.com/son/*"], function (url) {
     return fetch(url.toString()).then(function (response) {

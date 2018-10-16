@@ -19,7 +19,7 @@ export const rules = new Map();
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL d'une vidéo DevTube.
+ * @param {string} url L'URL d'une vidéo DevTube.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://dev.tube/video/*"], function (url) {

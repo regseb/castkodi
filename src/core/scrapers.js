@@ -23,6 +23,11 @@ import { rules as youtube }      from "./scraper/youtube.js";
 import { rules as torrent }      from "./scraper/torrent.js";
 import { rules as acestream }    from "./scraper/acestream.js";
 
+/**
+ * La liste des scrapers.
+ *
+ * @constant {Array.<Object>} scrapers
+ */
 const scrapers = [
     allocine, arteradio, devtube, dumpert, dailymotion, facebook, full30,
     jeuxvideocom, mixcloud, peertube, rutube, soundcloud, stormotv, twitch,
@@ -60,6 +65,13 @@ const sanitize = function (pattern) {
     return pattern.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
 };
 
+/**
+ * Convertit un modèle de correspondance en expression rationnelle.
+ *
+ * @function compile
+ * @param {string} pattern Un modèle de correspondance.
+ * @returns {RegExp} L'expression rationnelle issue du modèle.
+ */
 const compile = function (pattern) {
     if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
         return new RegExp("^" + sanitize(pattern).replace(/\\\*/gu, ".*") + "$",
@@ -77,8 +89,8 @@ const compile = function (pattern) {
 };
 
 /**
- * Les patrons (sous formes de modèles de correspondance et d'expressons
- * rationnelles) des URLs gérées ainsi que leur action.
+ * Les patrons (sous forme de d'expression rationnelle) des URLs gérées ainsi
+ * que leur action.
  *
  * @constant {Array.<Object.<string,*>>} SCRAPERS
  */
@@ -87,6 +99,7 @@ const SCRAPERS = [];
 /**
  * Appelle le bon scraper selon l'URL d'une page Internet.
  *
+ * @function dispatch
  * @param {string} url L'URL d'une page Internet.
  * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code> si aucun
  *                    scraper ne gère cette URL.
@@ -101,7 +114,8 @@ const dispatch = function (url) {
  * Fouille la page (si c'est du HTML) pour en extraire des éléments
  * <code>video</code>, <code>audio</code> ou <code>iframe</code>.
  *
- * @param {String} url L'URL d'une page Internet.
+ * @function dispatch
+ * @param {string} url L'URL d'une page Internet.
  * @returns {Promise} L'URL du fichier.
  */
 const rummage = function (url) {
@@ -138,6 +152,7 @@ const rummage = function (url) {
 /**
  * Extrait le <em>fichier</em> d'une URL.
  *
+ * @function extract
  * @param {string} url L'URL d'une page Internet.
  * @returns {Promise} L'URL du <em>fichier</em>.
  */

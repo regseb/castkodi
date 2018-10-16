@@ -15,8 +15,8 @@ const NETWORK_ERROR = "NetworkError when attempting to fetch resource.";
  * Envoie une requête à Kodi en utilisant le protocole JSON-RPC.
  *
  * @function request
- * @param {string} method La méthode envoyée à Kodi.
- * @param {Object} params Les paramètres de la méthode.
+ * @param {string} method      La méthode envoyée à Kodi.
+ * @param {Object} [params={}] Les paramètres de la méthode.
  * @returns {Promise} La réponse de Kodi.
  */
 const request = function (method, params = {}) {
@@ -79,7 +79,6 @@ const request = function (method, params = {}) {
  * Teste la connexion à Kodi.
  *
  * @function check
- * @param {Event} event L'évènement du clic.
  * @returns {Promise} La réponse de Kodi.
  */
 export const check = function () {

@@ -21,7 +21,7 @@ export const rules = new Map();
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL d'une vidéo Vimeo.
+ * @param {string} url L'URL d'une vidéo Vimeo.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://vimeo.com/*"], function (url) {
@@ -35,7 +35,7 @@ rules.set(["*://vimeo.com/*"], function (url) {
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL du lecteur de Vimeo avec une vidéo.
+ * @param {string} url L'URL du lecteur de Vimeo avec une vidéo.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://player.vimeo.com/video/*"], function (url) {

@@ -126,7 +126,7 @@ browser.storage.local.get().then(function (config) {
             browser.storage.local.remove(key);
         }
     }
-    // Migrer la propriété "menus-play" (avant la version 1.5.0).
+    // Renommer la propriété "menus-play" (avant la version 1.5.0).
     if ("menus-play" in config) {
         browser.storage.local.set({ "menus-send": config["menus-play"] });
         browser.storage.local.remove("menus-play");

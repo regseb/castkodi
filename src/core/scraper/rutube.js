@@ -21,8 +21,8 @@ export const rules = new Map();
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {String} url L'URL d'une vidéo Rutube.
- * @return {Promise} L'URL du fichier.
+ * @param {string} url L'URL d'une vidéo Rutube.
+ * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
     "*://rutube.ru/video/*/*", "*://rutube.ru/play/embed/*"

@@ -19,7 +19,7 @@ export const rules = new Map();
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {String} url L'URL d'une vidéo Dumpert.
+ * @param {string} url L'URL d'une vidéo Dumpert.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.dumpert.nl/mediabase/*"], function (url) {

@@ -14,10 +14,26 @@ import { PebkacError } from "../core/pebkac.js";
  */
 const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
 
+/**
+ * Le volume sonore de Kodi ou <code>null</code> si la connexion à Kodi a
+ * échoué.
+ *
+ * @type {?number}
+ */
 let volume = null;
+
+/**
+ * L'indice de la vitesse de lecture ou <code>-1</code> si la lecture est en
+ * pause ou <code>null</code> s'il n'y a aucune lecture en cours.
+ *
+ * @type {?number}
+ * @see SPEEDS
+ */
 let speed  = null;
 
 const paint = function () {
+    // Si Kodi n'est pas accessible : verrouiller tous les boutons sauf ceux
+    // pour configurer et tester.
     if (null === volume) {
         document.getElementById("send").disabled = true;
         document.getElementById("insert").disabled = true;
@@ -88,7 +104,8 @@ const paint = function () {
 };
 
 const cast = function ({ "target": { "id": action } }) {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById(action).disabled) {
         return;
     }
@@ -115,7 +132,8 @@ const cast = function ({ "target": { "id": action } }) {
 };
 
 const paste = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementsByName("paste")[0].disabled) {
         return;
     }
@@ -151,7 +169,8 @@ const error = function () {
 };
 
 const previous = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("previous").disabled) {
         return;
     }
@@ -160,7 +179,8 @@ const previous = function () {
 };
 
 const rewind = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("rewind").disabled) {
         return;
     }
@@ -174,7 +194,8 @@ const rewind = function () {
 };
 
 const stop = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("stop").disabled) {
         return;
     }
@@ -186,7 +207,8 @@ const stop = function () {
 };
 
 const playPause = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé (car la connexion à Kodi a échouée).
     if (null === volume) {
         return;
     }
@@ -204,7 +226,8 @@ const playPause = function () {
 };
 
 const forward = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("forward").disabled) {
         return;
     }
@@ -218,7 +241,8 @@ const forward = function () {
 };
 
 const next = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("next").disabled) {
         return;
     }
@@ -227,7 +251,8 @@ const next = function () {
 };
 
 const muteSound = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementsByName("mute")[0].disabled) {
         return;
     }
@@ -238,6 +263,8 @@ const muteSound = function () {
 };
 
 const setVolume = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("volume").disabled) {
         return;
     }
@@ -251,7 +278,8 @@ const setVolume = function () {
 };
 
 const subVolume = function () {
-    // Annuler l'action si le bouton de potentiel est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("volume").disabled) {
         return;
     }
@@ -266,7 +294,8 @@ const subVolume = function () {
 };
 
 const addVolume = function () {
-    // Annuler l'action si le bouton de potentiel est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("volume").disabled) {
         return;
     }
@@ -281,7 +310,8 @@ const addVolume = function () {
 };
 
 const repeat = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementsByName("repeat")[0].disabled) {
         return;
     }
@@ -301,7 +331,8 @@ const repeat = function () {
 };
 
 const shuffle = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementsByName("shuffle")[0].disabled) {
         return;
     }
@@ -312,7 +343,8 @@ const shuffle = function () {
 };
 
 const clear = function () {
-    // Annuler l'action si le bouton est désactivé.
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
     if (document.getElementById("clear").disabled) {
         return;
     }
@@ -361,8 +393,8 @@ document.getElementById("repeat-one").addEventListener("click", repeat);
 document.getElementById("shuffle").addEventListener("click", shuffle);
 document.getElementById("clear").addEventListener("click", clear);
 
-// Insérer le code SVG des icônes dans la page pour pouvoir changer leur
-// couleur avec la feuille de style.
+// Insérer le code SVG des icônes dans la page pour pouvoir changer leur couleur
+// avec la feuille de style.
 for (const element of document.getElementsByTagName("object")) {
     if ("loading" !== element.parentNode.id) {
         fetch(element.getAttribute("data")).then(function (response) {

@@ -7,7 +7,7 @@ import { notify }      from "../core/notify.js";
 import { PebkacError } from "../core/pebkac.js";
 
 /**
- * Active / Désactive le bouton pour tester les paramètres.
+ * Active / Désactive le bouton pour tester les paramètres de connexion.
  *
  * @function active
  */
