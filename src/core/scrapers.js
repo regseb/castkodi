@@ -7,7 +7,6 @@ import { rules as allocine }     from "./scraper/allocine.js";
 import { rules as arteradio }    from "./scraper/arteradio.js";
 import { rules as devtube }      from "./scraper/devtube.js";
 import { rules as dumpert }      from "./scraper/dumpert.js";
-import { rules as collegehumor } from "./scraper/collegehumor.js";
 import { rules as dailymotion }  from "./scraper/dailymotion.js";
 import { rules as facebook }     from "./scraper/facebook.js";
 import { rules as full30 }       from "./scraper/full30.js";

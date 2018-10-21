@@ -52,7 +52,6 @@ les extensions
 [Vimeo](https://kodi.tv/addon/plugins-video-add-ons/vimeo),
 [Elementum](https://github.com/elgatito/plugin.video.elementum) (torrents /
 magnets), [Plexus](https://github.com/tvaddonsco/program.plexus) (AceStream),
-[CollegeHumor](https://kodi.tv/addon/plugins-video-add-ons/collegehumor),
 [DailyMotion.com](https://kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
 [Dumpert](https://kodi.tv/addon/plugins-video-add-ons/dumpert),
 [SoundCloud](https://kodi.tv/addon/music-add-ons-plugins/soundcloud) ou

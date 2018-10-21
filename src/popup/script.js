@@ -200,10 +200,8 @@ const stop = function () {
         return;
     }
 
-    jsonrpc.stop().then(function () {
-        speed = null;
-        paint();
-    }).catch(notify);
+    speed = null;
+    jsonrpc.stop().then(paint).catch(notify);
 };
 
 const playPause = function () {
@@ -365,8 +363,7 @@ jsonrpc.getProperties().then(function (properties) {
         document.getElementsByName("repeat")[2].checked = true;
     }
     document.getElementsByName("shuffle")[0].checked = properties.shuffled;
-    paint();
-}).catch(paint);
+}).finally(paint);
 
 document.getElementById("send").addEventListener("click", cast);
 document.getElementById("insert").addEventListener("click", cast);
