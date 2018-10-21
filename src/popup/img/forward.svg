@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
   <g fill="#737373" stroke="#737373">
-    <polygon points="2,3 8,8 2,13" stroke-width="2" stroke-linejoin="round" />
+    <polygon points="2,3 8,8 2,13"  stroke-width="2" stroke-linejoin="round" />
     <polygon points="8,3 14,8 8,13" stroke-width="2" stroke-linejoin="round" />
   </g>
 </svg>
