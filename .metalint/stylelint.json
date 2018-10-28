@@ -229,6 +229,7 @@
         "max-empty-lines": 2,
         "max-line-length": [80, { "severity": "warning" }],
         "no-eol-whitespace": true,
-        "no-missing-end-of-source-newline": true
+        "no-missing-end-of-source-newline": true,
+        "no-empty-first-line": true
     }
 }
