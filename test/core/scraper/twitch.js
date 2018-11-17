@@ -51,6 +51,17 @@ describe("scraper/twitch", function () {
         });
     });
 
+    describe("*://m.twitch.tv/videos/*", function () {
+        it("should return video id", function () {
+            const url = "https://m.twitch.tv/videos/164088111";
+            const expected = "plugin://plugin.video.twitch/?mode=play" +
+                                                          "&video_id=164088111";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
     describe("*://www.twitch.tv/*", function () {
         it("should return error when it's not a channel", function () {
             const url = "https://www.twitch.tv/directory";
@@ -111,6 +122,17 @@ describe("scraper/twitch", function () {
 
         it("should return channel id when protocol is HTTP", function () {
             const url = "http://go.twitch.tv/nolife";
+            const expected = "plugin://plugin.video.twitch/?mode=play" +
+                                                         "&channel_id=86118798";
+            return extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://m.twitch.tv/*", function () {
+        it("should return channel id", function () {
+            const url = "https://m.twitch.tv/nolife";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                          "&channel_id=86118798";
             return extract(url).then(function (file) {

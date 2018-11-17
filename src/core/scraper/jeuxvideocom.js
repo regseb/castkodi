@@ -17,7 +17,7 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo JeuxVideo.com.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.jeuxvideo.com/*"], function (url) {
+rules.set(["*://www.jeuxvideo.com/*", "*://jeuxvideo.com/*"], function (url) {
     return fetch(url.toString()).then(function (response) {
         return response.text();
     }).then(function (data) {
