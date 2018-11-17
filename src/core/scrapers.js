@@ -13,6 +13,7 @@ import { rules as full30 }       from "./scraper/full30.js";
 import { rules as jeuxvideocom } from "./scraper/jeuxvideocom.js";
 import { rules as mixcloud }     from "./scraper/mixcloud.js";
 import { rules as peertube }     from "./scraper/peertube.js";
+import { rules as radioline }    from "./scraper/radioline.js";
 import { rules as rutube }       from "./scraper/rutube.js";
 import { rules as soundcloud }   from "./scraper/soundcloud.js";
 import { rules as stormotv }     from "./scraper/stormotv.js";
@@ -29,8 +30,8 @@ import { rules as acestream }    from "./scraper/acestream.js";
  */
 const scrapers = [
     allocine, arteradio, devtube, dumpert, dailymotion, facebook, full30,
-    jeuxvideocom, mixcloud, peertube, rutube, soundcloud, stormotv, twitch,
-    vimeo, youtube, torrent, acestream
+    jeuxvideocom, mixcloud, peertube, radioline, rutube, soundcloud, stormotv,
+    twitch, vimeo, youtube, torrent, acestream
 ];
 
 /**
