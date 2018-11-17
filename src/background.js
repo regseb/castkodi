@@ -28,7 +28,7 @@ const cast = function (info) {
                   info.pageUrl, info.popupUrl];
     let url = urls.find((u) => undefined !== u && "" !== u);
     // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
-    if (!(/^[a-z]+:/iu).test(url)) {
+    if (!(/^[a-z-]+:/iu).test(url)) {
         url = url.replace(/^\/*/u, "http://");
     }
 
