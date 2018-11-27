@@ -5,7 +5,7 @@
 import { PebkacError } from "../pebkac.js";
 
 /**
- * L'expression rationnelle pour extraire l'URL de la vidéo.
+ * L'expression rationnelle pour extraire l'URL de la musique.
  *
  * @constant {RegExp} URL_REGEXP
  */
