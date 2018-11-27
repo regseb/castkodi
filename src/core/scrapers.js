@@ -48,7 +48,7 @@ const isUrl = function (url) {
                (/^https?:\/\/[^/]+\/.*$/iu).test(url) ||
                (/^magnet:.*$/iu).test(url) ||
                (/^acestream:.*$/iu).test(url));
-    } catch (_) {
+    } catch {
         // Ignorer l'erreur provenant d'une URL invalide.
         return false;
     }
