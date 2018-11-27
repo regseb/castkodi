@@ -32,18 +32,19 @@
     },
     "devDependencies": {
         "david": "^11.0.0",
-        "eslint": "^5.8.0",
+        "eslint": "^5.9.0",
         "esm": "^3.0.84",
         "htmlhint": "^0.10.1",
         "jsdoc": "^3.5.5",
-        "jsdom": "^12.2.0",
+        "jsdom": "^13.0.0",
         "jsonlint": "^1.6.3",
         "markdownlint": "^0.11.0",
-        "metalint": "^0.8.1",
+        "metalint": "^0.8.2",
         "mocha": "^5.2.0",
-        "node-fetch": "^2.2.0",
+        "node-fetch": "^2.3.0",
         "nyc": "^13.1.0",
         "purgecss": "^1.1.0",
-        "stylelint": "^9.7.0"
+        "stylelint": "^9.9.0",
+        "stylelint-order": "^2.0.0"
     }
 }

@@ -52,9 +52,9 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 input[type="range"] {
+    border: 0;
     margin: 0;
     padding: 5px 0;
-    border: 0;
     width: 100%;
 }
 input[type="range"]::-moz-focus-outer {
@@ -126,15 +126,15 @@ input[name="shuffle"]:checked ~ span svg > * {
 }
 
 input[name="paste"] ~ textarea {
-    bottom: 8px;
     border: 0;
+    bottom: 8px;
     display: none;
+    height: calc(100% - 78px);
     left: 8px;
     padding: 8px;
     position: fixed;
     resize: none;
     width: calc(100% - 32px);
-    height: calc(100% - 78px);
     z-index: 1;
 }
 input[name="paste"]:checked ~ textarea {

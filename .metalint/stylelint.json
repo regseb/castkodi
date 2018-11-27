@@ -1,4 +1,8 @@
 {
+    "plugins": [
+        "stylelint-order"
+    ],
+
     "rules": {
         "color-no-invalid-hex": true,
 
@@ -230,6 +234,10 @@
         "max-line-length": [80, { "severity": "warning" }],
         "no-eol-whitespace": true,
         "no-missing-end-of-source-newline": true,
-        "no-empty-first-line": true
+        "no-empty-first-line": true,
+
+        "order/order": null,
+        "order/properties-order": null,
+        "order/properties-alphabetical-order": true
     }
 }
