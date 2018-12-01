@@ -14,9 +14,9 @@ describe("scraper/arteradio", function () {
     describe("*://www.arteradio.com/son/*", function () {
         it("should return sound URL", function () {
             const url = "https://www.arteradio.com/son/61657661/fais_moi_ouir";
-            const expected = "https://download.www.arte.tv/permanent/" +
-                             "arteradio/sites/default/files/sons/" +
-                             "01faismoiouir_hq_fr.mp3";
+            const expected = "https://download.www.arte.tv/permanent" +
+                                         "/arteradio/sites/default/files/sons" +
+                                                     "/01faismoiouir_hq_fr.mp3";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -24,9 +24,9 @@ describe("scraper/arteradio", function () {
 
         it("should return sound URL when protocol is HTTP", function () {
             const url = "http://www.arteradio.com/son/61657661/fais_moi_ouir";
-            const expected = "https://download.www.arte.tv/permanent/" +
-                             "arteradio/sites/default/files/sons/" +
-                             "01faismoiouir_hq_fr.mp3";
+            const expected = "https://download.www.arte.tv/permanent" +
+                                         "/arteradio/sites/default/files/sons" +
+                                                     "/01faismoiouir_hq_fr.mp3";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });

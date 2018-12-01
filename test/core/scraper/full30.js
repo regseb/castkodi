@@ -17,21 +17,21 @@ describe("scraper/full30", function () {
             const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected),
-                          `"${error.title}".includes(expected)`);
-                assert.ok(error.message.includes(expected),
-                          `"${error.message}".includes(expected)`);
+            }).catch(function (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.ok(err.title.includes(expected),
+                          `"${err.title}".includes(expected)`);
+                assert.ok(err.message.includes(expected),
+                          `"${err.message}".includes(expected)`);
             });
         });
 
         it("should return video URL", function () {
-            const url = "https://www.full30.com/video/" +
-                                             "01c970fbc3cf59528c3daaa3a4020edb";
-            const expected = "https://videos.full30.com/bitmotive/public/" +
-                                         "full30/v1.0/videos/demolitionranch/" +
-                                 "01c970fbc3cf59528c3daaa3a4020edb/640x360.mp4";
+            const url = "https://www.full30.com/video" +
+                                            "/01c970fbc3cf59528c3daaa3a4020edb";
+            const expected = "https://videos.full30.com/bitmotive/public" +
+                                         "/full30/v1.0/videos/demolitionranch" +
+                                "/01c970fbc3cf59528c3daaa3a4020edb/640x360.mp4";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });

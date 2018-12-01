@@ -6,7 +6,7 @@ export const DOMParser = class {
      * Analyse un document HTML.
      *
      * @param {string} data La chaine de caractères contenant du HTML.
-     * @returns {Document} Le document HTML.
+     * @returns {Object} Le document HTML.
      */
     parseFromString(data) {
         const virtualConsole = new jsdom.VirtualConsole();

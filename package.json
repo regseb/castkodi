@@ -31,8 +31,14 @@
         "clean": "rm -rf .nyc_output/ coverage/ docs/ node_modules/"
     },
     "devDependencies": {
+        "addons-linter": "^1.3.8",
+        "coveralls": "^3.0.2",
         "david": "^11.0.0",
         "eslint": "^5.9.0",
+        "eslint-plugin-filenames": "^1.3.2",
+        "eslint-plugin-jsdoc": "^3.9.1",
+        "eslint-plugin-mocha": "^5.2.0",
+        "eslint-plugin-promise": "^4.0.1",
         "esm": "^3.0.84",
         "htmlhint": "^0.10.1",
         "jsdoc": "^3.5.5",

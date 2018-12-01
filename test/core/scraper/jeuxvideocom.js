@@ -17,16 +17,16 @@ describe("scraper/jeuxvideocom", function () {
             const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected),
-                          `"${error.title}".includes(expected)`);
-                assert.ok(error.message.includes(expected),
-                          `"${error.message}".includes(expected)`);
+            }).catch(function (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.ok(err.title.includes(expected),
+                          `"${err.title}".includes(expected)`);
+                assert.ok(err.message.includes(expected),
+                          `"${err.message}".includes(expected)`);
             });
         });
 
-        it("should return video URL", function () {
+        it("should return video URL from videos-editors page", function () {
             const url = "http://www.jeuxvideo.com/videos-editeurs/0000" +
                                 "/00007335/half-life-2-pc-trailer-00004956.htm";
             const expected = "http://videohd.jeuxvideo.com/videos_editeurs" +
@@ -36,7 +36,7 @@ describe("scraper/jeuxvideocom", function () {
             });
         });
 
-        it("should return video URL", function () {
+        it("should return video URL from extracts-videos page", function () {
             const url = "http://www.jeuxvideo.com/extraits-videos-jeux/0002" +
                              "/00023827/portal-2-pc-meet-wheatley-00008311.htm";
             const expected = "http://videohd.jeuxvideo.com/extraits/201104" +

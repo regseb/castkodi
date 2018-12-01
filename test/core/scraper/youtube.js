@@ -19,12 +19,12 @@ describe("scraper/youtube", function () {
             const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected),
-                          `"${error.title}".includes(expected)`);
-                assert.ok(error.message.includes(expected),
-                          `"${error.message}".includes(expected)`);
+            }).catch(function (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.ok(err.title.includes(expected),
+                          `"${err.title}".includes(expected)`);
+                assert.ok(err.message.includes(expected),
+                          `"${err.message}".includes(expected)`);
 
                 browser.storage.local.clear();
             });
@@ -60,7 +60,7 @@ describe("scraper/youtube", function () {
             });
         });
 
-        it("should return video id", function () {
+        it("should return video id even with playlist option", function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
 
             const url = "https://www.youtube.com/watch?v=sWfAtMQa_yo";
@@ -95,12 +95,12 @@ describe("scraper/youtube", function () {
             const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected),
-                          `"${error.title}".includes(expected)`);
-                assert.ok(error.message.includes(expected),
-                          `"${error.message}".includes(expected)`);
+            }).catch(function (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.ok(err.title.includes(expected),
+                          `"${err.title}".includes(expected)`);
+                assert.ok(err.message.includes(expected),
+                          `"${err.message}".includes(expected)`);
 
                 browser.storage.local.clear();
             });
@@ -126,12 +126,12 @@ describe("scraper/youtube", function () {
             const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected),
-                          `"${error.title}".includes(expected)`);
-                assert.ok(error.message.includes(expected),
-                          `"${error.message}".includes(expected)`);
+            }).catch(function (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.ok(err.title.includes(expected),
+                          `"${err.title}".includes(expected)`);
+                assert.ok(err.message.includes(expected),
+                          `"${err.message}".includes(expected)`);
             });
         });
 
@@ -153,12 +153,12 @@ describe("scraper/youtube", function () {
             const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected),
-                          `"${error.title}".includes(expected)`);
-                assert.ok(error.message.includes(expected),
-                          `"${error.message}".includes(expected)`);
+            }).catch(function (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.ok(err.title.includes(expected),
+                          `"${err.title}".includes(expected)`);
+                assert.ok(err.message.includes(expected),
+                          `"${err.message}".includes(expected)`);
             });
         });
 

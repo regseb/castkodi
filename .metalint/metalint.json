@@ -5,6 +5,9 @@
     ],
     "checkers": [
         {
+            "patterns": "/src/",
+            "linters": { "addons-linter": null }
+        }, {
             "patterns": "/src/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_webext.json"] }
         }, {

@@ -64,14 +64,14 @@ const request = function (method, params = {}) {
             throw new Error(response.error.message);
         }
         return response.result;
-    }).catch(function (error) {
-        if (error.message.endsWith(" is not a valid URL.")) {
+    }).catch(function (err) {
+        if (err.message.endsWith(" is not a valid URL.")) {
             throw new PebkacError("badHost");
         }
-        if (NETWORK_ERROR === error.message) {
+        if (NETWORK_ERROR === err.message) {
             throw new PebkacError("notFound");
         }
-        throw error;
+        throw err;
     });
 };
 

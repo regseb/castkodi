@@ -13,24 +13,24 @@ describe("scraper/dumpert", function () {
 
     describe("*://www.dumpert.nl/mediabase/*", function () {
         it("should return video id", function () {
-            const url = "https://www.dumpert.nl/mediabase/7248279/" +
-                                                  "47066e59/wheelie_in_ny.html";
+            const url = "https://www.dumpert.nl/mediabase/7248279" +
+                                                 "/47066e59/wheelie_in_ny.html";
             const expected = "plugin://plugin.video.dumpert/?action=play" +
-                             "&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
-                             "%2Fmediabase%2F7248279%2F47066e59" +
-                             "%2Fwheelie_in_ny.html";
+                                "&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
+                                           "%2Fmediabase%2F7248279%2F47066e59" +
+                                                        "%2Fwheelie_in_ny.html";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
 
         it("should return video id when protocol is HTTP", function () {
-            const url = "http://www.dumpert.nl/mediabase/7248279/" +
-                                                  "47066e59/wheelie_in_ny.html";
+            const url = "http://www.dumpert.nl/mediabase/7248279" +
+                                                 "/47066e59/wheelie_in_ny.html";
             const expected = "plugin://plugin.video.dumpert/?action=play" +
-                             "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
-                             "%2Fmediabase%2F7248279%2F47066e59" +
-                             "%2Fwheelie_in_ny.html";
+                                 "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
+                                           "%2Fmediabase%2F7248279%2F47066e59" +
+                                                        "%2Fwheelie_in_ny.html";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });

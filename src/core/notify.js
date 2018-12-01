@@ -6,15 +6,15 @@
  * Notifie l'utilisateur d'un message d'erreur.
  *
  * @function notify
- * @param {Object} error L'erreur affichée dans la notification.
+ * @param {Object} err L'erreur affichée dans la notification.
  */
-export const notify = function (error) {
+export const notify = function (err) {
     browser.notifications.create(null, {
         "type":    "basic",
         "iconUrl": "img/icon.svg",
-        "title":   "PebkacError" === error.name
-                       ? error.title
+        "title":   "PebkacError" === err.name
+                       ? err.title
                        : browser.i18n.getMessage("notifications_unknown_title"),
-        "message": error.message
+        "message": err.message
     });
 };

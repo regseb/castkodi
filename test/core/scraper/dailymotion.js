@@ -15,8 +15,7 @@ describe("scraper/dailymotion", function () {
         it("should return video id", function () {
             const url = "https://www.dailymotion.com/video/x17qw0a";
             const expected = "plugin://plugin.video.dailymotion_com/" +
-                                                             "?mode=playVideo" +
-                                                             "&url=x17qw0a";
+                                                  "?mode=playVideo&url=x17qw0a";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -27,8 +26,7 @@ describe("scraper/dailymotion", function () {
         it("should return tiny video id", function () {
             const url = "http://dai.ly/x5riqme";
             const expected = "plugin://plugin.video.dailymotion_com/" +
-                                                             "?mode=playVideo" +
-                                                             "&url=x5riqme";
+                                                  "?mode=playVideo&url=x5riqme";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -39,8 +37,7 @@ describe("scraper/dailymotion", function () {
         it("should return embed video id", function () {
             const url = "https://www.dailymotion.com/embed/video/a12bc3d";
             const expected = "plugin://plugin.video.dailymotion_com/" +
-                                                             "?mode=playVideo" +
-                                                             "&url=a12bc3d";
+                                                  "?mode=playVideo&url=a12bc3d";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });

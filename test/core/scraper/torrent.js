@@ -13,11 +13,11 @@ describe("scraper/torrent", function () {
 
     describe("*://*/*.torrent", function () {
         it("should return video URL", function () {
-            const url = "http://vodo.net/media/torrents/" +
-                                          "Sintel.2010.Theora.Ogv-VODO.torrent";
-            const expected = "plugin://plugin.video.elementum/play?uri=" +
-                                 "http%3A%2F%2Fvodo.net%2Fmedia%2Ftorrents%2F" +
-                                          "Sintel.2010.Theora.Ogv-VODO.torrent";
+            const url = "http://vodo.net/media/torrents" +
+                                         "/Sintel.2010.Theora.Ogv-VODO.torrent";
+            const expected = "plugin://plugin.video.elementum/play" +
+                               "?uri=http%3A%2F%2Fvodo.net%2Fmedia%2Ftorrents" +
+                                       "%2FSintel.2010.Theora.Ogv-VODO.torrent";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });

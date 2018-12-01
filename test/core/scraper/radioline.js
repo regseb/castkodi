@@ -17,28 +17,28 @@ describe("scraper/radioline", function () {
             const expected = "noAudio";
             return extract(url).then(function () {
                 assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected),
-                          `"${error.title}".includes(expected)`);
-                assert.ok(error.message.includes(expected),
-                          `"${error.message}".includes(expected)`);
+            }).catch(function (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.ok(err.title.includes(expected),
+                          `"${err.title}".includes(expected)`);
+                assert.ok(err.message.includes(expected),
+                          `"${err.message}".includes(expected)`);
             });
         });
 
-        it("should return error when it's not a music", function () {
-            const url = "http://www.radioline.co/" +
-                                              "search-result-for-radio-france" +
+        it("should return error when it's not a music with hash", function () {
+            const url = "http://www.radioline.co" +
+                                             "/search-result-for-radio-france" +
                                           "#radios/france-bleu-provence-666-fm";
             const expected = "noAudio";
             return extract(url).then(function () {
                 assert.fail();
-            }, function (error) {
-                assert.strictEqual(error.name, "PebkacError");
-                assert.ok(error.title.includes(expected),
-                          `"${error.title}".includes(expected)`);
-                assert.ok(error.message.includes(expected),
-                          `"${error.message}".includes(expected)`);
+            }).catch(function (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.ok(err.title.includes(expected),
+                          `"${err.title}".includes(expected)`);
+                assert.ok(err.message.includes(expected),
+                          `"${err.message}".includes(expected)`);
             });
         });
 
