@@ -9,6 +9,7 @@ import { rules as devtube }      from "./scraper/devtube.js";
 import { rules as dumpert }      from "./scraper/dumpert.js";
 import { rules as dailymotion }  from "./scraper/dailymotion.js";
 import { rules as facebook }     from "./scraper/facebook.js";
+import { rules as flickr }       from "./scraper/flickr.js";
 import { rules as full30 }       from "./scraper/full30.js";
 import { rules as instagram }    from "./scraper/instagram.js";
 import { rules as jeuxvideocom } from "./scraper/jeuxvideocom.js";
@@ -30,9 +31,9 @@ import { rules as acestream }    from "./scraper/acestream.js";
  * @constant {Array.<Object>} scrapers
  */
 const scrapers = [
-    allocine, arteradio, devtube, dumpert, dailymotion, facebook, full30,
-    instagram, jeuxvideocom, mixcloud, peertube, radioline, rutube, soundcloud,
-    stormotv, twitch, vimeo, youtube, torrent, acestream
+    allocine, arteradio, devtube, dumpert, dailymotion, facebook, flickr,
+    full30, instagram, jeuxvideocom, mixcloud, peertube, radioline, rutube,
+    soundcloud, stormotv, twitch, vimeo, youtube, torrent, acestream
 ];
 
 /**
