@@ -45,16 +45,4 @@ describe("scraper/allocine", function () {
             });
         });
     });
-
-    describe("http://allocine.fr/*", function () {
-        it("should return video URL", function () {
-            const url = "http://allocine.fr/video" +
-                                 "/player_gen_cmedia=18805253&cfilm=17106.html";
-            const expected = "http://s3.vid.web.acsta.net/FR/nmedia/33/00/02" +
-                                                   "/49/22/18805253_sd_013.mp4";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
-        });
-    });
 });

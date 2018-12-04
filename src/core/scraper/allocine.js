@@ -17,7 +17,7 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo AlloCiné.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["http://www.allocine.fr/*", "http://allocine.fr/*"], function (url) {
+rules.set(["http://www.allocine.fr/*"], function (url) {
     return fetch(url.toString()).then(function (response) {
         return response.text();
     }).then(function (data) {
