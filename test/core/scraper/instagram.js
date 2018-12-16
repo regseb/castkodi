@@ -29,20 +29,20 @@ describe("scraper/instagram", function () {
         it("should return video id", function () {
             const url = "https://www.instagram.com/p/BpFwZ6JnYPq/";
             const expected = "/43507506_351933205369613_6559511411523846144" +
-                                                                       "_n.mp4";
+                                                                      "_n.mp4?";
             return extract(url).then(function (file) {
-                assert.ok(file.endsWith(expected),
-                          `"${file}".endsWith(expected)`);
+                assert.ok(file.includes(expected),
+                          `"${file}".includes(expected)`);
             });
         });
 
         it("should return video id when protocol is HTTP", function () {
             const url = "https://www.instagram.com/p/Bpji87LiJFs/";
             const expected = "/44876841_340575853170202_7413375163648966656" +
-                                                                       "_n.mp4";
+                                                                      "_n.mp4?";
             return extract(url).then(function (file) {
-                assert.ok(file.endsWith(expected),
-                          `"${file}".endsWith(expected)`);
+                assert.ok(file.includes(expected),
+                          `"${file}".includes(expected)`);
             });
         });
     });
