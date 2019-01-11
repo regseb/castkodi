@@ -97,17 +97,6 @@ describe("scrapers", function () {
             });
         });
 
-        it("should return AP News URL", function () {
-            const url = "https://www.apnews.com/" +
-                                           "0c79987fb474441abc6061e7f263c7a5/" +
-                      "Obama-tells-voters-to-step-up-or-'things-can-get-worse'";
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                        "?video_id=rasYw3qlNzU";
-            return scrapers.extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
-        });
-
         it("should return Útvarp Saga URL", function () {
             const url = "http://utvarpsaga.is/" +
                              "snjallsimarnir-eru-farnir-ad-stjorna-lifi-folks/";
