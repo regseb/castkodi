@@ -2,7 +2,7 @@ import assert          from "assert";
 import { PebkacError } from "../../src/core/pebkac.js";
 
 describe("pebkac", function () {
-    describe("constructor", function () {
+    describe("#constructor()", function () {
         it("should accept one parameter", function () {
             const err = new PebkacError("foo");
             assert.strictEqual(err.name, "PebkacError");

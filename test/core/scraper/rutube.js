@@ -75,7 +75,7 @@ describe("scraper/rutube", function () {
         });
 
         it("should return error when access isn't allowed", function () {
-            const url = "https://rutube.ru/play/embed/7575145";
+            const url = "https://rutube.ru/play/embed/1";
             const expected = "noVideo";
             return extract(url).then(function () {
                 assert.fail();
