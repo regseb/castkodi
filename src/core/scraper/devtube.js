@@ -23,5 +23,5 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://dev.tube/video/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + url.pathname.substr(7));
+    return Promise.resolve(PLUGIN_URL + url.pathname.substring(7));
 });

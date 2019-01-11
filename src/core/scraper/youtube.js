@@ -75,7 +75,7 @@ rules.set([
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.youtube.com/embed/*"], function (url) {
-    return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(7));
+    return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substring(7));
 });
 
 /**
@@ -85,5 +85,5 @@ rules.set(["*://www.youtube.com/embed/*"], function (url) {
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://youtu.be/*"], function (url) {
-    return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substr(1));
+    return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substring(1));
 });

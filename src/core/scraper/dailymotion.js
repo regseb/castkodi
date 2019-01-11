@@ -23,7 +23,7 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.dailymotion.com/video/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + url.pathname.substr(7));
+    return Promise.resolve(PLUGIN_URL + url.pathname.substring(7));
 });
 
 /**
@@ -33,7 +33,7 @@ rules.set(["*://www.dailymotion.com/video/*"], function (url) {
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://dai.ly/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + url.pathname.substr(1));
+    return Promise.resolve(PLUGIN_URL + url.pathname.substring(1));
 });
 
 /**
@@ -43,5 +43,5 @@ rules.set(["*://dai.ly/*"], function (url) {
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.dailymotion.com/embed/video/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + url.pathname.substr(13));
+    return Promise.resolve(PLUGIN_URL + url.pathname.substring(13));
 });

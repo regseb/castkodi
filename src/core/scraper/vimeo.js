@@ -26,7 +26,7 @@ export const rules = new Map();
  */
 rules.set(["*://vimeo.com/*"], function (url) {
     if ((/^\/[0-9]+$/u).test(url.pathname)) {
-        return Promise.resolve(PLUGIN_URL + url.pathname.substr(1));
+        return Promise.resolve(PLUGIN_URL + url.pathname.substring(1));
     }
 
     return Promise.reject(new PebkacError("noVideo", "Vimeo"));
@@ -40,7 +40,7 @@ rules.set(["*://vimeo.com/*"], function (url) {
  */
 rules.set(["*://player.vimeo.com/video/*"], function (url) {
     if ((/^\/video\/[0-9]+$/u).test(url.pathname)) {
-        return Promise.resolve(PLUGIN_URL + url.pathname.substr(7));
+        return Promise.resolve(PLUGIN_URL + url.pathname.substring(7));
     }
 
     return Promise.reject(new PebkacError("noVideo", "Vimeo"));
