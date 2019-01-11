@@ -124,8 +124,9 @@ const dispatch = function (url) {
 const rummage = function (url) {
     return fetch(url).then(function (response) {
         const type = response.headers.get("Content-Type");
-        if (type.startsWith("text/html") ||
-                type.startsWith("application/xhtml+xml")) {
+        if (null !== type &&
+                (type.startsWith("text/html") ||
+                 type.startsWith("application/xhtml+xml"))) {
             return response.text();
         }
         // Si ce n'est pas une page HTML : simuler une page vide.
