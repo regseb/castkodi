@@ -147,7 +147,7 @@ input[name="paste"]:checked ~ textarea {
 }
 
 /* FIXME Afficher la corbeille quand le bogue https://trac.kodi.tv/ticket/17587
-         sera corrigÃ©. */
+         sera corrigé. */
 #clear {
     display: none;
 }
