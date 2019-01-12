@@ -34,7 +34,7 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo Flickr.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["https://www.flickr.com/photos/*"], function (url) {
+rules.set(["*://www.flickr.com/photos/*"], function (url) {
     return fetch(url.toString()).then(function (response) {
         return response.text();
     }).then(function (data) {
