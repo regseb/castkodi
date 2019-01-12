@@ -3,7 +3,7 @@
  */
 
 /**
- * L'URL de l'extension Plexus pour lire des liens AceStream.
+ * L'URL de l'extension Plexus pour lire des liens Ace Stream.
  *
  * @constant {string} PLUGIN_URL
  */
@@ -19,7 +19,7 @@ export const rules = new Map();
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {string} url L'URL d'un lien AceStream.
+ * @param {string} url L'URL d'un lien Ace Stream.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["acestream://*"], function (url) {
