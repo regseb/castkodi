@@ -52,6 +52,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 input[type="range"] {
+    background-color: transparent;
     border: 0;
     margin: 0;
     padding: 5px 0;
@@ -67,7 +68,7 @@ input[type="range"]::-moz-range-thumb {
     height: 12px;
     width: 12px;
 }
-input[type="range"]::-moz-range-thumb:hover {
+input[type="range"]:hover::-moz-range-thumb {
     background-color: #48a0f7;
 }
 input[type="range"]::-moz-range-progress {
