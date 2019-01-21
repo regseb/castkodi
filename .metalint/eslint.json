@@ -107,6 +107,7 @@
         "no-unused-expressions": 2,
         "no-unused-labels": 0,
         "no-useless-call": 2,
+        "no-useless-catch": 2,
         "no-useless-concat": 2,
         "no-useless-escape": 2,
         "no-useless-return": 2,
@@ -292,6 +293,7 @@
         "filenames/match-exported": 2,
         "filenames/no-index": 2,
 
+        "jsdoc/check-examples": 2,
         "jsdoc/check-param-names": 2,
         "jsdoc/check-tag-names": 2,
         "jsdoc/check-types": 2,
@@ -307,6 +309,7 @@
         "jsdoc/require-param-type": 2,
         "jsdoc/require-returns-description": 2,
         "jsdoc/require-returns-type": 2,
+        "jsdoc/require-returns": 0,
         "jsdoc/valid-types": 2,
 
         "promise/always-return": 0,
