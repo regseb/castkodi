@@ -135,6 +135,9 @@ browser.storage.local.get().then(function (config) {
     browser.storage.local.remove("airmozilla-format");
 
     // Définir des valeurs par défaut.
+    if (!("version" in config)) {
+        browser.storage.local.set({ "version": "3.3.1" });
+    }
     if (!("general-history" in config)) {
         browser.storage.local.set({ "general-history": false });
     }
