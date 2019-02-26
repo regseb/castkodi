@@ -38,7 +38,7 @@ describe("scraper/allocine", function () {
         it("should return video URL SD", function () {
             const url = "http://www.allocine.fr/video" +
                                   "/player_gen_cmedia=19432206&cfilm=1051.html";
-            const expected = "http://s3.vid.web.acsta.net/FR/nmedia/33/18/66" +
+            const expected = "http://fr.vid.web.acsta.net/nmedia/s3/33/18/66" +
                                                    "/14/37/19432206_sd_013.mp4";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);

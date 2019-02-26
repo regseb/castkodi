@@ -34,7 +34,7 @@ describe("scraper/flickr", function () {
                                                                  "/9501379492/";
             const expected = "https://ci-9501379492-4e98885b.http.atlas.cdn" +
                                              ".yimg.com/flickr2/90534814@N05/" +
-                                               "9501379492/9501379492_360p.mp4";
+                                               "9501379492/9501379492_700.mp4";
             return extract(url).then(function (file) {
                 assert.ok(file.startsWith(expected),
                           `"${file}".startsWith(expected)`);
