@@ -1,28 +1,48 @@
 {
-    "tagname-lowercase": true,
+    "alt-require": true,
+
     "attr-lowercase": true,
+    "attr-no-duplication": true,
+    "attr-sorted": true,
+    "attr-unsafe-chars": true,
     "attr-value-double-quotes": true,
     "attr-value-not-empty": true,
-    "attr-no-duplication": true,
+    "attr-value-single-quotes": false,
+    "attr-whitespace": true,
+
+    "csslint": false,
+
     "doctype-first": true,
-    "tag-pair": true,
-    "tag-self-close": true,
-    "spec-char-escape": true,
-    "id-unique": true,
-    "src-not-empty": true,
-    "title-require": true,
+    "doctype-html5": true,
 
     "head-script-disabled": true,
 
-    "alt-require": true,
-
-    "doctype-html5": true,
-    "id-class-value": "dash",
-    "style-disabled": true,
-    "inline-style-disabled": true,
-    "inline-script-disabled": true,
-    "space-tab-mixed-disabled": "space",
-    "id-class-ad-disabled": true,
     "href-abs-or-rel": false,
-    "attr-unsafe-chars": true
+
+    "id-class-ad-disabled": true,
+    "id-class-value": "dash",
+    "id-unique": true,
+
+    "inline-script-disabled": true,
+    "inline-style-disabled": true,
+
+    "jshint": false,
+
+    "script-disabled": false,
+
+    "space-tab-mixed-disabled": "space",
+
+    "spec-char-escape": true,
+
+    "src-not-empty": true,
+
+    "style-disabled": true,
+
+    "tag-pair": true,
+    "tag-self-close": true,
+
+    "tagname-lowercase": true,
+    "tagname-specialchars": true,
+
+    "title-require": true
 }
