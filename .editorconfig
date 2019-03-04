@@ -1,0 +1,15 @@
+root = true
+
+[{/.metalint/**,/src/**,/test/**}]
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 80
+
+[/.metalint/**.json]
+indent_size = 4
+
+[{/src/**.svg,/src/_locales/**}]
+max_line_length = off
