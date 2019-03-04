@@ -136,15 +136,14 @@ const rummage = function (url) {
 
         const selector = "video source, video, audio source, audio, iframe";
         for (const element of doc.querySelectorAll(selector)) {
-            if (element.hasAttribute("src") &&
-                    isUrl(element.getAttribute("src"))) {
+            if (isUrl(element.src)) {
                 if ("IFRAME" === element.tagName) {
-                    const file = dispatch(element.getAttribute("src"));
+                    const file = dispatch(element.src);
                     if (null !== file) {
                         return file;
                     }
                 } else {
-                    return element.getAttribute("src");
+                    return element.src;
                 }
             }
         }

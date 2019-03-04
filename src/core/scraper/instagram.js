@@ -27,6 +27,6 @@ rules.set(["*://www.instagram.com/p/*"], function (url) {
         if (null === result) {
             throw new PebkacError("noVideo", "Instagram");
         }
-        return result.getAttribute("content");
+        return result.content;
     });
 });

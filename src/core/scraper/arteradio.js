@@ -31,6 +31,6 @@ rules.set(["*://www.arteradio.com/son/*"], function (url) {
 
         return BASE_URL + doc.querySelector(".player-main-playlist" +
                                             " *[data-sound-href]")
-                             .getAttribute("data-sound-href");
+                             .dataset.soundHref;
     });
 });

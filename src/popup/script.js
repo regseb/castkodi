@@ -394,7 +394,7 @@ document.getElementById("clear").addEventListener("click", clear);
 // avec la feuille de style.
 for (const element of document.getElementsByTagName("object")) {
     if ("loading" !== element.parentNode.id) {
-        fetch(element.getAttribute("data")).then(function (response) {
+        fetch(element.data).then(function (response) {
             return response.text();
         }).then(function (svg) {
             element.innerHTML = svg;
@@ -433,6 +433,6 @@ window.onkeyup = function (event) {
 
 // Afficher les textes dans la langue courante.
 for (const element of document.querySelectorAll("[data-i18n-title]")) {
-    const key = `popup_${element.getAttribute("data-i18n-title")}_title`;
-    element.setAttribute("title", browser.i18n.getMessage(key));
+    element.title = browser.i18n.getMessage(
+                                    `popup_${element.dataset.i18nTitle}_title`);
 }

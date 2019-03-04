@@ -27,6 +27,6 @@ rules.set(["*://shows.pippa.io/*/*"], function (url) {
         if (null === meta) {
             throw new PebkacError("noAudio", "Pippa");
         }
-        return meta.getAttribute("content");
+        return meta.content;
     });
 });

@@ -27,6 +27,6 @@ rules.set(["https://www.stormo.tv/videos/*"], function (url) {
         if (null === meta) {
             throw new PebkacError("noVideo", "StormoTV");
         }
-        return meta.getAttribute("content");
+        return meta.content;
     });
 });

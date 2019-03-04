@@ -45,8 +45,7 @@ rules.set(["*://www.flickr.com/photos/*"], function (url) {
             throw new PebkacError("noVideo", "Flickr");
         }
 
-        const [,,,,,,, photoId, secret] = video.getAttribute("poster")
-                                               .split(/[/_.]/u);
+        const [,,,,,,, photoId, secret] = video.poster.split(/[/_.]/u);
         const key = REGEXP_KEY.exec(data);
         return fetch(API_URL + "&photo_id=" + photoId + "&secret=" + secret +
                                "&api_key=" + key[1]);

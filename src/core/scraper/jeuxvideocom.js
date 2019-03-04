@@ -27,8 +27,7 @@ rules.set(["*://www.jeuxvideo.com/*", "*://jeuxvideo.com/*"], function (url) {
         if (null === video) {
             throw new PebkacError("noVideo", "JeuxVideo.com");
         }
-        return fetch("http://www.jeuxvideo.com" +
-                     video.getAttribute("data-srcset-video"));
+        return fetch("http://www.jeuxvideo.com" + video.dataset.srcsetVideo);
     }).then(function (response) {
         return response.json();
     }).then(function (data) {

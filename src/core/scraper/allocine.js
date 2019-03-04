@@ -28,8 +28,8 @@ rules.set(["http://www.allocine.fr/*"], function (url) {
         if (null === iframe) {
             return data;
         }
-        return fetch("http://www.allocine.fr" +
-                     iframe.getAttribute("src")).then(function (response) {
+        return fetch("http://www.allocine.fr" + iframe.src)
+                                                     .then(function (response) {
             return response.text();
         });
     }).then(function (data) {
@@ -39,8 +39,7 @@ rules.set(["http://www.allocine.fr/*"], function (url) {
         if (null === figure) {
             throw new PebkacError("noVideo", "AlloCiné");
         }
-        const sources = JSON.parse(figure.getAttribute("data-model")).videos[0]
-                                                                     .sources;
+        const sources = JSON.parse(figure.dataset.model).videos[0].sources;
         return "http:" + ("high" in sources ? sources.high
                                             : sources.medium);
     });
