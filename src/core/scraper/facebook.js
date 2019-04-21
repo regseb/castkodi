@@ -5,6 +5,13 @@
 import { PebkacError } from "../pebkac.js";
 
 /**
+ * L'URL pour récupérer la vidéo.
+ *
+ * @constant {string} PREFIX_VIDEO_URL
+ */
+const PREFIX_VIDEO_URL = "https://www.facebook.com/watch/?v=";
+
+/**
  * Les règles avec les patrons et leur action.
  *
  * @constant {Map} rules
@@ -18,13 +25,31 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.facebook.com/*/videos/*/*"], function (url) {
-    return fetch(url.toString()).then(function (response) {
+    const id = url.pathname.substring(url.pathname.indexOf("/videos/") + 8)
+                           .replace(/\/$/u, "");
+    return fetch(PREFIX_VIDEO_URL + id).then(function (response) {
         return response.text();
-    }).then(function (response) {
-        const result = (/hd_src_no_ratelimit:"([^"]+)/u).exec(response);
+    }).then(function (data) {
+        const doc = new DOMParser().parseFromString(data, "text/html");
+
+        const result = doc.querySelector("head meta[property=\"og:video\"]");
         if (null === result) {
             throw new PebkacError("noVideo", "Facebook");
         }
-        return result[1];
+        return result.content;
+    });
+});
+
+rules.set(["*://www.facebook.com/watch*"], function (url) {
+    return fetch(url.toString()).then(function (response) {
+        return response.text();
+    }).then(function (data) {
+        const doc = new DOMParser().parseFromString(data, "text/html");
+
+        const result = doc.querySelector("head meta[property=\"og:video\"]");
+        if (null === result) {
+            throw new PebkacError("noVideo", "Facebook");
+        }
+        return result.content;
     });
 });
