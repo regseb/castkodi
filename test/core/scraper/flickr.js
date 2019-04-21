@@ -32,9 +32,8 @@ describe("scraper/flickr", function () {
         it("should return video URL", function () {
             const url = "http://www.flickr.com/photos/brandonsphoto" +
                                                                  "/9501379492/";
-            const expected = "https://ci-9501379492-4e98885b.http.atlas.cdn" +
-                                             ".yimg.com/flickr2/90534814@N05/" +
-                                               "9501379492/9501379492_700.mp4";
+            const expected = "https://live.staticflickr.com/video/9501379492/" +
+                                                         "599013f6d7/orig.mp4?";
             return extract(url).then(function (file) {
                 assert.ok(file.startsWith(expected),
                           `"${file}".startsWith(expected)`);

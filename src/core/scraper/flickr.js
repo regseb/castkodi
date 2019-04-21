@@ -9,7 +9,7 @@ import { PebkacError } from "../pebkac.js";
  *
  * @constant {RegExp} REGEXP_KEY
  */
-const REGEXP_KEY = /root\.YUI_config\.flickr\.api\.site_key = "([^"]+)"/u;
+const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "([^"]+)"/u;
 
 /**
  * L'URL de l'API de Flickr pour obtenir des informations sur la vidéo.
@@ -45,13 +45,13 @@ rules.set(["*://www.flickr.com/photos/*"], function (url) {
             throw new PebkacError("noVideo", "Flickr");
         }
 
-        const [,,,,,,, photoId, secret] = video.poster.split(/[/_.]/u);
-        const key = REGEXP_KEY.exec(data);
+        const [,,,,,, photoId, secret] = video.poster.split(/[/_.]/u);
         return fetch(API_URL + "&photo_id=" + photoId + "&secret=" + secret +
-                               "&api_key=" + key[1]);
+                               "&api_key=" + KEY_REGEXP.exec(data)[1]);
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        return data.streams.stream[0]["_content"];
+        return data.streams.stream
+                               .filter((s) => "orig" === s.type)[0]["_content"];
     });
 });
