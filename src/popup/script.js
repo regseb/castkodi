@@ -103,13 +103,7 @@ const paint = function () {
     }
 };
 
-const cast = function ({ "target": { "id": action } }) {
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé.
-    if (document.getElementById(action).disabled) {
-        return;
-    }
-
+const cast = function (menuItemId) {
     // Récupérer l'URL dans la zone de saisie ou celle de l'onglet courant.
     let promise;
     if (document.getElementsByName("paste")[0].checked) {
@@ -124,11 +118,38 @@ const cast = function ({ "target": { "id": action } }) {
     }
 
     promise.then(function (popupUrl) {
-        return browser.runtime.sendMessage({
-            "popupUrl":   popupUrl,
-            "menuItemId": action
-        });
+        return browser.runtime.sendMessage({ popupUrl, menuItemId });
     }).then(close);
+};
+
+const send = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#send").disabled) {
+        return;
+    }
+
+    cast("send");
+};
+
+const insert = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#insert").disabled) {
+        return;
+    }
+
+    cast("insert");
+};
+
+const add = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#add").disabled) {
+        return;
+    }
+
+    cast("add");
 };
 
 const paste = function () {
@@ -365,9 +386,9 @@ jsonrpc.getProperties().then(function (properties) {
     document.getElementsByName("shuffle")[0].checked = properties.shuffled;
 }).finally(paint);
 
-document.getElementById("send").addEventListener("click", cast);
-document.getElementById("insert").addEventListener("click", cast);
-document.getElementById("add").addEventListener("click", cast);
+document.getElementById("send").addEventListener("click", send);
+document.getElementById("insert").addEventListener("click", insert);
+document.getElementById("add").addEventListener("click", add);
 document.getElementById("paste").addEventListener("click", paste);
 document.getElementById("preferences").addEventListener("click", preferences);
 document.getElementById("love").addEventListener("click", love);
@@ -411,10 +432,11 @@ window.onkeyup = function (event) {
             event.metaKey || event.shiftKey) {
         return;
     }
+
     switch (event.key) {
-        case "p": case "P": cast({ "target": { "id": "send"   } }); break;
-        case "n": case "N": cast({ "target": { "id": "insert" } }); break;
-        case "q": case "Q": cast({ "target": { "id": "add"    } }); break;
+        case "p": case "P": send();      break;
+        case "n": case "N": insert();    break;
+        case "q": case "Q": add();       break;
         case "v": case "V": paste();     break;
         case "PageDown":    previous();  break;
         case "r": case "R": rewind();    break;
