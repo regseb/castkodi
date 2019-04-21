@@ -11,7 +11,7 @@ describe("scraper/pippa", function () {
         });
     });
 
-    describe("https://shows.pippa.io/*/*", function () {
+    describe("*://shows.pippa.io/*/*", function () {
         it("should return error when it's not a video", function () {
             const url = "https://shows.pippa.io/studio-404/";
             const expected = "noAudio";
@@ -31,7 +31,7 @@ describe("scraper/pippa", function () {
                                                  "/studio-404-65-novembre-2018";
             const expected = "https://app.pippa.io/public/streams" +
                                           "/59ee5fc85d6ff59869bbeb01/episodes" +
-                                   "/5bfc6eae690503213d3db1ac.mp3?ref=facebook";
+                                                "/5bfc6eae690503213d3db1ac.mp3";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -42,7 +42,7 @@ describe("scraper/pippa", function () {
                            "/studio-404-64-octobre-2018-studio-404-x-surfrider";
             const expected = "https://app.pippa.io/public/streams" +
                                           "/59ee5fc85d6ff59869bbeb01/episodes" +
-                                   "/5bc3af025840c11d736078eb.mp3?ref=facebook";
+                                                "/5bc3af025840c11d736078eb.mp3";
             return extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });
