@@ -6,7 +6,7 @@
     "attr-sorted": true,
     "attr-unsafe-chars": true,
     "attr-value-double-quotes": true,
-    "attr-value-not-empty": true,
+    "attr-value-not-empty": false,
     "attr-value-single-quotes": false,
     "attr-whitespace": true,
 

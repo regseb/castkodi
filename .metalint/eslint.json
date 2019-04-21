@@ -114,6 +114,7 @@
         "no-void": 2,
         "no-warning-comments": 1,
         "no-with": 2,
+        "prefer-named-capture-group": 0,
         "prefer-promise-reject-errors": 2,
         "radix": 2,
         "require-await": 2,
@@ -239,7 +240,7 @@
         ],
         "prefer-object-spread": 0,
         "quote-props": 2,
-        "quotes": 2,
+        "quotes": [2, "double", { "allowTemplateLiterals": true }],
         "semi": 2,
         "semi-spacing": 2,
         "semi-style": [2, "last"],
@@ -259,7 +260,7 @@
         "unicode-bom": 2,
         "wrap-regex": 2,
 
-        "arrow-body-style": 2,
+        "arrow-body-style": 0,
         "arrow-parens": 2,
         "arrow-spacing": 2,
         "constructor-super": 2,
@@ -295,8 +296,11 @@
         "filenames/match-exported": 2,
         "filenames/no-index": 2,
 
+        "jsdoc/check-alignment": 2,
         "jsdoc/check-examples": 2,
+        "jsdoc/check-indentation": 0,
         "jsdoc/check-param-names": 2,
+        "jsdoc/check-syntax": 2,
         "jsdoc/check-tag-names": 2,
         "jsdoc/check-types": 2,
         "jsdoc/newline-after-description": 2,
@@ -315,18 +319,20 @@
         "jsdoc/require-returns-type": 2,
         "jsdoc/valid-types": 2,
 
-        "promise/always-return": 0,
+        "promise/catch-or-return": 0,
         "promise/no-return-wrap": 2,
         "promise/param-names": 2,
-        "promise/catch-or-return": 0,
+        "promise/always-return": 0,
         "promise/no-native": 0,
         "promise/no-nesting": 0,
         "promise/no-promise-in-callback": 2,
         "promise/no-callback-in-promise": 2,
-        "promise/avoid-new": 2,
+        "promise/avoid-new": 0,
         "promise/no-new-statics": 2,
         "promise/no-return-in-finally": 2,
-        "promise/valid-params": 2
+        "promise/valid-params": 2,
+        "promise/prefer-await-to-then": 0,
+        "promise/prefer-await-to-callbacks": 0
     },
 
     "settings": {

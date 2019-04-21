@@ -101,7 +101,7 @@ describe("scrapers", function () {
             const url = "http://utvarpsaga.is/" +
                              "snjallsimarnir-eru-farnir-ad-stjorna-lifi-folks/";
             const expected = "http://utvarpsaga.is/file/" +
-                                                     "síðdegi-a-7.9.18.mp3?_=1";
+                                           "s%C3%AD%C3%B0degi-a-7.9.18.mp3?_=1";
             return scrapers.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });

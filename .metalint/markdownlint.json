@@ -1,6 +1,5 @@
 {
     "heading-increment": true,
-    "first-heading-h1": true,
     "heading-style": { "style": "atx" },
     "ul-style": { "style": "dash" },
     "list-indent": true,
@@ -35,7 +34,7 @@
     "no-space-in-code": true,
     "no-space-in-links": true,
     "fenced-code-language": true,
-    "first-line-h1": true,
+    "first-line-heading": true,
     "no-empty-links": true,
     "required-headings": true,
     "proper-names": false,

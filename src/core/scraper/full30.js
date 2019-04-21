@@ -9,7 +9,7 @@ import { PebkacError } from "../pebkac.js";
  *
  * @constant {RegExp} URL_REGEXP
  */
-const URL_REGEXP = /https?:\/\/videos\.full30\.com\/[^"]+\.(mp4|webm|ogv)/iu;
+const URL_REGEXP = /https?:\/\/videos\.full30\.com\/[^"]+\.(?:mp4|webm|ogv)/iu;
 
 /**
  * Les règles avec les patrons et leur action.

@@ -16,7 +16,7 @@
         "max-lines": 0,
         "max-lines-per-function": 0,
 
-        "mocha/handle-done-callback": 2,
+        "mocha/handle-done-callback": 0,
         "mocha/max-top-level-suites": 2,
         "mocha/no-async-describe": 2,
         "mocha/no-exclusive-tests": 2,

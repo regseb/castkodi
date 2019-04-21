@@ -24,7 +24,7 @@
         "declaration-block-no-duplicate-properties": true,
         "declaration-block-no-shorthand-property-overrides": true,
 
-        "block-no-empty": true,
+        "block-no-empty": [true, { "ignore": ["comments"] }],
 
         "selector-pseudo-class-no-unknown": true,
         "selector-pseudo-element-no-unknown": true,
@@ -113,6 +113,7 @@
 
         "at-rule-blacklist": null,
         "at-rule-no-vendor-prefix": true,
+        "at-rule-property-requirelist": null,
         "at-rule-whitelist": null,
 
         "comment-word-blacklist": [["/^TODO /", "/^FIXME /"], {

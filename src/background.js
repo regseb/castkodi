@@ -26,7 +26,7 @@ const CONTEXTS = [
 const cast = function (info) {
     const urls = [info.selectionText, info.linkUrl, info.srcUrl, info.frameUrl,
                   info.pageUrl, info.popupUrl];
-    let url = urls.find((u) => undefined !== u && "" !== u);
+    let url = urls.find((u) => undefined !== u && "" !== u).trim();
     // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
     if (!(/^[a-z-]+:/iu).test(url)) {
         url = url.replace(/^\/*/u, "http://");
@@ -55,10 +55,11 @@ const cast = function (info) {
  */
 const menu = function (changes) {
     // Ignorer tous les changements sauf ceux liés au menu contextuel.
-    if (!("menus-send" in changes) && !("menus-insert" in changes) &&
-            !("menus-add" in changes)) {
+    if (!("menus-send" in changes || "menus-insert" in changes ||
+            "menus-add" in changes)) {
         return;
     }
+
     // Vider les options du menu contextuel, puis ajouter les options.
     browser.menus.removeAll().then(function () {
         return browser.storage.local.get();
