@@ -7,20 +7,21 @@ import { PebkacError } from "../pebkac.js";
 /**
  * L'expression rationnelle pour extraire l'URL de la vidéo.
  *
- * @constant {RegExp} URL_REGEXP
+ * @constant {RegExp}
  */
 const URL_REGEXP = /https?:\/\/videos\.full30\.com\/[^"]+\.(?:mp4|webm|ogv)/iu;
 
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une vidéo Full30.
  * @return {Promise} L'URL du <em>fichier</em>.
  */

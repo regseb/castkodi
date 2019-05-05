@@ -5,7 +5,7 @@
 /**
  * L'URL du répertoire où sont les sons de Arte Radio.
  *
- * @constant {string} BASE_URL
+ * @constant {string}
  */
 const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
                                                          "/default/files/sons/";
@@ -13,13 +13,14 @@ const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'un son de Arte Radio.
  * @return {Promise} L'URL du <em>fichier</em>.
  */

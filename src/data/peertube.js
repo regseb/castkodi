@@ -1,7 +1,11 @@
 /**
+ * @module data/peertube
+ */
+
+/**
  * La liste des instances de PeerTube.
  *
- * @constant {Array.<string>} INSTANCES
+ * @constant {Array.<string>}
  * @see {@link https://instances.joinpeertube.org}
  */
 export const INSTANCES = [

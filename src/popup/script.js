@@ -9,7 +9,7 @@ import { PebkacError } from "../core/pebkac.js";
 /**
  * La liste des vitesses de lecture.
  *
- * @constant {Array.<number>} SPEEDS
+ * @constant {Array.<number>}
  * @see speed
  */
 const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];

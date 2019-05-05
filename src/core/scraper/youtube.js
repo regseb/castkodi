@@ -7,21 +7,21 @@ import { PebkacError } from "../pebkac.js";
 /**
  * L'URL de l'extension pour lire des vidéos issues de YouTube.
  *
- * @constant {string} PLUGIN_VIDEO_URL
+ * @constant {string}
  */
 const PLUGIN_VIDEO_URL = "plugin://plugin.video.youtube/play/?video_id=";
 
 /**
  * L'URL de l'extension pour lire des playlists issues de YouTube.
  *
- * @constant {string} PLUGIN_PLAYLIST_URL
+ * @constant {string}
  */
 const PLUGIN_PLAYLIST_URL = "plugin://plugin.video.youtube/play/?playlist_id=";
 
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
@@ -29,6 +29,7 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire la vidéo ou la playlist sur
  * Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une vidéo ou playlist YouTube (ou HookTube).
  * @return {Promise} L'URL du <em>fichier</em>.
  */
@@ -54,6 +55,7 @@ rules.set([
 /**
  * Extrait les informations nécessaire pour lire la playlist sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une playlist YouTube.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
@@ -71,6 +73,7 @@ rules.set([
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une vidéo YouTube intégrée.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
@@ -81,6 +84,7 @@ rules.set(["*://www.youtube.com/embed/*"], function (url) {
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL minifié d'une vidéo YouTube.
  * @return {Promise} L'URL du <em>fichier</em>.
  */

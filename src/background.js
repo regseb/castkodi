@@ -9,7 +9,7 @@ import { extract }  from "./core/scrapers.js";
 /**
  * La liste des contextes où seront ajouté les options dans le menu contextuel.
  *
- * @constant {Array.<string>} CONTEXTS
+ * @constant {Array.<string>}
  */
 const CONTEXTS = [
     "audio", "browser_action", "frame", "link", "page", "selection", "tab",

@@ -7,27 +7,28 @@ import { PebkacError } from "../pebkac.js";
 /**
  * L'expression rationnelle pour extraire l'URL de la musique.
  *
- * @constant {RegExp} URL_REGEXP
+ * @constant {RegExp}
  */
-const URL_REGEXP = /api.soundcloud.com%2Ftracks%2F([^&]+)/iu;
+const URL_REGEXP = /api\.soundcloud\.com%2Ftracks%2F([^&]+)/iu;
 
 /**
  * L'URL de l'extension pour lire des musiques issues de SoundCloud.
  *
- * @constant {string} PLUGIN_URL
+ * @constant {string}
  */
 const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?audio_id=";
 
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
 /**
  * Extrait les informations nécessaire pour lire une musique sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une musique SoundCloud.
  * @return {Promise} L'URL du <em>fichier</em>.
  */

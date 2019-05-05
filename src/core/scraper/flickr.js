@@ -7,14 +7,14 @@ import { PebkacError } from "../pebkac.js";
 /**
  * L'expression rationnelle pour extraire la clé de l'API de Flickr.
  *
- * @constant {RegExp} REGEXP_KEY
+ * @constant {RegExp}
  */
 const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "([^"]+)"/u;
 
 /**
  * L'URL de l'API de Flickr pour obtenir des informations sur la vidéo.
  *
- * @constant {string} API_URL
+ * @constant {string}
  */
 const API_URL = "https://api.flickr.com/services/rest" +
                                    "?method=flickr.video.getStreamInfo" +
@@ -24,13 +24,14 @@ const API_URL = "https://api.flickr.com/services/rest" +
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une vidéo Flickr.
  * @return {Promise} L'URL du <em>fichier</em>.
  */

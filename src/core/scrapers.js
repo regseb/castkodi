@@ -95,7 +95,7 @@ const compile = function (pattern) {
  * Les patrons (sous forme de d'expression rationnelle) des URLs gérées ainsi
  * que leur action.
  *
- * @constant {Array.<Object.<string,*>>} SCRAPERS
+ * @constant {Array.<Object.<string,*>>}
  */
 const SCRAPERS = [];
 

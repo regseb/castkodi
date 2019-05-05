@@ -7,13 +7,14 @@ import { PebkacError } from "../pebkac.js";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'un son de Pippa.
  * @return {Promise} L'URL du <em>fichier</em>.
  */

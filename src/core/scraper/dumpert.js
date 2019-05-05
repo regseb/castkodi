@@ -5,20 +5,21 @@
 /**
  * L'URL de l'extension pour lire des vidéos issues de Dumpert.
  *
- * @constant {string} PLUGIN_URL
+ * @constant {string}
  */
 const PLUGIN_URL = "plugin://plugin.video.dumpert/?action=play&video_page_url=";
 
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une vidéo Dumpert.
  * @return {Promise} L'URL du <em>fichier</em>.
  */

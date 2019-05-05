@@ -7,20 +7,21 @@ import { PebkacError } from "../pebkac.js";
 /**
  * L'URL de l'API de Radioline pour obtenir l'URL de la musique.
  *
- * @constant {string} API_URL
+ * @constant {string}
  */
 const API_URL = "https://www.radioline.co/Pillow/";
 
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
 /**
  * Extrait les informations nécessaire pour lire une musique sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une musique Radioline.
  * @return {Promise} L'URL du <em>fichier</em>.
  */

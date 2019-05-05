@@ -7,7 +7,7 @@ import { PebkacError } from "./pebkac.js";
 /**
  * Le message d'erreur si la connexion a échoué.
  *
- * @constant {string} NETWORK_ERROR
+ * @constant {string}
  */
 const NETWORK_ERROR = "NetworkError when attempting to fetch resource.";
 

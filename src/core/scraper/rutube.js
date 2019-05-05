@@ -7,20 +7,21 @@ import { PebkacError } from "../pebkac.js";
 /**
  * L'URL de l'API de Rutube pour obtenir des informations sur une vidéo.
  *
- * @constant {string} API_URL
+ * @constant {string}
  */
 const API_URL = "https://rutube.ru/api/play/options/";
 
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map} rules
+ * @constant {Map}
  */
 export const rules = new Map();
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
+ * @function action
  * @param {string} url L'URL d'une vidéo Rutube.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
