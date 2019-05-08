@@ -38,5 +38,7 @@
     "no-empty-links": true,
     "required-headings": true,
     "proper-names": false,
-    "no-alt-text": true
+    "no-alt-text": true,
+    "code-block-style": { "style": "fenced" },
+    "single-trailing-newline": true
 }
