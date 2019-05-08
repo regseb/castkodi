@@ -25,24 +25,23 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo Facebook.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.facebook.com/*/videos/*/*"], function (url) {
-    const id = url.pathname.substring(url.pathname.indexOf("/videos/") + 8)
-                           .replace(/\/$/u, "");
-    return fetch(PREFIX_VIDEO_URL + id).then(function (response) {
-        return response.text();
-    }).then(function (data) {
-        const doc = new DOMParser().parseFromString(data, "text/html");
-
-        const result = doc.querySelector("head meta[property=\"og:video\"]");
-        if (null === result) {
-            throw new PebkacError("noVideo", "Facebook");
+rules.set([
+    "*://*.facebook.com/*/videos/*/*", "*://*.facebook.com/watch*"
+], function (url) {
+    let id;
+    if ("/watch" === url.pathname || "/watch/" === url.pathname) {
+        if (url.searchParams.has("v")) {
+            id = url.searchParams.get("v");
+        } else {
+            return Promise.reject(new PebkacError("noVideo", "Facebook"));
         }
-        return result.content;
-    });
-});
+    } else {
+        id = url.pathname.substring(url.pathname.indexOf("/videos/") + 8)
+                         .replace(/\/$/u, "");
+    }
 
-rules.set(["*://www.facebook.com/watch*"], function (url) {
-    return fetch(url.toString()).then(function (response) {
+    const init = { "credentials": "omit" };
+    return fetch(PREFIX_VIDEO_URL + id, init).then(function (response) {
         return response.text();
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
