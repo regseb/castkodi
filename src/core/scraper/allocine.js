@@ -24,24 +24,14 @@ rules.set(["http://www.allocine.fr/*"], function (url) {
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const iframe = doc.querySelector("iframe[src^=\"/_video/\"]");
-        // Si l'iframe n'est pas trouvé : chercher directement la figure.
-        if (null === iframe) {
-            return data;
-        }
-        return fetch("http://www.allocine.fr" + iframe.src)
-                                                     .then(function (response) {
-            return response.text();
-        });
-    }).then(function (data) {
-        const doc = new DOMParser().parseFromString(data, "text/html");
-
         const figure = doc.querySelector("figure[data-model]");
         if (null === figure) {
             throw new PebkacError("noVideo", "AlloCiné");
         }
-        const sources = JSON.parse(figure.dataset.model).videos[0].sources;
-        return "http:" + ("high" in sources ? sources.high
-                                            : sources.medium);
+
+        const model = JSON.parse(figure.dataset.model);
+        const source = Object.values(model.videos[0].sources).pop();
+        return source.startsWith("//") ? "http:" + source
+                                       : source;
     });
 });
