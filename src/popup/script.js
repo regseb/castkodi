@@ -452,9 +452,3 @@ window.onkeyup = function (event) {
     }
     event.preventDefault();
 };
-
-// Afficher les textes dans la langue courante.
-for (const element of document.querySelectorAll("[data-i18n-title]")) {
-    element.title = browser.i18n.getMessage(
-                                    `popup_${element.dataset.i18nTitle}_title`);
-}

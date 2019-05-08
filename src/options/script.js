@@ -74,12 +74,6 @@ const check = function (event) {
     }).catch(notify);
 };
 
-// Afficher les textes dans la langue courante.
-for (const element of document.querySelectorAll("[data-i18n-content]")) {
-    element.textContent = browser.i18n.getMessage(
-                         "options_" + element.dataset.i18nContent + "_content");
-}
-
 // Pré-remplir les champs du formulaire.
 browser.storage.local.get().then(function (config) {
     for (const [key, value] of Object.entries(config)) {

@@ -156,64 +156,64 @@
         "message": "Effacer"
     },
 
-    "options_connectionTitle_content": {
+    "options_connectionTitle_textcontent": {
         "message": "Connexion"
     },
-    "options_connectionIntro_content": {
+    "options_connectionIntro_textcontent": {
         "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez Autoriser le contrôle à distance via HTTP. Ce règlage se fait dans la page Paramètres / Services / Contrôle de Kodi."
     },
-    "options_connectionPort_content": {
+    "options_connectionPort_textcontent": {
         "message": "Port :"
     },
-    "options_connectionUsername_content": {
+    "options_connectionUsername_textcontent": {
         "message": "Nom d'utilisateur :"
     },
-    "options_connectionPassword_content": {
+    "options_connectionPassword_textcontent": {
         "message": "Mot de passe :"
     },
-    "options_connectionHelpHost_content": {
+    "options_connectionHelpHost_textcontent": {
         "message": "L'adresse du serveur Web est disponible dans la page Paramètres / Infos sur le système / Résumé."
     },
-    "options_connectionHost_content": {
+    "options_connectionHost_textcontent": {
         "message": "Adresse IP :"
     },
-    "options_connectionCheck_content": {
+    "options_connectionCheck_textcontent": {
         "message": "Tester la connexion"
     },
 
-    "options_generalTitle_content": {
+    "options_generalTitle_textcontent": {
         "message": "Général"
     },
-    "options_generalHistory_content": {
+    "options_generalHistory_textcontent": {
         "message": "Ajouter les liens diffusés sur Kodi dans l'historique du navigateur."
     },
 
-    "options_menusTitle_content": {
+    "options_menusTitle_textcontent": {
         "message": "Menu contextuel"
     },
-    "options_menusDescription_content": {
+    "options_menusDescription_textcontent": {
         "message": "Sélectionner les options ajoutées dans le menu contextuel :"
     },
-    "options_menusSend_content": {
+    "options_menusSend_textcontent": {
         "message": "Lire maintenant"
     },
-    "options_menusInsert_content": {
+    "options_menusInsert_textcontent": {
         "message": "Lire ensuite"
     },
-    "options_menusAdd_content": {
+    "options_menusAdd_textcontent": {
         "message": "Placer en file d'attente"
     },
 
-    "options_youtubeTitle_content": {
+    "options_youtubeTitle_textcontent": {
         "message": "YouTube"
     },
-    "options_youtubePlaylist_content": {
+    "options_youtubePlaylist_textcontent": {
         "message": "Pour les liens vers une vidéo dans une playlist :"
     },
-    "options_youtubePlaylistPlaylist_content": {
+    "options_youtubePlaylistPlaylist_textcontent": {
         "message": "diffuser toutes les vidéos de la playlist."
     },
-    "options_youtubePlaylistVideo_content": {
+    "options_youtubePlaylistVideo_textcontent": {
         "message": "diffuser seulement la vidéo."
     }
 }
