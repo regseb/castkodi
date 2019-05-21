@@ -18,21 +18,21 @@ const activate = function () {
 };
 
 /**
- * Demande (ou enlève) le droit de modifier l'historique du navigateur.
+ * Demande (ou enlève) une permission optionnelle.
  *
  * @function ask
  * @param {Object} input La case à cocher.
  */
 const ask = function (input) {
-    const permissions = { "permissions": ["history"] };
+    const permissions = { "permissions": [input.dataset.permissions] };
     if (input.checked) {
-        browser.permissions.request(permissions).then(function (response) {
+        browser.permissions.request(permissions).then((response) => {
             input.checked = response;
-            browser.storage.local.set({ "general-history": response });
+            browser.storage.local.set({ [input.id]: response });
         });
     } else {
         browser.permissions.remove(permissions);
-        browser.storage.local.set({ "general-history": false });
+        browser.storage.local.set({ [input.id]: false });
     }
 };
 
@@ -45,7 +45,7 @@ const ask = function (input) {
 const save = function () {
     const key = this.form.id + "-" + this.name;
     if ("checkbox" === this.type) {
-        if ("history" === this.name) {
+        if ("permissions" in this.dataset) {
             ask(this);
         } else {
             browser.storage.local.set({ [key]: this.checked });
