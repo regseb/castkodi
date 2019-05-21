@@ -29,7 +29,7 @@ import { rules as acestream }    from "./scraper/acestream.js";
 /**
  * La liste des scrapers.
  *
- * @constant {Array.<Object>} scrapers
+ * @constant {Array.<Object>}
  */
 const scrapers = [
     allocine, arteradio, devtube, dumpert, dailymotion, facebook, flickr,

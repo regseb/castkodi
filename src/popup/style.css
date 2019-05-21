@@ -1,5 +1,7 @@
 body {
     background-color: #2a2a2e;
+    color: #f9f9fa;
+    font-family: "Segoe UI", Ubuntu, sans-serif;
     margin: 4px 0;
 }
 
@@ -22,6 +24,9 @@ li {
 }
 li.colspan-2 {
     flex: 2;
+}
+li.colspan-4 {
+    flex: 4;
 }
 object {
     display: inline-block;
@@ -69,12 +74,15 @@ input[type="range"]::-moz-range-thumb {
     width: 12px;
 }
 input[type="range"]:hover::-moz-range-thumb {
-    background-color: #48a0f7;
+    background-color: #0a84ff;
 }
 input[type="range"]::-moz-range-progress {
     background-color: #f9f9fa;
     border-radius: 2.5px;
     height: 5px;
+}
+input[type="range"].primary::-moz-range-progress {
+    background-color: #45a1ff;
 }
 input[type="range"]::-moz-range-track {
     background-color: #0c0c0d;
@@ -82,8 +90,11 @@ input[type="range"]::-moz-range-track {
     height: 5px;
 }
 input[type="range"]:disabled::-moz-range-thumb,
-input[type="range"]:focus:disabled::-moz-range-thumb,
-input[type="range"]:disabled::-moz-range-progress {
+input[type="range"].disabled::-moz-range-thumb,
+input[type="range"]:disabled:focus::-moz-range-thumb,
+input[type="range"].disabled:focus::-moz-range-thumb,
+input[type="range"]:disabled::-moz-range-progress,
+input[type="range"].disabled::-moz-range-progress {
     background-color: #737373;
 }
 
@@ -93,13 +104,13 @@ span {
     padding: 12px 8px;
 }
 
-input[name="mute"]:checked ~ #sound {
+#mute:checked ~ span[data-i18n-title="sound"] {
     display: none;
 }
-input[name="mute"]:checked ~ #mute {
+#mute:checked ~ span[data-i18n-title="mute"] {
     display: inline-block;
 }
-input[name="mute"]:checked ~ #mute svg > * {
+#mute:checked ~ span[data-i18n-title="mute"] svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
@@ -120,13 +131,13 @@ input[name="repeat"][value="all"]:checked ~ #repeat-all svg > * {
     stroke: #0a84ff;
 }
 
-input[name="paste"]:checked ~ span svg > *,
-input[name="shuffle"]:checked ~ span svg > * {
+#paste:checked + span svg > *,
+#shuffle:checked + span svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
 
-input[name="paste"] ~ textarea {
+#paste ~ textarea {
     border: 0;
     bottom: 8px;
     display: none;
@@ -138,16 +149,46 @@ input[name="paste"] ~ textarea {
     width: calc(100% - 32px);
     z-index: 1;
 }
-input[name="paste"]:checked ~ textarea {
+#paste:checked ~ textarea {
     display: block;
 }
 
-#pause, #mute, #love, #error {
+#pause, #rate, #mute ~ span[data-i18n-title="mute"] {
     display: none;
 }
 
-/* FIXME Afficher la corbeille quand le bogue https://trac.kodi.tv/ticket/17587
-         sera corrigé. */
-#clear {
+article {
+    background-color: #d70022;
+    background-image: url("img/error.svg");
+    background-position: 8px 10px;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    bottom: 8px;
+    color: white;
     display: none;
+    font-size: 13px;
+    height: calc(100% - 32px);
+    left: 8px;
+    padding: 8px 8px 8px 32px;
+    position: fixed;
+    width: calc(100% - 56px);
+    z-index: 2;
+}
+article h1 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+article button {
+    background-color: #a4000f;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    font-size: 11px;
+    height: 24px;
+    padding: 0 8px;
+}
+article button:hover {
+    background-color: #5a0002;
 }

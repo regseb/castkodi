@@ -1,45 +1,131 @@
 body {
-    padding: 10px;
+    font-family: "Segoe UI", Ubuntu, sans-serif;
 }
-#connection label {
-    display: inline-block;
-    width: 12em;
+h3 {
+    font-size: 22px;
+    font-weight: 300;
 }
-input {
-    width: 8em;
+p {
+    font-size: 15px;
+    font-weight: normal;
 }
 
-input[type="number"] {
-    -moz-appearance: textfield;
-    appearance: textfield;
+
+label {
+    color: #0c0c0d;
 }
-.browser-style > input[type="text"],
-.browser-style > input[type="password"],
-.browser-style > input[type="number"] {
+input[type="text"] {
     background-color: white;
-    border: 1px solid #b1b1b1;
+    background-image: url("img/loading.svg");
+    background-position: right 8px center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(12, 12, 13, 0.2);
+    border-radius: 2px;
     box-shadow: 0 0 0 0 rgba(97, 181, 255, 0);
     font: caption;
-    height: 24px;
-    padding: 0 6px;
+    height: 32px;
+    padding: 0 32px 0 8px;
     transition-duration: 250ms;
     transition-property: box-shadow;
 }
-.browser-style > input[type="text"]:hover,
-.browser-style > input[type="password"]:hover,
-.browser-style > input[type="number"]:hover {
-    border: 1px solid #858585;
+input[type="text"]:hover {
+    border: 1px solid rgba(12, 12, 13, 0.3);
 }
-.browser-style > input[type="text"]:focus,
-.browser-style > input[type="text"]:focus:hover,
-.browser-style > input[type="password"]:focus,
-.browser-style > input[type="password"]:focus:hover,
-.browser-style > input[type="number"]:focus,
-.browser-style > input[type="number"]:focus:hover {
-    border-color: #0996f8;
-    box-shadow: 0 0 0 2px rgba(97, 181, 255, 0.75);
+input[type="text"]:focus,
+input[type="text"]:focus:hover {
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 1px #0a84ff, 0 0 0 4px rgba(10, 132, 255, 0.3);
+}
+input[type="text"]:invalid {
+    border-color: #d70022;
+    box-shadow: 0 0 0 1px #d70022, 0 0 0 4px rgba(251, 0, 34, 0.3);
 }
 
-.browser-style > input:invalid {
-    border: 1px solid #a4000f;
+input[type="checkbox"] {
+    -moz-appearance: none;
+    background-color: rgba(12, 12, 13, 0.1);
+    border: 1px solid rgba(12, 12, 13, 0.3);
+    border-radius: 2px;
+    height: 16px;
+    margin: -2px 4px;
+    width: 16px;
+}
+input[type="checkbox"]:hover {
+    background-color: rgba(12, 12, 13, 0.2);
+}
+
+input[type="checkbox"]:active {
+    background-color: rgba(12, 12, 13, 0.3);
+}
+
+input[type="checkbox"]:focus {
+    border: none;
+    box-shadow:
+        0 0 0 1px #0a84ff inset,
+        0 0 0 1px #0a84ff,
+        0 0 0 4px rgba(10, 132, 255, 0.3);
+}
+
+input[type="checkbox"]:checked {
+    background-color: #0060df;
+    background-image: url("img/check.svg");
+    background-position: center center;
+}
+
+input[type="checkbox"]:checked:hover {
+    background-color: #003eaa;
+}
+
+input[type="checkbox"]:checked:active {
+    background-color: #002275;
+}
+
+input[type="radio"] {
+    -moz-appearance: none;
+    background-color: rgba(12, 12, 13, 0.1);
+    border: 1px solid rgba(12, 12, 13, 0.3);
+    border-radius: 100%;
+    height: 16px;
+    margin-bottom: -2px;
+    margin-left: 4px;
+    margin-right: 4px;
+    width: 16px;
+}
+
+input[type="radio"]:hover {
+    background-color: rgba(12, 12, 13, 0.2);
+}
+
+input[type="radio"]:active {
+    background-color: rgba(12, 12, 13, 0.3);
+}
+
+input[type="radio"]:focus {
+    box-shadow:
+        0 0 0 1px #0a84ff inset,
+        0 0 0 1px #0a84ff,
+        0 0 0 4px rgba(10, 132, 255, 0.3);
+}
+input[type="radio"]:checked {
+    background-color: #0060df;
+    background-image: url("img/marker.svg");
+    background-position: center center;
+}
+
+input[type="radio"]:checked:hover {
+    background-color: #003eaa;
+}
+
+input[type="radio"]:checked:active {
+    background-color: #002275;
+}
+
+.warning {
+    background: #ffe900 url("img/warning.svg") 4px center no-repeat;
+    border-radius: 4px;
+    color: #3e2800;
+    display: none;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 4px 4px 4px 24px;
 }

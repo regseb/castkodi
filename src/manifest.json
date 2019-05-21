@@ -31,7 +31,7 @@
     "homepage_url": "https://github.com/regseb/castkodi",
     "optional_permissions": ["history"],
     "options_ui": {
-        "browser_style": true,
+        "browser_style": false,
         "page": "options/index.html"
     },
     "permissions": [

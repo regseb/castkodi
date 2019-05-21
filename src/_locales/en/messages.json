@@ -30,31 +30,34 @@
     },
 
     "notifications_unconfigured_title": {
-        "message": "No configuration"
+        "message": "No IP address"
     },
     "notifications_unconfigured_message": {
-        "message": "IP address and port are missing in options."
+        "message": "IP address of Kodi Web server is missing in options."
     },
 
     "notifications_badHost_title": {
         "message": "IP address invalid"
     },
     "notifications_badHost_message": {
-        "message": "IP address of Web server is invalid."
+        "message": "IP address of Kodi Web server $ADDRESS$ is invalid.",
+        "placeholders": {
+            "address": {
+                "content": "$1"
+            }
+        }
     },
 
     "notifications_notFound_title": {
         "message": "Kodi not found"
     },
     "notifications_notFound_message": {
-        "message": "Either the IP/port are invalid or Kodi's remote control isn't enabled."
-    },
-
-    "notifications_unauthorized_title": {
-        "message": "Authentication failed"
-    },
-    "notifications_unauthorized_message": {
-        "message": "Username or password are invalid."
+        "message": "IP address of Kodi Web server $ADDRESS$ is invalid or Kodi's remote control isn't enabled.",
+        "placeholders": {
+            "address": {
+                "content": "$1"
+            }
+        }
     },
 
     "notifications_noLink_title": {
@@ -88,13 +91,6 @@
         }
     },
 
-    "notifications_success_title": {
-        "message": "Connection successful"
-    },
-    "notifications_success_message": {
-        "message": "Web server of Kodi has been found."
-    },
-
     "popup_send_title": {
         "message": "Play now to Kodi [P]"
     },
@@ -113,14 +109,11 @@
     "popup_loading_title": {
         "message": "Connecting..."
     },
-    "popup_love_title": {
+    "popup_rate_title": {
         "message": "Rate your experience"
     },
-    "popup_error_title": {
-        "message": "Test connection"
-    },
     "popup_previous_title": {
-        "message": "Go to previous [PageDown]"
+        "message": "Go to previous [PageUp]"
     },
     "popup_rewind_title": {
         "message": "Rewind [R]"
@@ -138,7 +131,7 @@
         "message": "Fast forward [F]"
     },
     "popup_next_title": {
-        "message": "Go to next [PageUp]"
+        "message": "Go to next [PageDown]"
     },
     "popup_mute_title": {
         "message": "Unmute [M]"
@@ -152,33 +145,21 @@
     "popup_shuffle_title": {
         "message": "Shuffle"
     },
-    "popup_clear_title": {
-        "message": "Clear"
+    "popup_configure_textcontent": {
+        "message": "Configure"
     },
 
     "options_connectionTitle_textcontent": {
         "message": "Connection"
     },
     "options_connectionIntro_textcontent": {
-        "message": "To cast videos/music to Kodi, you must Allow remote control via HTTP. This option is in Settings / Services / Control page in Kodi."
-    },
-    "options_connectionPort_textcontent": {
-        "message": "Port:"
-    },
-    "options_connectionUsername_textcontent": {
-        "message": "Username:"
-    },
-    "options_connectionPassword_textcontent": {
-        "message": "Password:"
-    },
-    "options_connectionHelpHost_textcontent": {
-        "message": "IP address of Web server is displayed on Settings / System info / Summary page."
+        "message": "To cast videos/music to Kodi, you must Allow remote control from applications on other systems. This option is in Settings / Services / Control page in Kodi. Then fill Kodi's address below. This IP address is available in the Settings / System Information / Summary page."
     },
     "options_connectionHost_textcontent": {
         "message": "IP address:"
     },
-    "options_connectionCheck_textcontent": {
-        "message": "Test connection"
+    "options_connectionChange_textcontent": {
+        "message": "Since version 4.0.0, the extension uses the JSON-RPC protocol to connect to Kodi. In Kodi settings (Services / Control), you now need to Allow remote control from applications on other systems."
     },
 
     "options_generalTitle_textcontent": {
@@ -192,16 +173,16 @@
         "message": "Context menu"
     },
     "options_menusDescription_textcontent": {
-        "message": "Choose items added to the context menu :"
+        "message": "Choose items added to the context menu:"
     },
     "options_menusSend_textcontent": {
-        "message": "Play now"
+        "message": "play now"
     },
     "options_menusInsert_textcontent": {
-        "message": "Play next"
+        "message": "play next"
     },
     "options_menusAdd_textcontent": {
-        "message": "Queue item"
+        "message": "queue item"
     },
 
     "options_youtubeTitle_textcontent": {

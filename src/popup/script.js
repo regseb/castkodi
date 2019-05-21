@@ -2,9 +2,7 @@
  * @module popup/script
  */
 
-import * as jsonrpc    from "../core/jsonrpc.js";
-import { notify }      from "../core/notify.js";
-import { PebkacError } from "../core/pebkac.js";
+import { JSONRPC } from "../core/jsonrpc.js";
 
 /**
  * La liste des vitesses de lecture.
@@ -15,14 +13,6 @@ import { PebkacError } from "../core/pebkac.js";
 const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
 
 /**
- * Le volume sonore de Kodi ou <code>null</code> si la connexion à Kodi a
- * échoué.
- *
- * @type {?number}
- */
-let volume = null;
-
-/**
  * L'indice de la vitesse de lecture ou <code>-1</code> si la lecture est en
  * pause ou <code>null</code> s'il n'y a aucune lecture en cours.
  *
@@ -31,84 +21,178 @@ let volume = null;
  */
 let speed  = null;
 
-const paint = function () {
-    // Si Kodi n'est pas accessible : verrouiller tous les boutons sauf ceux
-    // pour configurer et tester.
-    if (null === volume) {
-        document.getElementById("send").disabled = true;
-        document.getElementById("insert").disabled = true;
-        document.getElementById("add").disabled = true;
-        document.getElementsByName("paste")[0].disabled = true;
-        document.getElementById("preferences").disabled = false;
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("love").style.display = "none";
-        document.getElementById("error").style.display = "inline";
+let interval = null;
 
-        document.getElementById("previous").disabled = true;
-        document.getElementById("rewind").disabled = true;
-        document.getElementById("stop").disabled = true;
-        document.getElementById("pause").disabled = true;
-        document.getElementById("play").disabled = true;
-        document.getElementById("pause").style.display = "none";
-        document.getElementById("play").style.display = "inline";
-        document.getElementById("forward").disabled = true;
-        document.getElementById("next").disabled = true;
+let jsonrpc = null;
 
-        document.getElementsByName("mute")[0].disabled = true;
-        document.getElementById("sound").disabled = true;
-        document.getElementById("volume").disabled = true;
-        for (const input of document.getElementsByName("repeat")) {
-            input.disabled = true;
-        }
-        document.getElementsByName("shuffle")[0].disabled = true;
-        document.getElementById("clear").disabled = true;
-    } else {
-        document.getElementById("send").disabled = false;
-        document.getElementById("insert").disabled = false;
-        document.getElementById("add").disabled = false;
-        document.getElementsByName("paste")[0].disabled = false;
-        document.getElementById("preferences").disabled = false;
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("error").style.display = "none";
-        document.getElementById("love").style.display = "inline-block";
-
-        document.getElementById("previous").disabled = null === speed;
-        document.getElementById("rewind").disabled = null === speed;
-        document.getElementById("stop").disabled = null === speed;
-        document.getElementById("pause").disabled = null === speed;
-        document.getElementById("play").disabled = false;
-        if (5 === speed) {
-            document.getElementById("play").style.display = "none";
-            document.getElementById("pause").style.display = "inline";
-        } else {
-            document.getElementById("pause").style.display = "none";
-            document.getElementById("play").style.display = "inline";
-        }
-        document.getElementById("forward").disabled = null === speed;
-        document.getElementById("next").disabled = null === speed;
-
-        document.getElementsByName("mute")[0].disabled = false;
-        document.getElementById("sound").disabled = false;
-        document.getElementById("volume").disabled = false;
-        if (document.getElementsByName("mute")[0].checked) {
-            document.getElementById("volume").value = 0;
-        } else {
-            document.getElementById("volume").value = volume;
-        }
-        for (const input of document.getElementsByName("repeat")) {
-            input.disabled = null === speed;
-        }
-        document.getElementsByName("shuffle")[0].disabled = null === speed;
-        document.getElementById("clear").disabled = null === speed;
+const onSeek = function ({ player }) {
+    // Garder seulement les changements sur le lecteur de vidéo.
+    if (1 !== player.playerid) {
+        return;
     }
+
+    const time = document.querySelector("#time");
+    const max = parseInt(time.max, 10);
+    time.valueAsNumber = Math.min(player.time, max);
+
+    if (time.disabled) {
+        time.parentElement.previousElementSibling.textContent = "";
+        time.parentElement.nextElementSibling.textContent = "";
+    } else if (3600 < max) {
+        time.parentElement.previousElementSibling.textContent =
+            Math.trunc(time.valueAsNumber / 3600) + ":" +
+            (Math.trunc(time.valueAsNumber / 60) % 60).toString()
+                                                      .padStart(2, "0") + ":" +
+            (time.valueAsNumber % 60).toString().padStart(2, "0");
+        time.parentElement.nextElementSibling.textContent =
+            Math.trunc(max / 3600) + ":" +
+            (Math.trunc(max / 60) % 60).toString().padStart(2, "0") + ":" +
+            (max % 60).toString().padStart(2, "0");
+    } else {
+        time.parentElement.previousElementSibling.textContent =
+            Math.trunc(time.valueAsNumber / 60) + ":" +
+            (time.valueAsNumber % 60).toString().padStart(2, "0");
+        time.parentElement.nextElementSibling.textContent =
+            Math.trunc(max / 60) + ":" +
+            (max % 60).toString().padStart(2, "0");
+    }
+};
+
+const onStop = function () {
+    speed = null;
+
+    document.querySelector("#time").disabled = true;
+    onSeek({ "player": { "playerid": 1, "time": 0 } });
+
+    document.querySelector("#previous").disabled = true;
+    document.querySelector("#rewind").disabled = true;
+    document.querySelector("#stop").disabled = true;
+    document.querySelector("#pause").style.display = "none";
+    document.querySelector("#play").style.display = "inline";
+    document.querySelector("#forward").disabled = true;
+    document.querySelector("#next").disabled = true;
+
+    for (const input of document.querySelectorAll(`[name="repeat"]`)) {
+        input.disabled = true;
+    }
+    document.querySelector("#shuffle").disabled = true;
+};
+
+const onSpeedChanged = function ({ player }) {
+    // Garder seulement les changements sur le lecteur de vidéo.
+    if (1 !== player.playerid) {
+        return;
+    }
+
+    speed = SPEEDS.indexOf(player.speed);
+
+    document.querySelector("#time").disabled = false;
+
+    document.querySelector("#previous").disabled = false;
+    document.querySelector("#rewind").disabled = false;
+    document.querySelector("#stop").disabled = false;
+    if (5 === speed) {
+        document.querySelector("#play").style.display = "none";
+        document.querySelector("#pause").style.display = "inline";
+    } else {
+        document.querySelector("#pause").style.display = "none";
+        document.querySelector("#play").style.display = "inline";
+    }
+    document.querySelector("#forward").disabled = false;
+    document.querySelector("#next").disabled = false;
+
+    for (const input of document.querySelectorAll(`[name="repeat"]`)) {
+        input.disabled = false;
+    }
+    document.querySelector("#shuffle").disabled = false;
+};
+
+const onPropertyChanged = function ({ player, property }) {
+    // Garder seulement les changements sur le lecteur de vidéo.
+    if (1 !== player.playerid) {
+        return;
+    }
+
+    if ("repeat" in property) {
+        document.querySelector(`[name="repeat"][value="${property.repeat}"]`)
+                                                                .checked = true;
+    }
+    if ("shuffled" in property) {
+        document.querySelector("#shuffle").checked = property.shuffled;
+    }
+};
+
+const onVolumeChanged = function (properties) {
+    const mute = document.querySelector("#mute");
+    mute.disabled = false;
+    mute.checked = properties.muted;
+
+    const volume = document.querySelector("#volume");
+    volume.disabled = false;
+    volume.valueAsNumber = properties.volume;
+    if (properties.muted) {
+        volume.classList.add("disabled");
+    } else {
+        volume.classList.remove("disabled");
+    }
+};
+
+const notify = function (err) {
+    const article = document.querySelector("article");
+    if ("PebkacError" === err.name) {
+        article.querySelector("h1").textContent = err.title;
+    } else {
+        article.querySelector("h1").textContent =
+                         browser.i18n.getMessage("notifications_unknown_title");
+    }
+    article.querySelector("p").textContent = err.message;
+    article.style.display = "block";
+    document.querySelector("hr").style.display = "none";
+};
+
+const update = function () {
+    return jsonrpc.getProperties().then(function (properties) {
+        document.querySelector("#send").disabled = false;
+        document.querySelector("#insert").disabled = false;
+        document.querySelector("#add").disabled = false;
+        document.querySelector("#paste").disabled = false;
+        document.querySelector("#preferences").disabled = false;
+        document.querySelector("#loading").style.display = "none";
+        document.querySelector("#rate").style.display = "inline-block";
+
+        if (null === properties.speed) {
+            onStop();
+        } else {
+            onSpeedChanged({ "player": {
+                "playerid": 1,
+                "speed":    properties.speed
+            } });
+        }
+
+        document.querySelector("#time").max = properties.totaltime.toString();
+        onSeek({ "player": { "playerid": 1, "time": properties.time } });
+
+        document.querySelector("#pause").disabled = 0 === properties.totaltime;
+        document.querySelector("#play").disabled = false;
+
+        onVolumeChanged(properties);
+
+        onPropertyChanged({
+            "player":   { "playerid": 1 },
+            "property": { "repeat": properties.repeat }
+        });
+        onPropertyChanged({
+            "player":   { "playerid": 1 },
+            "property": { "shuffled": properties.shuffled }
+        });
+    }).catch(notify);
 };
 
 const cast = function (menuItemId) {
     // Récupérer l'URL dans la zone de saisie ou celle de l'onglet courant.
     let promise;
-    if (document.getElementsByName("paste")[0].checked) {
-        promise = Promise.resolve(
-                            document.getElementsByTagName("textarea")[0].value);
+    if (document.querySelector("#paste").checked) {
+        promise = Promise.resolve(document.querySelector("textarea").value);
     } else {
         const queryInfo = {
             "active":        true,
@@ -155,20 +239,20 @@ const add = function () {
 const paste = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementsByName("paste")[0].disabled) {
+    if (document.querySelector("#paste").disabled) {
         return;
     }
 
-    const input = document.getElementsByName("paste")[0];
+    const input = document.querySelector("#paste");
     if (input.checked) {
         input.checked = false;
-        document.getElementById("preferences").disabled = false;
-        document.getElementById("love").disabled = false;
+        document.querySelector("#preferences").disabled = false;
+        document.querySelector("#rate").disabled = false;
     } else {
         input.checked = true;
-        document.getElementById("preferences").disabled = true;
-        document.getElementById("love").disabled = true;
-        document.getElementsByTagName("textarea")[0].focus();
+        document.querySelector("#preferences").disabled = true;
+        document.querySelector("#rate").disabled = true;
+        document.querySelector("textarea").focus();
     }
 };
 
@@ -176,23 +260,16 @@ const preferences = function () {
     browser.runtime.openOptionsPage().then(close);
 };
 
-const love = function () {
+const rate = function () {
     browser.tabs.create({
         "url": "https://addons.mozilla.org/addon/castkodi/reviews/"
     }).then(close);
 };
 
-const error = function () {
-    jsonrpc.check().then(function () {
-        paint();
-        notify(new PebkacError("success"));
-    }).catch(notify);
-};
-
 const previous = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementById("previous").disabled) {
+    if (document.querySelector("#previous").disabled) {
         return;
     }
 
@@ -202,7 +279,7 @@ const previous = function () {
 const rewind = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementById("rewind").disabled) {
+    if (document.querySelector("#rewind").disabled) {
         return;
     }
 
@@ -211,43 +288,43 @@ const rewind = function () {
         case 0:  speed = 5; break;
         default: --speed;
     }
-    jsonrpc.setSpeed(SPEEDS[speed]).then(paint).catch(notify);
+    jsonrpc.setSpeed(SPEEDS[speed]).catch(notify);
 };
 
 const stop = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementById("stop").disabled) {
+    if (document.querySelector("#stop").disabled) {
         return;
     }
 
     speed = null;
-    jsonrpc.stop().then(paint).catch(notify);
+    jsonrpc.stop().catch(notify);
 };
 
 const playPause = function () {
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé (car la connexion à Kodi a échouée).
-    if (null === volume) {
-        return;
-    }
-
     if (null === speed) {
         speed = 5;
-        jsonrpc.open().then(paint).catch(notify);
+        jsonrpc.open().catch(notify);
     } else if (5 === speed) {
+        // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+        // désactivé (car la connexion à Kodi a échouée).
+        if (document.querySelector("#pause").disabled) {
+            return;
+        }
+
         speed = -1;
-        jsonrpc.playPause().then(paint).catch(notify);
+        jsonrpc.playPause().catch(notify);
     } else {
         speed = 5;
-        jsonrpc.playPause().then(paint).catch(notify);
+        jsonrpc.playPause().catch(notify);
     }
 };
 
 const forward = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementById("forward").disabled) {
+    if (document.querySelector("#forward").disabled) {
         return;
     }
 
@@ -256,86 +333,64 @@ const forward = function () {
         case 10: speed = 5; break;
         default: ++speed;
     }
-    jsonrpc.setSpeed(SPEEDS[speed]).then(paint).catch(notify);
+    jsonrpc.setSpeed(SPEEDS[speed]).catch(notify);
 };
 
 const next = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementById("next").disabled) {
+    if (document.querySelector("#next").disabled) {
         return;
     }
 
     jsonrpc.next().catch(notify);
 };
 
-const muteSound = function () {
+const setMute = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementsByName("mute")[0].disabled) {
+    if (document.querySelector("#mute").disabled) {
         return;
     }
 
-    const input = document.getElementsByName("mute")[0];
-    input.checked = !input.checked;
-    jsonrpc.setMute(input.checked).then(paint).catch(notify);
+
+    const input = document.querySelector("#mute");
+    if (input.checked) {
+        input.checked = false;
+        document.querySelector("#volume").classList.remove("disabled");
+    } else {
+        input.checked = true;
+        document.querySelector("#volume").classList.add("disabled");
+    }
+    jsonrpc.setMute(input.checked).catch(notify);
 };
 
-const setVolume = function () {
+const setVolume = function (diff) {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementById("volume").disabled) {
+    if (document.querySelector("#volume").disabled) {
         return;
     }
 
-    volume = parseInt(document.getElementById("volume").value, 10);
+    const input = document.querySelector("#volume");
 
-    if (document.getElementsByName("mute")[0].checked) {
-        muteSound();
+    document.querySelector("#mute").checked = false;
+    input.classList.remove("disabled");
+
+    if (Number.isInteger(diff)) {
+        input.valueAsNumber += diff;
     }
-    jsonrpc.setVolume(volume).then(paint).catch(notify);
-};
-
-const subVolume = function () {
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé.
-    if (document.getElementById("volume").disabled) {
-        return;
-    }
-
-    const input = document.getElementById("volume");
-    volume = Math.max(parseInt(input.value, 10) - 10, 0);
-    input.value = volume;
-    input.dispatchEvent(new Event("input", {
-        "bubbles":    true,
-        "cancelable": true
-    }));
-};
-
-const addVolume = function () {
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé.
-    if (document.getElementById("volume").disabled) {
-        return;
-    }
-
-    const input = document.getElementById("volume");
-    volume = Math.min(parseInt(input.value, 10) + 10, 100);
-    input.value = volume;
-    input.dispatchEvent(new Event("input", {
-        "bubbles":    true,
-        "cancelable": true
-    }));
+    jsonrpc.setVolume(input.valueAsNumber).catch(notify);
 };
 
 const repeat = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementsByName("repeat")[0].disabled) {
+    if (document.querySelector(`[name="repeat"]`).disabled) {
         return;
     }
 
-    const [off, all, one] = document.getElementsByName("repeat");
+    const [off, all, one] = document.querySelectorAll(`[name="repeat"]`);
     if (off.checked) {
         off.checked = false;
         all.checked = true;
@@ -346,74 +401,83 @@ const repeat = function () {
         one.checked = false;
         off.checked = true;
     }
-    jsonrpc.setRepeat().then(paint).catch(notify);
+    jsonrpc.setRepeat().catch(notify);
 };
 
 const shuffle = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.getElementsByName("shuffle")[0].disabled) {
+    if (document.querySelector("#shuffle").disabled) {
         return;
     }
 
-    const input = document.getElementsByName("shuffle")[0];
+    const input = document.querySelector("#shuffle");
     input.checked = !input.checked;
-    jsonrpc.setShuffle(input.checked).then(paint).catch(notify);
+    jsonrpc.setShuffle(input.checked).catch(notify);
 };
 
-const clear = function () {
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé.
-    if (document.getElementById("clear").disabled) {
+const passing = function () {
+    if (null === speed || -1 === speed) {
         return;
     }
 
-    jsonrpc.clear().catch(notify);
+    const time = document.querySelector("#time");
+    onSeek({ "player": {
+        "playerid": 1,
+        "time":     time.valueAsNumber + SPEEDS[speed]
+    } });
 };
 
-jsonrpc.getProperties().then(function (properties) {
-    document.getElementsByName("mute")[0].checked = properties.muted;
-    volume = properties.volume;
-    speed = null === properties.speed ? null
-                                      : SPEEDS.indexOf(properties.speed);
-    if ("off" === properties.repeat) {
-        document.getElementsByName("repeat")[0].checked = true;
-    } else if ("all" === properties.repeat) {
-        document.getElementsByName("repeat")[1].checked = true;
-    } else {
-        document.getElementsByName("repeat")[2].checked = true;
-    }
-    document.getElementsByName("shuffle")[0].checked = properties.shuffled;
-}).finally(paint);
+const move = function () {
+    clearInterval(interval);
+    const time = document.querySelector("#time");
 
-document.getElementById("send").addEventListener("click", send);
-document.getElementById("insert").addEventListener("click", insert);
-document.getElementById("add").addEventListener("click", add);
-document.getElementById("paste").addEventListener("click", paste);
-document.getElementById("preferences").addEventListener("click", preferences);
-document.getElementById("love").addEventListener("click", love);
-document.getElementById("error").addEventListener("click", error);
+    onSeek({ "player": {
+        "playerid": 1,
+        "time":     time.valueAsNumber
+    } });
+};
 
-document.getElementById("previous").addEventListener("click", previous);
-document.getElementById("rewind").addEventListener("click", rewind);
-document.getElementById("stop").addEventListener("click", stop);
-document.getElementById("pause").addEventListener("click", playPause);
-document.getElementById("play").addEventListener("click", playPause);
-document.getElementById("forward").addEventListener("click", forward);
-document.getElementById("next").addEventListener("click", next);
+const seek = function () {
+    interval = setInterval(passing, 1000);
+    const time = document.querySelector("#time");
+    jsonrpc.seek(time.valueAsNumber).catch(notify);
+};
 
-document.getElementById("mute").addEventListener("click", muteSound);
-document.getElementById("sound").addEventListener("click", muteSound);
-document.getElementById("volume").addEventListener("input", setVolume);
 
-document.getElementById("repeat-all").addEventListener("click", repeat);
-document.getElementById("repeat-one").addEventListener("click", repeat);
-document.getElementById("shuffle").addEventListener("click", shuffle);
-document.getElementById("clear").addEventListener("click", clear);
+document.querySelector("#send").onclick = send;
+document.querySelector("#insert").onclick = insert;
+document.querySelector("#add").onclick = add;
+document.querySelector("#paste + span").onclick = paste;
+document.querySelector("#preferences").onclick = preferences;
+document.querySelector("#rate").onclick = rate;
+
+document.querySelector("#time").oninput = move;
+document.querySelector("#time").onchange = seek;
+
+document.querySelector("#previous").onclick = previous;
+document.querySelector("#rewind").onclick = rewind;
+document.querySelector("#stop").onclick = stop;
+document.querySelector("#pause").onclick = playPause;
+document.querySelector("#play").onclick = playPause;
+document.querySelector("#forward").onclick = forward;
+document.querySelector("#next").onclick = next;
+
+document.querySelector(`#mute ~ span[data-i18n-title="mute"]`)
+                                                             .onclick = setMute;
+document.querySelector(`#mute ~ span[data-i18n-title="sound"]`)
+                                                             .onclick = setMute;
+document.querySelector("#volume").oninput = setVolume;
+
+document.querySelector("#repeat-all").onclick = repeat;
+document.querySelector("#repeat-one").onclick = repeat;
+document.querySelector("#shuffle + span").onclick = shuffle;
+
+document.querySelector("#configure").onclick = preferences;
 
 // Insérer le code SVG des icônes dans la page pour pouvoir changer leur couleur
 // avec la feuille de style.
-for (const element of document.getElementsByTagName("object")) {
+for (const element of document.querySelectorAll("object")) {
     if ("loading" !== element.parentNode.id) {
         fetch(element.data).then(function (response) {
             return response.text();
@@ -425,6 +489,17 @@ for (const element of document.getElementsByTagName("object")) {
 }
 
 window.focus();
+window.onkeydown = function (event) {
+    // Ignorer les entrées avec une touche de modification.
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+        return;
+    }
+
+    if ("TEXTAREA" === event.target.tagName && "Enter" === event.key) {
+        send();
+        event.preventDefault();
+    }
+};
 window.onkeyup = function (event) {
     // Ignorer les entrées dans une zone de texte ou avec une touche de
     // modification.
@@ -434,21 +509,37 @@ window.onkeyup = function (event) {
     }
 
     switch (event.key) {
-        case "p": case "P": send();      break;
-        case "n": case "N": insert();    break;
-        case "q": case "Q": add();       break;
-        case "v": case "V": paste();     break;
-        case "PageDown":    previous();  break;
-        case "r": case "R": rewind();    break;
-        case "x": case "X": stop();      break;
-        case " ":           playPause(); break;
-        case "f": case "F": forward();   break;
-        case "PageUp":      next();      break;
-        case "m": case "M": muteSound(); break;
-        case "-":           subVolume(); break;
-        case "+": case "=": addVolume(); break;
+        case "p": case "P": send();         break;
+        case "n": case "N": insert();       break;
+        case "q": case "Q": add();          break;
+        case "v": case "V": paste();        break;
+        case "PageUp":      previous();     break;
+        case "r": case "R": rewind();       break;
+        case "x": case "X": stop();         break;
+        case " ":           playPause();    break;
+        case "f": case "F": forward();      break;
+        case "PageDown":    next();         break;
+        case "m": case "M": setMute();      break;
+        case "-":           setVolume(-10); break;
+        case "+": case "=": setVolume(10);  break;
         // Appliquer le traitement par défaut pour les autres entrées.
         default: return;
     }
     event.preventDefault();
 };
+
+interval = setInterval(passing, 1000);
+
+browser.storage.local.get(["connection-host"]).then(function (config) {
+    jsonrpc = new JSONRPC(config["connection-host"]);
+    jsonrpc.onVolumeChanged   = onVolumeChanged;
+    jsonrpc.onAVStart         = update;
+    jsonrpc.onPause           = onSpeedChanged;
+    jsonrpc.onPlay            = update;
+    jsonrpc.onPropertyChanged = onPropertyChanged;
+    jsonrpc.onResume          = onSpeedChanged;
+    jsonrpc.onSeek            = onSeek;
+    jsonrpc.onSpeedChanged    = onSpeedChanged;
+    jsonrpc.onStop            = onStop;
+    update();
+});

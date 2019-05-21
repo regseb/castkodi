@@ -2,20 +2,7 @@
  * @module options/script
  */
 
-import * as jsonrpc    from "../core/jsonrpc.js";
-import { notify }      from "../core/notify.js";
-import { PebkacError } from "../core/pebkac.js";
-
-/**
- * Active / Désactive le bouton pour tester les paramètres de connexion.
- *
- * @function active
- */
-const activate = function () {
-    document.getElementById("connection-check").disabled =
-                  !(document.getElementById("connection-port").validity.valid &&
-                     document.getElementById("connection-host").validity.valid);
-};
+import { JSONRPC } from "../core/jsonrpc.js";
 
 /**
  * Demande (ou enlève) une permission optionnelle.
@@ -36,6 +23,38 @@ const ask = function (input) {
     }
 };
 
+const check = function (input) {
+    input.setCustomValidity("");
+    input.removeAttribute("title");
+    input.style.backgroundImage = `url("img/loading.svg")`;
+    const host = input.value;
+    JSONRPC.check(host).then(() => {
+        // Indiquer la réussite si la valeur testée est toujours la valeur
+        // renseignée. Si une autre valeur est en cours de vérification :
+        // ignorer celle-ci.
+        if (host === input.value) {
+            input.setCustomValidity("");
+            input.removeAttribute("title");
+            input.style.backgroundImage = `url("img/valid.svg")`;
+            document.querySelector(".warning").style.display = "none";
+        }
+    }).catch((err) => {
+        // Afficher l'erreur si la valeur testée est toujours la valeur
+        // renseignée. Si une autre valeur est en cours de vérification :
+        // ignorer celle-ci.
+        if (host === input.value) {
+            input.setCustomValidity(err.message);
+            input.title = err.message;
+            input.style.backgroundImage = `url("img/invalid.svg")`;
+            if ("notFound" === err.type) {
+                document.querySelector(".warning").style.display = "block";
+            } else {
+                document.querySelector(".warning").style.display = "none";
+            }
+        }
+    });
+};
+
 /**
  * Enregistre un paramètre.
  *
@@ -50,32 +69,16 @@ const save = function () {
         } else {
             browser.storage.local.set({ [key]: this.checked });
         }
-    } else if ("radio" === this.type) {
-        browser.storage.local.set({ [key]: this.value });
-    } else if (0 === this.value.length) {
-        browser.storage.local.remove(key);
     } else {
         browser.storage.local.set({ [key]: this.value });
+        if ("connection-host" === key) {
+            check(this);
+        }
     }
-
-    activate();
-};
-
-/**
- * Teste la connexion à Kodi.
- *
- * @function check
- * @param {Event} event L'évènement du clic.
- */
-const check = function (event) {
-    event.preventDefault();
-    jsonrpc.check().then(function () {
-        notify(new PebkacError("success"));
-    }).catch(notify);
 };
 
 // Pré-remplir les champs du formulaire.
-browser.storage.local.get().then(function (config) {
+browser.storage.local.get().then((config) => {
     for (const [key, value] of Object.entries(config)) {
         const [form, name] = key.split("-");
         const inputs = document.querySelectorAll(`#${form} [name="${name}"]`);
@@ -92,11 +95,12 @@ browser.storage.local.get().then(function (config) {
             }
         }
     }
-    activate();
+
+    // Vérifier la connexion à Kodi.
+    check(document.querySelector("#connection-host"));
 });
 
 // Écouter les actions dans le formulaire.
 for (const input of document.querySelectorAll("[name]")) {
-    input.addEventListener("input", save);
+    input.oninput = save;
 }
-document.getElementById("connection-check").addEventListener("click", check);

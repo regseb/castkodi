@@ -2,9 +2,9 @@
  * @module background
  */
 
-import * as jsonrpc from "./core/jsonrpc.js";
-import { notify }   from "./core/notify.js";
-import { extract }  from "./core/scrapers.js";
+import { JSONRPC } from "./core/jsonrpc.js";
+import { notify }  from "./core/notify.js";
+import { extract } from "./core/scrapers.js";
 
 /**
  * La liste des contextes où seront ajouté les options dans le menu contextuel.
@@ -15,6 +15,13 @@ const CONTEXTS = [
     "audio", "browser_action", "frame", "link", "page", "selection", "tab",
     "video"
 ];
+
+/**
+ * Le client JSON-RPC pour contacter Kodi.
+ *
+ * @type {Object}
+ */
+let jsonrpc = null;
 
 /**
  * Diffuse un média sur Kodi.
@@ -45,6 +52,20 @@ const cast = function (info) {
         return config["general-history"] ? browser.history.addUrl({ url })
                                          : Promise.resolve();
     }).catch(notify);
+};
+
+/**
+ * Crée le client JSON-RPC pour contacter Kodi.
+ *
+ * @function client
+ * @param {Object} changes Les paramètres de la configuration modifiés.
+ */
+const client = function (changes) {
+    if (!("connection-host" in changes)) {
+        return;
+    }
+
+    jsonrpc = new JSONRPC(changes["connection-host"].newValue);
 };
 
 /**
@@ -118,26 +139,25 @@ const menu = function (changes) {
 };
 
 browser.storage.local.get().then(function (config) {
-    // Migrer les anciennes données (avant la version 1.0.0).
-    for (const key of ["port", "username", "password", "host"]) {
-        if (key in config) {
-            browser.storage.local.set({
-                ["connection-" + key]: config[key]
-            });
-            browser.storage.local.remove(key);
-        }
+    // Migrer l'ancienne propriété "host" (avant la version 1.0.0).
+    if ("host" in config) {
+        browser.storage.local.set({ "connection-host": config.host });
+        browser.storage.local.remove("host");
     }
     // Renommer la propriété "menus-play" (avant la version 1.5.0).
     if ("menus-play" in config) {
         browser.storage.local.set({ "menus-send": config["menus-play"] });
         browser.storage.local.remove("menus-play");
     }
-    // Supprimer la propriété "airmozilla-format" (avant la version 3.0.0).
-    browser.storage.local.remove("airmozilla-format");
+    // Supprimer les anciennes propriétés.
+    browser.storage.local.remove([
+        "port", "username", "password", "airmozilla-format", "connection-port",
+        "connection-username", "connection-password"
+    ]);
 
     // Définir des valeurs par défaut.
-    if (!("version" in config)) {
-        browser.storage.local.set({ "version": "3.3.1" });
+    if (!("connection-host" in config)) {
+        browser.storage.local.set({ "connection-host": "" });
     }
     if (!("general-history" in config)) {
         browser.storage.local.set({ "general-history": false });
@@ -154,6 +174,12 @@ browser.storage.local.get().then(function (config) {
     if (!("youtube-playlist" in config)) {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
     }
+    browser.storage.local.set({ "version": "4.0.0" });
+
+    // Se connecter à Kodi et surveiller les futures changements de la
+    // configuration.
+    client({ "connection-host": { "newValue": config["connection-host"] } });
+    browser.storage.onChanged.addListener(client);
 
     // Ajouter les options dans les menus contextuels et surveiller les futurs
     // changements de la configuration.

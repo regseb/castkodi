@@ -2,7 +2,7 @@ import assert from "assert";
 import fr     from "../src/_locales/fr/messages.json";
 import en     from "../src/_locales/en/messages.json";
 
-const compare = function (messages1, messages2) {
+const compare = (messages1, messages2) => {
     for (const [name, message] of Object.entries(messages1)) {
         if (!("message" in message)) {
             assert.fail(name);

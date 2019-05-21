@@ -1,6 +1,6 @@
 export const browser = {
     "i18n": {
-        "getMessage": function (key, substitutions = []) {
+        "getMessage": (key, substitutions = []) => {
             if (Array.isArray(substitutions)) {
                 if (0 === substitutions.length) {
                     return key;
@@ -12,7 +12,7 @@ export const browser = {
     },
 
     "notifications": {
-        "create": function () {
+        "create": () => {
             // Ne rien faire.
         }
     },
@@ -20,13 +20,13 @@ export const browser = {
     "storage": {
         "local": {
             "_data": {},
-            "get":   function () {
+            "get":   () => {
                 return Promise.resolve(browser.storage.local["_data"]);
             },
-            "set":   function (values) {
+            "set":   (values) => {
                 Object.assign(browser.storage.local["_data"], values);
             },
-            "clear": function () {
+            "clear": () => {
                 browser.storage.local["_data"] = {};
             }
         }

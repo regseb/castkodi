@@ -3,40 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <title>Cast Kodi</title>
-    <link rel="stylesheet" href="chrome://browser/content/extension.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <form id="connection">
       <h3 data-i18n-textcontent="connection-title"></h3>
       <p data-i18n-textcontent="connection-intro"></p>
-      <div class="browser-style">
-        <label for="connection-port" data-i18n-textcontent></label>
-        <input type="number" id="connection-port" name="port" min="1"
-               max="65535" required="required" />
-      </div>
-      <div class="browser-style">
-        <label for="connection-username" data-i18n-textcontent></label>
-        <input type="text" id="connection-username" name="username" />
-      </div>
-      <div class="browser-style">
-        <label for="connection-password" data-i18n-textcontent></label>
-        <input type="password" id="connection-password" name="password" />
-      </div>
-
-      <p data-i18n-textcontent="connection-help-host"></p>
-      <div class="browser-style">
+      <div>
         <label for="connection-host" data-i18n-textcontent></label>
-        <input type="text" id="connection-host" name="host"
-               required="required" />
-        <button id="connection-check" data-i18n-textcontent
-                class="browser-style"></button>
+        <input type="text" id="connection-host" name="host" required
+               placeholder="192.168.0.1" />
       </div>
+      <p class="warning" data-i18n-textcontent="connection-change"></p>
     </form>
 
     <form id="general">
       <h3 data-i18n-textcontent="general-title"></h3>
-      <div class="browser-style">
+      <div>
         <input type="checkbox" id="general-history" name="history"
                data-permissions="history" />
         <label for="general-history" data-i18n-textcontent></label>
@@ -46,15 +29,15 @@
     <form id="menus">
       <h3 data-i18n-textcontent="menus-title"></h3>
       <p data-i18n-textcontent="menus-description"></p>
-      <div class="browser-style">
+      <div>
         <input type="checkbox" id="menus-send" name="send" />
         <label for="menus-send" data-i18n-textcontent></label>
       </div>
-      <div class="browser-style">
+      <div>
         <input type="checkbox" id="menus-insert" name="insert" />
         <label for="menus-insert" data-i18n-textcontent></label>
       </div>
-      <div class="browser-style">
+      <div>
         <input type="checkbox" id="menus-add" name="add" />
         <label for="menus-add" data-i18n-textcontent></label>
       </div>
@@ -63,12 +46,12 @@
     <form id="youtube">
       <h3 data-i18n-textcontent="youtube-title"></h3>
       <p data-i18n-textcontent="youtube-playlist"></p>
-      <div class="browser-style">
+      <div>
         <input type="radio" id="youtube-playlist-playlist" name="playlist"
                value="playlist" />
         <label for="youtube-playlist-playlist" data-i18n-textcontent></label>
       </div>
-      <div class="browser-style">
+      <div>
         <input type="radio" id="youtube-playlist-video" name="playlist"
                value="video" />
         <label for="youtube-playlist-video" data-i18n-textcontent></label>
