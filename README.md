@@ -16,8 +16,8 @@ sur **Kodi** :
 - des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo, Instagram,
   torrents, magnets et Ace Stream, AlloCiné, Dailymotion, DevTube, Dumpert,
   Facebook, Flickr, Full30, JeuxVideoCom, PeerTube, Pippa, Rutube, StormoTV…
-- des musiques : liens directs (*mp3*, *flac*…), SoundCloud et Arte Radio,
-  Mixcloud, Radioline…
+- des musiques : liens directs (*mp3*, *flac*…), SoundCloud et Apple Podcasts,
+  Arte Radio, Mixcloud, Radioline…
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une
