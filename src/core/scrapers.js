@@ -20,6 +20,7 @@ import { rules as pippa }         from "./scraper/pippa.js";
 import { rules as radioline }     from "./scraper/radioline.js";
 import { rules as rutube }        from "./scraper/rutube.js";
 import { rules as soundcloud }    from "./scraper/soundcloud.js";
+import { rules as steampowered }  from "./scraper/steampowered.js";
 import { rules as stormotv }      from "./scraper/stormotv.js";
 import { rules as twitch }        from "./scraper/twitch.js";
 import { rules as vimeo }         from "./scraper/vimeo.js";
@@ -35,8 +36,8 @@ import { rules as acestream }     from "./scraper/acestream.js";
 const scrapers = [
     allocine, applepodcasts, arteradio, devtube, dumpert, dailymotion, facebook,
     flickr, full30, instagram, jeuxvideocom, mixcloud, peertube, pippa,
-    radioline, rutube, soundcloud, stormotv, twitch, vimeo, youtube, torrent,
-    acestream
+    radioline, rutube, soundcloud, steampowered, stormotv, twitch, vimeo,
+    youtube, torrent, acestream
 ];
 
 /**

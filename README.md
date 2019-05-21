@@ -15,7 +15,8 @@ sur **Kodi** :
 
 - des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo, Instagram,
   torrents, magnets et Ace Stream, AlloCiné, Dailymotion, DevTube, Dumpert,
-  Facebook, Flickr, Full30, JeuxVideoCom, PeerTube, Pippa, Rutube, StormoTV…
+  Facebook, Flickr, Full30, JeuxVideoCom, PeerTube, Pippa, Rutube, Steam,
+  StormoTV…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud et Apple Podcasts,
   Arte Radio, Mixcloud, Radioline…
 
