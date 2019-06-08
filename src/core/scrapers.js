@@ -2,32 +2,33 @@
  * @module core/scrapers
  */
 
-import { PebkacError }            from "./pebkac.js";
-import { rules as allocine }      from "./scraper/allocine.js";
-import { rules as applepodcasts } from "./scraper/applepodcasts.js";
-import { rules as arteradio }     from "./scraper/arteradio.js";
-import { rules as devtube }       from "./scraper/devtube.js";
-import { rules as dumpert }       from "./scraper/dumpert.js";
-import { rules as dailymotion }   from "./scraper/dailymotion.js";
-import { rules as facebook }      from "./scraper/facebook.js";
-import { rules as flickr }        from "./scraper/flickr.js";
-import { rules as full30 }        from "./scraper/full30.js";
-import { rules as instagram }     from "./scraper/instagram.js";
-import { rules as jeuxvideocom }  from "./scraper/jeuxvideocom.js";
-import { rules as mixcloud }      from "./scraper/mixcloud.js";
-import { rules as peertube }      from "./scraper/peertube.js";
-import { rules as pippa }         from "./scraper/pippa.js";
-import { rules as podcloud }      from "./scraper/podcloud.js";
-import { rules as radioline }     from "./scraper/radioline.js";
-import { rules as rutube }        from "./scraper/rutube.js";
-import { rules as soundcloud }    from "./scraper/soundcloud.js";
-import { rules as steampowered }  from "./scraper/steampowered.js";
-import { rules as stormotv }      from "./scraper/stormotv.js";
-import { rules as twitch }        from "./scraper/twitch.js";
-import { rules as vimeo }         from "./scraper/vimeo.js";
-import { rules as youtube }       from "./scraper/youtube.js";
-import { rules as torrent }       from "./scraper/torrent.js";
-import { rules as acestream }     from "./scraper/acestream.js";
+import { PebkacError }             from "./pebkac.js";
+import { rules as allocine }       from "./scraper/allocine.js";
+import { rules as applepodcasts }  from "./scraper/applepodcasts.js";
+import { rules as arteradio }      from "./scraper/arteradio.js";
+import { rules as devtube }        from "./scraper/devtube.js";
+import { rules as dumpert }        from "./scraper/dumpert.js";
+import { rules as dailymotion }    from "./scraper/dailymotion.js";
+import { rules as facebook }       from "./scraper/facebook.js";
+import { rules as flickr }         from "./scraper/flickr.js";
+import { rules as full30 }         from "./scraper/full30.js";
+import { rules as instagram }      from "./scraper/instagram.js";
+import { rules as jeuxvideocom }   from "./scraper/jeuxvideocom.js";
+import { rules as mixcloud }       from "./scraper/mixcloud.js";
+import { rules as mycloudplayers } from "./scraper/mycloudplayers.js";
+import { rules as peertube }       from "./scraper/peertube.js";
+import { rules as pippa }          from "./scraper/pippa.js";
+import { rules as podcloud }       from "./scraper/podcloud.js";
+import { rules as radioline }      from "./scraper/radioline.js";
+import { rules as rutube }         from "./scraper/rutube.js";
+import { rules as soundcloud }     from "./scraper/soundcloud.js";
+import { rules as steampowered }   from "./scraper/steampowered.js";
+import { rules as stormotv }       from "./scraper/stormotv.js";
+import { rules as twitch }         from "./scraper/twitch.js";
+import { rules as vimeo }          from "./scraper/vimeo.js";
+import { rules as youtube }        from "./scraper/youtube.js";
+import { rules as torrent }        from "./scraper/torrent.js";
+import { rules as acestream }      from "./scraper/acestream.js";
 
 /**
  * La liste des scrapers.
@@ -36,9 +37,9 @@ import { rules as acestream }     from "./scraper/acestream.js";
  */
 const scrapers = [
     allocine, applepodcasts, arteradio, devtube, dumpert, dailymotion, facebook,
-    flickr, full30, instagram, jeuxvideocom, mixcloud, peertube, pippa,
-    podcloud, radioline, rutube, soundcloud, steampowered, stormotv, twitch,
-    vimeo, youtube, torrent, acestream
+    flickr, full30, instagram, jeuxvideocom, mixcloud, mycloudplayers, peertube,
+    pippa, podcloud, radioline, rutube, soundcloud, steampowered, stormotv,
+    twitch, vimeo, youtube, torrent, acestream
 ];
 
 /**
