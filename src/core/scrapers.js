@@ -16,6 +16,7 @@ import { rules as instagram }      from "./scraper/instagram.js";
 import { rules as jeuxvideocom }   from "./scraper/jeuxvideocom.js";
 import { rules as mixcloud }       from "./scraper/mixcloud.js";
 import { rules as mycloudplayers } from "./scraper/mycloudplayers.js";
+import { rules as onetv }          from "./scraper/onetv.js";
 import { rules as peertube }       from "./scraper/peertube.js";
 import { rules as pippa }          from "./scraper/pippa.js";
 import { rules as podcloud }       from "./scraper/podcloud.js";
@@ -37,9 +38,9 @@ import { rules as acestream }      from "./scraper/acestream.js";
  */
 const scrapers = [
     allocine, applepodcasts, arteradio, devtube, dumpert, dailymotion, facebook,
-    flickr, full30, instagram, jeuxvideocom, mixcloud, mycloudplayers, peertube,
-    pippa, podcloud, radioline, rutube, soundcloud, steampowered, stormotv,
-    twitch, vimeo, youtube, torrent, acestream
+    flickr, full30, instagram, jeuxvideocom, mixcloud, mycloudplayers, onetv,
+    peertube, pippa, podcloud, radioline, rutube, soundcloud, steampowered,
+    stormotv, twitch, vimeo, youtube, torrent, acestream
 ];
 
 /**
