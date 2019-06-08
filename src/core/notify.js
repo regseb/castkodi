@@ -6,7 +6,7 @@
  * Notifie l'utilisateur d'un message d'erreur.
  *
  * @function notify
- * @param {Object} err L'erreur affichée dans la notification.
+ * @param {object} err L'erreur affichée dans la notification.
  */
 export const notify = function (err) {
     browser.notifications.create(null, {

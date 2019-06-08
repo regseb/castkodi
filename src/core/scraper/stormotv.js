@@ -24,7 +24,7 @@ rules.set(["https://www.stormo.tv/videos/*"], function (url) {
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const meta = doc.querySelector("meta[property=\"ya:ovs:content_url\"]");
+        const meta = doc.querySelector(`meta[property="ya:ovs:content_url"]`);
         if (null === meta) {
             throw new PebkacError("noVideo", "Stormo.TV");
         }

@@ -24,7 +24,7 @@ rules.set(["*://www.instagram.com/p/*"], function (url) {
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const result = doc.querySelector("head meta[property=\"og:video\"]");
+        const result = doc.querySelector(`head meta[property="og:video"]`);
         if (null === result) {
             throw new PebkacError("noVideo", "Instagram");
         }

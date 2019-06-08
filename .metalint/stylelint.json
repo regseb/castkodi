@@ -92,7 +92,7 @@
         "selector-max-compound-selectors": null,
         "selector-max-empty-lines": 0,
         "selector-max-id": 1,
-        "selector-max-pseudo-class": 2,
+        "selector-max-pseudo-class": 3,
         "selector-max-specificity": null,
         "selector-max-type": null,
         "selector-max-universal": null,

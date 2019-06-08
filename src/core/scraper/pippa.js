@@ -24,7 +24,7 @@ rules.set(["*://shows.pippa.io/*/*"], function (url) {
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const meta = doc.querySelector("head meta[property=\"og:audio\"]");
+        const meta = doc.querySelector(`head meta[property="og:audio"]`);
         if (null === meta) {
             throw new PebkacError("noAudio", "Pippa");
         }

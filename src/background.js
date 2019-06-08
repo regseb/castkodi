@@ -19,7 +19,7 @@ const CONTEXTS = [
 /**
  * Le client JSON-RPC pour contacter Kodi.
  *
- * @type {Object}
+ * @type {object}
  */
 let jsonrpc = null;
 
@@ -27,7 +27,7 @@ let jsonrpc = null;
  * Diffuse un média sur Kodi.
  *
  * @function cast
- * @param {Object} info Les informations fournies par le menu contextuel ou la
+ * @param {object} info Les informations fournies par le menu contextuel ou la
  *                      pop-up.
  */
 const cast = function (info) {
@@ -58,7 +58,7 @@ const cast = function (info) {
  * Crée le client JSON-RPC pour contacter Kodi.
  *
  * @function client
- * @param {Object} changes Les paramètres de la configuration modifiés.
+ * @param {object} changes Les paramètres de la configuration modifiés.
  */
 const client = function (changes) {
     if (!("connection-host" in changes)) {
@@ -72,7 +72,7 @@ const client = function (changes) {
  * Ajoute les options dans les menus contextuels.
  *
  * @function menu
- * @param {Object} changes Les paramètres de la configuration modifiés.
+ * @param {object} changes Les paramètres de la configuration modifiés.
  */
 const menu = function (changes) {
     // Ignorer tous les changements sauf ceux liés au menu contextuel.

@@ -34,7 +34,7 @@ import { rules as acestream }      from "./scraper/acestream.js";
 /**
  * La liste des scrapers.
  *
- * @constant {Array.<Object>}
+ * @constant {Array.<object>}
  */
 const scrapers = [
     allocine, applepodcasts, arteradio, devtube, dumpert, dailymotion, facebook,
@@ -101,7 +101,7 @@ const compile = function (pattern) {
  * Les patrons (sous forme de d'expression rationnelle) des URLs gérées ainsi
  * que leur action.
  *
- * @constant {Array.<Object.<string,*>>}
+ * @constant {Array.<object.<string,*>>}
  */
 const SCRAPERS = [];
 

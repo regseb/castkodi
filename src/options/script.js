@@ -8,7 +8,7 @@ import { JSONRPC } from "../core/jsonrpc.js";
  * Demande (ou enlève) une permission optionnelle.
  *
  * @function ask
- * @param {Object} input La case à cocher.
+ * @param {object} input La case à cocher.
  */
 const ask = function (input) {
     const permissions = { "permissions": [input.dataset.permissions] };
