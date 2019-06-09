@@ -73,6 +73,15 @@ describe("scrapers", function () {
             });
         });
 
+        it("should return BitChute URL", function () {
+            const url = "https://www.bitchute.com/video/dz5JcCZnJMge/";
+            const expected = "https://seed22.bitchute.com/hU2elaB5u3kB" +
+                                                            "/dz5JcCZnJMge.mp4";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+
         it("should return LiveLeak URL", function () {
             const url = "https://www.liveleak.com/view?t=HfVq_1535497667";
             const expected = "https://cdn.liveleak.com/80281E/ll_a_s/2018/" +

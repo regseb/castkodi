@@ -23,7 +23,7 @@ sur **Kodi** :
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une
 vidéo YouTube, cette vidéo sera envoyée à Kodi. Les sites suivants (et surement
-d'autres) sont gérés : LiveLeak, Útvarp Saga…
+d'autres) sont gérés : BitChute, LiveLeak, Útvarp Saga…
 
 Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le
 menu contextuel des liens / pages / sélections de vidéos ou de musiques : *Lire
