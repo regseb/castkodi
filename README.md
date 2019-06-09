@@ -13,17 +13,19 @@
 Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
 sur **Kodi** :
 
-- des vidéos : liens directs (*avi*, *mkv*…), YouTube, Twitch, Vimeo, Instagram,
-  torrents, magnets et Ace Stream, AlloCiné, Dailymotion, DevTube, Dumpert,
-  Facebook, Flickr, Full30, JeuxVideoCom, PeerTube, Pippa, Первый канал, Rutube,
-  Steam, StormoTV…
-- des musiques : liens directs (*mp3*, *flac*…), SoundCloud et Apple Podcasts,
-  Arte Radio, Mixcloud, My Cloud Player, podCloud, Radioline…
+- des vidéos : liens directs (*avi*, *mkv*…), YouTube<sup>1</sup>,
+  Twitch<sup>1</sup>, Vimeo<sup>1</sup>, Instagram, torrents<sup>1</sup>,
+  magnets<sup>1</sup> et Ace Stream<sup>1</sup>, AlloCiné, BitChute,
+  Dailymotion<sup>1</sup>, DevTube, Dumpert<sup>1</sup>, Facebook, Flickr,
+  Full30, JeuxVideoCom, LiveLeak, PeerTube, Pippa, Первый канал, Rutube, Steam,
+  StormoTV, Útvarp Saga…
+- des musiques : liens directs (*mp3*, *flac*…), SoundCloud<sup>1</sup> et Apple
+  Podcasts, Arte Radio, Mixcloud<sup>1</sup>, My Cloud Player, podCloud,
+  Radioline…
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une
-vidéo YouTube, cette vidéo sera envoyée à Kodi. Les sites suivants (et surement
-d'autres) sont gérés : BitChute, LiveLeak, Útvarp Saga…
+vidéo YouTube, cette vidéo sera envoyée à Kodi.
 
 Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le
 menu contextuel des liens / pages / sélections de vidéos ou de musiques : *Lire
@@ -46,8 +48,8 @@ d'utilisateur* et le *Mot de passe*. Il faut fournir l'*Adresse IP* du serveur
 hébergeant Kodi ; cette information est disponible dans la page *Paramètres* /
 *Infos sur le système* / *Résumé*.
 
-Pour lire les vidéos / musiques hébergées sur des plateformes, il faut installer
-les extensions
+<sup>1</sup> Pour lire les vidéos / musiques hébergées sur ces plateformes, il
+faut installer les extensions
 [YouTube](https://kodi.tv/addon/plugins-video-add-ons/youtube),
 [Twitch](https://kodi.tv/addon/plugins-video-add-ons/twitch),
 [Vimeo](https://kodi.tv/addon/plugins-video-add-ons/vimeo),
