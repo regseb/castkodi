@@ -17,8 +17,8 @@ sur **Kodi** :
   Twitch<sup>1</sup>, Vimeo<sup>1</sup>, Instagram, torrents<sup>1</sup>,
   magnets<sup>1</sup> et Ace Stream<sup>1</sup>, AlloCiné, BitChute,
   Dailymotion<sup>1</sup>, DevTube, Dumpert<sup>1</sup>, Facebook, Flickr,
-  Full30, JeuxVideoCom, LiveLeak, PeerTube, Pippa, Первый канал, Rutube, Steam,
-  StormoTV, Útvarp Saga…
+  Full30, Gamekult, JeuxVideoCom, LiveLeak, PeerTube, Pippa, Первый канал,
+  Rutube, Steam, StormoTV, Útvarp Saga…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud<sup>1</sup> et Apple
   Podcasts, Arte Radio, Mixcloud<sup>1</sup>, My Cloud Player, podCloud,
   Radioline…

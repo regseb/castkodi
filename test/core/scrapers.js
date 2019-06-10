@@ -82,6 +82,17 @@ describe("scrapers", function () {
             });
         });
 
+        it("should return Gamekult URL", function () {
+            const url = "https://www.gamekult.com/emission" +
+                        "/gautoz-fait-sa-moisson-de-pixels-a-l-evenement-inde" +
+                                                             "-3050806583.html";
+            const expected = "plugin://plugin.video.dailymotion_com/" +
+                                                  "?mode=playVideo&url=x6m0tlk";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+
         it("should return LiveLeak URL", function () {
             const url = "https://www.liveleak.com/view?t=HfVq_1535497667";
             const expected = "https://cdn.liveleak.com/80281E/ll_a_s/2018/" +

@@ -140,17 +140,17 @@ const rummage = function (url) {
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const selector = "video source, video, audio source, audio, iframe";
+        const selector = "video source[src], video[src], audio source[src]," +
+                         " audio[src], iframe[src]";
         for (const element of doc.querySelectorAll(selector)) {
-            if (isUrl(element.src)) {
-                if ("IFRAME" === element.tagName) {
-                    const file = dispatch(element.src);
-                    if (null !== file) {
-                        return file;
-                    }
-                } else {
-                    return element.src;
+            const src = new URL(element.getAttribute("src"), url).href;
+            if ("IFRAME" === element.tagName) {
+                const file = dispatch(src);
+                if (null !== file) {
+                    return file;
                 }
+            } else {
+                return src;
             }
         }
 
