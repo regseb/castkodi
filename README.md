@@ -13,15 +13,13 @@
 Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
 sur **Kodi** :
 
-- des vidéos : liens directs (*avi*, *mkv*…), YouTube<sup>1</sup>,
-  Twitch<sup>1</sup>, Vimeo<sup>1</sup>, Instagram, torrents<sup>1</sup>,
-  magnets<sup>1</sup> et Ace Stream<sup>1</sup>, AlloCiné, BitChute,
-  Dailymotion<sup>1</sup>, DevTube, Dumpert<sup>1</sup>, Facebook, Flickr,
-  Full30, Gamekult, JeuxVideoCom, LiveLeak, PeerTube, Pippa, Первый канал,
-  Rutube, Steam, StormoTV, Útvarp Saga…
-- des musiques : liens directs (*mp3*, *flac*…), SoundCloud<sup>1</sup> et Apple
-  Podcasts, Arte Radio, Mixcloud<sup>1</sup>, My Cloud Player, podCloud,
-  Radioline…
+- des vidéos : liens directs (*avi*, *mkv*…), YouTube¹, Twitch¹, Vimeo¹,
+  Instagram, torrents¹, magnets¹ et Ace Stream¹, AlloCiné, BitChute,
+  Dailymotion¹, DevTube, Dumpert¹, Facebook, Flickr, Full30, Gamekult,
+  JeuxVideoCom, LiveLeak, PeerTube, Pippa, Первый канал, Rutube, Steam,
+  StormoTV, Útvarp Saga…
+- des musiques : liens directs (*mp3*, *flac*…), SoundCloud¹ et Apple Podcasts,
+  Arte Radio, Mixcloud¹, My Cloud Player, podCloud, Radioline…
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une
@@ -48,8 +46,8 @@ d'utilisateur* et le *Mot de passe*. Il faut fournir l'*Adresse IP* du serveur
 hébergeant Kodi ; cette information est disponible dans la page *Paramètres* /
 *Infos sur le système* / *Résumé*.
 
-<sup>1</sup> Pour lire les vidéos / musiques hébergées sur ces plateformes, il
-faut installer les extensions
+¹ Pour lire les vidéos / musiques hébergées sur ces plateformes, il faut
+installer les extensions
 [YouTube](https://kodi.tv/addon/plugins-video-add-ons/youtube),
 [Twitch](https://kodi.tv/addon/plugins-video-add-ons/twitch),
 [Vimeo](https://kodi.tv/addon/plugins-video-add-ons/vimeo),
