@@ -280,6 +280,126 @@ describe("jsonrpc", function () {
         });
     });
 
+    describe("#contextMenu()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.contextMenu().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.ContextMenu",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#up()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.up().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.Up",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#info()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.info().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.Info",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#left()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.left().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.Left",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#select()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.select().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.Select",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#right()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.right().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.Right",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#back()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.back().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.Back",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#down()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.down().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.Down",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#showOSD()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.showOSD().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "Input.ShowOSD",
+                    "params": {}
+                });
+            });
+        });
+    });
+
+    describe("#version()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.version().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "JSONRPC.Version",
+                    "params": {}
+                });
+            });
+        });
+    });
+
     describe("#getProperties()", function () {
         it("should get properties when no player active", function () {
             const jsonrpc = new JSONRPC("properties.noplayer.com");

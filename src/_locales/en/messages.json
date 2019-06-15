@@ -106,6 +106,9 @@
     "popup_preferences_title": {
         "message": "Configure"
     },
+    "popup_report_title": {
+        "message": "Report a bug / Request a feature"
+    },
     "popup_loading_title": {
         "message": "Connecting..."
     },
@@ -134,16 +137,40 @@
         "message": "Go to next [PageDown]"
     },
     "popup_mute_title": {
-        "message": "Unmute [M]"
-    },
-    "popup_sound_title": {
-        "message": "Mute [M]"
+        "message": "Mute / Unmute [F8]"
     },
     "popup_repeat_title": {
         "message": "Repeat"
     },
     "popup_shuffle_title": {
         "message": "Shuffle"
+    },
+    "popup_contextmenu_title": {
+        "message": "Open context menu [C]"
+    },
+    "popup_up_title": {
+        "message": "Up [Arrow Up]"
+    },
+    "popup_info_title": {
+        "message": "Show info [I]"
+    },
+    "popup_left_title": {
+        "message": "Left [Arrow Left]"
+    },
+    "popup_select_title": {
+        "message": "Select [Enter]"
+    },
+    "popup_right_title": {
+        "message": "Right [Arrow Right]"
+    },
+    "popup_back_title": {
+        "message": "Back [Backspace]"
+    },
+    "popup_down_title": {
+        "message": "Down [Arrow Down]"
+    },
+    "popup_osd_title": {
+        "message": "Show OSD [M]"
     },
     "popup_configure_textcontent": {
         "message": "Configure"

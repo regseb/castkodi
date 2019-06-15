@@ -3,139 +3,147 @@
   <head>
     <meta charset="utf-8" />
     <title>Cast Kodi</title>
+    <link rel="stylesheet" href="photon.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <ul>
-      <li>
-        <button id="send" disabled data-i18n-title>
-          <object data="img/send.svg"></object>
-        </button>
-      </li>
+    <section id="cast">
+      <button id="send" disabled data-i18n-title>
+        <object data="img/send.svg"></object>
+      </button>
 
-      <li>
-        <button id="insert" disabled data-i18n-title>
-          <object data="img/insert.svg"></object>
-        </button>
-      </li>
+      <button id="insert" disabled data-i18n-title>
+        <object data="img/insert.svg"></object>
+      </button>
 
-      <li>
-        <button id="add" disabled data-i18n-title>
-          <object data="img/add.svg"></object>
-        </button>
-      </li>
+      <button id="add" disabled data-i18n-title>
+        <object data="img/add.svg"></object>
+      </button>
 
-      <li>
-        <input type="checkbox" id="paste" name="paste" disabled />
-        <span data-i18n-title="paste">
-          <object data="img/paste.svg"></object>
-        </span>
+      <label id="paste" data-i18n-title>
+        <input type="checkbox" name="paste" disabled autocomplete="off" />
+        <object data="img/paste.svg"></object>
         <textarea autocomplete="off"></textarea>
-      </li>
+      </label>
 
-      <li>
-        <button id="preferences" disabled data-i18n-title>
-          <object data="img/preferences.svg"></object>
-        </button>
-      </li>
+      <span></span>
+      <span></span>
 
-      <li>
-        <span id="loading" data-i18n-title>
-          <object data="img/loading.svg"></object>
-        </span>
-        <button id="rate" data-i18n-title>
-          <object data="img/rate.svg"></object>
-        </button>
-      </li>
-    </ul>
+      <button id="preferences" data-i18n-title>
+        <object data="img/preferences.svg"></object>
+      </button>
 
-    <hr />
+      <button id="report" data-i18n-title>
+        <object data="img/report.svg"></object>
+      </button>
 
-    <ul>
-      <li></li>
-      <li class="colspan-4">
-        <input type="range" id="time" min="0" max="100" value="0" disabled
-               class="primary" />
-      </li>
-      <li></li>
-    </ul>
-    <ul>
-      <li>
-        <button id="previous" disabled data-i18n-title>
-          <object data="img/previous.svg"></object>
-        </button>
-      </li>
+      <span id="loading" data-i18n-title>
+        <object data="img/loading.svg"></object>
+      </span>
+      <button id="rate" data-i18n-title>
+        <object data="img/rate.svg"></object>
+      </button>
+    </section>
 
-      <li>
-        <button id="rewind" disabled data-i18n-title>
-          <object data="img/rewind.svg"></object>
-        </button>
-      </li>
+    <section id="playing">
+      <time></time>
+      <input type="range" id="time" min="0" max="100" value="0" disabled
+             class="primary" />
+      <time></time>
 
-      <li>
-        <button id="stop" disabled data-i18n-title>
-          <object data="img/stop.svg"></object>
-        </button>
-      </li>
+      <button id="previous" disabled data-i18n-title>
+        <object data="img/previous.svg"></object>
+      </button>
 
-      <li>
-        <button id="pause" disabled data-i18n-title>
-          <object data="img/pause.svg"></object>
-        </button>
-        <button id="play" disabled data-i18n-title>
-          <object data="img/play.svg"></object>
-        </button>
-      </li>
+      <button id="rewind" disabled data-i18n-title>
+        <object data="img/rewind.svg"></object>
+      </button>
 
-      <li>
-        <button id="forward" disabled data-i18n-title>
-          <object data="img/forward.svg"></object>
-        </button>
-      </li>
+      <button id="stop" disabled data-i18n-title>
+        <object data="img/stop.svg"></object>
+      </button>
 
-      <li>
-        <button id="next" disabled data-i18n-title>
-          <object data="img/next.svg"></object>
-        </button>
-      </li>
-    </ul>
+      <button id="pause" disabled data-i18n-title>
+        <object data="img/pause.svg"></object>
+      </button>
+      <button id="play" disabled data-i18n-title>
+        <object data="img/play.svg"></object>
+      </button>
 
-    <ul>
-      <li>
-        <input type="checkbox" id="mute" name="mute" disabled />
-        <span data-i18n-title="mute">
-          <object data="img/mute.svg"></object>
-        </span>
-        <span data-i18n-title="sound">
-          <object data="img/sound.svg"></object>
-        </span>
-      </li>
+      <button id="forward" disabled data-i18n-title>
+        <object data="img/forward.svg"></object>
+      </button>
 
-      <li class="colspan-2">
-        <input type="range" id="volume" value="50" disabled />
-      </li>
+      <button id="next" disabled data-i18n-title>
+        <object data="img/next.svg"></object>
+      </button>
 
-      <li>
-        <input type="radio" name="repeat" value="off" checked disabled />
-        <input type="radio" name="repeat" value="all" disabled />
-        <input type="radio" name="repeat" value="one" disabled />
-        <span id="repeat-all" data-i18n-title="repeat">
+      <label id="mute" data-i18n-title>
+        <input type="checkbox" name="mute" disabled />
+        <object data="img/sound.svg"></object>
+        <object data="img/mute.svg"></object>
+      </label>
+
+      <input type="range" id="volume" value="50" disabled />
+
+      <div id="repeat">
+        <label id="repeat-off" data-i18n-title="repeat">
+          <input type="radio" name="repeat" value="off" checked disabled />
           <object data="img/repeat_all.svg"></object>
-        </span>
-        <span id="repeat-one" data-i18n-title="repeat">
+        </label>
+        <label id="repeat-all" data-i18-title="repeat">
+          <input type="radio" name="repeat" value="all" disabled />
+          <object data="img/repeat_all.svg"></object>
+        </label>
+        <label id="repeat-one" data-i18n-title="repeat">
+          <input type="radio" name="repeat" value="one" disabled />
           <object data="img/repeat_one.svg"></object>
-        </span>
-      </li>
+        </label>
+      </div>
 
-      <li>
-        <input type="checkbox" id="shuffle" name="shuffle" disabled />
-        <span data-i18n-title="shuffle">
-          <object data="img/shuffle.svg"></object>
-        </span>
-      </li>
+      <label id="shuffle" data-i18n-title>
+        <input type="checkbox" name="shuffle" disabled />
+        <object data="img/shuffle.svg"></object>
+      </label>
+    </section>
 
-      <li></li>
-    </ul>
+    <section id="remote">
+      <button id="contextmenu" disabled data-i18n-title>
+        <object data="img/contextmenu.svg"></object>
+      </button>
+
+      <button id="up" disabled data-i18n-title>
+        <object data="img/up.svg"></object>
+      </button>
+
+      <button id="info" disabled data-i18n-title>
+        <object data="img/info.svg"></object>
+      </button>
+
+      <button id="left" disabled data-i18n-title>
+        <object data="img/left.svg"></object>
+      </button>
+
+      <button id="select" disabled data-i18n-title>
+        <object data="img/select.svg"></object>
+      </button>
+
+      <button id="right" disabled data-i18n-title>
+        <object data="img/right.svg"></object>
+      </button>
+
+      <button id="back" disabled data-i18n-title>
+        <object data="img/back.svg"></object>
+      </button>
+
+      <button id="down" disabled data-i18n-title>
+        <object data="img/down.svg"></object>
+      </button>
+
+      <button id="osd" disabled data-i18n-title>
+        <object data="img/osd.svg"></object>
+      </button>
+    </section>
 
     <article>
       <h1></h1>

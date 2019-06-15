@@ -1,0 +1,40 @@
+body {
+    font-family: "Segoe UI", Ubuntu, sans-serif;
+}
+
+input[type="range"] {
+    background-color: transparent;
+    border: 0;
+    height: 32px;
+    margin: 0;
+    padding: 5px 0;
+    width: 100%;
+}
+input[type="range"]::-moz-focus-outer {
+    border: 0;
+}
+input[type="range"]::-moz-range-thumb {
+    background-color: white;
+    border: 0;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.65));
+    height: 12px;
+    width: 12px;
+}
+input[type="range"]:hover::-moz-range-thumb {
+    background-color: #0a84ff;
+}
+input[type="range"]::-moz-range-progress {
+    background-color: #f9f9fa;
+    border-radius: 2.5px;
+    height: 5px;
+}
+input[type="range"]::-moz-range-track {
+    background-color: #0c0c0d;
+    border-radius: 2.5px;
+    height: 5px;
+}
+input[type="range"]:disabled::-moz-range-thumb,
+input[type="range"]:disabled:focus::-moz-range-thumb,
+input[type="range"]:disabled::-moz-range-progress {
+    background-color: #737373;
+}

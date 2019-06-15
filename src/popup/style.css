@@ -1,143 +1,80 @@
 body {
     background-color: #2a2a2e;
     color: #f9f9fa;
-    font-family: "Segoe UI", Ubuntu, sans-serif;
-    margin: 4px 0;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: 0;
+    width: 500px;
 }
 
-hr {
-    border: 0;
-    border-bottom: 1px solid #737373;
-    margin: 0;
-    width: 100%;
-}
-ul {
-    align-items: center;
-    display: flex;
-    margin: 0 4px;
-    padding-left: 0;
-}
-li {
-    flex: 1;
-    list-style: none;
-    text-align: center;
-}
-li.colspan-2 {
-    flex: 2;
-}
-li.colspan-4 {
-    flex: 4;
-}
-object {
-    display: inline-block;
-    height: 16px;
-    width: 16px;
-}
 button {
     background: none;
     border: 0;
-    height: 40px;
     padding: 12px 8px;
 }
-button svg > *, span svg > * {
+label {
+    box-sizing: border-box;
+    padding: 12px 8px;
+    text-align: center;
+    width: 100%;
+}
+div {
+    text-align: center;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    display: none;
+}
+
+button object svg > *, label object svg > * {
     fill: #f9f9fa;
     stroke: #f9f9fa;
 }
-button:hover svg > *, span:hover svg > * {
+button:hover object svg > *, label:hover object svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
-button:disabled svg > *, input:disabled ~ span svg > * {
+input[type="checkbox"]:checked ~ object:last-of-type svg > *,
+input[type="radio"]:checked ~ object svg > * {
+    fill: #0a84ff;
+    stroke: #0a84ff;
+}
+button:disabled object svg > *,
+input[type="checkbox"]:disabled ~ object svg > *,
+input[type="radio"]:disabled ~ object svg > * {
     fill: #737373;
     stroke: #737373;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type="checkbox"] ~ object:first-of-type:not(:last-of-type),
+input[type="checkbox"]:checked ~ object:last-of-type:not(:first-of-type) {
+    display: inline-block;
+}
+input[type="checkbox"] ~ object:last-of-type:not(:first-of-type),
+input[type="checkbox"]:checked ~ object:first-of-type:not(:last-of-type) {
     display: none;
 }
 
-input[type="range"] {
-    background-color: transparent;
-    border: 0;
-    margin: 0;
-    padding: 5px 0;
-    width: 100%;
-}
-input[type="range"]::-moz-focus-outer {
-    border: 0;
-}
-input[type="range"]::-moz-range-thumb {
-    background-color: white;
-    border: 0;
-    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.65));
-    height: 12px;
-    width: 12px;
-}
-input[type="range"]:hover::-moz-range-thumb {
-    background-color: #0a84ff;
-}
-input[type="range"]::-moz-range-progress {
-    background-color: #f9f9fa;
-    border-radius: 2.5px;
-    height: 5px;
-}
 input[type="range"].primary::-moz-range-progress {
     background-color: #45a1ff;
 }
-input[type="range"]::-moz-range-track {
-    background-color: #0c0c0d;
-    border-radius: 2.5px;
-    height: 5px;
-}
-input[type="range"]:disabled::-moz-range-thumb,
 input[type="range"].disabled::-moz-range-thumb,
-input[type="range"]:disabled:focus::-moz-range-thumb,
 input[type="range"].disabled:focus::-moz-range-thumb,
-input[type="range"]:disabled::-moz-range-progress,
 input[type="range"].disabled::-moz-range-progress {
     background-color: #737373;
 }
 
-span {
-    display: inline-block;
-    height: 16px;
-    padding: 12px 8px;
+#cast {
+    align-items: center;
+    border-bottom: 1px solid #737373;
+    display: flex;
+    grid-column-end: span 2;
+}
+#cast > * {
+    flex: 1;
 }
 
-#mute:checked ~ span[data-i18n-title="sound"] {
-    display: none;
-}
-#mute:checked ~ span[data-i18n-title="mute"] {
-    display: inline-block;
-}
-#mute:checked ~ span[data-i18n-title="mute"] svg > * {
-    fill: #0a84ff;
-    stroke: #0a84ff;
-}
-
-input[name="repeat"] ~ span {
-    display: none;
-}
-input[name="repeat"][value="off"]:checked ~ #repeat-all {
-    display: inline-block;
-}
-input[name="repeat"][value="one"]:checked ~ #repeat-one,
-input[name="repeat"][value="all"]:checked ~ #repeat-all {
-    display: inline-block;
-}
-input[name="repeat"][value="one"]:checked ~ #repeat-one svg > *,
-input[name="repeat"][value="all"]:checked ~ #repeat-all svg > * {
-    fill: #0a84ff;
-    stroke: #0a84ff;
-}
-
-#paste:checked + span svg > *,
-#shuffle:checked + span svg > * {
-    fill: #0a84ff;
-    stroke: #0a84ff;
-}
-
-#paste ~ textarea {
+#paste textarea {
     border: 0;
     bottom: 8px;
     display: none;
@@ -145,17 +82,54 @@ input[name="repeat"][value="all"]:checked ~ #repeat-all svg > * {
     left: 8px;
     padding: 8px;
     position: fixed;
-    resize: none;
     width: calc(100% - 32px);
     z-index: 1;
 }
-#paste:checked ~ textarea {
+#paste input:checked ~ textarea {
     display: block;
 }
 
-#pause, #rate, #mute ~ span[data-i18n-title="mute"] {
+#rate {
     display: none;
 }
+
+#playing {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+#playing > * {
+    text-align: center;
+}
+
+#time {
+    grid-column-end: span 4;
+}
+#volume {
+    grid-column-end: span 2;
+}
+#pause {
+    display: none;
+}
+
+#repeat input[value="off"]:checked:not(:disabled):not(:hover) ~ object svg > * {
+    fill: #f9f9fa;
+    stroke: #f9f9fa;
+}
+#repeat-all, #repeat-one {
+    display: none;
+}
+
+#remote {
+    align-items: center;
+    border-left: 1px solid #737373;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+#up, #left, #select, #right, #down {
+    background-color: #38383d;
+}
+
 
 article {
     background-color: #d70022;

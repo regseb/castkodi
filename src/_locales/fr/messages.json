@@ -106,6 +106,9 @@
     "popup_preferences_title": {
         "message": "Configurer"
     },
+    "popup_report_title": {
+        "message": "Rapporter un bogue / Proposer une amélioration"
+    },
     "popup_loading_title": {
         "message": "Connexion en cours…"
     },
@@ -116,7 +119,7 @@
         "message": "Revenir au précédent [Pg.Préc]"
     },
     "popup_rewind_title": {
-        "message": "Rembobiner [R]"
+        "message": "Retour rapide [R]"
     },
     "popup_stop_title": {
         "message": "Arrêter [X]"
@@ -134,16 +137,40 @@
         "message": "Passer au suivant [Pg.Suiv]"
     },
     "popup_mute_title": {
-        "message": "Activer le son [M]"
-    },
-    "popup_sound_title": {
-        "message": "Désactiver le son [M]"
+        "message": "Activer / Désactiver le son [F8]"
     },
     "popup_repeat_title": {
         "message": "Répéter"
     },
     "popup_shuffle_title": {
         "message": "Mélanger"
+    },
+    "popup_contextmenu_title": {
+        "message": "Ouvrir le menu contextuel [C]"
+    },
+    "popup_up_title": {
+        "message": "Monter [Flèche du haut]"
+    },
+    "popup_info_title": {
+        "message": "Afficher les informations [I]"
+    },
+    "popup_left_title": {
+        "message": "Aller à gauche [Flèche de gauche]"
+    },
+    "popup_select_title": {
+        "message": "Sélectionner [Entrée]"
+    },
+    "popup_right_title": {
+        "message": "Aller à droite [Flèche de droite]"
+    },
+    "popup_back_title": {
+        "message": "Revenir en arrière [Retour arrière]"
+    },
+    "popup_down_title": {
+        "message": "Descendre [Flèche du bas]"
+    },
+    "popup_osd_title": {
+        "message": "Afficher le menu à l'écran [M]"
     },
     "popup_configure_textcontent": {
         "message": "Configurer"

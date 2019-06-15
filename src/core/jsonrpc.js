@@ -6,11 +6,21 @@ import { PebkacError } from "./pebkac.js";
 
 /**
  * La classe du client JSON-RPC pour contacter Kodi.
+ *
+ * @see {@link https://kodi.wiki/view/JSON-RPC_API}
  */
 export const JSONRPC = class {
 
+    /**
+     * Test la connexion à l'API de Kodi.
+     *
+     * @function check
+     * @param {string} host L'URL du serveur JSON-RPC de Kodi.
+     * @returns {Promise} Une promesse tenue si l'API est accéssible ; sinon une
+     *                    promesse rompue.
+     */
     static check(host) {
-        return new JSONRPC(host).getVersion();
+        return new JSONRPC(host).version();
     }
 
     /**
@@ -331,7 +341,104 @@ export const JSONRPC = class {
         return this.request("Playlist.Clear", { "playlistid": 1 });
     }
 
-    getVersion() {
+    /**
+     * Affiche le menu contextuel.
+     *
+     * @function contextMenu
+     * @returns {Promise} La réponse de Kodi.
+     */
+    contextMenu() {
+        return this.request("Input.ContextMenu");
+    }
+
+    /**
+     * Navigue vers le haut dans l'interface.
+     *
+     * @function up
+     * @returns {Promise} La réponse de Kodi.
+     */
+    up() {
+        return this.request("Input.Up");
+    }
+
+    /**
+     * Affiche les informations.
+     *
+     * @function contextMenu
+     * @returns {Promise} La réponse de Kodi.
+     */
+    info() {
+        return this.request("Input.Info");
+    }
+
+    /**
+     * Navigue vers la gauche dans l'interface.
+     *
+     * @function left
+     * @returns {Promise} La réponse de Kodi.
+     */
+    left() {
+        return this.request("Input.Left");
+    }
+
+    /**
+     * Sélectionne l'élément courant.
+     *
+     * @function select
+     * @returns {Promise} La réponse de Kodi.
+     */
+    select() {
+        return this.request("Input.Select");
+    }
+
+    /**
+     * Navigue vers la droite dans l'interface.
+     *
+     * @function right
+     * @returns {Promise} La réponse de Kodi.
+     */
+    right() {
+        return this.request("Input.Right");
+    }
+
+    /**
+     * Retourne en arrière dans l'interface.
+     *
+     * @function back
+     * @returns {Promise} La réponse de Kodi.
+     */
+    back() {
+        return this.request("Input.Back");
+    }
+
+    /**
+     * Navigue vers le bas dans l'interface.
+     *
+     * @function down
+     * @returns {Promise} La réponse de Kodi.
+     */
+    down() {
+        return this.request("Input.Down");
+    }
+
+    /**
+     * Affiche le <em>menu à l'écran</em> (<em>On Screen Display</em>) du
+     * lecteur courant.
+     *
+     * @function showOSD
+     * @returns {Promise} La réponse de Kodi.
+     */
+    showOSD() {
+        return this.request("Input.ShowOSD");
+    }
+
+    /**
+     * Récupère la version du protocol JSON-RPC.
+     *
+     * @function version
+     * @returns {Promise} La version du protocol.
+     */
+    version() {
         return this.request("JSONRPC.Version");
     }
 
