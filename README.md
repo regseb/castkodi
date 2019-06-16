@@ -16,10 +16,10 @@ sur **Kodi** :
 - des vidéos : liens directs (*avi*, *mkv*…), YouTube¹, Twitch¹, Vimeo¹,
   Instagram, torrents¹, magnets¹ et Ace Stream¹, AlloCiné, BitChute,
   Dailymotion¹, DevTube, Dumpert¹, Facebook, Flickr, Full30, Gamekult,
-  JeuxVideoCom, LiveLeak, PeerTube, Pippa, Первый канал, Rutube, Steam,
-  StormoTV, Útvarp Saga…
+  JeuxVideoCom, LiveLeak, PeerTube, Первый канал, Rutube, Steam, StormoTV,
+  Útvarp Saga…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud¹ et Apple Podcasts,
-  Arte Radio, Mixcloud¹, My Cloud Player, podCloud, Radioline…
+  Arte Radio, Mixcloud¹, My Cloud Player, Pippa, podCloud, Radioline…
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une
