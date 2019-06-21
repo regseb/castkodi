@@ -21,7 +21,7 @@
             "patterns": "/test/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_nodejs.json"] }
         }, {
-            "patterns": ["!/src/_locales/", "*.html"],
+            "patterns": ["!/src/_locales/", "/src/**/*.html"],
             "linters": "htmlhint"
         }, {
             "patterns": "/src/_locales/**/*.html",

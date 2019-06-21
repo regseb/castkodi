@@ -34,8 +34,7 @@ describe("scraper/onetv", function () {
                       "/video/2019/06/03/0535f134-80c9-40f2-af3b-6bb485488fe8" +
                       "_20190604_Pozner_High_950.mp4";
             return extract(url).then(function (file) {
-                assert.ok(file.includes(expected),
-                          `"${file}".includes(expected)`);
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -46,8 +45,7 @@ describe("scraper/onetv", function () {
                       "/video/2019/05/26/0bcc8f80-6082-4589-85b1-fcc000e150e9" +
                              "_HD-news-2019_05_26-08_19_35_2923421_cut_950.mp4";
             return extract(url).then(function (file) {
-                assert.ok(file.includes(expected),
-                          `"${file}".includes(expected)`);
+                assert.strictEqual(file, expected);
             });
         });
     });
@@ -68,26 +66,14 @@ describe("scraper/onetv", function () {
         });
 
         it("should return video id", function () {
-            const url = "https://www.1tv.ru/movies/svadby-i-razvody" +
-                                                "/svadby-i-razvody-1-i-2-serii";
+            const url = "https://www.1tv.ru/movies/vse-filmy" +
+                                                 "/hudozhestvennyy-film-viking";
             const expected = "https://redirect.1tv.ru/video/multibitrate" +
-                      "/video/2019/06/03/b602bc15-e3ae-4760-9d18-bb31d7053fdc" +
-                                         "_HD-news-2019_06_03-19_39_43_950.mp4";
+                                                           "/video/2019/06/05" +
+                                       "/61d665ab-3b03-4e3f-952e-40818d3034c7" +
+                                         "_HD-news-2019_06_12-19_53_29_950.mp4";
             return extract(url).then(function (file) {
-                assert.ok(file.includes(expected),
-                          `"${file}".includes(expected)`);
-            });
-        });
-
-        it("should return video id when protocol is HTTP", function () {
-            const url = "https://www.1tv.ru/movies/petlya-nesterova" +
-                                                "/petlya-nesterova-1-i-2-serii";
-            const expected = "https://redirect.1tv.ru/video/multibitrate" +
-                      "/video/2019/05/28/ae50aac2-30d9-4424-bd39-a70692c95ec6" +
-                                         "_HD-news-2019_06_03-23_26_12_950.mp4";
-            return extract(url).then(function (file) {
-                assert.ok(file.includes(expected),
-                          `"${file}".includes(expected)`);
+                assert.strictEqual(file, expected);
             });
         });
     });
