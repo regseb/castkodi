@@ -15,7 +15,7 @@ sur **Kodi** :
 
 - des vidéos : liens directs (*avi*, *mkv*…), YouTube¹, Twitch¹, Vimeo¹,
   Instagram, torrents¹, magnets¹ et Ace Stream¹, AlloCiné, BitChute,
-  Dailymotion¹, DevTube, Dumpert¹, Facebook, Flickr, Full30, Gamekult,
+  Dailymotion¹, DevTube¹, Dumpert¹, Facebook, Flickr, Full30, Gamekult¹,
   JeuxVideoCom, LiveLeak, PeerTube, Первый канал, Rutube, Steam, StormoTV,
   Útvarp Saga…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud¹ et Apple Podcasts,
