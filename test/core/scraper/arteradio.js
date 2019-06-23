@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/arteradio.js";
 
 describe("scraper/arteradio", function () {
     describe("#patterns", function () {
@@ -12,12 +14,18 @@ describe("scraper/arteradio", function () {
     });
 
     describe("*://www.arteradio.com/son/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
         it("should return sound URL", function () {
             const url = "https://www.arteradio.com/son/61657661/fais_moi_ouir";
             const expected = "https://download.www.arte.tv/permanent" +
                                          "/arteradio/sites/default/files/sons" +
                                                      "/01faismoiouir_hq_fr.mp3";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -27,7 +35,7 @@ describe("scraper/arteradio", function () {
             const expected = "https://download.www.arte.tv/permanent" +
                                          "/arteradio/sites/default/files/sons" +
                                                      "/01faismoiouir_hq_fr.mp3";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

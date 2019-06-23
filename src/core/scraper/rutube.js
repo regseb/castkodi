@@ -2,8 +2,6 @@
  * @module core/scraper/rutube
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'URL de l'API de Rutube pour obtenir des informations sur une vidéo.
  *
@@ -27,20 +25,20 @@ export const rules = new Map();
  */
 rules.set([
     "*://rutube.ru/video/*/*", "*://rutube.ru/play/embed/*"
-], function (url) {
-    const id = url.pathname.replace(/^\/video\//u, "")
-                           .replace(/^\/play\/embed\//u, "")
-                           .replace(/\/$/u, "");
+], function ({ pathname }) {
+    const id = pathname.replace(/^\/video\//u, "")
+                       .replace(/^\/play\/embed\//u, "")
+                       .replace(/\/$/u, "");
     if (!(/^[0-9a-z]+$/u).test(id)) {
-        return Promise.reject(new PebkacError("noVideo", "Rutube"));
+        return Promise.resolve(null);
     }
 
     return fetch(API_URL + id + "?format=json").then(function (response) {
         if (404 === response.status) {
-            throw new PebkacError("noVideo", "Rutube");
+            return null;
         }
-        return response.json();
-    }).then(function (response) {
-        return response["video_balancer"].m3u8;
+        return response.json().then(function (data) {
+            return data["video_balancer"].m3u8;
+        });
     });
 });

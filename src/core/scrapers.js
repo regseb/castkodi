@@ -30,6 +30,8 @@ import { rules as vimeo }          from "./scraper/vimeo.js";
 import { rules as youtube }        from "./scraper/youtube.js";
 import { rules as torrent }        from "./scraper/torrent.js";
 import { rules as acestream }      from "./scraper/acestream.js";
+import { rules as video }          from "./scraper/video.js";
+import { rules as audio }          from "./scraper/audio.js";
 
 /**
  * La liste des scrapers.
@@ -40,7 +42,7 @@ const scrapers = [
     allocine, applepodcasts, arteradio, devtube, dumpert, dailymotion, facebook,
     flickr, full30, instagram, jeuxvideocom, mixcloud, mycloudplayers, onetv,
     peertube, pippa, podcloud, radioline, rutube, soundcloud, steampowered,
-    stormotv, twitch, vimeo, youtube, torrent, acestream
+    stormotv, twitch, vimeo, youtube, torrent, acestream, video, audio
 ];
 
 /**
@@ -114,21 +116,28 @@ const SCRAPERS = [];
  *                    scraper ne gère cette URL.
  */
 const dispatch = function (url) {
-    const scraper = SCRAPERS.find((s) => s.pattern.test(url));
-    return undefined === scraper ? null
-                                 : scraper.action(new URL(url));
+    return SCRAPERS.filter((s) => s.pattern.test(url))
+                   .reduce((promise, scraper) => {
+        return promise.then((file) => {
+            // Si aucun fichier n'a encore été trouvé : continuer d'analyser
+            // avec les autres scrapers.
+            return null === file ? scraper.action(new URL(url))
+                                 : file;
+        });
+    }, Promise.resolve(null));
 };
 
 /**
  * Fouille la page (si c'est du HTML) pour en extraire des éléments
- * <code>video</code>, <code>audio</code> ou <code>iframe</code>.
+ * <code>iframe</code>.
  *
- * @function dispatch
+ * @function rummage
  * @param {string} url L'URL d'une page Internet.
- * @returns {Promise} L'URL du fichier.
+ * @returns {Promise} L'URL du <em>fichier</em> ou l'URL de la page Internet si
+ *                    aucun élément n'est présent..
  */
 const rummage = function (url) {
-    return fetch(url).then(function (response) {
+    return fetch(url).then((response) => {
         const type = response.headers.get("Content-Type");
         if (null !== type &&
                 (type.startsWith("text/html") ||
@@ -137,24 +146,23 @@ const rummage = function (url) {
         }
         // Si ce n'est pas une page HTML : simuler une page vide.
         return "";
-    }).then(function (data) {
+    }).then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const selector = "video source[src], video[src], audio source[src]," +
-                         " audio[src], iframe[src]";
-        for (const element of doc.querySelectorAll(selector)) {
-            const src = new URL(element.getAttribute("src"), url).href;
-            if ("IFRAME" === element.tagName) {
-                const file = dispatch(src);
-                if (null !== file) {
-                    return file;
-                }
-            } else {
-                return src;
-            }
-        }
-
-        return url;
+        return Array.from(doc.querySelectorAll("iframe[src]"))
+                    .reduce((promise, element) => {
+            return promise.then((file) => {
+                // Si aucun fichier n'a encore été trouvé : continuer d'analyser
+                // les liens de la page.
+                return null === file
+                      ? dispatch(new URL(element.getAttribute("src"), url).href)
+                      : file;
+            });
+        }, Promise.resolve(null)).then((file) => {
+            // Si aucun fichier n'a été trouvé : retourner le lien d'origine.
+            return null === file ? url
+                                 : file;
+        });
     });
 };
 
@@ -170,9 +178,10 @@ export const extract = function (url) {
         return Promise.reject(new PebkacError("noLink"));
     }
 
-    const file = dispatch(url);
-    return null === file ? rummage(url)
-                         : file;
+    return dispatch(url).then((file) => {
+        return null === file ? rummage(url)
+                             : file;
+    });
 };
 
 for (const scraper of scrapers) {

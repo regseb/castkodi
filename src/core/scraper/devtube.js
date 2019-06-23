@@ -23,6 +23,6 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo DevTube.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://dev.tube/video/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + url.pathname.substring(7));
+rules.set(["*://dev.tube/video/*"], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_URL + pathname.substring(7));
 });

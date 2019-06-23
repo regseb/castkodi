@@ -2,8 +2,6 @@
  * @module core/scraper/facebook
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'URL pour récupérer la vidéo.
  *
@@ -27,17 +25,17 @@ export const rules = new Map();
  */
 rules.set([
     "*://*.facebook.com/*/videos/*/*", "*://*.facebook.com/watch*"
-], function (url) {
+], function ({ pathname, searchParams }) {
     let id;
-    if ("/watch" === url.pathname || "/watch/" === url.pathname) {
-        if (url.searchParams.has("v")) {
-            id = url.searchParams.get("v");
+    if ("/watch" === pathname || "/watch/" === pathname) {
+        if (searchParams.has("v")) {
+            id = searchParams.get("v");
         } else {
-            return Promise.reject(new PebkacError("noVideo", "Facebook"));
+            return Promise.resolve(null);
         }
     } else {
-        id = url.pathname.substring(url.pathname.indexOf("/videos/") + 8)
-                         .replace(/\/$/u, "");
+        id = pathname.substring(pathname.indexOf("/videos/") + 8)
+                     .replace(/\/$/u, "");
     }
 
     const init = { "credentials": "omit" };
@@ -46,10 +44,8 @@ rules.set([
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const result = doc.querySelector(`head meta[property="og:video"]`);
-        if (null === result) {
-            throw new PebkacError("noVideo", "Facebook");
-        }
-        return result.content;
+        const meta = doc.querySelector(`head meta[property="og:video"]`);
+        return null === meta ? null
+                             : meta.content;
     });
 });

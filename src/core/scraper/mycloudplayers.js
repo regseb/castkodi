@@ -2,8 +2,6 @@
  * @module core/scraper/mycloudplayers
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'URL de l'extension pour lire des musiques issues de SoundCloud.
  *
@@ -25,10 +23,10 @@ export const rules = new Map();
  * @param {string} url L'URL d'une musique de My Cloud Player.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://mycloudplayers.com/*"], function (url) {
-    if (url.searchParams.has("play")) {
-        return Promise.resolve(PLUGIN_URL + url.searchParams.get("play"));
+rules.set(["*://mycloudplayers.com/*"], function ({ searchParams }) {
+    if (searchParams.has("play")) {
+        return Promise.resolve(PLUGIN_URL + searchParams.get("play"));
     }
 
-    return Promise.reject(new PebkacError("noAudio", "My Cloud Player"));
+    return Promise.resolve(null);
 });

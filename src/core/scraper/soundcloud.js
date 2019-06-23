@@ -2,8 +2,6 @@
  * @module core/scraper/soundcloud
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'expression rationnelle pour extraire l'URL de la musique.
  *
@@ -34,22 +32,19 @@ export const rules = new Map();
  */
 rules.set([
     "*://soundcloud.com/*/*", "*://mobi.soundcloud.com/*/*"
-], function (url) {
+], function ({ pathname, href }) {
     // Si le chemin contient plusieurs barres obliques.
-    if (url.pathname.indexOf("/", 1) !== url.pathname.lastIndexOf("/"))  {
-        return Promise.reject(new PebkacError("noAudio", "SoundCloud"));
+    if (pathname.indexOf("/", 1) !== pathname.lastIndexOf("/"))  {
+        return Promise.resolve(null);
     }
 
     return fetch("https://soundcloud.com/oembed?url=" +
-                 encodeURIComponent(url.toString()
-                                       .replace("//mobi.", "//"))).then(
-                                                           function (response) {
+                 encodeURIComponent(href.replace("//mobi.", "//")))
+                                                     .then(function (response) {
         return response.text();
     }).then(function (response) {
         const result = URL_REGEXP.exec(response);
-        if (null === result) {
-            throw new PebkacError("noAudio", "SoundCloud");
-        }
-        return PLUGIN_URL + result[1];
+        return null === result ? null
+                               : PLUGIN_URL + result[1];
     });
 });

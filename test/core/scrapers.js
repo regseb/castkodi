@@ -28,6 +28,24 @@ describe("scrapers", function () {
             });
         });
 
+        it("should support correctly magnet link", function () {
+            const url = "magnet:?xt=12345";
+            const expected = "plugin://plugin.video.elementum/play" +
+                                                  "?uri=magnet%3A%3Fxt%3D12345";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+
+        it("should support correctly acestream link", function () {
+            const url = "acestream://12345";
+            const expected = "plugin://program.plexus/?mode=1&name=" +
+                                                 "&url=acestream%3A%2F%2F12345";
+            return scrapers.extract(url).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+
         it("should return the URL when it's a unsupported URL", function () {
             const url = "https://kodi.tv/";
             return scrapers.extract(url).then(function (file) {
@@ -73,55 +91,12 @@ describe("scrapers", function () {
             });
         });
 
-        it("should return BitChute URL", function () {
-            const url = "https://www.bitchute.com/video/dz5JcCZnJMge/";
-            const expected = "https://seed22.bitchute.com/hU2elaB5u3kB" +
-                                                            "/dz5JcCZnJMge.mp4";
-            return scrapers.extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
-        });
-
         it("should return Gamekult URL", function () {
             const url = "https://www.gamekult.com/emission" +
                         "/gautoz-fait-sa-moisson-de-pixels-a-l-evenement-inde" +
                                                              "-3050806583.html";
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                   "?mode=playVideo&url=x6m0tlk";
-            return scrapers.extract(url).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
-        });
-
-        it("should return LiveLeak URL", function () {
-            const url = "https://www.liveleak.com/view?t=HfVq_1535497667";
-            const expected = "https://cdn.liveleak.com/80281E/ll_a_s/2018/" +
-                                                                     "Aug/28/" +
-                  "LiveLeak-dot-com-Untitled_1535497475.wmv.5b85d54bbb2dd.mp4?";
-            return scrapers.extract(url).then(function (file) {
-                assert.ok(file.startsWith(expected),
-                          `"${file}".startsWith(expected)`);
-            });
-        });
-
-        it("should return LiveLeak URL even when URL contains" +
-                                                       " \"mp4\"", function () {
-            const url = "https://www.liveleak.com/view?t=Cmp4X_1539969642";
-            const expected = "https://cdn.liveleak.com/80281E/ll_a_s/2018/" +
-                                                                     "Oct/19/" +
-                  "LiveLeak-dot-com-LaunchPadWaterDelugeSystemTestatNASAKenn_" +
-                                            "1539969608.mp4.5bca1334cea29.mp4?";
-            return scrapers.extract(url).then(function (file) {
-                assert.ok(file.startsWith(expected),
-                          `"${file}".startsWith(expected)`);
-            });
-        });
-
-        it("should return Útvarp Saga URL", function () {
-            const url = "http://utvarpsaga.is/" +
-                             "snjallsimarnir-eru-farnir-ad-stjorna-lifi-folks/";
-            const expected = "http://utvarpsaga.is/file/" +
-                                           "s%C3%AD%C3%B0degi-a-7.9.18.mp3?_=1";
             return scrapers.extract(url).then(function (file) {
                 assert.strictEqual(file, expected);
             });

@@ -3,11 +3,26 @@
  */
 
 /**
+ * L'URL de l'extension pour lire des lives issus de Twitch.
+ *
+ * @constant {string}
+ */
+const PLUGIN_CHANNEL_URL = "plugin://plugin.video.twitch/?mode=play" +
+                                                        "&channel_name=";
+
+/**
+ * L'URL de l'extension pour lire des clips issus de Twitch.
+ *
+ * @constant {string}
+ */
+const PLUGIN_CLIP_URL = "plugin://plugin.video.twitch/?mode=play&slug=";
+
+/**
  * L'URL de l'extension pour lire des vidéos issues de Twitch.
  *
  * @constant {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.twitch/?mode=play";
+const PLUGIN_VIDEO_URL = "plugin://plugin.video.twitch/?mode=play&video_id=";
 
 /**
  * Les règles avec les patrons et leur action.
@@ -26,9 +41,8 @@ export const rules = new Map();
 rules.set([
     "*://www.twitch.tv/videos/*", "*://go.twitch.tv/videos/*",
     "*://m.twitch.tv/videos/*"
-], function (url) {
-    return Promise.resolve(
-        PLUGIN_URL + "&video_id=" + url.pathname.substring(8));
+], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_VIDEO_URL + pathname.substring(8));
 });
 
 /**
@@ -38,8 +52,8 @@ rules.set([
  * @param {string} url L'URL d'un clip Twitch.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://clips.twitch.tv/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + "&slug=" + url.pathname.substring(1));
+rules.set(["*://clips.twitch.tv/*"], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_CLIP_URL + pathname.substring(1));
 });
 
 /**
@@ -52,10 +66,9 @@ rules.set(["*://clips.twitch.tv/*"], function (url) {
 rules.set([
     "*://www.twitch.tv/*/clip/*", "*://go.twitch.tv/*/clip/*",
     "*://m.twitch.tv/*/clip/*"
-], function (url) {
-    return Promise.resolve(
-        PLUGIN_URL + "&slug=" +
-        url.pathname.substring(url.pathname.indexOf("/clip/", 1) + 6));
+], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_CLIP_URL +
+                           pathname.substring(pathname.lastIndexOf("/") + 1));
 });
 
 /**
@@ -67,7 +80,6 @@ rules.set([
  */
 rules.set([
     "*://www.twitch.tv/*", "*://go.twitch.tv/*", "*://m.twitch.tv/*"
-], function (url) {
-    return Promise.resolve(
-        PLUGIN_URL + "&channel_name=" + url.pathname.substring(1));
+], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_CHANNEL_URL + pathname.substring(1));
 });

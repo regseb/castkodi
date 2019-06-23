@@ -16,8 +16,8 @@ export const rules = new Map();
  * @param {string} url L'URL d'un son de podCloud.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://podcloud.fr/podcast/*/episode/*"], function (url) {
-    const [, , podcast, , episode] = url.pathname.split("/");
-    return Promise.resolve(
-                 `https://podcloud.fr/ext/${podcast}/${episode}/enclosure.mp3`);
+rules.set(["*://podcloud.fr/podcast/*/episode/*"], function ({ pathname }) {
+    const [, , podcast, , episode] = pathname.split("/");
+    return Promise.resolve(`https://podcloud.fr/ext/${podcast}/${episode}` +
+                           "/enclosure.mp3");
 });

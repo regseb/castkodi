@@ -2,8 +2,6 @@
  * @module core/scraper/mixcloud
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'URL de l'extension pour lire des musiques issues de Mixcloud.
  *
@@ -25,10 +23,10 @@ export const rules = new Map();
  * @param {string} url L'URL d'une musique Mixcloud.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.mixcloud.com/*/*/"], function (url) {
-    if (url.pathname.startsWith("/discover/")) {
-        return Promise.reject(new PebkacError("noAudio", "Mixcloud"));
+rules.set(["*://www.mixcloud.com/*/*/"], function ({ pathname }) {
+    if (pathname.startsWith("/discover/")) {
+        return Promise.resolve(null);
     }
 
-    return Promise.resolve(PLUGIN_URL + encodeURIComponent(url.pathname));
+    return Promise.resolve(PLUGIN_URL + encodeURIComponent(pathname));
 });

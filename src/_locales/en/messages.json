@@ -67,30 +67,6 @@
         "message": "Text isn't a valid link."
     },
 
-    "notifications_noVideo_title": {
-        "message": "Unsupported link"
-    },
-    "notifications_noVideo_message": {
-        "message": "Link isn't a $HOSTER$ video.",
-        "placeholders": {
-            "hoster": {
-                "content": "$1"
-            }
-        }
-    },
-
-    "notifications_noAudio_title": {
-        "message": "Unsupported link"
-    },
-    "notifications_noAudio_message": {
-        "message": "Link isn't a $HOSTER$ audio track.",
-        "placeholders": {
-            "hoster": {
-                "content": "$1"
-            }
-        }
-    },
-
     "popup_send_title": {
         "message": "Play now to Kodi [P]"
     },

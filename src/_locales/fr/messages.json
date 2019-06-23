@@ -67,30 +67,6 @@
         "message": "Le texte n'est pas un lien valide."
     },
 
-    "notifications_noVideo_title": {
-        "message": "Lien non supporté"
-    },
-    "notifications_noVideo_message": {
-        "message": "Le lien n'est pas une vidéo de $HOSTER$.",
-        "placeholders": {
-            "hoster": {
-                "content": "$1"
-            }
-        }
-    },
-
-    "notifications_noAudio_title": {
-        "message": "Lien non supporté"
-    },
-    "notifications_noAudio_message": {
-        "message": "Le lien n'est pas une musique de $HOSTER$.",
-        "placeholders": {
-            "hoster": {
-                "content": "$1"
-            }
-        }
-    },
-
     "popup_send_title": {
         "message": "Lire maintenant avec Kodi [P]"
     },

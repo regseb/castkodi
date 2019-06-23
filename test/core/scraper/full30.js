@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/full30.js";
 
 describe("scraper/full30", function () {
     describe("#patterns", function () {
@@ -11,18 +13,18 @@ describe("scraper/full30", function () {
         });
     });
 
-    describe("*://www.full30.com/videos/*", function () {
-        it("should return error when it's not a video", function () {
+    describe("*://www.full30.com/video/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a video", function () {
             const url = "https://www.full30.com/video/foo";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -32,7 +34,7 @@ describe("scraper/full30", function () {
             const expected = "https://videos.full30.com/bitmotive/public" +
                                          "/full30/v1.0/videos/demolitionranch" +
                                 "/01c970fbc3cf59528c3daaa3a4020edb/640x360.mp4";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

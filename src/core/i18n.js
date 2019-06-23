@@ -16,11 +16,10 @@ for (const element of document.querySelectorAll("*")) {
                     key = element.htmlFor;
                 }
             }
+            key = key.replace(/-./gu, (m) => m[1].toUpperCase());
 
-            const value = browser.i18n.getMessage(
-                        page + "_" +
-                        key.replace(/-./gu, (m) => m[1].toUpperCase()) + "_" +
-                        place);
+            const value = browser.i18n.getMessage(page + "_" + key + "_" +
+                                                  place);
 
             if ("textcontent" === place) {
                 element.textContent = value;

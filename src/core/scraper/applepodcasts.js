@@ -2,8 +2,6 @@
  * @module core/scraper/applepodcasts
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * Les règles avec les patrons et leur action.
  *
@@ -18,18 +16,17 @@ export const rules = new Map();
  * @param {string} url L'URL d'un son de Apple Podcasts.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["https://podcasts.apple.com/*/podcast/*/id*"], function (url) {
-    return fetch(url.toString()).then(function (response) {
+rules.set(["https://podcasts.apple.com/*/podcast/*/id*"], function ({ href }) {
+    return fetch(href).then(function (response) {
         return response.text();
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         const script = doc.querySelector("#shoebox-ember-data-store");
         if (null === script) {
-            throw new PebkacError("noAudio", "Apple Podcasts");
+            return null;
         }
 
-        const datastore = JSON.parse(script.textContent);
-        return datastore.data.attributes.assetUrl;
+        return JSON.parse(script.textContent).data.attributes.assetUrl;
     });
 });

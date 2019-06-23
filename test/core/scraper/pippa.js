@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/pippa.js";
 
 describe("scraper/pippa", function () {
     describe("#patterns", function () {
@@ -12,17 +14,17 @@ describe("scraper/pippa", function () {
     });
 
     describe("*://shows.pippa.io/*/*", function () {
-        it("should return error when it's not a video", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a sound", function () {
             const url = "https://shows.pippa.io/studio-404/";
-            const expected = "noAudio";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -32,7 +34,7 @@ describe("scraper/pippa", function () {
             const expected = "https://app.pippa.io/public/streams" +
                                           "/59ee5fc85d6ff59869bbeb01/episodes" +
                                                 "/5bfc6eae690503213d3db1ac.mp3";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -43,7 +45,7 @@ describe("scraper/pippa", function () {
             const expected = "https://app.pippa.io/public/streams" +
                                           "/59ee5fc85d6ff59869bbeb01/episodes" +
                                                 "/5bc3af025840c11d736078eb.mp3";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

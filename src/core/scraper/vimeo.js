@@ -2,8 +2,6 @@
  * @module core/scraper/vimeo
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'URL de l'extension pour lire des vidéos issues de Vimeo.
  *
@@ -25,12 +23,12 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo Vimeo.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://vimeo.com/*"], function (url) {
-    if ((/^\/[0-9]+$/u).test(url.pathname)) {
-        return Promise.resolve(PLUGIN_URL + url.pathname.substring(1));
+rules.set(["*://vimeo.com/*"], function ({ pathname }) {
+    if ((/^\/[0-9]+$/u).test(pathname)) {
+        return Promise.resolve(PLUGIN_URL + pathname.substring(1));
     }
 
-    return Promise.reject(new PebkacError("noVideo", "Vimeo"));
+    return Promise.resolve(null);
 });
 
 /**
@@ -40,10 +38,10 @@ rules.set(["*://vimeo.com/*"], function (url) {
  * @param {string} url L'URL du lecteur de Vimeo avec une vidéo.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://player.vimeo.com/video/*"], function (url) {
-    if ((/^\/video\/[0-9]+$/u).test(url.pathname)) {
-        return Promise.resolve(PLUGIN_URL + url.pathname.substring(7));
+rules.set(["*://player.vimeo.com/video/*"], function ({ pathname }) {
+    if ((/^\/video\/[0-9]+$/u).test(pathname)) {
+        return Promise.resolve(PLUGIN_URL + pathname.substring(7));
     }
 
-    return Promise.reject(new PebkacError("noVideo", "Vimeo"));
+    return Promise.resolve(null);
 });

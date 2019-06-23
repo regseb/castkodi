@@ -2,8 +2,6 @@
  * @module core/scraper/full30
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'expression rationnelle pour extraire l'URL de la vidéo.
  *
@@ -25,14 +23,12 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo Full30.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.full30.com/video/*"], function (url) {
-    return fetch(url.toString()).then(function (response) {
+rules.set(["*://www.full30.com/video/*"], function ({ href }) {
+    return fetch(href).then(function (response) {
         return response.text();
     }).then(function (data) {
         const result = URL_REGEXP.exec(data);
-        if (null === result) {
-            throw new PebkacError("noVideo", "Full30");
-        }
-        return result[0];
+        return null === result ? null
+                               : result[0];
     });
 });

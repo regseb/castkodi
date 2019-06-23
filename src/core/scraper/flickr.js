@@ -2,8 +2,6 @@
  * @module core/scraper/flickr
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'expression rationnelle pour extraire la clé de l'API de Flickr.
  *
@@ -35,24 +33,24 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo Flickr.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.flickr.com/photos/*"], function (url) {
-    return fetch(url.toString()).then(function (response) {
+rules.set(["*://www.flickr.com/photos/*"], function ({ href }) {
+    return fetch(href).then(function (response) {
         return response.text();
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         const video = doc.querySelector("video");
         if (null === video) {
-            throw new PebkacError("noVideo", "Flickr");
+            return null;
         }
 
-        const [,,,,,, photoId, secret] = video.poster.split(/[/_.]/u);
-        return fetch(API_URL + "&photo_id=" + photoId + "&secret=" + secret +
-                               "&api_key=" + KEY_REGEXP.exec(data)[1]);
-    }).then(function (response) {
-        return response.json();
-    }).then(function (data) {
-        return data.streams.stream
-                               .filter((s) => "orig" === s.type)[0]["_content"];
+        const [, , , , , , photoId, secret] = video.poster.split(/[/_.]/u);
+        const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
+                              "&api_key=" + KEY_REGEXP.exec(data)[1];
+        return fetch(url).then(function (subresponse) {
+            return subresponse.json();
+        }).then(function ({ "streams": { stream } }) {
+            return stream.find((s) => "orig" === s.type)["_content"];
+        });
     });
 });

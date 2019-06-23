@@ -23,6 +23,6 @@ export const rules = new Map();
  * @param {string} url L'URL d'un torrent ou d'un magnet.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://*/*.torrent", "magnet:*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + encodeURIComponent(url.toString()));
+rules.set(["*://*/*.torrent", "magnet:*"], function ({ href }) {
+    return Promise.resolve(PLUGIN_URL + encodeURIComponent(href));
 });

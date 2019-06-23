@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/applepodcasts.js";
 
 describe("scraper/applepodcasts", function () {
     describe("#patterns", function () {
@@ -12,18 +14,18 @@ describe("scraper/applepodcasts", function () {
         });
     });
 
-    describe("https://podcasts.apple.com/*/podcast/*/*", function () {
-        it("should return error when it's not a video", function () {
+    describe("https://podcasts.apple.com/*/podcast/*/id*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a video", function () {
             const url = "https://podcasts.apple.com/us/podcast/culture-1999/id";
-            const expected = "noAudio";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -32,7 +34,7 @@ describe("scraper/applepodcasts", function () {
                                 "/cest-papy-mamie/id1093080425?i=1000435243113";
             const expected = "https://dts.podtrac.com/redirect.mp3" +
                                 "/www.arteradio.com/podcast_sound/61661310.mp3";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

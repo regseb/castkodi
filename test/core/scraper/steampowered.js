@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/steampowered.js";
 
 describe("scraper/steampowered", function () {
     describe("#patterns", function () {
@@ -12,17 +14,17 @@ describe("scraper/steampowered", function () {
     });
 
     describe("*://store.steampowered.com/app/*", function () {
-        it("should return error when it's not a video", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a video", function () {
             const url = "https://store.steampowered.com/app/400/Portal/";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -30,7 +32,7 @@ describe("scraper/steampowered", function () {
             const url = "https://store.steampowered.com/app/620/Portal_2/";
             const expected = "https://steamcdn-a.akamaihd.net/steam/apps" +
                                             "/81613/movie_max.mp4?t=1452903069";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -39,7 +41,7 @@ describe("scraper/steampowered", function () {
             const url = "http://store.steampowered.com/app/322500/SUPERHOT/";
             const expected = "https://steamcdn-a.akamaihd.net/steam/apps" +
                                         "/256682033/movie_max.mp4?t=1492645342";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

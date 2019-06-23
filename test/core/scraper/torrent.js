@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/torrent.js";
 
 describe("scraper/torrent", function () {
     describe("#patterns", function () {
@@ -12,19 +14,31 @@ describe("scraper/torrent", function () {
     });
 
     describe("*://*/*.torrent", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
         it("should return video URL", function () {
             const url = "http://vodo.net/media/torrents" +
                                          "/Sintel.2010.Theora.Ogv-VODO.torrent";
             const expected = "plugin://plugin.video.elementum/play" +
                                "?uri=http%3A%2F%2Fvodo.net%2Fmedia%2Ftorrents" +
                                        "%2FSintel.2010.Theora.Ogv-VODO.torrent";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
     });
 
     describe("magnet:*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
         it("should return video URL", function () {
             const url = "magnet:" +
                        "?xt=urn:btih:88594AAACBDE40EF3E2510C47374EC0AA396C08E" +
@@ -41,7 +55,7 @@ describe("scraper/torrent", function () {
           "%26tr%3Dudp%253a%252f%252ftracker.publicbt.com%253a80%252fannounce" +
              "%26ws%3Dhttp%253a%252f%252fdistribution.bbb3d.renderfarming.net" +
                   "%252fvideo%252fmp4%252fbbb_sunflower_1080p_30fps_normal.mp4";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

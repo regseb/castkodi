@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/radioline.js";
 
 describe("scraper/radioline", function () {
     describe("#patterns", function () {
@@ -12,33 +14,27 @@ describe("scraper/radioline", function () {
     });
 
     describe("*://*.radioline.co/*", function () {
-        it("should return error when it's not a music", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a music", function () {
             const url = "https://fr-fr.radioline.co/qui-sommes-nous";
-            const expected = "noAudio";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
-        it("should return error when it's not a music with hash", function () {
+        it("should return null when it's not a music with hash", function () {
             const url = "http://www.radioline.co" +
                                              "/search-result-for-radio-france" +
                                           "#radios/france-bleu-provence-666-fm";
-            const expected = "noAudio";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -51,7 +47,7 @@ describe("scraper/radioline", function () {
                              "-20181112111300-767ff243e145d03dae436beee7e078a1";
             const expected = "http://rf.proxycast.org/1501861709009133568" +
                           "/18141-12.11.2018-ITEMA_21890205-0.mp3?_=1448798384";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -64,7 +60,7 @@ describe("scraper/radioline", function () {
                              "-20181114163800-3297da9989a66c1213ce5976c250f736";
             const expected = "http://rf.proxycast.org/1502668985731129344" +
                           "/16598-14.11.2018-ITEMA_21892402-0.mp3?_=1431848591";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

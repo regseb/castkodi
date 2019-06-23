@@ -2,8 +2,6 @@
  * @module core/scraper/onetv
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * Les règles avec les patrons et leur action.
  *
@@ -20,16 +18,14 @@ export const rules = new Map();
  */
 rules.set([
     "*://www.1tv.ru/shows/*", "*://www.1tv.ru/movies/*"
-], function (url) {
-    return fetch(url.toString()).then(function (response) {
+], function ({ href }) {
+    return fetch(href).then(function (response) {
         return response.text();
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         const result = doc.querySelector(`head meta[property="og:video:url"]`);
-        if (null === result) {
-            throw new PebkacError("noVideo", "Первый канал");
-        }
-        return result.content;
+        return null === result ? null
+                               : result.content;
     });
 });

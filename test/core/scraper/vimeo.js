@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/vimeo.js";
 
 describe("scraper/vimeo", function () {
     describe("#patterns", function () {
@@ -12,17 +14,17 @@ describe("scraper/vimeo", function () {
     });
 
     describe("*://vimeo.com/*", function () {
-        it("should return error when it's not a video", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a video", function () {
             const url = "https://vimeo.com/channels";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -30,7 +32,7 @@ describe("scraper/vimeo", function () {
             const url = "https://vimeo.com/228786490";
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=228786490";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -39,24 +41,24 @@ describe("scraper/vimeo", function () {
             const url = "http://vimeo.com/228786490";
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=228786490";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
     });
 
     describe("*://player.vimeo.com/video/*", function () {
-        it("should return error when it's not a video", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a video", function () {
             const url = "https://player.vimeo.com/video/foobar";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -64,7 +66,7 @@ describe("scraper/vimeo", function () {
             const url = "https://player.vimeo.com/video/228786490";
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=228786490";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

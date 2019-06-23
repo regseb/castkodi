@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/youtube.js";
 
 describe("scraper/youtube", function () {
     describe("#patterns", function () {
@@ -11,20 +13,20 @@ describe("scraper/youtube", function () {
         });
     });
 
-    describe("*://www.youtube.com/watch*", function () {
-        it("should return error when it's not a video", function () {
+    describe("*://*.youtube.com/watch*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a video", function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
 
             const url = "https://www.youtube.com/watch?x=123456";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
 
                 browser.storage.local.clear();
             });
@@ -38,7 +40,7 @@ describe("scraper/youtube", function () {
                                      "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
             const expected = "plugin://plugin.video.youtube/play/" +
                               "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
 
                 browser.storage.local.clear();
@@ -53,7 +55,7 @@ describe("scraper/youtube", function () {
                                      "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=avt4ZWlVjdY";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
 
                 browser.storage.local.clear();
@@ -66,7 +68,7 @@ describe("scraper/youtube", function () {
             const url = "https://www.youtube.com/watch?v=sWfAtMQa_yo";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=sWfAtMQa_yo";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
 
                 browser.storage.local.clear();
@@ -79,40 +81,59 @@ describe("scraper/youtube", function () {
             const url = "http://www.youtube.com/watch?v=sWfAtMQa_yo";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=sWfAtMQa_yo";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
 
                 browser.storage.local.clear();
             });
         });
-    });
 
-    describe("*://m.youtube.com/watch*", function () {
-        it("should return error when it's not a video", function () {
+        it("should return null when it's not a video from mobile", function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
 
             const url = "https://m.youtube.com/watch?a=dQw4w9WgXcQ";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
 
                 browser.storage.local.clear();
             });
         });
 
-        it("should return video id", function () {
+        it("should return video id from mobile", function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
 
             const url = "https://m.youtube.com/watch?v=dQw4w9WgXcQ";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=dQw4w9WgXcQ";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
+            });
+        });
+
+        it("should return null when it's not a video from music", function () {
+            browser.storage.local.set({ "youtube-playlist": "video" });
+
+            const url = "https://music.youtube.com/watch?m=abcdef";
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
+            });
+        });
+
+        it("should return video id from music", function () {
+            browser.storage.local.set({ "youtube-playlist": "video" });
+
+            const url = "https://music.youtube.com/watch" +
+                                                      "?v=IOqxarVWKRs" +
+                                                      "&list=RDAMVMIOqxarVWKRs";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=IOqxarVWKRs";
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
 
                 browser.storage.local.clear();
@@ -120,18 +141,18 @@ describe("scraper/youtube", function () {
         });
     });
 
-    describe("*://www.youtube.com/playlist*", function () {
-        it("should return error when it's not a playlist", function () {
+    describe("*://*.youtube.com/playlist*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a playlist", function () {
             const url = "https://www.youtube.com/playlist?v=dQw4w9WgXcQ";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -140,56 +161,61 @@ describe("scraper/youtube", function () {
                                      "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
             const expected = "plugin://plugin.video.youtube/play/" +
                               "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
-    });
 
-    describe("*://m.youtube.com/playlist*", function () {
-        it("should return error when it's not a playlist", function () {
+        it("should return null when it's not a playlist from mobile",
+                                                                   function () {
             const url = "https://m.youtube.com/playlist" +
                                                     "?video=PL3A5849BDE0581B19";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
-        it("should return playlist id", function () {
+        it("should return playlist id from mobile", function () {
             const url = "https://m.youtube.com/playlist" +
                                                      "?list=PL3A5849BDE0581B19";
             const expected = "plugin://plugin.video.youtube/play/" +
                                               "?playlist_id=PL3A5849BDE0581B19";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
     });
 
-    describe("*://youtube.com/embed/*", function () {
+    describe("*://www.youtube.com/embed/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
         it("should return video id", function () {
             const url = "https://www.youtube.com/embed/v3gefWEggSc";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=v3gefWEggSc";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
     });
 
     describe("*://youtu.be/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
         it("should return video id", function () {
             const url = "https://youtu.be/NSFbekvYOlI";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=NSFbekvYOlI";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

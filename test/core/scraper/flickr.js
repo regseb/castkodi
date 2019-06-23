@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/flickr.js";
 
 describe("scraper/flickr", function () {
     describe("#patterns", function () {
@@ -13,19 +15,19 @@ describe("scraper/flickr", function () {
         });
     });
 
-    describe("https://www.flickr.com/photos/*", function () {
-        it("should return error when it's not a video", function () {
+    describe("*://www.flickr.com/photos/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a video", function () {
             const url = "http://www.flickr.com/photos/149130852@N05" +
                                                                 "/40962531395/";
-            const expected = "noVideo";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -34,7 +36,7 @@ describe("scraper/flickr", function () {
                                                                  "/9501379492/";
             const expected = "https://live.staticflickr.com/video/9501379492/" +
                                                          "599013f6d7/orig.mp4?";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.ok(file.startsWith(expected),
                           `"${file}".startsWith(expected)`);
             });

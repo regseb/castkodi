@@ -2,8 +2,6 @@
  * @module core/scraper/jeuxvideocom
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * Les règles avec les patrons et leur action.
  *
@@ -18,20 +16,24 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo JeuxVideo.com.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.jeuxvideo.com/*", "*://jeuxvideo.com/*"], function (url) {
-    return fetch(url.toString()).then(function (response) {
+rules.set([
+    "*://www.jeuxvideo.com/*", "*://jeuxvideo.com/*"
+], function ({ href }) {
+    return fetch(href).then(function (response) {
         return response.text();
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         const video = doc.querySelector("[data-srcset-video]");
         if (null === video) {
-            throw new PebkacError("noVideo", "JeuxVideo.com");
+            return null;
         }
-        return fetch("http://www.jeuxvideo.com" + video.dataset.srcsetVideo);
-    }).then(function (response) {
-        return response.json();
-    }).then(function (data) {
-        return data.sources.find((s) => "true" === s.default).file;
+
+        const url = "https://www.jeuxvideo.com" + video.dataset.srcsetVideo;
+        return fetch(url).then(function (subresponse) {
+            return subresponse.json();
+        }).then(function ({ sources }) {
+            return sources.find((s) => "true" === s.default).file;
+        });
     });
 });

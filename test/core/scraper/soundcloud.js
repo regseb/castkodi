@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/soundcloud.js";
 
 describe("scraper/soundcloud", function () {
     describe("#patterns", function () {
@@ -12,33 +14,27 @@ describe("scraper/soundcloud", function () {
     });
 
     describe("*://soundcloud.com/*/*", function () {
-        it("should return error when it's not a music", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a music", function () {
             const url = "https://soundcloud.com/a-tribe-called-red" +
                                                             "/sets/trapline-ep";
-            const expected = "noAudio";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
-        it("should return error when it's not a music with one slash",
+        it("should return null when it's not a music with one slash",
                                                                    function () {
             const url = "https://soundcloud.com/you/collection";
-            const expected = "noAudio";
-            return extract(url).then(function () {
-                assert.fail();
-            }).catch(function (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+            const expected = null;
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
             });
         });
 
@@ -46,7 +42,7 @@ describe("scraper/soundcloud", function () {
             const url = "https://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                           "?audio_id=176387011";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -55,19 +51,25 @@ describe("scraper/soundcloud", function () {
             const url = "http://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                           "?audio_id=176387011";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
     });
 
     describe("*://mobi.soundcloud.com/*/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
         it("should return music id", function () {
             const url = "https://mobi.soundcloud.com" +
                                     "/a-tribe-called-red/electric-pow-wow-drum";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                             "?audio_id=8481452";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

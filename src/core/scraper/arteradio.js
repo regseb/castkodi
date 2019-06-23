@@ -24,8 +24,8 @@ export const rules = new Map();
  * @param {string} url L'URL d'un son de Arte Radio.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.arteradio.com/son/*"], function (url) {
-    return fetch(url.toString()).then(function (response) {
+rules.set(["*://www.arteradio.com/son/*"], function ({ href }) {
+    return fetch(href).then(function (response) {
         return response.text();
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");

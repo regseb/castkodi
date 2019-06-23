@@ -8,15 +8,8 @@
             "patterns": "/src/",
             "linters": { "addons-linter": null }
         }, {
-            "patterns": ["!/src/data/", "/src/**/*.js"],
+            "patterns": "/src/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_webext.json"] }
-        }, {
-            "patterns": "/src/data/**/*.js",
-            "linters": { "eslint": [
-                "eslint.json",
-                "eslint_webext.json",
-                { "rules": { "max-lines": 0 } }
-            ] }
         }, {
             "patterns": "/test/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_nodejs.json"] }

@@ -2,8 +2,6 @@
  * @module core/scraper/allocine
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * Les règles avec les patrons et leur action.
  *
@@ -18,20 +16,19 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo AlloCiné.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["http://www.allocine.fr/*"], function (url) {
-    return fetch(url.toString()).then(function (response) {
+rules.set(["http://www.allocine.fr/*"], function ({ href }) {
+    return fetch(href).then(function (response) {
         return response.text();
     }).then(function (data) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         const figure = doc.querySelector("figure[data-model]");
         if (null === figure) {
-            throw new PebkacError("noVideo", "AlloCiné");
+            return null;
         }
 
         const model = JSON.parse(figure.dataset.model);
         const source = Object.values(model.videos[0].sources).pop();
-        return source.startsWith("//") ? "http:" + source
-                                       : source;
+        return new URL(source, "http://www.allocine.fr/").href;
     });
 });

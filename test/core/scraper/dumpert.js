@@ -1,5 +1,7 @@
 import assert      from "assert";
+import { URL }     from "url";
 import { extract } from "../../../src/core/scrapers.js";
+import { rules }   from "../../../src/core/scraper/dumpert.js";
 
 describe("scraper/dumpert", function () {
     describe("#patterns", function () {
@@ -12,6 +14,12 @@ describe("scraper/dumpert", function () {
     });
 
     describe("*://www.dumpert.nl/mediabase/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
         it("should return video id", function () {
             const url = "https://www.dumpert.nl/mediabase/7248279" +
                                                  "/47066e59/wheelie_in_ny.html";
@@ -19,7 +27,7 @@ describe("scraper/dumpert", function () {
                                 "&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
                                            "%2Fmediabase%2F7248279%2F47066e59" +
                                                         "%2Fwheelie_in_ny.html";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });
@@ -31,7 +39,7 @@ describe("scraper/dumpert", function () {
                                  "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
                                            "%2Fmediabase%2F7248279%2F47066e59" +
                                                         "%2Fwheelie_in_ny.html";
-            return extract(url).then(function (file) {
+            return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
         });

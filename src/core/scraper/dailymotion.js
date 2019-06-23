@@ -23,8 +23,8 @@ export const rules = new Map();
  * @param {string} url L'URL d'une vidéo Dailymotion.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.dailymotion.com/video/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + url.pathname.substring(7));
+rules.set(["*://www.dailymotion.com/video/*"], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_URL + pathname.substring(7));
 });
 
 /**
@@ -34,8 +34,8 @@ rules.set(["*://www.dailymotion.com/video/*"], function (url) {
  * @param {string} url L'URL minifié d'une vidéo Dailymotion.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://dai.ly/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + url.pathname.substring(1));
+rules.set(["*://dai.ly/*"], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_URL + pathname.substring(1));
 });
 
 /**
@@ -45,6 +45,6 @@ rules.set(["*://dai.ly/*"], function (url) {
  * @param {string} url L'URL d'une vidéo Dailymotion intégrée.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.dailymotion.com/embed/video/*"], function (url) {
-    return Promise.resolve(PLUGIN_URL + url.pathname.substring(13));
+rules.set(["*://www.dailymotion.com/embed/video/*"], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_URL + pathname.substring(13));
 });

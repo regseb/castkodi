@@ -2,8 +2,6 @@
  * @module core/scraper/youtube
  */
 
-import { PebkacError } from "../pebkac.js";
-
 /**
  * L'URL de l'extension pour lire des vidéos issues de YouTube.
  *
@@ -34,21 +32,20 @@ export const rules = new Map();
  * @return {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
-    "*://www.youtube.com/watch*", "*://m.youtube.com/watch*",
-    "*://hooktube.com/watch*"
-], function (url) {
-    return browser.storage.local.get(["youtube-playlist"]).then(
-                                                             function (config) {
-        if (url.searchParams.has("list") &&
+    "*://*.youtube.com/watch*", "*://hooktube.com/watch*"
+], function ({ searchParams }) {
+    return browser.storage.local.get(["youtube-playlist"])
+                                                       .then(function (config) {
+        if (searchParams.has("list") &&
                 ("playlist" === config["youtube-playlist"] ||
-                 !url.searchParams.has("v"))) {
-            return PLUGIN_PLAYLIST_URL + url.searchParams.get("list");
+                 !searchParams.has("v"))) {
+            return PLUGIN_PLAYLIST_URL + searchParams.get("list");
         }
-        if (url.searchParams.has("v")) {
-            return PLUGIN_VIDEO_URL + url.searchParams.get("v");
+        if (searchParams.has("v")) {
+            return PLUGIN_VIDEO_URL + searchParams.get("v");
         }
 
-        throw new PebkacError("noVideo", "YouTube");
+        return null;
     });
 });
 
@@ -59,15 +56,12 @@ rules.set([
  * @param {string} url L'URL d'une playlist YouTube.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set([
-    "*://www.youtube.com/playlist*", "*://m.youtube.com/playlist*"
-], function (url) {
-    if (url.searchParams.has("list")) {
-        return Promise.resolve(
-                            PLUGIN_PLAYLIST_URL + url.searchParams.get("list"));
+rules.set(["*://*.youtube.com/playlist*"], function ({ searchParams }) {
+    if (searchParams.has("list")) {
+        return Promise.resolve(PLUGIN_PLAYLIST_URL + searchParams.get("list"));
     }
 
-    return Promise.reject(new PebkacError("noVideo", "YouTube"));
+    return Promise.resolve(null);
 });
 
 /**
@@ -77,8 +71,8 @@ rules.set([
  * @param {string} url L'URL d'une vidéo YouTube intégrée.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.youtube.com/embed/*"], function (url) {
-    return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substring(7));
+rules.set(["*://www.youtube.com/embed/*"], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_VIDEO_URL + pathname.substring(7));
 });
 
 /**
@@ -88,6 +82,6 @@ rules.set(["*://www.youtube.com/embed/*"], function (url) {
  * @param {string} url L'URL minifié d'une vidéo YouTube.
  * @return {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://youtu.be/*"], function (url) {
-    return Promise.resolve(PLUGIN_VIDEO_URL + url.pathname.substring(1));
+rules.set(["*://youtu.be/*"], function ({ pathname }) {
+    return Promise.resolve(PLUGIN_VIDEO_URL + pathname.substring(1));
 });
