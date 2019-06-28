@@ -32,7 +32,7 @@ describe("scraper/onetv", function () {
             const url = "https://www.1tv.ru/shows/pozner/izbrannoe" +
                     "/razvlech-publiku-lozhyu-slozhno-maksim-galkin-o-svobode" +
                     "-yumora-pozner-fragment-vypuska-ot-03-06-2019";
-            const expected = "https://redirect.1tv.ru/video/multibitrate" +
+            const expected = "https://balancer-vod.1tv.ru/video/multibitrate" +
                       "/video/2019/06/03/0535f134-80c9-40f2-af3b-6bb485488fe8" +
                       "_20190604_Pozner_High_950.mp4";
             return action(new URL(url)).then(function (file) {
@@ -43,7 +43,7 @@ describe("scraper/onetv", function () {
         it("should return video id when protocol is HTTP", function () {
             const url = "http://www.1tv.ru/shows/zdorove/vypuski" +
                                                 "/zdorove-vypusk-ot-26-05-2019";
-            const expected = "https://redirect.1tv.ru/video/multibitrate" +
+            const expected = "https://balancer-vod.1tv.ru/video/multibitrate" +
                       "/video/2019/05/26/0bcc8f80-6082-4589-85b1-fcc000e150e9" +
                              "_HD-news-2019_05_26-08_19_35_2923421_cut_950.mp4";
             return action(new URL(url)).then(function (file) {
@@ -69,11 +69,11 @@ describe("scraper/onetv", function () {
 
         it("should return video id", function () {
             const url = "https://www.1tv.ru/movies/angel-hranitel" +
-                                                  "/angel-hranitel-1-i-2-serii";
-            const expected = "https://redirect.1tv.ru/video/multibitrate" +
-                                                           "/video/2019/06/17" +
-                                       "/40dd4d84-fd99-4e98-8dc2-d4b3ab9fd2b8" +
-                                                  "_Angel-20190617-1-2_950.mp4";
+                                                 "/angel-hranitel-9-i-10-serii";
+            const expected = "https://balancer-vod.1tv.ru/video/multibitrate" +
+                                                           "/video/2019/06/24" +
+                                       "/addedf12-ad63-491d-8c8e-ffe24aa6e981" +
+                                         "_HD-news-2019_06_24-19_44_32_950.mp4";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
