@@ -174,7 +174,7 @@ browser.storage.local.get().then(function (config) {
     if (!("youtube-playlist" in config)) {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
     }
-    browser.storage.local.set({ "version": "4.0.0" });
+    browser.storage.local.set({ "version": "4.1.0" });
 
     // Se connecter à Kodi et surveiller les futures changements de la
     // configuration.
