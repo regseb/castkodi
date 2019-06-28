@@ -14,7 +14,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Instagram.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.instagram.com/p/*"], function ({ href }) {
     return fetch(href).then(function (response) {

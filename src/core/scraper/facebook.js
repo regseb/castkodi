@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Facebook.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
     "*://*.facebook.com/*/videos/*/*", "*://*.facebook.com/watch*"

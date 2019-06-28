@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'un lien Ace Stream.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["acestream://*"], function ({ href }) {
     return Promise.resolve(PLUGIN_URL + encodeURIComponent(href));

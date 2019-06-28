@@ -14,7 +14,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Stormo.TV.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["https://www.stormo.tv/videos/*"], function ({ href }) {
     return fetch(href).then(function (response) {

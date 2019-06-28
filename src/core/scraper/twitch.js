@@ -36,7 +36,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Twitch.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
     "*://www.twitch.tv/videos/*", "*://go.twitch.tv/videos/*",
@@ -50,7 +50,7 @@ rules.set([
  *
  * @function action
  * @param {string} url L'URL d'un clip Twitch.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://clips.twitch.tv/*"], function ({ pathname }) {
     return Promise.resolve(PLUGIN_CLIP_URL + pathname.substring(1));
@@ -61,7 +61,7 @@ rules.set(["*://clips.twitch.tv/*"], function ({ pathname }) {
  *
  * @function action
  * @param {string} url L'URL d'un clip d'une chaine Twitch.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
     "*://www.twitch.tv/*/clip/*", "*://go.twitch.tv/*/clip/*",
@@ -76,7 +76,7 @@ rules.set([
  *
  * @function action
  * @param {string} url L'URL d'un <em>live</em> Twitch.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
     "*://www.twitch.tv/*", "*://go.twitch.tv/*", "*://m.twitch.tv/*"

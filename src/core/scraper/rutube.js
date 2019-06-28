@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Rutube.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
     "*://rutube.ru/video/*/*", "*://rutube.ru/play/embed/*"

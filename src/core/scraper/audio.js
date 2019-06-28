@@ -14,7 +14,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une page Internet.
- * @return {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://*/*"], function ({ href }) {
     return fetch(href).then(function (response) {

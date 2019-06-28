@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Dailymotion.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.dailymotion.com/video/*"], function ({ pathname }) {
     return Promise.resolve(PLUGIN_URL + pathname.substring(7));
@@ -32,7 +32,7 @@ rules.set(["*://www.dailymotion.com/video/*"], function ({ pathname }) {
  *
  * @function action
  * @param {string} url L'URL minifié d'une vidéo Dailymotion.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://dai.ly/*"], function ({ pathname }) {
     return Promise.resolve(PLUGIN_URL + pathname.substring(1));
@@ -43,7 +43,7 @@ rules.set(["*://dai.ly/*"], function ({ pathname }) {
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Dailymotion intégrée.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.dailymotion.com/embed/video/*"], function ({ pathname }) {
     return Promise.resolve(PLUGIN_URL + pathname.substring(13));

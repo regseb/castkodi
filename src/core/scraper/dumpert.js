@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Dumpert.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://www.dumpert.nl/mediabase/*"], function ({ href }) {
     return Promise.resolve(PLUGIN_URL + encodeURIComponent(href));

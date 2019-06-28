@@ -14,7 +14,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'un jeu sur Steam.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://store.steampowered.com/app/*"], function ({ href }) {
     return fetch(href).then(function (response) {

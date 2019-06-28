@@ -14,7 +14,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'un son de Apple Podcasts.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["https://podcasts.apple.com/*/podcast/*/id*"], function ({ href }) {
     return fetch(href).then(function (response) {

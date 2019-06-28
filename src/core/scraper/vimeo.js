@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Vimeo.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://vimeo.com/*"], function ({ pathname }) {
     if ((/^\/[0-9]+$/u).test(pathname)) {
@@ -36,7 +36,7 @@ rules.set(["*://vimeo.com/*"], function ({ pathname }) {
  *
  * @function action
  * @param {string} url L'URL du lecteur de Vimeo avec une vidéo.
- * @return {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set(["*://player.vimeo.com/video/*"], function ({ pathname }) {
     if ((/^\/video\/[0-9]+$/u).test(pathname)) {
