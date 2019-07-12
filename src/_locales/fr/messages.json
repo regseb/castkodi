@@ -188,6 +188,34 @@
         "message": "placer en file d'attente"
     },
 
+    "options_contextsDescription_textcontent": {
+        "message": "Indiquer les éléments où le menu contextuel est ajouté :"
+    },
+    "options_contextsAudio_textcontent": {
+        "message": "audio"
+    },
+    "options_contextsBookmark_textcontent": {
+        "message": "marque-page"
+    },
+    "options_contextsFrame_textcontent": {
+        "message": "iframe"
+    },
+    "options_contextsLink_textcontent": {
+        "message": "lien"
+    },
+    "options_contextsPage_textcontent": {
+        "message": "page"
+    },
+    "options_contextsSelection_textcontent": {
+        "message": "sélection"
+    },
+    "options_contextsTab_textcontent": {
+        "message": "onglet"
+    },
+    "options_contextsVideo_textcontent": {
+        "message": "vidéo"
+    },
+
     "options_youtubeTitle_textcontent": {
         "message": "YouTube"
     },

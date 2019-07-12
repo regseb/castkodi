@@ -188,6 +188,34 @@
         "message": "queue item"
     },
 
+    "options_contextsDescription_textcontent": {
+        "message": "Specify the items where the context menu is added:"
+    },
+    "options_contextsAudio_textcontent": {
+        "message": "audio"
+    },
+    "options_contextsBookmark_textcontent": {
+        "message": "bookmark"
+    },
+    "options_contextsFrame_textcontent": {
+        "message": "iframe"
+    },
+    "options_contextsLink_textcontent": {
+        "message": "link"
+    },
+    "options_contextsPage_textcontent": {
+        "message": "page"
+    },
+    "options_contextsSelection_textcontent": {
+        "message": "selection"
+    },
+    "options_contextsTab_textcontent": {
+        "message": "tab"
+    },
+    "options_contextsVideo_textcontent": {
+        "message": "video"
+    },
+
     "options_youtubeTitle_textcontent": {
         "message": "YouTube"
     },

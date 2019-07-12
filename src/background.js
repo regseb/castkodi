@@ -7,14 +7,27 @@ import { notify }  from "./core/notify.js";
 import { extract } from "./core/scrapers.js";
 
 /**
- * La liste des contextes où seront ajouté les options dans le menu contextuel.
+ * Les valeurs par défaut de la configuration.
  *
- * @constant {Array.<string>}
+ * @constant {object}
  */
-const CONTEXTS = [
-    "audio", "browser_action", "frame", "link", "page", "selection", "tab",
-    "video"
-];
+const DEFAULT_CONFIG = {
+    "connection-host":         "",
+    "general-history":         false,
+    "menus-send":              true,
+    "menus-insert":            true,
+    "menus-add":               true,
+    "contexts-audio":          true,
+    "contexts-bookmark":       false,
+    "contexts-browser_action": true,
+    "contexts-frame":          true,
+    "contexts-link":           true,
+    "contexts-page":           true,
+    "contexts-selection":      true,
+    "contexts-tab":            true,
+    "contexts-video":          true,
+    "youtube-playlist":        "playlist"
+};
 
 /**
  * Le client JSON-RPC pour contacter Kodi.
@@ -24,13 +37,21 @@ const CONTEXTS = [
 let jsonrpc = null;
 
 /**
- * Diffuse un média sur Kodi.
+ * Récupère l'URL à analyser parmi les points d'entrée.
  *
- * @function cast
+ * @function mux
  * @param {object} info Les informations fournies par le menu contextuel ou la
  *                      pop-up.
+ * @returns {Promise} L'URL à analyser.
  */
-const cast = function (info) {
+const mux = function (info) {
+    if ("bookmarkId" in info) {
+        return browser.bookmarks.get(info.bookmarkId).then(([bookmark]) => {
+            return "bookmark" === bookmark.type ? bookmark.url
+                                                : "";
+        });
+    }
+
     const urls = [info.selectionText, info.linkUrl, info.srcUrl, info.frameUrl,
                   info.pageUrl, info.popupUrl];
     let url = urls.find((u) => undefined !== u && "" !== u).trim();
@@ -38,20 +59,32 @@ const cast = function (info) {
     if (!(/^[a-z-]+:/iu).test(url)) {
         url = url.replace(/^\/*/u, "http://");
     }
+    return Promise.resolve(url);
+};
 
-    extract(url).then(function (file) {
-        switch (info.menuItemId) {
-            case "send":   return jsonrpc.send(file);
-            case "insert": return jsonrpc.insert(file);
-            case "add":    return jsonrpc.add(file);
-            default: throw new Error(info.menuItemId + " is not supported");
-        }
-    }).then(function () {
-        return browser.storage.local.get(["general-history"]);
-    }).then(function (config) {
-        return config["general-history"] ? browser.history.addUrl({ url })
-                                         : Promise.resolve();
-    }).catch(notify);
+/**
+ * Diffuse un média sur Kodi.
+ *
+ * @function cast
+ * @param {object} info Les informations fournies par le menu contextuel ou la
+ *                      pop-up.
+ */
+const cast = function (info) {
+    mux(info).then((url) => {
+        extract(url).then((file) => {
+            switch (info.menuItemId) {
+                case "send":   return jsonrpc.send(file);
+                case "insert": return jsonrpc.insert(file);
+                case "add":    return jsonrpc.add(file);
+                default: throw new Error(info.menuItemId + " is not supported");
+            }
+        }).then(() => {
+            return browser.storage.local.get(["general-history"]);
+        }).then((config) => {
+            return config["general-history"] ? browser.history.addUrl({ url })
+                                             : Promise.resolve();
+        }).catch(notify);
+    });
 };
 
 /**
@@ -76,8 +109,8 @@ const client = function (changes) {
  */
 const menu = function (changes) {
     // Ignorer tous les changements sauf ceux liés au menu contextuel.
-    if (!("menus-send" in changes || "menus-insert" in changes ||
-            "menus-add" in changes)) {
+    if (!Object.keys(changes).some((k) => k.startsWith("menus-") ||
+                                          k.startsWith("contexts-"))) {
         return;
     }
 
@@ -85,13 +118,18 @@ const menu = function (changes) {
     browser.menus.removeAll().then(function () {
         return browser.storage.local.get();
     }).then(function (config) {
+        const contexts = Object.entries(config)
+                               .filter(([k]) => k.startsWith("contexts-"))
+                               .filter(([, v]) => v)
+                               .map(([k]) => k.substring(9));
+
         // Si au moins deux options doivent être affichées : les regrouper dans
         // une option parente.
         if (config["menus-send"] && config["menus-insert"] ||
                 config["menus-send"] && config["menus-add"] ||
                 config["menus-insert"] && config["menus-add"]) {
             browser.menus.create({
-                "contexts": CONTEXTS,
+                "contexts": contexts,
                 "id":       "parent",
                 "title":    browser.i18n.getMessage("menus_firstParent")
             });
@@ -118,19 +156,19 @@ const menu = function (changes) {
             }
         } else if (config["menus-send"]) {
             browser.menus.create({
-                "contexts": CONTEXTS,
+                "contexts": contexts,
                 "id":       "send",
                 "title":    browser.i18n.getMessage("menus_firstSend")
             });
         } else if (config["menus-insert"]) {
             browser.menus.create({
-                "contexts": CONTEXTS,
+                "contexts": contexts,
                 "id":       "insert",
                 "title":    browser.i18n.getMessage("menus_firstInsert")
             });
         } else if (config["menus-add"]) {
             browser.menus.create({
-                "contexts": CONTEXTS,
+                "contexts": contexts,
                 "id":       "add",
                 "title":    browser.i18n.getMessage("menus_firstAdd")
             });
@@ -156,23 +194,10 @@ browser.storage.local.get().then(function (config) {
     ]);
 
     // Définir des valeurs par défaut.
-    if (!("connection-host" in config)) {
-        browser.storage.local.set({ "connection-host": "" });
-    }
-    if (!("general-history" in config)) {
-        browser.storage.local.set({ "general-history": false });
-    }
-    if (!("menus-send" in config)) {
-        browser.storage.local.set({ "menus-send": true });
-    }
-    if (!("menus-insert" in config)) {
-        browser.storage.local.set({ "menus-insert": true });
-    }
-    if (!("menus-add" in config)) {
-        browser.storage.local.set({ "menus-add": true });
-    }
-    if (!("youtube-playlist" in config)) {
-        browser.storage.local.set({ "youtube-playlist": "playlist" });
+    for (const [key, value] of Object.entries(DEFAULT_CONFIG)) {
+        if (!(key in config)) {
+            browser.storage.local.set({ [key]: value });
+        }
     }
     browser.storage.local.set({ "version": "4.1.0" });
 
@@ -183,7 +208,7 @@ browser.storage.local.get().then(function (config) {
 
     // Ajouter les options dans les menus contextuels et surveiller les futurs
     // changements de la configuration.
-    menu({ "menus-send": null, "menu-insert": null, "menus-add": null });
+    menu({ "menus-send": null });
     browser.storage.onChanged.addListener(menu);
 });
 
