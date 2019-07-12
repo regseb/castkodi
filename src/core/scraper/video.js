@@ -18,10 +18,10 @@ export const rules = new Map();
  */
 rules.set(["*://*/*"], function ({ href }) {
     return fetch(href).then(function (response) {
-        const type = response.headers.get("Content-Type");
-        if (null !== type &&
-                (type.startsWith("text/html") ||
-                 type.startsWith("application/xhtml+xml"))) {
+        const contentType = response.headers.get("Content-Type");
+        if (null !== contentType &&
+                (contentType.startsWith("text/html") ||
+                 contentType.startsWith("application/xhtml+xml"))) {
             return response.text();
         }
         // Si ce n'est pas une page HTML : simuler une page vide.
@@ -31,6 +31,6 @@ rules.set(["*://*/*"], function ({ href }) {
 
         const video = doc.querySelector("video source[src], video[src]");
         return null === video ? null
-                              : new URL(video.getAttribute("src"), href).href;
+                              : new URL(video.src, href).href;
     });
 });

@@ -259,14 +259,14 @@ export const JSONRPC = class {
      * @param {number} time La nouvelle position.
      * @returns {Promise} La réponse de Kodi.
      */
-    seek(value) {
+    seek(time) {
         return this.request("Player.Seek", {
             "playerid": 1,
             "value":    {
                 "time": {
-                    "hours":        Math.trunc(value / 3600),
-                    "minutes":      Math.trunc(value / 60 % 60),
-                    "seconds":      value % 60,
+                    "hours":        Math.trunc(time / 3600),
+                    "minutes":      Math.trunc(time / 60) % 60,
+                    "seconds":      time % 60,
                     "milliseconds": 0
                 }
             }
@@ -470,7 +470,6 @@ export const JSONRPC = class {
             return this.request("Player.GetActivePlayers").then((playerids) => {
                 if (0 === playerids.length || 1 !== playerids[0].playerid) {
                     return {
-                        "live":      false,
                         "repeat":    "off",
                         "shuffled":  false,
                         "speed":     null,
@@ -485,10 +484,8 @@ export const JSONRPC = class {
                     ]
                 });
             }).then((player) => {
-                return Object.assign({}, application, {
-                    "repeat":    player.repeat,
-                    "shuffled":  player.shuffled,
-                    "speed":     player.speed,
+                // Regrouper les propriétés et convertir les durées.
+                return Object.assign({}, application, player, {
                     "time":      player.time.hours * 3600 +
                                  player.time.minutes * 60 +
                                  player.time.seconds,

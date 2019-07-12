@@ -18,10 +18,7 @@ describe("jsonrpc", function () {
                 assert.fail();
             }).catch(function (err) {
                 assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+                assert.strictEqual(err.type, expected);
             });
         });
 
@@ -31,10 +28,7 @@ describe("jsonrpc", function () {
                 assert.fail();
             }).catch(function (err) {
                 assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+                assert.strictEqual(err.type, expected);
             });
         });
 
@@ -44,10 +38,7 @@ describe("jsonrpc", function () {
                 assert.fail();
             }).catch(function (err) {
                 assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+                assert.strictEqual(err.type, expected);
             });
         });
 
@@ -57,10 +48,7 @@ describe("jsonrpc", function () {
                 assert.fail();
             }).catch(function (err) {
                 assert.strictEqual(err.name, "PebkacError");
-                assert.ok(err.title.includes(expected),
-                          `"${err.title}".includes(expected)`);
-                assert.ok(err.message.includes(expected),
-                          `"${err.message}".includes(expected)`);
+                assert.strictEqual(err.type, expected);
             });
         });
 
@@ -69,7 +57,7 @@ describe("jsonrpc", function () {
                 assert.fail();
             }).catch(function (err) {
                 assert.strictEqual(err.name, "Error");
-                assert.strictEqual(err.message, "Error message !");
+                assert.strictEqual(err.message, "Error message!");
             });
         });
     });

@@ -29,6 +29,6 @@ rules.set(["http://www.allocine.fr/*"], function ({ href }) {
 
         const model = JSON.parse(figure.dataset.model);
         const source = Object.values(model.videos[0].sources).pop();
-        return new URL(source, "http://www.allocine.fr/").href;
+        return new URL(source, href).href;
     });
 });

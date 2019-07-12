@@ -98,7 +98,7 @@ export const WebSocket = class {
                 this.onmessage({
                     "data": JSON.stringify({
                         "id":    data.id,
-                        "error": { "message": "Error message !" }
+                        "error": { "message": "Error message!" }
                     })
                 });
                 break;

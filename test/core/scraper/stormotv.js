@@ -35,8 +35,7 @@ describe("scraper/stormotv", function () {
                                  "/34e334698d06ca878d9842e10fe834340b0ea7f0fc" +
                                                    "/338000/338790/338790.mp4/";
             return action(new URL(url)).then(function (file) {
-                assert.ok(file.startsWith(expected),
-                          `"${file}".startsWith(expected)`);
+                assert.strictEqual(file, expected);
             });
         });
     });

@@ -120,8 +120,8 @@ const SCRAPERS = [];
  */
 const dispatch = function (url) {
     return SCRAPERS.filter((s) => s.pattern.test(url))
-                   .reduce((promise, scraper) => {
-        return promise.then((file) => {
+                   .reduce((result, scraper) => {
+        return result.then((file) => {
             // Si aucun fichier n'a encore été trouvé : continuer d'analyser
             // avec les autres scrapers.
             return null === file ? scraper.action(new URL(url))
@@ -141,10 +141,10 @@ const dispatch = function (url) {
  */
 const rummage = function (url) {
     return fetch(url).then((response) => {
-        const type = response.headers.get("Content-Type");
-        if (null !== type &&
-                (type.startsWith("text/html") ||
-                 type.startsWith("application/xhtml+xml"))) {
+        const contentType = response.headers.get("Content-Type");
+        if (null !== contentType &&
+                (contentType.startsWith("text/html") ||
+                 contentType.startsWith("application/xhtml+xml"))) {
             return response.text();
         }
         // Si ce n'est pas une page HTML : simuler une page vide.
@@ -153,8 +153,8 @@ const rummage = function (url) {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         return Array.from(doc.querySelectorAll("iframe[src]"))
-                    .reduce((promise, element) => {
-            return promise.then((file) => {
+                    .reduce((result, element) => {
+            return result.then((file) => {
                 // Si aucun fichier n'a encore été trouvé : continuer d'analyser
                 // les iframes de la page.
                 return null === file
