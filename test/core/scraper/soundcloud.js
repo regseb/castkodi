@@ -41,7 +41,7 @@ describe("scraper/soundcloud", function () {
         it("should return music id", function () {
             const url = "https://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
-                                                          "?audio_id=176387011";
+                                                          "?track_id=176387011";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -50,7 +50,7 @@ describe("scraper/soundcloud", function () {
         it("should return music id when protocol is HTTP", function () {
             const url = "http://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
-                                                          "?audio_id=176387011";
+                                                          "?track_id=176387011";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -68,7 +68,7 @@ describe("scraper/soundcloud", function () {
             const url = "https://mobi.soundcloud.com" +
                                     "/a-tribe-called-red/electric-pow-wow-drum";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
-                                                            "?audio_id=8481452";
+                                                            "?track_id=8481452";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });

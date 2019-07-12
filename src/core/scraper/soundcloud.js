@@ -14,7 +14,7 @@ const URL_REGEXP = /api\.soundcloud\.com%2Ftracks%2F([^&]+)/iu;
  *
  * @constant {string}
  */
-const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?audio_id=";
+const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?track_id=";
 
 /**
  * Les règles avec les patrons et leur action.
