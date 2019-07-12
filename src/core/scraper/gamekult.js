@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une page de Gamekult.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://www.gamekult.com/*", "*://gamekult.com/*"

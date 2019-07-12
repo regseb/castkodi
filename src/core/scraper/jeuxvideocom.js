@@ -13,8 +13,8 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une vidéo JeuxVideo.com.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @param {string} url L'URL d'une vidéo JeuxVideoCom.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://www.jeuxvideo.com/*", "*://jeuxvideo.com/*"

@@ -50,6 +50,7 @@ const scrapers = [
 /**
  * Teste si une chaine de caractères est une URL.
  *
+ * @function isUrl
  * @param {string} url La chaine de caractères pouvant contenir une URL.
  * @returns {boolean} <code>true</code> c'est une URL ; sinon
  *                    <code>false</code>.
@@ -79,7 +80,7 @@ const sanitize = function (pattern) {
 };
 
 /**
- * Convertit un modèle de correspondance en expression rationnelle.
+ * Convertis un modèle de correspondance en expression rationnelle.
  *
  * @function compile
  * @param {string} pattern Un modèle de correspondance.
@@ -102,8 +103,8 @@ const compile = function (pattern) {
 };
 
 /**
- * Les patrons (sous forme de d'expression rationnelle) des URLs gérées ainsi
- * que leur action.
+ * Les patrons (sous forme d'expression rationnelle) des URLs gérées ainsi que
+ * leur action.
  *
  * @constant {Array.<object.<string,*>>}
  */
@@ -136,7 +137,7 @@ const dispatch = function (url) {
  * @function rummage
  * @param {string} url L'URL d'une page Internet.
  * @returns {Promise} L'URL du <em>fichier</em> ou l'URL de la page Internet si
- *                    aucun élément n'est présent..
+ *                    aucun élément n'est présent.
  */
 const rummage = function (url) {
     return fetch(url).then((response) => {
@@ -155,7 +156,7 @@ const rummage = function (url) {
                     .reduce((promise, element) => {
             return promise.then((file) => {
                 // Si aucun fichier n'a encore été trouvé : continuer d'analyser
-                // les liens de la page.
+                // les iframes de la page.
                 return null === file
                       ? dispatch(new URL(element.getAttribute("src"), url).href)
                       : file;

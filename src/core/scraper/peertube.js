@@ -14,7 +14,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo PeerTube.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://*/videos/watch/*", "*://*/videos/embed/*"
@@ -28,6 +28,7 @@ rules.set([
         return "files" in response ? response.files[0].fileUrl
                                    : null;
     }).catch(function () {
+        // Si le site n'est pas une instance PeerTube, l'appel à l'API échoue.
         return null;
     });
 });

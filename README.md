@@ -37,14 +37,13 @@ pause, passer au prochain élément, régler le volume…
 L'extension est disponible sur le
 **[Firefox Add-ons](https://addons.mozilla.org/addon/castkodi/)**.
 
-Dans Kodi, il faut *Autoriser le contrôle à distance via HTTP*. Ce réglage se
-fait dans la page *Paramètres* / *Services* / *Contrôle*.
+Dans Kodi, il faut *Autoriser le contrôle à distance par des programmes sur
+d'autres systèmes*. Ce réglage se fait dans la page *Paramètres* / *Services* /
+*Contrôle*.
 
-Vous devez ensuite configurer les *Préférences* de Cast Kodi en copiant les
-valeurs renseignées dans Kodi : le *Port* et éventuellement le *Nom
-d'utilisateur* et le *Mot de passe*. Il faut fournir l'*Adresse IP* du serveur
-hébergeant Kodi ; cette information est disponible dans la page *Paramètres* /
-*Infos sur le système* / *Résumé*.
+Vous devez ensuite configurer les *Préférences* de Cast Kodi en copiant
+l'*Adresse IP* du serveur hébergeant Kodi ; cette information est disponible
+dans la page *Paramètres* / *Infos sur le système* / *Résumé*.
 
 ¹ Pour lire les vidéos / musiques hébergées sur ces plateformes, il faut
 installer les extensions

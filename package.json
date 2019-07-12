@@ -27,8 +27,8 @@
         "test": "nyc --require esm mocha test/",
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "coverage:html": "nyc report --reporter=html",
-        "docs": "jsdoc -r -d docs/ src/",
-        "clean": "rm -rf .nyc_output/ coverage/ docs/ node_modules/"
+        "jsdocs": "jsdoc -r -d jsdocs/ src/",
+        "clean": "rm -rf .nyc_output/ coverage/ jsdocs/ node_modules/"
     },
     "devDependencies": {
         "addons-linter": "^1.10.0",
@@ -36,7 +36,7 @@
         "david": "^11.0.0",
         "eslint": "^6.0.1",
         "eslint-plugin-filenames": "^1.3.2",
-        "eslint-plugin-jsdoc": "^10.0.0",
+        "eslint-plugin-jsdoc": "^15.3.6",
         "eslint-plugin-mocha": "^5.3.0",
         "eslint-plugin-promise": "^4.2.1",
         "esm": "^3.2.25",

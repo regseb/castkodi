@@ -24,11 +24,11 @@ const PLUGIN_PLAYLIST_URL = "plugin://plugin.video.youtube/play/?playlist_id=";
 export const rules = new Map();
 
 /**
- * Extrait les informations nécessaire pour lire la vidéo / playlist sur Kodi.
+ * Extrait les informations nécessaire pour lire une vidéo / playlist sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une vidéo ou playlist YouTube (ou HookTube).
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @param {string} url L'URL d'une vidéo / playlist YouTube (ou HookTube).
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://*.youtube.com/watch*", "*://hooktube.com/watch*"
@@ -49,11 +49,11 @@ rules.set([
 });
 
 /**
- * Extrait les informations nécessaire pour lire la playlist sur Kodi.
+ * Extrait les informations nécessaire pour lire une playlist sur Kodi.
  *
  * @function action
  * @param {string} url L'URL d'une playlist YouTube.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://*.youtube.com/playlist*"], function ({ searchParams }) {
     if (searchParams.has("list")) {
@@ -64,7 +64,7 @@ rules.set(["*://*.youtube.com/playlist*"], function ({ searchParams }) {
 });
 
 /**
- * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
  * @param {string} url L'URL d'une vidéo YouTube intégrée.
@@ -75,7 +75,7 @@ rules.set(["*://www.youtube.com/embed/*"], function ({ pathname }) {
 });
 
 /**
- * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
  * @param {string} url L'URL minifié d'une vidéo YouTube.

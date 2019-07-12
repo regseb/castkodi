@@ -16,7 +16,7 @@ export const JSONRPC = class {
      *
      * @function check
      * @param {string} host L'URL du serveur JSON-RPC de Kodi.
-     * @returns {Promise} Une promesse tenue si l'API est accéssible ; sinon une
+     * @returns {Promise} Une promesse tenue si l'API est accessible ; sinon une
      *                    promesse rompue.
      */
     static check(host) {
@@ -26,7 +26,8 @@ export const JSONRPC = class {
     /**
      * Crée un client JSON-RPC.
      *
-     * @param {string} host L'URL du serveur JSON-RPC de Kodi.
+     * @param {string} host L'adresse IP (ou le nom de domaine) du serveur
+     *                      hébergeant Kodi.
      */
     constructor(host) {
         this.host = host;
@@ -44,6 +45,12 @@ export const JSONRPC = class {
         this.onStop            = Function.prototype;
     }
 
+    /**
+     * Écoute une notification de Kodi.
+     *
+     * @function onMessage
+     * @param {object} event La notification envoyée par Kodi.
+     */
     onMessage(event) {
         const msg = JSON.parse(event.data);
         if ("id" in msg) {
@@ -98,6 +105,14 @@ export const JSONRPC = class {
         }
     }
 
+    /**
+     * Envoi une requête JSON-RPC à Kodi.
+     *
+     * @function request
+     * @param {string} method      La méthode de l'API appelée.
+     * @param {object} [params={}] Les paramètres de la méthode.
+     * @returns {Promise} La réponse de Kodi.
+     */
     request(method, params = {}) {
         if (null === this.client) {
             this.client = new Promise((resolve, reject) => {
@@ -178,7 +193,7 @@ export const JSONRPC = class {
     }
 
     /**
-     * Ajoute un média à la liste de lecture.
+     * Insère un média à la liste de lecture.
      *
      * @function insert
      * @param {string} file L'URL envoyée à Kodi.
@@ -240,8 +255,8 @@ export const JSONRPC = class {
     /**
      * Déplace le curseur de lecture.
      *
-     * @function playPause
-     * @param {number} value La nouvelle position.
+     * @function seek
+     * @param {number} time La nouvelle position.
      * @returns {Promise} La réponse de Kodi.
      */
     seek(value) {
@@ -364,7 +379,7 @@ export const JSONRPC = class {
     /**
      * Affiche les informations.
      *
-     * @function contextMenu
+     * @function info
      * @returns {Promise} La réponse de Kodi.
      */
     info() {

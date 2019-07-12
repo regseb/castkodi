@@ -3,7 +3,7 @@
  */
 
 /**
- * L'URL de l'extension pour lire des lives issus de Twitch.
+ * L'URL de l'extension pour lire des <em>live</em>s issus de Twitch.
  *
  * @constant {string}
  */
@@ -32,7 +32,7 @@ const PLUGIN_VIDEO_URL = "plugin://plugin.video.twitch/?mode=play&video_id=";
 export const rules = new Map();
 
 /**
- * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Twitch.
@@ -46,7 +46,7 @@ rules.set([
 });
 
 /**
- * Extrait les informations nécessaire pour lire le clip sur Kodi.
+ * Extrait les informations nécessaire pour lire un clip sur Kodi.
  *
  * @function action
  * @param {string} url L'URL d'un clip Twitch.
@@ -57,7 +57,7 @@ rules.set(["*://clips.twitch.tv/*"], function ({ pathname }) {
 });
 
 /**
- * Extrait les informations nécessaire pour lire le clip sur Kodi.
+ * Extrait les informations nécessaire pour lire un clip sur Kodi.
  *
  * @function action
  * @param {string} url L'URL d'un clip d'une chaine Twitch.
@@ -72,7 +72,7 @@ rules.set([
 });
 
 /**
- * Extrait les informations nécessaire pour lire le <em>live</em> sur Kodi.
+ * Extrait les informations nécessaire pour lire un <em>live</em> sur Kodi.
  *
  * @function action
  * @param {string} url L'URL d'un <em>live</em> Twitch.

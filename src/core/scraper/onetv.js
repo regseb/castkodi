@@ -13,8 +13,8 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une vidéo Первый канал.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @param {string} url L'URL d'une vidéo Первый канал (1tv.ru).
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://www.1tv.ru/shows/*", "*://www.1tv.ru/movies/*"

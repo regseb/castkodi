@@ -8,7 +8,7 @@ import { JSONRPC } from "../core/jsonrpc.js";
  * Demande (ou enlève) une permission optionnelle.
  *
  * @function ask
- * @param {object} input La case à cocher.
+ * @param {HTMLInputElement} input La case à cocher.
  */
 const ask = function (input) {
     const permissions = { "permissions": [input.dataset.permissions] };
@@ -23,6 +23,12 @@ const ask = function (input) {
     }
 };
 
+/**
+ * Vérifie la connexion à Kodi.
+ *
+ * @function check
+ * @param {HTMLInputElement} input Le champ de l'adresse IP.
+ */
 const check = function (input) {
     input.setCustomValidity("");
     input.removeAttribute("title");

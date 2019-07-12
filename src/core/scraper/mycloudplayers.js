@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une musique de My Cloud Player.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://mycloudplayers.com/*"], function ({ searchParams }) {
     if (searchParams.has("play")) {

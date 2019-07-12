@@ -58,7 +58,7 @@ const cast = function (info) {
  * Crée le client JSON-RPC pour contacter Kodi.
  *
  * @function client
- * @param {object} changes Les paramètres de la configuration modifiés.
+ * @param {object} changes Les paramètres modifiés dans la configuration.
  */
 const client = function (changes) {
     if (!("connection-host" in changes)) {
@@ -72,7 +72,7 @@ const client = function (changes) {
  * Ajoute les options dans les menus contextuels.
  *
  * @function menu
- * @param {object} changes Les paramètres de la configuration modifiés.
+ * @param {object} changes Les paramètres modifiés dans la configuration.
  */
 const menu = function (changes) {
     // Ignorer tous les changements sauf ceux liés au menu contextuel.

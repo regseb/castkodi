@@ -17,11 +17,11 @@ const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
 export const rules = new Map();
 
 /**
- * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Vimeo.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://vimeo.com/*"], function ({ pathname }) {
     if ((/^\/[0-9]+$/u).test(pathname)) {
@@ -32,11 +32,11 @@ rules.set(["*://vimeo.com/*"], function ({ pathname }) {
 });
 
 /**
- * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
  * @param {string} url L'URL du lecteur de Vimeo avec une vidéo.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://player.vimeo.com/video/*"], function ({ pathname }) {
     if ((/^\/video\/[0-9]+$/u).test(pathname)) {

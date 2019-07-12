@@ -3,7 +3,7 @@
  */
 
 /**
- * L'URL pour récupérer la vidéo.
+ * L'URL pour récupérer la vidéo Facebook.
  *
  * @constant {string}
  */
@@ -21,7 +21,7 @@ export const rules = new Map();
  *
  * @function action
  * @param {string} url L'URL d'une vidéo Facebook.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://*.facebook.com/*/videos/*/*", "*://*.facebook.com/watch*"
