@@ -12,21 +12,21 @@ import { extract } from "./core/scrapers.js";
  * @constant {object}
  */
 const DEFAULT_CONFIG = {
-    "connection-host":         "",
-    "general-history":         false,
-    "menus-send":              true,
-    "menus-insert":            true,
-    "menus-add":               true,
-    "contexts-audio":          true,
-    "contexts-bookmark":       false,
-    "contexts-browser_action": true,
-    "contexts-frame":          true,
-    "contexts-link":           true,
-    "contexts-page":           true,
-    "contexts-selection":      true,
-    "contexts-tab":            true,
-    "contexts-video":          true,
-    "youtube-playlist":        "playlist"
+    "config-version":     1,
+    "connection-host":    "",
+    "general-history":    false,
+    "menus-send":         true,
+    "menus-insert":       true,
+    "menus-add":          true,
+    "contexts-audio":     true,
+    "contexts-bookmark":  false,
+    "contexts-frame":     true,
+    "contexts-link":      true,
+    "contexts-page":      true,
+    "contexts-selection": true,
+    "contexts-tab":       true,
+    "contexts-video":     true,
+    "youtube-playlist":   "playlist"
 };
 
 /**
@@ -190,7 +190,8 @@ browser.storage.local.get().then(function (config) {
     // Supprimer les anciennes propriétés.
     browser.storage.local.remove([
         "port", "username", "password", "airmozilla-format", "connection-port",
-        "connection-username", "connection-password"
+        "connection-username", "connection-password", "contexts-browser_action",
+        "version"
     ]);
 
     // Définir des valeurs par défaut.
@@ -199,7 +200,6 @@ browser.storage.local.get().then(function (config) {
             browser.storage.local.set({ [key]: value });
         }
     }
-    browser.storage.local.set({ "version": "4.1.0" });
 
     // Se connecter à Kodi et surveiller les futures changements de la
     // configuration.
