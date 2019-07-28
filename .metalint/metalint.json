@@ -31,7 +31,7 @@
             "patterns": "/src/popup/*.css",
             "linters": { "purgecss": { "content": "/src/popup/*.html" } }
         }, {
-            "patterns": "*.md",
+            "patterns": ["!CHANGELOG.md", "*.md"],
             "linters": "markdownlint"
         }, {
             "patterns": "*.json",

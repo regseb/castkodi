@@ -2,6 +2,7 @@
 
 [![Version][img-version]][link-version]
 [![Dependencies][img-dependencies]][link-dependencies]
+[![Commits][img-commits]][link-commits]
 [![License][img-license]][link-license]
 [![Users][img-users]][link-users]
 [![Stars][img-stars]][link-stars]
@@ -65,12 +66,14 @@ v1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
 
 [img-version]:https://img.shields.io/amo/v/castkodi.svg
 [img-dependencies]:https://img.shields.io/david/regseb/castkodi.svg
+[img-commits]:https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
 [img-license]:https://img.shields.io/badge/license-EUPL-blue.svg
 [img-users]:https://img.shields.io/amo/users/castkodi.svg
 [img-stars]:https://img.shields.io/amo/stars/castkodi.svg
 
 [link-version]:https://addons.mozilla.org/addon/castkodi/
 [link-dependencies]:https://david-dm.org/regseb/castkodi
+[link-commits]:https://www.conventionalcommits.org/fr/
 [link-license]:https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12
                "Licence publique de l’Union européenne"
 [link-users]:https://addons.mozilla.org/addon/castkodi/statistics/?last=90
