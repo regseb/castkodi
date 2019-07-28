@@ -93,7 +93,9 @@
         "no-new": 2,
         "no-octal-escape": 2,
         "no-octal": 2,
-        "no-param-reassign": 2,
+        "no-param-reassign": [2, {
+            "props": true, "ignorePropertyModificationsFor": ["input"]
+        }],
         "no-proto": 2,
         "no-redeclare": 2,
         "no-return-assign": 2,
@@ -158,9 +160,9 @@
         "block-spacing": 2,
         "brace-style": 2,
         "camelcase": 2,
-        "capitalized-comments": [
-            2, "always", { "ignoreConsecutiveComments": true }
-        ],
+        "capitalized-comments": [2, "always", {
+            "ignoreConsecutiveComments": true
+        }],
         "comma-dangle": 2,
         "comma-spacing": 2,
         "comma-style": 2,
@@ -186,12 +188,12 @@
         "lines-between-class-members": 2,
         "max-depth": [1, { "max": 5 }],
         "max-len": 1,
-        "max-lines": [1,
-            { "max": 1000, "skipBlankLines": true, "skipComments": true }
-        ],
-        "max-lines-per-function": [1,
-            { "max": 100, "skipBlankLines": true, "skipComments": true }
-        ],
+        "max-lines": [1, {
+            "max": 1000, "skipBlankLines": true, "skipComments": true
+        }],
+        "max-lines-per-function": [1, {
+            "max": 100, "skipBlankLines": true, "skipComments": true
+        }],
         "max-nested-callbacks": 1,
         "max-params": [1, { "max": 5 }],
         "max-statements": [1, { "max": 50 }],
@@ -238,9 +240,9 @@
         "operator-assignment": 2,
         "operator-linebreak": 2,
         "padded-blocks": [2, { "blocks": "never", "switches": "never" }],
-        "padding-line-between-statements": [2,
-            { "blankLine": "always", "prev": "directive", "next": "*" }
-        ],
+        "padding-line-between-statements": [2, {
+            "blankLine": "always", "prev": "directive", "next": "*"
+        }],
         "prefer-object-spread": 0,
         "quote-props": 2,
         "quotes": [2, "double", { "allowTemplateLiterals": true }],
