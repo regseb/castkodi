@@ -1,4 +1,3 @@
-
 export const WebSocket = class {
     constructor(url) {
         this.hostname  = url.hostname.split(".");

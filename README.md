@@ -20,8 +20,8 @@ sur **Kodi** :
   JeuxVideoCom, LiveLeak, PeerTube, Первый канал, Rutube, Steam, StormoTV,
   Útvarp Saga…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud¹ et Apple Podcasts,
-  Arte Radio, Blog Talk Radio, KCAA Radio, Mixcloud¹, My Cloud Player, Pippa,
-  podCloud, Radioline…
+  Arte Radio, Blog Talk Radio, France Inter, KCAA Radio, Mixcloud¹, My Cloud
+  Player, Pippa, podCloud, Radioline…
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une

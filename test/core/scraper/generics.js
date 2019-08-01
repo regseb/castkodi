@@ -1,8 +1,8 @@
 import assert    from "assert";
 import { URL }   from "url";
-import { rules } from "../../../src/core/scraper/audio.js";
+import { rules } from "../../../src/core/scraper/generics.js";
 
-describe("scraper/audio", function () {
+describe("scraper/generics", function () {
     describe("*://*/*", function () {
         let action;
         before(function () {
@@ -19,11 +19,10 @@ describe("scraper/audio", function () {
             });
         });
 
-        it("should return Útvarp Saga URL", function () {
-            const url = "http://utvarpsaga.is/" +
-                             "snjallsimarnir-eru-farnir-ad-stjorna-lifi-folks/";
-            const expected = "http://utvarpsaga.is/file/" +
-                                           "s%C3%AD%C3%B0degi-a-7.9.18.mp3?_=1";
+        it("should return media URL", function () {
+            const url = "https://www.bitchute.com/video/dz5JcCZnJMge/";
+            const expected = "https://seed22.bitchute.com/hU2elaB5u3kB" +
+                                                            "/dz5JcCZnJMge.mp4";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });

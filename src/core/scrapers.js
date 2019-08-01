@@ -33,8 +33,7 @@ import { rules as vimeo }          from "./scraper/vimeo.js";
 import { rules as youtube }        from "./scraper/youtube.js";
 import { rules as torrent }        from "./scraper/torrent.js";
 import { rules as acestream }      from "./scraper/acestream.js";
-import { rules as video }          from "./scraper/video.js";
-import { rules as audio }          from "./scraper/audio.js";
+import { rules as generics }       from "./scraper/generics.js";
 
 /**
  * La liste des scrapers.
@@ -46,7 +45,7 @@ const scrapers = [
     dailymotion, facebook, flickr, full30, gamekult, instagram, jeuxvideocom,
     kcaastreaming, mixcloud, mycloudplayers, onetv, peertube, pippa, podcloud,
     radioline, rutube, soundcloud, steampowered, stormotv, twitch, vimeo,
-    youtube, torrent, acestream, video, audio
+    youtube, torrent, acestream, generics
 ];
 
 /**
