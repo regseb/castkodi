@@ -66,7 +66,7 @@ v1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
 
 [img-version]:https://img.shields.io/amo/v/castkodi.svg
 [img-dependencies]:https://img.shields.io/david/regseb/castkodi.svg
-[img-commits]:https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
+[img-commits]:https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg
 [img-license]:https://img.shields.io/badge/license-EUPL-blue.svg
 [img-users]:https://img.shields.io/amo/users/castkodi.svg
 [img-stars]:https://img.shields.io/amo/stars/castkodi.svg
