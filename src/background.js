@@ -1,5 +1,5 @@
 /**
- * @module background
+ * @module
  */
 
 import { JSONRPC } from "./core/jsonrpc.js";

@@ -1,5 +1,5 @@
 /**
- * @module options/script
+ * @module
  */
 
 import { JSONRPC } from "../core/jsonrpc.js";

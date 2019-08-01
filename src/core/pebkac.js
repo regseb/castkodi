@@ -1,5 +1,5 @@
 /**
- * @module core/pebkac
+ * @module
  */
 
 /**

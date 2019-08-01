@@ -1,5 +1,5 @@
 /**
- * @module core/scraper/facebook
+ * @module
  */
 
 /**

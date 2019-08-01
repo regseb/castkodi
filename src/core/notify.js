@@ -1,5 +1,5 @@
 /**
- * @module core/notify
+ * @module
  */
 
 /**

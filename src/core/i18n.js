@@ -1,5 +1,5 @@
 /**
- * @module core/i18n
+ * @module
  */
 
 const page = location.pathname.substring(1, location.pathname.indexOf("/", 1));

@@ -1,5 +1,5 @@
 /**
- * @module popup/script
+ * @module
  */
 
 import { JSONRPC } from "../core/jsonrpc.js";

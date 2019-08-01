@@ -1,5 +1,5 @@
 /**
- * @module core/scrapers
+ * @module
  */
 
 import { PebkacError }             from "./pebkac.js";
