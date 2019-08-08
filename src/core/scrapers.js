@@ -5,6 +5,7 @@
 import { PebkacError }             from "./pebkac.js";
 import { rules as allocine }       from "./scraper/allocine.js";
 import { rules as applepodcasts }  from "./scraper/applepodcasts.js";
+import { rules as arte }           from "./scraper/arte.js";
 import { rules as arteradio }      from "./scraper/arteradio.js";
 import { rules as blogtalkradio }  from "./scraper/blogtalkradio.js";
 import { rules as devtube }        from "./scraper/devtube.js";
@@ -41,7 +42,7 @@ import { rules as generics }       from "./scraper/generics.js";
  * @constant {Array.<object>}
  */
 const scrapers = [
-    allocine, applepodcasts, arteradio, blogtalkradio, devtube, dumpert,
+    allocine, applepodcasts, arte, arteradio, blogtalkradio, devtube, dumpert,
     dailymotion, facebook, flickr, full30, gamekult, instagram, jeuxvideocom,
     kcaastreaming, mixcloud, mycloudplayers, onetv, peertube, pippa, podcloud,
     radioline, rutube, soundcloud, steampowered, stormotv, twitch, vimeo,
