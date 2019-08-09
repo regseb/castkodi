@@ -31,7 +31,8 @@ export const rules = new Map();
  * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
-    "*://*.youtube.com/watch*", "*://hooktube.com/watch*"
+    "*://*.youtube.com/watch*", "*://invidio.us/watch*",
+    "*://hooktube.com/watch*"
 ], function ({ searchParams }) {
     return browser.storage.local.get(["youtube-playlist"])
                                                        .then(function (config) {
@@ -70,7 +71,10 @@ rules.set(["*://*.youtube.com/playlist*"], function ({ searchParams }) {
  * @param {string} url L'URL d'une vidéo YouTube intégrée.
  * @returns {Promise} L'URL du <em>fichier</em>.
  */
-rules.set(["*://www.youtube.com/embed/*"], function ({ pathname }) {
+rules.set([
+    "*://www.youtube.com/embed/*", "*://invidio.us/embed/*",
+    "*://hooktube.com/embed/*"
+], function ({ pathname }) {
     return Promise.resolve(PLUGIN_VIDEO_URL + pathname.substring(7));
 });
 

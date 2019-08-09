@@ -141,6 +141,48 @@ describe("scraper/youtube", function () {
         });
     });
 
+    describe("*://invidio.us/watch*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return video id", function () {
+            browser.storage.local.set({ "youtube-playlist": "video" });
+
+            const url = "https://invidio.us/watch?v=e6EQwSadpPk";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=e6EQwSadpPk";
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
+            });
+        });
+    });
+
+    describe("*://hooktube.com/watch*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return video id", function () {
+            browser.storage.local.set({ "youtube-playlist": "video" });
+
+            const url = "https://hooktube.com/watch?v=LACbVhgtx9I";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=LACbVhgtx9I";
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
+
+                browser.storage.local.clear();
+            });
+        });
+    });
+
     describe("*://*.youtube.com/playlist*", function () {
         let action;
         before(function () {
@@ -198,6 +240,40 @@ describe("scraper/youtube", function () {
             const url = "https://www.youtube.com/embed/v3gefWEggSc";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=v3gefWEggSc";
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://invidio.us/embed/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return video id", function () {
+            const url = "https://invidio.us/embed/8cmBd7lkunk";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=8cmBd7lkunk";
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
+    describe("*://hooktube.com/embed/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return video id", function () {
+            const url = "https://hooktube.com/embed/3lPSQ5KjamI";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=3lPSQ5KjamI";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
