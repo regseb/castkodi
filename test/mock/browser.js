@@ -1,4 +1,19 @@
 export const browser = {
+    "bookmarks": {
+        "get": (id) => {
+            switch (id) {
+                case "1":
+                    return Promise.resolve([{ "url": "https://www.foo.com/" }]);
+                case "2":
+                    return Promise.resolve([
+                        { "url": "http://www.bar.fr/" },
+                        { "url": "http://www.baz.org/" }
+                    ]);
+                default:
+                    return Promise.resolve([{ "type": "folder" }]);
+            }
+        }
+    },
     "i18n": {
         "getMessage": (key, substitutions = []) => {
             if (Array.isArray(substitutions)) {

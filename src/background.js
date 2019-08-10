@@ -2,6 +2,7 @@
  * @module
  */
 
+import { mux }     from "./core/index.js";
 import { JSONRPC } from "./core/jsonrpc.js";
 import { notify }  from "./core/notify.js";
 import { extract } from "./core/scrapers.js";
@@ -37,32 +38,6 @@ const DEFAULT_CONFIG = {
 let jsonrpc = null;
 
 /**
- * Récupère l'URL à analyser parmi les points d'entrée.
- *
- * @function mux
- * @param {object} info Les informations fournies par le menu contextuel ou la
- *                      pop-up.
- * @returns {Promise} L'URL à analyser.
- */
-const mux = function (info) {
-    if ("bookmarkId" in info) {
-        return browser.bookmarks.get(info.bookmarkId).then(([bookmark]) => {
-            return "bookmark" === bookmark.type ? bookmark.url
-                                                : "";
-        });
-    }
-
-    const urls = [info.selectionText, info.linkUrl, info.srcUrl, info.frameUrl,
-                  info.pageUrl, info.popupUrl];
-    let url = urls.find((u) => undefined !== u && "" !== u).trim();
-    // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
-    if (!(/^[a-z-]+:/iu).test(url)) {
-        url = url.replace(/^\/*/u, "http://");
-    }
-    return Promise.resolve(url);
-};
-
-/**
  * Diffuse un média sur Kodi.
  *
  * @function cast
@@ -71,7 +46,7 @@ const mux = function (info) {
  */
 const cast = function (info) {
     mux(info).then((url) => {
-        extract(url).then((file) => {
+        return extract(url).then((file) => {
             switch (info.menuItemId) {
                 case "send":   return jsonrpc.send(file);
                 case "insert": return jsonrpc.insert(file);
@@ -83,8 +58,8 @@ const cast = function (info) {
         }).then((config) => {
             return config["general-history"] ? browser.history.addUrl({ url })
                                              : Promise.resolve();
-        }).catch(notify);
-    });
+        });
+    }).catch(notify);
 };
 
 /**

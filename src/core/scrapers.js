@@ -2,7 +2,6 @@
  * @module
  */
 
-import { PebkacError }             from "./pebkac.js";
 import { rules as allocine }       from "./scraper/allocine.js";
 import { rules as applepodcasts }  from "./scraper/applepodcasts.js";
 import { rules as arte }           from "./scraper/arte.js";
@@ -48,26 +47,6 @@ const scrapers = [
     radioline, rutube, soundcloud, steampowered, stormotv, twitch, vimeo,
     youtube, torrent, acestream, generics
 ];
-
-/**
- * Teste si une chaine de caractères est une URL.
- *
- * @function isUrl
- * @param {string} url La chaine de caractères pouvant contenir une URL.
- * @returns {boolean} <code>true</code> c'est une URL ; sinon
- *                    <code>false</code>.
- */
-const isUrl = function (url) {
-    try {
-        return Boolean(new URL(url)) && (
-               (/^https?:\/\/[^/]+\/.*$/iu).test(url) ||
-               (/^magnet:.*$/iu).test(url) ||
-               (/^acestream:.*$/iu).test(url));
-    } catch {
-        // Ignorer l'erreur provenant d'une URL invalide.
-        return false;
-    }
-};
 
 /**
  * Protège les caractères spéciaux pour les expressions rationnelles.
@@ -179,10 +158,6 @@ const rummage = function (url) {
  * @returns {Promise} L'URL du <em>fichier</em>.
  */
 export const extract = function (url) {
-    if (!isUrl(url)) {
-        return Promise.reject(new PebkacError("noLink"));
-    }
-
     return dispatch(url).then((file) => {
         return null === file ? rummage(url)
                              : file;

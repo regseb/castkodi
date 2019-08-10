@@ -299,7 +299,7 @@
 
         "filenames/match-regex": 2,
         "filenames/match-exported": 2,
-        "filenames/no-index": 2,
+        "filenames/no-index": 0,
 
         "jsdoc/check-alignment": 2,
         "jsdoc/check-examples": 2,
