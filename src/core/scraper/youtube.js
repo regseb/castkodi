@@ -72,8 +72,8 @@ rules.set(["*://*.youtube.com/playlist*"], function ({ searchParams }) {
  * @returns {Promise} L'URL du <em>fichier</em>.
  */
 rules.set([
-    "*://www.youtube.com/embed/*", "*://invidio.us/embed/*",
-    "*://hooktube.com/embed/*"
+    "*://www.youtube.com/embed/*", "*://www.youtube-nocookie.com/embed/*",
+    "*://invidio.us/embed/*", "*://hooktube.com/embed/*"
 ], function ({ pathname }) {
     return Promise.resolve(PLUGIN_VIDEO_URL + pathname.substring(7));
 });

@@ -246,6 +246,23 @@ describe("scraper/youtube", function () {
         });
     });
 
+    describe("*://www.youtube-nocookie.com/embed/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return video id", function () {
+            const url = "https://www.youtube-nocookie.com/embed/u9gVaeb9le4";
+            const expected = "plugin://plugin.video.youtube/play/" +
+                                                        "?video_id=u9gVaeb9le4";
+            return action(new URL(url)).then(function (file) {
+                assert.strictEqual(file, expected);
+            });
+        });
+    });
+
     describe("*://invidio.us/embed/*", function () {
         let action;
         before(function () {
