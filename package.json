@@ -28,8 +28,9 @@
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "coverage:html": "nyc report --reporter=html",
         "jsdocs": "jsdoc -r -d jsdocs/ src/",
+        "build": "web-ext build -s src/ -a build/ -o",
         "release": "standard-version",
-        "clean": "rm -rf .nyc_output/ coverage/ jsdocs/ node_modules/"
+        "clean": "rm -rf .nyc_output/ build/ coverage/ jsdocs/ node_modules/"
     },
     "devDependencies": {
         "addons-linter": "^1.11.1",
@@ -54,6 +55,7 @@
         "standard-version": "^7.0.0",
         "stylelint": "^10.1.0",
         "stylelint-order": "^3.0.1",
+        "web-ext": "^3.1.1",
         "yaml-lint": "^1.2.4"
     }
 }

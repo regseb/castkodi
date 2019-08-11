@@ -5,7 +5,7 @@
     ],
     "checkers": [
         {
-            "patterns": "/src/",
+            "patterns": ["/build/*.zip", "/src/"],
             "linters": { "addons-linter": null }
         }, {
             "patterns": "/src/**/*.js",
