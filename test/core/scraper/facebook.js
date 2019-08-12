@@ -87,9 +87,9 @@ describe("scraper/facebook", function () {
         it("should return null when it's not video", function () {
             const url = "https://www.facebook.com/watch/?x=315156812365737";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return video id", function () {

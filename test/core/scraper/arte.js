@@ -16,8 +16,7 @@ describe("scraper/arte", function () {
     describe("*://www.arte.tv/*/videos/*/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return french video URL", function () {

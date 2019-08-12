@@ -16,17 +16,16 @@ describe("scraper/devtube", function () {
     describe("*://dev.tube/video/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return video id", function () {
             const url = "https://dev.tube/video/4rWypxBwrR4";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=4rWypxBwrR4";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

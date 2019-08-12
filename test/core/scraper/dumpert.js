@@ -16,8 +16,7 @@ describe("scraper/dumpert", function () {
     describe("*://www.dumpert.nl/mediabase/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return video id", function () {
@@ -27,9 +26,9 @@ describe("scraper/dumpert", function () {
                                 "&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
                                            "%2Fmediabase%2F7248279%2F47066e59" +
                                                         "%2Fwheelie_in_ny.html";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return video id when protocol is HTTP", function () {
@@ -39,9 +38,9 @@ describe("scraper/dumpert", function () {
                                  "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
                                            "%2Fmediabase%2F7248279%2F47066e59" +
                                                         "%2Fwheelie_in_ny.html";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

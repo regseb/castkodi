@@ -2,6 +2,7 @@
  * @module
  */
 
+import { rules as acestream }      from "./scraper/acestream.js";
 import { rules as allocine }       from "./scraper/allocine.js";
 import { rules as applepodcasts }  from "./scraper/applepodcasts.js";
 import { rules as arte }           from "./scraper/arte.js";
@@ -14,6 +15,7 @@ import { rules as facebook }       from "./scraper/facebook.js";
 import { rules as flickr }         from "./scraper/flickr.js";
 import { rules as full30 }         from "./scraper/full30.js";
 import { rules as gamekult }       from "./scraper/gamekult.js";
+import { rules as generics }       from "./scraper/generics.js";
 import { rules as instagram }      from "./scraper/instagram.js";
 import { rules as jeuxvideocom }   from "./scraper/jeuxvideocom.js";
 import { rules as kcaastreaming }  from "./scraper/kcaastreaming.js";
@@ -28,12 +30,10 @@ import { rules as rutube }         from "./scraper/rutube.js";
 import { rules as soundcloud }     from "./scraper/soundcloud.js";
 import { rules as steampowered }   from "./scraper/steampowered.js";
 import { rules as stormotv }       from "./scraper/stormotv.js";
+import { rules as torrent }        from "./scraper/torrent.js";
 import { rules as twitch }         from "./scraper/twitch.js";
 import { rules as vimeo }          from "./scraper/vimeo.js";
 import { rules as youtube }        from "./scraper/youtube.js";
-import { rules as torrent }        from "./scraper/torrent.js";
-import { rules as acestream }      from "./scraper/acestream.js";
-import { rules as generics }       from "./scraper/generics.js";
 
 /**
  * La liste des scrapers.
@@ -166,9 +166,16 @@ export const extract = function (url) {
 
 for (const scraper of scrapers) {
     for (const [patterns, action] of scraper) {
-        for (const pattern of patterns) {
+        if (Array.isArray(patterns)) {
+            for (const pattern of patterns) {
+                SCRAPERS.push({
+                    "pattern": compile(pattern),
+                    "action":  action
+                });
+            }
+        } else {
             SCRAPERS.push({
-                "pattern": compile(pattern),
+                "pattern": compile(patterns),
                 "action":  action
             });
         }

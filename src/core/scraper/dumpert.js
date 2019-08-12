@@ -12,7 +12,7 @@ const PLUGIN_URL = "plugin://plugin.video.dumpert/?action=play&video_page_url=";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map}
+ * @constant {Map.<string, Function>}
  */
 export const rules = new Map();
 
@@ -20,9 +20,10 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une vidéo Dumpert.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @param {URL}    url      L'URL d'une vidéo Dumpert.
+ * @param {string} url.href Le lien de l'URL.
+ * @returns {string} Le lien du <em>fichier</em>.
  */
-rules.set(["*://www.dumpert.nl/mediabase/*"], function ({ href }) {
-    return Promise.resolve(PLUGIN_URL + encodeURIComponent(href));
+rules.set("*://www.dumpert.nl/mediabase/*", function ({ href }) {
+    return PLUGIN_URL + encodeURIComponent(href);
 });

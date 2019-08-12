@@ -16,8 +16,7 @@ describe("scraper/kcaastreaming", function () {
     describe("http://live.kcaastreaming.com/", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return sound URL", function () {

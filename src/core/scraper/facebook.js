@@ -12,7 +12,7 @@ const PREFIX_VIDEO_URL = "https://www.facebook.com/watch/?v=";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -20,8 +20,11 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une vidéo Facebook.
- * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
+ * @param {URL}             url              L'URL d'une vidéo Facebook.
+ * @param {string}          url.pathname     Le chemin de l'URL.
+ * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
+ * @returns {?Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                     <code>null</code>.
  */
 rules.set([
     "*://*.facebook.com/*/videos/*/*", "*://*.facebook.com/watch*"
@@ -31,7 +34,7 @@ rules.set([
         if (searchParams.has("v")) {
             id = searchParams.get("v");
         } else {
-            return Promise.resolve(null);
+            return null;
         }
     } else {
         id = pathname.substring(pathname.indexOf("/videos/") + 8)
@@ -39,12 +42,11 @@ rules.set([
     }
 
     const init = { "credentials": "omit" };
-    return fetch(PREFIX_VIDEO_URL + id, init).then(function (response) {
-        return response.text();
-    }).then(function (data) {
+    return fetch(PREFIX_VIDEO_URL + id, init).then((r) => r.text())
+                                             .then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const meta = doc.querySelector(`head meta[property="og:video"]`);
+        const meta = doc.head.querySelector(`meta[property="og:video"]`);
         return null === meta ? null
                              : meta.content;
     });

@@ -24,18 +24,18 @@ describe("scraper/twitch", function () {
             const url = "https://www.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return video id when protocol is HTTP", function () {
             const url = "http://www.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -50,9 +50,9 @@ describe("scraper/twitch", function () {
             const url = "https://go.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -67,35 +67,34 @@ describe("scraper/twitch", function () {
             const url = "https://m.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
     describe("*://clips.twitch.tv/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return clip name", function () {
             const url = "https://clips.twitch.tv/GleamingWildCougarFUNgineer";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return clip name when protocol is HTTP", function () {
             const url = "http://clips.twitch.tv/GleamingWildCougarFUNgineer";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -112,9 +111,9 @@ describe("scraper/twitch", function () {
                                              "?filter=clips&range=7d&sort=time";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return clip name when protocol is HTTP", function () {
@@ -123,9 +122,9 @@ describe("scraper/twitch", function () {
                                              "?filter=clips&range=7d&sort=time";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -141,9 +140,9 @@ describe("scraper/twitch", function () {
                                                  "/GleamingWildCougarFUNgineer";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -159,9 +158,9 @@ describe("scraper/twitch", function () {
                                                  "/GleamingWildCougarFUNgineer";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -176,18 +175,18 @@ describe("scraper/twitch", function () {
             const url = "https://www.twitch.tv/nolife";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                          "&channel_name=nolife";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return channel name when protocol is HTTP", function () {
             const url = "http://www.twitch.tv/nolife";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                          "&channel_name=nolife";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -202,9 +201,9 @@ describe("scraper/twitch", function () {
             const url = "https://go.twitch.tv/nolife";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                          "&channel_name=nolife";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -219,9 +218,9 @@ describe("scraper/twitch", function () {
             const url = "https://m.twitch.tv/jvtv";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                            "&channel_name=jvtv";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

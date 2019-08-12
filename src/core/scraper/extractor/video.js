@@ -7,7 +7,7 @@
  *
  * @function action
  * @param {HTMLDocument} doc Le contenu HTML d'une page quelconque.
- * @returns {?string} L'URL du <em>fichier</em> ou <code>null</code>.
+ * @returns {?string} Le lien du <em>fichier</em> ou <code>null</code>.
  */
 export const action = function (doc) {
     const video = doc.querySelector("video source[src], video[src]");

@@ -13,7 +13,7 @@ const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map}
+ * @constant {Map.<string, Function>}
  */
 export const rules = new Map();
 
@@ -21,13 +21,13 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'un son de Arte Radio.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @param {URL}    url      L'URL d'un son Arte Radio.
+ * @param {string} url.href Le lien de l'URL.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
-rules.set(["*://www.arteradio.com/son/*"], function ({ href }) {
-    return fetch(href).then(function (response) {
-        return response.text();
-    }).then(function (data) {
+rules.set("*://www.arteradio.com/son/*", function ({ href }) {
+    return fetch(href).then((r) => r.text())
+                      .then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         return BASE_URL + doc.querySelector(".cover *[data-sound-href]")

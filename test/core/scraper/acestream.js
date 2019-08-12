@@ -16,8 +16,7 @@ describe("scraper/acestream", function () {
     describe("acestream://*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return video id", function () {
@@ -25,9 +24,9 @@ describe("scraper/acestream", function () {
             const expected = "plugin://program.plexus/?mode=1&name=" +
                                           "&url=acestream%3A%2F%2F94c2fd8fb9b" +
                                                 "c8f2fc71a2cbe9d4b866f227a0209";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

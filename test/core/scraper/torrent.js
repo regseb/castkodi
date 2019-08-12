@@ -26,9 +26,9 @@ describe("scraper/torrent", function () {
             const expected = "plugin://plugin.video.elementum/play" +
                                "?uri=http%3A%2F%2Fvodo.net%2Fmedia%2Ftorrents" +
                                        "%2FSintel.2010.Theora.Ogv-VODO.torrent";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -55,9 +55,9 @@ describe("scraper/torrent", function () {
           "%26tr%3Dudp%253a%252f%252ftracker.publicbt.com%253a80%252fannounce" +
              "%26ws%3Dhttp%253a%252f%252fdistribution.bbb3d.renderfarming.net" +
                   "%252fvideo%252fmp4%252fbbb_sunflower_1080p_30fps_normal.mp4";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

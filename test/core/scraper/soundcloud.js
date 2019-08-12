@@ -24,9 +24,9 @@ describe("scraper/soundcloud", function () {
             const url = "https://soundcloud.com/a-tribe-called-red" +
                                                             "/sets/trapline-ep";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return null when it's not a music with one slash",

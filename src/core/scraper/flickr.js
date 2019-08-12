@@ -22,7 +22,7 @@ const API_URL = "https://api.flickr.com/services/rest" +
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map}
+ * @constant {Map.<string, Function>}
  */
 export const rules = new Map();
 
@@ -30,13 +30,14 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une vidéo Flickr.
- * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
+ * @param {URL}    url      L'URL d'une vidéo Flickr.
+ * @param {string} url.href Le lien de l'URL.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
-rules.set(["*://www.flickr.com/photos/*"], function ({ href }) {
-    return fetch(href).then(function (response) {
-        return response.text();
-    }).then(function (data) {
+rules.set("*://www.flickr.com/photos/*", function ({ href }) {
+    return fetch(href).then((r) => r.text())
+                      .then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
         const video = doc.querySelector("video");
@@ -47,9 +48,8 @@ rules.set(["*://www.flickr.com/photos/*"], function ({ href }) {
         const [, , , , , , photoId, secret] = video.poster.split(/[/_.]/u);
         const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
                               "&api_key=" + KEY_REGEXP.exec(data)[1];
-        return fetch(url).then(function (subresponse) {
-            return subresponse.json();
-        }).then(function ({ "streams": { stream } }) {
+        return fetch(url).then((r) => r.json())
+                         .then(({ "streams": { stream } }) => {
             return stream.find((s) => "orig" === s.type)["_content"];
         });
     });

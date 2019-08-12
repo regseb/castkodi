@@ -7,19 +7,12 @@
  *
  * @constant {string}
  */
-const PLUGIN_VIDEO_URL = "plugin://plugin.video.youtube/play/?video_id=";
-
-/**
- * L'URL de l'extension pour lire des playlists issues de YouTube.
- *
- * @constant {string}
- */
-const PLUGIN_PLAYLIST_URL = "plugin://plugin.video.youtube/play/?playlist_id=";
+const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
 
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map}
+ * @constant {Map.<(Array.<string>|string), Function>}
  */
 export const rules = new Map();
 
@@ -27,22 +20,24 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire une vidéo / playlist sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une vidéo / playlist YouTube (ou HookTube).
- * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
+ * @param {URL}             url              L'URL d'une vidéo / playlist
+ *                                           YouTube (ou Invidious / HookTube).
+ * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
 rules.set([
     "*://*.youtube.com/watch*", "*://invidio.us/watch*",
     "*://hooktube.com/watch*"
 ], function ({ searchParams }) {
-    return browser.storage.local.get(["youtube-playlist"])
-                                                       .then(function (config) {
+    return browser.storage.local.get(["youtube-playlist"]).then((config) => {
         if (searchParams.has("list") &&
                 ("playlist" === config["youtube-playlist"] ||
                  !searchParams.has("v"))) {
-            return PLUGIN_PLAYLIST_URL + searchParams.get("list");
+            return PLUGIN_URL + "?playlist_id=" + searchParams.get("list");
         }
         if (searchParams.has("v")) {
-            return PLUGIN_VIDEO_URL + searchParams.get("v");
+            return PLUGIN_URL + "?video_id=" + searchParams.get("v");
         }
 
         return null;
@@ -53,38 +48,40 @@ rules.set([
  * Extrait les informations nécessaire pour lire une playlist sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une playlist YouTube.
- * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code>.
+ * @param {URL}             url              L'URL d'une playlist YouTube.
+ * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
+ * @returns {?string} Le lien du <em>fichier</em> ou <code>null</code>.
  */
-rules.set(["*://*.youtube.com/playlist*"], function ({ searchParams }) {
-    if (searchParams.has("list")) {
-        return Promise.resolve(PLUGIN_PLAYLIST_URL + searchParams.get("list"));
-    }
-
-    return Promise.resolve(null);
+rules.set("*://*.youtube.com/playlist*", function ({ searchParams }) {
+    return searchParams.has("list")
+                       ? PLUGIN_URL + "?playlist_id=" + searchParams.get("list")
+                       : null;
 });
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'une vidéo YouTube intégrée.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @param {URL}    url          L'URL d'une vidéo YouTube intégrée (ou Invidious
+ *                              / HookTube).
+ * @param {string} url.pathname Le chemin de l'URL.
+ * @returns {string} Le lien du <em>fichier</em>.
  */
 rules.set([
     "*://www.youtube.com/embed/*", "*://www.youtube-nocookie.com/embed/*",
     "*://invidio.us/embed/*", "*://hooktube.com/embed/*"
 ], function ({ pathname }) {
-    return Promise.resolve(PLUGIN_VIDEO_URL + pathname.substring(7));
+    return PLUGIN_URL + "?video_id=" + pathname.substring(7);
 });
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
- * @param {string} url L'URL minifié d'une vidéo YouTube.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @param {URL}    url          L'URL minifiée d'une vidéo YouTube.
+ * @param {string} url.pathname Le chemin de l'URL.
+ * @returns {string} Le lien du <em>fichier</em>.
  */
-rules.set(["*://youtu.be/*"], function ({ pathname }) {
-    return Promise.resolve(PLUGIN_VIDEO_URL + pathname.substring(1));
+rules.set("*://youtu.be/*", function ({ pathname }) {
+    return PLUGIN_URL + "?video_id=" + pathname.substring(1);
 });

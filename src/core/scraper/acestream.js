@@ -12,7 +12,7 @@ const PLUGIN_URL = "plugin://program.plexus/?mode=1&name=&url=";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map}
+ * @constant {Map.<string, Function>}
  */
 export const rules = new Map();
 
@@ -20,9 +20,10 @@ export const rules = new Map();
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @function action
- * @param {string} url L'URL d'un lien Ace Stream.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @param {URL}    url      L'URL d'une vidéo Ace Stream.
+ * @param {string} url.href Le lien de l'URL.
+ * @returns {string} Le lien du <em>fichier</em>.
  */
-rules.set(["acestream://*"], function ({ href }) {
-    return Promise.resolve(PLUGIN_URL + encodeURIComponent(href));
+rules.set("acestream://*", function ({ href }) {
+    return PLUGIN_URL + encodeURIComponent(href);
 });

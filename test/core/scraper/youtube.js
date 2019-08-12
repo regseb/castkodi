@@ -186,16 +186,15 @@ describe("scraper/youtube", function () {
     describe("*://*.youtube.com/playlist*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return null when it's not a playlist", function () {
             const url = "https://www.youtube.com/playlist?v=dQw4w9WgXcQ";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return playlist id", function () {
@@ -203,9 +202,9 @@ describe("scraper/youtube", function () {
                                      "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
             const expected = "plugin://plugin.video.youtube/play/" +
                               "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return null when it's not a playlist from mobile",
@@ -213,9 +212,9 @@ describe("scraper/youtube", function () {
             const url = "https://m.youtube.com/playlist" +
                                                     "?video=PL3A5849BDE0581B19";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return playlist id from mobile", function () {
@@ -223,9 +222,9 @@ describe("scraper/youtube", function () {
                                                      "?list=PL3A5849BDE0581B19";
             const expected = "plugin://plugin.video.youtube/play/" +
                                               "?playlist_id=PL3A5849BDE0581B19";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -240,9 +239,9 @@ describe("scraper/youtube", function () {
             const url = "https://www.youtube.com/embed/v3gefWEggSc";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=v3gefWEggSc";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -257,9 +256,9 @@ describe("scraper/youtube", function () {
             const url = "https://www.youtube-nocookie.com/embed/u9gVaeb9le4";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=u9gVaeb9le4";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -274,9 +273,9 @@ describe("scraper/youtube", function () {
             const url = "https://invidio.us/embed/8cmBd7lkunk";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=8cmBd7lkunk";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -291,26 +290,25 @@ describe("scraper/youtube", function () {
             const url = "https://hooktube.com/embed/3lPSQ5KjamI";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=3lPSQ5KjamI";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
     describe("*://youtu.be/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return video id", function () {
             const url = "https://youtu.be/NSFbekvYOlI";
             const expected = "plugin://plugin.video.youtube/play/" +
                                                         "?video_id=NSFbekvYOlI";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

@@ -16,59 +16,57 @@ describe("scraper/vimeo", function () {
     describe("*://vimeo.com/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return null when it's not a video", function () {
             const url = "https://vimeo.com/channels";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return video id", function () {
             const url = "https://vimeo.com/228786490";
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=228786490";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return video id when protocol is HTTP", function () {
             const url = "http://vimeo.com/228786490";
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=228786490";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
     describe("*://player.vimeo.com/video/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return null when it's not a video", function () {
             const url = "https://player.vimeo.com/video/foobar";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return video id", function () {
             const url = "https://player.vimeo.com/video/228786490";
             const expected = "plugin://plugin.video.vimeo/play/" +
                                                           "?video_id=228786490";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

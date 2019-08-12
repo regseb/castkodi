@@ -16,8 +16,7 @@ describe("scraper/podcloud", function () {
     describe("*://podcloud.fr/podcast/*/episode/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return sound id", function () {
@@ -25,9 +24,9 @@ describe("scraper/podcloud", function () {
                                           "/numero-51-sa-puissance-est-maximum";
             const expected = "https://podcloud.fr/ext/le-cosy-corner" +
                             "/numero-51-sa-puissance-est-maximum/enclosure.mp3";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return sound id when protocol is HTTP", function () {
@@ -35,9 +34,9 @@ describe("scraper/podcloud", function () {
                                                             "/episode/stargate";
             const expected = "https://podcloud.fr/ext/2-heures-de-perdues" +
                                                       "/stargate/enclosure.mp3";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

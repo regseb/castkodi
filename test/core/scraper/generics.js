@@ -6,8 +6,7 @@ describe("scraper/generics", function () {
     describe("*://*/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
-                          .find(([r]) => r.includes(this.test.parent.title))[1];
+            action = rules.get(this.test.parent.title);
         });
 
         it("should return null when it's not a page HTML", function () {
