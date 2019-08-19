@@ -24,6 +24,8 @@
         "max-lines-per-function": 0,
         "max-statements": 0,
 
+        "import/no-nodejs-modules": 0,
+
         "mocha/handle-done-callback": 0,
         "mocha/max-top-level-suites": 2,
         "mocha/no-async-describe": 2,
