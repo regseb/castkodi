@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/regseb/castkodi/compare/v4.4.0...v4.5.0) (2019-08-19)
+
+
+### Bug Fixes
+
+* Améliorer la sélection des URLs. ([89f3b0f](https://github.com/regseb/castkodi/commit/89f3b0f))
+
+
+### Features
+
+* Ajouter le support de YT Home. ([9eefa88](https://github.com/regseb/castkodi/commit/9eefa88))
+
 ## 4.4.0 (2019-08-09)
 
 
