@@ -2,7 +2,7 @@
     "plugins": ["filenames", "import", "jsdoc", "promise"],
 
     "parserOptions": {
-        "ecmaVersion": 2019,
+        "ecmaVersion": 2020,
         "sourceType": "module"
     },
 
@@ -173,6 +173,7 @@
         "func-name-matching": [2, { "considerPropertyDescriptor": true }],
         "func-names": 0,
         "func-style": 2,
+        "function-call-argument-newline": [2, "consistent"],
         "function-paren-newline": [2, "consistent"],
         "id-blacklist": 0,
         "id-length": 0,
