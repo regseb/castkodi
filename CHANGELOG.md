@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.1](https://github.com/regseb/castkodi/compare/v4.6.0...v4.6.1) (2019-09-01)
+
+
+### Bug Fixes
+
+* Corriger le scraper VRT NU. ([28e28ee](https://github.com/regseb/castkodi/commit/28e28ee))
+
 ## [4.6.0](https://github.com/regseb/castkodi/compare/v4.5.0...v4.6.0) (2019-09-01)
 
 
