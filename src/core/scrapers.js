@@ -33,6 +33,7 @@ import { rules as stormotv }       from "./scraper/stormotv.js";
 import { rules as torrent }        from "./scraper/torrent.js";
 import { rules as twitch }         from "./scraper/twitch.js";
 import { rules as vimeo }          from "./scraper/vimeo.js";
+import { rules as vrtnu }          from "./scraper/vrtnu.js";
 import { rules as youtube }        from "./scraper/youtube.js";
 
 /**
@@ -44,7 +45,7 @@ const scrapers = [
     allocine, applepodcasts, arte, arteradio, blogtalkradio, devtube, dumpert,
     dailymotion, facebook, flickr, full30, gamekult, instagram, jeuxvideocom,
     kcaastreaming, mixcloud, mycloudplayers, onetv, peertube, pippa, podcloud,
-    radioline, rutube, soundcloud, steampowered, stormotv, twitch, vimeo,
+    radioline, rutube, soundcloud, steampowered, stormotv, twitch, vimeo, vrtnu,
     youtube, torrent, acestream, generics
 ];
 

@@ -18,7 +18,7 @@ sur **Kodi** :
   Instagram, torrents¹, magnets¹ et Ace Stream¹, AlloCiné, Arte, BitChute,
   Dailymotion¹, DevTube¹, Dumpert¹, Facebook, Flickr, Full30, Gamekult¹,
   JeuxVideoCom, LiveLeak, PeerTube, Первый канал, Rutube, Steam, StormoTV,
-  Útvarp Saga, YT Home…
+  Útvarp Saga, VRT NU¹, YT Home…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud¹ et Apple Podcasts,
   Arte Radio, Blog Talk Radio, France Inter, KCAA Radio, Mixcloud¹, My Cloud
   Player, Pippa, podCloud, Radioline…
@@ -56,6 +56,7 @@ installer les extensions
 magnets), [Plexus](https://github.com/tvaddonsco/program.plexus) (Ace Stream),
 [DailyMotion.com](https://kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
 [Dumpert](https://kodi.tv/addon/plugins-video-add-ons/dumpert),
+[VRT NU](https://kodi.tv/addon/plugins-video-add-ons/vrt-nu-0),
 [SoundCloud](https://kodi.tv/addon/music-add-ons-plugins/soundcloud) ou
 [Mixcloud](https://kodi.tv/addon/music-add-ons-plugins/mixcloud) dans Kodi.
 
