@@ -12,7 +12,7 @@ const PLUGIN_URL = "plugin://plugin.video.vrt.nu/play/url/";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -24,6 +24,8 @@ export const rules = new Map();
  * @param {string} url.pathname Le chemin de l'URL.
  * @returns {string} Le lien du <em>fichier</em>.
  */
-rules.set("*://*.vrt.be/vrtnu/a-z/*", function ({ pathname }) {
-    return PLUGIN_URL + encodeURIComponent("https://vrt.be" + pathname);
+rules.set([
+    "*://www.vrt.be/vrtnu/a-z/*", "*://vrt.be/vrtnu/a-z/*"
+], function ({ href }) {
+    return PLUGIN_URL + href;
 });

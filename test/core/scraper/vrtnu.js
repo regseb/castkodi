@@ -13,19 +13,19 @@ describe("scraper/vrtnu", function () {
         });
     });
 
-    describe("*://*.vrt.be/vrtnu/a-z/*", function () {
+    describe("*://www.vrt.be/vrtnu/a-z/*", function () {
         let action;
         before(function () {
-            action = rules.get(this.test.parent.title);
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
         it("should return video id", function () {
             const url = "https://www.vrt.be/vrtnu/a-z/het-journaal/2019" +
                                      "/het-journaal-het-journaal-13u-20190901/";
             const expected = "plugin://plugin.video.vrt.nu/play/url" +
-                                           "/https%3A%2F%2Fvrt.be%2Fvrtnu%2Fa" +
-                                     "-z%2Fhet-journaal%2F2019%2Fhet-journaal" +
-                                                "-het-journaal-13u-20190901%2F";
+                                  "/https://www.vrt.be/vrtnu/a-z/het-journaal" +
+                                "/2019/het-journaal-het-journaal-13u-20190901/";
 
             const file = action(new URL(url));
             assert.strictEqual(file, expected);
@@ -34,19 +34,25 @@ describe("scraper/vrtnu", function () {
         it("should return video id when protocol is HTTP", function () {
             const url = "http://www.vrt.be/vrtnu/a-z/pano/2019/pano-s2019a9/";
             const expected = "plugin://plugin.video.vrt.nu/play/url" +
-                                           "/https%3A%2F%2Fvrt.be%2Fvrtnu%2Fa" +
-                                           "-z%2Fpano%2F2019%2Fpano-s2019a9%2F";
+                         "/http://www.vrt.be/vrtnu/a-z/pano/2019/pano-s2019a9/";
 
             const file = action(new URL(url));
             assert.strictEqual(file, expected);
         });
+    });
 
-        it("should return video id without subdomain", function () {
+    describe("*://vrt.be/vrtnu/a-z/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return video id", function () {
             const url = "https://vrt.be/vrtnu/a-z/koppen/2016" +
                                                            "/koppen-d20180721/";
             const expected = "plugin://plugin.video.vrt.nu/play/url" +
-                                           "/https%3A%2F%2Fvrt.be%2Fvrtnu%2Fa" +
-                                     "-z%2Fkoppen%2F2016%2Fkoppen-d20180721%2F";
+                      "/https://vrt.be/vrtnu/a-z/koppen/2016/koppen-d20180721/";
 
             const file = action(new URL(url));
             assert.strictEqual(file, expected);
