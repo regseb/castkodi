@@ -58,4 +58,21 @@ describe("scraper/vrtnu", function () {
             assert.strictEqual(file, expected);
         });
     });
+
+    describe("*://vrtnu.page.link/*", function () {
+        let action;
+        before(function () {
+            action = Array.from(rules.entries())
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return video id", function () {
+            const url = "https://vrtnu.page.link/KXWX";
+            const expected = "plugin://plugin.video.vrt.nu/play/url" +
+                                                "/https://vrtnu.page.link/KXWX";
+
+            const file = action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+    });
 });
