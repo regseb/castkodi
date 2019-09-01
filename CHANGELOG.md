@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/regseb/castkodi/compare/v4.5.0...v4.6.0) (2019-09-01)
+
+
+### Features
+
+* Ajouter le support de VRT NU. ([#16](https://github.com/regseb/castkodi/issues/16)) ([df1e4b8](https://github.com/regseb/castkodi/commit/df1e4b8))
+
 ## [4.5.0](https://github.com/regseb/castkodi/compare/v4.4.0...v4.5.0) (2019-08-19)
 
 
