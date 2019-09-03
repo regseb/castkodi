@@ -14,10 +14,10 @@
             "patterns": "/test/**/*.js",
             "linters": { "eslint": ["eslint.json", "eslint_nodejs.json"] }
         }, {
-            "patterns": ["!/src/_locales/", "/src/**/*.html"],
+            "patterns": "/src/**/*.html",
             "linters": "htmlhint"
         }, {
-            "patterns": "/src/_locales/**/*.html",
+            "patterns": "/locales/**/*.html",
             "linters": {
                 "htmlhint": ["htmlhint.json", { "doctype-first": false }]
             }
