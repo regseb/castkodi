@@ -198,4 +198,8 @@ export const WebSocket = class {
                 });
         }
     }
+
+    close() {
+        this.onclose();
+    }
 };

@@ -33,7 +33,7 @@ const DEFAULT_CONFIG = {
 /**
  * Le client JSON-RPC pour contacter Kodi.
  *
- * @type {object}
+ * @type {?object}
  */
 let jsonrpc = null;
 
@@ -65,15 +65,22 @@ const cast = function (info) {
 /**
  * Crée le client JSON-RPC pour contacter Kodi.
  *
- * @function client
+ * @function change
  * @param {object} changes Les paramètres modifiés dans la configuration.
  */
-const client = function (changes) {
-    if (!("connection-host" in changes)) {
+const change = function (changes) {
+    // Ignorer tous les changements sauf ceux liés au serveur.
+    if (!Object.keys(changes).some((k) => k.startsWith("connection-"))) {
         return;
     }
 
-    jsonrpc = new JSONRPC(changes["connection-host"].newValue);
+    // Fermer éventuellement la précédente connexion.
+    if (null !== jsonrpc) {
+        jsonrpc.close();
+    }
+    browser.storage.local.get().then((config) => {
+        jsonrpc = new JSONRPC(config["connection-host"]);
+    });
 };
 
 /**
@@ -178,8 +185,8 @@ browser.storage.local.get().then(function (config) {
 
     // Se connecter à Kodi et surveiller les futures changements de la
     // configuration.
-    client({ "connection-host": { "newValue": config["connection-host"] } });
-    browser.storage.onChanged.addListener(client);
+    change({ "connection-host": null });
+    browser.storage.onChanged.addListener(change);
 
     // Ajouter les options dans les menus contextuels et surveiller les futurs
     // changements de la configuration.

@@ -4,12 +4,8 @@ import { JSONRPC } from "../../src/core/jsonrpc.js";
 describe("jsonrpc", function () {
     describe("#check()", function () {
         it("should send request", function () {
-            return JSONRPC.check("locahost").then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method":  "JSONRPC.Version",
-                    "params":  {}
-                });
-            });
+            // Vérifier que la méthode check() retourne une promesse tenue.
+            return JSONRPC.check("locahost");
         });
 
         it("should return error when no host", function () {
@@ -59,6 +55,20 @@ describe("jsonrpc", function () {
                 assert.strictEqual(err.name, "Error");
                 assert.strictEqual(err.message, "Error message!");
             });
+        });
+    });
+
+    describe("#close()", function () {
+        it("should close WebSocket", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            jsonrpc.version().then(function () {
+                jsonrpc.close();
+            });
+        });
+
+        it("should do nothing with WebSocket doesn't open", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            jsonrpc.close();
         });
     });
 

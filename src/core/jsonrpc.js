@@ -12,7 +12,7 @@ import { PebkacError } from "./pebkac.js";
 export const JSONRPC = class {
 
     /**
-     * Test la connexion à l'API de Kodi.
+     * Teste la connexion à l'API de Kodi.
      *
      * @function check
      * @param {string} host L'URL du serveur JSON-RPC de Kodi.
@@ -20,7 +20,8 @@ export const JSONRPC = class {
      *                    promesse rompue.
      */
     static check(host) {
-        return new JSONRPC(host).version();
+        const jsonrpc = new JSONRPC(host);
+        return jsonrpc.version().then(() => jsonrpc.close());
     }
 
     /**
@@ -117,21 +118,18 @@ export const JSONRPC = class {
         if (null === this.client) {
             this.client = new Promise((resolve, reject) => {
                 if ("" === this.host) {
-                    reject(new PebkacError("unconfigured"));
-                    return;
+                    throw new PebkacError("unconfigured");
                 }
                 let url;
                 try {
                     url = new URL("ws://" + this.host + ":9090/jsonrpc");
                 } catch {
-                    reject(new PebkacError("badHost", this.host));
-                    return;
+                    throw new PebkacError("badHost", this.host);
                 }
                 // Si l'URL est incorrecte (car le nom de domaine a été corrigé
                 // par le constructeur).
                 if (url.hostname !== this.host.toLowerCase()) {
-                    reject(new PebkacError("badHost", this.host));
-                    return;
+                    throw new PebkacError("badHost", this.host);
                 }
 
                 const ws = new WebSocket(url);
@@ -159,6 +157,17 @@ export const JSONRPC = class {
                 }));
             });
         });
+    }
+
+    /**
+     * Ferme la connexion.
+     *
+     * @function close
+     */
+    close() {
+        if (null !== this.client) {
+           this.client.then((ws) => ws.close());
+        }
     }
 
     /**
