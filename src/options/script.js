@@ -11,15 +11,16 @@ import { JSONRPC } from "../core/jsonrpc.js";
  * @param {HTMLInputElement} input La case à cocher.
  */
 const ask = function (input) {
+    const key = input.form.id + "-" + input.name;
     const permissions = { "permissions": [input.dataset.permissions] };
     if (input.checked) {
         browser.permissions.request(permissions).then((response) => {
             input.checked = response;
-            browser.storage.local.set({ [input.id]: response });
+            browser.storage.local.set({ [key]: response });
         });
     } else {
         browser.permissions.remove(permissions);
-        browser.storage.local.set({ [input.id]: false });
+        browser.storage.local.set({ [key]: false });
     }
 };
 
@@ -103,7 +104,7 @@ browser.storage.local.get().then((config) => {
     }
 
     // Vérifier la connexion à Kodi.
-    check(document.querySelector("#connection-host"));
+    check(document.querySelector(`#connection input[name="host"]`));
 });
 
 // Écouter les actions dans le formulaire.

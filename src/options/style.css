@@ -1,4 +1,4 @@
-#connection-host {
+#connection input[name="host"] {
     background-image: url("img/loading.svg");
     background-position: right 8px center;
     background-repeat: no-repeat;
