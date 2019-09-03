@@ -152,8 +152,9 @@ const notify = function (err) {
     }
     article.querySelector("p").textContent = err.message;
     article.style.display = "block";
-    document.querySelector("#cast").style.borderBottom = "none";
-    document.querySelector("#remote").style.borderLeft = "none";
+    document.querySelector("#cast").style.visibility = "hidden";
+    document.querySelector("#playing").style.visibility = "hidden";
+    document.querySelector("#remote").style.visibility = "hidden";
 };
 
 const update = function () {
