@@ -23,8 +23,7 @@ rules.set("https://www.stormo.tv/videos/*", function ({ href }) {
                       .then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const meta = doc.head.querySelector(`meta[property=` +
-                                                       `"ya:ovs:content_url"]`);
+        const meta = doc.querySelector(`meta[property="ya:ovs:content_url"]`);
         return null === meta ? null
                              : meta.content;
     });

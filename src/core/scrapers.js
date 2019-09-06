@@ -17,6 +17,7 @@ import { rules as full30 }         from "./scraper/full30.js";
 import { rules as gamekult }       from "./scraper/gamekult.js";
 import { rules as generics }       from "./scraper/generics.js";
 import { rules as instagram }      from "./scraper/instagram.js";
+import { rules as jamendo }        from "./scraper/jamendo.js";
 import { rules as jeuxvideocom }   from "./scraper/jeuxvideocom.js";
 import { rules as kcaastreaming }  from "./scraper/kcaastreaming.js";
 import { rules as mixcloud }       from "./scraper/mixcloud.js";
@@ -43,10 +44,10 @@ import { rules as youtube }        from "./scraper/youtube.js";
  */
 const scrapers = [
     allocine, applepodcasts, arte, arteradio, blogtalkradio, devtube, dumpert,
-    dailymotion, facebook, flickr, full30, gamekult, instagram, jeuxvideocom,
-    kcaastreaming, mixcloud, mycloudplayers, onetv, peertube, pippa, podcloud,
-    radioline, rutube, soundcloud, steampowered, stormotv, twitch, vimeo, vrtnu,
-    youtube, torrent, acestream, generics
+    dailymotion, facebook, flickr, full30, gamekult, instagram, jamendo,
+    jeuxvideocom, kcaastreaming, mixcloud, mycloudplayers, onetv, peertube,
+    pippa, podcloud, radioline, rutube, soundcloud, steampowered, stormotv,
+    twitch, vimeo, vrtnu, youtube, torrent, acestream, generics
 ];
 
 /**

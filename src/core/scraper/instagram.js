@@ -23,7 +23,7 @@ rules.set("*://www.instagram.com/p/*", function ({ href }) {
                       .then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const meta = doc.head.querySelector(`meta[property="og:video"]`);
+        const meta = doc.querySelector(`meta[property="og:video"]`);
         return null === meta ? null
                              : meta.content;
     });

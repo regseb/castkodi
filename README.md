@@ -17,8 +17,8 @@ sur **Kodi** :
 - des vidéos : liens directs (*avi*, *mkv*…), YouTube¹, Twitch¹, Vimeo¹,
   Instagram, torrents¹, magnets¹ et Ace Stream¹, AlloCiné, Arte, BitChute,
   Dailymotion¹, DevTube¹, Dumpert¹, Facebook, Flickr, Full30, Gamekult¹,
-  JeuxVideoCom, LiveLeak, PeerTube, Первый канал, Rutube, Steam, StormoTV,
-  Útvarp Saga, VRT NU¹, YT Home…
+  Jamendo, JeuxVideoCom, LiveLeak, PeerTube, Первый канал, Rutube, Steam,
+  StormoTV, Útvarp Saga, VRT NU¹, YT Home…
 - des musiques : liens directs (*mp3*, *flac*…), SoundCloud¹ et Apple Podcasts,
   Arte Radio, Blog Talk Radio, France Inter, KCAA Radio, Mixcloud¹, My Cloud
   Player, Pippa, podCloud, Radioline…

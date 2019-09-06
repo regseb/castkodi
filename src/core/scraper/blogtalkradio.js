@@ -23,7 +23,7 @@ rules.set("*://www.blogtalkradio.com/*", function ({ href }) {
                       .then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const meta = doc.head.querySelector(`meta[property=` +
+        const meta = doc.querySelector(`meta[property=` +
                                                     `"twitter:player:stream"]`);
         return null === meta ? null
                              : meta.content;

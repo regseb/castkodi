@@ -25,7 +25,7 @@ rules.set([
                       .then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        const result = doc.head.querySelector(`meta[property="og:video:url"]`);
+        const result = doc.querySelector(`meta[property="og:video:url"]`);
         return null === result ? null
                                : result.content;
     });
