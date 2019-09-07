@@ -96,9 +96,8 @@ const menu = function (changes) {
     }
 
     // Vider les options du menu contextuel, puis ajouter les options.
-    browser.menus.removeAll().then(function () {
-        return browser.storage.local.get();
-    }).then(function (config) {
+    browser.menus.removeAll().then(() => browser.storage.local.get())
+                             .then((config) => {
         const contexts = Object.entries(config)
                                .filter(([k]) => k.startsWith("contexts-"))
                                .filter(([, v]) => v)
@@ -157,7 +156,7 @@ const menu = function (changes) {
     });
 };
 
-browser.storage.local.get().then(function (config) {
+browser.storage.local.get().then((config) => {
     // Migrer l'ancienne propriété "host" (avant la version 1.0.0).
     if ("host" in config) {
         browser.storage.local.set({ "connection-host": config.host });

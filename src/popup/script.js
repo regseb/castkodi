@@ -21,8 +21,18 @@ const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
  */
 let speed  = null;
 
+/**
+ * L'identifiant de l'intervalle faisant avancer la barre de progression.
+ *
+ * @type {?number}
+ */
 let interval = null;
 
+/**
+ * Le client JSON-RPC pour contacter Kodi.
+ *
+ * @type {?object}
+ */
 let jsonrpc = null;
 
 const onSeek = function ({ player }) {
@@ -158,7 +168,7 @@ const notify = function (err) {
 };
 
 const update = function () {
-    return jsonrpc.getProperties().then(function (properties) {
+    return jsonrpc.getProperties().then((properties) => {
         document.querySelector("#send").disabled = false;
         document.querySelector("#insert").disabled = false;
         document.querySelector("#add").disabled = false;
@@ -226,7 +236,7 @@ const cast = function (menuItemId) {
         promise = browser.tabs.query(queryInfo).then(([{ url }]) => url);
     }
 
-    promise.then(function (popupUrl) {
+    promise.then((popupUrl) => {
         return browser.runtime.sendMessage({ popupUrl, menuItemId });
     }).then(close);
 };
@@ -626,9 +636,8 @@ document.querySelector("#configure").onclick = preferences;
 // avec la feuille de style.
 for (const element of document.querySelectorAll("object")) {
     if ("loading" !== element.parentNode.id) {
-        fetch(element.data).then(function (response) {
-            return response.text();
-        }).then(function (data) {
+        fetch(element.data).then((r) => r.text())
+                           .then((data) => {
             const svg = new DOMParser().parseFromString(data, "image/svg+xml");
             element.appendChild(svg.documentElement);
             element.removeAttribute("data");
@@ -687,7 +696,7 @@ window.onkeyup = function (event) {
 
 interval = setInterval(passing, 1000);
 
-browser.storage.local.get(["connection-host"]).then(function (config) {
+browser.storage.local.get().then((config) => {
     jsonrpc = new JSONRPC(config["connection-host"]);
     jsonrpc.onVolumeChanged   = onVolumeChanged;
     jsonrpc.onAVStart         = update;
