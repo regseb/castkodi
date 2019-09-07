@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/podcloud.js";
 
 describe("scraper/podcloud", function () {
@@ -19,7 +19,7 @@ describe("scraper/podcloud", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return sound id", function () {
+        it("should return audio URL", function () {
             const url = "https://podcloud.fr/podcast/le-cosy-corner/episode" +
                                           "/numero-51-sa-puissance-est-maximum";
             const expected = "https://podcloud.fr/ext/le-cosy-corner" +
@@ -29,7 +29,7 @@ describe("scraper/podcloud", function () {
             assert.strictEqual(file, expected);
         });
 
-        it("should return sound id when protocol is HTTP", function () {
+        it("should return audio URL when protocol is HTTP", function () {
             const url = "https://podcloud.fr/podcast/2-heures-de-perdues" +
                                                             "/episode/stargate";
             const expected = "https://podcloud.fr/ext/2-heures-de-perdues" +

@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/torrent.js";
 
 describe("scraper/torrent", function () {
@@ -21,11 +21,11 @@ describe("scraper/torrent", function () {
         });
 
         it("should return video URL", function () {
-            const url = "http://vodo.net/media/torrents" +
-                                         "/Sintel.2010.Theora.Ogv-VODO.torrent";
+            const url = "https://archive.org/download/Sintel" +
+                                                      "/Sintel_archive.torrent";
             const expected = "plugin://plugin.video.elementum/play" +
-                               "?uri=http%3A%2F%2Fvodo.net%2Fmedia%2Ftorrents" +
-                                       "%2FSintel.2010.Theora.Ogv-VODO.torrent";
+                                              "?uri=https%3A%2F%2Farchive.org" +
+                                "%2Fdownload%2FSintel%2FSintel_archive.torrent";
 
             const file = action(new URL(url));
             assert.strictEqual(file, expected);

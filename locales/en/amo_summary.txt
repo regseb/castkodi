@@ -1,1 +1,1 @@
-Cast videos/music (YouTube, Twitch, Vimeo, Instagram, torrents, magnets, SoundCloud, ...) to Kodi with context menu and remote control.
+Cast videos and music from more than 30 sites (YouTube, Twitch, Vimeo, SoundCloud, torrents, ...) to Kodi with context menu and remote control.

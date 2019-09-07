@@ -2,10 +2,9 @@
  * @module
  */
 
-import { mux }     from "./core/index.js";
-import { JSONRPC } from "./core/jsonrpc.js";
-import { notify }  from "./core/notify.js";
-import { extract } from "./core/scrapers.js";
+import { extract, mux } from "./core/index.js";
+import { JSONRPC }      from "./core/jsonrpc.js";
+import { notify }       from "./core/notify.js";
 
 /**
  * Les valeurs par défaut de la configuration.

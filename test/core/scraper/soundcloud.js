@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/soundcloud.js";
 
 describe("scraper/soundcloud", function () {
@@ -20,7 +20,7 @@ describe("scraper/soundcloud", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not a music", function () {
+        it("should return null when it's not an audio", function () {
             const url = "https://soundcloud.com/a-tribe-called-red" +
                                                             "/sets/trapline-ep";
             const expected = null;
@@ -29,7 +29,7 @@ describe("scraper/soundcloud", function () {
             assert.strictEqual(file, expected);
         });
 
-        it("should return null when it's not a music with one slash",
+        it("should return null when it's not an audio with one slash",
                                                                    function () {
             const url = "https://soundcloud.com/you/collection";
             const expected = null;
@@ -38,7 +38,7 @@ describe("scraper/soundcloud", function () {
             });
         });
 
-        it("should return music id", function () {
+        it("should return audio id", function () {
             const url = "https://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                           "?track_id=176387011";
@@ -47,7 +47,7 @@ describe("scraper/soundcloud", function () {
             });
         });
 
-        it("should return music id when protocol is HTTP", function () {
+        it("should return audio id when protocol is HTTP", function () {
             const url = "http://soundcloud.com/esa/a-singing-comet";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
                                                           "?track_id=176387011";
@@ -64,7 +64,7 @@ describe("scraper/soundcloud", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return music id", function () {
+        it("should return audio id", function () {
             const url = "https://mobi.soundcloud.com" +
                                     "/a-tribe-called-red/electric-pow-wow-drum";
             const expected = "plugin://plugin.audio.soundcloud/play/" +

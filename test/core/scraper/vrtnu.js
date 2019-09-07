@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/vrtnu.js";
 
 describe("scraper/vrtnu", function () {
@@ -20,7 +20,7 @@ describe("scraper/vrtnu", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://www.vrt.be/vrtnu/a-z/het-journaal/2019" +
                                      "/het-journaal-het-journaal-13u-20190901/";
             const expected = "plugin://plugin.video.vrt.nu/play/url" +
@@ -31,7 +31,7 @@ describe("scraper/vrtnu", function () {
             assert.strictEqual(file, expected);
         });
 
-        it("should return video id when protocol is HTTP", function () {
+        it("should return video URL when protocol is HTTP", function () {
             const url = "http://www.vrt.be/vrtnu/a-z/pano/2019/pano-s2019a9/";
             const expected = "plugin://plugin.video.vrt.nu/play/url" +
                          "/http://www.vrt.be/vrtnu/a-z/pano/2019/pano-s2019a9/";
@@ -48,7 +48,7 @@ describe("scraper/vrtnu", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://vrt.be/vrtnu/a-z/koppen/2016" +
                                                            "/koppen-d20180721/";
             const expected = "plugin://plugin.video.vrt.nu/play/url" +
@@ -66,7 +66,7 @@ describe("scraper/vrtnu", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://vrtnu.page.link/KXWX";
             const expected = "plugin://plugin.video.vrt.nu/play/url" +
                                                 "/https://vrtnu.page.link/KXWX";

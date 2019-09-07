@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/radioline.js";
 
 describe("scraper/radioline", function () {
@@ -19,7 +19,7 @@ describe("scraper/radioline", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return null when it's not a music", function () {
+        it("should return null when it's not an audio", function () {
             const url = "https://fr-fr.radioline.co/qui-sommes-nous";
             const expected = null;
 
@@ -27,7 +27,7 @@ describe("scraper/radioline", function () {
             assert.strictEqual(file, expected);
         });
 
-        it("should return null when it's not a music with hash", function () {
+        it("should return null when it's not an audio with hash", function () {
             const url = "http://www.radioline.co" +
                                              "/search-result-for-radio-france" +
                                           "#radios/france-bleu-provence-666-fm";
@@ -37,7 +37,7 @@ describe("scraper/radioline", function () {
             });
         });
 
-        it("should return music id", function () {
+        it("should return audio URL", function () {
             const url = "http://www.radioline.co" +
                      "/podcast-france-inter-tanguy-pastureau-maltraite-l-info" +
                                                                    "#chapters" +
@@ -51,7 +51,7 @@ describe("scraper/radioline", function () {
             });
         });
 
-        it("should return music id when protocol is HTTP", function () {
+        it("should return audio URL when protocol is HTTP", function () {
             const url = "http://en-ie.radioline.co" +
                             "/podcast-france-inter-la-chronique-de-pablo-mira" +
                            "#chapters/france-inter-la-chronique-de-pablo-mira" +

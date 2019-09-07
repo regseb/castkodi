@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/instagram.js";
 
 describe("scraper/instagram", function () {
@@ -27,7 +27,7 @@ describe("scraper/instagram", function () {
             });
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://www.instagram.com/p/BpFwZ6JnYPq/";
             const expected = "/43507506_351933205369613_6559511411523846144" +
                                                                       "_n.mp4?";
@@ -37,7 +37,7 @@ describe("scraper/instagram", function () {
             });
         });
 
-        it("should return video id when protocol is HTTP", function () {
+        it("should return video URL when protocol is HTTP", function () {
             const url = "https://www.instagram.com/p/Bpji87LiJFs/";
             const expected = "/44876841_340575853170202_7413375163648966656" +
                                                                       "_n.mp4?";

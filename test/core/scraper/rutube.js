@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/rutube.js";
 
 describe("scraper/rutube", function () {
@@ -36,7 +36,7 @@ describe("scraper/rutube", function () {
             });
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://rutube.ru/video" +
                                           "/c3290999478b6c11addf33b26f4ca81c/" +
                                                   "?pl_id=2664175&pl_type=user";
@@ -64,7 +64,7 @@ describe("scraper/rutube", function () {
             });
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://rutube.ru/play/embed/11318635";
             const expected = "https://bl.rutube.ru/route" +
                                       "/7fa99a98331d643cc44d4f529fba762a.m3u8?";
@@ -74,7 +74,7 @@ describe("scraper/rutube", function () {
             });
         });
 
-        it("should return video id when protocol is HTTP ", function () {
+        it("should return video URL when protocol is HTTP ", function () {
             const url = "http://rutube.ru/play/embed/11318635";
             const expected = "https://bl.rutube.ru/route" +
                                       "/7fa99a98331d643cc44d4f529fba762a.m3u8?";

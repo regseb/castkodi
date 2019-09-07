@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/onetv.js";
 
 describe("scraper/onetv", function () {
@@ -28,7 +28,7 @@ describe("scraper/onetv", function () {
             });
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://www.1tv.ru/shows/pozner/izbrannoe" +
                     "/razvlech-publiku-lozhyu-slozhno-maksim-galkin-o-svobode" +
                     "-yumora-pozner-fragment-vypuska-ot-03-06-2019";
@@ -40,7 +40,7 @@ describe("scraper/onetv", function () {
             });
         });
 
-        it("should return video id when protocol is HTTP", function () {
+        it("should return video URL when protocol is HTTP", function () {
             const url = "http://www.1tv.ru/shows/zdorove/vypuski" +
                                                 "/zdorove-vypusk-ot-26-05-2019";
             const expected = "https://balancer-vod.1tv.ru/video/multibitrate" +
@@ -67,7 +67,7 @@ describe("scraper/onetv", function () {
             });
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://www.1tv.ru/movies/angel-hranitel" +
                                                  "/angel-hranitel-9-i-10-serii";
             const expected = "https://balancer-vod.1tv.ru/video/multibitrate" +

@@ -48,7 +48,7 @@ describe("jsonrpc", function () {
             });
         });
 
-        it("should return ierror when receive Kodi's error", function () {
+        it("should return error when receive Kodi's error", function () {
             return JSONRPC.check("error.com").then(function () {
                 assert.fail();
             }).catch(function (err) {

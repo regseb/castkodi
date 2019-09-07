@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/arteradio.js";
 
 describe("scraper/arteradio", function () {
@@ -19,7 +19,7 @@ describe("scraper/arteradio", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return sound URL", function () {
+        it("should return audio URL", function () {
             const url = "https://www.arteradio.com/son/61657661/fais_moi_ouir";
             const expected = "https://download.www.arte.tv/permanent" +
                                          "/arteradio/sites/default/files/sons" +
@@ -29,7 +29,7 @@ describe("scraper/arteradio", function () {
             });
         });
 
-        it("should return sound URL when protocol is HTTP", function () {
+        it("should return audio URL when protocol is HTTP", function () {
             const url = "http://www.arteradio.com/son/61657661/fais_moi_ouir";
             const expected = "https://download.www.arte.tv/permanent" +
                                          "/arteradio/sites/default/files/sons" +

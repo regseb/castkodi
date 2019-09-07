@@ -39,19 +39,6 @@ import { rules as vrtnu }          from "./scraper/vrtnu.js";
 import { rules as youtube }        from "./scraper/youtube.js";
 
 /**
- * La liste des scrapers.
- *
- * @constant {Array.<object>}
- */
-const scrapers = [
-    allocine, applepodcasts, arte, arteradio, blogtalkradio, devtube, dumpert,
-    dailymotion, facebook, flickr, full30, gamekult, instagram, jamendo,
-    jeuxvideocom, kcaastreaming, mixcloud, mycloudplayers, onetv, peertube,
-    pippa, podcloud, radioline, rutube, soundcloud, steampowered, stormotv,
-    tiktok, twitch, vimeo, vrtnu, youtube, torrent, acestream, generics
-];
-
-/**
  * Protège les caractères spéciaux pour les expressions rationnelles.
  *
  * @function sanitize
@@ -87,100 +74,65 @@ const compile = function (pattern) {
 };
 
 /**
+ * Normalise un scraper.
+ *
+ * @param {Map} scraper Le scraper (avec ses modèles de correspondance et ses
+ *                      actions).
+ * @returns {Array.<object>} Les patrons URLs gérées ainsi que leur action.
+ */
+const normalize = function (scraper) {
+    return Array.from(scraper.entries(), ([patterns, action]) => {
+        return Array.isArray(patterns) ? [patterns, action]
+                                       : [Array.of(patterns), action];
+    }).flatMap(([patterns, action]) => {
+        return patterns.map((p) => {
+            return { "pattern": compile(p), "action": action };
+        });
+    });
+};
+
+/**
  * Les patrons (sous forme d'expression rationnelle) des URLs gérées ainsi que
  * leur action.
  *
- * @constant {Array.<object.<string,*>>}
+ * @constant {Array.<object>}
  */
-const SCRAPERS = [];
-
-/**
- * Appelle le bon scraper selon l'URL d'une page Internet.
- *
- * @function dispatch
- * @param {string} url L'URL d'une page Internet.
- * @returns {Promise} L'URL du <em>fichier</em> ou <code>null</code> si aucun
- *                    scraper ne gère cette URL.
- */
-const dispatch = function (url) {
-    return SCRAPERS.filter((s) => s.pattern.test(url))
-                   .reduce((result, scraper) => {
-        return result.then((file) => {
-            // Si aucun fichier n'a encore été trouvé : continuer d'analyser
-            // avec les autres scrapers.
-            return null === file ? scraper.action(new URL(url))
-                                 : file;
-        });
-    }, Promise.resolve(null));
-};
-
-/**
- * Fouille la page (si c'est du HTML) pour en extraire des éléments
- * <code>iframe</code>.
- *
- * @function rummage
- * @param {string} url L'URL d'une page Internet.
- * @returns {Promise} L'URL du <em>fichier</em> ou l'URL de la page Internet si
- *                    aucun élément n'est présent.
- */
-const rummage = function (url) {
-    return fetch(url).then((response) => {
-        const contentType = response.headers.get("Content-Type");
-        if (null !== contentType &&
-                (contentType.startsWith("text/html") ||
-                 contentType.startsWith("application/xhtml+xml"))) {
-            return response.text();
-        }
-        // Si ce n'est pas une page HTML : simuler une page vide.
-        return "";
-    }).then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
-
-        return Array.from(doc.querySelectorAll("iframe[src]"))
-                    .reduce((result, element) => {
-            return result.then((file) => {
-                // Si aucun fichier n'a encore été trouvé : continuer d'analyser
-                // les iframes de la page.
-                return null === file
-                      ? dispatch(new URL(element.getAttribute("src"), url).href)
-                      : file;
-            });
-        }, Promise.resolve(null)).then((file) => {
-            // Si aucun fichier n'a été trouvé : retourner le lien d'origine.
-            return null === file ? url
-                                 : file;
-        });
-    });
-};
-
-/**
- * Extrait le <em>fichier</em> d'une URL.
- *
- * @function extract
- * @param {string} url L'URL d'une page Internet.
- * @returns {Promise} L'URL du <em>fichier</em>.
- */
-export const extract = function (url) {
-    return dispatch(url).then((file) => {
-        return null === file ? rummage(url)
-                             : file;
-    });
-};
-
-for (const scraper of scrapers) {
-    for (const [patterns, action] of scraper) {
-        if (Array.isArray(patterns)) {
-            for (const pattern of patterns) {
-                SCRAPERS.push({
-                    "pattern": compile(pattern),
-                    "action":  action
-                });
-            }
-        } else {
-            SCRAPERS.push({
-                "pattern": compile(patterns),
-                "action":  action
-            });
-        }
-    }
-}
+export const scrapers = [
+    // Lister les scrapers (triés par ordre alphabétique).
+    acestream,
+    allocine,
+    applepodcasts,
+    arte,
+    arteradio,
+    blogtalkradio,
+    devtube,
+    dumpert,
+    dailymotion,
+    facebook,
+    flickr,
+    full30,
+    gamekult,
+    instagram,
+    jamendo,
+    jeuxvideocom,
+    kcaastreaming,
+    mixcloud,
+    mycloudplayers,
+    onetv,
+    peertube,
+    pippa,
+    podcloud,
+    radioline,
+    rutube,
+    soundcloud,
+    steampowered,
+    stormotv,
+    tiktok,
+    torrent,
+    twitch,
+    vimeo,
+    vrtnu,
+    youtube,
+    // Utiliser les scrapers génériques en dernier recours.
+    generics
+].flatMap(normalize);

@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/applepodcasts.js";
 
 describe("scraper/applepodcasts", function () {
@@ -20,7 +20,7 @@ describe("scraper/applepodcasts", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return null when it's not a video", function () {
+        it("should return null when it's not an audio", function () {
             const url = "https://podcasts.apple.com/us/podcast/culture-1999/id";
             const expected = null;
             return action(new URL(url)).then(function (file) {

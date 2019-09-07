@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/kcaastreaming.js";
 
 describe("scraper/kcaastreaming", function () {
@@ -19,7 +19,7 @@ describe("scraper/kcaastreaming", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return sound URL", function () {
+        it("should return audio URL", function () {
             const url = "http://live.kcaastreaming.com/";
             const expected = "http://stream.kcaastreaming.com:5222/kcaa.mp3";
             return action(new URL(url)).then(function (file) {

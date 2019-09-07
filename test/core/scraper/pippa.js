@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/pippa.js";
 
 describe("scraper/pippa", function () {
@@ -19,7 +19,7 @@ describe("scraper/pippa", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return null when it's not a sound", function () {
+        it("should return null when it's not an audio", function () {
             const url = "https://shows.pippa.io/studio-404/";
             const expected = null;
             return action(new URL(url)).then(function (file) {
@@ -27,7 +27,7 @@ describe("scraper/pippa", function () {
             });
         });
 
-        it("should return sound URL", function () {
+        it("should return audio URL", function () {
             const url = "https://shows.pippa.io/studio-404" +
                                                  "/studio-404-65-novembre-2018";
             const expected = "https://app.pippa.io/public/streams" +
@@ -38,7 +38,7 @@ describe("scraper/pippa", function () {
             });
         });
 
-        it("should return video id when protocol is HTTP", function () {
+        it("should return audio URL when protocol is HTTP", function () {
             const url = "http://shows.pippa.io/studio-404" +
                            "/studio-404-64-octobre-2018-studio-404-x-surfrider";
             const expected = "https://app.pippa.io/public/streams" +

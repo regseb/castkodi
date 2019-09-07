@@ -17,8 +17,8 @@ describe("scraper/extractor/video", function () {
 
         it("should return BitChute URL", function () {
             const url = "https://www.bitchute.com/video/dz5JcCZnJMge/";
-            const expected = "https://seed22.bitchute.com/hU2elaB5u3kB" +
-                                                            "/dz5JcCZnJMge.mp4";
+            const expected = "https://seed26.bitchute.com/hU2elaB5u3kB" +
+                                               "/dz5JcCZnJMge.mp4?storage=ipfs";
             return fetch(url).then((r) => r.text())
                              .then((data) => {
                 const doc = new DOMParser().parseFromString(data, "text/html");

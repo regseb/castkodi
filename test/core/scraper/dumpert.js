@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/dumpert.js";
 
 describe("scraper/dumpert", function () {
@@ -19,7 +19,7 @@ describe("scraper/dumpert", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://www.dumpert.nl/mediabase/7248279" +
                                                  "/47066e59/wheelie_in_ny.html";
             const expected = "plugin://plugin.video.dumpert/?action=play" +
@@ -31,7 +31,7 @@ describe("scraper/dumpert", function () {
             assert.strictEqual(file, expected);
         });
 
-        it("should return video id when protocol is HTTP", function () {
+        it("should return video URL when protocol is HTTP", function () {
             const url = "http://www.dumpert.nl/mediabase/7248279" +
                                                  "/47066e59/wheelie_in_ny.html";
             const expected = "plugin://plugin.video.dumpert/?action=play" +

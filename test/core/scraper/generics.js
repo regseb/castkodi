@@ -20,8 +20,8 @@ describe("scraper/generics", function () {
 
         it("should return media URL", function () {
             const url = "https://www.bitchute.com/video/dz5JcCZnJMge/";
-            const expected = "https://seed22.bitchute.com/hU2elaB5u3kB" +
-                                                            "/dz5JcCZnJMge.mp4";
+            const expected = "https://seed26.bitchute.com/hU2elaB5u3kB" +
+                                               "/dz5JcCZnJMge.mp4?storage=ipfs";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });

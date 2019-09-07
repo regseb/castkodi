@@ -7,21 +7,25 @@
 [![Users][img-users]][link-users]
 [![Stars][img-stars]][link-stars]
 
-> WebExtension pour diffuser des vidéos et musiques sur Kodi.
+> WebExtension pour diffuser des vidéos et des musiques sur Kodi.
 
 ## Description
 
 Cast Kodi est une extension pour le navigateur Firefox. Elle permet de diffuser
-sur **Kodi** :
+des vidéos et des musiques sur **Kodi** :
 
-- des vidéos : liens directs (*avi*, *mkv*…), YouTube¹, Twitch¹, Vimeo¹,
-  Instagram, torrents¹, magnets¹ et Ace Stream¹, AlloCiné, Arte, BitChute,
-  Dailymotion¹, DevTube¹, Dumpert¹, Facebook, Flickr, Full30, Gamekult¹,
-  Jamendo, JeuxVideoCom, LiveLeak, PeerTube, Первый канал, Rutube, Steam,
-  StormoTV, TikTok, Útvarp Saga, VRT NU¹, YT Home…
-- des musiques : liens directs (*mp3*, *flac*…), SoundCloud¹ et Apple Podcasts,
-  Arte Radio, Blog Talk Radio, France Inter, KCAA Radio, Mixcloud¹, My Cloud
-  Player, Pippa, podCloud, Radioline…
+- liens directs : *avi*, *mkv*, *mp3*, *flac*… et torrent / magnet ;
+- YouTube, Twitch, SoundCloud ainsi que Ace Stream, Apple Podcasts, BitChute,
+  Blog Talk Radio, Dailymotion, DevTube, Facebook, Flickr, Full30, Instagram,
+  Jamendo, LiveLeak, Mixcloud, My Cloud Player, PeerTube, Pippa, podCloud,
+  Radioline, Steam, TikTok, Vimeo, YT Home ;
+  - Allemagne : Arte ;
+  - Belgique : VRT NU ;
+  - États-Unis : KCAA Radio ;
+  - France : AlloCiné, Arte, Arte Radio, France Inter, Gamekult, JeuxVideoCom ;
+  - Islande : Útvarp Saga ;
+  - Pays-Bas : Dumpert ;
+  - Russie : Первый канал, Rutube, StormoTV.
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une
@@ -46,19 +50,6 @@ d'autres systèmes*. Ce réglage se fait dans la page *Paramètres* / *Services*
 Vous devez ensuite configurer les *Préférences* de Cast Kodi en copiant
 l'*Adresse IP* du serveur hébergeant Kodi ; cette information est disponible
 dans la page *Paramètres* / *Infos sur le système* / *Résumé*.
-
-¹ Pour lire les vidéos / musiques hébergées sur ces plateformes, il faut
-installer les extensions
-[YouTube](https://kodi.tv/addon/plugins-video-add-ons/youtube),
-[Twitch](https://kodi.tv/addon/plugins-video-add-ons/twitch),
-[Vimeo](https://kodi.tv/addon/plugins-video-add-ons/vimeo),
-[Elementum](https://github.com/elgatito/plugin.video.elementum) (torrents /
-magnets), [Plexus](https://github.com/tvaddonsco/program.plexus) (Ace Stream),
-[DailyMotion.com](https://kodi.tv/addon/plugins-video-add-ons/dailymotioncom),
-[Dumpert](https://kodi.tv/addon/plugins-video-add-ons/dumpert),
-[VRT NU](https://kodi.tv/addon/plugins-video-add-ons/vrt-nu-0),
-[SoundCloud](https://kodi.tv/addon/music-add-ons-plugins/soundcloud) ou
-[Mixcloud](https://kodi.tv/addon/music-add-ons-plugins/mixcloud) dans Kodi.
 
 ## Licence
 

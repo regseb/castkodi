@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/peertube.js";
 
 describe("scraper/peertube", function () {
@@ -28,7 +28,7 @@ describe("scraper/peertube", function () {
             });
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://framatube.org/videos/watch" +
                                         "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44";
             const expected = "https://peertube.datagueule.tv/static/webseed" +
@@ -38,7 +38,7 @@ describe("scraper/peertube", function () {
             });
         });
 
-        it("should return video id when protocol is HTTP", function () {
+        it("should return video URL when protocol is HTTP", function () {
             const url = "http://framatube.org/videos/watch" +
                                         "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44";
             const expected = "https://peertube.datagueule.tv/static/webseed" +
@@ -65,7 +65,7 @@ describe("scraper/peertube", function () {
             });
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "https://framatube.org/videos/watch" +
                                         "/0900bd2e-7306-4c39-b48b-2d0cd611742e";
             const expected = "https://framatube.org/static/webseed" +

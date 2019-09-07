@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/acestream.js";
 
 describe("scraper/acestream", function () {
@@ -19,7 +19,7 @@ describe("scraper/acestream", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return video id", function () {
+        it("should return video URL", function () {
             const url = "acestream://94c2fd8fb9bc8f2fc71a2cbe9d4b866f227a0209";
             const expected = "plugin://program.plexus/?mode=1&name=" +
                                           "&url=acestream%3A%2F%2F94c2fd8fb9b" +

@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/blogtalkradio.js";
 
 describe("scraper/blogtalkradio", function () {
@@ -19,7 +19,7 @@ describe("scraper/blogtalkradio", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return null when it's not a sound", function () {
+        it("should return null when it's not an audio", function () {
             const url = "https://www.blogtalkradio.com/technology";
             const expected = null;
             return action(new URL(url)).then(function (file) {
@@ -27,7 +27,7 @@ describe("scraper/blogtalkradio", function () {
             });
         });
 
-        it("should return sound URL", function () {
+        it("should return audio URL", function () {
             const url = "https://www.blogtalkradio.com/stretchingadollar" +
                                "/2011/03/02/7-mozilla-firefox-add-ons-to-help" +
                                 "-your-small-business-stretch-a-dollar-to-save";
@@ -39,7 +39,7 @@ describe("scraper/blogtalkradio", function () {
             });
         });
 
-        it("should return video id when protocol is HTTP", function () {
+        it("should return audio URL when protocol is HTTP", function () {
             const url = "http://www.blogtalkradio.com/firefoxnews-online/2011" +
                                                     "/06/13/firefoxnews-online";
             const expected = "https://www.blogtalkradio.com" +

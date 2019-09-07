@@ -1,6 +1,6 @@
 import assert      from "assert";
 import { URL }     from "url";
-import { extract } from "../../../src/core/scrapers.js";
+import { extract } from "../../../src/core/index.js";
 import { rules }   from "../../../src/core/scraper/mixcloud.js";
 
 describe("scraper/mixcloud", function () {
@@ -19,7 +19,7 @@ describe("scraper/mixcloud", function () {
             action = rules.get(this.test.parent.title);
         });
 
-        it("should return null when it's not a music", function () {
+        it("should return null when it's not an audio", function () {
             const url = "https://www.mixcloud.com/discover/jazz/";
             const expected = null;
 
@@ -27,7 +27,7 @@ describe("scraper/mixcloud", function () {
             assert.strictEqual(file, expected);
         });
 
-        it("should return music id", function () {
+        it("should return audio id", function () {
             const url = "https://www.mixcloud.com" +
                                         "/LesGar%C3%A7onsBienElev%C3%A9s/n101/";
             const expected = "plugin://plugin.audio.mixcloud/" +
@@ -39,7 +39,7 @@ describe("scraper/mixcloud", function () {
             assert.strictEqual(file, expected);
         });
 
-        it("should return music id when protocol is HTTP", function () {
+        it("should return audio id when protocol is HTTP", function () {
             const url = "http://www.mixcloud.com" +
                                         "/LesGar%C3%A7onsBienElev%C3%A9s/n101/";
             const expected = "plugin://plugin.audio.mixcloud/" +
