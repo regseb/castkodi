@@ -26,6 +26,7 @@ import { rules as onetv }          from "./scraper/onetv.js";
 import { rules as peertube }       from "./scraper/peertube.js";
 import { rules as pippa }          from "./scraper/pippa.js";
 import { rules as podcloud }       from "./scraper/podcloud.js";
+import { rules as radio }          from "./scraper/radio.js";
 import { rules as radioline }      from "./scraper/radioline.js";
 import { rules as rutube }         from "./scraper/rutube.js";
 import { rules as soundcloud }     from "./scraper/soundcloud.js";
@@ -122,6 +123,7 @@ export const scrapers = [
     peertube,
     pippa,
     podcloud,
+    radio,
     radioline,
     rutube,
     soundcloud,

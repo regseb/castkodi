@@ -18,7 +18,7 @@ des vidéos et des musiques sur **Kodi** :
 - YouTube, Twitch, SoundCloud ainsi que Ace Stream, Apple Podcasts, BitChute,
   Blog Talk Radio, Dailymotion, DevTube, Facebook, Flickr, Full30, Instagram,
   Jamendo, LiveLeak, Mixcloud, My Cloud Player, PeerTube, Pippa, podCloud,
-  Radioline, Steam, TikTok, Vimeo, YT Home ;
+  Radio, Radioline, Steam, TikTok, Vimeo, YT Home ;
   - Allemagne : Arte ;
   - Belgique : VRT NU ;
   - États-Unis : KCAA Radio ;
