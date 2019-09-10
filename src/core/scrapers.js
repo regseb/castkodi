@@ -31,7 +31,7 @@ import { rules as radio }          from "./scraper/radio.js";
 import { rules as radioline }      from "./scraper/radioline.js";
 import { rules as rutube }         from "./scraper/rutube.js";
 import { rules as soundcloud }     from "./scraper/soundcloud.js";
-import { rules as steampowered }   from "./scraper/steampowered.js";
+import { rules as steam }          from "./scraper/steam.js";
 import { rules as stormotv }       from "./scraper/stormotv.js";
 import { rules as tiktok }         from "./scraper/tiktok.js";
 import { rules as torrent }        from "./scraper/torrent.js";
@@ -129,7 +129,7 @@ export const scrapers = [
     radioline,
     rutube,
     soundcloud,
-    steampowered,
+    steam,
     stormotv,
     tiktok,
     torrent,
