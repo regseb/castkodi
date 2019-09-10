@@ -21,6 +21,7 @@ import { rules as jamendo }        from "./scraper/jamendo.js";
 import { rules as jeuxvideocom }   from "./scraper/jeuxvideocom.js";
 import { rules as kcaastreaming }  from "./scraper/kcaastreaming.js";
 import { rules as mixcloud }       from "./scraper/mixcloud.js";
+import { rules as mixer }          from "./scraper/mixer.js";
 import { rules as mycloudplayers } from "./scraper/mycloudplayers.js";
 import { rules as onetv }          from "./scraper/onetv.js";
 import { rules as peertube }       from "./scraper/peertube.js";
@@ -118,6 +119,7 @@ export const scrapers = [
     jeuxvideocom,
     kcaastreaming,
     mixcloud,
+    mixer,
     mycloudplayers,
     onetv,
     peertube,
