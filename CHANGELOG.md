@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/regseb/castkodi/compare/v4.6.1...v4.7.0) (2019-09-13)
+
+
+### Bug Fixes
+
+* Cacher les éléments sous le message d'erreur (dans la popup). ([9f418aa](https://github.com/regseb/castkodi/commit/9f418aa))
+
+
+### Features
+
+* Ajouter le support de Jamendo. ([2891079](https://github.com/regseb/castkodi/commit/2891079))
+* Ajouter le support de Mixer. ([b375603](https://github.com/regseb/castkodi/commit/b375603))
+* Ajouter le support de Radio. ([175cd63](https://github.com/regseb/castkodi/commit/175cd63))
+* Ajouter le support de TikTok. ([29220a0](https://github.com/regseb/castkodi/commit/29220a0))
+* Ajouter le support des diffusions Steam. ([911de9c](https://github.com/regseb/castkodi/commit/911de9c))
+* Gérer les URLs minifiées de VRT NU. ([ac9864a](https://github.com/regseb/castkodi/commit/ac9864a))
+
 ### [4.6.1](https://github.com/regseb/castkodi/compare/v4.6.0...v4.6.1) (2019-09-01)
 
 
