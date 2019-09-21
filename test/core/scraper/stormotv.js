@@ -28,13 +28,12 @@ describe("scraper/stormotv", function () {
         });
 
         it("should return video URL", function () {
-            const url = "https://www.stormo.tv/videos/338790" +
-                                                       "/tancuyushchaya-zebra/";
-            const expected = "https://www.stormo.tv/get_file/24" +
-                                 "/34e334698d06ca878d9842e10fe8343455d522f26a" +
-                                                   "/338000/338790/338790.mp4/";
+            const url = "https://www.stormo.tv/videos/514985" +
+                                             "/little-big-rock-paper-scissors/";
+            const expected = "/514000/514985/514985_low.mp4/";
             return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
+                assert.ok(file.endsWith(expected),
+                          `"${file}".endsWith(expected)`);
             });
         });
     });

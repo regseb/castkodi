@@ -2,64 +2,37 @@
  * @module
  */
 
+import { jsonrpc }     from "./jsonrpc.js";
+import { notify }      from "./notify.js";
 import { PebkacError } from "./pebkac.js";
 import { scrapers }    from "./scrapers.js";
 
 /**
- * Agrège les données des différents points d'entrée.
- *
- * @function aggregate
- * @param {object} info Les informations fournies par le menu contextuel ou la
- *                      pop-up.
- * @returns {Promise} Une promesse contenant les données récupérées.
- */
-const aggregate = function (info) {
-    if ("bookmarkId" in info) {
-        return browser.bookmarks.get(info.bookmarkId).then(([bookmark]) => {
-            if ("url" in bookmark) {
-                return [bookmark.url];
-            }
-            throw new PebkacError("noLink");
-        });
-    }
-
-    return Promise.resolve([
-        info.selectionText, info.linkUrl, info.srcUrl, info.frameUrl,
-        info.pageUrl, info.popupUrl
-    ]);
-};
-
-/**
- * Récupère l'URL à analyser parmi les données récupérées.
+ * Récupère le lien à analyser parmi les données récupérées.
  *
  * @function mux
- * @param {object} info Les informations fournies par le menu contextuel ou la
- *                      pop-up.
- * @returns {Promise} Une promesse contenant le lien à analyser.
+ * @param {Array.<string>} urls La liste des liens récupérés par le menu
+ *                              contextuel.
+ * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
+ *                             aucun lien est valide.
  */
-export const mux = function (info) {
-    return aggregate(info).then((urls) => {
-        const result = urls.filter((u) => undefined !== u)
-                           .map((u) => u.trim())
-                           .map((url) => {
-            // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
-            return (/^[a-z-]+:/iu).test(url) ? url
-                                             : url.replace(/^\/*/u, "http://");
-        }).find((url) => {
-            try {
-                return Boolean(new URL(url)) && (
-                       (/^https?:\/\/[^/]+\/.*$/iu).test(url) ||
-                       (/^magnet:.*$/iu).test(url) ||
-                       (/^acestream:.*$/iu).test(url));
-            } catch {
-                // Ignorer l'erreur provenant d'une URL invalide.
-                return false;
-            }
-        });
-        if (undefined === result) {
-            throw new PebkacError("noLink");
+export const mux = function (urls) {
+    return urls.filter((u) => undefined !== u)
+               .map((u) => u.trim())
+               .map((url) => {
+        // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
+        return (/^[a-z-]+:/iu).test(url) ? url
+                                         : url.replace(/^\/*/u, "http://");
+    }).find((url) => {
+        try {
+            return Boolean(new URL(url)) && (
+                   (/^https?:\/\/[^/]+\/.*$/iu).test(url) ||
+                   (/^magnet:.*$/iu).test(url) ||
+                   (/^acestream:.*$/iu).test(url));
+        } catch {
+            // Ignorer l'erreur provenant d'une URL invalide.
+            return false;
         }
-        return result;
     });
 };
 
@@ -71,7 +44,7 @@ export const mux = function (info) {
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code> si aucun scraper ne gère cette URL.
  */
-const dispatch = function (url) {
+export const dispatch = function (url) {
     return scrapers.filter((s) => s.pattern.test(url))
                    .reduce((result, scraper) => {
         return result.then((file) => {
@@ -92,7 +65,7 @@ const dispatch = function (url) {
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    l'URL de la page Internet si aucun élément n'est présent.
  */
-const rummage = function (url) {
+export const rummage = function (url) {
     return fetch(url).then((response) => {
         const contentType = response.headers.get("Content-Type");
         if (null !== contentType &&
@@ -127,11 +100,42 @@ const rummage = function (url) {
  *
  * @function extract
  * @param {string} url L'URL d'une page Internet.
- * @returns {Promise} L'URL du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
 export const extract = function (url) {
     return dispatch(url).then((file) => {
         return null === file ? rummage(url)
                              : file;
     });
+};
+
+/**
+ * Diffuse un média sur Kodi.
+ *
+ * @function cast
+ * @param {string}         action L'action à effectuer (<code>"send"</code>,
+ *                                <code>"insert"</code> ou <code>"add"</code>).
+ * @param {Array.<string>} urls   La liste des éventuelles URLs.
+ * @returns {Promise} Une promesse tenue ou rejetée.
+ */
+export const cast = function (action, urls) {
+    const url = mux(urls);
+    if (undefined === url) {
+        return notify(1 === urls.length ? new PebkacError("noLink", urls[0])
+                                        : new PebkacError("noLinks"));
+    }
+
+    return extract(url).then((file) => {
+        switch (action) {
+            case "send":   return jsonrpc.send(file);
+            case "insert": return jsonrpc.insert(file);
+            case "add":    return jsonrpc.add(file);
+            default: throw new Error(action + " is not supported");
+        }
+    }).then(() => {
+        return browser.storage.local.get(["general-history"]);
+    }).then((config) => {
+        return config["general-history"] ? browser.history.addUrl({ url })
+                                         : Promise.resolve();
+    }).catch(notify);
 };

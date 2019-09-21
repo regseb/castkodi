@@ -9,15 +9,15 @@
   </head>
   <body>
     <section id="cast">
-      <button id="send" disabled data-i18n-title>
+      <button id="send" disabled autocomplete="off" data-i18n-title>
         <object data="img/send.svg"></object>
       </button>
 
-      <button id="insert" disabled data-i18n-title>
+      <button id="insert" disabled autocomplete="off" data-i18n-title>
         <object data="img/insert.svg"></object>
       </button>
 
-      <button id="add" disabled data-i18n-title>
+      <button id="add" disabled autocomplete="off" data-i18n-title>
         <object data="img/add.svg"></object>
       </button>
 
@@ -27,21 +27,22 @@
         <textarea autocomplete="off" spellcheck="false"></textarea>
       </label>
 
-      <span></span>
-      <span></span>
+      <label id="server" data-i18n-title>
+        <select name="server" autocomplete="off"></select>
+      </label>
 
-      <button id="preferences" data-i18n-title>
+      <button id="preferences" autocomplete="off" data-i18n-title>
         <object data="img/preferences.svg"></object>
       </button>
 
-      <button id="report" data-i18n-title>
+      <button id="report" autocomplete="off" data-i18n-title>
         <object data="img/report.svg"></object>
       </button>
 
       <span id="loading" data-i18n-title>
         <object data="img/loading.svg"></object>
       </span>
-      <button id="rate" data-i18n-title>
+      <button id="rate" autocomplete="off" data-i18n-title>
         <object data="img/rate.svg"></object>
       </button>
     </section>
@@ -49,99 +50,102 @@
     <section id="playing">
       <time></time>
       <input type="range" id="time" min="0" max="100" value="0" disabled
-             class="primary" />
+             autocomplete="off" class="primary" />
       <time></time>
 
-      <button id="previous" disabled data-i18n-title>
+      <button id="previous" disabled autocomplete="off" data-i18n-title>
         <object data="img/previous.svg"></object>
       </button>
 
-      <button id="rewind" disabled data-i18n-title>
+      <button id="rewind" disabled autocomplete="off" data-i18n-title>
         <object data="img/rewind.svg"></object>
       </button>
 
-      <button id="stop" disabled data-i18n-title>
+      <button id="stop" disabled autocomplete="off" data-i18n-title>
         <object data="img/stop.svg"></object>
       </button>
 
-      <button id="pause" disabled data-i18n-title>
+      <button id="pause" disabled autocomplete="off" data-i18n-title>
         <object data="img/pause.svg"></object>
       </button>
-      <button id="play" disabled data-i18n-title>
+      <button id="play" disabled autocomplete="off" data-i18n-title>
         <object data="img/play.svg"></object>
       </button>
 
-      <button id="forward" disabled data-i18n-title>
+      <button id="forward" disabled autocomplete="off" data-i18n-title>
         <object data="img/forward.svg"></object>
       </button>
 
-      <button id="next" disabled data-i18n-title>
+      <button id="next" disabled autocomplete="off" data-i18n-title>
         <object data="img/next.svg"></object>
       </button>
 
       <label id="mute" data-i18n-title>
-        <input type="checkbox" name="mute" disabled />
+        <input type="checkbox" name="mute" disabled autocomplete="off" />
         <object data="img/sound.svg"></object>
         <object data="img/mute.svg"></object>
       </label>
 
-      <input type="range" id="volume" value="50" disabled />
+      <input type="range" id="volume" value="50" disabled autocomplete="off" />
 
       <div id="repeat">
         <label id="repeat-off" data-i18n-title="repeat">
-          <input type="radio" name="repeat" value="off" checked disabled />
+          <input type="radio" name="repeat" value="off" checked disabled
+                 autocomplete="off" />
           <object data="img/repeat_all.svg"></object>
         </label>
         <label id="repeat-all" data-i18-title="repeat">
-          <input type="radio" name="repeat" value="all" disabled />
+          <input type="radio" name="repeat" value="all" disabled
+                 autocomplete="off" />
           <object data="img/repeat_all.svg"></object>
         </label>
         <label id="repeat-one" data-i18n-title="repeat">
-          <input type="radio" name="repeat" value="one" disabled />
+          <input type="radio" name="repeat" value="one" disabled
+                 autocomplete="off" />
           <object data="img/repeat_one.svg"></object>
         </label>
       </div>
 
       <label id="shuffle" data-i18n-title>
-        <input type="checkbox" name="shuffle" disabled />
+        <input type="checkbox" name="shuffle" disabled autocomplete="off" />
         <object data="img/shuffle.svg"></object>
       </label>
     </section>
 
     <section id="remote">
-      <button id="contextmenu" disabled data-i18n-title>
+      <button id="contextmenu" disabled autocomplete="off" data-i18n-title>
         <object data="img/contextmenu.svg"></object>
       </button>
 
-      <button id="up" disabled data-i18n-title>
+      <button id="up" disabled autocomplete="off" data-i18n-title>
         <object data="img/up.svg"></object>
       </button>
 
-      <button id="info" disabled data-i18n-title>
+      <button id="info" disabled autocomplete="off" data-i18n-title>
         <object data="img/info.svg"></object>
       </button>
 
-      <button id="left" disabled data-i18n-title>
+      <button id="left" disabled autocomplete="off" data-i18n-title>
         <object data="img/left.svg"></object>
       </button>
 
-      <button id="select" disabled data-i18n-title>
+      <button id="select" disabled autocomplete="off" data-i18n-title>
         <object data="img/select.svg"></object>
       </button>
 
-      <button id="right" disabled data-i18n-title>
+      <button id="right" disabled autocomplete="off" data-i18n-title>
         <object data="img/right.svg"></object>
       </button>
 
-      <button id="back" disabled data-i18n-title>
+      <button id="back" disabled autocomplete="off" data-i18n-title>
         <object data="img/back.svg"></object>
       </button>
 
-      <button id="down" disabled data-i18n-title>
+      <button id="down" disabled autocomplete="off" data-i18n-title>
         <object data="img/down.svg"></object>
       </button>
 
-      <button id="osd" disabled data-i18n-title>
+      <button id="osd" disabled autocomplete="off" data-i18n-title>
         <object data="img/osd.svg"></object>
       </button>
     </section>
@@ -149,7 +153,13 @@
     <article>
       <h1></h1>
       <p></p>
-      <button id="configure" data-i18n-textcontent></button>
+      <div>
+        <button id="configure" autocomplete="off"
+                data-i18n-textcontent></button>
+        <span data-i18n-textcontent="text">
+          {} <select name="server" autocomplete="off"></select>
+        </span>
+      </div>
     </article>
 
     <script src="../core/i18n.js" type="module"></script>

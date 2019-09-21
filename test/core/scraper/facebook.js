@@ -60,8 +60,8 @@ describe("scraper/facebook", function () {
         it("should return video URL when it's a live", function () {
             const url = "https://www.facebook.com/foxcarolinanews/videos" +
                                                            "/2332364197043199/";
-            const expected = "/10000000_1966311483496657" +
-                                                  "_3292787323732754432_n.mp4?";
+            const expected = "/10000000_208598786795030" +
+                                                   "_8145254727672507928_n.mp4";
             return action(new URL(url)).then(function (file) {
                 assert.ok(file.includes(expected),
                           `"${file}".includes(expected)`);

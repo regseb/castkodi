@@ -93,6 +93,13 @@ input[type="range"].disabled::-moz-range-progress {
     display: none;
 }
 
+#server {
+    grid-column-end: span 5;
+}
+#server select:empty {
+    display: none;
+}
+
 #playing {
     align-items: center;
     display: grid;
@@ -154,6 +161,9 @@ article h1 {
     margin: 0;
     padding: 0;
 }
+article div {
+    text-align: left;
+}
 article button {
     background-color: #a4000f;
     border-radius: 2px;
@@ -164,5 +174,14 @@ article button {
     padding: 0 8px;
 }
 article button:hover {
+    background-color: #5a0002;
+}
+article span {
+    display: none;
+}
+article select {
+    background-color: #a4000f;
+}
+article select:hover {
     background-color: #5a0002;
 }

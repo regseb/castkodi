@@ -48,7 +48,7 @@ import { rules as youtube }        from "./scraper/youtube.js";
  * @returns {string} La chaine de caractères avec les caractères spéciaux
  *                   protégés.
  */
-const sanitize = function (pattern) {
+export const sanitize = function (pattern) {
     return pattern.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
 };
 
@@ -59,7 +59,7 @@ const sanitize = function (pattern) {
  * @param {string} pattern Un modèle de correspondance.
  * @returns {RegExp} L'expression rationnelle issue du modèle.
  */
-const compile = function (pattern) {
+export const compile = function (pattern) {
     if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
         return new RegExp("^" + sanitize(pattern).replace(/\\\*/gu, ".*") + "$",
                           "iu");
@@ -82,7 +82,7 @@ const compile = function (pattern) {
  *                      actions).
  * @returns {Array.<object>} Les patrons URLs gérées ainsi que leur action.
  */
-const normalize = function (scraper) {
+export const normalize = function (scraper) {
     return Array.from(scraper.entries(), ([patterns, action]) => {
         return Array.isArray(patterns) ? [patterns, action]
                                        : [Array.of(patterns), action];

@@ -18,7 +18,7 @@ describe("scraper/extractor/audio", function () {
         it("should return Útvarp Saga URL", function () {
             const url = "https://utvarpsaga.is/" +
                              "snjallsimarnir-eru-farnir-ad-stjorna-lifi-folks/";
-            const expected = "https://utvarpsaga.is/file/" +
+            const expected = "https://www.utvarpsaga.is/file/" +
                                            "s%C3%AD%C3%B0degi-a-7.9.18.mp3?_=1";
             return fetch(url).then((r) => r.text())
                              .then((data) => {

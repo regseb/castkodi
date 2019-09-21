@@ -27,6 +27,7 @@
         "no-extra-parens": [2, "all", { "enforceForArrowConditionals": false }],
         "no-extra-semi": 2,
         "no-func-assign": 2,
+        "no-import-assign": 2,
         "no-inner-declarations": [2, "both"],
         "no-invalid-regexp": 2,
         "no-irregular-whitespace": [2, {
@@ -46,10 +47,10 @@
         "no-unsafe-finally": 2,
         "no-unsafe-negation": 2,
         "require-atomic-updates": 2,
-        "use-isnan": 2,
+        "use-isnan": [2, { "enforceForSwitchCase": true }],
         "valid-typeof": 2,
 
-        "accessor-pairs": 2,
+        "accessor-pairs": [2, { "enforceForClassMembers": true }],
         "array-callback-return": 2,
         "block-scoped-var": 2,
         "class-methods-use-this": 0,
@@ -57,6 +58,7 @@
         "consistent-return": 2,
         "curly": 2,
         "default-case": 0,
+        "default-param-last": 2,
         "dot-location": [2, "property"],
         "dot-notation": [2, { "allowKeywords": true, "allowPattern": "_" }],
         "eqeqeq": 2,
@@ -118,6 +120,7 @@
         "no-with": 2,
         "prefer-named-capture-group": 0,
         "prefer-promise-reject-errors": 2,
+        "prefer-regex-literals": 2,
         "radix": 2,
         "require-await": 2,
         "require-unicode-regexp": 2,
@@ -166,7 +169,9 @@
         "comma-dangle": 2,
         "comma-spacing": 2,
         "comma-style": 2,
-        "computed-property-spacing": 2,
+        "computed-property-spacing": [2, "never", {
+            "enforceForClassMembers": true
+        }],
         "consistent-this": 2,
         "eol-last": 2,
         "func-call-spacing": [2, "never"],
@@ -298,7 +303,7 @@
         "template-curly-spacing": 2,
         "yield-star-spacing": 2,
 
-        "filenames/match-regex": 2,
+        "filenames/match-regex": [2, "^[_a-z][0-9_a-z]+$"],
         "filenames/match-exported": 2,
         "filenames/no-index": 0,
 
@@ -343,7 +348,7 @@
         "import/newline-after-import": 2,
         "import/prefer-default-export": 0,
         "import/max-dependencies": 0,
-        "import/no-unassigned-import": 2,
+        "import/no-unassigned-import": 0,
         "import/no-named-default": 2,
         "import/no-default-export": 2,
         "import/no-named-export": 0,

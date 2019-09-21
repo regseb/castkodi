@@ -1,16 +1,62 @@
-#connection input[name="host"] {
-    background-image: url("img/loading.svg");
+body {
+    /* Déplacer la marge supérieure dans le rembourrage pour contourner le
+       problème de la barre de défilement. */
+    margin-top: 0;
+    padding-top: 8px;
+}
+input[type="text"] {
     background-position: right 8px center;
     background-repeat: no-repeat;
     padding: 0 32px 0 8px;
 }
+input[name^="host_"] {
+    background-image: url("img/loading.svg");
+}
 
-.warning {
-    background: #ffe900 url("img/warning.svg") 4px center no-repeat;
+table {
+    border-spacing: 0;
+    margin-bottom: 1rem;
+    max-width: 100%;
+    overflow-x: auto;
+    vertical-align: top;
+    width: 100%;
+}
+tbody {
+    background-color: white;
+}
+th, td {
+    padding: 8px;
+}
+th {
+    background-color: #d7d7db;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+}
+
+#server details {
+    background-color: rgba(215, 215, 219, 0.2);
+    border: 1px solid #d7d7db;
     border-radius: 4px;
-    color: #3e2800;
-    display: none;
-    font-size: 15px;
-    line-height: 1.5;
-    padding: 4px 4px 4px 24px;
+    margin: 3px 0;
+    padding: 9px;
+}
+#server details[open] {
+    background-color: rgba(69, 161, 255, 0.2);
+    border: 1px solid #45a1ff;
+}
+#server summary {
+    font-weight: bold;
+    list-style: none;
+}
+#server summary > label {
+    display: inline-block;
+    width: 100%;
+}
+#server div, #server table {
+    margin-top: 15px;
+}
+#server table input[type="text"] {
+    box-sizing: border-box;
+    width: 100%;
 }

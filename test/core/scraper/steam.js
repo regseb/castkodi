@@ -62,9 +62,9 @@ describe("scraper/steam", function () {
 
         it("should return video URL", function () {
             const url = "https://steamcommunity.com/broadcast/watch" +
-                                                           "/76561198985577189";
+                                                           "/76561198802066071";
             const expected = "https://cache4-lhr1.steamcontent.com/broadcast" +
-                                                          "/76561198985577189/";
+                                                          "/76561198802066071/";
             return action(new URL(url)).then(function (file) {
                 assert.ok(file.startsWith(expected),
                           `"${file}".startsWith(expected)`);
@@ -73,9 +73,9 @@ describe("scraper/steam", function () {
 
         it("should return video URL when protocol is HTTP", function () {
             const url = "http://steamcommunity.com/broadcast/watch" +
-                                                           "/76561198439345307";
+                                                           "/76561198802066071";
             const expected = "https://cache4-lhr1.steamcontent.com/broadcast" +
-                                                          "/76561198439345307/";
+                                                          "/76561198802066071/";
             return action(new URL(url)).then(function (file) {
                 assert.ok(file.startsWith(expected),
                           `"${file}".startsWith(expected)`);

@@ -7,6 +7,7 @@
  *
  * @function notify
  * @param {object} err L'erreur affichée dans la notification.
+ * @returns {Promise} Une promesse rejetée contenant l'erreur.
  */
 export const notify = function (err) {
     browser.notifications.create(null, {
@@ -17,4 +18,5 @@ export const notify = function (err) {
                        : browser.i18n.getMessage("notifications_unknown_title"),
         "message": err.message
     });
+    return Promise.reject(err);
 };

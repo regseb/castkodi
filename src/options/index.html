@@ -8,89 +8,138 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h3 data-i18n-textcontent="connection-title"></h3>
-    <form id="connection">
-      <p data-i18n-textcontent="connection-intro"></p>
-      <div>
-        <label data-i18n-textcontent="connection-host">
-          {}
-          <input type="text" name="host" required placeholder="192.168.0.1"
-                 autocomplete="off" spellcheck="false" />
-        </label>
-      </div>
-      <p class="warning" data-i18n-textcontent="connection-change"></p>
+    <h3 data-i18n-textcontent="server-title"></h3>
+    <form id="server">
+      <p data-i18n-textcontent="server-intro"></p>
+      <details>
+        <summary>
+          <label data-i18n-textcontent="server-mode-single">
+            <input type="radio" name="server-mode" value="single" /> {}
+          </label>
+        </summary>
+        <div>
+          <label data-i18n-textcontent="server-host">
+            {}
+            <input type="text" name="host_0" required autocomplete="off"
+                   spellcheck="false" data-i18n-placeholder="server-host" />
+          </label>
+        </div>
+      </details>
+      <details>
+        <summary>
+          <label data-i18n-textcontent="server-mode-multi">
+            <input type="radio" name="server-mode" value="multi" /> {}
+          </label>
+        </summary>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n-textcontent="server-hosts"></th>
+              <th data-i18n-textcontent="server-names"></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2">
+                <button data-i18n-textcontent="server-add"></button>
+              </td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+        <template>
+          <tr>
+            <td>
+              <input type="text" name="host_" required autocomplete="off"
+                     spellcheck="false" data-i18n-placeholder="server-host" />
+            </td>
+            <td>
+              <input type="text" name="name_" required autocomplete="off"
+                     spellcheck="false" data-i18n-placeholder="server-name" />
+            </td>
+            <td>
+              <button class="ghost" data-i18n-title="server-remove">
+                <img src="img/remove.svg" alt="remove"
+                     data-i18n-alt="server-remove" />
+              </button>
+            </td>
+          </tr>
+        </template>
+      </details>
     </form>
 
     <h3 data-i18n-textcontent="general-title"></h3>
-    <form id="general">
+    <form id="general-history">
       <div>
-        <label data-i18n-textcontent="general-history">
+        <label data-i18n-textcontent="general-history-input">
           <input type="checkbox" name="history" data-permissions="history" /> {}
         </label>
       </div>
     </form>
 
-    <h3 data-i18n-textcontent="menus-title"></h3>
-    <form id="menus">
-      <p data-i18n-textcontent="menus-description"></p>
+    <h3 data-i18n-textcontent="menu-title"></h3>
+    <form id="menu-actions">
+      <p data-i18n-textcontent="menu-actions-description"></p>
       <div>
-        <label data-i18n-textcontent="menus-send">
+        <label data-i18n-textcontent="menu-actions-send">
           <input type="checkbox" name="send" /> {}
         </label>
       </div>
       <div>
-        <label data-i18n-textcontent="menus-insert">
+        <label data-i18n-textcontent="menu-actions-insert">
           <input type="checkbox" name="insert" /> {}
         </label>
       </div>
       <div>
-        <label data-i18n-textcontent="menus-add">
+        <label data-i18n-textcontent="menu-actions-add">
           <input type="checkbox" name="add" /> {}
         </label>
       </div>
     </form>
-    <form id="contexts">
-      <p data-i18n-textcontent="contexts-description"></p>
+    <form id="menu-contexts">
+      <p data-i18n-textcontent="menu-contexts-description"></p>
       <div>
-        <label data-i18n-textcontent="contexts-audio">
+        <label data-i18n-textcontent="menu-contexts-audio">
           <input type="checkbox" name="audio" /> {}
         </label>
-        <label data-i18n-textcontent="contexts-bookmark">
+        <label data-i18n-textcontent="menu-contexts-bookmark">
           <input type="checkbox" name="bookmark" data-permissions="bookmarks" />
           {}
         </label>
-        <label data-i18n-textcontent="contexts-frame">
+        <label data-i18n-textcontent="menu-contexts-frame">
           <input type="checkbox" name="frame" /> {}
         </label>
-        <label data-i18n-textcontent="contexts-link">
+        <label data-i18n-textcontent="menu-contexts-link">
           <input type="checkbox" name="link" /> {}
         </label>
-        <label data-i18n-textcontent="contexts-page">
+        <label data-i18n-textcontent="menu-contexts-page">
           <input type="checkbox" name="page" /> {}
         </label>
-        <label data-i18n-textcontent="contexts-selection">
+        <label data-i18n-textcontent="menu-contexts-selection">
           <input type="checkbox" name="selection" /> {}
         </label>
-        <label data-i18n-textcontent="contexts-tab">
+        <label data-i18n-textcontent="menu-contexts-tab">
           <input type="checkbox" name="tab" /> {}
         </label>
-        <label data-i18n-textcontent="contexts-video">
+        <label data-i18n-textcontent="menu-contexts-video">
           <input type="checkbox" name="video" /> {}
         </label>
       </div>
     </form>
 
     <h3 data-i18n-textcontent="youtube-title"></h3>
-    <form id="youtube">
-      <p data-i18n-textcontent="youtube-playlist"></p>
+    <form id="youtube-playlist">
+      <p data-i18n-textcontent="youtube-playlist-description"></p>
       <div>
         <label data-i18n-textcontent="youtube-playlist-playlist">
-          <input type="radio" name="playlist" value="playlist" /> {}
+          <input type="radio" name="youtube-playlist" value="playlist" /> {}
         </label>
       </div>
       <div>
         <label data-i18n-textcontent="youtube-playlist-video">
-          <input type="radio" name="playlist" value="video" /> {}
+          <input type="radio" name="youtube-playlist" value="video" /> {}
         </label>
       </div>
     </form>

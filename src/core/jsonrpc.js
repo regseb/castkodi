@@ -35,6 +35,7 @@ export const JSONRPC = class {
         this.id = 0;
         this.listeners = new Map();
         this.client = null;
+        this.onChanged         = Function.prototype;
         this.onVolumeChanged   = Function.prototype;
         this.onAVStart         = Function.prototype;
         this.onPause           = Function.prototype;
@@ -135,7 +136,6 @@ export const JSONRPC = class {
                 const ws = new WebSocket(url);
                 ws.onopen  = () => resolve(ws);
                 ws.onerror = () => {
-                    this.client = null;
                     reject(new PebkacError("notFound", this.host));
                 };
                 ws.onclose = () => {
@@ -143,6 +143,9 @@ export const JSONRPC = class {
                 };
 
                 ws.onmessage = this.onMessage.bind(this);
+            }).catch((err) => {
+                this.client = null;
+                throw err;
             });
         }
 
@@ -166,7 +169,7 @@ export const JSONRPC = class {
      */
     close() {
         if (null !== this.client) {
-           this.client.then((ws) => ws.close());
+            this.client.then((ws) => ws.close());
         }
     }
 
@@ -506,3 +509,36 @@ export const JSONRPC = class {
         });
     }
 };
+
+/**
+ * Le client JSON-RPC pour contacter Kodi.
+ *
+ * @type {object}
+ */
+export const jsonrpc = new JSONRPC("");
+
+/**
+ * Crée le client JSON-RPC pour contacter Kodi.
+ *
+ * @function change
+ * @param {object} changes Les paramètres modifiés dans la configuration.
+ */
+const change = function (changes) {
+    // Ignorer tous les changements sauf ceux liés au serveur.
+    if (!Object.entries(changes).some(([k, v]) => k.startsWith("server-") &&
+                                                  "newValue" in v)) {
+        return;
+    }
+
+    browser.storage.local.get().then((config) => {
+        jsonrpc.close();
+        jsonrpc.host = config["server-list"][config["server-active"]].host;
+        jsonrpc.onChanged();
+    });
+};
+
+// Simuler un changement de configuration pour se connecter au bon serveur. Ce
+// bidouillage est utile quand ce fichier est chargé depuis les options ou la
+// popin (dans le background, cette migration qui change la configuration).
+change({ "server-": { "newValue": null } });
+browser.storage.onChanged.addListener(change);

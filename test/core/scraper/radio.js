@@ -30,7 +30,7 @@ describe("scraper/radio", function () {
 
         it("should return audio URL", function () {
             const url = "https://www.radio.net/s/fip";
-            const expected = "http://chai5she.cdn.dvmr.fr/fip-hifi.aac";
+            const expected = "http://icecast.radiofrance.fr/fip-hifi.aac";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -38,8 +38,8 @@ describe("scraper/radio", function () {
 
         it("should return audio URL when protocol is HTTP", function () {
             const url = "http://www.radio.net/s/franceinter";
-            const expected = "http://direct.franceinter.fr/live" +
-                                         "/franceinter-midfi.mp3?ID=pd569ib97j";
+            const expected = "http://icecast.radiofrance.fr" +
+                                                       "/franceinter-midfi.mp3";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });
@@ -63,7 +63,8 @@ describe("scraper/radio", function () {
 
         it("should return audio URL", function () {
             const url = "https://www.radio.fr/s/franceinfo";
-            const expected = "http://chai5she.cdn.dvmr.fr/franceinfo-midfi.mp3";
+            const expected = "http://direct.franceinfo.fr/live" +
+                                                        "/franceinfo-midfi.mp3";
             return action(new URL(url)).then(function (file) {
                 assert.strictEqual(file, expected);
             });

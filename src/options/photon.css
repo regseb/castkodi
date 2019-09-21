@@ -36,6 +36,9 @@ input[type="text"]:invalid {
     border-color: #d70022;
     box-shadow: 0 0 0 1px #d70022, 0 0 0 4px rgba(251, 0, 34, 0.3);
 }
+input[type="text"]::placeholder {
+    color: #737373;
+}
 
 input[type="checkbox"] {
     -moz-appearance: none;
@@ -114,4 +117,40 @@ input[type="radio"]:checked:hover {
 
 input[type="radio"]:checked:active {
     background-color: #002275;
+}
+
+button {
+    background-color: rgba(12, 12, 13, 0.1);
+    border: 0;
+    border-radius: 2px;
+    color: black;
+    cursor: pointer;
+    font-size: 11px;
+    height: 24px;
+    padding: 0 8px;
+}
+button.ghost {
+    background-color: transparent;
+}
+button:hover:not(:disabled) {
+    background-color: rgba(12, 12, 13, 0.2);
+}
+button.ghost:hover:not(:disabled) {
+    background-color: rgba(12, 12, 13, 0.1);
+}
+button:active {
+    background-color: rgba(12, 12, 13, 0.3);
+}
+button.ghost:active {
+    background-color: rgba(12, 12, 13, 0.2);
+}
+button:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+button:focus {
+    box-shadow:
+        0 0 0 1px #0a84ff inset,
+        0 0 0 1px #0a84ff,
+        0 0 0 4px rgba(10, 132, 255, 0.3);
 }

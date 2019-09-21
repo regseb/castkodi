@@ -1,18 +1,28 @@
+import assert     from "assert";
 import { notify } from "../../src/core/notify.js";
 
 describe("notify", function () {
     describe("#constructor()", function () {
         it("should accept Error", function () {
-            notify(new Error("Message."));
+            return notify(new Error("Message.")).then(() => {
+                assert.fail();
+            }).catch((err) => {
+                assert.strictEqual(err.name,    "Error");
+                assert.strictEqual(err.message, "Message.");
+            });
         });
 
         it("should accept PebkacError", function () {
-            const err = {
+            const pebkac = {
                 "name":    "PebkacError",
                 "title":   "Titre",
                 "message": "Message."
             };
-            notify(err);
+            return notify(pebkac).then(() => {
+                assert.fail();
+            }).catch((err) => {
+                assert.strictEqual(err, pebkac);
+            });
         });
     });
 });

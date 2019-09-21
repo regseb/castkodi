@@ -2,7 +2,8 @@
  * @module
  */
 
-import { JSONRPC } from "../core/jsonrpc.js";
+import { cast }    from "../core/index.js";
+import { jsonrpc } from "../core/jsonrpc.js";
 
 /**
  * La liste des vitesses de lecture.
@@ -27,13 +28,6 @@ let speed  = null;
  * @type {?number}
  */
 let interval = null;
-
-/**
- * Le client JSON-RPC pour contacter Kodi.
- *
- * @type {?object}
- */
-let jsonrpc = null;
 
 const onSeek = function ({ player }) {
     // Garder seulement les changements sur le lecteur de vidéo.
@@ -223,22 +217,16 @@ const update = function () {
     }).catch(notify);
 };
 
-const cast = function (menuItemId) {
-    // Récupérer l'URL dans la zone de saisie ou celle de l'onglet courant.
-    let promise;
+const mux = function () {
     if (document.querySelector("#paste input").checked) {
-        promise = Promise.resolve(document.querySelector("textarea").value);
-    } else {
-        const queryInfo = {
-            "active":        true,
-            "currentWindow": true
-        };
-        promise = browser.tabs.query(queryInfo).then(([{ url }]) => url);
+        return Promise.resolve(document.querySelector("textarea").value);
     }
 
-    promise.then((popupUrl) => {
-        return browser.runtime.sendMessage({ popupUrl, menuItemId });
-    }).then(close);
+    const queryInfo = {
+        "active":        true,
+        "currentWindow": true
+    };
+    return browser.tabs.query(queryInfo).then(([{ url }]) => url);
 };
 
 const send = function () {
@@ -248,7 +236,8 @@ const send = function () {
         return;
     }
 
-    cast("send");
+    mux().then((url) => cast("send", [url]))
+         .then(close);
 };
 
 const insert = function () {
@@ -258,7 +247,8 @@ const insert = function () {
         return;
     }
 
-    cast("insert");
+    mux().then((url) => cast("insert", [url]))
+         .then(close);
 };
 
 const add = function () {
@@ -268,7 +258,8 @@ const add = function () {
         return;
     }
 
-    cast("add");
+    mux().then((url) => cast("add", [url]))
+         .then(close);
 };
 
 const paste = function (event) {
@@ -298,6 +289,13 @@ const paste = function (event) {
         document.querySelector("#report").disabled = false;
         document.querySelector("#rate").disabled = false;
     }
+};
+
+const change = function (event) {
+    browser.storage.local.set({ "server-active": event.target.selectedIndex })
+                         .then(() => {
+        document.location.reload();
+    });
 };
 
 const preferences = function () {
@@ -597,6 +595,9 @@ document.querySelector("#send").onclick = send;
 document.querySelector("#insert").onclick = insert;
 document.querySelector("#add").onclick = add;
 document.querySelector("#paste").onchange = paste;
+for (const input of document.querySelectorAll("select")) {
+    input.onchange = change;
+}
 document.querySelector("#preferences").onclick = preferences;
 document.querySelector("#report").onclick = report;
 document.querySelector("#rate").onclick = rate;
@@ -696,8 +697,24 @@ window.onkeyup = function (event) {
 
 interval = setInterval(passing, 1000);
 
-browser.storage.local.get().then((config) => {
-    jsonrpc = new JSONRPC(config["connection-host"]);
+browser.storage.local.get().then(function (config) {
+    if ("multi" === config["server-mode"]) {
+        for (const input of document.querySelectorAll("select")) {
+            config["server-list"].forEach((server, index) => {
+                const name = (/^\s*$/u).test(server.name)
+                            ? browser.i18n.getMessage("menus_noName", index + 1)
+                            : server.name;
+                input[index] = new Option(name,
+                                          index,
+                                          index === config["server-active"],
+                                          index === config["server-active"]);
+            });
+        }
+        document.querySelector("article span").style.display = "inline";
+    }
+});
+
+jsonrpc.onChanged = () => {
     jsonrpc.onVolumeChanged   = onVolumeChanged;
     jsonrpc.onAVStart         = update;
     jsonrpc.onPause           = onSpeedChanged;
@@ -708,4 +725,4 @@ browser.storage.local.get().then((config) => {
     jsonrpc.onSpeedChanged    = onSpeedChanged;
     jsonrpc.onStop            = onStop;
     update();
-});
+};

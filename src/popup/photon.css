@@ -38,3 +38,37 @@ input[type="range"]:disabled:focus::-moz-range-thumb,
 input[type="range"]:disabled::-moz-range-progress {
     background-color: #737373;
 }
+
+select {
+    -moz-appearance: none;
+    background-color: rgba(249, 249, 250, 0.1);
+    background-image: url("img/down.svg");
+    background-position: right 8px center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    font-size: 11px;
+    height: 24px;
+    padding: 0 28px 0 8px;
+}
+select:hover:not(:disabled) {
+    background-color: rgba(249, 249, 250, 0.2);
+}
+select:active {
+    background-color: rgba(249, 249, 250, 0.3);
+}
+select:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+select:focus, select:-moz-focusring {
+    box-shadow:
+        0 0 0 1px #0a84ff inset,
+        0 0 0 1px #0a84ff,
+        0 0 0 4px rgba(10, 132, 255, 0.3);
+    color: transparent;
+    text-shadow: 0 0 0 white;
+}
