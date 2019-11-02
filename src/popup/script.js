@@ -214,6 +214,8 @@ const update = function () {
         document.querySelector("#back").disabled = false;
         document.querySelector("#down").disabled = false;
         document.querySelector("#osd").disabled = false;
+
+        document.querySelector("#fullscreen").disabled = false;
     }).catch(notify);
 };
 
@@ -562,6 +564,16 @@ const showOSD = function () {
     jsonrpc.showOSD().catch(notify);
 };
 
+const setFullscreen = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#fullscreen").disabled) {
+        return;
+    }
+
+    jsonrpc.setFullscreen().catch(notify);
+};
+
 const passing = function () {
     if (null === speed || -1 === speed) {
         return;
@@ -631,6 +643,8 @@ document.querySelector("#back").onclick = back;
 document.querySelector("#down").onclick = down;
 document.querySelector("#osd").onclick = showOSD;
 
+document.querySelector("#fullscreen").onclick = setFullscreen;
+
 document.querySelector("#configure").onclick = preferences;
 
 // Insérer le code SVG des icônes dans la page pour pouvoir changer leur couleur
@@ -657,6 +671,10 @@ window.onkeydown = function (event) {
         send();
         event.preventDefault();
     }
+
+    if ("Tab" === event.key) {
+        event.preventDefault();
+    }
 };
 window.onkeyup = function (event) {
     // Ignorer les entrées dans une zone de texte ou avec une touche de
@@ -667,28 +685,29 @@ window.onkeyup = function (event) {
     }
 
     switch (event.key) {
-        case "p": case "P": send();         break;
-        case "n": case "N": insert();       break;
-        case "q": case "Q": add();          break;
-        case "v": case "V": paste();        break;
-        case "PageUp":      previous();     break;
-        case "r": case "R": rewind();       break;
-        case "x": case "X": stop();         break;
-        case " ":           playPause();    break;
-        case "f": case "F": forward();      break;
-        case "PageDown":    next();         break;
-        case "F8":          setMute();      break;
-        case "-":           setVolume(-10); break;
-        case "+": case "=": setVolume(10);  break;
-        case "c": case "C": contextMenu();  break;
-        case "ArrowUp":     up();           break;
-        case "i": case "I": info();         break;
-        case "ArrowLeft":   left();         break;
-        case "Enter":       select();       break;
-        case "ArrowRight":  right();        break;
-        case "Backspace":   back();         break;
-        case "ArrowDown":   down();         break;
-        case "m": case "M": showOSD();      break;
+        case "p": case "P": send();          break;
+        case "n": case "N": insert();        break;
+        case "q": case "Q": add();           break;
+        case "v": case "V": paste();         break;
+        case "PageUp":      previous();      break;
+        case "r": case "R": rewind();        break;
+        case "x": case "X": stop();          break;
+        case " ":           playPause();     break;
+        case "f": case "F": forward();       break;
+        case "PageDown":    next();          break;
+        case "F8":          setMute();       break;
+        case "-":           setVolume(-10);  break;
+        case "+": case "=": setVolume(10);   break;
+        case "c": case "C": contextMenu();   break;
+        case "ArrowUp":     up();            break;
+        case "i": case "I": info();          break;
+        case "ArrowLeft":   left();          break;
+        case "Enter":       select();        break;
+        case "ArrowRight":  right();         break;
+        case "Backspace":   back();          break;
+        case "ArrowDown":   down();          break;
+        case "m": case "M": showOSD();       break;
+        case "Tab":         setFullscreen(); break;
         // Appliquer le traitement par défaut pour les autres entrées.
         default: return;
     }

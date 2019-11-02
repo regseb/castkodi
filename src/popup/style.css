@@ -137,6 +137,9 @@ input[type="range"].disabled::-moz-range-progress {
     background-color: #38383d;
 }
 
+#hidden {
+    display: none;
+}
 
 article {
     background-color: #d70022;

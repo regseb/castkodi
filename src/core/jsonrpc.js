@@ -460,6 +460,16 @@ export const JSONRPC = class {
     }
 
     /**
+     * Passe (ou quitte) en plein écran.
+     *
+     * @function setFullscreen
+     * @returns {Promise} La réponse de Kodi.
+     */
+    setFullscreen() {
+        return this.request("GUI.SetFullscreen", { "fullscreen": "toggle" });
+    }
+
+    /**
      * Récupère la version du protocol JSON-RPC.
      *
      * @function version

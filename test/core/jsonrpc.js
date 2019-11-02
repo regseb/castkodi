@@ -386,6 +386,18 @@ describe("jsonrpc", function () {
         });
     });
 
+    describe("#setFullscreen()", function () {
+        it("should send request", function () {
+            const jsonrpc = new JSONRPC("localhost");
+            return jsonrpc.setFullscreen().then(function (result) {
+                assert.deepStrictEqual(result, {
+                    "method": "GUI.SetFullscreen",
+                    "params": { "fullscreen": "toggle" }
+                });
+            });
+        });
+    });
+
     describe("#version()", function () {
         it("should send request", function () {
             const jsonrpc = new JSONRPC("localhost");
