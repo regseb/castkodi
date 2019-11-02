@@ -603,49 +603,49 @@ const seek = function () {
 };
 
 
-document.querySelector("#send").onclick = send;
-document.querySelector("#insert").onclick = insert;
-document.querySelector("#add").onclick = add;
-document.querySelector("#paste").onchange = paste;
+document.querySelector("#send").addEventListener("click", send);
+document.querySelector("#insert").addEventListener("click", insert);
+document.querySelector("#add").addEventListener("click", add);
+document.querySelector("#paste").addEventListener("change", paste);
 for (const input of document.querySelectorAll("select")) {
-    input.onchange = change;
+    input.addEventListener("change", change);
 }
-document.querySelector("#preferences").onclick = preferences;
-document.querySelector("#report").onclick = report;
-document.querySelector("#rate").onclick = rate;
+document.querySelector("#preferences").addEventListener("click", preferences);
+document.querySelector("#report").addEventListener("click", report);
+document.querySelector("#rate").addEventListener("click", rate);
 
-document.querySelector("#time").oninput = move;
-document.querySelector("#time").onchange = seek;
+document.querySelector("#time").addEventListener("input", move);
+document.querySelector("#time").addEventListener("change", seek);
 
-document.querySelector("#previous").onclick = previous;
-document.querySelector("#rewind").onclick = rewind;
-document.querySelector("#stop").onclick = stop;
-document.querySelector("#pause").onclick = playPause;
-document.querySelector("#play").onclick = playPause;
-document.querySelector("#forward").onclick = forward;
-document.querySelector("#next").onclick = next;
+document.querySelector("#previous").addEventListener("click", previous);
+document.querySelector("#rewind").addEventListener("click", rewind);
+document.querySelector("#stop").addEventListener("click", stop);
+document.querySelector("#pause").addEventListener("click", playPause);
+document.querySelector("#play").addEventListener("click", playPause);
+document.querySelector("#forward").addEventListener("click", forward);
+document.querySelector("#next").addEventListener("click", next);
 
-document.querySelector("#mute input").onchange = setMute;
-document.querySelector("#volume").oninput = setVolume;
+document.querySelector("#mute input").addEventListener("change", setMute);
+document.querySelector("#volume").addEventListener("input", setVolume);
 
 for (const input of document.querySelectorAll("#repeat input")) {
-    input.onclick = repeat;
+    input.addEventListener("click", repeat);
 }
-document.querySelector("#shuffle").onchange = shuffle;
+document.querySelector("#shuffle").addEventListener("change", shuffle);
 
-document.querySelector("#contextmenu").onclick = contextMenu;
-document.querySelector("#up").onclick = up;
-document.querySelector("#info").onclick = info;
-document.querySelector("#left").onclick = left;
-document.querySelector("#select").onclick = select;
-document.querySelector("#right").onclick = right;
-document.querySelector("#back").onclick = back;
-document.querySelector("#down").onclick = down;
-document.querySelector("#osd").onclick = showOSD;
+document.querySelector("#contextmenu").addEventListener("click", contextMenu);
+document.querySelector("#up").addEventListener("click", up);
+document.querySelector("#info").addEventListener("click", info);
+document.querySelector("#left").addEventListener("click", left);
+document.querySelector("#select").addEventListener("click", select);
+document.querySelector("#right").addEventListener("click", right);
+document.querySelector("#back").addEventListener("click", back);
+document.querySelector("#down").addEventListener("click", down);
+document.querySelector("#osd").addEventListener("click", showOSD);
 
-document.querySelector("#fullscreen").onclick = setFullscreen;
+document.querySelector("#fullscreen").addEventListener("click", setFullscreen);
 
-document.querySelector("#configure").onclick = preferences;
+document.querySelector("#configure").addEventListener("click", preferences);
 
 // Insérer le code SVG des icônes dans la page pour pouvoir changer leur couleur
 // avec la feuille de style.
@@ -654,14 +654,14 @@ for (const element of document.querySelectorAll("object")) {
         fetch(element.data).then((r) => r.text())
                            .then((data) => {
             const svg = new DOMParser().parseFromString(data, "image/svg+xml");
-            element.appendChild(svg.documentElement);
+            element.append(svg.documentElement);
             element.removeAttribute("data");
         });
     }
 }
 
 window.focus();
-window.onkeydown = function (event) {
+window.addEventListener("keydown", (event) => {
     // Ignorer les entrées avec une touche de modification.
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
         return;
@@ -675,8 +675,8 @@ window.onkeydown = function (event) {
     if ("Tab" === event.key) {
         event.preventDefault();
     }
-};
-window.onkeyup = function (event) {
+});
+window.addEventListener("keyup", (event) => {
     // Ignorer les entrées dans une zone de texte ou avec une touche de
     // modification.
     if ("TEXTAREA" === event.target.tagName || event.altKey || event.ctrlKey ||
@@ -712,7 +712,7 @@ window.onkeyup = function (event) {
         default: return;
     }
     event.preventDefault();
-};
+});
 
 interval = setInterval(passing, 1000);
 

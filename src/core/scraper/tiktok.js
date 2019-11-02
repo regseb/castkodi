@@ -25,7 +25,7 @@ rules.set("*://www.tiktok.com/*/video/*", function ({ href }) {
 
         for (const script of doc.querySelectorAll("head script")) {
             if (script.text.startsWith("window.__INIT_PROPS__ = ")) {
-                const props = JSON.parse(script.text.substring(24));
+                const props = JSON.parse(script.text.slice(24));
                 if ("videoData" in props["/@:uniqueId/video/:id"]) {
                     return props["/@:uniqueId/video/:id"].videoData.itemInfos
                                                          .video.urls[0];

@@ -64,7 +64,7 @@ const menu = function (changes) {
         const contexts = config["menu-contexts"];
         if (1 === actions.length && "single" === mode) {
             const key = "menus_first" + actions[0].charAt(0).toUpperCase() +
-                        actions[0].substring(1);
+                        actions[0].slice(1);
             browser.menus.create({
                 "contexts": contexts,
                 "id":       actions[0],
@@ -79,7 +79,7 @@ const menu = function (changes) {
             });
             for (const action of actions) {
                 const key = "menus_second" + action.charAt(0).toUpperCase() +
-                            action.substring(1);
+                            action.slice(1);
                 browser.menus.create({
                     "id":       action,
                     "parentId": "parent",

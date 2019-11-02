@@ -25,8 +25,8 @@ export const rules = new Map();
  * @returns {?string} Le lien du <em>fichier</em> ou <code>null</code>.
  */
 rules.set("*://vimeo.com/*", function ({ pathname }) {
-    return (/^\/[0-9]+$/u).test(pathname) ? PLUGIN_URL + pathname.substring(1)
-                                          : null;
+    return (/^\/\d+$/u).test(pathname) ? PLUGIN_URL + pathname.slice(1)
+                                       : null;
 });
 
 /**
@@ -38,7 +38,6 @@ rules.set("*://vimeo.com/*", function ({ pathname }) {
  * @returns {?string} Le lien du <em>fichier</em> ou <code>null</code>.
  */
 rules.set("*://player.vimeo.com/video/*", function ({ pathname }) {
-    return (/^\/video\/[0-9]+$/u).test(pathname)
-                                            ? PLUGIN_URL + pathname.substring(7)
-                                            : null;
+    return (/^\/video\/\d+$/u).test(pathname) ? PLUGIN_URL + pathname.slice(7)
+                                              : null;
 });

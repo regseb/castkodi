@@ -1,20 +1,21 @@
 export const WebSocket = class {
     constructor(url) {
         this.hostname  = url.hostname.split(".");
-        this.onopen    = Function.prototype;
-        this.onerror   = Function.prototype;
-        this.onclose   = Function.prototype;
-        this.onmessage = Function.prototype;
+        this.listeners = new Map();
 
         switch (this.hostname[0]) {
             case "notfound":
                 setTimeout(() => {
-                    this.onerror();
+                    if (this.listeners.has("error")) {
+                        this.listeners.get("error").forEach((l) => l());
+                    }
                 }, 1);
                 break;
             default:
                 setTimeout(() => {
-                    this.onopen();
+                    if (this.listeners.has("open")) {
+                        this.listeners.get("open").forEach((l) => l());
+                    }
                 }, 1);
         }
     }
@@ -88,18 +89,26 @@ export const WebSocket = class {
                         }
                         break;
                 }
-                this.onmessage({
-                    "data": JSON.stringify({ "id": data.id, result })
-                });
+                if (this.listeners.has("message")) {
+                    this.listeners.get("message").forEach((listener) => {
+                        listener({
+                            "data": JSON.stringify({ "id": data.id, result })
+                        });
+                    });
+                }
                 break;
 
             case "error":
-                this.onmessage({
-                    "data": JSON.stringify({
-                        "id":    data.id,
-                        "error": { "message": "Error message!" }
-                    })
-                });
+                if (this.listeners.has("message")) {
+                    this.listeners.get("message").forEach((listener) => {
+                        listener({
+                            "data": JSON.stringify({
+                                "id":    data.id,
+                                "error": { "message": "Error message!" }
+                            })
+                        });
+                    });
+                }
                 break;
 
             case "event":
@@ -183,23 +192,41 @@ export const WebSocket = class {
                             "params": data.params
                         };
                 }
-                this.onmessage({ "data": JSON.stringify(result) });
+                if (this.listeners.has("message")) {
+                    this.listeners.get("message").forEach((listener) => {
+                        listener({ "data": JSON.stringify(result) });
+                    });
+                }
                 break;
 
             default:
-                this.onmessage({
-                    "data": JSON.stringify({
-                        "id":     data.id,
-                        "result": {
-                            "method": data.method,
-                            "params": data.params
-                        }
-                    })
-                });
+                if (this.listeners.has("message")) {
+                    this.listeners.get("message").forEach((listener) => {
+                        listener({
+                            "data": JSON.stringify({
+                                "id":     data.id,
+                                "result": {
+                                    "method": data.method,
+                                    "params": data.params
+                                }
+                            })
+                        });
+                    });
+                }
         }
     }
 
     close() {
-        this.onclose();
+        if (this.listeners.has("close")) {
+            this.listeners.get("close").forEach((l) => l());
+        }
+    }
+
+    addEventListener(type, listener) {
+        if (this.listeners.has(type)) {
+            this.listeners.set(type, [...this.listeners.get(type), listener]);
+        } else {
+            this.listeners.set(type, [listener]);
+        }
     }
 };

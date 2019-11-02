@@ -28,9 +28,9 @@ export const rules = new Map();
 rules.set("*://mixer.com/*", function ({ pathname }) {
     let name;
     if (-1 === pathname.indexOf("/", 1)) {
-        name = pathname.substring(1);
+        name = pathname.slice(1);
     } else if (pathname.startsWith("/embed/player/")) {
-        name = pathname.substring(14);
+        name = pathname.slice(14);
     } else {
         return null;
     }

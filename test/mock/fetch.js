@@ -7,7 +7,7 @@ export const fetch = (input, init = {}) => {
     if ("www.1tv.ru" === hostname) {
         return new Promise((resolve) => {
             const file = "./test/mock/fetch/onetv/" +
-                         pathname.substring(pathname.lastIndexOf("/") + 1) +
+                         pathname.slice(pathname.lastIndexOf("/") + 1) +
                          ".html";
             fs.readFile(file, (err, data) => {
                 if (err) {

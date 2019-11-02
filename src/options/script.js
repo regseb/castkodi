@@ -99,11 +99,11 @@ const save = function () {
             }
             const list = [];
             for (const input of this.form.querySelectorAll(`tbody input`)) {
-                const index = Number(input.name.substring(5));
+                const index = Number(input.name.slice(5));
                 if (undefined === list[index]) {
-                    list[index] = { [input.name.substring(0, 4)]: input.value };
+                    list[index] = { [input.name.slice(0, 4)]: input.value };
                 } else {
-                    list[index][input.name.substring(0, 4)] = input.value;
+                    list[index][input.name.slice(0, 4)] = input.value;
                 }
             }
             browser.storage.local.set({ "server-list": list });
@@ -117,8 +117,8 @@ const save = function () {
                 browser.storage.local.set({ [key]: checked });
             } else {
                 browser.storage.local.set({
-                    [key]: Array.from(inputs).filter((i) => i.checked)
-                                             .map((i) => i.name)
+                    [key]: [...inputs].filter((i) => i.checked)
+                                      .map((i) => i.name)
                 });
             }
         });
@@ -142,7 +142,7 @@ const remove = function (event) {
     let index = 0;
     for (const tr of document.querySelectorAll("tbody tr")) {
         for (const input of tr.querySelectorAll("input")) {
-            input.name = input.name.substring(0, 5) + index.toString();
+            input.name = input.name.slice(0, 5) + index.toString();
         }
         ++index;
     }
@@ -165,7 +165,7 @@ const add = function (server) {
         host.value = server.host;
     }
     host.name += index.toString();
-    host.oninput = save;
+    host.addEventListener("input", save);
     if (0 === index) {
         const single = document.querySelector(`[name="host_0"]`);
         single.value = server.host;
@@ -180,11 +180,11 @@ const add = function (server) {
         name.value = server.name;
     }
     name.name += index.toString();
-    name.oninput = save;
+    name.addEventListener("input", save);
 
-    tr.querySelector("button").onclick = remove;
+    tr.querySelector("button").addEventListener("click", remove);
 
-    document.querySelector("tbody").appendChild(tr);
+    document.querySelector("tbody").append(tr);
 
     // Vérifier la connexion à Kodi.
     check(host);
@@ -225,6 +225,6 @@ browser.storage.local.get().then((config) => {
 
 // Écouter les actions dans le formulaire.
 for (const input of document.querySelectorAll("[name]")) {
-    input.oninput = save;
+    input.addEventListener("input", save);
 }
-document.querySelector("button").onclick = add;
+document.querySelector("button").addEventListener("click", add);

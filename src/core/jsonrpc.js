@@ -134,15 +134,15 @@ export const JSONRPC = class {
                 }
 
                 const ws = new WebSocket(url);
-                ws.onopen  = () => resolve(ws);
-                ws.onerror = () => {
+                ws.addEventListener("open", () => resolve(ws));
+                ws.addEventListener("error", () => {
                     reject(new PebkacError("notFound", this.host));
-                };
-                ws.onclose = () => {
+                });
+                ws.addEventListener("close", () => {
                     this.client = null;
-                };
+                });
 
-                ws.onmessage = this.onMessage.bind(this);
+                ws.addEventListener("message", this.onMessage.bind(this));
             }).catch((err) => {
                 this.client = null;
                 throw err;

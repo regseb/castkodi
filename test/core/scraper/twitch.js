@@ -16,7 +16,7 @@ describe("scraper/twitch", function () {
     describe("*://www.twitch.tv/videos/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -42,7 +42,7 @@ describe("scraper/twitch", function () {
     describe("*://go.twitch.tv/videos/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -59,7 +59,7 @@ describe("scraper/twitch", function () {
     describe("*://m.twitch.tv/videos/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -101,7 +101,7 @@ describe("scraper/twitch", function () {
     describe("*://www.twitch.tv/*/clip/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -131,7 +131,7 @@ describe("scraper/twitch", function () {
     describe("*://go.twitch.tv/*/clip/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -149,7 +149,7 @@ describe("scraper/twitch", function () {
     describe("*://m.twitch.tv/*/clip/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -167,7 +167,7 @@ describe("scraper/twitch", function () {
     describe("*://www.twitch.tv/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -193,7 +193,7 @@ describe("scraper/twitch", function () {
     describe("*://go.twitch.tv/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -210,7 +210,7 @@ describe("scraper/twitch", function () {
     describe("*://m.twitch.tv/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

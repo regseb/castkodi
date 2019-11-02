@@ -16,7 +16,7 @@ describe("scraper/youtube", function () {
     describe("*://*.youtube.com/watch*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -144,7 +144,7 @@ describe("scraper/youtube", function () {
     describe("*://invidio.us/watch*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -165,7 +165,7 @@ describe("scraper/youtube", function () {
     describe("*://hooktube.com/watch*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -231,7 +231,7 @@ describe("scraper/youtube", function () {
     describe("*://www.youtube.com/embed/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -248,7 +248,7 @@ describe("scraper/youtube", function () {
     describe("*://www.youtube-nocookie.com/embed/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -265,7 +265,7 @@ describe("scraper/youtube", function () {
     describe("*://invidio.us/embed/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -282,7 +282,7 @@ describe("scraper/youtube", function () {
     describe("*://hooktube.com/embed/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

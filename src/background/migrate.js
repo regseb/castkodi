@@ -20,11 +20,11 @@ browser.storage.local.get().then((config) => {
     } else if (1 === config["config-version"]) {
         const actions = Object.entries(config)
                               .filter(([k, v]) => k.startsWith("menus-") && v)
-                              .map(([k]) => k.substring(6))
+                              .map(([k]) => k.slice(6))
                               .reverse();
         const contexts = Object.entries(config)
                              .filter(([k, v]) => k.startsWith("contexts-") && v)
-                             .map(([k]) => k.substring(9));
+                             .map(([k]) => k.slice(9));
 
         browser.storage.local.clear();
         browser.storage.local.set({

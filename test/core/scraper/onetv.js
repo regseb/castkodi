@@ -16,7 +16,7 @@ describe("scraper/onetv", function () {
     describe("*://www.1tv.ru/shows/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -55,7 +55,7 @@ describe("scraper/onetv", function () {
     describe("*://www.1tv.ru/movies/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

@@ -28,7 +28,7 @@ rules.set([
     "*://www.twitch.tv/videos/*", "*://go.twitch.tv/videos/*",
     "*://m.twitch.tv/videos/*"
 ], function ({ pathname }) {
-    return PLUGIN_URL + "&video_id=" + pathname.substring(8);
+    return PLUGIN_URL + "&video_id=" + pathname.slice(8);
 });
 
 /**
@@ -40,7 +40,7 @@ rules.set([
  * @returns {string} Le lien du <em>fichier</em>.
  */
 rules.set("*://clips.twitch.tv/*", function ({ pathname }) {
-    return PLUGIN_URL + "&slug=" + pathname.substring(1);
+    return PLUGIN_URL + "&slug=" + pathname.slice(1);
 });
 
 /**
@@ -56,7 +56,7 @@ rules.set([
     "*://m.twitch.tv/*/clip/*"
 ], function ({ pathname }) {
     return PLUGIN_URL + "&slug=" +
-           pathname.substring(pathname.lastIndexOf("/") + 1);
+           pathname.slice(pathname.lastIndexOf("/") + 1);
 });
 
 /**
@@ -70,5 +70,5 @@ rules.set([
 rules.set([
     "*://www.twitch.tv/*", "*://go.twitch.tv/*", "*://m.twitch.tv/*"
 ], function ({ pathname }) {
-    return PLUGIN_URL + "&channel_name=" + pathname.substring(1);
+    return PLUGIN_URL + "&channel_name=" + pathname.slice(1);
 });

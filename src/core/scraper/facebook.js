@@ -37,7 +37,7 @@ rules.set([
             return null;
         }
     } else {
-        id = pathname.substring(pathname.indexOf("/videos/") + 8)
+        id = pathname.slice(pathname.indexOf("/videos/") + 8)
                      .replace(/\/$/u, "");
     }
 

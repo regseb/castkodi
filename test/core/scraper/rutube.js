@@ -16,7 +16,7 @@ describe("scraper/rutube", function () {
     describe("*://rutube.ru/video/*/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -52,7 +52,7 @@ describe("scraper/rutube", function () {
     describe("*://rutube.ru/play/embed/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

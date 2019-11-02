@@ -31,7 +31,7 @@ rules.set("*://*.radioline.co/*", function ({ hash }) {
         return null;
     }
 
-    const key = hash.substring(1).replace(/-/gu, "_");
+    const key = hash.slice(1).replace(/-/gu, "_");
     return fetch(API_URL + key + "/play").then((r) => r.json())
                                          .then(({ body }) => {
         return "error" === body.type ? null

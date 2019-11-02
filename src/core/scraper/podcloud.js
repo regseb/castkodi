@@ -18,6 +18,8 @@ export const rules = new Map();
  * @returns {string} Le lien du <em>fichier</em>.
  */
 rules.set("*://podcloud.fr/podcast/*/episode/*", function ({ pathname }) {
-    const [, , podcast, , episode] = pathname.split("/");
+    const parts = pathname.split("/");
+    const podcast = parts[2];
+    const episode = parts[4];
     return `https://podcloud.fr/ext/${podcast}/${episode}/enclosure.mp3`;
 });

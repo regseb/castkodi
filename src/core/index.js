@@ -78,8 +78,8 @@ export const rummage = function (url) {
     }).then((data) => {
         const doc = new DOMParser().parseFromString(data, "text/html");
 
-        return Array.from(doc.querySelectorAll("iframe[src]"))
-                    .reduce((result, element) => {
+        return [...doc.querySelectorAll("iframe[src]")]
+                                                  .reduce((result, element) => {
             return result.then((file) => {
                 // Si aucun fichier n'a encore été trouvé : continuer d'analyser
                 // les iframes de la page.

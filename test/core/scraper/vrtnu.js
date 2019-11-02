@@ -16,7 +16,7 @@ describe("scraper/vrtnu", function () {
     describe("*://www.vrt.be/vrtnu/a-z/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -44,7 +44,7 @@ describe("scraper/vrtnu", function () {
     describe("*://vrt.be/vrtnu/a-z/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -62,7 +62,7 @@ describe("scraper/vrtnu", function () {
     describe("*://vrtnu.page.link/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

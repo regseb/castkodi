@@ -25,7 +25,7 @@ export const rules = new Map();
  * @returns {string} Le lien du <em>fichier</em>.
  */
 rules.set("*://www.dailymotion.com/video/*", function ({ pathname }) {
-    return PLUGIN_URL + pathname.substring(7);
+    return PLUGIN_URL + pathname.slice(7);
 });
 
 /**
@@ -37,7 +37,7 @@ rules.set("*://www.dailymotion.com/video/*", function ({ pathname }) {
  * @returns {string} Le lien du <em>fichier</em>.
  */
 rules.set("*://dai.ly/*", function ({ pathname }) {
-    return PLUGIN_URL + pathname.substring(1);
+    return PLUGIN_URL + pathname.slice(1);
 });
 
 /**
@@ -49,5 +49,5 @@ rules.set("*://dai.ly/*", function ({ pathname }) {
  * @returns {string} Le lien du <em>fichier</em>.
  */
 rules.set("*://www.dailymotion.com/embed/video/*", function ({ pathname }) {
-    return PLUGIN_URL + pathname.substring(13);
+    return PLUGIN_URL + pathname.slice(13);
 });

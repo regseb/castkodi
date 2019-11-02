@@ -16,7 +16,7 @@ describe("scraper/soundcloud", function () {
     describe("*://soundcloud.com/*/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -60,7 +60,7 @@ describe("scraper/soundcloud", function () {
     describe("*://mobi.soundcloud.com/*/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

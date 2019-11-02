@@ -40,7 +40,7 @@ rules.set("*://store.steampowered.com/app/*", function ({ href }) {
  */
 rules.set("*://steamcommunity.com/broadcast/watch/*", function ({ pathname }) {
     const url = "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
-                                           "?steamid=" + pathname.substring(17);
+                                               "?steamid=" + pathname.slice(17);
     return fetch(url).then((r) => r.json())
                      .then((data) => {
         return "hls_url" in data ? data["hls_url"]

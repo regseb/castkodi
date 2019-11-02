@@ -27,8 +27,7 @@ const walk = function (root) {
                            .filter((p) => null !== p &&
                                           "object" === typeof p &&
                                           !Array.isArray(p))
-                           .map(walk)
-                           .flat()];
+                           .flatMap(walk)];
 };
 
 /**

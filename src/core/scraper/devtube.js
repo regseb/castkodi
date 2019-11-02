@@ -25,5 +25,5 @@ export const rules = new Map();
  * @returns {string} Le lien du <em>fichier</em>.
  */
 rules.set("*://dev.tube/video/*", function ({ pathname }) {
-    return PLUGIN_URL + pathname.substring(7);
+    return PLUGIN_URL + pathname.slice(7);
 });

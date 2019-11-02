@@ -83,7 +83,7 @@ export const compile = function (pattern) {
  * @returns {Array.<object>} Les patrons URLs gérées ainsi que leur action.
  */
 export const normalize = function (scraper) {
-    return Array.from(scraper.entries(), ([patterns, action]) => {
+    return [...scraper.entries()].map(([patterns, action]) => {
         return Array.isArray(patterns) ? [patterns, action]
                                        : [Array.of(patterns), action];
     }).flatMap(([patterns, action]) => {

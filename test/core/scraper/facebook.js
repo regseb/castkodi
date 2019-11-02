@@ -16,7 +16,7 @@ describe("scraper/facebook", function () {
     describe("*://*.facebook.com/*/videos/*/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -72,7 +72,7 @@ describe("scraper/facebook", function () {
     describe("*://*.facebook.com/watch*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

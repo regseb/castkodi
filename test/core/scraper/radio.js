@@ -16,7 +16,7 @@ describe("scraper/radio", function () {
     describe("*://*.radio.net/s/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -57,7 +57,7 @@ describe("scraper/radio", function () {
     describe("*://www.radio.fr/s/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

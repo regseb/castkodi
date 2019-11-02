@@ -16,7 +16,7 @@ describe("scraper/torrent", function () {
     describe("*://*/*.torrent", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -35,7 +35,7 @@ describe("scraper/torrent", function () {
     describe("magnet:*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

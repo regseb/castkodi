@@ -16,7 +16,7 @@ describe("scraper/gamekult", function () {
     describe("*://www.gamekult.com/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -44,7 +44,7 @@ describe("scraper/gamekult", function () {
     describe("*://gamekult.com/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 

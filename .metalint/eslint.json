@@ -1,5 +1,5 @@
 {
-    "plugins": ["filenames", "import", "jsdoc", "promise"],
+    "plugins": ["filenames", "import", "jsdoc", "promise", "unicorn"],
 
     "parserOptions": {
         "ecmaVersion": 2020,
@@ -396,7 +396,62 @@
         "promise/no-return-in-finally": 2,
         "promise/valid-params": 2,
         "promise/prefer-await-to-then": 0,
-        "promise/prefer-await-to-callbacks": 0
+        "promise/prefer-await-to-callbacks": 0,
+
+        "unicorn/catch-error-name": [2, {
+            "name": "err",
+            "caughtErrorsIgnorePattern": "^$"
+        }],
+        "unicorn/consistent-function-scoping": 2,
+        "unicorn/custom-error-definition": 2,
+        "unicorn/error-message": 2,
+        "unicorn/escape-case": 2,
+        "unicorn/expiring-todo-comments": 0,
+        "unicorn/explicit-length-check": 2,
+        "unicorn/filename-case": [2, { "case": "kebabCase" }],
+        "unicorn/import-index": 0,
+        "unicorn/new-for-builtins": 2,
+        "unicorn/no-abusive-eslint-disable": 2,
+        "unicorn/no-array-instanceof": 2,
+        "unicorn/no-console-spaces": 2,
+        "unicorn/no-fn-reference-in-iterator": 0,
+        "unicorn/no-for-loop": 2,
+        "unicorn/no-hex-escape": 2,
+        "unicorn/no-keyword-prefix": 2,
+        "unicorn/no-nested-ternary": 2,
+        "unicorn/no-new-buffer": 2,
+        "unicorn/no-process-exit": 2,
+        "unicorn/no-unreadable-array-destructuring": 2,
+        "unicorn/no-unsafe-regex": 2,
+        "unicorn/no-unused-properties": 2,
+        "unicorn/no-zero-fractions": 2,
+        "unicorn/number-literal-case": 2,
+        "unicorn/prefer-add-event-listener": 2,
+        "unicorn/prefer-dataset": 2,
+        "unicorn/prefer-event-key": 2,
+        "unicorn/prefer-exponentiation-operator": 2,
+        "unicorn/prefer-flat-map": 2,
+        "unicorn/prefer-includes": 2,
+        "unicorn/prefer-node-append": 2,
+        "unicorn/prefer-node-remove": 2,
+        "unicorn/prefer-query-selector": 2,
+        "unicorn/prefer-reflect-apply": 2,
+        "unicorn/prefer-spread": 2,
+        "unicorn/prefer-starts-ends-with": 2,
+        "unicorn/prefer-string-slice": 2,
+        "unicorn/prefer-text-content": 2,
+        "unicorn/prefer-type-error": 2,
+        "unicorn/prevent-abbreviations": [2, {
+            "whitelist": {
+                "doc":    true,
+                "err":    true,
+                "msg":    true,
+                "params": true,
+                "props":  true
+            }
+        }],
+        "unicorn/regex-shorthand": 2,
+        "unicorn/throw-new-error": 2
     },
 
     "settings": {

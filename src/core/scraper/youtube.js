@@ -71,7 +71,7 @@ rules.set([
     "*://www.youtube.com/embed/*", "*://www.youtube-nocookie.com/embed/*",
     "*://invidio.us/embed/*", "*://hooktube.com/embed/*"
 ], function ({ pathname }) {
-    return PLUGIN_URL + "?video_id=" + pathname.substring(7);
+    return PLUGIN_URL + "?video_id=" + pathname.slice(7);
 });
 
 /**
@@ -83,5 +83,5 @@ rules.set([
  * @returns {string} Le lien du <em>fichier</em>.
  */
 rules.set("*://youtu.be/*", function ({ pathname }) {
-    return PLUGIN_URL + "?video_id=" + pathname.substring(1);
+    return PLUGIN_URL + "?video_id=" + pathname.slice(1);
 });

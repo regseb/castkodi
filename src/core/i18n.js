@@ -9,10 +9,10 @@
  * @returns {Array.<HTMLElement>} La liste des éléments.
  */
 const walk = function () {
-    return Array.from(document.querySelectorAll("*")).flatMap((element) => {
+    return [...document.querySelectorAll("*")].flatMap((element) => {
         return "TEMPLATE" === element.tagName
-                             ? Array.from(element.content.querySelectorAll("*"))
-                             : element;
+                                    ? [...element.content.querySelectorAll("*")]
+                                    : element;
     });
 };
 
@@ -21,7 +21,7 @@ const walk = function () {
  *
  * @constant {string}
  */
-const PAGE = location.pathname.substring(1, location.pathname.indexOf("/", 1));
+const PAGE = location.pathname.slice(1, location.pathname.indexOf("/", 1));
 
 for (const element of walk()) {
     for (const attribute of element.attributes) {
@@ -29,7 +29,7 @@ for (const element of walk()) {
             continue;
         }
 
-        const place = attribute.name.substring(10);
+        const place = attribute.name.slice(10);
         let key;
         if ("" !== attribute.value) {
             key = attribute.value;

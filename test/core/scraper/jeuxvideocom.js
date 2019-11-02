@@ -16,7 +16,7 @@ describe("scraper/jeuxvideocom", function () {
     describe("*://www.jeuxvideo.com/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
@@ -52,7 +52,7 @@ describe("scraper/jeuxvideocom", function () {
     describe("*://jeuxvideo.com/*", function () {
         let action;
         before(function () {
-            action = Array.from(rules.entries())
+            action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
