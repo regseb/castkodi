@@ -696,8 +696,8 @@ window.addEventListener("keyup", (event) => {
         case "f": case "F": forward();       break;
         case "PageDown":    next();          break;
         case "F8":          setMute();       break;
-        case "-":           setVolume(-10);  break;
-        case "+": case "=": setVolume(10);   break;
+        case "-":           setVolume(-1);   break;
+        case "+": case "=": setVolume(1);    break;
         case "c": case "C": contextMenu();   break;
         case "ArrowUp":     up();            break;
         case "i": case "I": info();          break;
