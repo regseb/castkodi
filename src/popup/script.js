@@ -663,24 +663,17 @@ for (const element of document.querySelectorAll("object")) {
 window.focus();
 window.addEventListener("keydown", (event) => {
     // Ignorer les entrées avec une touche de modification.
-    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+    if (event.altKey || event.ctrlKey || event.metaKey) {
         return;
     }
 
-    if ("TEXTAREA" === event.target.tagName && "Enter" === event.key) {
-        send();
-        event.preventDefault();
-    }
-
-    if ("Tab" === event.key) {
-        event.preventDefault();
-    }
-});
-window.addEventListener("keyup", (event) => {
-    // Ignorer les entrées dans une zone de texte ou avec une touche de
-    // modification.
-    if ("TEXTAREA" === event.target.tagName || event.altKey || event.ctrlKey ||
-            event.metaKey || event.shiftKey) {
+    // Écrire normalement les caractères dans la zone de texte (sauf pour la
+    // touche Entrée qui envoi l'URL saisie).
+    if ("TEXTAREA" === event.target.tagName) {
+        if ("Enter" === event.key) {
+            send();
+            event.preventDefault();
+        }
         return;
     }
 
@@ -712,6 +705,12 @@ window.addEventListener("keyup", (event) => {
         default: return;
     }
     event.preventDefault();
+});
+window.addEventListener("keyup", (event) => {
+    // Désactiver l'actionnement des boutons avec la touche Espace.
+    if (" " === event.key) {
+        event.preventDefault();
+    }
 });
 
 interval = setInterval(passing, 1000);
