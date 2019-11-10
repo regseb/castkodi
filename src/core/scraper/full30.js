@@ -3,13 +3,6 @@
  */
 
 /**
- * L'expression rationnelle pour extraire l'URL de la vidéo.
- *
- * @constant {RegExp}
- */
-const URL_REGEXP = /https?:\/\/videos\.full30\.com\/[^"]+\.(?:mp4|webm|ogv)/iu;
-
-/**
  * Les règles avec les patrons et leur action.
  *
  * @constant {Map.<string, Function>}
@@ -25,11 +18,20 @@ export const rules = new Map();
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code>.
  */
-rules.set("*://www.full30.com/video/*", function ({ href }) {
+rules.set([
+    "*://www.full30.com/watch/*", "*://www.full30.com/video/*"
+], function ({ href }) {
     return fetch(href).then((r) => r.text())
                       .then((data) => {
-        const result = URL_REGEXP.exec(data);
-        return null === result ? null
-                               : result[0];
+        const doc = new DOMParser().parseFromString(data, "text/html");
+
+        const script = doc.querySelector("#video-player noscript");
+        if (null === script) {
+            return null;
+        }
+
+        const subdoc = new DOMParser().parseFromString(script.textContent,
+                                                       "text/html");
+        return subdoc.querySelector("video source").src;
     });
 });
