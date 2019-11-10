@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.8.0](https://github.com/regseb/castkodi/compare/v4.7.0...v4.8.0) (2019-11-10)
+
+
+### Features
+
+* Ajouter un racourci clavier pour passer en plein écran. ([f52392a](https://github.com/regseb/castkodi/commit/f52392ad2dd6b8d86b1f6848f677980f330a60de))
+* Gérer plusieurs serveurs. ([c398549](https://github.com/regseb/castkodi/commit/c398549ff11a6ed4aa050cf0e10a843a665cabcd))
+
+
+### Bug Fixes
+
+* Gérer la répétition des touches. ([60af1ab](https://github.com/regseb/castkodi/commit/60af1ab238b25310c0e13a43031f620ae80fe20f))
+* Gérer les nouvelles pages de Full30. ([53b2495](https://github.com/regseb/castkodi/commit/53b24951b1c5dc55c8c2164dd1555af4659a0f7a))
+* Passer le pas du son à 1. ([a500921](https://github.com/regseb/castkodi/commit/a500921cd8274e887aeefd36211cbcf36ed2239a))
+
 ## [4.7.0](https://github.com/regseb/castkodi/compare/v4.6.1...v4.7.0) (2019-09-13)
 
 
