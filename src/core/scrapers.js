@@ -33,7 +33,6 @@ import { rules as rutube }         from "./scraper/rutube.js";
 import { rules as soundcloud }     from "./scraper/soundcloud.js";
 import { rules as steam }          from "./scraper/steam.js";
 import { rules as stormotv }       from "./scraper/stormotv.js";
-import { rules as tiktok }         from "./scraper/tiktok.js";
 import { rules as torrent }        from "./scraper/torrent.js";
 import { rules as twitch }         from "./scraper/twitch.js";
 import { rules as vimeo }          from "./scraper/vimeo.js";
@@ -126,7 +125,6 @@ export const scrapers = [
     soundcloud,
     steam,
     stormotv,
-    tiktok,
     torrent,
     twitch,
     vimeo,
