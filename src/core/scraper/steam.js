@@ -5,7 +5,7 @@
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -18,15 +18,14 @@ export const rules = new Map();
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code>.
  */
-rules.set("*://store.steampowered.com/app/*", function ({ href }) {
-    return fetch(href).then((r) => r.text())
-                      .then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
+rules.set(["*://store.steampowered.com/app/*"], async function ({ href }) {
+    const response = await fetch(href);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const div = doc.querySelector(".highlight_movie[data-mp4-hd-source]");
-        return null === div ? null
-                            : div.dataset.mp4HdSource;
-    });
+    const div = doc.querySelector(".highlight_movie[data-mp4-hd-source]");
+    return null === div ? null
+                        : div.dataset.mp4HdSource;
 });
 
 /**
@@ -38,12 +37,13 @@ rules.set("*://store.steampowered.com/app/*", function ({ href }) {
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code>.
  */
-rules.set("*://steamcommunity.com/broadcast/watch/*", function ({ pathname }) {
+rules.set([
+    "*://steamcommunity.com/broadcast/watch/*"
+], async function ({ pathname }) {
     const url = "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
                                                "?steamid=" + pathname.slice(17);
-    return fetch(url).then((r) => r.json())
-                     .then((data) => {
-        return "hls_url" in data ? data["hls_url"]
-                                 : null;
-    });
+    const response = await fetch(url);
+    const json = await response.json();
+    return "hls_url" in json ? json["hls_url"]
+                             : null;
 });

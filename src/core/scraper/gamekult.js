@@ -27,13 +27,12 @@ export const rules = new Map();
  */
 rules.set([
     "*://www.gamekult.com/*", "*://gamekult.com/*"
-], function ({ href }) {
-    return fetch(href).then((r) => r.text())
-                      .then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
+], async function ({ href }) {
+    const response = await fetch(href);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const video = doc.querySelector(".js-dailymotion-video[data-id]");
-        return null === video ? null
-                              : PLUGIN_URL + video.dataset.id;
-    });
+    const video = doc.querySelector(".js-dailymotion-video[data-id]");
+    return null === video ? null
+                          : PLUGIN_URL + video.dataset.id;
 });

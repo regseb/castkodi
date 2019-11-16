@@ -12,7 +12,7 @@ const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -22,9 +22,10 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url          L'URL d'une vidéo Vimeo.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {?string} Le lien du <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
-rules.set("*://vimeo.com/*", function ({ pathname }) {
+rules.set(["*://vimeo.com/*"], async function ({ pathname }) {
     return (/^\/\d+$/u).test(pathname) ? PLUGIN_URL + pathname.slice(1)
                                        : null;
 });
@@ -35,9 +36,10 @@ rules.set("*://vimeo.com/*", function ({ pathname }) {
  * @function action
  * @param {URL}    url          L'URL d'une vidéo Vimeo intégrée.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {?string} Le lien du <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
-rules.set("*://player.vimeo.com/video/*", function ({ pathname }) {
+rules.set(["*://player.vimeo.com/video/*"], async function ({ pathname }) {
     return (/^\/video\/\d+$/u).test(pathname) ? PLUGIN_URL + pathname.slice(7)
                                               : null;
 });

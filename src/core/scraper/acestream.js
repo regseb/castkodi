@@ -12,7 +12,7 @@ const PLUGIN_URL = "plugin://program.plexus/?mode=1&name=&url=";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -22,8 +22,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url      L'URL d'une vidéo Ace Stream.
  * @param {string} url.href Le lien de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
-rules.set("acestream://*", function ({ href }) {
+rules.set(["acestream://*"], async function ({ href }) {
     return PLUGIN_URL + encodeURIComponent(href);
 });

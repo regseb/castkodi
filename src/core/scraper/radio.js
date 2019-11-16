@@ -30,18 +30,17 @@ rules.set([
     "*://www.radio.fr/s/*", "*://www.radio.pt/s/*", "*://www.radio.es/s/*",
     "*://www.radio.dk/s/*", "*://www.radio.se/s/*", "*://www.radio.it/s/*",
     "*://www.radio.pl/s/*"
-], function ({ href }) {
-    return fetch(href).then((r) => r.text())
-                      .then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
+], async function ({ href }) {
+    const response = await fetch(href);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
 
-        for (const script of doc.querySelectorAll("script:not([src])")) {
-            const result = URL_REGEXP.exec(script.text);
-            if (null === result) {
-                continue;
-            }
-            return JSON.parse(result[1]).streamUrls[0].streamUrl;
+    for (const script of doc.querySelectorAll("script:not([src])")) {
+        const result = URL_REGEXP.exec(script.text);
+        if (null === result) {
+            continue;
         }
-        return null;
-    });
+        return JSON.parse(result[1]).streamUrls[0].streamUrl;
+    }
+    return null;
 });

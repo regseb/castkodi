@@ -20,13 +20,12 @@ export const rules = new Map();
  */
 rules.set([
     "*://www.1tv.ru/shows/*", "*://www.1tv.ru/movies/*"
-], function ({ href }) {
-    return fetch(href).then((r) => r.text())
-                      .then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
+], async function ({ href }) {
+    const response = await fetch(href);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const result = doc.querySelector(`meta[property="og:video:url"]`);
-        return null === result ? null
-                               : result.content;
-    });
+    const result = doc.querySelector(`meta[property="og:video:url"]`);
+    return null === result ? null
+                           : result.content;
 });

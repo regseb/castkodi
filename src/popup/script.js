@@ -161,8 +161,9 @@ const notify = function (err) {
     document.querySelector("#remote").style.visibility = "hidden";
 };
 
-const update = function () {
-    return jsonrpc.getProperties().then((properties) => {
+const update = async function () {
+    try {
+        const properties = await jsonrpc.getProperties();
         document.querySelector("#send").disabled = false;
         document.querySelector("#insert").disabled = false;
         document.querySelector("#add").disabled = false;
@@ -216,10 +217,12 @@ const update = function () {
         document.querySelector("#osd").disabled = false;
 
         document.querySelector("#fullscreen").disabled = false;
-    }).catch(notify);
+    } catch (err) {
+        notify(err);
+    }
 };
 
-const mux = function () {
+const mux = async function () {
     if (document.querySelector("#paste input").checked) {
         return Promise.resolve(document.querySelector("textarea").value);
     }
@@ -228,40 +231,44 @@ const mux = function () {
         "active":        true,
         "currentWindow": true
     };
-    return browser.tabs.query(queryInfo).then(([{ url }]) => url);
+    const tabs = await browser.tabs.query(queryInfo);
+    return tabs[0].url;
 };
 
-const send = function () {
+const send = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#send").disabled) {
         return;
     }
 
-    mux().then((url) => cast("send", [url]))
-         .then(close);
+    const url = await mux();
+    await cast("send", [url]);
+    close();
 };
 
-const insert = function () {
+const insert = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#insert").disabled) {
         return;
     }
 
-    mux().then((url) => cast("insert", [url]))
-         .then(close);
+    const url = await mux();
+    await cast("insert", [url]);
+    close();
 };
 
-const add = function () {
+const add = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#add").disabled) {
         return;
     }
 
-    mux().then((url) => cast("add", [url]))
-         .then(close);
+    const url = await mux();
+    await cast("add", [url]);
+    close();
 };
 
 const paste = function (event) {
@@ -293,27 +300,28 @@ const paste = function (event) {
     }
 };
 
-const change = function (event) {
-    browser.storage.local.set({ "server-active": event.target.selectedIndex })
-                         .then(() => {
-        document.location.reload();
+const change = async function (event) {
+    await browser.storage.local.set({
+        "server-active": event.target.selectedIndex
     });
+    document.location.reload();
 };
 
-const preferences = function () {
-    browser.runtime.openOptionsPage().then(close);
+const preferences = async function () {
+    await browser.runtime.openOptionsPage();
+    close();
 };
 
-const report = function () {
-    browser.tabs.create({
-        "url": "https://github.com/regseb/castkodi"
-    }).then(close);
+const report = async function () {
+    await browser.tabs.create({ "url": "https://github.com/regseb/castkodi" });
+    close();
 };
 
-const rate = function () {
-    browser.tabs.create({
+const rate = async function () {
+    await browser.tabs.create({
         "url": "https://addons.mozilla.org/addon/castkodi/reviews/"
-    }).then(close);
+    });
+    close();
 };
 
 const previous = function () {
@@ -652,8 +660,8 @@ document.querySelector("#configure").addEventListener("click", preferences);
 for (const element of document.querySelectorAll("object")) {
     if ("loading" !== element.parentNode.id) {
         fetch(element.data).then((r) => r.text())
-                           .then((data) => {
-            const svg = new DOMParser().parseFromString(data, "image/svg+xml");
+                           .then((text) => {
+            const svg = new DOMParser().parseFromString(text, "image/svg+xml");
             element.append(svg.documentElement);
             element.removeAttribute("data");
         });

@@ -22,7 +22,7 @@ const API_URL = "https://api.flickr.com/services/rest" +
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -35,24 +35,22 @@ export const rules = new Map();
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code>.
  */
-rules.set("*://www.flickr.com/photos/*", function ({ href }) {
-    return fetch(href).then((r) => r.text())
-                      .then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
+rules.set(["*://www.flickr.com/photos/*"], async function ({ href }) {
+    const response = await fetch(href);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const video = doc.querySelector("video");
-        if (null === video) {
-            return null;
-        }
+    const video = doc.querySelector("video");
+    if (null === video) {
+        return null;
+    }
 
-        const parts = video.poster.split(/[/_.]/u);
-        const photoId = parts[6];
-        const secret  = parts[7];
-        const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
-                              "&api_key=" + KEY_REGEXP.exec(data)[1];
-        return fetch(url).then((r) => r.json())
-                         .then(({ "streams": { stream } }) => {
-            return stream.find((s) => "orig" === s.type)["_content"];
-        });
-    });
+    const parts = video.poster.split(/[/_.]/u);
+    const photoId = parts[6];
+    const secret  = parts[7];
+    const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
+                          "&api_key=" + KEY_REGEXP.exec(text)[1];
+    const subresponse = await fetch(url);
+    const json = await subresponse.json();
+    return json.streams.stream.find((s) => "orig" === s.type)["_content"];
 });

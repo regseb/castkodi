@@ -6,25 +6,26 @@ describe("scraper/generics", function () {
     describe("*://*/*", function () {
         let action;
         before(function () {
-            action = rules.get(this.test.parent.title);
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not a page HTML", function () {
+        it("should return null when it's not a page HTML", async function () {
             const url = "https://kodi.tv/sites/default/themes/kodi/" +
                                                                  "logo-sbs.svg";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return media URL", function () {
+        it("should return media URL", async function () {
             const url = "https://www.bitchute.com/video/dz5JcCZnJMge/";
-            const expected = "https://seed26.bitchute.com/hU2elaB5u3kB" +
+            const expected = "https://seed126.bitchute.com/hU2elaB5u3kB" +
                                                             "/dz5JcCZnJMge.mp4";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

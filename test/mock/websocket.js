@@ -1,6 +1,6 @@
 export const WebSocket = class {
     constructor(url) {
-        this.hostname  = url.hostname.split(".");
+        this.hostname  = new URL(url).hostname.split(".");
         this.listeners = new Map();
 
         switch (this.hostname[0]) {

@@ -5,36 +5,37 @@ import { rules }   from "../../../src/core/scraper/stormotv.js";
 
 describe("scraper/stormotv", function () {
     describe("#patterns", function () {
-        it("should return the URL when it's a unsupported URL", function () {
+        it("should return the URL when it's a unsupported URL",
+                                                             async function () {
             const url = "https://www.stormo.tv/categories/sport/";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, url);
-            });
+
+            const file = await extract(url);
+            assert.strictEqual(file, url);
         });
     });
 
     describe("https://www.stormo.tv/videos/*", function () {
         let action;
         before(function () {
-            action = rules.get(this.test.parent.title);
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not a video", function () {
+        it("should return null when it's not a video", async function () {
             const url = "https://www.stormo.tv/videos/foo";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return video URL", function () {
+        it("should return video URL", async function () {
             const url = "https://www.stormo.tv/videos/514985" +
                                              "/little-big-rock-paper-scissors/";
             const expected = "/514000/514985/514985_low.mp4/";
-            return action(new URL(url)).then(function (file) {
-                assert.ok(file.endsWith(expected),
-                          `"${file}".endsWith(expected)`);
-            });
+
+            const file = await action(new URL(url));
+            assert.ok(file.endsWith(expected), `"${file}".endsWith(expected)`);
         });
     });
 });

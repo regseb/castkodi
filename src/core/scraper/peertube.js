@@ -20,14 +20,17 @@ export const rules = new Map();
  */
 rules.set([
     "*://*/videos/watch/*", "*://*/videos/embed/*"
-], function ({ href }) {
+], async function ({ href }) {
     const url = href.replace(/^http:/iu, "https:")
                     .replace("videos/watch", "api/v1/videos")
                     .replace("videos/embed", "api/v1/videos");
-    return fetch(url).then((r) => r.json())
-                     .then((data) => {
-        return "files" in data ? data.files[0].fileUrl
+    try {
+        const response = await fetch(url);
+        const json = await response.json();
+        return "files" in json ? json.files[0].fileUrl
                                : null;
-    // Si le site n'est pas une instance PeerTube, l'appel à l'API échoue.
-    }).catch(() => null);
+    } catch {
+        // Si le site n'est pas une instance PeerTube, l'appel à l'API échoue.
+        return null;
+    }
 });

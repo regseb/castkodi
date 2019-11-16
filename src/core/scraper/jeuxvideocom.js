@@ -20,20 +20,18 @@ export const rules = new Map();
  */
 rules.set([
     "*://www.jeuxvideo.com/*", "*://jeuxvideo.com/*"
-], function ({ href }) {
-    return fetch(href).then((r) => r.text())
-                      .then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
+], async function ({ href }) {
+    const response = await fetch(href);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const video = doc.querySelector("[data-srcset-video]");
-        if (null === video) {
-            return null;
-        }
+    const video = doc.querySelector("[data-srcset-video]");
+    if (null === video) {
+        return null;
+    }
 
-        const url = "https://www.jeuxvideo.com" + video.dataset.srcsetVideo;
-        return fetch(url).then((r) => r.json())
-                         .then(({ sources }) => {
-            return sources.find((s) => "true" === s.default).file;
-        });
-    });
+    const url = "https://www.jeuxvideo.com" + video.dataset.srcsetVideo;
+    const subresponse = await fetch(url);
+    const json = await subresponse.json();
+    return json.sources.find((s) => "true" === s.default).file;
 });

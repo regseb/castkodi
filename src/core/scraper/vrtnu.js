@@ -22,11 +22,11 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url          L'URL d'une vidéo VRT NU.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
 rules.set([
     "*://www.vrt.be/vrtnu/a-z/*", "*://vrt.be/vrtnu/a-z/*",
     "*://vrtnu.page.link/*"
-], function ({ href }) {
+], async function ({ href }) {
     return PLUGIN_URL + href;
 });

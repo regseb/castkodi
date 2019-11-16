@@ -5,39 +5,42 @@ import { rules }   from "../../../src/core/scraper/radioline.js";
 
 describe("scraper/radioline", function () {
     describe("#patterns", function () {
-        it("should return the URL when it's a unsupported URL", function () {
+        it("should return the URL when it's a unsupported URL",
+                                                             async function () {
             const url = "http://twitter.com/RadiolineFrance";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, url);
-            });
+
+            const file = await extract(url);
+            assert.strictEqual(file, url);
         });
     });
 
     describe("*://*.radioline.co/*", function () {
         let action;
         before(function () {
-            action = rules.get(this.test.parent.title);
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not an audio", function () {
+        it("should return null when it's not an audio", async function () {
             const url = "https://fr-fr.radioline.co/qui-sommes-nous";
             const expected = null;
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
 
-        it("should return null when it's not an audio with hash", function () {
+        it("should return null when it's not an audio with hash",
+                                                             async function () {
             const url = "http://www.radioline.co" +
                                              "/search-result-for-radio-france" +
                                           "#radios/france-bleu-provence-666-fm";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return audio URL", function () {
+        it("should return audio URL", async function () {
             const url = "http://www.radioline.co" +
                      "/podcast-france-inter-tanguy-pastureau-maltraite-l-info" +
                                                                    "#chapters" +
@@ -46,12 +49,12 @@ describe("scraper/radioline", function () {
                              "-20181112111300-767ff243e145d03dae436beee7e078a1";
             const expected = "http://rf.proxycast.org/1501861709009133568" +
                           "/18141-12.11.2018-ITEMA_21890205-0.mp3?_=1448798384";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return audio URL when protocol is HTTP", function () {
+        it("should return audio URL when protocol is HTTP", async function () {
             const url = "http://en-ie.radioline.co" +
                             "/podcast-france-inter-la-chronique-de-pablo-mira" +
                            "#chapters/france-inter-la-chronique-de-pablo-mira" +
@@ -59,9 +62,9 @@ describe("scraper/radioline", function () {
                              "-20181114163800-3297da9989a66c1213ce5976c250f736";
             const expected = "http://rf.proxycast.org/1502668985731129344" +
                           "/16598-14.11.2018-ITEMA_21892402-0.mp3?_=1431848591";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

@@ -12,7 +12,7 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<(Array.<string>|string), Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -29,19 +29,18 @@ export const rules = new Map();
 rules.set([
     "*://*.youtube.com/watch*", "*://invidio.us/watch*",
     "*://hooktube.com/watch*"
-], function ({ searchParams }) {
-    return browser.storage.local.get(["youtube-playlist"]).then((config) => {
-        if (searchParams.has("list") &&
-                ("playlist" === config["youtube-playlist"] ||
-                 !searchParams.has("v"))) {
-            return PLUGIN_URL + "?playlist_id=" + searchParams.get("list");
-        }
-        if (searchParams.has("v")) {
-            return PLUGIN_URL + "?video_id=" + searchParams.get("v");
-        }
+], async function ({ searchParams }) {
+    const config = await browser.storage.local.get(["youtube-playlist"]);
+    if (searchParams.has("list") &&
+            ("playlist" === config["youtube-playlist"] ||
+             !searchParams.has("v"))) {
+        return PLUGIN_URL + "?playlist_id=" + searchParams.get("list");
+    }
+    if (searchParams.has("v")) {
+        return PLUGIN_URL + "?video_id=" + searchParams.get("v");
+    }
 
-        return null;
-    });
+    return null;
 });
 
 /**
@@ -50,9 +49,10 @@ rules.set([
  * @function action
  * @param {URL}             url              L'URL d'une playlist YouTube.
  * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
- * @returns {?string} Le lien du <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
-rules.set("*://*.youtube.com/playlist*", function ({ searchParams }) {
+rules.set(["*://*.youtube.com/playlist*"], async function ({ searchParams }) {
     return searchParams.has("list")
                        ? PLUGIN_URL + "?playlist_id=" + searchParams.get("list")
                        : null;
@@ -65,12 +65,12 @@ rules.set("*://*.youtube.com/playlist*", function ({ searchParams }) {
  * @param {URL}    url          L'URL d'une vidéo YouTube intégrée (ou Invidious
  *                              / HookTube).
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
 rules.set([
     "*://www.youtube.com/embed/*", "*://www.youtube-nocookie.com/embed/*",
     "*://invidio.us/embed/*", "*://hooktube.com/embed/*"
-], function ({ pathname }) {
+], async function ({ pathname }) {
     return PLUGIN_URL + "?video_id=" + pathname.slice(7);
 });
 
@@ -80,8 +80,8 @@ rules.set([
  * @function action
  * @param {URL}    url          L'URL minifiée d'une vidéo YouTube.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
-rules.set("*://youtu.be/*", function ({ pathname }) {
+rules.set(["*://youtu.be/*"], async function ({ pathname }) {
     return PLUGIN_URL + "?video_id=" + pathname.slice(1);
 });

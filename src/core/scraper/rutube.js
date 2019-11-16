@@ -22,12 +22,12 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url          L'URL d'une vidéo AlloCiné.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {?Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                     <code>null</code>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
 rules.set([
     "*://rutube.ru/video/*/*", "*://rutube.ru/play/embed/*"
-], function ({ pathname }) {
+], async function ({ pathname }) {
     const id = pathname.replace(/^\/video\//u, "")
                        .replace(/^\/play\/embed\//u, "")
                        .replace(/\/$/u, "");
@@ -35,10 +35,10 @@ rules.set([
         return null;
     }
 
-    return fetch(API_URL + id + "?format=json").then((response) => {
-        if (404 === response.status) {
-            return null;
-        }
-        return response.json().then(({ "video_balancer": { m3u8 } }) => m3u8);
-    });
+    const response = await fetch(API_URL + id + "?format=json");
+    if (404 === response.status) {
+        return null;
+    }
+    const json = await response.json();
+    return json.video_balancer.m3u8;
 });

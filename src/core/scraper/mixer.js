@@ -12,7 +12,7 @@ const API_URL = "https://mixer.com/api/v1/channels/";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -25,7 +25,7 @@ export const rules = new Map();
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code>.
  */
-rules.set("*://mixer.com/*", function ({ pathname }) {
+rules.set(["*://mixer.com/*"], async function ({ pathname }) {
     let name;
     if (-1 === pathname.indexOf("/", 1)) {
         name = pathname.slice(1);
@@ -35,12 +35,10 @@ rules.set("*://mixer.com/*", function ({ pathname }) {
         return null;
     }
 
-    return fetch(API_URL + name).then((response) => {
-        if (response.ok) {
-            return response.json().then(({ id }) => {
-                return API_URL + id + "/manifest.m3u8";
-            });
-        }
-        return null;
-    });
+    const response = await fetch(API_URL + name);
+    if (response.ok) {
+        const json = await response.json();
+        return API_URL + json.id + "/manifest.m3u8";
+    }
+    return null;
 });

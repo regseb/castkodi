@@ -19,9 +19,10 @@ export const JSONRPC = class {
      * @returns {Promise} Une promesse tenue si l'API est accessible ; sinon une
      *                    promesse rompue.
      */
-    static check(host) {
+    static async check(host) {
         const jsonrpc = new JSONRPC(host);
-        return jsonrpc.version().then(() => jsonrpc.close());
+        await jsonrpc.version();
+        return jsonrpc.close();
     }
 
     /**
@@ -115,7 +116,7 @@ export const JSONRPC = class {
      * @param {object} [params={}] Les paramètres de la méthode.
      * @returns {Promise} La réponse de Kodi.
      */
-    request(method, params = {}) {
+    async request(method, params = {}) {
         if (null === this.client) {
             this.client = new Promise((resolve, reject) => {
                 if ("" === this.host) {
@@ -133,7 +134,7 @@ export const JSONRPC = class {
                     throw new PebkacError("badHost", this.host);
                 }
 
-                const ws = new WebSocket(url);
+                const ws = new WebSocket(url.href);
                 ws.addEventListener("open", () => resolve(ws));
                 ws.addEventListener("error", () => {
                     reject(new PebkacError("notFound", this.host));
@@ -149,16 +150,15 @@ export const JSONRPC = class {
             });
         }
 
-        return this.client.then((ws) => {
-            return new Promise((resolve, reject) => {
-                this.listeners.set(++this.id, { resolve, reject });
-                ws.send(JSON.stringify({
-                    "jsonrpc": "2.0",
-                    "id":      this.id,
-                    "method":  method,
-                    "params":  params
-                }));
-            });
+        const ws = await this.client;
+        return new Promise((resolve, reject) => {
+            this.listeners.set(++this.id, { resolve, reject });
+            ws.send(JSON.stringify({
+                "jsonrpc": "2.0",
+                "id":      this.id,
+                "method":  method,
+                "params":  params
+            }));
         });
     }
 
@@ -167,9 +167,10 @@ export const JSONRPC = class {
      *
      * @function close
      */
-    close() {
+    async close() {
         if (null !== this.client) {
-            this.client.then((ws) => ws.close());
+            const ws = await this.client;
+            ws.close();
         }
     }
 
@@ -194,14 +195,12 @@ export const JSONRPC = class {
      * @param {string} file L'URL envoyée à Kodi.
      * @returns {Promise} La réponse de Kodi.
      */
-    send(file) {
+    async send(file) {
         // Vider la liste de lecture, ajouter le nouveau média et lancer la
         // lecture.
-        return this.clear().then(() => {
-            return this.add(file);
-        }).then(() => {
-            return this.request("Player.Open", { "item": { "playlistid": 1 } });
-        });
+        await this.clear();
+        await this.add(file);
+        return this.request("Player.Open", { "item": { "playlistid": 1 } });
     }
 
     /**
@@ -211,16 +210,15 @@ export const JSONRPC = class {
      * @param {string} file L'URL envoyée à Kodi.
      * @returns {Promise} La réponse de Kodi.
      */
-    insert(file) {
-        return this.request("Player.GetProperties", {
+    async insert(file) {
+        const properties = await this.request("Player.GetProperties", {
             "playerid":   1,
             "properties": ["position"]
-        }).then((properties) => {
-            return this.request("Playlist.Insert", {
-                "playlistid": 1,
-                "position":   properties.position + 1,
-                "item":       { file }
-            });
+        });
+        return this.request("Playlist.Insert", {
+            "playlistid": 1,
+            "position":   properties.position + 1,
+            "item":       { file }
         });
     }
 
@@ -485,37 +483,36 @@ export const JSONRPC = class {
      * @function getProperties
      * @returns {Promise} Les valeurs des propriétés.
      */
-    getProperties() {
-        return this.request("Application.GetProperties", {
+    async getProperties() {
+        const application = await this.request("Application.GetProperties", {
             "properties": ["muted", "volume"]
-        }).then((application) => {
-            return this.request("Player.GetActivePlayers").then((playerids) => {
-                if (0 === playerids.length || 1 !== playerids[0].playerid) {
-                    return {
-                        "repeat":    "off",
-                        "shuffled":  false,
-                        "speed":     null,
-                        "time":      { "hours": 0, "minutes": 0, "seconds": 0 },
-                        "totaltime": { "hours": 0, "minutes": 0, "seconds": 0 }
-                    };
-                }
-                return this.request("Player.GetProperties", {
-                    "playerid":   1,
-                    "properties": [
-                        "repeat", "shuffled", "speed", "time", "totaltime"
-                    ]
-                });
-            }).then((player) => {
-                // Regrouper les propriétés et convertir les durées.
-                return Object.assign({}, application, player, {
-                    "time":      player.time.hours * 3600 +
-                                 player.time.minutes * 60 +
-                                 player.time.seconds,
-                    "totaltime": player.totaltime.hours * 3600 +
-                                 player.totaltime.minutes * 60 +
-                                 player.totaltime.seconds
-                });
+        });
+        const playerids = await this.request("Player.GetActivePlayers");
+        let player;
+        if (0 === playerids.length || 1 !== playerids[0].playerid) {
+            player = {
+                "repeat":    "off",
+                "shuffled":  false,
+                "speed":     null,
+                "time":      { "hours": 0, "minutes": 0, "seconds": 0 },
+                "totaltime": { "hours": 0, "minutes": 0, "seconds": 0 }
+            };
+        } else {
+            player = await this.request("Player.GetProperties", {
+                "playerid":   1,
+                "properties": [
+                    "repeat", "shuffled", "speed", "time", "totaltime"
+                ]
             });
+        }
+        // Regrouper les propriétés et convertir les durées.
+        return Object.assign({}, application, player, {
+            "time":      player.time.hours * 3600 +
+                         player.time.minutes * 60 +
+                         player.time.seconds,
+            "totaltime": player.totaltime.hours * 3600 +
+                         player.totaltime.minutes * 60 +
+                         player.totaltime.seconds
         });
     }
 };
@@ -533,18 +530,17 @@ export const jsonrpc = new JSONRPC("");
  * @function change
  * @param {object} changes Les paramètres modifiés dans la configuration.
  */
-const change = function (changes) {
+const change = async function (changes) {
     // Ignorer tous les changements sauf ceux liés au serveur.
     if (!Object.entries(changes).some(([k, v]) => k.startsWith("server-") &&
                                                   "newValue" in v)) {
         return;
     }
 
-    browser.storage.local.get().then((config) => {
-        jsonrpc.close();
-        jsonrpc.host = config["server-list"][config["server-active"]].host;
-        jsonrpc.onChanged();
-    });
+    const config = await browser.storage.local.get();
+    jsonrpc.close();
+    jsonrpc.host = config["server-list"][config["server-active"]].host;
+    jsonrpc.onChanged();
 };
 
 // Simuler un changement de configuration pour se connecter au bon serveur. Ce

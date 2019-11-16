@@ -5,48 +5,50 @@ import { rules }   from "../../../src/core/scraper/pippa.js";
 
 describe("scraper/pippa", function () {
     describe("#patterns", function () {
-        it("should return the URL when it's a unsupported URL", function () {
+        it("should return the URL when it's a unsupported URL",
+                                                             async function () {
             const url = "https://shows.pippa.io/studio-404";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, url);
-            });
+
+            const file = await extract(url);
+            assert.strictEqual(file, url);
         });
     });
 
     describe("*://shows.pippa.io/*/*", function () {
         let action;
         before(function () {
-            action = rules.get(this.test.parent.title);
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not an audio", function () {
+        it("should return null when it's not an audio", async function () {
             const url = "https://shows.pippa.io/studio-404/";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return audio URL", function () {
-            const url = "https://shows.pippa.io/studio-404" +
-                                                 "/studio-404-65-novembre-2018";
+        it("should return audio URL", async function () {
+            const url = "https://shows.pippa.io/cdanslair/episodes" +
+                                "/5-decembre-la-greve-qui-fait-peur-22-11-2019";
             const expected = "https://app.pippa.io/public/streams" +
-                                          "/59ee5fc85d6ff59869bbeb01/episodes" +
-                                                "/5bfc6eae690503213d3db1ac.mp3";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+                                          "/5bb36892b799143c5a063e7f/episodes" +
+                                                "/5dd81469bd860fd53f965cf7.mp3";
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return audio URL when protocol is HTTP", function () {
-            const url = "http://shows.pippa.io/studio-404" +
-                           "/studio-404-64-octobre-2018-studio-404-x-surfrider";
+        it("should return audio URL when protocol is HTTP", async function () {
+            const url = "http://shows.pippa.io/cdanslair/episodes" +
+                            "/hongkong-la-colere-monte-pekin-menace-19-11-2019";
             const expected = "https://app.pippa.io/public/streams" +
-                                          "/59ee5fc85d6ff59869bbeb01/episodes" +
-                                                "/5bc3af025840c11d736078eb.mp3";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+                                          "/5bb36892b799143c5a063e7f/episodes" +
+                                                "/5dd4250950a8cbb62f4b21ad.mp3";
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

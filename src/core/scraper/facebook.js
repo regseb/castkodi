@@ -23,12 +23,12 @@ export const rules = new Map();
  * @param {URL}             url              L'URL d'une vidéo Facebook.
  * @param {string}          url.pathname     Le chemin de l'URL.
  * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
- * @returns {?Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                     <code>null</code>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
 rules.set([
     "*://*.facebook.com/*/videos/*/*", "*://*.facebook.com/watch*"
-], function ({ pathname, searchParams }) {
+], async function ({ pathname, searchParams }) {
     let id;
     if ("/watch" === pathname || "/watch/" === pathname) {
         if (searchParams.has("v")) {
@@ -41,13 +41,13 @@ rules.set([
                      .replace(/\/$/u, "");
     }
 
-    const init = { "credentials": "omit" };
-    return fetch(PREFIX_VIDEO_URL + id, init).then((r) => r.text())
-                                             .then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
-
-        const meta = doc.querySelector(`meta[property="og:video"]`);
-        return null === meta ? null
-                             : meta.content;
+    const response = await fetch(PREFIX_VIDEO_URL + id, {
+        "credentials": "omit"
     });
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
+
+    const meta = doc.querySelector(`meta[property="og:video"]`);
+    return null === meta ? null
+                         : meta.content;
 });

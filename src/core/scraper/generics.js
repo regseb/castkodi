@@ -16,7 +16,7 @@ const extractors = [video, audio, ldjson];
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -29,27 +29,24 @@ export const rules = new Map();
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code>.
  */
-rules.set("*://*/*", function ({ href }) {
-    return fetch(href).then((response) => {
-        const contentType = response.headers.get("Content-Type");
-        // Ignorer les pages qui ne sont pas du (X)HTML.
-        if (null === contentType ||
-                !contentType.startsWith("text/html") &&
-                !contentType.startsWith("application/xhtml+xml")) {
-            return null;
-        }
+rules.set(["*://*/*"], async function ({ href }) {
+    const response = await fetch(href);
+    const contentType = response.headers.get("Content-Type");
+    // Ignorer les pages qui ne sont pas du (X)HTML.
+    if (null === contentType ||
+            !contentType.startsWith("text/html") &&
+            !contentType.startsWith("application/xhtml+xml")) {
+        return null;
+    }
 
-        return response.text().then((data) => {
-            const doc = new DOMParser().parseFromString(data, "text/html");
-            for (const extractor of extractors) {
-                const file = extractor(doc);
-                if (null !== file) {
-                    // Préfixer éventuellement l'URL extraite par l'URL de la
-                    // page.
-                    return new URL(file, href).href;
-                }
-            }
-            return null;
-        });
-    });
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
+    for (const extractor of extractors) {
+        const file = extractor(doc);
+        if (null !== file) {
+            // Préfixer éventuellement l'URL extraite par l'URL de la page.
+            return new URL(file, href).href;
+        }
+    }
+    return null;
 });

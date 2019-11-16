@@ -44,16 +44,14 @@ export const mux = function (urls) {
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code> si aucun scraper ne gère cette URL.
  */
-export const dispatch = function (url) {
-    return scrapers.filter((s) => s.pattern.test(url))
-                   .reduce((result, scraper) => {
-        return result.then((file) => {
-            // Si aucun fichier n'a encore été trouvé : continuer d'analyser
-            // avec les autres scrapers.
-            return null === file ? scraper.action(new URL(url))
-                                 : file;
-        });
-    }, Promise.resolve(null));
+export const dispatch = async function (url) {
+    for (const scraper of scrapers.filter((s) => s.pattern.test(url))) {
+        const file = await scraper.action(new URL(url));
+        if (null !== file) {
+            return file;
+        }
+    }
+    return null;
 };
 
 /**
@@ -65,34 +63,27 @@ export const dispatch = function (url) {
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    l'URL de la page Internet si aucun élément n'est présent.
  */
-export const rummage = function (url) {
-    return fetch(url).then((response) => {
-        const contentType = response.headers.get("Content-Type");
-        if (null !== contentType &&
-                (contentType.startsWith("text/html") ||
-                 contentType.startsWith("application/xhtml+xml"))) {
-            return response.text();
-        }
-        // Si ce n'est pas une page HTML : simuler une page vide.
-        return "";
-    }).then((data) => {
-        const doc = new DOMParser().parseFromString(data, "text/html");
+export const rummage = async function (url) {
+    const response = await fetch(url);
+    const contentType = response.headers.get("Content-Type");
+    // Si ce n'est pas une page HTML : retourner le lien d'origine.
+    if (null === contentType ||
+            !contentType.startsWith("text/html") &&
+            !contentType.startsWith("application/xhtml+xml")) {
+        return url;
+    }
 
-        return [...doc.querySelectorAll("iframe[src]")]
-                                                  .reduce((result, element) => {
-            return result.then((file) => {
-                // Si aucun fichier n'a encore été trouvé : continuer d'analyser
-                // les iframes de la page.
-                return null === file
-                      ? dispatch(new URL(element.getAttribute("src"), url).href)
-                      : file;
-            });
-        }, Promise.resolve(null)).then((file) => {
-            // Si aucun fichier n'a été trouvé : retourner le lien d'origine.
-            return null === file ? url
-                                 : file;
-        });
-    });
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
+    for (const element of doc.querySelectorAll("iframe[src]")) {
+        const file = await dispatch(new URL(element.getAttribute("src"),
+                                            url).href);
+        if (null !== file) {
+            return file;
+        }
+    }
+    // Si aucun fichier n'a été trouvé : retourner le lien d'origine.
+    return url;
 };
 
 /**
@@ -102,11 +93,10 @@ export const rummage = function (url) {
  * @param {string} url L'URL d'une page Internet.
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
-export const extract = function (url) {
-    return dispatch(url).then((file) => {
-        return null === file ? rummage(url)
-                             : file;
-    });
+export const extract = async function (url) {
+    const file = await dispatch(url);
+    return null === file ? rummage(url)
+                         : file;
 };
 
 /**
@@ -118,24 +108,26 @@ export const extract = function (url) {
  * @param {Array.<string>} urls   La liste des éventuelles URLs.
  * @returns {Promise} Une promesse tenue ou rejetée.
  */
-export const cast = function (action, urls) {
+export const cast = async function (action, urls) {
     const url = mux(urls);
     if (undefined === url) {
         return notify(1 === urls.length ? new PebkacError("noLink", urls[0])
                                         : new PebkacError("noLinks"));
     }
 
-    return extract(url).then((file) => {
+
+    try {
+        const file = await extract(url);
         switch (action) {
-            case "send":   return jsonrpc.send(file);
-            case "insert": return jsonrpc.insert(file);
-            case "add":    return jsonrpc.add(file);
-            default: throw new Error(action + " is not supported");
+            case "send":   await jsonrpc.send(file);   break;
+            case "insert": await jsonrpc.insert(file); break;
+            case "add":    await jsonrpc.add(file);    break;
+            default: return notify(new Error(action + " is not supported"));
         }
-    }).then(() => {
-        return browser.storage.local.get(["general-history"]);
-    }).then((config) => {
+        const config = await browser.storage.local.get(["general-history"]);
         return config["general-history"] ? browser.history.addUrl({ url })
                                          : Promise.resolve();
-    }).catch(notify);
+    } catch (err) {
+        return notify(err);
+    }
 };

@@ -5,11 +5,12 @@ import { rules }   from "../../../src/core/scraper/twitch.js";
 
 describe("scraper/twitch", function () {
     describe("#patterns", function () {
-        it("should return the URL when it's a unsupported URL", function () {
+        it("should return the URL when it's a unsupported URL",
+                                                             async function () {
             const url = "https://app.twitch.tv/download";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, url);
-            });
+
+            const file = await extract(url);
+            assert.strictEqual(file, url);
         });
     });
 
@@ -20,21 +21,21 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video id", function () {
+        it("should return video id", async function () {
             const url = "https://www.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
 
-        it("should return video id when protocol is HTTP", function () {
+        it("should return video id when protocol is HTTP", async function () {
             const url = "http://www.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -46,12 +47,12 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video id", function () {
+        it("should return video id", async function () {
             const url = "https://go.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -63,12 +64,12 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video id", function () {
+        it("should return video id", async function () {
             const url = "https://m.twitch.tv/videos/164088111";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                           "&video_id=164088111";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -76,24 +77,25 @@ describe("scraper/twitch", function () {
     describe("*://clips.twitch.tv/*", function () {
         let action;
         before(function () {
-            action = rules.get(this.test.parent.title);
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return clip name", function () {
+        it("should return clip name", async function () {
             const url = "https://clips.twitch.tv/GleamingWildCougarFUNgineer";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
 
-        it("should return clip name when protocol is HTTP", function () {
+        it("should return clip name when protocol is HTTP", async function () {
             const url = "http://clips.twitch.tv/GleamingWildCougarFUNgineer";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -105,25 +107,25 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return clip name", function () {
+        it("should return clip name", async function () {
             const url = "https://www.twitch.tv/twitch/clip" +
                                                 "/GleamingWildCougarFUNgineer" +
                                              "?filter=clips&range=7d&sort=time";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
 
-        it("should return clip name when protocol is HTTP", function () {
+        it("should return clip name when protocol is HTTP", async function () {
             const url = "http://www.twitch.tv/twitch/clip" +
                                                 "/GleamingWildCougarFUNgineer" +
                                              "?filter=clips&range=7d&sort=time";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -135,13 +137,13 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return clip name", function () {
+        it("should return clip name", async function () {
             const url = "https://go.twitch.tv/twitch/clip" +
                                                  "/GleamingWildCougarFUNgineer";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -153,13 +155,13 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return clip name", function () {
+        it("should return clip name", async function () {
             const url = "https://m.twitch.tv/twitch/clip" +
                                                  "/GleamingWildCougarFUNgineer";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                             "&slug=GleamingWildCougarFUNgineer";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -171,21 +173,22 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return channel name", function () {
+        it("should return channel name", async function () {
             const url = "https://www.twitch.tv/nolife";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                          "&channel_name=nolife";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
 
-        it("should return channel name when protocol is HTTP", function () {
+        it("should return channel name when protocol is HTTP",
+                                                             async function () {
             const url = "http://www.twitch.tv/nolife";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                          "&channel_name=nolife";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -197,12 +200,12 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return channel name", function () {
+        it("should return channel name", async function () {
             const url = "https://go.twitch.tv/nolife";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                          "&channel_name=nolife";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -214,12 +217,12 @@ describe("scraper/twitch", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return channel name", function () {
+        it("should return channel name", async function () {
             const url = "https://m.twitch.tv/jvtv";
             const expected = "plugin://plugin.video.twitch/?mode=play" +
                                                            "&channel_name=jvtv";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });

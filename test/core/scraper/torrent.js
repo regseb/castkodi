@@ -5,11 +5,12 @@ import { rules }   from "../../../src/core/scraper/torrent.js";
 
 describe("scraper/torrent", function () {
     describe("#patterns", function () {
-        it("should return the URL when it's a unsupported URL", function () {
+        it("should return the URL when it's a unsupported URL",
+                                                             async function () {
             const url = "https://fr.wikipedia.org/wiki/BitTorrent";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, url);
-            });
+
+            const file = await extract(url);
+            assert.strictEqual(file, url);
         });
     });
 
@@ -20,14 +21,14 @@ describe("scraper/torrent", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video URL", function () {
+        it("should return video URL", async function () {
             const url = "https://archive.org/download/Sintel" +
                                                       "/Sintel_archive.torrent";
             const expected = "plugin://plugin.video.elementum/play" +
                                               "?uri=https%3A%2F%2Farchive.org" +
                                 "%2Fdownload%2FSintel%2FSintel_archive.torrent";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });
@@ -39,7 +40,7 @@ describe("scraper/torrent", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video URL", function () {
+        it("should return video URL", async function () {
             const url = "magnet:" +
                        "?xt=urn:btih:88594AAACBDE40EF3E2510C47374EC0AA396C08E" +
                                     "&dn=bbb_sunflower_1080p_30fps_normal.mp4" +
@@ -56,7 +57,7 @@ describe("scraper/torrent", function () {
              "%26ws%3Dhttp%253a%252f%252fdistribution.bbb3d.renderfarming.net" +
                   "%252fvideo%252fmp4%252fbbb_sunflower_1080p_30fps_normal.mp4";
 
-            const file = action(new URL(url));
+            const file = await action(new URL(url));
             assert.strictEqual(file, expected);
         });
     });

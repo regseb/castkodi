@@ -30,12 +30,12 @@ export const rules = new Map();
  * @param {URL}    url          L'URL d'un son SoundCloud.
  * @param {string} url.pathname Le chemin de l'URL.
  * @param {string} url.href     Le lien de l'URL.
- * @returns {?Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                     <code>null</code>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
 rules.set([
     "*://soundcloud.com/*/*", "*://mobi.soundcloud.com/*/*"
-], function ({ pathname, href }) {
+], async function ({ pathname, href }) {
     // Si le chemin contient plusieurs barres obliques.
     if (pathname.indexOf("/", 1) !== pathname.lastIndexOf("/"))  {
         return null;
@@ -43,10 +43,9 @@ rules.set([
 
     const url = "https://soundcloud.com/oembed?url=" +
                 encodeURIComponent(href.replace("//mobi.", "//"));
-    return fetch(url).then((r) => r.text())
-                     .then((data) => {
-        const result = URL_REGEXP.exec(data);
-        return null === result ? null
-                               : PLUGIN_URL + result[1];
-    });
+    const response = await fetch(url);
+    const text = await response.text();
+    const result = URL_REGEXP.exec(text);
+    return null === result ? null
+                           : PLUGIN_URL + result[1];
 });

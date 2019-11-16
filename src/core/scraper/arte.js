@@ -12,7 +12,7 @@ const API_URL = "https://api.arte.tv/api/player/v1/config";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -24,15 +24,15 @@ export const rules = new Map();
  * @param {string} url.pathname Le chemin de l'URL.
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
-rules.set("*://www.arte.tv/*/videos/*/*", function ({ pathname }) {
+rules.set(["*://www.arte.tv/*/videos/*/*"], async function ({ pathname }) {
     const [, lang, , id] = pathname.split("/");
-    const url = `${API_URL}/${lang}/${id}`;
-    return fetch(url).then((r) => r.json())
-                     .then(({ "videoJsonPlayer": { "VSR": data } }) => {
-        // Garder les vidéos dans la langue courante.
-        return Object.values(data).filter((f) => f.id.endsWith("_1"))
-                     // Sélectionner la vidéo avec la définition la plus grande.
-                     .reduce((b, f) => (b.height < f.height ? f : b))
-                     .url;
-    });
+    const response = await fetch(`${API_URL}/${lang}/${id}`);
+    const json = await response.json();
+
+    return Object.values(json.videoJsonPlayer.VSR)
+                 // Garder les vidéos dans la langue courante.
+                 .filter((f) => f.id.endsWith("_1"))
+                 // Sélectionner la vidéo avec la définition la plus grande.
+                 .reduce((b, f) => (b.height < f.height ? f : b))
+                 .url;
 });

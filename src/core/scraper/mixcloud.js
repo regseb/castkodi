@@ -12,7 +12,7 @@ const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<string, Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -22,9 +22,10 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url          L'URL d'une musique Mixcloud.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {?string} Le lien du <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
  */
-rules.set("*://www.mixcloud.com/*/*/", function ({ pathname }) {
+rules.set(["*://www.mixcloud.com/*/*/"], async function ({ pathname }) {
     return pathname.startsWith("/discover/")
                                     ? null
                                     : PLUGIN_URL + encodeURIComponent(pathname);

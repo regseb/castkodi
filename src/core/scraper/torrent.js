@@ -22,8 +22,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url      L'URL d'un torrent ou d'un magnet.
  * @param {string} url.href Le lien de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
-rules.set(["*://*/*.torrent", "magnet:*"], function ({ href }) {
+rules.set(["*://*/*.torrent", "magnet:*"], async function ({ href }) {
     return PLUGIN_URL + encodeURIComponent(href);
 });

@@ -5,11 +5,12 @@ import { rules }   from "../../../src/core/scraper/full30.js";
 
 describe("scraper/full30", function () {
     describe("#patterns", function () {
-        it("should return the URL when it's a unsupported URL", function () {
+        it("should return the URL when it's a unsupported URL",
+                                                             async function () {
             const url = "https://www.full30.com/recently-added";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, url);
-            });
+
+            const file = await extract(url);
+            assert.strictEqual(file, url);
         });
     });
 
@@ -20,23 +21,23 @@ describe("scraper/full30", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not a video", function () {
+        it("should return null when it's not a video", async function () {
             const url = "https://www.full30.com/video/foobar";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return video URL", function () {
+        it("should return video URL", async function () {
             const url = "http://www.full30.com/video" +
                                             "/01c970fbc3cf59528c3daaa3a4020edb";
-            const expected = "https://us.videos.epicio.net/bitmotive/public" +
-                                         "/full30/v1.0/videos/demolitionranch" +
+            const expected = "https://us.videos.epicio.net/public/full30v1" +
+                                                     "/videos/demolitionranch" +
                                 "/01c970fbc3cf59528c3daaa3a4020edb/854x480.mp4";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -47,23 +48,23 @@ describe("scraper/full30", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not a video", function () {
+        it("should return null when it's not a video", async function () {
             const url = "https://www.full30.com/watch/foobar";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return video URL", function () {
+        it("should return video URL", async function () {
             const url = "https://www.full30.com/watch/MjY1" +
                                                       "/apple-devices-vs-50cal";
-            const expected = "https://us.videos.epicio.net/bitmotive/public" +
-                                         "/full30/v1.0/videos/demolitionranch" +
+            const expected = "https://us.videos.epicio.net/public/full30v1" +
+                                                     "/videos/demolitionranch" +
                                 "/01c970fbc3cf59528c3daaa3a4020edb/854x480.mp4";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });

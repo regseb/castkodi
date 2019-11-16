@@ -11,18 +11,17 @@ import { cast }   from "../core/index.js";
  * @param {object} info Les informations fournies par le menu contextuel.
  * @returns {Promise} Une promesse contenant les liens récupérés.
  */
-const aggregate = function (info) {
+const aggregate = async function (info) {
     if ("bookmarkId" in info) {
-        return browser.bookmarks.get(info.bookmarkId).then(([bookmark]) => {
-            return ["url" in bookmark ? bookmark.url
-                                      : ""];
-        });
+        const bookmark = await browser.bookmarks.get(info.bookmarkId);
+        return ["url" in bookmark[0] ? bookmark[0].url
+                                     : ""];
     }
 
-    return Promise.resolve([
+    return [
         info.selectionText, info.linkUrl, info.srcUrl, info.frameUrl,
         info.pageUrl
-    ]);
+    ];
 };
 
 /**
@@ -30,10 +29,11 @@ const aggregate = function (info) {
  *
  * @param {object} info Les informations fournies par le menu contextuel.
  */
-const click = function (info) {
+const click = async function (info) {
     if ("send" === info.menuItemId || "insert" === info.menuItemId ||
             "add" === info.menuItemId) {
-        aggregate(info).then((urls) => cast(info.menuItemId, urls));
+        const urls = await aggregate(info);
+        cast(info.menuItemId, urls);
     } else if (!info.wasChecked) {
         browser.storage.local.set({
             "server-active": parseInt(info.menuItemId, 10)
@@ -47,7 +47,7 @@ const click = function (info) {
  * @function menu
  * @param {object} changes Les paramètres modifiés dans la configuration.
  */
-const menu = function (changes) {
+const menu = async function (changes) {
     // Ignorer tous les changements sauf ceux liés aux menus.
     if (!Object.entries(changes).some(([k, v]) => k.startsWith("menu-") &&
                                                   "newValue" in v ||
@@ -57,56 +57,56 @@ const menu = function (changes) {
     }
 
     // Vider les options du menu contextuel, puis ajouter les options.
-    browser.menus.removeAll().then(() => browser.storage.local.get())
-                             .then((config) => {
-        const mode     = config["server-mode"];
-        const actions  = config["menu-actions"];
-        const contexts = config["menu-contexts"];
-        if (1 === actions.length && "single" === mode) {
-            const key = "menus_first" + actions[0].charAt(0).toUpperCase() +
-                        actions[0].slice(1);
+    await browser.menus.removeAll();
+    const config = await browser.storage.local.get();
+
+    const mode     = config["server-mode"];
+    const actions  = config["menu-actions"];
+    const contexts = config["menu-contexts"];
+    if (1 === actions.length && "single" === mode) {
+        const key = "menus_first" + actions[0].charAt(0).toUpperCase() +
+                    actions[0].slice(1);
+        browser.menus.create({
+            "contexts": contexts,
+            "id":       actions[0],
+            "title":    browser.i18n.getMessage(key)
+        });
+    } else if (1 === actions.length && "multi" === mode ||
+               2 <= actions.length) {
+        browser.menus.create({
+            "contexts": contexts,
+            "id":       "parent",
+            "title":    browser.i18n.getMessage("menus_firstParent")
+        });
+        for (const action of actions) {
+            const key = "menus_second" + action.charAt(0).toUpperCase() +
+                        action.slice(1);
             browser.menus.create({
-                "contexts": contexts,
-                "id":       actions[0],
+                "id":       action,
+                "parentId": "parent",
                 "title":    browser.i18n.getMessage(key)
             });
-        } else if (1 === actions.length && "multi" === mode ||
-                   2 <= actions.length) {
-            browser.menus.create({
-                "contexts": contexts,
-                "id":       "parent",
-                "title":    browser.i18n.getMessage("menus_firstParent")
-            });
-            for (const action of actions) {
-                const key = "menus_second" + action.charAt(0).toUpperCase() +
-                            action.slice(1);
-                browser.menus.create({
-                    "id":       action,
-                    "parentId": "parent",
-                    "title":    browser.i18n.getMessage(key)
-                });
-            }
-
-            if ("multi" === mode) {
-                browser.menus.create({
-                    "parentId": "parent",
-                    "type":     "separator"
-                });
-                config["server-list"].forEach((server, index) => {
-                    const name = (/^\s*$/u).test(server.name)
-                            ? browser.i18n.getMessage("menus_noName", index + 1)
-                            : server.name;
-                    browser.menus.create({
-                        "checked":  config["server-active"] === index,
-                        "id":       index.toString(),
-                        "parentId": "parent",
-                        "title":    name,
-                        "type":     "radio"
-                    });
-                });
-            }
         }
-    });
+
+        if ("multi" === mode) {
+            browser.menus.create({
+                "parentId": "parent",
+                "type":     "separator"
+            });
+            config["server-list"].forEach((server, index) => {
+                const name = (/^\s*$/u).test(server.name)
+                        ? browser.i18n.getMessage("menus_noName", index + 1)
+                        : server.name;
+                browser.menus.create({
+                    "checked":  config["server-active"] === index,
+                    "id":       index.toString(),
+                    "parentId": "parent",
+                    "title":    name,
+                    "type":     "radio"
+                });
+            });
+        }
+    }
 };
 
 browser.storage.onChanged.addListener(menu);

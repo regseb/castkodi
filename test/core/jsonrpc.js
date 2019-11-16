@@ -8,62 +8,67 @@ describe("jsonrpc", function () {
             return JSONRPC.check("locahost");
         });
 
-        it("should return error when no host", function () {
+        it("should return error when no host", async function () {
             const expected = "unconfigured";
-            return JSONRPC.check("").then(function () {
+            try {
+                await JSONRPC.check("");
                 assert.fail();
-            }).catch(function (err) {
+            } catch (err) {
                 assert.strictEqual(err.name, "PebkacError");
                 assert.strictEqual(err.type, expected);
-            });
+            }
         });
 
-        it("should return error when host is invalid", function () {
+        it("should return error when host is invalid", async function () {
             const expected = "badHost";
-            return JSONRPC.check("bad host").then(function () {
+            try {
+                await JSONRPC.check("bad host");
                 assert.fail();
-            }).catch(function (err) {
+            } catch (err) {
                 assert.strictEqual(err.name, "PebkacError");
                 assert.strictEqual(err.type, expected);
-            });
+            }
         });
 
-        it("should return error when IP is invalid", function () {
+        it("should return error when IP is invalid", async function () {
             const expected = "badHost";
-            return JSONRPC.check("192.168").then(function () {
+            try {
+                await JSONRPC.check("192.168");
                 assert.fail();
-            }).catch(function (err) {
+            } catch (err) {
                 assert.strictEqual(err.name, "PebkacError");
                 assert.strictEqual(err.type, expected);
-            });
+            }
         });
 
-        it("should return error when receive 400", function () {
+        it("should return error when receive 400", async function () {
             const expected = "notFound";
-            return JSONRPC.check("notfound.com").then(function () {
+            try {
+                await JSONRPC.check("notfound.com");
                 assert.fail();
-            }).catch(function (err) {
+            } catch (err) {
                 assert.strictEqual(err.name, "PebkacError");
                 assert.strictEqual(err.type, expected);
-            });
+            }
         });
 
-        it("should return error when receive Kodi's error", function () {
-            return JSONRPC.check("error.com").then(function () {
+        it("should return error when receive Kodi's error", async function () {
+            const expected = "Error message!";
+            try {
+                await JSONRPC.check("error.com");
                 assert.fail();
-            }).catch(function (err) {
+            } catch (err) {
                 assert.strictEqual(err.name, "Error");
-                assert.strictEqual(err.message, "Error message!");
-            });
+                assert.strictEqual(err.message, expected);
+            }
         });
     });
 
     describe("#close()", function () {
-        it("should close WebSocket", function () {
+        it("should close WebSocket", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            jsonrpc.version().then(function () {
-                jsonrpc.close();
-            });
+            await jsonrpc.version();
+            jsonrpc.close();
         });
 
         it("should do nothing with WebSocket doesn't open", function () {
@@ -73,386 +78,386 @@ describe("jsonrpc", function () {
     });
 
     describe("#add()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
             const file = "Le fichier";
-            return jsonrpc.add(file).then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Playlist.Add",
-                    "params": { "playlistid": 1, "item": { file } }
-                });
+
+            const result = await jsonrpc.add(file);
+            assert.deepStrictEqual(result, {
+                "method": "Playlist.Add",
+                "params": { "playlistid": 1, "item": { file } }
             });
         });
     });
 
     describe("#send()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
             const file = "Le fichier";
-            return jsonrpc.send(file).then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.Open",
-                    "params": {  "item": { "playlistid": 1 } }
-                });
+
+            const result = await jsonrpc.send(file);
+            assert.deepStrictEqual(result, {
+                "method": "Player.Open",
+                "params": {  "item": { "playlistid": 1 } }
             });
         });
     });
 
     describe("#insert()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
             const file = "Le fichier";
-            return jsonrpc.insert(file).then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Playlist.Insert",
-                    "params": {
-                        "playlistid": 1,
-                        "position":   null,
-                        "item":       { file }
-                    }
-                });
+
+            const result = await jsonrpc.insert(file);
+            assert.deepStrictEqual(result, {
+                "method": "Playlist.Insert",
+                "params": {
+                    "playlistid": 1,
+                    "position":   null,
+                    "item":       { file }
+                }
             });
         });
     });
 
     describe("#previous()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.previous().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.GoTo",
-                    "params": { "playerid": 1, "to": "previous" }
-                });
+
+            const result = await jsonrpc.previous();
+            assert.deepStrictEqual(result, {
+                "method": "Player.GoTo",
+                "params": { "playerid": 1, "to": "previous" }
             });
         });
     });
 
     describe("#stop()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.stop().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.Stop",
-                    "params": { "playerid": 1 }
-                });
+
+            const result = await jsonrpc.stop();
+            assert.deepStrictEqual(result, {
+                "method": "Player.Stop",
+                "params": { "playerid": 1 }
             });
         });
     });
 
     describe("#open()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.open().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.Open",
-                    "params": { "item": { "playlistid": 1 } }
-                });
+
+            const result = await jsonrpc.open();
+            assert.deepStrictEqual(result, {
+                "method": "Player.Open",
+                "params": { "item": { "playlistid": 1 } }
             });
         });
     });
 
     describe("#playPause()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.playPause().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.PlayPause",
-                    "params": { "playerid": 1 }
-                });
+
+            const result = await jsonrpc.playPause();
+            assert.deepStrictEqual(result, {
+                "method": "Player.PlayPause",
+                "params": { "playerid": 1 }
             });
         });
     });
 
     describe("#seek()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.seek(100).then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.Seek",
-                    "params": {
-                        "playerid": 1,
-                        "value":    {
-                            "time": {
-                                "hours":        0,
-                                "minutes":      1,
-                                "seconds":      40,
-                                "milliseconds": 0
-                            }
+
+            const result = await jsonrpc.seek(100);
+            assert.deepStrictEqual(result, {
+                "method": "Player.Seek",
+                "params": {
+                    "playerid": 1,
+                    "value":    {
+                        "time": {
+                            "hours":        0,
+                            "minutes":      1,
+                            "seconds":      40,
+                            "milliseconds": 0
                         }
                     }
-                });
+                }
             });
         });
     });
 
     describe("#next()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.next().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.GoTo",
-                    "params": { "playerid": 1, "to": "next" }
-                });
+
+            const result = await jsonrpc.next();
+            assert.deepStrictEqual(result, {
+                "method": "Player.GoTo",
+                "params": { "playerid": 1, "to": "next" }
             });
         });
     });
 
     describe("#setSpeeed()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
             const speed = 32;
-            return jsonrpc.setSpeed(speed).then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.SetSpeed",
-                    "params": { "playerid": 1, speed }
-                });
+
+            const result = await jsonrpc.setSpeed(speed);
+            assert.deepStrictEqual(result, {
+                "method": "Player.SetSpeed",
+                "params": { "playerid": 1, speed }
             });
         });
     });
 
     describe("#setMute()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
             const mute = true;
-            return jsonrpc.setMute(mute).then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Application.SetMute",
-                    "params": { mute }
-                });
+
+            const result = await jsonrpc.setMute(mute);
+            assert.deepStrictEqual(result, {
+                "method": "Application.SetMute",
+                "params": { mute }
             });
         });
     });
 
     describe("#setVolume()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
             const volume = 51;
-            return jsonrpc.setVolume(volume).then(function (result) {
-                assert.deepStrictEqual(result, [
-                    {
-                        "method": "Application.SetMute",
-                        "params": { "mute": false }
-                    }, {
-                        "method": "Application.SetVolume",
-                        "params": { volume }
-                    }
-                ]);
-            });
+
+            const result = await jsonrpc.setVolume(volume);
+            assert.deepStrictEqual(result, [
+                {
+                    "method": "Application.SetMute",
+                    "params": { "mute": false }
+                }, {
+                    "method": "Application.SetVolume",
+                    "params": { volume }
+                }
+            ]);
         });
     });
 
     describe("#setRepeat()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.setRepeat().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Player.SetRepeat",
-                    "params": { "playerid": 1, "repeat": "cycle" }
-                });
+
+            const result = await jsonrpc.setRepeat();
+            assert.deepStrictEqual(result, {
+                "method": "Player.SetRepeat",
+                "params": { "playerid": 1, "repeat": "cycle" }
             });
         });
     });
 
     describe("#setShuffle()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
             const shuffle = true;
-            return jsonrpc.setShuffle(shuffle).then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method":  "Player.SetShuffle",
-                    "params":  { "playerid": 1, shuffle }
-                });
+
+            const result = await jsonrpc.setShuffle(shuffle);
+            assert.deepStrictEqual(result, {
+                "method":  "Player.SetShuffle",
+                "params":  { "playerid": 1, shuffle }
             });
         });
     });
 
     describe("#clear()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.clear().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Playlist.Clear",
-                    "params": { "playlistid": 1 }
-                });
+
+            const result = await jsonrpc.clear();
+            assert.deepStrictEqual(result, {
+                "method": "Playlist.Clear",
+                "params": { "playlistid": 1 }
             });
         });
     });
 
     describe("#contextMenu()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.contextMenu().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.ContextMenu",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.contextMenu();
+            assert.deepStrictEqual(result, {
+                "method": "Input.ContextMenu",
+                "params": {}
             });
         });
     });
 
     describe("#up()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.up().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.Up",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.up();
+            assert.deepStrictEqual(result, {
+                "method": "Input.Up",
+                "params": {}
             });
         });
     });
 
     describe("#info()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.info().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.Info",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.info();
+            assert.deepStrictEqual(result, {
+                "method": "Input.Info",
+                "params": {}
             });
         });
     });
 
     describe("#left()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.left().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.Left",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.left();
+            assert.deepStrictEqual(result, {
+                "method": "Input.Left",
+                "params": {}
             });
         });
     });
 
     describe("#select()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.select().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.Select",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.select();
+            assert.deepStrictEqual(result, {
+                "method": "Input.Select",
+                "params": {}
             });
         });
     });
 
     describe("#right()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.right().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.Right",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.right();
+            assert.deepStrictEqual(result, {
+                "method": "Input.Right",
+                "params": {}
             });
         });
     });
 
     describe("#back()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.back().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.Back",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.back();
+            assert.deepStrictEqual(result, {
+                "method": "Input.Back",
+                "params": {}
             });
         });
     });
 
     describe("#down()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.down().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.Down",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.down();
+            assert.deepStrictEqual(result, {
+                "method": "Input.Down",
+                "params": {}
             });
         });
     });
 
     describe("#showOSD()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.showOSD().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "Input.ShowOSD",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.showOSD();
+            assert.deepStrictEqual(result, {
+                "method": "Input.ShowOSD",
+                "params": {}
             });
         });
     });
 
     describe("#setFullscreen()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.setFullscreen().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "GUI.SetFullscreen",
-                    "params": { "fullscreen": "toggle" }
-                });
+
+            const result = await jsonrpc.setFullscreen();
+            assert.deepStrictEqual(result, {
+                "method": "GUI.SetFullscreen",
+                "params": { "fullscreen": "toggle" }
             });
         });
     });
 
     describe("#version()", function () {
-        it("should send request", function () {
+        it("should send request", async function () {
             const jsonrpc = new JSONRPC("localhost");
-            return jsonrpc.version().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "method": "JSONRPC.Version",
-                    "params": {}
-                });
+
+            const result = await jsonrpc.version();
+            assert.deepStrictEqual(result, {
+                "method": "JSONRPC.Version",
+                "params": {}
             });
         });
     });
 
     describe("#getProperties()", function () {
-        it("should get properties when no player active", function () {
+        it("should get properties when no player active", async function () {
             const jsonrpc = new JSONRPC("properties.noplayer.com");
-            return jsonrpc.getProperties().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "muted":     false,
-                    "volume":    51,
-                    "repeat":    "off",
-                    "shuffled":  false,
-                    "speed":     null,
-                    "time":      0,
-                    "totaltime": 0
-                });
+
+            const result = await jsonrpc.getProperties();
+            assert.deepStrictEqual(result, {
+                "muted":     false,
+                "volume":    51,
+                "repeat":    "off",
+                "shuffled":  false,
+                "speed":     null,
+                "time":      0,
+                "totaltime": 0
             });
         });
 
-        it("should get properties when other player active", function () {
+        it("should get properties when other player active", async function () {
             const jsonrpc = new JSONRPC("properties.otherplayer.com");
-            return jsonrpc.getProperties().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "muted":     true,
-                    "volume":    0,
-                    "repeat":    "off",
-                    "shuffled":  false,
-                    "speed":     null,
-                    "time":      0,
-                    "totaltime": 0
-                });
+
+            const result = await jsonrpc.getProperties();
+            assert.deepStrictEqual(result, {
+                "muted":     true,
+                "volume":    0,
+                "repeat":    "off",
+                "shuffled":  false,
+                "speed":     null,
+                "time":      0,
+                "totaltime": 0
             });
         });
 
-        it("should get properties when video player active", function () {
+        it("should get properties when video player active", async function () {
             const jsonrpc = new JSONRPC("properties.videoplayer.com");
-            return jsonrpc.getProperties().then(function (result) {
-                assert.deepStrictEqual(result, {
-                    "muted":     false,
-                    "volume":    100,
-                    "repeat":    "one",
-                    "shuffled":  true,
-                    "speed":     1,
-                    "time":      62,
-                    "totaltime": 3723
-                });
+
+            const result = await jsonrpc.getProperties();
+            assert.deepStrictEqual(result, {
+                "muted":     false,
+                "volume":    100,
+                "repeat":    "one",
+                "shuffled":  true,
+                "speed":     1,
+                "time":      62,
+                "totaltime": 3723
             });
         });
     });

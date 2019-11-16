@@ -9,20 +9,19 @@ import { JSONRPC } from "../core/jsonrpc.js";
  *
  * @function ask
  * @param {HTMLInputElement} input La case à cocher.
+ * @returns {Promise} Une promesse contenant l'état de la permission.
  */
-const ask = function (input) {
+const ask = async function (input) {
     if (!("permissions" in input.dataset)) {
-        return Promise.resolve(input.checked);
+        return input.checked;
     }
 
     const permissions = { "permissions": [input.dataset.permissions] };
     if (input.checked) {
-        return browser.permissions.request(permissions).then((response) => {
-            input.checked = response;
-            return response;
-        });
+        return browser.permissions.request(permissions);
     }
-    return browser.permissions.remove(permissions).then(() => false);
+    await browser.permissions.remove(permissions);
+    return false;
 };
 
 /**
@@ -31,20 +30,21 @@ const ask = function (input) {
  * @function check
  * @param {HTMLInputElement} input Le champ de l'adresse IP.
  */
-const check = function (input) {
+const check = async function (input) {
     input.setCustomValidity("");
     input.removeAttribute("title");
     if (input.name.startsWith("host_")) {
         input.style.backgroundImage = `url("img/loading.svg")`;
         const host = input.value;
-        JSONRPC.check(host).then(() => {
+        try {
+            await JSONRPC.check(host);
             // Indiquer la réussite si la valeur testée est toujours la valeur
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette réussite.
             if (host === input.value) {
                 input.style.backgroundImage = `url("img/connected.svg")`;
             }
-        }).catch((err) => {
+        } catch (err) {
             // Afficher l'erreur si la valeur testée est toujours la valeur
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette erreur.
@@ -57,7 +57,7 @@ const check = function (input) {
                     input.style.backgroundImage = `url("img/invalid.svg")`;
                 }
             }
-        });
+        }
     } else if ((/^\s*$/u).test(input.value)) {
         input.title = "Le nom du serveur n'est pas renseigné.";
         input.setCustomValidity(input.title);
@@ -71,7 +71,7 @@ const check = function (input) {
  * @function save
  * @this HTMLInputElement
  */
-const save = function () {
+const save = async function () {
     const key = this.form.id;
     if ("server" === key) {
         if ("server-mode" === this.name) {
@@ -111,17 +111,17 @@ const save = function () {
                      .forEach(check);
         }
     } else if ("checkbox" === this.type) {
-        ask(this).then((checked) => {
-            const inputs = this.form.querySelectorAll("input");
-            if (1 === inputs.length) {
-                browser.storage.local.set({ [key]: checked });
-            } else {
-                browser.storage.local.set({
-                    [key]: [...inputs].filter((i) => i.checked)
-                                      .map((i) => i.name)
-                });
-            }
-        });
+        const checked = await ask(this);
+        this.checked = checked;
+        const inputs = this.form.querySelectorAll("input");
+        if (1 === inputs.length) {
+            browser.storage.local.set({ [key]: inputs[0].checked });
+        } else {
+            browser.storage.local.set({
+                [key]: [...inputs].filter((i) => i.checked)
+                                  .map((i) => i.name)
+            });
+        }
     } else {
         browser.storage.local.set({ [key]: this.value });
     }

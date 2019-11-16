@@ -12,7 +12,7 @@ const PLUGIN_URL = "plugin://plugin.video.twitch/?mode=play";
 /**
  * Les règles avec les patrons et leur action.
  *
- * @constant {Map.<(Array.<string>|string), Function>}
+ * @constant {Map.<Array.<string>, Function>}
  */
 export const rules = new Map();
 
@@ -22,12 +22,12 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url          L'URL d'une vidéo Twitch.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
 rules.set([
     "*://www.twitch.tv/videos/*", "*://go.twitch.tv/videos/*",
     "*://m.twitch.tv/videos/*"
-], function ({ pathname }) {
+], async function ({ pathname }) {
     return PLUGIN_URL + "&video_id=" + pathname.slice(8);
 });
 
@@ -37,9 +37,9 @@ rules.set([
  * @function action
  * @param {URL}    url          L'URL d'un clip Twitch.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
-rules.set("*://clips.twitch.tv/*", function ({ pathname }) {
+rules.set(["*://clips.twitch.tv/*"], async function ({ pathname }) {
     return PLUGIN_URL + "&slug=" + pathname.slice(1);
 });
 
@@ -49,12 +49,12 @@ rules.set("*://clips.twitch.tv/*", function ({ pathname }) {
  * @function action
  * @param {URL}    url          L'URL d'un clip d'une chaine Twitch.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
 rules.set([
     "*://www.twitch.tv/*/clip/*", "*://go.twitch.tv/*/clip/*",
     "*://m.twitch.tv/*/clip/*"
-], function ({ pathname }) {
+], async function ({ pathname }) {
     return PLUGIN_URL + "&slug=" +
            pathname.slice(pathname.lastIndexOf("/") + 1);
 });
@@ -65,10 +65,10 @@ rules.set([
  * @function action
  * @param {URL}    url          L'URL d'un <em>live</em> Twitch.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
  */
 rules.set([
     "*://www.twitch.tv/*", "*://go.twitch.tv/*", "*://m.twitch.tv/*"
-], function ({ pathname }) {
+], async function ({ pathname }) {
     return PLUGIN_URL + "&channel_name=" + pathname.slice(1);
 });

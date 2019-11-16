@@ -5,40 +5,42 @@ import { rules }   from "../../../src/core/scraper/flickr.js";
 
 describe("scraper/flickr", function () {
     describe("#patterns", function () {
-        it("should return the URL when it's a unsupported URL", function () {
+        it("should return the URL when it's a unsupported URL",
+                                                             async function () {
             // Appeler les URLs non-sécurisées car l'entête HTTP de la version
             // sécurisé de Flickr est trop grosse pour Node.
             const url = "http://www.flickr.com/explore";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, url);
-            });
+
+            const file = await extract(url);
+            assert.strictEqual(file, url);
         });
     });
 
     describe("*://www.flickr.com/photos/*", function () {
         let action;
         before(function () {
-            action = rules.get(this.test.parent.title);
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not a video", function () {
+        it("should return null when it's not a video", async function () {
             const url = "http://www.flickr.com/photos/149130852@N05" +
                                                                 "/40962531395/";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return video URL", function () {
+        it("should return video URL", async function () {
             const url = "http://www.flickr.com/photos/brandonsphoto" +
                                                                  "/9501379492/";
             const expected = "https://live.staticflickr.com/video/9501379492/" +
                                                          "599013f6d7/orig.mp4?";
-            return action(new URL(url)).then(function (file) {
-                assert.ok(file.startsWith(expected),
-                          `"${file}".startsWith(expected)`);
-            });
+
+            const file = await action(new URL(url));
+            assert.ok(file.startsWith(expected),
+                      `"${file}".startsWith(expected)`);
         });
     });
 });

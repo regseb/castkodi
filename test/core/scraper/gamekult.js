@@ -5,11 +5,12 @@ import { rules }   from "../../../src/core/scraper/gamekult.js";
 
 describe("scraper/gamekult", function () {
     describe("#patterns", function () {
-        it("should return the URL when it's a unsupported URL", function () {
+        it("should return the URL when it's a unsupported URL",
+                                                             async function () {
             const url = "http://www.gameblog.fr/";
-            return extract(url).then(function (file) {
-                assert.strictEqual(file, url);
-            });
+
+            const file = await extract(url);
+            assert.strictEqual(file, url);
         });
     });
 
@@ -20,24 +21,24 @@ describe("scraper/gamekult", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return null when it's not a video", function () {
+        it("should return null when it's not a video", async function () {
             const url = "https://www.gamekult.com/jeux/dead-cells-3050326015" +
                                                                 "/joueurs.html";
             const expected = null;
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
-        it("should return video URL", function () {
+        it("should return video URL", async function () {
             const url = "https://www.gamekult.com/actualite" +
                                        "/revivez-la-conference-bethesda-et-le" +
                                "-debriefing-avec-le-plateau-gk-3050817795.html";
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                   "?mode=playVideo&url=x7aour7";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 
@@ -48,14 +49,14 @@ describe("scraper/gamekult", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return video URL", function () {
+        it("should return video URL", async function () {
             const url = "https://www.gamekult.com/jeux" +
                                                   "/dead-cells-3050326015.html";
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                   "?mode=playVideo&url=x6o6sws";
-            return action(new URL(url)).then(function (file) {
-                assert.strictEqual(file, expected);
-            });
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
     });
 });
