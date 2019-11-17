@@ -8,5 +8,7 @@
         { "type": "refactor", "hidden": true },
         { "type": "perf",     "section": "Performance Improvements" },
         { "type": "test",     "hidden": true }
-    ]
+    ],
+    "packageFiles": "package.json",
+    "bumpFiles": ["package.json", "package-lock.json", "src/manifest.json"]
 }

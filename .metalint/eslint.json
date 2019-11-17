@@ -18,6 +18,7 @@
         "no-control-regex": 2,
         "no-debugger": 2,
         "no-dupe-args": 2,
+        "no-dupe-else-if": 2,
         "no-dupe-keys": 2,
         "no-duplicate-case": 2,
         "no-empty-character-class": 2,
@@ -40,14 +41,18 @@
         "no-obj-calls": 2,
         "no-prototype-builtins": 2,
         "no-regex-spaces": 2,
+        "no-setter-return": 2,
         "no-sparse-arrays": 2,
         "no-template-curly-in-string": 2,
         "no-unexpected-multiline": 2,
         "no-unreachable": 2,
         "no-unsafe-finally": 2,
-        "no-unsafe-negation": 2,
+        "no-unsafe-negation": [2, { "enforceForOrderingRelations": true }],
         "require-atomic-updates": 0,
-        "use-isnan": [2, { "enforceForSwitchCase": true }],
+        "use-isnan": [2, {
+            "enforceForSwitchCase": true,
+            "enforceForIndexOf": true
+        }],
         "valid-typeof": 2,
 
         "accessor-pairs": [2, { "enforceForClassMembers": true }],
@@ -62,11 +67,13 @@
         "dot-location": [2, "property"],
         "dot-notation": [2, { "allowKeywords": true, "allowPattern": "_" }],
         "eqeqeq": 2,
+        "grouped-accessor-pairs": [2, "getBeforeSet"],
         "guard-for-in": 0,
         "max-classes-per-file": 2,
         "no-alert": 2,
         "no-caller": 2,
         "no-case-declarations": 2,
+        "no-constructor-return": 2,
         "no-div-regex": 2,
         "no-else-return": [2, { "allowElseIf": false }],
         "no-empty-function": 2,
@@ -96,7 +103,8 @@
         "no-octal-escape": 2,
         "no-octal": 2,
         "no-param-reassign": [2, {
-            "props": true, "ignorePropertyModificationsFor": ["input"]
+            "props": true,
+            "ignorePropertyModificationsFor": ["input"]
         }],
         "no-proto": 2,
         "no-redeclare": 2,
@@ -249,6 +257,7 @@
         "padding-line-between-statements": [2, {
             "blankLine": "always", "prev": "directive", "next": "*"
         }],
+        "prefer-exponentiation-operator": 2,
         "prefer-object-spread": 0,
         "quote-props": 2,
         "quotes": [2, "double", { "allowTemplateLiterals": true }],
@@ -303,8 +312,8 @@
         "template-curly-spacing": 2,
         "yield-star-spacing": 2,
 
-        "filenames/match-regex": [2, "^[_a-z][0-9_a-z]+$"],
-        "filenames/match-exported": 2,
+        "filenames/match-regex": [2, "^[_a-z][-0-9_a-z]+$"],
+        "filenames/match-exported": [2, "kebab"],
         "filenames/no-index": 0,
 
         "import/no-unresolved": 2,
@@ -320,12 +329,7 @@
         "import/no-cycle": 2,
         "import/no-useless-path-segments": 2,
         "import/no-relative-parent-imports": 0,
-        "import/no-unused-modules": [0, {
-            "missingExports": true,
-            "unusedExports": true,
-            "src": ["src/"],
-            "ignoreExports": ["TODO", "background.js"]
-        }],
+        "import/no-unused-modules": 0,
 
         "import/export": 2,
         "import/no-named-as-default": 2,
@@ -432,6 +436,7 @@
         "unicorn/prefer-exponentiation-operator": 2,
         "unicorn/prefer-flat-map": 2,
         "unicorn/prefer-includes": 2,
+        "unicorn/prefer-negative-index": 2,
         "unicorn/prefer-node-append": 2,
         "unicorn/prefer-node-remove": 2,
         "unicorn/prefer-query-selector": 2,
@@ -440,16 +445,9 @@
         "unicorn/prefer-starts-ends-with": 2,
         "unicorn/prefer-string-slice": 2,
         "unicorn/prefer-text-content": 2,
+        "unicorn/prefer-trim-start-end": 2,
         "unicorn/prefer-type-error": 2,
-        "unicorn/prevent-abbreviations": [2, {
-            "whitelist": {
-                "doc":    true,
-                "err":    true,
-                "msg":    true,
-                "params": true,
-                "props":  true
-            }
-        }],
+        "unicorn/prevent-abbreviations": 0,
         "unicorn/regex-shorthand": 2,
         "unicorn/throw-new-error": 2
     },
