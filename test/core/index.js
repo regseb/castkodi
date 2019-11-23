@@ -132,8 +132,7 @@ describe("index", function () {
         it("should return YT Home video URL", async function () {
             const url = "https://yt.ax/watch" +
                         "/how-to-make-perfect-chocolate-chip-cookies-40889071/";
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                        "?video_id=rEdl2Uetpvo";
+            const expected = "https://yt.ax/embed/rEdl2Uetpvo";
 
             const file = await extract(url);
             assert.strictEqual(file, expected);

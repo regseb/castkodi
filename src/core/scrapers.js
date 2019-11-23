@@ -16,16 +16,12 @@ import { rules as flickr }         from "./scraper/flickr.js";
 import { rules as full30 }         from "./scraper/full30.js";
 import { rules as gamekult }       from "./scraper/gamekult.js";
 import { rules as generics }       from "./scraper/generics.js";
-import { rules as instagram }      from "./scraper/instagram.js";
-import { rules as jamendo }        from "./scraper/jamendo.js";
 import { rules as jeuxvideocom }   from "./scraper/jeuxvideocom.js";
 import { rules as kcaastreaming }  from "./scraper/kcaastreaming.js";
 import { rules as mixcloud }       from "./scraper/mixcloud.js";
 import { rules as mixer }          from "./scraper/mixer.js";
 import { rules as mycloudplayers } from "./scraper/mycloudplayers.js";
-import { rules as onetv }          from "./scraper/onetv.js";
 import { rules as peertube }       from "./scraper/peertube.js";
-import { rules as pippa }          from "./scraper/pippa.js";
 import { rules as podcloud }       from "./scraper/podcloud.js";
 import { rules as radio }          from "./scraper/radio.js";
 import { rules as radioline }      from "./scraper/radioline.js";
@@ -108,16 +104,12 @@ export const scrapers = [
     flickr,
     full30,
     gamekult,
-    instagram,
-    jamendo,
     jeuxvideocom,
     kcaastreaming,
     mixcloud,
     mixer,
     mycloudplayers,
-    onetv,
     peertube,
-    pippa,
     podcloud,
     radio,
     radioline,

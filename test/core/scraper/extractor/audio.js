@@ -19,7 +19,7 @@ describe("scraper/extractor/audio", function () {
             const url = "https://utvarpsaga.is/" +
                              "snjallsimarnir-eru-farnir-ad-stjorna-lifi-folks/";
             const expected = "https://www.utvarpsaga.is/file/" +
-                                           "s%C3%AD%C3%B0degi-a-7.9.18.mp3?_=1";
+                                                     "síðdegi-a-7.9.18.mp3?_=1";
 
             const response = await fetch(url);
             const text = await response.text();

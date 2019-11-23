@@ -13,7 +13,10 @@ export const fetch = (input, init = {}) => {
                 if (err) {
                     resolve(nodeFetch(input, init));
                 } else {
-                    resolve({ "text": () => data });
+                    resolve({
+                        "headers": { "get": () => "text/html" },
+                        "text":    () => data
+                    });
                 }
             });
         });

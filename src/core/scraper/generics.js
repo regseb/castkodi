@@ -2,16 +2,17 @@
  * @module
  */
 
-import { action as audio }  from "./extractor/audio.js";
-import { action as video }  from "./extractor/video.js";
-import { action as ldjson } from "./extractor/ldjson.js";
+import { action as audio }     from "./extractor/audio.js";
+import { action as video }     from "./extractor/video.js";
+import { action as ldjson }    from "./extractor/ldjson.js";
+import { action as opengraph } from "./extractor/opengraph.js";
 
 /**
  * La liste des extracteurs.
  *
  * @constant {Array.<Function>}
  */
-const extractors = [video, audio, ldjson];
+const extractors = [video, audio, ldjson, opengraph];
 
 /**
  * Les règles avec les patrons et leur action.
