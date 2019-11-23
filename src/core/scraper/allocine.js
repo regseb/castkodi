@@ -18,7 +18,9 @@ export const rules = new Map();
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
  *                    <code>null</code>.
  */
-rules.set(["http://www.allocine.fr/*"], async function ({ href }) {
+rules.set([
+    "http://www.allocine.fr/*", "http://rss.allocine.fr/*"
+], async function ({ href }) {
     const response = await fetch(href);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");

@@ -58,4 +58,22 @@ describe("scraper/allocine", function () {
             assert.strictEqual(file, expected);
         });
     });
+
+    describe("http://rss.allocine.fr/*", function () {
+        let action;
+        before(function () {
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return video URL", async function () {
+            const url = "http://rss.allocine.fr/~r/ac/actualites/cine/~3" +
+                         "/JT3DmCdQCdQ/fichearticle_gen_carticle=18685966.html";
+            const expected = "http://fr.vid.web.acsta.net/nmedia/33/19/11/22" +
+                                                     "/16//19586672_hd_013.mp4";
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+    });
 });
