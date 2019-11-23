@@ -74,6 +74,32 @@ describe("scraper/twitch", function () {
         });
     });
 
+    describe("*://clips.twitch.tv/embed*", function () {
+        let action;
+        before(function () {
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not a clip", async function () {
+            const url = "https://clips.twitch.tv/embed?noclip=Awesome";
+            const expected = null;
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+
+        it("should return clip name", async function () {
+            const url = "https://clips.twitch.tv/embed" +
+                                    "?clip=IncredulousAbstemiousFennelImGlitch";
+            const expected = "plugin://plugin.video.twitch/?mode=play" +
+                                    "&slug=IncredulousAbstemiousFennelImGlitch";
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+    });
+
     describe("*://clips.twitch.tv/*", function () {
         let action;
         before(function () {
@@ -166,11 +192,63 @@ describe("scraper/twitch", function () {
         });
     });
 
+    describe("*://player.twitch.tv/*", function () {
+        let action;
+        before(function () {
+            action = [...rules.entries()]
+                          .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's not channel or video",
+                                                             async function () {
+            const url = "https://player.twitch.tv/?other=foobar";
+            const expected = null;
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+
+        it("should return channel name", async function () {
+            const url = "https://player.twitch.tv/?channel=canardpc&muted=true";
+            const expected = "plugin://plugin.video.twitch/?mode=play" +
+                                                       "&channel_name=canardpc";
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+
+        it("should return video id", async function () {
+            const url = "https://player.twitch.tv/?video=474384559" +
+                                                 "&autoplay=false";
+            const expected = "plugin://plugin.video.twitch/?mode=play" +
+                                                          "&video_id=474384559";
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+    });
+
     describe("*://www.twitch.tv/*", function () {
         let action;
         before(function () {
             action = [...rules.entries()]
                           .find(([r]) => r.includes(this.test.parent.title))[1];
+        });
+
+        it("should return null when it's embed", async function () {
+            const url = "https://www.twitch.tv/embed/lestream/chat";
+            const expected = null;
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+
+        it("should return null when it's subs", async function () {
+            const url = "https://www.twitch.tv/subs/lestream";
+            const expected = null;
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
         });
 
         it("should return channel name", async function () {

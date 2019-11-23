@@ -35,6 +35,22 @@ rules.set([
  * Extrait les informations nécessaire pour lire un clip sur Kodi.
  *
  * @function action
+ * @param {URL}             url              L'URL d'un clip Twitch intégré.
+ * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
+ */
+rules.set(["*://clips.twitch.tv/embed*"], async function ({ searchParams }) {
+    if (searchParams.has("clip")) {
+        return PLUGIN_URL + "&slug=" + searchParams.get("clip");
+    }
+    return null;
+});
+
+/**
+ * Extrait les informations nécessaire pour lire un clip sur Kodi.
+ *
+ * @function action
  * @param {URL}    url          L'URL d'un clip Twitch.
  * @param {string} url.pathname Le chemin de l'URL.
  * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
@@ -60,6 +76,26 @@ rules.set([
 });
 
 /**
+ * Extrait les informations nécessaire pour lire un clip sur Kodi.
+ *
+ * @function action
+ * @param {URL}             url              L'URL d'un <em>live</em> ou d'une
+ *                                           vidéo intégré.
+ * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
+ * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
+ *                    <code>null</code>.
+ */
+rules.set(["*://player.twitch.tv/*"], async function ({ searchParams }) {
+    if (searchParams.has("channel")) {
+        return PLUGIN_URL + "&channel_name=" + searchParams.get("channel");
+    }
+    if (searchParams.has("video")) {
+        return PLUGIN_URL + "&video_id=" + searchParams.get("video");
+    }
+    return null;
+});
+
+/**
  * Extrait les informations nécessaire pour lire un <em>live</em> sur Kodi.
  *
  * @function action
@@ -70,5 +106,8 @@ rules.set([
 rules.set([
     "*://www.twitch.tv/*", "*://go.twitch.tv/*", "*://m.twitch.tv/*"
 ], async function ({ pathname }) {
+    if (pathname.startsWith("/embed/") || pathname.startsWith("/subs/")) {
+        return null;
+    }
     return PLUGIN_URL + "&channel_name=" + pathname.slice(1);
 });
