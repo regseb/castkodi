@@ -9,7 +9,7 @@ import { JSONRPC } from "../core/jsonrpc.js";
  *
  * @function ask
  * @param {HTMLInputElement} input La case à cocher.
- * @returns {Promise} Une promesse contenant l'état de la permission.
+ * @returns {Promise.<boolean>} Une promesse contenant l'état de la permission.
  */
 const ask = async function (input) {
     if (!("permissions" in input.dataset)) {

@@ -30,8 +30,8 @@ export const rules = new Map();
  * @param {URL}    url          L'URL d'un son SoundCloud.
  * @param {string} url.pathname Le chemin de l'URL.
  * @param {string} url.href     Le lien de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://soundcloud.com/*/*", "*://mobi.soundcloud.com/*/*"

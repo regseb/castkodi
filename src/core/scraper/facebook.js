@@ -23,8 +23,8 @@ export const rules = new Map();
  * @param {URL}             url              L'URL d'une vidéo Facebook.
  * @param {string}          url.pathname     Le chemin de l'URL.
  * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://*.facebook.com/*/videos/*/*", "*://*.facebook.com/watch*"

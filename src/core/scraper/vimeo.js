@@ -22,8 +22,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url          L'URL d'une vidéo Vimeo.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://vimeo.com/*"], async function ({ pathname }) {
     return (/^\/\d+$/u).test(pathname) ? PLUGIN_URL + pathname.slice(1)
@@ -36,8 +36,8 @@ rules.set(["*://vimeo.com/*"], async function ({ pathname }) {
  * @function action
  * @param {URL}    url          L'URL d'une vidéo Vimeo intégrée.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://player.vimeo.com/video/*"], async function ({ pathname }) {
     return (/^\/video\/\d+$/u).test(pathname) ? PLUGIN_URL + pathname.slice(7)

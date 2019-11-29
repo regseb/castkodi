@@ -15,7 +15,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url      L'URL du <em>live</em> de KCAA Radio.
  * @param {string} url.href Le lien de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
+ * @returns {Promise.<string>} Une promesse contenant le lien du
+ *                             <em>fichier</em>.
  */
 rules.set(["http://live.kcaastreaming.com/"], async function ({ href }) {
     const response = await fetch(href);

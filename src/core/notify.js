@@ -7,7 +7,7 @@
  *
  * @function notify
  * @param {object} err L'erreur affichée dans la notification.
- * @returns {Promise} Une promesse rejetée contenant l'erreur.
+ * @returns {Promise.<void>} Une promesse rejetée contenant l'erreur.
  */
 export const notify = function (err) {
     browser.notifications.create(null, {

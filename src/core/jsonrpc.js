@@ -16,8 +16,8 @@ export const JSONRPC = class {
      *
      * @function check
      * @param {string} host L'URL du serveur JSON-RPC de Kodi.
-     * @returns {Promise} Une promesse tenue si l'API est accessible ; sinon une
-     *                    promesse rompue.
+     * @returns {Promise.<object>} Une promesse tenue si l'API est accessible ;
+     *                             sinon une promesse rompue.
      */
     static async check(host) {
         const jsonrpc = new JSONRPC(host);
@@ -114,7 +114,7 @@ export const JSONRPC = class {
      * @function request
      * @param {string} method      La méthode de l'API appelée.
      * @param {object} [params={}] Les paramètres de la méthode.
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     async request(method, params = {}) {
         if (null === this.client) {
@@ -179,7 +179,7 @@ export const JSONRPC = class {
      *
      * @function add
      * @param {string} file L'URL envoyée à Kodi.
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     add(file) {
         return this.request("Playlist.Add", {
@@ -193,7 +193,7 @@ export const JSONRPC = class {
      *
      * @function send
      * @param {string} file L'URL envoyée à Kodi.
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     async send(file) {
         // Vider la liste de lecture, ajouter le nouveau média et lancer la
@@ -208,7 +208,7 @@ export const JSONRPC = class {
      *
      * @function insert
      * @param {string} file L'URL envoyée à Kodi.
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     async insert(file) {
         const properties = await this.request("Player.GetProperties", {
@@ -226,7 +226,7 @@ export const JSONRPC = class {
      * Passe au précédent média dans la liste de lecture.
      *
      * @function previous
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     previous() {
         return this.request("Player.GoTo", { "playerid": 1, "to": "previous" });
@@ -236,7 +236,7 @@ export const JSONRPC = class {
      * Arrête la lecture.
      *
      * @function stop
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     stop() {
         return this.request("Player.Stop", { "playerid": 1 });
@@ -246,7 +246,7 @@ export const JSONRPC = class {
      * Démarre la lecture.
      *
      * @function open
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     open() {
         return this.request("Player.Open", { "item": { "playlistid": 1 } });
@@ -256,7 +256,7 @@ export const JSONRPC = class {
      * Lance ou mets en pause la lecture.
      *
      * @function playPause
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     playPause() {
         return this.request("Player.PlayPause", { "playerid": 1 });
@@ -267,7 +267,7 @@ export const JSONRPC = class {
      *
      * @function seek
      * @param {number} time La nouvelle position.
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     seek(time) {
         return this.request("Player.Seek", {
@@ -287,7 +287,7 @@ export const JSONRPC = class {
      * Passe au prochain média dans la liste de lecture.
      *
      * @function next
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     next() {
         return this.request("Player.GoTo", { "playerid": 1, "to": "next" });
@@ -298,7 +298,7 @@ export const JSONRPC = class {
      *
      * @function setSpeed
      * @param {number} speed La nouvelle vitesse.
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     setSpeed(speed) {
         return this.request("Player.SetSpeed", { "playerid": 1, speed });
@@ -310,7 +310,7 @@ export const JSONRPC = class {
      * @function setMute
      * @param {boolean} mute <code>true</code> pour couper le son ; sinon
      *                       <code>false</code>.
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     setMute(mute) {
         return this.request("Application.SetMute", { mute });
@@ -322,7 +322,7 @@ export const JSONRPC = class {
      * @function setVolume
      * @param {number} volume Le nouveau volume (entre <code>0</code> et
      *                        <code>100</code>).
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     setVolume(volume) {
         return Promise.all([
@@ -335,7 +335,7 @@ export const JSONRPC = class {
      * Répète la liste de lecture.
      *
      * @function setRepeat
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     setRepeat() {
         return this.request("Player.SetRepeat", {
@@ -350,7 +350,7 @@ export const JSONRPC = class {
      * @function setShuffle
      * @param {boolean} shuffle <code>true</<code> pour mélanger la liste de
      *                          lecture ; sinon <code>false</code>.
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     setShuffle(shuffle) {
         return this.request("Player.SetShuffle", { "playerid": 1, shuffle });
@@ -360,7 +360,7 @@ export const JSONRPC = class {
      * Vide la liste de lecture.
      *
      * @function clear
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     clear() {
         return this.request("Playlist.Clear", { "playlistid": 1 });
@@ -370,7 +370,7 @@ export const JSONRPC = class {
      * Affiche le menu contextuel.
      *
      * @function contextMenu
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     contextMenu() {
         return this.request("Input.ContextMenu");
@@ -380,7 +380,7 @@ export const JSONRPC = class {
      * Navigue vers le haut dans l'interface.
      *
      * @function up
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     up() {
         return this.request("Input.Up");
@@ -390,7 +390,7 @@ export const JSONRPC = class {
      * Affiche les informations.
      *
      * @function info
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     info() {
         return this.request("Input.Info");
@@ -400,7 +400,7 @@ export const JSONRPC = class {
      * Navigue vers la gauche dans l'interface.
      *
      * @function left
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     left() {
         return this.request("Input.Left");
@@ -410,7 +410,7 @@ export const JSONRPC = class {
      * Sélectionne l'élément courant.
      *
      * @function select
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     select() {
         return this.request("Input.Select");
@@ -420,7 +420,7 @@ export const JSONRPC = class {
      * Navigue vers la droite dans l'interface.
      *
      * @function right
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     right() {
         return this.request("Input.Right");
@@ -430,7 +430,7 @@ export const JSONRPC = class {
      * Retourne en arrière dans l'interface.
      *
      * @function back
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     back() {
         return this.request("Input.Back");
@@ -440,7 +440,7 @@ export const JSONRPC = class {
      * Navigue vers le bas dans l'interface.
      *
      * @function down
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     down() {
         return this.request("Input.Down");
@@ -451,7 +451,7 @@ export const JSONRPC = class {
      * lecteur courant.
      *
      * @function showOSD
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     showOSD() {
         return this.request("Input.ShowOSD");
@@ -461,7 +461,7 @@ export const JSONRPC = class {
      * Passe (ou quitte) en plein écran.
      *
      * @function setFullscreen
-     * @returns {Promise} La réponse de Kodi.
+     * @returns {Promise.<object>} La réponse de Kodi.
      */
     setFullscreen() {
         return this.request("GUI.SetFullscreen", { "fullscreen": "toggle" });
@@ -471,7 +471,7 @@ export const JSONRPC = class {
      * Récupère la version du protocol JSON-RPC.
      *
      * @function version
-     * @returns {Promise} La version du protocol.
+     * @returns {Promise.<object>} La version du protocol.
      */
     version() {
         return this.request("JSONRPC.Version");
@@ -481,7 +481,7 @@ export const JSONRPC = class {
      * Récupère les propriétés de Kodi.
      *
      * @function getProperties
-     * @returns {Promise} Les valeurs des propriétés.
+     * @returns {Promise.<object>} Les valeurs des propriétés.
      */
     async getProperties() {
         const application = await this.request("Application.GetProperties", {

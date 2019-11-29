@@ -22,7 +22,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url          L'URL d'une vidéo DevTube.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
+ * @returns {Promise.<string>} Une promesse contenant le lien du
+ *                             <em>fichier</em>.
  */
 rules.set(["*://dev.tube/video/*"], async function ({ pathname }) {
     return PLUGIN_URL + pathname.slice(7);

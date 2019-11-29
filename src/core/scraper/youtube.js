@@ -23,8 +23,8 @@ export const rules = new Map();
  * @param {URL}             url              L'URL d'une vidéo / playlist
  *                                           YouTube (ou Invidious / HookTube).
  * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://*.youtube.com/watch*", "*://invidio.us/watch*",
@@ -49,8 +49,8 @@ rules.set([
  * @function action
  * @param {URL}             url              L'URL d'une playlist YouTube.
  * @param {URLSearchParams} url.searchParams Les paramètres de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://*.youtube.com/playlist*"], async function ({ searchParams }) {
     return searchParams.has("list")
@@ -65,7 +65,8 @@ rules.set(["*://*.youtube.com/playlist*"], async function ({ searchParams }) {
  * @param {URL}    url          L'URL d'une vidéo YouTube intégrée (ou Invidious
  *                              / HookTube).
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
+ * @returns {Promise.<string>} Une promesse contenant le lien du
+ *                             <em>fichier</em>.
  */
 rules.set([
     "*://www.youtube.com/embed/*", "*://www.youtube-nocookie.com/embed/*",
@@ -80,7 +81,8 @@ rules.set([
  * @function action
  * @param {URL}    url          L'URL minifiée d'une vidéo YouTube.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
+ * @returns {Promise.<string>} Une promesse contenant le lien du
+ *                             <em>fichier</em>.
  */
 rules.set(["*://youtu.be/*"], async function ({ pathname }) {
     return PLUGIN_URL + "?video_id=" + pathname.slice(1);

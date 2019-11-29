@@ -22,8 +22,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url      L'URL d'une musique Radioline.
  * @param {string} url.hash Le hash de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://*.radioline.co/*"], async function ({ hash }) {
     // Si l'URL n'a pas de hash.

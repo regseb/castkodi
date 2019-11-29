@@ -41,8 +41,9 @@ export const mux = function (urls) {
  *
  * @function dispatch
  * @param {string} url L'URL d'une page Internet.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code> si aucun scraper ne gère cette URL.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code> si aucun
+ *                              scraper ne gère cette URL.
  */
 export const dispatch = async function (url) {
     for (const scraper of scrapers.filter((s) => s.pattern.test(url))) {
@@ -60,8 +61,9 @@ export const dispatch = async function (url) {
  *
  * @function rummage
  * @param {string} url L'URL d'une page Internet.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    l'URL de la page Internet si aucun élément n'est présent.
+ * @returns {Promise.<string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou le lien de la page Internet
+ *                             si aucun élément n'est présent.
  */
 export const rummage = async function (url) {
     const response = await fetch(url);
@@ -91,7 +93,8 @@ export const rummage = async function (url) {
  *
  * @function extract
  * @param {string} url L'URL d'une page Internet.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em>.
+ * @returns {Promise.<string>} Une promesse contenant le lien du
+ *                             <em>fichier</em>.
  */
 export const extract = async function (url) {
     const file = await dispatch(url);
@@ -106,7 +109,7 @@ export const extract = async function (url) {
  * @param {string}         action L'action à effectuer (<code>"send"</code>,
  *                                <code>"insert"</code> ou <code>"add"</code>).
  * @param {Array.<string>} urls   La liste des éventuelles URLs.
- * @returns {Promise} Une promesse tenue ou rejetée.
+ * @returns {Promise.<void>} Une promesse tenue ou rejetée.
  */
 export const cast = async function (action, urls) {
     const url = mux(urls);

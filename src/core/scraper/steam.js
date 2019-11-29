@@ -15,8 +15,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url      L'URL d'un jeu Steam.
  * @param {string} url.href Le lien de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://store.steampowered.com/app/*"], async function ({ href }) {
     const response = await fetch(href);
@@ -34,8 +34,8 @@ rules.set(["*://store.steampowered.com/app/*"], async function ({ href }) {
  * @function action
  * @param {URL}    url          L'URL d'une diffusion Steam.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://steamcommunity.com/broadcast/watch/*"

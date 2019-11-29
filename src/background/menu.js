@@ -9,7 +9,8 @@ import { cast }   from "../core/index.js";
  *
  * @function aggregate
  * @param {object} info Les informations fournies par le menu contextuel.
- * @returns {Promise} Une promesse contenant les liens récupérés.
+ * @returns {Promise.<Array.<string>>} Une promesse contenant les liens
+ *                                     récupérés.
  */
 const aggregate = async function (info) {
     if ("bookmarkId" in info) {

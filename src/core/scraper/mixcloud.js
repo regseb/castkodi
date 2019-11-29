@@ -22,8 +22,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url          L'URL d'une musique Mixcloud.
  * @param {string} url.pathname Le chemin de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set(["*://www.mixcloud.com/*/*/"], async function ({ pathname }) {
     return pathname.startsWith("/discover/")

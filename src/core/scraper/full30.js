@@ -15,8 +15,8 @@ export const rules = new Map();
  * @function action
  * @param {URL}    url      L'URL d'une vidéo Full30.
  * @param {string} url.href Le lien de l'URL.
- * @returns {Promise} Une promesse contenant le lien du <em>fichier</em> ou
- *                    <code>null</code>.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                              <em>fichier</em> ou <code>null</code>.
  */
 rules.set([
     "*://www.full30.com/watch/*", "*://www.full30.com/video/*"

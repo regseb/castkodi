@@ -73,8 +73,9 @@ export const compile = function (pattern) {
 /**
  * Normalise un scraper.
  *
- * @param {Map} scraper Le scraper (avec ses modèles de correspondance et ses
- *                      actions).
+ * @param {Map.<Array.<string>, Function>} scraper Le scraper (avec ses modèles
+ *                                                 de correspondance et ses
+ *                                                 actions).
  * @returns {Array.<object>} Les patrons URLs gérées ainsi que leur action.
  */
 export const normalize = function (scraper) {
