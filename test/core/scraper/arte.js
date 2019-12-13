@@ -21,12 +21,21 @@ describe("scraper/arte", function () {
                           .find(([r]) => r.includes(this.test.parent.title))[1];
         });
 
-        it("should return french video URL", async function () {
+        it("should return null when video is unavailable", async function () {
             const url = "https://www.arte.tv/fr/videos/067125-020-A" +
                                                               "/bits-top-list/";
+            const expected = null;
+
+            const file = await action(new URL(url));
+            assert.strictEqual(file, expected);
+        });
+
+        it("should return french video URL", async function () {
+            const url = "https://www.arte.tv/fr/videos/069798-000-A" +
+                                                             "/revolution-vhs/";
             const expected = "https://arteptweb-a.akamaihd.net/am/ptweb" +
-                                        "/067000/067100/067125-020-A_SQ_2_VOF" +
-                                             "_02626371_MP4-2200_AMM-PTWEB.mp4";
+                                    "/069000/069700/069798-000-A_SQ_0_VOF-STF" +
+                                 "_04670905_MP4-2200_AMM-PTWEB_1FpKT1ELGYC.mp4";
 
             const file = await action(new URL(url));
             assert.strictEqual(file, expected);

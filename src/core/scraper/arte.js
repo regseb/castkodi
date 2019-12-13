@@ -30,10 +30,11 @@ rules.set(["*://www.arte.tv/*/videos/*/*"], async function ({ pathname }) {
     const response = await fetch(`${API_URL}/${lang}/${id}`);
     const json = await response.json();
 
-    return Object.values(json.videoJsonPlayer.VSR)
-                 // Garder les vidéos dans la langue courante.
-                 .filter((f) => f.id.endsWith("_1"))
-                 // Sélectionner la vidéo avec la définition la plus grande.
-                 .reduce((b, f) => (b.height < f.height ? f : b))
-                 .url;
+    const files = Object.values(json.videoJsonPlayer.VSR)
+                        // Garder les vidéos dans la langue courante.
+                        .filter((f) => f.id.endsWith("_1"));
+    return 0 === files.length
+                         ? null
+                         : files.reduce((b, f) => (b.height < f.height ? f : b))
+                                .url;
 });
