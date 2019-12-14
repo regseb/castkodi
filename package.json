@@ -1,6 +1,6 @@
 {
     "name": "castkodi",
-    "version": "4.8.0",
+    "version": "4.9.0",
     "description": "WebExtension pour diffuser des vidéos / musiques sur Kodi.",
     "keyword": [
         "cast",
@@ -22,6 +22,7 @@
         "type": "git",
         "url": "https://github.com/regseb/castkodi.git"
     },
+    "funding": "https://www.paypal.me/sebastienregne",
     "scripts": {
         "lint": "metalint",
         "test": "nyc --require esm mocha test/",

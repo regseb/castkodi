@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.9.0](https://github.com/regseb/castkodi/compare/v4.8.0...v4.9.0) (2019-12-14)
+
+
+### Features
+
+* Ajouter le support des métas Open Graph. ([2a303ea](https://github.com/regseb/castkodi/commit/2a303eabbfd7c745b7931b2316b969cfcf0ab22f))
+* Ajouter le support du flux RSS d'AlloCiné. ([f35d501](https://github.com/regseb/castkodi/commit/f35d50198b164bf5183e22a1257a2fe957f70cdc))
+* Gérer les éléments intégrés de Twitch. ([89dab05](https://github.com/regseb/castkodi/commit/89dab056bfd379af5e9758eb67ad184a2d2cad4f))
+
+
+### Bug Fixes
+
+* Extraire la vidéo des micro-données pour TikTok. ([d423ee9](https://github.com/regseb/castkodi/commit/d423ee90b95eeb0b73798f981f2276a6160af654))
+* Gérer les vidéos indisponibles de Arte. ([46cda59](https://github.com/regseb/castkodi/commit/46cda59381a831d3ec1d3e9cc61e8fb929a3c073))
+
 ## [4.8.0](https://github.com/regseb/castkodi/compare/v4.7.0...v4.8.0) (2019-11-10)
 
 
