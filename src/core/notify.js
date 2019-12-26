@@ -5,7 +5,7 @@
 /**
  * Notifie l'utilisateur d'un message d'erreur.
  *
- * @function notify
+ * @function
  * @param {object} err L'erreur affichée dans la notification.
  * @returns {Promise.<void>} Une promesse rejetée contenant l'erreur.
  */

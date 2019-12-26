@@ -1,31 +1,25 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
+
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
- * L'URL du répertoire où sont les sons de Arte Radio.
+ * L'URL de l'API de Arte.
  *
  * @constant {string}
  */
 const API_URL = "https://api.arte.tv/api/player/v1/config";
 
 /**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
-
-/**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url          L'URL d'une vidéo Arte.
- * @param {string} url.pathname Le chemin de l'URL.
- * @returns {Promise.<string>} Une promesse contenant le lien du
- *                             <em>fichier</em>.
+ * @param {URL} url L'URL d'une vidéo Arte.
+ * @returns {Promise.<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
-rules.set(["*://www.arte.tv/*/videos/*/*"], async function ({ pathname }) {
+const action = async function ({ pathname }) {
     const [, lang, , id] = pathname.split("/");
     const response = await fetch(`${API_URL}/${lang}/${id}`);
     const json = await response.json();
@@ -37,4 +31,6 @@ rules.set(["*://www.arte.tv/*/videos/*/*"], async function ({ pathname }) {
                          ? null
                          : files.reduce((b, f) => (b.height < f.height ? f : b))
                                 .url;
-});
+};
+export const extract = matchPattern(action,
+    "*://www.arte.tv/*/videos/*/*");

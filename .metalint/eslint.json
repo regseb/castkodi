@@ -6,6 +6,10 @@
         "sourceType": "module"
     },
 
+    "globals": {
+        "globalThis": "readonly"
+    },
+
     "rules": {
         "for-direction": 2,
         "getter-return": 2,
@@ -130,7 +134,7 @@
         "prefer-promise-reject-errors": 2,
         "prefer-regex-literals": 2,
         "radix": 2,
-        "require-await": 0,
+        "require-await": 2,
         "require-unicode-regexp": 2,
         "vars-on-top": 0,
         "wrap-iife": 0,
@@ -371,7 +375,7 @@
         "jsdoc/match-description": [2, { "matchDescription": "[A-Z].*" }],
         "jsdoc/newline-after-description": 2,
         "jsdoc/no-types": 0,
-        "jsdoc/no-undefined-types": 2,
+        "jsdoc/no-undefined-types": [2, { "definedTypes": ["Timeout"] }],
         "jsdoc/require-description": 0,
         "jsdoc/require-description-complete-sentence": 0,
         "jsdoc/require-example": 0,
@@ -454,6 +458,10 @@
 
     "settings": {
         "jsdoc": {
+            "preferredTypes": {
+                "[]": "Array.<>",
+                "<>": ".<>"
+            },
             "tagNamePreference": {
                 "virtual": "abstract",
                 "extends": "augments",

@@ -1,6 +1,9 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
+
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * L'URL de l'extension pour lire des vidéos issues de Dailymotion.
@@ -10,49 +13,39 @@
 const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
 
 /**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
-
-/**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url          L'URL d'une vidéo Dailymotion.
- * @param {string} url.pathname Le chemin de l'URL.
+ * @param {URL} url L'URL d'une vidéo Dailymotion.
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-rules.set(["*://www.dailymotion.com/video/*"], async function ({ pathname }) {
+const actionVideo = async function ({ pathname }) {
     return PLUGIN_URL + pathname.slice(7);
-});
+};
+export const extractVideo = matchPattern(actionVideo,
+    "*://www.dailymotion.com/video/*");
 
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url          L'URL minifiée d'une vidéo Dailymotion.
- * @param {string} url.pathname Le chemin de l'URL.
+ * @param {URL} url L'URL minifiée d'une vidéo Dailymotion.
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-rules.set(["*://dai.ly/*"], async function ({ pathname }) {
+const actionMinify = async function ({ pathname }) {
     return PLUGIN_URL + pathname.slice(1);
-});
+};
+export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
 
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url          L'URL d'une vidéo Dailymotion intégrée.
- * @param {string} url.pathname Le chemin de l'URL.
+ * @param {URL} url L'URL d'une vidéo Dailymotion intégrée.
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-rules.set([
-    "*://www.dailymotion.com/embed/video/*"
-], async function ({ pathname }) {
+const actionEmbed = async function ({ pathname }) {
     return PLUGIN_URL + pathname.slice(13);
-});
+};
+export const extractEmbed = matchPattern(actionEmbed,
+    "*://www.dailymotion.com/embed/video/*");

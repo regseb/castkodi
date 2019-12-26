@@ -1,6 +1,9 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
+
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * L'URL du l'API de Mixer pour obtenir des informations sur une chaine.
@@ -10,22 +13,13 @@
 const API_URL = "https://mixer.com/api/v1/channels/";
 
 /**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
-
-/**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url          L'URL d'une chaine Mixer.
- * @param {string} url.pathname Le chemin de l'URL.
+ * @param {URL} url L'URL d'une chaine Mixer.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-rules.set(["*://mixer.com/*"], async function ({ pathname }) {
+const action = async function ({ pathname }) {
     let name;
     if (-1 === pathname.indexOf("/", 1)) {
         name = pathname.slice(1);
@@ -41,4 +35,5 @@ rules.set(["*://mixer.com/*"], async function ({ pathname }) {
         return API_URL + json.id + "/manifest.m3u8";
     }
     return null;
-});
+};
+export const extract = matchPattern(action, "*://mixer.com/*");

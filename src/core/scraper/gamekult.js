@@ -1,6 +1,9 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
+
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * L'URL de l'extension pour lire des vidéos issues de Dailymotion.
@@ -10,29 +13,18 @@
 const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
 
 /**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
-
-/**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url      L'URL d'une page de Gamekult.
- * @param {string} url.href Le lien de l'URL.
+ * @param {URL}          _url L'URL d'une page de Gamekult.
+ * @param {HTMLDocument} doc  Le contenu HTML de la page.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-rules.set([
-    "*://www.gamekult.com/*", "*://gamekult.com/*"
-], async function ({ href }) {
-    const response = await fetch(href);
-    const text = await response.text();
-    const doc = new DOMParser().parseFromString(text, "text/html");
-
+const action = async function (_url, doc) {
     const video = doc.querySelector(".js-dailymotion-video[data-id]");
     return null === video ? null
                           : PLUGIN_URL + video.dataset.id;
-});
+};
+export const extract = matchPattern(action,
+    "*://www.gamekult.com/*",
+    "*://gamekult.com/*");

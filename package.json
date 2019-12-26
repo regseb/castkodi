@@ -25,7 +25,9 @@
     "funding": "https://www.paypal.me/sebastienregne",
     "scripts": {
         "lint": "metalint",
-        "test": "nyc --require esm mocha test/",
+        "test": "npm run test:unit && npm run test:integration",
+        "test:unit": "nyc --require esm mocha test/unit/",
+        "test:integration": "mocha --require esm test/integration",
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "coverage:html": "nyc report --reporter=html",
         "jsdocs": "jsdoc -r -d jsdocs/ src/",

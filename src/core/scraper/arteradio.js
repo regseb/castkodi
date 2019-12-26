@@ -1,6 +1,9 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
+
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * L'URL du répertoire où sont les sons de Arte Radio.
@@ -11,26 +14,16 @@ const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
                                                          "/default/files/sons/";
 
 /**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
-
-/**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
- * @function action
- * @param {URL}    url      L'URL d'un son Arte Radio.
- * @param {string} url.href Le lien de l'URL.
+ * @param {URL}          _url L'URL d'un son Arte Radio.
+ * @param {HTMLDocument} doc  Le contenu HTML de la page.
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-rules.set(["*://www.arteradio.com/son/*"], async function ({ href }) {
-    const response = await fetch(href);
-    const text = await response.text();
-    const doc = new DOMParser().parseFromString(text, "text/html");
-
+const action = async function (_url, doc) {
     return BASE_URL + doc.querySelector(".cover *[data-sound-href]")
                          .dataset.soundHref;
-});
+};
+export const extract = matchPattern(action,
+    "*://www.arteradio.com/son/*");

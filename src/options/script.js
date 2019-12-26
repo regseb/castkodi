@@ -7,7 +7,6 @@ import { JSONRPC } from "../core/jsonrpc.js";
 /**
  * Demande (ou enlève) une permission optionnelle.
  *
- * @function ask
  * @param {HTMLInputElement} input La case à cocher.
  * @returns {Promise.<boolean>} Une promesse contenant l'état de la permission.
  */
@@ -27,7 +26,6 @@ const ask = async function (input) {
 /**
  * Vérifie la connexion à Kodi.
  *
- * @function check
  * @param {HTMLInputElement} input Le champ de l'adresse IP.
  */
 const check = async function (input) {
@@ -68,7 +66,6 @@ const check = async function (input) {
 /**
  * Enregistre un paramètre.
  *
- * @function save
  * @this HTMLInputElement
  */
 const save = async function () {
@@ -127,6 +124,11 @@ const save = async function () {
     }
 };
 
+/**
+ * Enlève un serveur.
+ *
+ * @param {MouseEvent} event L'évènement du clic sur le bouton de la ligne.
+ */
 const remove = function (event) {
     const tbody = document.querySelector("tbody");
     // Enlever la ligne.
@@ -156,6 +158,11 @@ const remove = function (event) {
     return false;
 };
 
+/**
+ * Ajoute un serveur.
+ *
+ * @param {object} server Le serveur à ajouter.
+ */
 const add = function (server) {
     const index = document.querySelectorAll("tbody tr").length;
 

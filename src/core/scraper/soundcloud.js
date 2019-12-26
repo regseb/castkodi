@@ -1,6 +1,9 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
+
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * L'expression rationnelle pour extraire l'URL de la musique.
@@ -17,25 +20,13 @@ const URL_REGEXP = /api\.soundcloud\.com%2Ftracks%2F([^&]+)/iu;
 const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?track_id=";
 
 /**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
-
-/**
  * Extrait les informations nécessaire pour lire une musique sur Kodi.
  *
- * @function action
- * @param {URL}    url          L'URL d'un son SoundCloud.
- * @param {string} url.pathname Le chemin de l'URL.
- * @param {string} url.href     Le lien de l'URL.
+ * @param {URL} url L'URL d'un son SoundCloud.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-rules.set([
-    "*://soundcloud.com/*/*", "*://mobi.soundcloud.com/*/*"
-], async function ({ pathname, href }) {
+const action = async function ({ pathname, href }) {
     // Si le chemin contient plusieurs barres obliques.
     if (pathname.indexOf("/", 1) !== pathname.lastIndexOf("/"))  {
         return null;
@@ -48,4 +39,7 @@ rules.set([
     const result = URL_REGEXP.exec(text);
     return null === result ? null
                            : PLUGIN_URL + result[1];
-});
+};
+export const extract = matchPattern(action,
+    "*://soundcloud.com/*/*",
+    "*://mobi.soundcloud.com/*/*");

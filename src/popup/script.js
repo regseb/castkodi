@@ -668,8 +668,8 @@ for (const element of document.querySelectorAll("object")) {
     }
 }
 
-window.focus();
-window.addEventListener("keydown", (event) => {
+globalThis.focus();
+globalThis.addEventListener("keydown", (event) => {
     // Ignorer les entrées avec une touche de modification.
     if (event.altKey || event.ctrlKey || event.metaKey) {
         return;
@@ -714,7 +714,7 @@ window.addEventListener("keydown", (event) => {
     }
     event.preventDefault();
 });
-window.addEventListener("keyup", (event) => {
+globalThis.addEventListener("keyup", (event) => {
     // Désactiver l'actionnement des boutons avec la touche Espace.
     if (" " === event.key) {
         event.preventDefault();

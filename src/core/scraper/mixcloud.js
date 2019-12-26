@@ -1,6 +1,9 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
+
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * L'URL de l'extension pour lire des musiques issues de Mixcloud.
@@ -10,23 +13,15 @@
 const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
 
 /**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
-
-/**
  * Extrait les informations nécessaire pour lire une musique sur Kodi.
  *
- * @function action
- * @param {URL}    url          L'URL d'une musique Mixcloud.
- * @param {string} url.pathname Le chemin de l'URL.
+ * @param {URL} url L'URL d'une musique Mixcloud.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-rules.set(["*://www.mixcloud.com/*/*/"], async function ({ pathname }) {
+const action = async function ({ pathname }) {
     return pathname.startsWith("/discover/")
                                     ? null
                                     : PLUGIN_URL + encodeURIComponent(pathname);
-});
+};
+export const extract = matchPattern(action, "*://www.mixcloud.com/*/*/");

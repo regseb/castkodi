@@ -1,30 +1,19 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
 
-/**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url      L'URL d'une vidéo AlloCiné.
- * @param {string} url.href Le lien de l'URL.
+ * @param {URL}          url L'URL d'une vidéo AlloCiné.
+ * @param {HTMLDocument} doc Le contenu HTML de la page.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-rules.set([
-    "http://www.allocine.fr/*", "http://rss.allocine.fr/*"
-], async function ({ href }) {
-    const response = await fetch(href);
-    const text = await response.text();
-    const doc = new DOMParser().parseFromString(text, "text/html");
-
+const action = async function ({ href }, doc) {
     const figure = doc.querySelector("figure[data-model]");
     if (null === figure) {
         return null;
@@ -33,4 +22,7 @@ rules.set([
     const model = JSON.parse(figure.dataset.model);
     const source = Object.values(model.videos[0].sources).pop();
     return new URL(source, href).href;
-});
+};
+export const extract = matchPattern(action,
+    "http://www.allocine.fr/*",
+    "http://rss.allocine.fr/*");

@@ -7,7 +7,6 @@ import { cast }   from "../core/index.js";
 /**
  * Agrège les liens des différents points d'entrée.
  *
- * @function aggregate
  * @param {object} info Les informations fournies par le menu contextuel.
  * @returns {Promise.<Array.<string>>} Une promesse contenant les liens
  *                                     récupérés.
@@ -45,7 +44,6 @@ const click = async function (info) {
 /**
  * Ajoute les options dans les menus contextuels.
  *
- * @function menu
  * @param {object} changes Les paramètres modifiés dans la configuration.
  */
 const menu = async function (changes) {

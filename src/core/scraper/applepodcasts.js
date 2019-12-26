@@ -1,32 +1,22 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
 
-/**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
- * @function action
- * @param {URL}    url      L'URL d'un son Apple Podcasts.
- * @param {string} url.href Le lien de l'URL.
+ * @param {URL}          _url L'URL d'un son Apple Podcasts.
+ * @param {HTMLDocument} doc  Le contenu HTML de la page.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-rules.set([
-    "https://podcasts.apple.com/*/podcast/*/id*"
-], async function ({ href }) {
-    const response = await fetch(href);
-    const text = await response.text();
-    const doc = new DOMParser().parseFromString(text, "text/html");
-
+const action = async function (_url, doc) {
     const script = doc.querySelector("#shoebox-ember-data-store");
-    return null === script
-                  ? null
-                  : JSON.parse(script.textContent).data.attributes.assetUrl;
-});
+    return null === script ? null
+                           : JSON.parse(script.text).data.attributes.assetUrl;
+};
+export const extract = matchPattern(action,
+    "https://podcasts.apple.com/*/podcast/*/id*");

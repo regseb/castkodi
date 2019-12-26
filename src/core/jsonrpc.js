@@ -527,7 +527,6 @@ export const jsonrpc = new JSONRPC("");
 /**
  * Crée le client JSON-RPC pour contacter Kodi.
  *
- * @function change
  * @param {object} changes Les paramètres modifiés dans la configuration.
  */
 const change = async function (changes) {

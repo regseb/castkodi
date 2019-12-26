@@ -1,26 +1,18 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
 
-/**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url      L'URL d'une vidéo PeerTube.
- * @param {string} url.href Le lien de l'URL.
+ * @param {URL} url L'URL d'une vidéo PeerTube.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-rules.set([
-    "*://*/videos/watch/*", "*://*/videos/embed/*"
-], async function ({ href }) {
+const action = async function ({ href }) {
     const url = href.replace(/^http:/iu, "https:")
                     .replace("videos/watch", "api/v1/videos")
                     .replace("videos/embed", "api/v1/videos");
@@ -33,4 +25,7 @@ rules.set([
         // Si le site n'est pas une instance PeerTube, l'appel à l'API échoue.
         return null;
     }
-});
+};
+export const extract = matchPattern(action,
+    "*://*/videos/watch/*",
+    "*://*/videos/embed/*");

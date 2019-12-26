@@ -1,6 +1,9 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
+
+import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
  * L'expression rationnelle pour extraire la clé de l'API de Flickr.
@@ -15,31 +18,19 @@ const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "([^"]+)"/u;
  * @constant {string}
  */
 const API_URL = "https://api.flickr.com/services/rest" +
-                                   "?method=flickr.video.getStreamInfo" +
-                                   "&format=json" +
-                                   "&nojsoncallback=1";
-
-/**
- * Les règles avec les patrons et leur action.
- *
- * @constant {Map.<Array.<string>, Function>}
- */
-export const rules = new Map();
+                                          "?method=flickr.video.getStreamInfo" +
+                                          "&format=json" +
+                                          "&nojsoncallback=1";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @function action
- * @param {URL}    url      L'URL d'une vidéo Flickr.
- * @param {string} url.href Le lien de l'URL.
+ * @param {URL}          _url L'URL d'une vidéo Flickr.
+ * @param {HTMLDocument} doc  Le contenu HTML de la page.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-rules.set(["*://www.flickr.com/photos/*"], async function ({ href }) {
-    const response = await fetch(href);
-    const text = await response.text();
-    const doc = new DOMParser().parseFromString(text, "text/html");
-
+const action = async function (_url, doc) {
     const video = doc.querySelector("video");
     if (null === video) {
         return null;
@@ -49,8 +40,10 @@ rules.set(["*://www.flickr.com/photos/*"], async function ({ href }) {
     const photoId = parts[6];
     const secret  = parts[7];
     const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
-                          "&api_key=" + KEY_REGEXP.exec(text)[1];
+                          "&api_key=" +
+                          KEY_REGEXP.exec(doc.documentElement.innerHTML)[1];
     const subresponse = await fetch(url);
     const json = await subresponse.json();
-    return json.streams.stream.find((s) => "orig" === s.type)["_content"];
-});
+    return json.streams.stream[0]["_content"];
+};
+export const extract = matchPattern(action, "*://www.flickr.com/photos/*");
