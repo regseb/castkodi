@@ -40,5 +40,6 @@
     "proper-names": false,
     "no-alt-text": true,
     "code-block-style": { "style": "fenced" },
-    "single-trailing-newline": true
+    "single-trailing-newline": true,
+    "code-fence-style": { "style": "backtick" }
 }

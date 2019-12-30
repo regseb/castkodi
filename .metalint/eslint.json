@@ -440,6 +440,7 @@
         "unicorn/prefer-exponentiation-operator": 2,
         "unicorn/prefer-flat-map": 2,
         "unicorn/prefer-includes": 2,
+        "unicorn/prefer-modern-dom-apis": 2,
         "unicorn/prefer-negative-index": 2,
         "unicorn/prefer-node-append": 2,
         "unicorn/prefer-node-remove": 2,
