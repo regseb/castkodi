@@ -1,0 +1,54 @@
+name: CI
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '3 4 * * 5'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint files
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Run integration tests
+        run: COUNTRY=us npm run test:integration
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Generate coverage report
+        run: npm run coverage:lcov
+
+      - name: Send report to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
