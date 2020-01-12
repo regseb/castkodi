@@ -45,13 +45,13 @@ describe("Scraper: Steam", function () {
 
         const url = doc.querySelector("a").href;
         const expected = {
-            "start": "https://cache4-lhr1.steamcontent.com/broadcast/",
+            "start": /^https:\/\/[^.]+\.steamcontent\.com\/broadcast\//,
             "end":   ".broadcast.steamcontent.com:80"
         };
 
         const file = await extract(new URL(url), { "depth": 0 });
-        assert.ok(file.startsWith(expected.start),
-                  `"${file}".startsWith(expected.start) from ${url}`);
+        assert.ok(expected.start.test(file),
+                  `expected.start.test("${file}") from ${url}`);
         assert.ok(file.endsWith(expected.end),
                   `"${file}".endsWith(expected.end) from ${url}`);
     });
