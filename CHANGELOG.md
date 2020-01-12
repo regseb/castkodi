@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.10.0](https://github.com/regseb/castkodi/compare/v4.9.0...v4.10.0) (2020-01-12)
+
+
+### Features
+
+* Indiquer le support de Konbini. ([dfa94e2](https://github.com/regseb/castkodi/commit/dfa94e2b4fbbd6d6619bbc7a842ac2d5b18f1b39))
+* Indiquer le support de Melty. ([28c5708](https://github.com/regseb/castkodi/commit/28c570899f16a42e8e16f1366c96f207b78331b9))
+
 ## [4.9.0](https://github.com/regseb/castkodi/compare/v4.8.0...v4.9.0) (2019-12-14)
 
 
