@@ -26,6 +26,8 @@ import * as mycloudplayers from "./scraper/mycloudplayers.js";
 import * as onetv          from "./scraper/onetv.js";
 // eslint-disable-next-line import/no-cycle
 import * as opengraph      from "./scraper/opengraph.js";
+// eslint-disable-next-line import/no-cycle
+import * as ouestfrance    from "./scraper/ouestfrance.js";
 import * as peertube       from "./scraper/peertube.js";
 import * as podcloud       from "./scraper/podcloud.js";
 import * as radio          from "./scraper/radio.js";
@@ -66,6 +68,7 @@ const SCRAPERS = [
     mixer,
     mycloudplayers,
     onetv,
+    ouestfrance,
     peertube,
     podcloud,
     radio,
