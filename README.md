@@ -23,8 +23,8 @@ des vidéos et des musiques sur **Kodi** :
   - Allemagne : Arte ;
   - Belgique : VRT NU ;
   - États-Unis : KCAA Radio ;
-  - France : AlloCiné, Arte, Arte Radio, France Inter, Gamekult, JeuxVideoCom,
-    Konbini, Melty ;
+  - France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Gamekult,
+    JeuxVideoCom, Konbini, Melty ;
   - Islande : Útvarp Saga ;
   - Pays-Bas : Dumpert ;
   - Russie : Первый канал, Rutube, StormoTV.
