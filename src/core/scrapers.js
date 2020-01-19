@@ -35,6 +35,7 @@ import * as soundcloud     from "./scraper/soundcloud.js";
 import * as steam          from "./scraper/steam.js";
 import * as torrent        from "./scraper/torrent.js";
 import * as twitch         from "./scraper/twitch.js";
+import * as ultimedia      from "./scraper/ultimedia.js";
 import * as video          from "./scraper/video.js";
 import * as vimeo          from "./scraper/vimeo.js";
 import * as vrtnu          from "./scraper/vrtnu.js";
@@ -74,6 +75,7 @@ const SCRAPERS = [
     steam,
     torrent,
     twitch,
+    ultimedia,
     vimeo,
     vrtnu,
     youtube,
