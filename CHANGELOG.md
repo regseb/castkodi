@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.11.0](https://github.com/regseb/castkodi/compare/v4.10.0...v4.11.0) (2020-01-24)
+
+
+### Features
+
+* Ajouter le support de 20 Minutes. ([86dc5a3](https://github.com/regseb/castkodi/commit/86dc5a38338a1f5b08696b11db4dc4ed9bd3a447))
+* Ajouter le support de Ouest-France. ([2d91281](https://github.com/regseb/castkodi/commit/2d9128168dd84444f8a7e327cd9fe337ed787e47))
+* Ajouter le support de Overcast. ([2b415ab](https://github.com/regseb/castkodi/commit/2b415ab9d2fcbc722016c29c304a42234d5acb36))
+* Ajouter le support de Ultimedia. ([c43eab2](https://github.com/regseb/castkodi/commit/c43eab2ba7ffbe45ca9479990cc2f5ba10330993))
+
+
+### Bug Fixes
+
+* Enlever le support de Rutube. ([d3ce40b](https://github.com/regseb/castkodi/commit/d3ce40b59f6c0c9ca2d19b7c5424cdc73be328e7))
+
 ## [4.10.0](https://github.com/regseb/castkodi/compare/v4.9.0...v4.10.0) (2020-01-12)
 
 
