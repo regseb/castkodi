@@ -27,7 +27,7 @@ des vidéos et des musiques sur **Kodi** :
     JeuxVideoCom, Konbini, Melty, Ouest-France ;
   - Islande : Útvarp Saga ;
   - Pays-Bas : Dumpert ;
-  - Russie : Первый канал, Rutube, StormoTV.
+  - Russie : Первый канал, StormoTV.
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une
