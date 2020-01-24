@@ -188,7 +188,7 @@
         "eol-last": 2,
         "func-call-spacing": [2, "never"],
         "func-name-matching": [2, { "considerPropertyDescriptor": true }],
-        "func-names": 0,
+        "func-names": [2, "as-needed"],
         "func-style": 2,
         "function-call-argument-newline": [2, "consistent"],
         "function-paren-newline": [2, "consistent"],

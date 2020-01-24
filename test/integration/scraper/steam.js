@@ -45,7 +45,7 @@ describe("Scraper: Steam", function () {
 
         const url = doc.querySelector("a").href;
         const expected = {
-            "start": /^https:\/\/[^.]+\.steamcontent\.com\/broadcast\//,
+            "start": /^https:\/\/[^.]+\.steamcontent\.com\/broadcast\//u,
             "end":   ".broadcast.steamcontent.com:80"
         };
 

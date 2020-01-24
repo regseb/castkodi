@@ -723,7 +723,7 @@ globalThis.addEventListener("keyup", (event) => {
 
 interval = setInterval(passing, 1000);
 
-browser.storage.local.get().then(function (config) {
+browser.storage.local.get().then((config) => {
     if ("multi" === config["server-mode"]) {
         for (const input of document.querySelectorAll("select")) {
             config["server-list"].forEach((server, index) => {
