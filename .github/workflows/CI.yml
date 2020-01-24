@@ -32,6 +32,7 @@ jobs:
 
       - name: Run integration tests
         run: COUNTRY=us npm run test:integration
+        if: always()
 
   coverage:
     runs-on: ubuntu-latest
@@ -47,8 +48,10 @@ jobs:
 
       - name: Generate coverage report
         run: npm run coverage:lcov
+        if: always()
 
       - name: Send report to Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+        if: always()
