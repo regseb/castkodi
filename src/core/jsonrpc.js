@@ -516,34 +516,3 @@ export const JSONRPC = class {
         });
     }
 };
-
-/**
- * Le client JSON-RPC pour contacter Kodi.
- *
- * @type {object}
- */
-export const jsonrpc = new JSONRPC("");
-
-/**
- * Crée le client JSON-RPC pour contacter Kodi.
- *
- * @param {object} changes Les paramètres modifiés dans la configuration.
- */
-const change = async function (changes) {
-    // Ignorer tous les changements sauf ceux liés au serveur.
-    if (!Object.entries(changes).some(([k, v]) => k.startsWith("server-") &&
-                                                  "newValue" in v)) {
-        return;
-    }
-
-    const config = await browser.storage.local.get();
-    jsonrpc.close();
-    jsonrpc.host = config["server-list"][config["server-active"]].host;
-    jsonrpc.onChanged();
-};
-
-// Simuler un changement de configuration pour se connecter au bon serveur. Ce
-// bidouillage est utile quand ce fichier est chargé depuis les options ou la
-// popin (dans le background, cette migration qui change la configuration).
-change({ "server-": { "newValue": null } });
-browser.storage.onChanged.addListener(change);

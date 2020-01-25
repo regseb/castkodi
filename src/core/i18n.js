@@ -47,10 +47,9 @@ for (const element of walk()) {
                 element.textContent = value;
             } else {
                 for (const node of element.childNodes) {
-                    if ("#text" !== node.nodeName) {
-                        continue;
+                    if ("#text" === node.nodeName) {
+                        node.nodeValue = node.nodeValue.replace("{}", value);
                     }
-                    node.nodeValue = node.nodeValue.replace("{}", value);
                 }
             }
         } else {

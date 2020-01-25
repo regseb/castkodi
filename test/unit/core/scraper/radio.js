@@ -54,6 +54,7 @@ describe("core/scraper/radio.js", function () {
             const file = await extract(new URL(url), doc);
             assert.strictEqual(file, expected);
         });
+
         it("should return audio URL", async function () {
             const url = "https://www.radio.net/s/baz";
             const doc = new DOMParser().parseFromString(`

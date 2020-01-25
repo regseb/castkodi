@@ -38,7 +38,7 @@ export const compile = function (pattern) {
 };
 
 /**
- * Ajoute un filtre l'URL en paramètre.
+ * Ajoute un filtre sur l'URL en paramètre d'une fonction.
  *
  * @function
  * @param {Function}       func     La fonction qui sera filtrée.

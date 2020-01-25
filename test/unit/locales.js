@@ -1,6 +1,5 @@
 import assert from "assert";
-import fr     from "../../src/_locales/fr/messages.json";
-import en     from "../../src/_locales/en/messages.json";
+import fs from "fs";
 
 const compare = (messages1, messages2) => {
     for (const [name, message] of Object.entries(messages1)) {
@@ -32,6 +31,11 @@ const compare = (messages1, messages2) => {
 
 describe("_locales", function () {
     it("should have same messages", function () {
+        const fr = JSON.parse(fs.readFileSync("src/_locales/fr/messages.json",
+                                              "utf8"));
+        const en = JSON.parse(fs.readFileSync("src/_locales/en/messages.json",
+                                              "utf8"));
+
         compare(fr, en);
         compare(en, fr);
     });

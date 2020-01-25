@@ -14,7 +14,7 @@ export const fetch = (input, init = {}) => {
                 if (err) {
                     resolve(nodeFetch(input, init));
                 } else {
-                    resolve({ "json": () => JSON.parse(data) });
+                    resolve({ "json": () => JSON.parse(data.toString()) });
                 }
             });
         });

@@ -1,6 +1,11 @@
+import fs   from "fs";
+import path from "path";
+
+const I18NS = fs.readFileSync(path.join(__dirname,
+                                        "../../locales/en/messages.json"));
+
 const data = {
     "bookmarks": {},
-    "i18n":      {},
     "storage":   {
         "local": {
             "data":      {},
@@ -12,13 +17,24 @@ const data = {
 export const browser = {
     "bookmarks": {
         "get": (id) => {
-            return id in data.bookmarks ? Promise.resolve(data.bookmarks[id])
-                                        : Promise.reject(new Error());
+            return id in data.bookmarks
+                              ? Promise.resolve([data.bookmarks[id]])
+                              : Promise.reject(new Error("Bookmark not found"));
         }
     },
     "i18n": {
-        "getMessage": (key) => {
-            return data.i18n[key];
+        "getMessage": (key, substitutions) => {
+            if (!(key in I18NS)) {
+                return "";
+            }
+            if (!("placeholders" in I18NS[key])) {
+                return I18NS[key];
+            }
+            return Object.keys(I18NS[key].placeholders)
+                         .reduce((message, placeholder, index) => {
+                return message.replace("$" + placeholder + "$",
+                                       substitutions[index]);
+            }, I18NS[key].message);
         }
     },
 

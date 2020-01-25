@@ -3,6 +3,7 @@
  */
 
 import { cast }   from "../core/index.js";
+import { notify } from "../core/notify.js";
 
 /**
  * Agrège les liens des différents points d'entrée.
@@ -13,9 +14,9 @@ import { cast }   from "../core/index.js";
  */
 const aggregate = async function (info) {
     if ("bookmarkId" in info) {
-        const bookmark = await browser.bookmarks.get(info.bookmarkId);
-        return ["url" in bookmark[0] ? bookmark[0].url
-                                     : ""];
+        const bookmarks = await browser.bookmarks.get(info.bookmarkId);
+        return bookmarks.map((b) => ("url" in b ? b.url
+                                                : b.title));
     }
 
     return [
@@ -33,7 +34,11 @@ const click = async function (info) {
     if ("send" === info.menuItemId || "insert" === info.menuItemId ||
             "add" === info.menuItemId) {
         const urls = await aggregate(info);
-        cast(info.menuItemId, urls);
+        try {
+            await cast(info.menuItemId, urls);
+        } catch (err) {
+            notify(err);
+        }
     } else if (!info.wasChecked) {
         browser.storage.local.set({
             "server-active": parseInt(info.menuItemId, 10)

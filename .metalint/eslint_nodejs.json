@@ -10,7 +10,6 @@
     "globals": {
         "URL":       "readonly",
         "browser":   "readonly",
-        "btoa":      "readonly",
         "DOMParser": "readonly",
         "fetch":     "readonly",
         "WebSocket": "readonly"

@@ -2,10 +2,16 @@
  * @module
  */
 
-import { jsonrpc }     from "./jsonrpc.js";
-import { notify }      from "./notify.js";
+import { JSONRPC }     from "./jsonrpc.js";
 import { PebkacError } from "./pebkac.js";
 import { extract }     from "./scrapers.js";
+
+/**
+ * Le client JSON-RPC pour contacter Kodi.
+ *
+ * @type {object}
+ */
+export const jsonrpc = new JSONRPC("");
 
 /**
  * Récupère le lien à analyser parmi les données récupérées.
@@ -30,10 +36,28 @@ export const mux = function (urls) {
                    (/^magnet:.*$/iu).test(url) ||
                    (/^acestream:.*$/iu).test(url));
         } catch {
-            // Ignorer l'erreur provenant d'une URL invalide.
+            // Indiquer que la construction de l'URL a échouée.
             return false;
         }
     });
+};
+
+/**
+ * Crée le client JSON-RPC pour contacter Kodi.
+ *
+ * @param {object} changes Les paramètres modifiés dans la configuration.
+ */
+const change = async function (changes) {
+    // Ignorer tous les changements sauf ceux liés au serveur.
+    if (!Object.entries(changes).some(([k, v]) => k.startsWith("server-") &&
+                                                  "newValue" in v)) {
+        return;
+    }
+
+    const config = await browser.storage.local.get();
+    jsonrpc.close();
+    jsonrpc.host = config["server-list"][config["server-active"]].host;
+    jsonrpc.onChanged();
 };
 
 /**
@@ -43,28 +67,32 @@ export const mux = function (urls) {
  * @param {string}         action L'action à effectuer (<code>"send"</code>,
  *                                <code>"insert"</code> ou <code>"add"</code>).
  * @param {Array.<string>} urls   La liste des éventuelles URLs.
- * @returns {Promise.<void>} Une promesse tenue ou rejetée.
+ * @returns {Promise.<void>} Une promesse tenue vide.
  */
 export const cast = async function (action, urls) {
     const url = mux(urls);
     if (undefined === url) {
-        return notify(1 === urls.length ? new PebkacError("noLink", urls[0])
-                                        : new PebkacError("noLinks"));
+        throw 1 === urls.length ? new PebkacError("noLink", urls[0])
+                                : new PebkacError("noLinks");
     }
 
 
-    try {
-        const file = await extract(new URL(url), { "depth": 0 });
-        switch (action) {
-            case "send":   await jsonrpc.send(file);   break;
-            case "insert": await jsonrpc.insert(file); break;
-            case "add":    await jsonrpc.add(file);    break;
-            default: return notify(new Error(action + " is not supported"));
-        }
-        const config = await browser.storage.local.get(["general-history"]);
-        return config["general-history"] ? browser.history.addUrl({ url })
-                                         : Promise.resolve();
-    } catch (err) {
-        return notify(err);
+    const file = await extract(new URL(url), { "depth": 0 });
+    switch (action) {
+        case "send":   await jsonrpc.send(file);   break;
+        case "insert": await jsonrpc.insert(file); break;
+        case "add":    await jsonrpc.add(file);    break;
+        default: throw new Error(action + " is not supported");
+    }
+
+    const config = await browser.storage.local.get(["general-history"]);
+    if (config["general-history"]) {
+        await browser.history.addUrl({ url });
     }
 };
+
+// Simuler un changement de configuration pour se connecter au bon serveur. Ce
+// bidouillage est utile quand ce fichier est chargé depuis les options ou la
+// popin (dans le background, cette migration qui change la configuration).
+change({ "server-": { "newValue": null } });
+browser.storage.onChanged.addListener(change);

@@ -25,7 +25,7 @@ describe("core/scrapers.js", function () {
             const url = "http://www.dailymotion.com/video/x17qw0a";
             const expected = "plugin://plugin.video.dailymotion_com/";
 
-            const file = await extract(new URL(url), null, { "depth": 0 });
+            const file = await extract(new URL(url), { "depth": 0 });
             assert.ok(file.startsWith(expected),
                       `"${file}".startsWith(expected)`);
         });

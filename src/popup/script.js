@@ -2,8 +2,8 @@
  * @module
  */
 
-import { cast }    from "../core/index.js";
-import { jsonrpc } from "../core/jsonrpc.js";
+import { cast, jsonrpc } from "../core/index.js";
+import { notify }        from "../core/notify.js";
 
 /**
  * La liste des vitesses de lecture.
@@ -25,7 +25,7 @@ let speed  = null;
 /**
  * L'identifiant de l'intervalle faisant avancer la barre de progression.
  *
- * @type {?number}
+ * @type {?Timeout}
  */
 let interval = null;
 
@@ -146,7 +146,7 @@ const onVolumeChanged = function (properties) {
     }
 };
 
-const notify = function (err) {
+const splash = function (err) {
     const article = document.querySelector("article");
     if ("PebkacError" === err.name) {
         article.querySelector("h1").textContent = err.title;
@@ -218,7 +218,7 @@ const update = async function () {
 
         document.querySelector("#fullscreen").disabled = false;
     } catch (err) {
-        notify(err);
+        splash(err);
     }
 };
 
@@ -243,8 +243,12 @@ const send = async function () {
     }
 
     const url = await mux();
-    await cast("send", [url]);
-    close();
+    try {
+        await cast("send", [url]);
+        close();
+    } catch (err) {
+        notify(err);
+    }
 };
 
 const insert = async function () {
@@ -255,8 +259,12 @@ const insert = async function () {
     }
 
     const url = await mux();
-    await cast("insert", [url]);
-    close();
+    try {
+        await cast("insert", [url]);
+        close();
+    } catch (err) {
+        notify(err);
+    }
 };
 
 const add = async function () {
@@ -267,8 +275,12 @@ const add = async function () {
     }
 
     const url = await mux();
-    await cast("add", [url]);
-    close();
+    try {
+        await cast("add", [url]);
+        close();
+    } catch (err) {
+        notify(err);
+    }
 };
 
 const paste = function (event) {
@@ -331,7 +343,7 @@ const previous = function () {
         return;
     }
 
-    jsonrpc.previous().catch(notify);
+    jsonrpc.previous().catch(splash);
 };
 
 const rewind = function () {
@@ -346,7 +358,7 @@ const rewind = function () {
         case 0:  speed = 5; break;
         default: --speed;
     }
-    jsonrpc.setSpeed(SPEEDS[speed]).catch(notify);
+    jsonrpc.setSpeed(SPEEDS[speed]).catch(splash);
 };
 
 const stop = function () {
@@ -357,13 +369,13 @@ const stop = function () {
     }
 
     speed = null;
-    jsonrpc.stop().catch(notify);
+    jsonrpc.stop().catch(splash);
 };
 
 const playPause = function () {
     if (null === speed) {
         speed = 5;
-        jsonrpc.open().catch(notify);
+        jsonrpc.open().catch(splash);
     } else if (5 === speed) {
         // Annuler l'action (venant d'un raccourci clavier) si le bouton est
         // désactivé (car la connexion à Kodi a échouée).
@@ -372,10 +384,10 @@ const playPause = function () {
         }
 
         speed = -1;
-        jsonrpc.playPause().catch(notify);
+        jsonrpc.playPause().catch(splash);
     } else {
         speed = 5;
-        jsonrpc.playPause().catch(notify);
+        jsonrpc.playPause().catch(splash);
     }
 };
 
@@ -391,7 +403,7 @@ const forward = function () {
         case 10: speed = 5; break;
         default: ++speed;
     }
-    jsonrpc.setSpeed(SPEEDS[speed]).catch(notify);
+    jsonrpc.setSpeed(SPEEDS[speed]).catch(splash);
 };
 
 const next = function () {
@@ -401,7 +413,7 @@ const next = function () {
         return;
     }
 
-    jsonrpc.next().catch(notify);
+    jsonrpc.next().catch(splash);
 };
 
 const setMute = function (event) {
@@ -423,7 +435,7 @@ const setMute = function (event) {
     } else {
         document.querySelector("#volume").classList.remove("disabled");
     }
-    jsonrpc.setMute(input.checked).catch(notify);
+    jsonrpc.setMute(input.checked).catch(splash);
 };
 
 const setVolume = function (diff) {
@@ -441,7 +453,7 @@ const setVolume = function (diff) {
     if (Number.isInteger(diff)) {
         input.valueAsNumber += diff;
     }
-    jsonrpc.setVolume(input.valueAsNumber).catch(notify);
+    jsonrpc.setVolume(input.valueAsNumber).catch(splash);
 };
 
 const repeat = function () {
@@ -468,7 +480,7 @@ const repeat = function () {
         one.checked = false;
         off.checked = true;
     }
-    jsonrpc.setRepeat().catch(notify);
+    jsonrpc.setRepeat().catch(splash);
 };
 
 const shuffle = function () {
@@ -479,7 +491,7 @@ const shuffle = function () {
     }
 
     const input = document.querySelector("#shuffle input");
-    jsonrpc.setShuffle(input.checked).catch(notify);
+    jsonrpc.setShuffle(input.checked).catch(splash);
 };
 
 const contextMenu = function () {
@@ -489,7 +501,7 @@ const contextMenu = function () {
         return;
     }
 
-    jsonrpc.contextMenu().catch(notify);
+    jsonrpc.contextMenu().catch(splash);
 };
 
 const up = function () {
@@ -499,7 +511,7 @@ const up = function () {
         return;
     }
 
-    jsonrpc.up().catch(notify);
+    jsonrpc.up().catch(splash);
 };
 
 const info = function () {
@@ -509,7 +521,7 @@ const info = function () {
         return;
     }
 
-    jsonrpc.info().catch(notify);
+    jsonrpc.info().catch(splash);
 };
 
 const left = function () {
@@ -519,7 +531,7 @@ const left = function () {
         return;
     }
 
-    jsonrpc.left().catch(notify);
+    jsonrpc.left().catch(splash);
 };
 
 const select = function () {
@@ -529,7 +541,7 @@ const select = function () {
         return;
     }
 
-    jsonrpc.select().catch(notify);
+    jsonrpc.select().catch(splash);
 };
 
 const right = function () {
@@ -539,7 +551,7 @@ const right = function () {
         return;
     }
 
-    jsonrpc.right().catch(notify);
+    jsonrpc.right().catch(splash);
 };
 
 const back = function () {
@@ -549,7 +561,7 @@ const back = function () {
         return;
     }
 
-    jsonrpc.back().catch(notify);
+    jsonrpc.back().catch(splash);
 };
 
 const down = function () {
@@ -559,7 +571,7 @@ const down = function () {
         return;
     }
 
-    jsonrpc.down().catch(notify);
+    jsonrpc.down().catch(splash);
 };
 
 const showOSD = function () {
@@ -569,7 +581,7 @@ const showOSD = function () {
         return;
     }
 
-    jsonrpc.showOSD().catch(notify);
+    jsonrpc.showOSD().catch(splash);
 };
 
 const setFullscreen = function () {
@@ -579,7 +591,7 @@ const setFullscreen = function () {
         return;
     }
 
-    jsonrpc.setFullscreen().catch(notify);
+    jsonrpc.setFullscreen().catch(splash);
 };
 
 const passing = function () {
@@ -607,7 +619,7 @@ const move = function () {
 const seek = function () {
     interval = setInterval(passing, 1000);
     const time = document.querySelector("#time");
-    jsonrpc.seek(time.valueAsNumber).catch(notify);
+    jsonrpc.seek(time.valueAsNumber).catch(splash);
 };
 
 
