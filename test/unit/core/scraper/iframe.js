@@ -6,9 +6,10 @@ describe("core/scraper/iframe.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://example.com/not_html.zip";
             const doc = null;
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extract(new URL(url), doc, { "depth": 0 });
+            const file = await extract(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -20,9 +21,10 @@ describe("core/scraper/iframe.js", function () {
                     <iframe src="https://www.youtube.com/embed/2lAe1cqCOXo" />
                   </body>
                 </html>`, "text/html");
+            const options = { "depth": 1 };
             const expected = null;
 
-            const file = await extract(new URL(url), doc, { "depth": 1 });
+            const file = await extract(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -33,9 +35,10 @@ describe("core/scraper/iframe.js", function () {
                   <body>
                   </body>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extract(new URL(url), doc, { "depth": 0 });
+            const file = await extract(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -47,10 +50,12 @@ describe("core/scraper/iframe.js", function () {
                     <iframe src="https://www.youtube.com/embed/2lAe1cqCOXo" />
                   </body>
                 </html>`, "text/html");
+            const options = { "depth": 0, "incognito": true };
             const expected = "plugin://plugin.video.youtube/play/" +
-                                                        "?video_id=2lAe1cqCOXo";
+                                                       "?video_id=2lAe1cqCOXo" +
+                                                       "&incognito=true";
 
-            const file = await extract(new URL(url), doc, { "depth": 0 });
+            const file = await extract(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -63,10 +68,12 @@ describe("core/scraper/iframe.js", function () {
                     <iframe src="/embed/YbJOTdZBX1g"></iframe>
                   </body>
                 </html>`, "text/html");
+            const options = { "depth": 0, "incognito": false };
             const expected = "plugin://plugin.video.youtube/play/" +
-                                                        "?video_id=YbJOTdZBX1g";
+                                                       "?video_id=YbJOTdZBX1g" +
+                                                       "&incognito=false";
 
-            const file = await extract(new URL(url), doc, { "depth": 0 });
+            const file = await extract(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
     });

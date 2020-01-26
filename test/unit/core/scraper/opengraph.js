@@ -7,9 +7,10 @@ describe("core/scraper/opengraph.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://foo.com";
             const doc = null;
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extractVideo(new URL(url), doc, { "depth": 0 });
+            const file = await extractVideo(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -19,9 +20,10 @@ describe("core/scraper/opengraph.js", function () {
                 <html>
                   <head></head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extractVideo(new URL(url), doc, { "depth": 0 });
+            const file = await extractVideo(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -34,9 +36,10 @@ describe("core/scraper/opengraph.js", function () {
                     <meta property="og:video" content="" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extractVideo(new URL(url), doc, { "depth": 0 });
+            const file = await extractVideo(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -50,9 +53,10 @@ describe("core/scraper/opengraph.js", function () {
                           content="http://bar.com/baz.pdf" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extractVideo(new URL(url), doc, { "depth": 0 });
+            const file = await extractVideo(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -66,9 +70,10 @@ describe("core/scraper/opengraph.js", function () {
                           content="http://bar.com/baz.mkv" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = "http://bar.com/baz.mkv";
 
-            const file = await extractVideo(new URL(url), doc, { "depth": 0 });
+            const file = await extractVideo(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -82,9 +87,10 @@ describe("core/scraper/opengraph.js", function () {
                           content="http://bar.com/baz.html" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 1 };
             const expected = null;
 
-            const file = await extractVideo(new URL(url), doc, { "depth": 1 });
+            const file = await extractVideo(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -98,10 +104,12 @@ describe("core/scraper/opengraph.js", function () {
                           content="https://www.youtube.com/embed/v3gefWEggSc" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 0, "incognito": true };
             const expected = "plugin://plugin.video.youtube/play/" +
-                                                        "?video_id=v3gefWEggSc";
+                                                       "?video_id=v3gefWEggSc" +
+                                                       "&incognito=true";
 
-            const file = await extractVideo(new URL(url), doc, { "depth": 0 });
+            const file = await extractVideo(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
     });
@@ -110,9 +118,10 @@ describe("core/scraper/opengraph.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://foo.com";
             const doc = null;
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extractAudio(new URL(url), doc, { "depth": 0 });
+            const file = await extractAudio(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -122,9 +131,10 @@ describe("core/scraper/opengraph.js", function () {
                 <html>
                   <head></head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extractAudio(new URL(url), doc, { "depth": 0 });
+            const file = await extractAudio(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -137,9 +147,10 @@ describe("core/scraper/opengraph.js", function () {
                     <meta property="og:audio" content="" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extractAudio(new URL(url), doc, { "depth": 0 });
+            const file = await extractAudio(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -153,9 +164,10 @@ describe("core/scraper/opengraph.js", function () {
                           content="http://bar.com/baz.pdf" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = null;
 
-            const file = await extractAudio(new URL(url), doc, { "depth": 0 });
+            const file = await extractAudio(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -169,9 +181,10 @@ describe("core/scraper/opengraph.js", function () {
                           content="http://bar.com/baz.wav" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = "http://bar.com/baz.wav";
 
-            const file = await extractAudio(new URL(url), doc, { "depth": 0 });
+            const file = await extractAudio(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -185,9 +198,10 @@ describe("core/scraper/opengraph.js", function () {
                           content="http://bar.com/baz.html" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 1 };
             const expected = null;
 
-            const file = await extractAudio(new URL(url), doc, { "depth": 1 });
+            const file = await extractAudio(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
 
@@ -202,10 +216,11 @@ describe("core/scraper/opengraph.js", function () {
                               `/cest-papy-mamie/id1093080425?i=1000435243113" />
                   </head>
                 </html>`, "text/html");
+            const options = { "depth": 0 };
             const expected = "https://dts.podtrac.com/redirect.mp3" +
                                 "/www.arteradio.com/podcast_sound/61661310.mp3";
 
-            const file = await extractAudio(new URL(url), doc, { "depth": 0 });
+            const file = await extractAudio(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
     });

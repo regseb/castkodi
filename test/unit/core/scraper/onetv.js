@@ -11,7 +11,7 @@ describe("core/scraper/onetv.js", function () {
                 </html>`, "text/html");
             const expected = null;
 
-            const file = await extract(new URL(url), doc, { "depth": 0 });
+            const file = await extract(new URL(url), doc);
             assert.strictEqual(file, expected);
         });
 
@@ -26,7 +26,7 @@ describe("core/scraper/onetv.js", function () {
                 </html>`, "text/html");
             const expected = "http://bar.com/baz.mp4";
 
-            const file = await extract(new URL(url), doc, { "depth": 0 });
+            const file = await extract(new URL(url), doc);
             assert.strictEqual(file, expected);
         });
     });

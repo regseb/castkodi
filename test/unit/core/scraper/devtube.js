@@ -13,10 +13,13 @@ describe("core/scraper/devtube.js", function () {
 
         it("should return video id", async function () {
             const url = "https://dev.tube/video/4rWypxBwrR4";
+            const doc = undefined;
+            const options = { "incognito": false };
             const expected = "plugin://plugin.video.youtube/play/" +
-                                                        "?video_id=4rWypxBwrR4";
+                                                       "?video_id=4rWypxBwrR4" +
+                                                       "&incognito=false";
 
-            const file = await extract(new URL(url));
+            const file = await extract(new URL(url), doc, options);
             assert.strictEqual(file, expected);
         });
     });

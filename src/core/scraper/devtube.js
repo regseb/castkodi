@@ -10,16 +10,21 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @constant {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.youtube/play/?video_id=";
+const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
 
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo DevTube.
+ * @param {URL}          url               L'URL d'une vidéo DevTube.
+ * @param {HTMLDocument} _doc              Le contenu HTML de la page.
+ * @param {object}       options           Les options de l'extraction.
+ * @param {boolean}      options.incognito La marque indiquant si l'utilisateur
+ *                                         est en navigation privée.
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-const action = async function ({ pathname }) {
-    return PLUGIN_URL + pathname.slice(7);
+const action = async function ({ pathname }, _doc, { incognito }) {
+    return PLUGIN_URL + "?video_id=" + pathname.slice(7) +
+                        "&incognito=" + incognito.toString();
 };
 export const extract = matchPattern(action, "*://dev.tube/video/*");

@@ -22,6 +22,9 @@ export const browser = {
                               : Promise.reject(new Error("Bookmark not found"));
         }
     },
+    "extension": {
+        "inIncognitoContext": false
+    },
     "i18n": {
         "getMessage": (key, substitutions) => {
             if (!(key in I18NS)) {

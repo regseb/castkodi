@@ -12,9 +12,10 @@ describe("Scraper: StormoTV", function () {
     it("should return video URL", async function () {
         const url = "https://www.stormo.tv/videos/514985" +
                                              "/little-big-rock-paper-scissors/";
+        const options = { "depth": 0, "incognito": false };
         const expected = "/514000/514985/514985_low.mp4/";
 
-        const file = await extract(new URL(url), { "depth": 0 });
+        const file = await extract(new URL(url), options);
         assert.ok(file.endsWith(expected), `"${file}".endsWith(expected)`);
     });
 });

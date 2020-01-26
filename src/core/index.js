@@ -77,7 +77,10 @@ export const cast = async function (action, urls) {
     }
 
 
-    const file = await extract(new URL(url), { "depth": 0 });
+    const file = await extract(new URL(url), {
+        "depth":     0,
+        "incognito": browser.extension.inIncognitoContext
+    });
     switch (action) {
         case "send":   await jsonrpc.send(file);   break;
         case "insert": await jsonrpc.insert(file); break;
@@ -85,9 +88,11 @@ export const cast = async function (action, urls) {
         default: throw new Error(action + " is not supported");
     }
 
-    const config = await browser.storage.local.get(["general-history"]);
-    if (config["general-history"]) {
-        await browser.history.addUrl({ url });
+    if (!browser.extension.inIncognitoContext) {
+        const config = await browser.storage.local.get(["general-history"]);
+        if (config["general-history"]) {
+            await browser.history.addUrl({ url });
+        }
     }
 };
 
