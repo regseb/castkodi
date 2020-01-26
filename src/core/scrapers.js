@@ -14,6 +14,7 @@ import * as devtube        from "./scraper/devtube.js";
 import * as dumpert        from "./scraper/dumpert.js";
 import * as dailymotion    from "./scraper/dailymotion.js";
 import * as flickr         from "./scraper/flickr.js";
+import * as francetv       from "./scraper/francetv.js";
 import * as full30         from "./scraper/full30.js";
 import * as gamekult       from "./scraper/gamekult.js";
 // eslint-disable-next-line import/no-cycle
@@ -60,6 +61,7 @@ const SCRAPERS = [
     dumpert,
     dailymotion,
     flickr,
+    francetv,
     full30,
     gamekult,
     kcaastreaming,
