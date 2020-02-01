@@ -19,7 +19,7 @@ const action = async function (_url, doc) {
         return null;
     }
 
-    const subdoc = new DOMParser().parseFromString(noscript.textContent,
+    const subdoc = new DOMParser().parseFromString(noscript.innerHTML,
                                                    "text/html");
     return subdoc.querySelector("video source").src;
 };
