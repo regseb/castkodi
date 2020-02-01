@@ -1,7 +1,6 @@
 # Cast Kodi
 
 [![build][img-build]][link-build]
-[![dev dependencies][img-dev-dependencies]][link-dev-dependencies]
 [![coverage][img-coverage]][link-coverage]
 [![mozilla add-on][img-mozilla-add-on]][link-mozilla-add-on]
 [![stars][img-stars]][link-stars]
@@ -59,14 +58,12 @@ L'extension est publiée sous la [licence publique de l’Union européenne - EU
 v1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
 
 [img-build]:https://img.shields.io/github/workflow/status/regseb/castkodi/CI
-[img-dev-dependencies]:https://img.shields.io/david/dev/regseb/castkodi
 [img-coverage]:https://img.shields.io/coveralls/github/regseb/castkodi
 [img-mozilla-add-on]:https://img.shields.io/amo/v/castkodi.svg
 [img-stars]:https://img.shields.io/amo/stars/castkodi.svg
 [img-license]:https://img.shields.io/badge/license-EUPL-blue.svg
 
 [link-build]:https://github.com/regseb/castkodi/actions?query=workflow%3ACI
-[link-dev-dependencies]:https://david-dm.org/regseb/castkodi?type=dev
 [link-coverage]:https://coveralls.io/github/regseb/castkodi
 [link-mozilla-add-on]:https://addons.mozilla.org/addon/castkodi/
 [link-stars]:https://addons.mozilla.org/addon/castkodi/reviews/
