@@ -19,7 +19,7 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
         const expected = "https://balancer-vod.1tv.ru/video" +
                                               "/multibitrate/video/2019/06/03" +
                                        "/0535f134-80c9-40f2-af3b-6bb485488fe8" +
-                                                "_20190604_Pozner_High_950.mp4";
+                                               "_20190604_Pozner_High_3800.mp4";
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, expected);
@@ -32,7 +32,7 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
         const expected = "https://balancer-vod.1tv.ru/video" +
                                               "/multibitrate/video/2019/05/26" +
                                        "/0bcc8f80-6082-4589-85b1-fcc000e150e9" +
-                             "_HD-news-2019_05_26-08_19_35_2923421_cut_950.mp4";
+                            "_HD-news-2019_05_26-08_19_35_2923421_cut_3800.mp4";
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, expected);

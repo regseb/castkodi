@@ -6,19 +6,23 @@
 import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi. Ce scraper
- * est similaire au scraper de l'Open Graph, mais il ne vérifie pas le type de
- * la vidéo car Первый канал (1tv.ru) n'indique pas le bon format
- * (<code>text/html</code> alors que la vidéo est un fichier <em>mp4</em>).
+ * L'URL de l'API de Первый канал (1tv.ru).
  *
- * @param {URL}          _url L'URL d'une page de Первый канал (1tv.ru).
- * @param {HTMLDocument} doc  Le contenu HTML de la page.
+ * @constant {string}
+ */
+const API_URL = "https://www.1tv.ru/playlist?single=true&video_id=";
+
+/**
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ *
+ * @param {URL} url L'URL d'une page embarquée de Первый канал (1tv.ru).
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-const action = async function (_url, doc) {
-    const meta = doc.querySelector(`meta[property="og:video:url"]`);
-    return null === meta ? null
-                         : meta.content;
+const action = async function ({ pathname }) {
+    const id = pathname.slice(7, pathname.indexOf(":"));
+    const response = await fetch(API_URL + id);
+    const json = await response.json();
+    return "https:" + json[0].mbr[0].src;
 };
-export const extract = matchPattern(action, "*://www.1tv.ru/*");
+export const extract = matchPattern(action, "*://www.1tv.ru/embed/*");
