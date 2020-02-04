@@ -14,7 +14,7 @@ describe("Scraper: PodMust", function () {
     it("should return audio URL", async function () {
         const url = "https://podmust.com/podcast/le-billet-de-chris-esquerre/";
         const options = { "depth": 0, "incognito": false };
-        const expected = "http://rf.proxycast.org" +
+        const expected = "https://rf.proxycast.org" +
                                        "/c7e40c49-a922-441c-b423-10daeb6b7b6d" +
                                    "/19736-30.01.2020-ITEMA_22269047-0.mp3?_=1";
 
