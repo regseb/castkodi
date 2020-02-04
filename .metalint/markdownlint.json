@@ -3,7 +3,6 @@
     "heading-style": { "style": "atx" },
     "ul-style": { "style": "dash" },
     "list-indent": true,
-    "ul-start-left": true,
     "ul-indent": true,
     "no-trailing-spaces": true,
     "no-hard-tabs": true,
