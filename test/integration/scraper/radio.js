@@ -14,7 +14,7 @@ describe("Scraper: Radio", function () {
     it("should return audio URL", async function () {
         const url = "https://www.radio.net/s/fip";
         const options = { "depth": 0, "incognito": false };
-        const expected = "http://icecast.radiofrance.fr/fip-hifi.aac";
+        const expected = "https://icecast.radiofrance.fr/fip-hifi.aac";
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, expected);
@@ -23,7 +23,7 @@ describe("Scraper: Radio", function () {
     it("should return audio URL when protocol is HTTP", async function () {
         const url = "http://www.radio.net/s/franceinter";
         const options = { "depth": 0, "incognito": false };
-        const expected = "http://icecast.radiofrance.fr/franceinter-midfi.mp3";
+        const expected = "https://icecast.radiofrance.fr/franceinter-midfi.mp3";
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, expected);
@@ -41,7 +41,7 @@ describe("Scraper: Radio", function () {
     it("should return audio URL from french version", async function () {
         const url = "https://www.radio.fr/s/franceinfo";
         const options = { "depth": 0, "incognito": false };
-        const expected = "http://direct.franceinfo.fr/live" +
+        const expected = "https://direct.franceinfo.fr/live" +
                                                         "/franceinfo-midfi.mp3";
 
         const file = await extract(new URL(url), options);
