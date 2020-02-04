@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.12.0](https://github.com/regseb/castkodi/compare/v4.11.0...v4.12.0) (2020-02-04)
+
+
+### Features
+
+* Ajouter le support de PodMust. ([40c65ab](https://github.com/regseb/castkodi/commit/40c65abb0fedb40d0a6b39545a35f88fa83856dc))
+* Ajouter le support partiel de France tv. ([4f6d934](https://github.com/regseb/castkodi/commit/4f6d93491068abab04b6d6835e29e42e911d44c6))
+* Ne pas historiser en navigation privée. ([4e60822](https://github.com/regseb/castkodi/commit/4e608229260f55926f69a558be3d28a6bf9dcb3d))
+
+
+### Bug Fixes
+
+* Actualiser les tests de Radio. ([45888e2](https://github.com/regseb/castkodi/commit/45888e2462b7f49cb903be8f047c7e773effeb15))
+* Adapter le scraper au nouveau site onetv. ([3f6958a](https://github.com/regseb/castkodi/commit/3f6958a46713cebf8367fcb682691acecc56f073))
+* Corriger la gestion de Full30. ([47bb0c6](https://github.com/regseb/castkodi/commit/47bb0c62415cb2fabbe4ef4d2affb43c17c95865))
+
 ## [4.11.0](https://github.com/regseb/castkodi/compare/v4.10.0...v4.11.0) (2020-01-24)
 
 
