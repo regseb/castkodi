@@ -733,6 +733,14 @@ globalThis.addEventListener("keyup", (event) => {
     }
 });
 
+globalThis.addEventListener("wheel", (event) => {
+    if (!event.deltaY) {
+        return;
+    }
+    setVolume(event.deltaY * -1);
+    event.preventDefault();
+});
+
 interval = setInterval(passing, 1000);
 
 browser.storage.local.get().then((config) => {
