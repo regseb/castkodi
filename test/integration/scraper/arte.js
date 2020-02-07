@@ -12,26 +12,46 @@ describe("Scraper: Arte", function () {
     });
 
     it("should return french video URL", async function () {
-        const url = "https://www.arte.tv/fr/videos/069798-000-A" +
-                                                             "/revolution-vhs/";
+        // Récupérer l'URL d'une vidéo sur la page d'accueil.
+        const response = await fetch("https://www.arte.tv/fr/");
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+
+        const url = "https://www.arte.tv" +
+                    doc.querySelector(".highlights_category_ACT" +
+                                      " a.next-teaser__link").href;
         const options = { "depth": 0, "incognito": false };
-        const expected = "https://arteptweb-a.akamaihd.net/am/ptweb" +
-                                    "/069000/069700/069798-000-A_SQ_0_VOF-STF" +
-                                 "_04670905_MP4-2200_AMM-PTWEB_1FpKT1ELGYC.mp4";
+        const expected = {
+            "start": "https://arteptweb-a.akamaihd.net/am/ptweb",
+            "end":   ".mp4"
+        };
 
         const file = await extract(new URL(url), options);
-        assert.strictEqual(file, expected);
+        assert.ok(file.startsWith(expected.start),
+                  `"${file}".startsWith(expected.start) from ${url}`);
+        assert.ok(file.endsWith(expected.end),
+                  `"${file}".endsWith(expected.end) from ${url}`);
     });
 
     it("should return german video URL", async function () {
-        const url = "https://www.arte.tv/de/videos/077140-006-A" +
-                    "/blow-up-john-carpenter-aus-der-sicht-von-thierry-jousse/";
+        // Récupérer l'URL d'une vidéo sur la page d'accueil.
+        const response = await fetch("https://www.arte.tv/de/");
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+
+        const url = "https://www.arte.tv" +
+                    doc.querySelector(".highlights_category_ACT" +
+                                      " a.next-teaser__link").href;
         const options = { "depth": 0, "incognito": false };
-        const expected = "https://arteptweb-a.akamaihd.net/am/ptweb" +
-                                     "/077000/077100/077140-006-A_SQ_0_VA-STA" +
-                                   "_03470223_MP4-2200_AMM-PTWEB_u4hdDbkpd.mp4";
+        const expected = {
+            "start": "https://arteptweb-a.akamaihd.net/am/ptweb",
+            "end":   ".mp4"
+        };
 
         const file = await extract(new URL(url), options);
-        assert.strictEqual(file, expected);
+        assert.ok(file.startsWith(expected.start),
+                  `"${file}".startsWith(expected.start) from ${url}`);
+        assert.ok(file.endsWith(expected.end),
+                  `"${file}".endsWith(expected.end) from ${url}`);
     });
 });

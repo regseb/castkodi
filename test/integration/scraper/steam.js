@@ -41,7 +41,7 @@ describe("Scraper: Steam", function () {
     });
 
     it("should return broadcast URL", async function () {
-        // Récupérer l'URL d'une vidéo sur la page d'accueil des fichiers.
+        // Récupérer l'URL d'une vidéo sur la page d'accueil des diffusions.
         const response = await fetch("https://steamcommunity.com/apps" +
                                          "/allcontenthome?appHubSubSection=13");
         const text = await response.text();

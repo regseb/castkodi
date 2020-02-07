@@ -1,7 +1,12 @@
 import assert      from "assert";
+import sinon       from "sinon";
 import { extract } from "../../../../src/core/scraper/peertube.js";
 
 describe("core/scraper/peertube.js", function () {
+    afterEach(function () {
+        sinon.restore();
+    });
+
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://joinpeertube.org/fr/faq/";
@@ -12,51 +17,68 @@ describe("core/scraper/peertube.js", function () {
         });
 
         it("should return null when it's not a video", async function () {
-            const url = "https://video.blender.org/videos/watch/uuid";
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({ "json": () => ({}) }));
+
+            const url = "https://foo.com/videos/watch/bar";
             const expected = null;
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://foo.com/api/v1/videos/bar");
         });
 
-        it("should return video URL", async function () {
-            const url = "https://framatube.org/videos/watch" +
-                                        "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44";
-            const expected = "https://peertube.datagueule.tv/static/webseed" +
-                               "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44-1080.mp4";
+        it("should return video URL from watch page", async function () {
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({
+                "json": () => ({
+                    "files": [{ "fileUrl": "https://baz.com/quz.avi" }]
+                })
+            }));
+
+            const url = "http://foo.com/videos/watch/bar";
+            const expected = "https://baz.com/quz.avi";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://foo.com/api/v1/videos/bar");
         });
 
-        it("should return video URL when protocol is HTTP", async function () {
-            const url = "http://framatube.org/videos/watch" +
-                                        "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44";
-            const expected = "https://peertube.datagueule.tv/static/webseed" +
-                               "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44-1080.mp4";
+        it("should return video URL from embed page", async function () {
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({
+                "json": () => ({
+                    "files": [{ "fileUrl": "https://baz.com/quz.avi" }]
+                })
+            }));
+
+            const url = "https://foo.com/videos/embed/bar";
+            const expected = "https://baz.com/quz.avi";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://foo.com/api/v1/videos/bar");
         });
 
         it("should return null when it's not a PeerTube website",
                                                              async function () {
-            const url = "https://not.peertube/videos/watch" +
-                                        "/123e4567-e89b-12d3-a456-426655440000";
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.reject(new Error()));
+
+            const url = "https://foo.com/videos/embed/bar";
             const expected = null;
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
-        });
-
-        it("should return video embed URL", async function () {
-            const url = "https://framatube.org/videos/embed" +
-                                        "/0900bd2e-7306-4c39-b48b-2d0cd611742e";
-            const expected = "https://framatube.org/static/webseed" +
-                               "/0900bd2e-7306-4c39-b48b-2d0cd611742e-1080.mp4";
-
-            const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://foo.com/api/v1/videos/bar");
         });
     });
 });

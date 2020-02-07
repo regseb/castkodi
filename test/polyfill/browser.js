@@ -1,8 +1,10 @@
 import fs   from "fs";
 import path from "path";
 
-const I18NS = fs.readFileSync(path.join(__dirname,
-                                        "../../locales/en/messages.json"));
+const I18NS = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../../locales/en/messages.json"),
+                    "utf8")
+);
 
 const data = {
     "bookmarks": {},
@@ -26,16 +28,16 @@ export const browser = {
         "inIncognitoContext": false
     },
     "i18n": {
-        "getMessage": (key, substitutions) => {
+        "getMessage": (key, ...substitutions) => {
             if (!(key in I18NS)) {
                 return "";
             }
             if (!("placeholders" in I18NS[key])) {
-                return I18NS[key];
+                return I18NS[key].message;
             }
             return Object.keys(I18NS[key].placeholders)
                          .reduce((message, placeholder, index) => {
-                return message.replace("$" + placeholder + "$",
+                return message.replace("$" + placeholder.toUpperCase() + "$",
                                        substitutions[index]);
             }, I18NS[key].message);
         }
@@ -43,7 +45,7 @@ export const browser = {
 
     "notifications": {
         "create": () => {
-            // Ne rien faire.
+            throw new Error("no polyfill for this function");
         }
     },
 

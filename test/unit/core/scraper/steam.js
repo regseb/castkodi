@@ -1,4 +1,5 @@
 import assert from "assert";
+import sinon  from "sinon";
 import { extractGame, extractBroadcast }
                                    from "../../../../src/core/scraper/steam.js";
 
@@ -41,34 +42,40 @@ describe("core/scraper/steam.js", function () {
     });
 
     describe("extractBroadcast()", function () {
+        afterEach(function () {
+            sinon.restore();
+        });
+
         it("should return null when it's not a video", async function () {
-            const url = "https://steamcommunity.com/broadcast/watch/404";
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({ "json": () => ({}) }));
+
+            const url = "https://steamcommunity.com/broadcast/watch/foo";
             const expected = null;
 
             const file = await extractBroadcast(new URL(url));
             assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://steamcommunity.com/broadcast" +
+                               "/getbroadcastmpd/?steamid=foo");
         });
 
         it("should return video URL", async function () {
-            const url = "https://steamcommunity.com/broadcast/watch" +
-                                                           "/76561198802066071";
-            const expected = "https://cache4-lhr1.steamcontent.com/broadcast" +
-                                                          "/76561198802066071/";
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({
+                "json": () => ({ "hls_url": "https://bar.com/baz.mp4" })
+            }));
+
+            const url = "https://steamcommunity.com/broadcast/watch/foo";
+            const expected = "https://bar.com/baz.mp4";
 
             const file = await extractBroadcast(new URL(url));
-            assert.ok(file.startsWith(expected),
-                      `"${file}".startsWith(expected)`);
-        });
-
-        it("should return video URL when protocol is HTTP", async function () {
-            const url = "http://steamcommunity.com/broadcast/watch" +
-                                                           "/76561198802066071";
-            const expected = "https://cache4-lhr1.steamcontent.com/broadcast" +
-                                                          "/76561198802066071/";
-
-            const file = await extractBroadcast(new URL(url));
-            assert.ok(file.startsWith(expected),
-                      `"${file}".startsWith(expected)`);
+            assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://steamcommunity.com/broadcast" +
+                               "/getbroadcastmpd/?steamid=foo");
         });
     });
 });

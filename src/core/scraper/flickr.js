@@ -42,8 +42,8 @@ const action = async function (_url, doc) {
     const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
                           "&api_key=" +
                           KEY_REGEXP.exec(doc.documentElement.innerHTML)[1];
-    const subresponse = await fetch(url);
-    const json = await subresponse.json();
+    const response = await fetch(url);
+    const json = await response.json();
     return json.streams.stream[0]["_content"];
 };
 export const extract = matchPattern(action, "*://www.flickr.com/photos/*");

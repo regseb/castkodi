@@ -1,7 +1,12 @@
 import assert      from "assert";
+import sinon       from "sinon";
 import { extract } from "../../../../src/core/scraper/mixer.js";
 
 describe("core/scraper/mixer.js", function () {
+    afterEach(function () {
+        sinon.restore();
+    });
+
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://dev.mixer.com/guides/core/introduction";
@@ -11,48 +16,62 @@ describe("core/scraper/mixer.js", function () {
             assert.strictEqual(file, expected);
         });
 
-        it("should return null when it's not a video", async function () {
-            const url = "https://mixer.com/pro";
+        it("should return null when it's invalid URL", async function () {
+            const url = "https://mixer.com/foo/bar";
             const expected = null;
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
         });
 
-        it("should return null when it's invalid URL", async function () {
-            const url = "https://mixer.com/not/found";
+        it("should return null when it's not a video", async function () {
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({ "ok": false }));
+
+            const url = "https://mixer.com/foo";
             const expected = null;
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://mixer.com/api/v1/channels/foo");
         });
 
         it("should return video URL", async function () {
-            const url = "https://mixer.com/NINJA";
-            const expected = "https://mixer.com/api/v1/channels/90571077" +
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({
+                "ok":   true,
+                "json": () => ({ "id": "bar" })
+            }));
+
+            const url = "https://mixer.com/foo";
+            const expected = "https://mixer.com/api/v1/channels/bar" +
                                                                "/manifest.m3u8";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
-        });
-
-        it("should return video URL when protocol is HTTP", async function () {
-            const url = "http://mixer.com/ChannelOne";
-            const expected = "https://mixer.com/api/v1/channels/58717" +
-                                                               "/manifest.m3u8";
-
-            const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://mixer.com/api/v1/channels/foo");
         });
 
         it("should return video URL from embed video", async function () {
-            const url = "https://mixer.com/embed/player/LevelUpCast" +
-                                                         "?disableLowLatency=1";
-            const expected = "https://mixer.com/api/v1/channels/15808052" +
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({
+                "ok":   true,
+                "json": () => ({ "id": "bar" })
+            }));
+
+            const url = "https://mixer.com/embed/player/foo";
+            const expected = "https://mixer.com/api/v1/channels/bar" +
                                                                "/manifest.m3u8";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://mixer.com/api/v1/channels/foo");
         });
     });
 });

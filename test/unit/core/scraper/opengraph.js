@@ -212,13 +212,12 @@ describe("core/scraper/opengraph.js", function () {
                   <head>
                     <meta property="og:audio:type" content="text/html" />
                     <meta property="og:audio"
-                          content="https://podcasts.apple.com/fr/podcast` +
-                              `/cest-papy-mamie/id1093080425?i=1000435243113" />
+                          content="https://www.mixcloud.com/foo/bar/" />
                   </head>
                 </html>`, "text/html");
             const options = { "depth": 0 };
-            const expected = "https://dts.podtrac.com/redirect.mp3" +
-                                "/www.arteradio.com/podcast_sound/61661310.mp3";
+            const expected = "plugin://plugin.audio.mixcloud/?mode=40&key=" +
+                                                              "%2Ffoo%2Fbar%2F";
 
             const file = await extractAudio(new URL(url), doc, options);
             assert.strictEqual(file, expected);

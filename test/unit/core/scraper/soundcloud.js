@@ -1,7 +1,12 @@
 import assert      from "assert";
+import sinon       from "sinon";
 import { extract } from "../../../../src/core/scraper/soundcloud.js";
 
 describe("core/scraper/soundcloud.js", function () {
+    afterEach(function () {
+        sinon.restore();
+    });
+
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://soundcloud.com/stream";
@@ -22,39 +27,54 @@ describe("core/scraper/soundcloud.js", function () {
 
         it("should return null when it's not an audio with one slash",
                                                              async function () {
-            const url = "https://soundcloud.com/you/collection";
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({ "text": () => "" }));
+
+            const url = "https://soundcloud.com/foo/bar";
             const expected = null;
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://soundcloud.com/oembed" +
+                               "?url=https%3A%2F%2Fsoundcloud.com%2Ffoo%2Fbar");
         });
 
         it("should return audio id", async function () {
-            const url = "https://soundcloud.com/esa/a-singing-comet";
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({
+                "text": () => "API.soundcloud.com%2Ftracks%2Fbaz&quz"
+            }));
+
+            const url = "https://soundcloud.com/foo/bar";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
-                                                          "?track_id=176387011";
+                                                                "?track_id=baz";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
-        });
-
-        it("should return audio id when protocol is HTTP", async function () {
-            const url = "http://soundcloud.com/esa/a-singing-comet";
-            const expected = "plugin://plugin.audio.soundcloud/play/" +
-                                                          "?track_id=176387011";
-
-            const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://soundcloud.com/oembed" +
+                               "?url=https%3A%2F%2Fsoundcloud.com%2Ffoo%2Fbar");
         });
 
         it("should return audio id from mobile version", async function () {
-            const url = "https://mobi.soundcloud.com" +
-                                    "/a-tribe-called-red/electric-pow-wow-drum";
+            sinon.stub(globalThis, "fetch")
+                 .callsFake(() => Promise.resolve({
+                "text": () => "API.soundcloud.com%2Ftracks%2Fbaz&quz"
+            }));
+
+            const url = "https://mobi.soundcloud.com/foo/bar";
             const expected = "plugin://plugin.audio.soundcloud/play/" +
-                                                            "?track_id=8481452";
+                                                                "?track_id=baz";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
+            const call = globalThis.fetch.firstCall;
+            assert.strictEqual(call.args[0],
+                               "https://soundcloud.com/oembed" +
+                               "?url=https%3A%2F%2Fsoundcloud.com%2Ffoo%2Fbar");
         });
     });
 });

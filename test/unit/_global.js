@@ -1,8 +1,8 @@
 import "../polyfill.js";
-import { browser }   from "./mock/browser.js";
-import { fetch }     from "./mock/fetch.js";
 import { WebSocket } from "./mock/websocket.js";
 
-globalThis.browser   = browser;
-globalThis.fetch     = fetch;
 globalThis.WebSocket = WebSocket;
+
+globalThis.fetch = function () {
+    throw new Error("do not use real fetch for unit tests");
+};
