@@ -15,14 +15,25 @@ const API_URL = "https://www.1tv.ru/playlist?single=true&video_id=";
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une page embarquée de Первый канал (1tv.ru).
+ * @param {URL}          url L'URL d'une page de Первый канал (1tv.ru).
+ * @param {HTMLDocument} doc Le contenu HTML de la page.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ pathname }) {
-    const id = pathname.slice(7, pathname.indexOf(":"));
+const action = async function ({ pathname }, doc) {
+    let id;
+    if (pathname.startsWith("/embed/")) {
+        id = pathname.slice(7, pathname.indexOf(":"));
+    } else {
+        const meta = doc.querySelector(`meta[property="ya:ovs:content_id"]`);
+        if (null === meta) {
+            return null;
+        }
+        id = meta.content.split(":")[0];
+    }
+
     const response = await fetch(API_URL + id);
     const json = await response.json();
     return "https:" + json[0].mbr[0].src;
 };
-export const extract = matchPattern(action, "*://www.1tv.ru/embed/*");
+export const extract = matchPattern(action, "*://www.1tv.ru/*");

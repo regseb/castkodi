@@ -38,6 +38,24 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
         assert.strictEqual(file, expected);
     });
 
+    it("should return show URL from embed", async function () {
+        const url = "https://www.1tv.ru/embed/160522:12";
+        const options = { "depth": 0, "incognito": false };
+        const expected = {
+            "start":  "https://balancer-vod.1tv.ru/video/multibitrate/video/",
+            "middle": "_Golos-",
+            "end":    ".mp4"
+        };
+
+        const file = await extract(new URL(url), options);
+        assert.ok(file.startsWith(expected.start),
+                  `"${file}".startsWith(expected.start) from ${url}`);
+        assert.ok(file.includes(expected.middle),
+                  `"${file}".includes(expected.middle) from ${url}`);
+        assert.ok(file.endsWith(expected.end),
+                  `"${file}".endsWith(expected.end) from ${url}`);
+    });
+
     it("should return URL when it's not a movie", async function () {
         const url = "https://www.1tv.ru/movies/vse-filmy";
         const options = { "depth": 0, "incognito": false };
