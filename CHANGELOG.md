@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.13.0](https://github.com/regseb/castkodi/compare/v4.12.0...v4.13.0) (2020-02-24)
+
+
+### Features
+
+* Ajouter le support du Point. ([30af83d](https://github.com/regseb/castkodi/commit/30af83de726a34ca0e84ea8952a95ad058c3bf4a))
+* Make scroll wheel adjust volume ([#23](https://github.com/regseb/castkodi/issues/23)) ([9acd790](https://github.com/regseb/castkodi/commit/9acd790b89e2683847975fa8f1857c33d53ceb58))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de 1tv. ([1a1b46b](https://github.com/regseb/castkodi/commit/1a1b46ba78d74e32c9b4201452491a33024c9656))
+
 ## [4.12.0](https://github.com/regseb/castkodi/compare/v4.11.0...v4.12.0) (2020-02-04)
 
 
