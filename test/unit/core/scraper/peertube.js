@@ -34,12 +34,12 @@ describe("core/scraper/peertube.js", function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
                 "json": () => ({
-                    "files": [{ "fileUrl": "https://baz.com/quz.avi" }]
+                    "files": [{ "fileUrl": "https://baz.com/qux.avi" }]
                 })
             }));
 
             const url = "http://foo.com/videos/watch/bar";
-            const expected = "https://baz.com/quz.avi";
+            const expected = "https://baz.com/qux.avi";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
@@ -52,12 +52,12 @@ describe("core/scraper/peertube.js", function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
                 "json": () => ({
-                    "files": [{ "fileUrl": "https://baz.com/quz.avi" }]
+                    "files": [{ "fileUrl": "https://baz.com/qux.avi" }]
                 })
             }));
 
             const url = "https://foo.com/videos/embed/bar";
-            const expected = "https://baz.com/quz.avi";
+            const expected = "https://baz.com/qux.avi";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);

@@ -25,7 +25,8 @@ describe("Scraper: Gamekult", function () {
     });
 
     it("should return video URL without 'www'", async function () {
-        const url = "https://gamekult.com/jeux/dead-cells-3050326015.html";
+        const url = "https://gamekult.com/jeux/dead-cells-3050326015" +
+                                                "/video-3052201259.html#player";
         const options = { "depth": 0, "incognito": false };
         const expected = "plugin://plugin.video.dailymotion_com/" +
                                                   "?mode=playVideo&url=x6o6sws";

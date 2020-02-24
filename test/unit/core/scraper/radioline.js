@@ -48,14 +48,14 @@ describe("core/scraper/radioline.js", function () {
                     "body": {
                         "type":    "single",
                         "content": {
-                            "streams": [{ "url": "https://quz.com/quuz.mp4" }]
+                            "streams": [{ "url": "https://qux.com/quux.mp4" }]
                         }
                     }
                 })
             }));
 
             const url = "http://www.radioline.co/foo#bar/baz";
-            const expected = "https://quz.com/quuz.mp4";
+            const expected = "https://qux.com/quux.mp4";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);

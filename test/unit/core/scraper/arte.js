@@ -46,7 +46,7 @@ describe("core/scraper/arte.js", function () {
                             "2": {
                                 "id":     "baz_1",
                                 "height": 400,
-                                "url":    "https://quz.tv/quuz.mp4"
+                                "url":    "https://qux.tv/quux.mp4"
                             },
                             "3": {
                                 "id":     "baz_1",
@@ -58,7 +58,7 @@ describe("core/scraper/arte.js", function () {
             }));
 
             const url = "https://www.arte.tv/fr/videos/foo/bar";
-            const expected = "https://quz.tv/quuz.mp4";
+            const expected = "https://qux.tv/quux.mp4";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);

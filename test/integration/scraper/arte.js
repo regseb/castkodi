@@ -22,14 +22,15 @@ describe("Scraper: Arte", function () {
                                       " a.next-teaser__link").href;
         const options = { "depth": 0, "incognito": false };
         const expected = {
-            "start": "https://arteptweb-a.akamaihd.net/am/ptweb",
-            "end":   ".mp4"
+            "start": "https://arteptweb-",
+            "end":   [".mp4", "/master.m3u8"]
         };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.startsWith(expected.start),
                   `"${file}".startsWith(expected.start) from ${url}`);
-        assert.ok(file.endsWith(expected.end),
+        assert.ok(file.endsWith(expected.end[0]) ||
+                  file.endsWith(expected.end[1]),
                   `"${file}".endsWith(expected.end) from ${url}`);
     });
 
@@ -44,14 +45,15 @@ describe("Scraper: Arte", function () {
                                       " a.next-teaser__link").href;
         const options = { "depth": 0, "incognito": false };
         const expected = {
-            "start": "https://arteptweb-a.akamaihd.net/am/ptweb",
-            "end":   ".mp4"
+            "start": "https://arteptweb-",
+            "end":   [".mp4", "/master.m3u8"]
         };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.startsWith(expected.start),
                   `"${file}".startsWith(expected.start) from ${url}`);
-        assert.ok(file.endsWith(expected.end),
+        assert.ok(file.endsWith(expected.end[0]) ||
+                  file.endsWith(expected.end[1]),
                   `"${file}".endsWith(expected.end) from ${url}`);
     });
 });

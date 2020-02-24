@@ -35,7 +35,7 @@ describe("core/scraper/flickr.js", function () {
                  .callsFake(() => Promise.resolve({
                 "json": () => ({
                     "streams": {
-                        "stream": [{ "_content": "https://baz.net/quz.mp4" }]
+                        "stream": [{ "_content": "https://baz.net/qux.mp4" }]
                     }
                 })
             }));
@@ -50,7 +50,7 @@ describe("core/scraper/flickr.js", function () {
                     <video poster="0/1_2.3.4_5/6/7_8.9" />
                   </body>
                 </html>`, "text/html");
-            const expected = "https://baz.net/quz.mp4";
+            const expected = "https://baz.net/qux.mp4";
 
             const file = await extract(new URL(url), doc);
             assert.strictEqual(file, expected);
