@@ -1,12 +1,7 @@
 import assert      from "assert";
-import sinon       from "sinon";
 import { extract } from "../../../../src/core/scraper/soundcloud.js";
 
 describe("core/scraper/soundcloud.js", function () {
-    afterEach(function () {
-        sinon.restore();
-    });
-
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://developers.soundcloud.com/";

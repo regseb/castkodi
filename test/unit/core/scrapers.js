@@ -72,54 +72,5 @@ describe("core/scrapers.js", function () {
             assert.ok(file.startsWith(expected),
                       `"${file}".startsWith(expected)`);
         });
-
-        it("should support correctly question mark in pattern",
-                                                             async function () {
-            const url = "https://vid.ly/i2x4g5.mp4?quality=hd";
-            const options = { "depth": 0 };
-            const expected = url;
-
-            const file = await extract(new URL(url), options);
-            assert.strictEqual(file, expected);
-        });
-
-        it("should return the URL when it's a unsupported URL",
-                                                             async function () {
-            const url = "https://kodi.tv/";
-            const options = { "depth": 0 };
-            const expected = url;
-
-            const file = await extract(new URL(url), options);
-            assert.strictEqual(file, expected);
-        });
-
-        it("should return the URL when it's not a page HTML",
-                                                             async function () {
-            const url = "https://kodi.tv/sites/default/themes/kodi/" +
-                                                                 "logo-sbs.svg";
-            const options = { "depth": 0 };
-            const expected = url;
-
-            const file = await extract(new URL(url), options);
-            assert.strictEqual(file, expected);
-        });
-
-        it("should return the MP3 URL", async function () {
-            const url = "https://fr.wikipedia.org/wiki/awesome.MP3";
-            const options = { "depth": 0 };
-            const expected = url;
-
-            const file = await extract(new URL(url), options);
-            assert.strictEqual(file, expected);
-        });
-
-        it("should return the AVI URL", async function () {
-            const url = "http://example.org/video.avi";
-            const options = { "depth": 0 };
-            const expected = url;
-
-            const file = await extract(new URL(url), options);
-            assert.strictEqual(file, expected);
-        });
     });
 });

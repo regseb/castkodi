@@ -54,6 +54,7 @@
         "markdownlint": "^0.19.0",
         "metalint": "^0.8.5",
         "mocha": "^7.0.1",
+        "mock-socket": "^9.0.3",
         "node-fetch": "^2.6.0",
         "nyc": "^15.0.0",
         "purgecss": "^2.0.6",
