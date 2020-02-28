@@ -16,8 +16,8 @@ export const JSONRPC = class {
      *
      * @function check
      * @param {string} host L'URL du serveur JSON-RPC de Kodi.
-     * @returns {Promise.<object>} Une promesse tenue si l'API est accessible ;
-     *                             sinon une promesse rompue.
+     * @returns {Promise.<void>} Une promesse tenue si l'API est accessible ;
+     *                           sinon une promesse rompue.
      */
     static async check(host) {
         const jsonrpc = new JSONRPC(host);
@@ -166,6 +166,7 @@ export const JSONRPC = class {
      * Ferme la connexion.
      *
      * @function close
+     * @returns {Promise.<void>} Une promesse vide.
      */
     async close() {
         if (null !== this.client) {

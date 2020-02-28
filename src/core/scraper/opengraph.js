@@ -31,9 +31,10 @@ const SELECTORS = {
 /**
  * Extrait les informations nécessaire pour lire une vidéo ou un son sur Kodi.
  *
- * @param {URL}          _url    L'URL d'une page quelconque.
- * @param {HTMLDocument} doc     Le contenu HTML de la page.
- * @param {object}       options Les options de l'extraction.
+ * @param {URL}          _url          L'URL d'une page quelconque.
+ * @param {HTMLDocument} doc           Le contenu HTML de la page.
+ * @param {object}       options       Les options de l'extraction.
+ * @param {number}       options.depth Le niveau de profondeur de l'extraction.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
@@ -67,9 +68,10 @@ export const extractVideo = matchPattern(actionVideo, "*://*/*");
 /**
  * Extrait les informations nécessaire pour lire une vidéo ou un son sur Kodi.
  *
- * @param {URL}          _url    L'URL d'une page quelconque.
- * @param {HTMLDocument} doc     Le contenu HTML de la page.
- * @param {object}       options Les options de l'extraction.
+ * @param {URL}          _url          L'URL d'une page quelconque.
+ * @param {HTMLDocument} doc           Le contenu HTML de la page.
+ * @param {object}       options       Les options de l'extraction.
+ * @param {number}       options.depth Le niveau de profondeur de l'extraction.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */

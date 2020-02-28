@@ -10,9 +10,10 @@ import { extract as metaExtract } from "../scrapers.js";
 /**
  * Fouille les éléments <code>iframe</code> de la page.
  *
- * @param {URL}          url     L'URL d'une page quelconque.
- * @param {HTMLDocument} doc     Le contenu HTML de la page.
- * @param {object}       options Les options de l'extraction.
+ * @param {URL}          url           L'URL d'une page quelconque.
+ * @param {HTMLDocument} doc           Le contenu HTML de la page.
+ * @param {object}       options       Les options de l'extraction.
+ * @param {number}       options.depth Le niveau de profondeur de l'extraction.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */

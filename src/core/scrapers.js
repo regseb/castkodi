@@ -94,8 +94,9 @@ const SCRAPERS = [
  * Extrait le <em>fichier</em> d'une URL.
  *
  * @function
- * @param {URL}    url     L'URL d'une page Internet.
- * @param {object} options Les options de l'extraction.
+ * @param {URL}    url           L'URL d'une page Internet.
+ * @param {object} options       Les options de l'extraction.
+ * @param {number} options.depth Le niveau de profondeur de l'extraction.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
