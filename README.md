@@ -26,7 +26,7 @@ des vidéos et des musiques sur **Kodi** :
     JeuxVideoCom, Konbini, Le Point, Melty, Ouest-France ;
   - Islande : Útvarp Saga ;
   - Pays-Bas : Dumpert ;
-  - Royaume-Uni : Daily Mail ;
+  - Royaume-Uni : Daily Mail, The Guardian ;
   - Russie : Первый канал, StormoTV.
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
