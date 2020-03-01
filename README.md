@@ -18,7 +18,7 @@ des vidéos et des musiques sur **Kodi** :
   BitChute, Blog Talk Radio, Dailymotion, DevTube, Facebook, Flickr, Full30,
   Instagram, Jamendo, LiveLeak, Mixcloud, Mixer, My Cloud Player, Overcast,
   PeerTube, Pippa, podCloud, PodMust, Radio, Radioline, Steam, Streamable,
-  TikTok, Ultimedia, YT Home ;
+  TikTok, Ultimedia, Veoh, YT Home ;
   - Allemagne : Arte ;
   - Belgique : VRT NU ;
   - États-Unis : KCAA Radio ;
