@@ -91,7 +91,7 @@ const SCRAPERS = [
     audio,
     ldjson,
     opengraph,
-    iframe
+    iframe,
 ].flatMap((s) => Object.values(s));
 
 /**

@@ -43,11 +43,11 @@ describe("core/scraper/ldjson.js", function () {
             const doc = new DOMParser().parseFromString(`
                 <html>
                   <body>
-                    <script type="application/ld+json">${JSON.stringify({
+                    <script type="application/ld+json">{
                         "@context":   "http://schema.org/",
                         "@type":      "ImageObject",
                         "contentUrl": "https://bar.com/baz.png"
-                    })}</script>
+                    }</script>
                   </body>
                 </html>`, "text/html");
             const expected = null;
@@ -61,10 +61,10 @@ describe("core/scraper/ldjson.js", function () {
             const doc = new DOMParser().parseFromString(`
                 <html>
                   <body>
-                    <script type="application/ld+json">${JSON.stringify({
+                    <script type="application/ld+json">{
                         "@context": "http://schema.org/",
                         "@type":    "MusicVideoObject"
-                    })}</script>
+                    }</script>
                   </body>
                 </html>`, "text/html");
             const expected = null;
@@ -78,11 +78,11 @@ describe("core/scraper/ldjson.js", function () {
             const doc = new DOMParser().parseFromString(`
                 <html>
                   <body>
-                    <script type="application/ld+json">${JSON.stringify({
+                    <script type="application/ld+json">{
                         "@context":   "http://schema.org/",
                         "@type":      "VideoObject",
                         "contentUrl": "https://bar.com/baz.mkv"
-                    })}</script>
+                    }</script>
                   </body>
                 </html>`, "text/html");
             const expected = "https://bar.com/baz.mkv";
@@ -96,14 +96,14 @@ describe("core/scraper/ldjson.js", function () {
             const doc = new DOMParser().parseFromString(`
                 <html>
                   <body>
-                    <script type="application/ld+json">${JSON.stringify({
+                    <script type="application/ld+json">{
                         "@context": "https://schema.org",
                         "@type":    "RadioEpisode",
                         "audio":    {
                             "@type":      "AudioObject",
                             "contentUrl": "https://bar.com/baz.flac"
                         }
-                    })}</script>
+                    }</script>
                   </body>
                 </html>`, "text/html");
             const expected = "https://bar.com/baz.flac";

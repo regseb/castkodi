@@ -26,7 +26,7 @@ describe("core/scraper/mixer.js", function () {
 
         it("should return null when it's not a video", async function () {
             sinon.stub(globalThis, "fetch")
-                 .callsFake(() => Promise.resolve({ "ok": false }));
+                 .callsFake(() => Promise.resolve({ ok: false }));
 
             const url = "https://mixer.com/foo";
             const expected = null;
@@ -41,8 +41,8 @@ describe("core/scraper/mixer.js", function () {
         it("should return video URL", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "ok":   true,
-                "json": () => ({ "id": "bar" })
+                ok:   true,
+                json: () => ({ id: "bar" }),
             }));
 
             const url = "https://mixer.com/foo";
@@ -59,8 +59,8 @@ describe("core/scraper/mixer.js", function () {
         it("should return video URL from embed video", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "ok":   true,
-                "json": () => ({ "id": "bar" })
+                ok:   true,
+                json: () => ({ id: "bar" }),
             }));
 
             const url = "https://mixer.com/embed/player/foo";

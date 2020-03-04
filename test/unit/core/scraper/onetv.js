@@ -23,9 +23,7 @@ describe("core/scraper/onetv.js", function () {
         it("should return video URL", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => [{
-                    "mbr": [{ "src": "//qux.com/quux.avi" }]
-                }]
+                json: () => [{ mbr: [{ src: "//qux.com/quux.avi" }] }],
             }));
 
             const url = "https://www.1tv.ru/foo.html";
@@ -48,9 +46,7 @@ describe("core/scraper/onetv.js", function () {
         it("should return video URL from embed", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => [{
-                    "mbr": [{ "src": "//baz.com/qux.avi" }]
-                }]
+                json: () => [{ mbr: [{ src: "//baz.com/qux.avi" }] }],
             }));
 
             const url = "https://www.1tv.ru/embed/foo:bar";

@@ -19,7 +19,7 @@ describe("core/scraper/veoh.js", function () {
         it("should return null when page doesn't exist", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({ "success": false })
+                json: () => ({ success: false }),
             }));
 
             const url = "https://www.veoh.com/watch/foo";
@@ -35,10 +35,10 @@ describe("core/scraper/veoh.js", function () {
         it("should return null when there isn't video", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "success": true,
-                    "video":   { "src": { "HQ": "" } }
-                })
+                json: () => ({
+                    success: true,
+                    video:   { src: { HQ: "" } },
+                }),
             }));
 
             const url = "https://www.veoh.com/watch/foo";
@@ -54,10 +54,10 @@ describe("core/scraper/veoh.js", function () {
         it("should return video URL", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "success": true,
-                    "video":   { "src": { "HQ": "https://foo.com/bar.mp4" } }
-                })
+                json: () => ({
+                    success: true,
+                    video:   { src: { HQ: "https://foo.com/bar.mp4" } },
+                }),
             }));
 
             const url = "https://www.veoh.com/watch/foo";

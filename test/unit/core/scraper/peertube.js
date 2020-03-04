@@ -18,7 +18,7 @@ describe("core/scraper/peertube.js", function () {
 
         it("should return null when it's not a video", async function () {
             sinon.stub(globalThis, "fetch")
-                 .callsFake(() => Promise.resolve({ "json": () => ({}) }));
+                 .callsFake(() => Promise.resolve({ json: () => ({}) }));
 
             const url = "https://foo.com/videos/watch/bar";
             const expected = null;
@@ -33,13 +33,11 @@ describe("core/scraper/peertube.js", function () {
         it("should return video URL from watch page", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "files": [{ "fileUrl": "https://baz.com/qux.avi" }]
-                })
+                json: () => ({ files: [{ fileUrl: "http://baz.io/qux.avi" }] }),
             }));
 
-            const url = "http://foo.com/videos/watch/bar";
-            const expected = "https://baz.com/qux.avi";
+            const url = "https://foo.com/videos/watch/bar";
+            const expected = "http://baz.io/qux.avi";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);
@@ -51,13 +49,11 @@ describe("core/scraper/peertube.js", function () {
         it("should return video URL from embed page", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "files": [{ "fileUrl": "https://baz.com/qux.avi" }]
-                })
+                json: () => ({ files: [{ fileUrl: "http://baz.fr/qux.avi" }] }),
             }));
 
             const url = "https://foo.com/videos/embed/bar";
-            const expected = "https://baz.com/qux.avi";
+            const expected = "http://baz.fr/qux.avi";
 
             const file = await extract(new URL(url));
             assert.strictEqual(file, expected);

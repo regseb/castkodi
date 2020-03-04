@@ -18,7 +18,7 @@ describe("core/scraper/theguardian.js", function () {
                 <html>
                   <body></body>
                 </html>`, "text/html");
-            const options = { "incognito": false };
+            const options = { incognito: false };
             const expected = null;
 
             const file = await extractVideo(new URL(url), doc, options);
@@ -34,7 +34,7 @@ describe("core/scraper/theguardian.js", function () {
                          data-asset-id="foo" />
                   </body>
                 </html>`, "text/html");
-            const options = { "incognito": false };
+            const options = { incognito: false };
             const expected = "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=false";
 
@@ -51,7 +51,7 @@ describe("core/scraper/theguardian.js", function () {
                          data-asset-id="foo" />
                   </body>
                 </html>`, "text/html");
-            const options = { "incognito": true };
+            const options = { incognito: true };
             const expected = "plugin://plugin.video.youtube/play/" +
                                                  "?video_id=foo&incognito=true";
 

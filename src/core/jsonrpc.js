@@ -86,14 +86,14 @@ export const JSONRPC = class {
                     break;
                 case "Player.OnSeek":
                     this.onSeek({
-                        "item":   data.item,
-                        "player": {
-                            "playerid": data.player.playerid,
-                            "speed":    data.player.speed,
-                            "time":     data.player.time.hours * 3600 +
-                                        data.player.time.minutes * 60 +
-                                        data.player.time.seconds
-                        }
+                        item:   data.item,
+                        player: {
+                            playerid: data.player.playerid,
+                            speed:    data.player.speed,
+                            time:     data.player.time.hours * 3600 +
+                                      data.player.time.minutes * 60 +
+                                      data.player.time.seconds,
+                        },
                     });
                     break;
                 case "Player.OnSpeedChanged":
@@ -154,10 +154,10 @@ export const JSONRPC = class {
         return new Promise((resolve, reject) => {
             this.listeners.set(++this.id, { resolve, reject });
             ws.send(JSON.stringify({
-                "jsonrpc": "2.0",
-                "id":      this.id,
-                "method":  method,
-                "params":  params
+                jsonrpc: "2.0",
+                id:      this.id,
+                method:  method,
+                params:  params,
             }));
         });
     }
@@ -183,10 +183,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     add(file) {
-        return this.request("Playlist.Add", {
-            "playlistid": 1,
-            "item":       { file }
-        });
+        return this.request("Playlist.Add", { playlistid: 1, item: { file } });
     }
 
     /**
@@ -201,7 +198,7 @@ export const JSONRPC = class {
         // lecture.
         await this.clear();
         await this.add(file);
-        return this.request("Player.Open", { "item": { "playlistid": 1 } });
+        return this.request("Player.Open", { item: { playlistid: 1 } });
     }
 
     /**
@@ -213,13 +210,13 @@ export const JSONRPC = class {
      */
     async insert(file) {
         const properties = await this.request("Player.GetProperties", {
-            "playerid":   1,
-            "properties": ["position"]
+            playerid:   1,
+            properties: ["position"],
         });
         return this.request("Playlist.Insert", {
-            "playlistid": 1,
-            "position":   properties.position + 1,
-            "item":       { file }
+            playlistid: 1,
+            position:   properties.position + 1,
+            item:       { file },
         });
     }
 
@@ -230,7 +227,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     previous() {
-        return this.request("Player.GoTo", { "playerid": 1, "to": "previous" });
+        return this.request("Player.GoTo", { playerid: 1, to: "previous" });
     }
 
     /**
@@ -240,7 +237,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     stop() {
-        return this.request("Player.Stop", { "playerid": 1 });
+        return this.request("Player.Stop", { playerid: 1 });
     }
 
     /**
@@ -250,7 +247,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     open() {
-        return this.request("Player.Open", { "item": { "playlistid": 1 } });
+        return this.request("Player.Open", { item: { playlistid: 1 } });
     }
 
     /**
@@ -260,7 +257,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     playPause() {
-        return this.request("Player.PlayPause", { "playerid": 1 });
+        return this.request("Player.PlayPause", { playerid: 1 });
     }
 
     /**
@@ -272,15 +269,15 @@ export const JSONRPC = class {
      */
     seek(time) {
         return this.request("Player.Seek", {
-            "playerid": 1,
-            "value":    {
-                "time": {
-                    "hours":        Math.trunc(time / 3600),
-                    "minutes":      Math.trunc(time / 60) % 60,
-                    "seconds":      time % 60,
-                    "milliseconds": 0
-                }
-            }
+            playerid: 1,
+            value:    {
+                time: {
+                    hours:        Math.trunc(time / 3600),
+                    minutes:      Math.trunc(time / 60) % 60,
+                    seconds:      time % 60,
+                    milliseconds: 0,
+                },
+            },
         });
     }
 
@@ -291,7 +288,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     next() {
-        return this.request("Player.GoTo", { "playerid": 1, "to": "next" });
+        return this.request("Player.GoTo", { playerid: 1, to: "next" });
     }
 
     /**
@@ -302,7 +299,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     setSpeed(speed) {
-        return this.request("Player.SetSpeed", { "playerid": 1, speed });
+        return this.request("Player.SetSpeed", { playerid: 1, speed });
     }
 
     /**
@@ -328,7 +325,7 @@ export const JSONRPC = class {
     setVolume(volume) {
         return Promise.all([
             this.setMute(false),
-            this.request("Application.SetVolume", { volume })
+            this.request("Application.SetVolume", { volume }),
         ]);
     }
 
@@ -340,8 +337,8 @@ export const JSONRPC = class {
      */
     setRepeat() {
         return this.request("Player.SetRepeat", {
-            "playerid": 1,
-            "repeat":   "cycle"
+            playerid: 1,
+            repeat:   "cycle",
         });
     }
 
@@ -354,7 +351,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     setShuffle(shuffle) {
-        return this.request("Player.SetShuffle", { "playerid": 1, shuffle });
+        return this.request("Player.SetShuffle", { playerid: 1, shuffle });
     }
 
     /**
@@ -364,7 +361,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     clear() {
-        return this.request("Playlist.Clear", { "playlistid": 1 });
+        return this.request("Playlist.Clear", { playlistid: 1 });
     }
 
     /**
@@ -465,7 +462,7 @@ export const JSONRPC = class {
      * @returns {Promise.<object>} La réponse de Kodi.
      */
     setFullscreen() {
-        return this.request("GUI.SetFullscreen", { "fullscreen": "toggle" });
+        return this.request("GUI.SetFullscreen", { fullscreen: "toggle" });
     }
 
     /**
@@ -486,34 +483,34 @@ export const JSONRPC = class {
      */
     async getProperties() {
         const application = await this.request("Application.GetProperties", {
-            "properties": ["muted", "volume"]
+            properties: ["muted", "volume"],
         });
         const playerids = await this.request("Player.GetActivePlayers");
         let player;
         if (0 === playerids.length || 1 !== playerids[0].playerid) {
             player = {
-                "repeat":    "off",
-                "shuffled":  false,
-                "speed":     null,
-                "time":      { "hours": 0, "minutes": 0, "seconds": 0 },
-                "totaltime": { "hours": 0, "minutes": 0, "seconds": 0 }
+                repeat:    "off",
+                shuffled:  false,
+                speed:     null,
+                time:      { hours: 0, minutes: 0, seconds: 0 },
+                totaltime: { hours: 0, minutes: 0, seconds: 0 },
             };
         } else {
             player = await this.request("Player.GetProperties", {
-                "playerid":   1,
-                "properties": [
-                    "repeat", "shuffled", "speed", "time", "totaltime"
-                ]
+                playerid:   1,
+                properties: [
+                    "repeat", "shuffled", "speed", "time", "totaltime",
+                ],
             });
         }
         // Regrouper les propriétés et convertir les durées.
         return Object.assign({}, application, player, {
-            "time":      player.time.hours * 3600 +
-                         player.time.minutes * 60 +
-                         player.time.seconds,
-            "totaltime": player.totaltime.hours * 3600 +
-                         player.totaltime.minutes * 60 +
-                         player.totaltime.seconds
+            time:      player.time.hours * 3600 +
+                       player.time.minutes * 60 +
+                       player.time.seconds,
+            totaltime: player.totaltime.hours * 3600 +
+                       player.totaltime.minutes * 60 +
+                       player.totaltime.seconds,
         });
     }
 };

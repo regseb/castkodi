@@ -6,7 +6,7 @@ describe("Scraper: Invidious", function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = "https://invidio.us/watch?v=e6EQwSadpPk";
-        const options = { "depth": 0, "incognito": true };
+        const options = { depth: 0, incognito: true };
         const expected = "plugin://plugin.video.youtube/play/" +
                                                        "?video_id=e6EQwSadpPk" +
                                                        "&incognito=true";
@@ -19,7 +19,7 @@ describe("Scraper: Invidious", function () {
 
     it("should return embed video id", async function () {
         const url = "https://invidio.us/embed/8cmBd7lkunk";
-        const options = { "depth": 0, "incognito": false };
+        const options = { depth: 0, incognito: false };
         const expected = "plugin://plugin.video.youtube/play/" +
                                                        "?video_id=8cmBd7lkunk" +
                                                        "&incognito=false";

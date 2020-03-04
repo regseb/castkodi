@@ -33,11 +33,11 @@ describe("core/scraper/flickr.js", function () {
         it("should return video URL", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "streams": {
-                        "stream": [{ "_content": "https://baz.net/qux.mp4" }]
-                    }
-                })
+                json: () => ({
+                    streams: {
+                        stream: [{ _content: "https://baz.net/qux.mp4" }],
+                    },
+                }),
             }));
 
             const url = "http://www.flickr.com/photos/foo";

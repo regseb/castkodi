@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Arte", function () {
     it("should return URL when video is unavailable", async function () {
         const url = "https://www.arte.tv/fr/videos/067125-020-A/bits-top-list/";
-        const options = { "depth": 0, "incognito": false };
+        const options = { depth: 0, incognito: false };
         const expected = url;
 
         const file = await extract(new URL(url), options);
@@ -21,10 +21,10 @@ describe("Scraper: Arte", function () {
                     doc.querySelector(".highlights_category_ACT" +
                                       " a.next-teaser__link" +
                                          `[href^="/fr/"]`).href;
-        const options = { "depth": 0, "incognito": false };
+        const options = { depth: 0, incognito: false };
         const expected = {
-            "start": "https://arteptweb-",
-            "end":   [".mp4", "/master.m3u8"]
+            start: "https://arteptweb-",
+            end:   [".mp4", "/master.m3u8"],
         };
 
         const file = await extract(new URL(url), options);
@@ -45,10 +45,10 @@ describe("Scraper: Arte", function () {
                     doc.querySelector(".highlights_category_ACT" +
                                       " a.next-teaser__link" +
                                          `[href^="/de/"]`).href;
-        const options = { "depth": 0, "incognito": false };
+        const options = { depth: 0, incognito: false };
         const expected = {
-            "start": "https://arteptweb-",
-            "end":   [".mp4", "/master.m3u8"]
+            start: "https://arteptweb-",
+            end:   [".mp4", "/master.m3u8"],
         };
 
         const file = await extract(new URL(url), options);

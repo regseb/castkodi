@@ -78,8 +78,8 @@ export const cast = async function (action, urls) {
 
 
     const file = await extract(new URL(url), {
-        "depth":     0,
-        "incognito": browser.extension.inIncognitoContext
+        depth:     0,
+        incognito: browser.extension.inIncognitoContext,
     });
     switch (action) {
         case "send":   await jsonrpc.send(file);   break;
@@ -99,5 +99,6 @@ export const cast = async function (action, urls) {
 // Simuler un changement de configuration pour se connecter au bon serveur. Ce
 // bidouillage est utile quand ce fichier est chargé depuis les options ou la
 // popin (dans le background, cette migration qui change la configuration).
-change({ "server-": { "newValue": null } });
+// eslint-disable-next-line unicorn/no-keyword-prefix
+change({ "server-": { newValue: null } });
 browser.storage.onChanged.addListener(change);

@@ -33,9 +33,10 @@ describe("core/scraper/francetv.js", function () {
         it("should return video URL", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "streamroot": { "content_id": "https://bar.fr/baz.mp4" }
-                })
+                json: () => ({
+                    // eslint-disable-next-line camelcase
+                    streamroot: { content_id: "https://bar.fr/baz.mp4" },
+                }),
             }));
 
             const url = "https://www.france.tv/foo";

@@ -62,8 +62,8 @@ export const matchPattern = function (func, ...patterns) {
                                                      : Promise.resolve(null);
     };
     Object.defineProperty(wrapped, "name", {
-      "value":        func.name,
-      "configurable": true
+        value:        func.name,
+        configurable: true,
     });
     return wrapped;
 };

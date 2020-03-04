@@ -14,7 +14,7 @@ describe("core/scraper/ouestfrance.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://www.ouest-france.fr/foo";
             const doc = null;
-            const options = { "depth": 0 };
+            const options = { depth: 0 };
             const expected = null;
 
             const file = await extract(new URL(url), doc, options);
@@ -30,7 +30,7 @@ describe("core/scraper/ouestfrance.js", function () {
                                                                  `/123456789" />
                   </body>
                 </html>`, "text/html");
-            const options = { "depth": 1 };
+            const options = { depth: 1 };
             const expected = null;
 
             const file = await extract(new URL(url), doc, options);
@@ -43,7 +43,7 @@ describe("core/scraper/ouestfrance.js", function () {
                 <html>
                   <body></body>
                 </html>`, "text/html");
-            const options = { "depth": 0 };
+            const options = { depth: 0 };
             const expected = null;
 
             const file = await extract(new URL(url), doc, options);
@@ -59,7 +59,7 @@ describe("core/scraper/ouestfrance.js", function () {
                                                                  `/123456789" />
                   </body>
                 </html>`, "text/html");
-            const options = { "depth": 0 };
+            const options = { depth: 0 };
             const expected = "plugin://plugin.video.dailymotion_com/" +
                                                 "?mode=playVideo&url=123456789";
 

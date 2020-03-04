@@ -27,6 +27,6 @@ const action = async function ({ href }, doc, options) {
         return null;
     }
     return metaExtract(new URL(iframe.dataset.ofiframeSrc, href),
-                       { ...options, "depth": options.depth + 1 });
+                       { ...options, depth: options.depth + 1 });
 };
 export const extract = matchPattern(action, "*://www.ouest-france.fr/*");

@@ -48,7 +48,7 @@ describe("core/scraper/steam.js", function () {
 
         it("should return null when it's not a video", async function () {
             sinon.stub(globalThis, "fetch")
-                 .callsFake(() => Promise.resolve({ "json": () => ({}) }));
+                 .callsFake(() => Promise.resolve({ json: () => ({}) }));
 
             const url = "https://steamcommunity.com/broadcast/watch/foo";
             const expected = null;
@@ -64,7 +64,8 @@ describe("core/scraper/steam.js", function () {
         it("should return video URL", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({ "hls_url": "https://bar.com/baz.mp4" })
+                // eslint-disable-next-line camelcase
+                json: () => ({ hls_url: "https://bar.com/baz.mp4" }),
             }));
 
             const url = "https://steamcommunity.com/broadcast/watch/foo";

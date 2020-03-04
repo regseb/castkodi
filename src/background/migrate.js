@@ -8,14 +8,14 @@ browser.storage.local.get().then((config) => {
         browser.storage.local.set({
             "config-version":   2,
             "server-mode":      "single",
-            "server-list":      [{ "host": "", "name": "" }],
+            "server-list":      [{ host: "", name: "" }],
             "server-active":    0,
             "general-history":  false,
             "menu-actions":     ["send", "insert", "add"],
             "menu-contexts":    [
-                "audio", "frame", "link", "page", "selection", "tab", "video"
+                "audio", "frame", "link", "page", "selection", "tab", "video",
             ],
-            "youtube-playlist": "playlist"
+            "youtube-playlist": "playlist",
         });
     } else if (1 === config["config-version"]) {
         const actions = Object.entries(config)
@@ -31,14 +31,14 @@ browser.storage.local.get().then((config) => {
             "config-version":   2,
             "server-mode":      "single",
             "server-list":      [{
-                "host": config["connection-host"],
-                "name": ""
+                host: config["connection-host"],
+                name: "",
             }],
             "server-active":    0,
             "general-history":  config["general-history"],
             "menu-actions":     actions,
             "menu-contexts":    contexts,
-            "youtube-playlist": config["youtube-playlist"]
+            "youtube-playlist": config["youtube-playlist"],
         });
     } else {
         // Nettoyer la configuration en gardant seulement les propriétés
@@ -52,7 +52,7 @@ browser.storage.local.get().then((config) => {
             "general-history":  config["general-history"],
             "menu-actions":     config["menu-actions"],
             "menu-contexts":    config["menu-contexts"],
-            "youtube-playlist": config["youtube-playlist"]
+            "youtube-playlist": config["youtube-playlist"],
         });
     }
 });

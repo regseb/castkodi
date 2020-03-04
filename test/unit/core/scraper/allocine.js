@@ -29,12 +29,9 @@ describe("core/scraper/allocine.js", function () {
                 <html>
                   <body>
                     <figure data-model="${JSON.stringify({
-                        "videos": [{
-                            "sources": {
-                                "sd": "/foo.avi",
-                                "hd": "/bar.mp4"
-                            }
-                        }]
+                        videos: [{
+                            sources: { sd: "/foo.avi", hd: "/bar.mp4" },
+                        }],
                     }).replace(/"/gu, "&quot;")}"></figure>
                   </body>
                 </html>`, "text/html");

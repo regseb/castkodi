@@ -16,16 +16,16 @@ import { extract as metaExtract } from "../scrapers.js";
  * @see {@link https://yandex.com/support/video/partners/open-graph.html}
  */
 const SELECTORS = {
-    "VIDEO": [
+    VIDEO: [
         `meta[property="og:video:secure_url"]`,
         `meta[property="og:video:url"]`,
-        `meta[property="og:video"]`
+        `meta[property="og:video"]`,
     ],
-    "AUDIO": [
+    AUDIO: [
         `meta[property="og:audio:secure_url"]`,
         `meta[property="og:audio:url"]`,
-        `meta[property="og:audio"]`
-    ]
+        `meta[property="og:audio"]`,
+    ],
 };
 
 /**
@@ -59,7 +59,7 @@ const actionVideo = async function (_url, doc, options) {
     }
     if ("text/html" === type.content && 0 === options.depth) {
         return metaExtract(new URL(meta.content),
-                           { ...options, "depth": options.depth + 1 });
+                           { ...options, depth: options.depth + 1 });
     }
     return null;
 };
@@ -96,7 +96,7 @@ const actionAudio = async function (_url, doc, options) {
     }
     if ("text/html" === type.content && 0 === options.depth) {
         return metaExtract(new URL(meta.content),
-                           { ...options, "depth": options.depth + 1 });
+                           { ...options, depth: options.depth + 1 });
     }
     return null;
 };

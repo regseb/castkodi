@@ -21,7 +21,7 @@ const aggregate = async function (info) {
 
     return [
         info.selectionText, info.linkUrl, info.srcUrl, info.frameUrl,
-        info.pageUrl
+        info.pageUrl,
     ];
 };
 
@@ -41,7 +41,7 @@ const click = async function (info) {
         }
     } else if (!info.wasChecked) {
         browser.storage.local.set({
-            "server-active": parseInt(info.menuItemId, 10)
+            "server-active": parseInt(info.menuItemId, 10),
         });
     }
 };
@@ -71,42 +71,42 @@ const menu = async function (changes) {
         const key = "menus_first" + actions[0].charAt(0).toUpperCase() +
                     actions[0].slice(1);
         browser.menus.create({
-            "contexts": contexts,
-            "id":       actions[0],
-            "title":    browser.i18n.getMessage(key)
+            contexts: contexts,
+            id:       actions[0],
+            title:    browser.i18n.getMessage(key),
         });
     } else if (1 === actions.length && "multi" === mode ||
                2 <= actions.length) {
         browser.menus.create({
-            "contexts": contexts,
-            "id":       "parent",
-            "title":    browser.i18n.getMessage("menus_firstParent")
+            contexts: contexts,
+            id:       "parent",
+            title:    browser.i18n.getMessage("menus_firstParent"),
         });
         for (const action of actions) {
             const key = "menus_second" + action.charAt(0).toUpperCase() +
                         action.slice(1);
             browser.menus.create({
-                "id":       action,
-                "parentId": "parent",
-                "title":    browser.i18n.getMessage(key)
+                id:       action,
+                parentId: "parent",
+                title:    browser.i18n.getMessage(key),
             });
         }
 
         if ("multi" === mode) {
             browser.menus.create({
-                "parentId": "parent",
-                "type":     "separator"
+                parentId: "parent",
+                type:     "separator",
             });
             config["server-list"].forEach((server, index) => {
                 const name = (/^\s*$/u).test(server.name)
                         ? browser.i18n.getMessage("menus_noName", index + 1)
                         : server.name;
                 browser.menus.create({
-                    "checked":  config["server-active"] === index,
-                    "id":       index.toString(),
-                    "parentId": "parent",
-                    "title":    name,
-                    "type":     "radio"
+                    checked:  config["server-active"] === index,
+                    id:       index.toString(),
+                    parentId: "parent",
+                    title:    name,
+                    type:     "radio",
                 });
             });
         }

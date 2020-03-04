@@ -6,7 +6,7 @@ describe("core/index.js", function () {
         it("should ignore invalid input", function () {
             const urls = [
                 undefined, "", " ", "www.foo.",
-                "moz-extension://0123456789abdcef/index.html"
+                "moz-extension://0123456789abdcef/index.html",
             ];
             const expected = undefined;
 
@@ -37,7 +37,7 @@ describe("core/index.js", function () {
                   "&tr=udp%3a%2f%2ftracker.openbittorrent.com%3a80%2fannounce" +
                         "&tr=udp%3a%2f%2ftracker.publicbt.com%3a80%2fannounce" +
                        "&ws=http%3a%2f%2fdistribution.bbb3d.renderfarming.net" +
-                         "%2fvideo%2fmp4%2fbbb_sunflower_1080p_30fps_normal.mp4"
+                        "%2fvideo%2fmp4%2fbbb_sunflower_1080p_30fps_normal.mp4",
             ];
             const expected =
                 "magnet:?xt=urn:btih:88594AAACBDE40EF3E2510C47374EC0AA396C08E" +

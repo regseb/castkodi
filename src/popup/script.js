@@ -66,7 +66,7 @@ const onStop = function () {
     speed = null;
 
     document.querySelector("#time").disabled = true;
-    onSeek({ "player": { "playerid": 1, "time": 0 } });
+    onSeek({ player: { playerid: 1, time: 0 } });
 
     document.querySelector("#previous").disabled = true;
     document.querySelector("#rewind").disabled = true;
@@ -174,10 +174,9 @@ const update = async function () {
         if (null === properties.speed) {
             onStop();
         } else {
-            onSpeedChanged({ "player": {
-                "playerid": 1,
-                "speed":    properties.speed
-            } });
+            onSpeedChanged({
+                player: { playerid: 1, speed: properties.speed },
+            });
         }
 
         document.querySelector("#time").max = properties.totaltime.toString();
@@ -193,17 +192,17 @@ const update = async function () {
             document.querySelector("#pause").disabled = false;
             document.querySelector("#forward").disabled = false;
         }
-        onSeek({ "player": { "playerid": 1, "time": properties.time } });
+        onSeek({ player: { playerid: 1, time: properties.time } });
 
         onVolumeChanged(properties);
 
         onPropertyChanged({
-            "player":   { "playerid": 1 },
-            "property": { "repeat": properties.repeat }
+            player:   { playerid: 1 },
+            property: { repeat: properties.repeat },
         });
         onPropertyChanged({
-            "player":   { "playerid": 1 },
-            "property": { "shuffled": properties.shuffled }
+            player:   { playerid: 1 },
+            property: { shuffled: properties.shuffled },
         });
 
         document.querySelector("#contextmenu").disabled = false;
@@ -227,10 +226,7 @@ const mux = async function () {
         return Promise.resolve(document.querySelector("textarea").value);
     }
 
-    const queryInfo = {
-        "active":        true,
-        "currentWindow": true
-    };
+    const queryInfo = { active: true, currentWindow: true };
     const tabs = await browser.tabs.query(queryInfo);
     return tabs[0].url;
 };
@@ -314,7 +310,7 @@ const paste = function (event) {
 
 const change = async function (event) {
     await browser.storage.local.set({
-        "server-active": event.target.selectedIndex
+        "server-active": event.target.selectedIndex,
     });
     document.location.reload();
 };
@@ -325,13 +321,13 @@ const preferences = async function () {
 };
 
 const report = async function () {
-    await browser.tabs.create({ "url": "https://github.com/regseb/castkodi" });
+    await browser.tabs.create({ url: "https://github.com/regseb/castkodi" });
     close();
 };
 
 const rate = async function () {
     await browser.tabs.create({
-        "url": "https://addons.mozilla.org/addon/castkodi/reviews/"
+        url: "https://addons.mozilla.org/addon/castkodi/reviews/",
     });
     close();
 };
@@ -600,20 +596,16 @@ const passing = function () {
     }
 
     const time = document.querySelector("#time");
-    onSeek({ "player": {
-        "playerid": 1,
-        "time":     time.valueAsNumber + SPEEDS[speed]
-    } });
+    onSeek({
+        player: { playerid: 1, time: time.valueAsNumber + SPEEDS[speed] },
+    });
 };
 
 const move = function () {
     clearInterval(interval);
     const time = document.querySelector("#time");
 
-    onSeek({ "player": {
-        "playerid": 1,
-        "time":     time.valueAsNumber
-    } });
+    onSeek({ player: { playerid: 1, time: time.valueAsNumber } });
 };
 
 const seek = function () {
@@ -732,9 +724,8 @@ globalThis.addEventListener("keyup", (event) => {
         event.preventDefault();
     }
 });
-
 globalThis.addEventListener("wheel", (event) => {
-    if (!event.deltaY) {
+    if (0 === event.deltaY) {
         return;
     }
     setVolume(event.deltaY * -1);

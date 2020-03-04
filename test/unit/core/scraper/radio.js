@@ -64,9 +64,9 @@ describe("core/scraper/radio.js", function () {
                         var require = {
                             'components/station/stationService': {
                                 station: ${JSON.stringify({
-                                    "streamUrls": [{
-                                        "streamUrl": "https://bar.com/baz.mp3"
-                                    }]
+                                    streamUrls: [{
+                                        streamUrl: "https://bar.com/baz.mp3",
+                                    }],
                                 })},
                                 nowPlayingPollingInterval: 60000
                             }

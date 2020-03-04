@@ -19,9 +19,9 @@ describe("core/scraper/arte.js", function () {
         it("should return null when video is unavailable", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "videoJsonPlayer": { "VSR": { "0": { "id": "baz_2" } } }
-                })
+                json: () => ({
+                    videoJsonPlayer: { VSR: { 0: { id: "baz_2" } } },
+                }),
             }));
 
             const url = "https://www.arte.tv/de/videos/foo/bar";
@@ -38,23 +38,23 @@ describe("core/scraper/arte.js", function () {
         it("should return french video URL", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "videoJsonPlayer": {
-                        "VSR": {
-                            "0": { "id": "baz_1", "height": 100 },
-                            "1": { "id": "baz_2" },
-                            "2": {
-                                "id":     "baz_1",
-                                "height": 400,
-                                "url":    "https://qux.tv/quux.mp4"
+                json: () => ({
+                    videoJsonPlayer: {
+                        VSR: {
+                            0: { id: "baz_1", height: 100 },
+                            1: { id: "baz_2" },
+                            2: {
+                                id:     "baz_1",
+                                height: 400,
+                                url:    "https://qux.tv/quux.mp4",
                             },
-                            "3": {
-                                "id":     "baz_1",
-                                "height": 200
-                            }
-                        }
-                    }
-                })
+                            3: {
+                                id:     "baz_1",
+                                height: 200,
+                            },
+                        },
+                    },
+                }),
             }));
 
             const url = "https://www.arte.tv/fr/videos/foo/bar";

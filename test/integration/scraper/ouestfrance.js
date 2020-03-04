@@ -6,7 +6,7 @@ describe("Scraper: Ouest-France", function () {
         const url = "https://www.ouest-france.fr/festivals" +
                     "/festival-dangouleme/bd-grand-prix-d-angouleme-catherine" +
                   "-meurisse-chris-ware-et-emmanuel-guibert-finalistes-6690989";
-        const options = { "depth": 0, "incognito": false };
+        const options = { depth: 0, incognito: false };
         const expected = url;
 
         const file = await extract(new URL(url), options);
@@ -17,7 +17,7 @@ describe("Scraper: Ouest-France", function () {
         const url = "https://www.ouest-france.fr/culture/cinema" +
                       "/festival-cannes/festival-de-cannes-spike-lee-cineaste" +
                            "-phare-de-la-cause-noire-president-du-jury-6688060";
-        const options = { "depth": 0, "incognito": false };
+        const options = { depth: 0, incognito: false };
         const expected = "/cd/be/cdbeda603ae5805ab0561403d5e1afabcd685162.mp4" +
                                                                "?mdtk=01124706";
 

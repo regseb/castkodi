@@ -10,11 +10,11 @@
  */
 export const notify = function (err) {
     browser.notifications.create(null, {
-        "type":    "basic",
-        "iconUrl": "img/icon.svg",
-        "title":   "PebkacError" === err.name
+        type:    "basic",
+        iconUrl: "img/icon.svg",
+        title:   "PebkacError" === err.name
                        ? err.title
                        : browser.i18n.getMessage("notifications_unknown_title"),
-        "message": err.message
+        message: err.message,
     });
 };

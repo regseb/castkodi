@@ -28,7 +28,7 @@ describe("core/scraper/radioline.js", function () {
                                                              async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({ "body": { "type": "error" } })
+                json: () => ({ body: { type: "error" } }),
             }));
 
             const url = "http://www.radioline.co/foo#bar-baz";
@@ -44,14 +44,14 @@ describe("core/scraper/radioline.js", function () {
         it("should return audio URL", async function () {
             sinon.stub(globalThis, "fetch")
                  .callsFake(() => Promise.resolve({
-                "json": () => ({
-                    "body": {
-                        "type":    "single",
-                        "content": {
-                            "streams": [{ "url": "https://qux.com/quux.mp4" }]
-                        }
-                    }
-                })
+                json: () => ({
+                    body: {
+                        type:    "single",
+                        content: {
+                            streams: [{ url: "https://qux.com/quux.mp4" }],
+                        },
+                    },
+                }),
             }));
 
             const url = "http://www.radioline.co/foo#bar/baz";

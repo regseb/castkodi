@@ -6,7 +6,7 @@ describe("Scraper: HookTube", function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = "https://hooktube.com/watch?v=LACbVhgtx9I";
-        const options = { "depth": 0, "incognito": false };
+        const options = { depth: 0, incognito: false };
         const expected = "plugin://plugin.video.youtube/play/" +
                                                        "?video_id=LACbVhgtx9I" +
                                                        "&incognito=false";
@@ -19,7 +19,7 @@ describe("Scraper: HookTube", function () {
 
     it("should return embed video id", async function () {
         const url = "https://hooktube.com/embed/3lPSQ5KjamI";
-        const options = { "depth": 0, "incognito": true };
+        const options = { depth: 0, incognito: true };
         const expected = "plugin://plugin.video.youtube/play/" +
                                                        "?video_id=3lPSQ5KjamI" +
                                                        "&incognito=true";

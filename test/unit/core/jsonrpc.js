@@ -9,8 +9,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
                     socket.send(JSON.stringify({
-                        "id":     JSON.parse(data).id,
-                        "result": null
+                        id:     JSON.parse(data).id,
+                        result: null,
                     }));
                 });
             });
@@ -70,10 +70,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
                     socket.send(JSON.stringify({
-                        "id":    JSON.parse(data).id,
-                        "error": {
-                            "message": "FooError"
-                        }
+                        id:    JSON.parse(data).id,
+                        error: { message: "FooError" },
                     }));
                 });
             });
@@ -97,8 +95,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
                     socket.send(JSON.stringify({
-                        "id":     JSON.parse(data).id,
-                        "result": null
+                        id:     JSON.parse(data).id,
+                        result: null,
                     }));
                 });
             });
@@ -124,12 +122,9 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Playlist.Add");
                     assert.deepStrictEqual(msg.params, {
-                        "playlistid": 1, "item": { "file": "foo" }
+                        playlistid: 1, item: { file: "foo" },
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -152,31 +147,31 @@ describe("core/jsonrpc.js", function () {
                         case 1:
                             assert.strictEqual(msg.method, "Playlist.Clear");
                             assert.deepStrictEqual(msg.params, {
-                                "playlistid": 1
+                                playlistid: 1,
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": "OK"
+                                id:     msg.id,
+                                result: "OK",
                             }));
                             break;
                         case 2:
                             assert.strictEqual(msg.method, "Playlist.Add");
                             assert.deepStrictEqual(msg.params, {
-                                "playlistid": 1, "item": { "file": "foo" }
+                                playlistid: 1, item: { file: "foo" },
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": "OK"
+                                id:     msg.id,
+                                result: "OK",
                             }));
                             break;
                         case 3:
                             assert.strictEqual(msg.method, "Player.Open");
                             assert.deepStrictEqual(msg.params, {
-                                "item": { "playlistid": 1 }
+                                item: { playlistid: 1 },
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": "OK"
+                                id:     msg.id,
+                                result: "OK",
                             }));
                             break;
                         default:
@@ -205,23 +200,24 @@ describe("core/jsonrpc.js", function () {
                             assert.strictEqual(msg.method,
                                                "Player.GetProperties");
                             assert.deepStrictEqual(msg.params, {
-                                "playerid": 1, "properties": ["position"]
+                                playerid:   1,
+                                properties: ["position"],
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": { "position": 1337 }
+                                id:     msg.id,
+                                result: { position: 1337 },
                             }));
                             break;
                         case 2:
                             assert.strictEqual(msg.method, "Playlist.Insert");
                             assert.deepStrictEqual(msg.params, {
-                                "playlistid": 1,
-                                "position":   1338,
-                                "item":       { "file": "foo" }
+                                playlistid: 1,
+                                position:   1338,
+                                item:       { file: "foo" },
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": "OK"
+                                id:     msg.id,
+                                result: "OK",
                             }));
                             break;
                         default:
@@ -247,12 +243,10 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.GoTo");
                     assert.deepStrictEqual(msg.params, {
-                        "playerid": 1, "to": "previous"
+                        playerid: 1,
+                        to:       "previous",
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -271,11 +265,8 @@ describe("core/jsonrpc.js", function () {
                 socket.on("message", (data) => {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.Stop");
-                    assert.deepStrictEqual(msg.params, { "playerid": 1 });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    assert.deepStrictEqual(msg.params, { playerid: 1 });
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -295,12 +286,9 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.Open");
                     assert.deepStrictEqual(msg.params, {
-                        "item": { "playlistid": 1 }
+                        item: { playlistid: 1 },
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -319,11 +307,8 @@ describe("core/jsonrpc.js", function () {
                 socket.on("message", (data) => {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.PlayPause");
-                    assert.deepStrictEqual(msg.params, { "playerid": 1 });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    assert.deepStrictEqual(msg.params, { playerid: 1 });
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -343,20 +328,17 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.Seek");
                     assert.deepStrictEqual(msg.params, {
-                        "playerid": 1,
-                        "value":    {
-                            "time": {
-                                "hours":        0,
-                                "minutes":      1,
-                                "seconds":      40,
-                                "milliseconds": 0
-                            }
-                        }
+                        playerid: 1,
+                        value:    {
+                            time: {
+                                hours:        0,
+                                minutes:      1,
+                                seconds:      40,
+                                milliseconds: 0,
+                            },
+                        },
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -376,12 +358,10 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.GoTo");
                     assert.deepStrictEqual(msg.params, {
-                        "playerid": 1, "to": "next"
+                        playerid: 1,
+                        to:       "next",
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -401,12 +381,10 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.SetSpeed");
                     assert.deepStrictEqual(msg.params, {
-                        "playerid": 1, "speed": 32
+                        playerid: 1,
+                        speed:    32,
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -426,11 +404,8 @@ describe("core/jsonrpc.js", function () {
                 socket.on("message", (data) => {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Application.SetMute");
-                    assert.deepStrictEqual(msg.params, { "mute": true });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    assert.deepStrictEqual(msg.params, { mute: true });
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -453,23 +428,19 @@ describe("core/jsonrpc.js", function () {
                         case 1:
                             assert.strictEqual(msg.method,
                                                "Application.SetMute");
-                            assert.deepStrictEqual(msg.params, {
-                                "mute": false
-                            });
+                            assert.deepStrictEqual(msg.params, { mute: false });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": "OK"
+                                id:     msg.id,
+                                result: "OK",
                             }));
                             break;
                         case 2:
                             assert.strictEqual(msg.method,
                                                "Application.SetVolume");
-                            assert.deepStrictEqual(msg.params, {
-                                "volume": 51
-                            });
+                            assert.deepStrictEqual(msg.params, { volume: 51 });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": "OK"
+                                id:     msg.id,
+                                result: "OK",
                             }));
                             break;
                         default:
@@ -495,12 +466,10 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.SetRepeat");
                     assert.deepStrictEqual(msg.params, {
-                        "playerid": 1, "repeat": "cycle"
+                        playerid: 1,
+                        repeat:   "cycle",
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -520,12 +489,10 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Player.SetShuffle");
                     assert.deepStrictEqual(msg.params, {
-                        "playerid": 1, "shuffle": true
+                        playerid: 1,
+                        shuffle:  true,
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -545,11 +512,8 @@ describe("core/jsonrpc.js", function () {
                 socket.on("message", (data) => {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Playlist.Clear");
-                    assert.deepStrictEqual(msg.params, { "playlistid": 1 });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    assert.deepStrictEqual(msg.params, { playlistid: 1 });
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -569,10 +533,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.ContextMenu");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -592,10 +553,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.Up");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -615,10 +573,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.Info");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -638,10 +593,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.Left");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -661,10 +613,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.Select");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -684,10 +633,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.Right");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -707,10 +653,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.Back");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -730,10 +673,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.Down");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -753,10 +693,7 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "Input.ShowOSD");
                     assert.deepStrictEqual(msg.params, {});
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -776,12 +713,9 @@ describe("core/jsonrpc.js", function () {
                     const msg = JSON.parse(data);
                     assert.strictEqual(msg.method, "GUI.SetFullscreen");
                     assert.deepStrictEqual(msg.params, {
-                        "fullscreen": "toggle"
+                        fullscreen: "toggle",
                     });
-                    socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": "OK"
-                    }));
+                    socket.send(JSON.stringify({ id: msg.id, result: "OK" }));
                 });
             });
 
@@ -802,10 +736,8 @@ describe("core/jsonrpc.js", function () {
                     assert.strictEqual(msg.method, "JSONRPC.Version");
                     assert.deepStrictEqual(msg.params, {});
                     socket.send(JSON.stringify({
-                        "id":     msg.id,
-                        "result": {
-                            "version": { "major": 10, "minor": 3, "patch": 0 }
-                        }
+                        id:     msg.id,
+                        result: { version: { major: 10, minor: 3, patch: 0 } },
                     }));
                 });
             });
@@ -813,7 +745,7 @@ describe("core/jsonrpc.js", function () {
             const jsonrpc = new JSONRPC("localhost");
             const result = await jsonrpc.version();
             assert.deepStrictEqual(result, {
-                "version": { "major": 10, "minor": 3, "patch": 0 }
+                version: { major: 10, minor: 3, patch: 0 },
             });
 
             server.close();
@@ -831,11 +763,11 @@ describe("core/jsonrpc.js", function () {
                             assert.strictEqual(msg.method,
                                                "Application.GetProperties");
                             assert.deepStrictEqual(msg.params, {
-                                "properties": ["muted", "volume"]
+                                properties: ["muted", "volume"],
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": { "muted": false, "volume": 51 }
+                                id:     msg.id,
+                                result: { muted: false, volume: 51 },
                             }));
                             break;
                         case 2:
@@ -843,8 +775,8 @@ describe("core/jsonrpc.js", function () {
                                                "Player.GetActivePlayers");
                             assert.deepStrictEqual(msg.params, {});
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": []
+                                id:     msg.id,
+                                result: [],
                             }));
                             break;
                         default:
@@ -856,13 +788,13 @@ describe("core/jsonrpc.js", function () {
             const jsonrpc = new JSONRPC("localhost");
             const result = await jsonrpc.getProperties();
             assert.deepStrictEqual(result, {
-                "muted":     false,
-                "volume":    51,
-                "repeat":    "off",
-                "shuffled":  false,
-                "speed":     null,
-                "time":      0,
-                "totaltime": 0
+                muted:     false,
+                volume:    51,
+                repeat:    "off",
+                shuffled:  false,
+                speed:     null,
+                time:      0,
+                totaltime: 0,
             });
 
             server.close();
@@ -878,11 +810,11 @@ describe("core/jsonrpc.js", function () {
                             assert.strictEqual(msg.method,
                                                "Application.GetProperties");
                             assert.deepStrictEqual(msg.params, {
-                                "properties": ["muted", "volume"]
+                                properties: ["muted", "volume"],
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": { "muted": true, "volume": 0 }
+                                id:     msg.id,
+                                result: { muted: true, volume: 0 },
                             }));
                             break;
                         case 2:
@@ -890,8 +822,8 @@ describe("core/jsonrpc.js", function () {
                                                "Player.GetActivePlayers");
                             assert.deepStrictEqual(msg.params, {});
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": [{ "playerid": 2 }]
+                                id:     msg.id,
+                                result: [{ playerid: 2 }],
                             }));
                             break;
                         default:
@@ -903,13 +835,13 @@ describe("core/jsonrpc.js", function () {
             const jsonrpc = new JSONRPC("localhost");
             const result = await jsonrpc.getProperties();
             assert.deepStrictEqual(result, {
-                "muted":     true,
-                "volume":    0,
-                "repeat":    "off",
-                "shuffled":  false,
-                "speed":     null,
-                "time":      0,
-                "totaltime": 0
+                muted:     true,
+                volume:    0,
+                repeat:    "off",
+                shuffled:  false,
+                speed:     null,
+                time:      0,
+                totaltime: 0,
             });
 
             server.close();
@@ -925,11 +857,11 @@ describe("core/jsonrpc.js", function () {
                             assert.strictEqual(msg.method,
                                                "Application.GetProperties");
                             assert.deepStrictEqual(msg.params, {
-                                "properties": ["muted", "volume"]
+                                properties: ["muted", "volume"],
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": { "muted": false, "volume": 100 }
+                                id:     msg.id,
+                                result: { muted: false, volume: 100 },
                             }));
                             break;
                         case 2:
@@ -937,33 +869,33 @@ describe("core/jsonrpc.js", function () {
                                                "Player.GetActivePlayers");
                             assert.deepStrictEqual(msg.params, {});
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": [{ "playerid": 1 }]
+                                id:     msg.id,
+                                result: [{ playerid: 1 }],
                             }));
                             break;
                         case 3:
                             assert.strictEqual(msg.method,
                                                "Player.GetProperties");
                             assert.deepStrictEqual(msg.params, {
-                                "playerid":   1,
-                                "properties": [
+                                playerid:   1,
+                                properties: [
                                     "repeat", "shuffled", "speed", "time",
-                                    "totaltime"
-                                ]
+                                    "totaltime",
+                                ],
                             });
                             socket.send(JSON.stringify({
-                                "id":     msg.id,
-                                "result": {
-                                    "repeat":    "one",
-                                    "shuffled":  true,
-                                    "speed":     1,
-                                    "time":      {
-                                        "hours": 0, "minutes": 1, "seconds": 2
+                                id:     msg.id,
+                                result: {
+                                    repeat:    "one",
+                                    shuffled:  true,
+                                    speed:     1,
+                                    time:      {
+                                        hours: 0, minutes: 1, seconds: 2,
                                     },
-                                    "totaltime": {
-                                        "hours": 1, "minutes": 2, "seconds": 3
-                                    }
-                                }
+                                    totaltime: {
+                                        hours: 1, minutes: 2, seconds: 3,
+                                    },
+                                },
                             }));
                             break;
                         default:
@@ -975,13 +907,13 @@ describe("core/jsonrpc.js", function () {
             const jsonrpc = new JSONRPC("localhost");
             const result = await jsonrpc.getProperties();
             assert.deepStrictEqual(result, {
-                "muted":     false,
-                "volume":    100,
-                "repeat":    "one",
-                "shuffled":  true,
-                "speed":     1,
-                "time":      62,
-                "totaltime": 3723
+                muted:     false,
+                volume:    100,
+                repeat:    "one",
+                shuffled:  true,
+                speed:     1,
+                time:      62,
+                totaltime: 3723,
             });
 
             server.close();
@@ -994,8 +926,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Application.OnVolumeChanged",
-                        "params": { "data": "foo" }
+                        method: "Application.OnVolumeChanged",
+                        params: { data: "foo" },
                     }));
                 });
             });
@@ -1016,8 +948,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Player.OnAVStart",
-                        "params": { "data": "foo" }
+                        method: "Player.OnAVStart",
+                        params: { data: "foo" },
                     }));
                 });
             });
@@ -1038,8 +970,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Player.OnPause",
-                        "params": { "data": "foo" }
+                        method: "Player.OnPause",
+                        params: { data: "foo" },
                     }));
                 });
             });
@@ -1060,8 +992,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Player.OnPlay",
-                        "params": { "data": "foo" }
+                        method: "Player.OnPlay",
+                        params: { data: "foo" },
                     }));
                 });
             });
@@ -1082,8 +1014,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Player.OnPropertyChanged",
-                        "params": { "data": "foo" }
+                        method: "Player.OnPropertyChanged",
+                        params: { data: "foo" },
                     }));
                 });
             });
@@ -1104,8 +1036,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Player.OnResume",
-                        "params": { "data": "foo" }
+                        method: "Player.OnResume",
+                        params: { data: "foo" },
                     }));
                 });
             });
@@ -1126,21 +1058,21 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Player.OnSeek",
-                        "params": {
-                            "data": {
-                                "item":   "Foo",
-                                "player": {
-                                    "playerid": 1,
-                                    "speed":    -2,
-                                    "time":     {
-                                        "hours":   1,
-                                        "minutes": 2,
-                                        "seconds": 3
-                                    }
-                                }
-                            }
-                        }
+                        method: "Player.OnSeek",
+                        params: {
+                            data: {
+                                item:   "Foo",
+                                player: {
+                                    playerid: 1,
+                                    speed:    -2,
+                                    time:     {
+                                        hours:   1,
+                                        minutes: 2,
+                                        seconds: 3,
+                                    },
+                                },
+                            },
+                        },
                     }));
                 });
             });
@@ -1148,12 +1080,12 @@ describe("core/jsonrpc.js", function () {
             const jsonrpc = new JSONRPC("localhost");
             jsonrpc.onSeek = (data) => {
                 assert.deepStrictEqual(data, {
-                    "item":   "Foo",
-                    "player": {
-                        "playerid": 1,
-                        "speed":    -2,
-                        "time":     3723
-                    }
+                    item:   "Foo",
+                    player: {
+                        playerid: 1,
+                        speed:    -2,
+                        time:     3723,
+                    },
                 });
                 done();
                 server.close();
@@ -1168,8 +1100,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Player.OnSpeedChanged",
-                        "params": { "data": "foo" }
+                        method: "Player.OnSpeedChanged",
+                        params: { data: "foo" },
                     }));
                 });
             });
@@ -1190,8 +1122,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "Player.OnStop",
-                        "params": { "data": "foo" }
+                        method: "Player.OnStop",
+                        params: { data: "foo" },
                     }));
                 });
             });
@@ -1212,8 +1144,8 @@ describe("core/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", () => {
                     socket.send(JSON.stringify({
-                        "method": "System.OnQuit",
-                        "params": { "data": "foo" }
+                        method: "System.OnQuit",
+                        params: { data: "foo" },
                     }));
                     done();
                 });

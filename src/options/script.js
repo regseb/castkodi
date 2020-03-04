@@ -15,7 +15,7 @@ const ask = async function (input) {
         return input.checked;
     }
 
-    const permissions = { "permissions": [input.dataset.permissions] };
+    const permissions = { permissions: [input.dataset.permissions] };
     if (input.checked) {
         return browser.permissions.request(permissions);
     }
@@ -79,7 +79,7 @@ const save = async function () {
                 // les écouteurs à chaque changement.
                 browser.storage.local.set({
                     "server-mode":   "single",
-                    "server-active": 0
+                    "server-active": 0,
                 });
                 tab.nextElementSibling.open = false;
             } else {
@@ -116,7 +116,7 @@ const save = async function () {
         } else {
             browser.storage.local.set({
                 [key]: [...inputs].filter((i) => i.checked)
-                                  .map((i) => i.name)
+                                  .map((i) => i.name),
             });
         }
     } else {

@@ -25,7 +25,7 @@ const action = async function ({ href }, doc, options) {
     for (const iframe of doc.querySelectorAll("iframe[src]")) {
         const file = await metaExtract(
             new URL(iframe.getAttribute("src"), href),
-            { ...options, "depth": options.depth + 1 }
+            { ...options, depth: options.depth + 1 },
         );
         if (null !== file) {
             return file;
