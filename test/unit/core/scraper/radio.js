@@ -12,71 +12,79 @@ describe("core/scraper/radio.js", function () {
         });
 
         it("should return null when no script", async function () {
-            const url = "https://www.radio.net/s/noscript";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body></body>
-                </html>`, "text/html");
+            const url = "https://www.radio.net/s/foo";
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body></body>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
         it("should return null when no inline script", async function () {
-            const url = "https://www.radio.net/s/noinlinescript";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <script src="https://www.radio.net/script.js"></script>
-                  </body>
-                </html>`, "text/html");
+            const url = "https://www.radio.net/s/foo";
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script src="https://www.radio.net/script.js"></script>
+                      </body>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
         it("should return null when no station", async function () {
-            const url = "https://www.radio.net/s/nostation";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <script>
-                        var require = {
-                            'components/station/stationService': {}
-                        };
-                    </script>
-                  </body>
-                </html>`, "text/html");
+            const url = "https://www.radio.net/s/foo";
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script>
+                            var require = {
+                                'components/station/stationService': {}
+                            };
+                        </script>
+                      </body>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
         it("should return audio URL", async function () {
-            const url = "https://www.radio.net/s/baz";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <script>
-                        var require = {
-                            'components/station/stationService': {
-                                station: ${JSON.stringify({
-                                    streamUrls: [{
-                                        streamUrl: "https://bar.com/baz.mp3",
-                                    }],
-                                })},
-                                nowPlayingPollingInterval: 60000
-                            }
-                        };
-                    </script>
-                  </body>
-                </html>`, "text/html");
-            const expected = "https://bar.com/baz.mp3";
+            const url = "https://www.radio.net/s/foo";
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script>
+                            var require = {
+                                'components/station/stationService': {
+                                    station: ${JSON.stringify({
+                                        streamUrls: [{
+                                            streamUrl: "https://bar.io/baz.mp3",
+                                        }],
+                                    })},
+                                    nowPlayingPollingInterval: 60000
+                                }
+                            };
+                        </script>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const expected = "https://bar.io/baz.mp3";
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
     });

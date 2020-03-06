@@ -36,12 +36,15 @@ const walk = function (root) {
 /**
  * Extrait les informations nécessaire pour lire un média sur Kodi.
  *
- * @param {URL}          _url L'URL d'une page quelconque.
- * @param {HTMLDocument} doc  Le contenu HTML de la page.
+ * @param {URL}      _url         L'URL d'une page quelconque.
+ * @param {object}   content      Le contenu de l'URL.
+ * @param {Function} content.html La fonction retournant la promesse contenant
+ *                                le document HTML ou <code>null</code>.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-const action = async function (_url, doc) {
+const action = async function (_url, content) {
+    const doc = await content.html();
     if (null === doc) {
         return null;
     }

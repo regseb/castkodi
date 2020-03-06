@@ -15,28 +15,32 @@ describe("core/scraper/steam.js", function () {
 
         it("should return null when it's not a video", async function () {
             const url = "https://store.steampowered.com/app/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body></body>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body></body>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extractGame(new URL(url), doc);
+            const file = await extractGame(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
         it("should return video URL", async function () {
             const url = "https://store.steampowered.com/app/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <div class="highlight_movie"
-                         data-mp4-hd-source="https://foo.com/bar.mp4"></div>
-                  </body>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <div class="highlight_movie"
+                             data-mp4-hd-source="https://foo.com/bar.mp4"></div>
+                      </body>
+                    </html>`, "text/html")),
+            };
             const expected = "https://foo.com/bar.mp4";
 
-            const file = await extractGame(new URL(url), doc);
+            const file = await extractGame(new URL(url), content);
             assert.strictEqual(file, expected);
         });
     });

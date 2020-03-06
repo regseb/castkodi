@@ -8,12 +8,15 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
- * @param {URL}          _url L'URL du <em>live</em> de KCAA Radio.
- * @param {HTMLDocument} doc  Le contenu HTML de la page.
+ * @param {URL}      _url         L'URL du <em>live</em> de KCAA Radio.
+ * @param {object}   content      Le contenu de l'URL.
+ * @param {Function} content.html La fonction retournant la promesse contenant
+ *                                le document HTML.
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-const action = async function (_url, doc) {
+const action = async function (_url, content) {
+    const doc = await content.html();
     return doc.querySelector("#show a").href;
 };
 export const extract = matchPattern(action, "http://live.kcaastreaming.com/");

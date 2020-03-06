@@ -10,13 +10,15 @@ describe("core/scraper/onetv.js", function () {
     describe("extract()", function () {
         it("should return null when there isn't Open Graph", async function () {
             const url = "https://www.1tv.ru/foo.html";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <head></head>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head></head>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
@@ -27,15 +29,17 @@ describe("core/scraper/onetv.js", function () {
             }));
 
             const url = "https://www.1tv.ru/foo.html";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <head>
-                    <meta property="ya:ovs:content_id" content="bar:baz" />
-                  </head>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head>
+                        <meta property="ya:ovs:content_id" content="bar:baz" />
+                      </head>
+                    </html>`, "text/html")),
+            };
             const expected = "https://qux.com/quux.avi";
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
             const call = globalThis.fetch.firstCall;
             assert.strictEqual(call.args[0],
@@ -50,10 +54,10 @@ describe("core/scraper/onetv.js", function () {
             }));
 
             const url = "https://www.1tv.ru/embed/foo:bar";
-            const doc = null;
+            const content = undefined;
             const expected = "https://baz.com/qux.avi";
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
             const call = globalThis.fetch.firstCall;
             assert.strictEqual(call.args[0],

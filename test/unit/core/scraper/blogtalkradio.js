@@ -13,28 +13,32 @@ describe("core/scraper/blogtalkradio.js", function () {
 
         it("should return null when it's not an audio", async function () {
             const url = "https://www.blogtalkradio.com/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <head></head>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head></head>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
         it("should return audio URL", async function () {
             const url = "https://www.blogtalkradio.com/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <head>
-                    <meta property="twitter:player:stream"
-                          content="https://foo.com/bar.mp3" />
-                  </head>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head>
+                        <meta property="twitter:player:stream"
+                              content="https://foo.com/bar.mp3" />
+                      </head>
+                    </html>`, "text/html")),
+            };
             const expected = "https://foo.com/bar.mp3";
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
     });

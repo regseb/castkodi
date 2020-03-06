@@ -1,8 +1,9 @@
 /**
  * @module
  */
-/* eslint-disable import/no-namespace */
 
+import { cacheable }       from "../tools/cacheable.js";
+/* eslint-disable import/no-namespace */
 import * as acestream      from "./scraper/acestream.js";
 import * as allocine       from "./scraper/allocine.js";
 import * as applepodcasts  from "./scraper/applepodcasts.js";
@@ -44,6 +45,7 @@ import * as video          from "./scraper/video.js";
 import * as vimeo          from "./scraper/vimeo.js";
 import * as vrtnu          from "./scraper/vrtnu.js";
 import * as youtube        from "./scraper/youtube.js";
+/* eslint-enable import/no-namespace */
 
 /**
  * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
@@ -105,22 +107,26 @@ const SCRAPERS = [
  *                              <em>fichier</em> ou <code>null</code>.
  */
 export const extract = async function (url, options) {
-    let doc = null;
-    try {
-        const response = await fetch(url.href);
-        const contentType = response.headers.get("Content-Type");
-        if (null !== contentType &&
-                (contentType.startsWith("text/html") ||
-                 contentType.startsWith("application/xhtml+xml"))) {
-            const text = await response.text();
-            doc = new DOMParser().parseFromString(text, "text/html");
-        }
-    } catch {
-        // Ignorer le cas où l'URL n'est pas accessible.
-    }
+    const content = {
+        html: cacheable(async () => {
+            try {
+                const response = await fetch(url.href);
+                const contentType = response.headers.get("Content-Type");
+                if (null !== contentType &&
+                        (contentType.startsWith("text/html") ||
+                         contentType.startsWith("application/xhtml+xml"))) {
+                    const text = await response.text();
+                    return new DOMParser().parseFromString(text, "text/html");
+                }
+            } catch {
+                // Ignorer le cas où l'URL n'est pas accessible.
+            }
+            return null;
+        }),
+    };
 
     for (const scraper of SCRAPERS) {
-        const file = await scraper(url, doc, options);
+        const file = await scraper(url, content, options);
         if (null !== file) {
             return file;
         }

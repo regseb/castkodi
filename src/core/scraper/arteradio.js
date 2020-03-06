@@ -16,12 +16,15 @@ const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
- * @param {URL}          _url L'URL d'un son Arte Radio.
- * @param {HTMLDocument} doc  Le contenu HTML de la page.
+ * @param {URL}      _url         L'URL d'un son Arte Radio.
+ * @param {object}   content      Le contenu de l'URL.
+ * @param {Function} content.html La fonction retournant la promesse contenant
+ *                                le document HTML.
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-const action = async function (_url, doc) {
+const action = async function (_url, content) {
+    const doc = await content.html();
     return BASE_URL + doc.querySelector(".cover *[data-sound-href]")
                          .dataset.soundHref;
 };

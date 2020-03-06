@@ -10,15 +10,21 @@ import { extract as metaExtract } from "../scrapers.js";
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}          url           L'URL d'une page de Gamekult.
- * @param {HTMLDocument} doc           Le contenu HTML de la page.
- * @param {object}       options       Les options de l'extraction.
- * @param {number}       options.depth Le niveau de profondeur de l'extraction.
+ * @param {URL}      url           L'URL d'une page de Gamekult.
+ * @param {object}   content       Le contenu de l'URL.
+ * @param {Function} content.html  La fonction retournant la promesse contenant
+ *                                 le document HTML ou <code>null</code>.
+ * @param {object}   options       Les options de l'extraction.
+ * @param {number}   options.depth Le niveau de profondeur de l'extraction.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ href }, doc, options) {
-    if (null === doc || 0 < options.depth) {
+const action = async function ({ href }, content, options) {
+    if (0 < options.depth) {
+        return null;
+    }
+    const doc = await content.html();
+    if (null === doc) {
         return null;
     }
 

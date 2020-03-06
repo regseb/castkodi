@@ -15,15 +15,15 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
  *
- * @param {URL}          url               L'URL d'une vidéo DevTube.
- * @param {HTMLDocument} _doc              Le contenu HTML de la page.
- * @param {object}       options           Les options de l'extraction.
- * @param {boolean}      options.incognito La marque indiquant si l'utilisateur
- *                                         est en navigation privée.
+ * @param {URL}     url               L'URL d'une vidéo DevTube.
+ * @param {object}  _content          Le contenu de l'URL.
+ * @param {object}  options           Les options de l'extraction.
+ * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
+ *                                    en navigation privée.
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-const action = async function ({ pathname }, _doc, { incognito }) {
+const action = async function ({ pathname }, _content, { incognito }) {
     return PLUGIN_URL + "?video_id=" + pathname.slice(7) +
                         "&incognito=" + incognito.toString();
 };

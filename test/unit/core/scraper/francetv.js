@@ -18,15 +18,17 @@ describe("core/scraper/francetv.js", function () {
 
         it("should return null when it's not a video", async function () {
             const url = "https://www.france.tv/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <script></script>
-                  </body>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script></script>
+                      </body>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
@@ -40,20 +42,22 @@ describe("core/scraper/francetv.js", function () {
             }));
 
             const url = "https://www.france.tv/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <script>
-                      var FTVPlayerVideos = [{
-                          "contentId":1143295,
-                          "videoId":"123-abc"
-                      }];
-                    </script>
-                  </body>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script>
+                          var FTVPlayerVideos = [{
+                              "contentId":1143295,
+                              "videoId":"123-abc"
+                          }];
+                        </script>
+                      </body>
+                    </html>`, "text/html")),
+            };
             const expected = "https://bar.fr/baz.mp4";
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
             const call = globalThis.fetch.firstCall;
             assert.strictEqual(call.args[0],

@@ -20,13 +20,15 @@ describe("core/scraper/flickr.js", function () {
 
         it("should return null when it's not a video", async function () {
             const url = "http://www.flickr.com/photos/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body></body>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body></body>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
@@ -41,18 +43,20 @@ describe("core/scraper/flickr.js", function () {
             }));
 
             const url = "http://www.flickr.com/photos/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <script>
-                        root.YUI_config.flickr.api.site_key = "bar";
-                    </script>
-                    <video poster="0/1_2.3.4_5/6/7_8.9" />
-                  </body>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script>
+                            root.YUI_config.flickr.api.site_key = "bar";
+                        </script>
+                        <video poster="0/1_2.3.4_5/6/7_8.9" />
+                      </body>
+                    </html>`, "text/html")),
+            };
             const expected = "https://baz.net/qux.mp4";
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
             const call = globalThis.fetch.firstCall;
             assert.strictEqual(call.args[0],

@@ -14,35 +14,39 @@ describe("core/scraper/applepodcasts.js", function () {
 
         it("should return null when it's not an audio", async function () {
             const url = "https://podcasts.apple.com/us/podcast/foo/id";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body></body>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body></body>
+                    </html>`, "text/html")),
+            };
             const expected = null;
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
 
         it("should return audio URL", async function () {
             const url = "https://podcasts.apple.com/fr/podcast/foo/id123";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <script id="shoebox-ember-data-store">
-                        {
-                            "data": {
-                                "attributes": {
-                                    "assetUrl": "https://foo.com/bar.mp3"
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script id="shoebox-ember-data-store">
+                            {
+                                "data": {
+                                    "attributes": {
+                                        "assetUrl": "https://foo.com/bar.mp3"
+                                    }
                                 }
                             }
-                        }
-                    </script>
-                  </body>
-                </html>`, "text/html");
+                        </script>
+                      </body>
+                    </html>`, "text/html")),
+            };
             const expected = "https://foo.com/bar.mp3";
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
     });

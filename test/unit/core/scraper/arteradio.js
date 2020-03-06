@@ -13,18 +13,20 @@ describe("core/scraper/arteradio.js", function () {
 
         it("should return audio URL", async function () {
             const url = "https://www.arteradio.com/son/foo";
-            const doc = new DOMParser().parseFromString(`
-                <html>
-                  <body>
-                    <article class="cover">
-                      <button data-sound-href="foo.mp3"></button>
-                    </article>
-                  </body>
-                </html>`, "text/html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <article class="cover">
+                          <button data-sound-href="foo.mp3"></button>
+                        </article>
+                      </body>
+                    </html>`, "text/html")),
+            };
             const expected = "https://download.www.arte.tv/permanent" +
                                   "/arteradio/sites/default/files/sons/foo.mp3";
 
-            const file = await extract(new URL(url), doc);
+            const file = await extract(new URL(url), content);
             assert.strictEqual(file, expected);
         });
     });

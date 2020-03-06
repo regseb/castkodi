@@ -15,15 +15,18 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}          _url              L'URL d'un article du Guardian.
- * @param {HTMLDocument} doc               Le contenu HTML de la page.
- * @param {object}       options           Les options de l'extraction.
- * @param {boolean}      options.incognito La marque indiquant si l'utilisateur
- *                                         est en navigation privée.
+ * @param {URL}      _url              L'URL d'un article du Guardian.
+ * @param {object}   content           Le contenu de l'URL.
+ * @param {Function} content.html      La fonction retournant la promesse
+ *                                     contenant le document HTML.
+ * @param {object}   options           Les options de l'extraction.
+ * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-const actionVideo = async function (_url, doc, { incognito }) {
+const actionVideo = async function (_url, content, { incognito }) {
+    const doc = await content.html();
     const div = doc.querySelector("div.youtube-media-atom__iframe");
     return null === div ? null
                         : PLUGIN_URL + "?video_id=" + div.dataset.assetId +
@@ -35,12 +38,15 @@ export const extractVideo = matchPattern(actionVideo,
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
- * @param {URL}          _url L'URL d'un article du Guardian.
- * @param {HTMLDocument} doc  Le contenu HTML de la page.
+ * @param {URL}      _url         L'URL d'un article du Guardian.
+ * @param {object}   content      Le contenu de l'URL.
+ * @param {Function} content.html La fonction retournant la promesse contenant
+ *                                le document HTML.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-const actionAudio = async function (_url, doc) {
+const actionAudio = async function (_url, content) {
+    const doc = await content.html();
     const figure = doc.querySelector("figure#audio-component-container");
     return null === figure ? null
                            : figure.dataset.source;
