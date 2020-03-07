@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.14.0](https://github.com/regseb/castkodi/compare/v4.13.0...v4.14.0) (2020-03-07)
+
+
+### Features
+
+* Ajouter le support de Veoh. ([cdca875](https://github.com/regseb/castkodi/commit/cdca8754db2d3c9e48744375f2e3d9ffd06b5e22))
+* Ajouter le support de VideoPress. ([db71f07](https://github.com/regseb/castkodi/commit/db71f073b26a8b96eb00f9cc83dc334a020aa853))
+* Ajouter le support du Daily Mail. ([094eb03](https://github.com/regseb/castkodi/commit/094eb03d777002711b8273d672b538f663d585cc))
+* Ajouter le support du Guardian. ([96fcddc](https://github.com/regseb/castkodi/commit/96fcddc5a2e13626ba1912498caa5bc3e5d205f5))
+
+
+### Performance Improvements
+
+* Charger le contenu de la page seulement quand c'est nécessaire. ([2999631](https://github.com/regseb/castkodi/commit/2999631747495f7c367907a738f6d358bde2eb74))
+
 ## [4.13.0](https://github.com/regseb/castkodi/compare/v4.12.0...v4.13.0) (2020-02-24)
 
 
