@@ -49,15 +49,10 @@ describe("Scraper: Steam", function () {
 
         const url = doc.querySelector("a").href;
         const options = { depth: 0, incognito: false };
-        const expected = {
-            start: /^https:\/\/[^.]+\.steamcontent\.com\/broadcast\//u,
-            end:   ".broadcast.steamcontent.com:80",
-        };
+        const expected = "/master.m3u8";
 
         const file = await extract(new URL(url), options);
-        assert.ok(expected.start.test(file),
-                  `expected.start.test("${file}") from ${url}`);
-        assert.ok(file.endsWith(expected.end),
-                  `"${file}".endsWith(expected.end) from ${url}`);
+        assert.ok(new URL(file).pathname.endsWith(expected),
+                  `new URL("${file}").pathname.endsWith(expected)`);
     });
 });

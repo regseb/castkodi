@@ -14,10 +14,11 @@ describe("Scraper: PodMust", function () {
     it("should return audio URL", async function () {
         const url = "https://podmust.com/podcast/le-billet-de-chris-esquerre/";
         const options = { depth: 0, incognito: false };
-        const expected = ".mp3?_=1";
+        const expected = ".mp3";
 
         const file = await extract(new URL(url), options);
-        assert.ok(file.endsWith(expected), `"${file}".endsWith(expected)`);
+        assert.ok(new URL(file).pathname.endsWith(expected),
+                  `new URL("${file}").pathname.endsWith(expected)`);
     });
 
     it("should return audio URL from home page", async function () {
@@ -28,10 +29,10 @@ describe("Scraper: PodMust", function () {
 
         const url = doc.querySelector("a.tile").href;
         const options = { depth: 0, incognito: false };
-        const expected = ".mp3?_=1";
+        const expected = ".mp3";
 
         const file = await extract(new URL(url), options);
-        assert.ok(file.endsWith(expected),
-                  `"${file}".endsWith(expected) from ${url}`);
+        assert.ok(new URL(file).pathname.endsWith(expected),
+                  `new URL("${file}").pathname.endsWith(expected)`);
     });
 });

@@ -20,7 +20,7 @@ describe("Scraper: Arte", function () {
         const url = "https://www.arte.tv" +
                     doc.querySelector(".highlights_category_ACT" +
                                       " a.next-teaser__link" +
-                                         `[href^="/fr/"]`).href;
+                                         `[href^="/fr/"]:last-of-type`).href;
         const options = { depth: 0, incognito: false };
         const expected = {
             start: "https://arteptweb-",
@@ -44,7 +44,7 @@ describe("Scraper: Arte", function () {
         const url = "https://www.arte.tv" +
                     doc.querySelector(".highlights_category_ACT" +
                                       " a.next-teaser__link" +
-                                         `[href^="/de/"]`).href;
+                                         `[href^="/de/"]:last-of-type`).href;
         const options = { depth: 0, incognito: false };
         const expected = {
             start: "https://arteptweb-",
