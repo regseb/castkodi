@@ -24,6 +24,7 @@ des vidéos et des musiques sur **Kodi** :
   - États-Unis : KCAA Radio ;
   - France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Gamekult,
     JeuxVideoCom, Konbini, Le Point, Melty, Ouest-France ;
+  - Iran : آپارات ;
   - Islande : Útvarp Saga ;
   - Pays-Bas : Dumpert ;
   - Royaume-Uni : Daily Mail, The Guardian ;
