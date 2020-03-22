@@ -406,6 +406,7 @@
         "promise/prefer-await-to-then": 0,
         "promise/prefer-await-to-callbacks": 0,
 
+        "unicorn/better-regex": 2,
         "unicorn/catch-error-name": [2, {
             "name": "err",
             "caughtErrorsIgnorePattern": "^$"
@@ -453,7 +454,6 @@
         "unicorn/prefer-trim-start-end": 2,
         "unicorn/prefer-type-error": 2,
         "unicorn/prevent-abbreviations": 0,
-        "unicorn/regex-shorthand": 2,
         "unicorn/throw-new-error": 2
     },
 
