@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.15.0](https://github.com/regseb/castkodi/compare/v4.14.0...v4.15.0) (2020-03-22)
+
+
+### Features
+
+* Ajouter le support de Aparat. ([817634b](https://github.com/regseb/castkodi/commit/817634b26489a632cedf0ce07dde869992f37ba6))
+* Ajouter le support de Metacafe. ([3ef3aa5](https://github.com/regseb/castkodi/commit/3ef3aa52bf03cd5f586421e6024a0e6c2abda0a0))
+
 ## [4.14.0](https://github.com/regseb/castkodi/compare/v4.13.0...v4.14.0) (2020-03-07)
 
 
