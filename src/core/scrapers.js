@@ -22,6 +22,7 @@ import * as gamekult       from "./scraper/gamekult.js";
 import * as iframe         from "./scraper/iframe.js";
 import * as kcaastreaming  from "./scraper/kcaastreaming.js";
 import * as ldjson         from "./scraper/ldjson.js";
+import * as metacafe       from "./scraper/metacafe.js";
 import * as mixcloud       from "./scraper/mixcloud.js";
 import * as mixer          from "./scraper/mixer.js";
 import * as mycloudplayers from "./scraper/mycloudplayers.js";
@@ -70,6 +71,7 @@ const SCRAPERS = [
     full30,
     gamekult,
     kcaastreaming,
+    metacafe,
     mixcloud,
     mixer,
     mycloudplayers,
