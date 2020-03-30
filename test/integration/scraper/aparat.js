@@ -14,20 +14,20 @@ describe("Scraper: آپارات (Aparat)", function () {
     it("should return show URL", async function () {
         const url = "https://www.aparat.com/v/IWTPf";
         const options = { depth: 0, incognito: false };
-        const expected = "https://as11.cdn.asset.aparat.com/aparat-video" +
-                             "/50e29576af712008fd3c439b21a345ec20298541-720p__";
+        const expected = ".cdn.asset.aparat.com/aparat-video" +
+                          "/50e29576af712008fd3c439b21a345ec20298541-720p.apt?";
 
         const file = await extract(new URL(url), options);
-        assert.ok(file.startsWith(expected), `"${file}".startsWith(expected)`);
+        assert.ok(file.includes(expected), `"${file}".includes(expected)`);
     });
 
     it("should return show URL when protocol is HTTP", async function () {
         const url = "http://www.aparat.com/v/Qk9jp";
         const options = { depth: 0, incognito: false };
-        const expected = "https://as9.cdn.asset.aparat.com/aparat-video" +
-                             "/294334a32a660e853e0fb546f12ec36b20286453-480p__";
+        const expected = ".cdn.asset.aparat.com/aparat-video" +
+                          "/294334a32a660e853e0fb546f12ec36b20286453-480p.apt?";
 
         const file = await extract(new URL(url), options);
-        assert.ok(file.startsWith(expected), `"${file}".startsWith(expected)`);
+        assert.ok(file.includes(expected), `"${file}".includes(expected)`);
     });
 });
