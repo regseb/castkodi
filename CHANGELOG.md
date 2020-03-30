@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.16.0](https://github.com/regseb/castkodi/compare/v4.15.0...v4.16.0) (2020-03-30)
+
+
+### Features
+
+* Ajouter le support de Bigo Live. ([5693056](https://github.com/regseb/castkodi/commit/5693056785a15605eda88d3edbccf0e6a8a4aa9b))
+
+
+### Bug Fixes
+
+* Ne pas télécharger les fichiers audio / vidéos. ([449cc0e](https://github.com/regseb/castkodi/commit/449cc0eb67c34188e9bc09738aaf7b8fa454b4ac))
+
 ## [4.15.0](https://github.com/regseb/castkodi/compare/v4.14.0...v4.15.0) (2020-03-22)
 
 
