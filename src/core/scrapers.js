@@ -116,7 +116,10 @@ export const extract = async function (url, options) {
     const content = {
         html: cacheable(async () => {
             try {
-                const response = await fetch(url.href);
+                const controller = new AbortController();
+                const response = await fetch(url.href, {
+                    signal: controller.signal,
+                });
                 const contentType = response.headers.get("Content-Type");
                 if (null !== contentType &&
                         (contentType.startsWith("text/html") ||
@@ -124,6 +127,8 @@ export const extract = async function (url, options) {
                     const text = await response.text();
                     return new DOMParser().parseFromString(text, "text/html");
                 }
+                // Si ce n'est pas du HTML : annuler la requête.
+                controller.abort();
             } catch {
                 // Ignorer le cas où l'URL n'est pas accessible.
             }

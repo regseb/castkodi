@@ -37,6 +37,7 @@
         "clean": "rm -rf .nyc_output/ build/ coverage/ jsdocs/ node_modules/"
     },
     "devDependencies": {
+        "abort-controller": "3.0.0",
         "addons-linter": "^1.22.0",
         "david": "^12.0.0",
         "eslint": "^6.8.0",
