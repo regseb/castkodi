@@ -10,7 +10,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @constant {Array.<string>}
  */
-const TYPES = ["AudioObject", "MusicVideoObject", "VideoObject"];
+const TYPES = new Set(["AudioObject", "MusicVideoObject", "VideoObject"]);
 
 /**
  * Le sélecteur retournant les scripts contenant des microdonnées.
@@ -52,7 +52,7 @@ const action = async function (_url, content) {
     for (const script of doc.querySelectorAll(SELECTOR)) {
         try {
             for (const property of walk(JSON.parse(script.text))) {
-                if (TYPES.includes(property["@type"]) &&
+                if (TYPES.has(property["@type"]) &&
                         "contentUrl" in property) {
                     return property.contentUrl;
                 }
