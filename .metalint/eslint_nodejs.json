@@ -2,9 +2,11 @@
     "plugins": ["mocha"],
 
     "env": {
+        "browser": true,
         "node": true,
         "es6": true,
-        "mocha": true
+        "mocha": true,
+        "webextensions": true
     },
 
     "globals": {
@@ -26,12 +28,12 @@
 
         "import/no-nodejs-modules": 0,
 
-        "mocha/handle-done-callback": 0,
+        "mocha/handle-done-callback": 2,
         "mocha/max-top-level-suites": 2,
         "mocha/no-async-describe": 2,
         "mocha/no-exclusive-tests": 2,
         "mocha/no-global-tests": 2,
-        "mocha/no-hooks": 0,
+        "mocha/no-hooks": [2, { "allow": ["before"] }],
         "mocha/no-hooks-for-single-case": 0,
         "mocha/no-identical-title": 2,
         "mocha/no-mocha-arrows": 2,

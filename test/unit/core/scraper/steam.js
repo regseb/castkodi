@@ -7,10 +7,9 @@ describe("core/scraper/steam.js", function () {
     describe("extractGame()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://store.steampowered.com/stats/";
-            const expected = null;
 
             const file = await extractGame(new URL(url));
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
@@ -21,10 +20,9 @@ describe("core/scraper/steam.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extractGame(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
@@ -38,49 +36,50 @@ describe("core/scraper/steam.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = "https://foo.com/bar.mp4";
 
             const file = await extractGame(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://foo.com/bar.mp4");
         });
     });
 
     describe("extractBroadcast()", function () {
-        afterEach(function () {
-            sinon.restore();
-        });
-
         it("should return null when it's not a video", async function () {
-            sinon.stub(globalThis, "fetch")
-                 .callsFake(() => Promise.resolve({ json: () => ({}) }));
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                JSON.stringify({}),
+            ));
 
             const url = "https://steamcommunity.com/broadcast/watch/foo";
-            const expected = null;
 
             const file = await extractBroadcast(new URL(url));
-            assert.strictEqual(file, expected);
-            const call = globalThis.fetch.firstCall;
-            assert.strictEqual(call.args[0],
-                               "https://steamcommunity.com/broadcast" +
-                               "/getbroadcastmpd/?steamid=foo");
+            assert.strictEqual(file, null);
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
+                "?steamid=foo",
+            ]);
+
+            stub.restore();
         });
 
         it("should return video URL", async function () {
-            sinon.stub(globalThis, "fetch")
-                 .callsFake(() => Promise.resolve({
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 // eslint-disable-next-line camelcase
-                json: () => ({ hls_url: "https://bar.com/baz.mp4" }),
-            }));
+                JSON.stringify({ hls_url: "https://bar.com/baz.mp4" }),
+            ));
 
             const url = "https://steamcommunity.com/broadcast/watch/foo";
-            const expected = "https://bar.com/baz.mp4";
 
             const file = await extractBroadcast(new URL(url));
-            assert.strictEqual(file, expected);
-            const call = globalThis.fetch.firstCall;
-            assert.strictEqual(call.args[0],
-                               "https://steamcommunity.com/broadcast" +
-                               "/getbroadcastmpd/?steamid=foo");
+            assert.strictEqual(file, "https://bar.com/baz.mp4");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
+                "?steamid=foo",
+            ]);
+
+            stub.restore();
         });
     });
 });

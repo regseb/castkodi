@@ -4,33 +4,43 @@ import { notify }      from "../../../src/core/notify.js";
 import { PebkacError } from "../../../src/core/pebkac.js";
 
 describe("core/notify.js", function () {
-    afterEach(function () {
-        sinon.restore();
-    });
-
     describe("constructor()", function () {
         it("should accept Error", function () {
-            sinon.stub(browser.notifications, "create")
-                 .callsFake(() => {});
+            const stub = sinon.stub(browser.notifications, "create");
 
-            notify(new Error("Message."));
+            notify(new Error("foo"));
 
-            assert.ok(browser.notifications.create.calledOnce);
-            const call = browser.notifications.create.firstCall;
-            assert.strictEqual(call.args[1].title, "Unknown error");
-            assert.strictEqual(call.args[1].message, "Message.");
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                null,
+                {
+                    type:    "basic",
+                    iconUrl: "img/icon.svg",
+                    title:   "Unknown error",
+                    message: "foo",
+                },
+            ]);
+
+            stub.restore();
         });
 
         it("should accept PebkacError", function () {
-            sinon.stub(browser.notifications, "create")
-                 .callsFake(() => {});
+            const stub = sinon.stub(browser.notifications, "create");
 
             notify(new PebkacError("noLink", "foo"));
 
-            assert.ok(browser.notifications.create.calledOnce);
-            const call = browser.notifications.create.firstCall;
-            assert.strictEqual(call.args[1].title, "Unsupported link");
-            assert.strictEqual(call.args[1].message, "Link foo is invalid.");
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                null,
+                {
+                    type:    "basic",
+                    iconUrl: "img/icon.svg",
+                    title:   "Unsupported link",
+                    message: "Link foo is invalid.",
+                },
+            ]);
+
+            stub.restore();
         });
     });
 });

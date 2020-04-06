@@ -5,20 +5,18 @@ describe("Scraper: PodMust", function () {
     it("should return URL when it's not an audio", async function () {
         const url = "https://podmust.com/tendances-podcast-2021/";
         const options = { depth: 0, incognito: false };
-        const expected = url;
 
         const file = await extract(new URL(url), options);
-        assert.strictEqual(file, expected);
+        assert.strictEqual(file, url);
     });
 
     it("should return audio URL", async function () {
         const url = "https://podmust.com/podcast/le-billet-de-chris-esquerre/";
         const options = { depth: 0, incognito: false };
-        const expected = ".mp3";
 
         const file = await extract(new URL(url), options);
-        assert.ok(new URL(file).pathname.endsWith(expected),
-                  `new URL("${file}").pathname.endsWith(expected)`);
+        assert.ok(new URL(file).pathname.endsWith(".mp3"),
+                  `new URL("${file}").pathname.endsWith(...)`);
     });
 
     it("should return audio URL from home page", async function () {
@@ -29,10 +27,9 @@ describe("Scraper: PodMust", function () {
 
         const url = doc.querySelector("a.tile").href;
         const options = { depth: 0, incognito: false };
-        const expected = ".mp3";
 
         const file = await extract(new URL(url), options);
-        assert.ok(new URL(file).pathname.endsWith(expected),
-                  `new URL("${file}").pathname.endsWith(expected)`);
+        assert.ok(new URL(file).pathname.endsWith(".mp3"),
+                  `new URL("${file}").pathname.endsWith(...)`);
     });
 });

@@ -6,11 +6,11 @@ describe("Scraper: TikTok", function () {
         const url = "https://www.tiktok.com/@the90guy/video" +
                                           "/6710341586984635654?langCountry=fr";
         const options = { depth: 0, incognito: false };
-        const expected = "&lr=tiktok_m&qs=0&rc=ampvbHJwdnV4bjMzOjczM0ApPD" +
-                             "M7OGU0aWU3NzM8aTY1PGc0azNhbmpja2NfLS0zMTZzczI1L" +
-                                          "zQyMF8yYV81X141LS06Yw%3D%3D&vl=&vr=";
 
         const file = await extract(new URL(url), options);
-        assert.ok(file.endsWith(expected), `"${file}".endsWith(expected)`);
+        assert.ok(file.endsWith("&lr=tiktok_m&qs=0&rc=ampvbHJwdnV4bjMzOjczM0A" +
+                          "pPDM7OGU0aWU3NzM8aTY1PGc0azNhbmpja2NfLS0zMTZzczI1L" +
+                                         "zQyMF8yYV81X141LS06Yw%3D%3D&vl=&vr="),
+                  `"${file}".endsWith(...)`);
     });
 });

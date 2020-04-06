@@ -11,16 +11,15 @@ describe("Scraper: magnet", function () {
                        "&ws=http%3a%2f%2fdistribution.bbb3d.renderfarming.net" +
                         "%2fvideo%2fmp4%2fbbb_sunflower_1080p_30fps_normal.mp4";
         const options = { depth: 0, incognito: false };
-        const expected = "plugin://plugin.video.elementum/play?uri=" +
-                "magnet%3A" +
+
+        const file = await extract(new URL(url), options);
+        assert.strictEqual(file,
+            "plugin://plugin.video.elementum/play?uri=magnet%3A" +
                "%3Fxt%3Durn%3Abtih%3A88594AAACBDE40EF3E2510C47374EC0AA396C08E" +
                                 "%26dn%3Dbbb_sunflower_1080p_30fps_normal.mp4" +
     "%26tr%3Dudp%253a%252f%252ftracker.openbittorrent.com%253a80%252fannounce" +
           "%26tr%3Dudp%253a%252f%252ftracker.publicbt.com%253a80%252fannounce" +
              "%26ws%3Dhttp%253a%252f%252fdistribution.bbb3d.renderfarming.net" +
-                  "%252fvideo%252fmp4%252fbbb_sunflower_1080p_30fps_normal.mp4";
-
-        const file = await extract(new URL(url), options);
-        assert.strictEqual(file, expected);
+                 "%252fvideo%252fmp4%252fbbb_sunflower_1080p_30fps_normal.mp4");
     });
 });

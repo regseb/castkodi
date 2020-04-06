@@ -6,10 +6,9 @@ describe("core/scraper/applepodcasts.js", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://podcasts.apple.com/us/artist/arte-radio" +
                                                                   "/1251092473";
-            const expected = null;
 
             const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when it's not an audio", async function () {
@@ -20,10 +19,9 @@ describe("core/scraper/applepodcasts.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return audio URL", async function () {
@@ -44,10 +42,9 @@ describe("core/scraper/applepodcasts.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = "https://foo.com/bar.mp3";
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://foo.com/bar.mp3");
         });
     });
 });

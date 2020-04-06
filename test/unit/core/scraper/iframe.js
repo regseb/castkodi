@@ -7,10 +7,9 @@ describe("core/scraper/iframe.js", function () {
             const url = "https://example.com/not_html.zip";
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when depth is 1", async function () {
@@ -24,10 +23,9 @@ describe("core/scraper/iframe.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 1 };
-            const expected = null;
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't iframe", async function () {
@@ -39,10 +37,9 @@ describe("core/scraper/iframe.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return URL from iframe", async function () {
@@ -56,12 +53,11 @@ describe("core/scraper/iframe.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0, incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                               "?video_id=foo" +
-                                                              "&incognito=true";
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                             "&incognito=true");
         });
 
         it("should return URL from second iframe", async function () {
@@ -76,12 +72,11 @@ describe("core/scraper/iframe.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0, incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                               "?video_id=foo" +
-                                                             "&incognito=false";
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                            "&incognito=false");
         });
     });
 });

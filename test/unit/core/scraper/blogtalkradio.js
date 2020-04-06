@@ -5,10 +5,9 @@ describe("core/scraper/blogtalkradio.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://help.blogtalkradio.com/en/";
-            const expected = null;
 
             const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when it's not an audio", async function () {
@@ -19,10 +18,9 @@ describe("core/scraper/blogtalkradio.js", function () {
                       <head></head>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return audio URL", async function () {
@@ -36,10 +34,9 @@ describe("core/scraper/blogtalkradio.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const expected = "https://foo.com/bar.mp3";
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://foo.com/bar.mp3");
         });
     });
 });

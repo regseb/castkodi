@@ -5,10 +5,9 @@ describe("core/scraper/gamekult.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "http://www.gameblog.fr/";
-            const expected = null;
 
             const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
@@ -19,10 +18,9 @@ describe("core/scraper/gamekult.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
@@ -35,11 +33,11 @@ describe("core/scraper/gamekult.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = "plugin://plugin.video.dailymotion_com/" +
-                                                      "?mode=playVideo&url=bar";
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                                    "&url=bar");
         });
     });
 });

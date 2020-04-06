@@ -6,10 +6,9 @@ describe("core/scraper/video.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
-            const expected = null;
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't video", async function () {
@@ -20,10 +19,9 @@ describe("core/scraper/video.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when source is empty", async function () {
@@ -36,10 +34,9 @@ describe("core/scraper/video.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
@@ -52,10 +49,9 @@ describe("core/scraper/video.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = "https://foo.com/bar.mp4";
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://foo.com/bar.mp4");
         });
     });
 });

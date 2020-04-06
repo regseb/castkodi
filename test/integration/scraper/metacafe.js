@@ -6,10 +6,9 @@ describe("Scraper: Metacafe", function () {
         const url = "https://www.metacafe.com/galleries/62479" +
                            "/just-let-these-pictures-do-the-explaining/305047/";
         const options = { depth: 0, incognito: false };
-        const expected = url;
 
         const file = await extract(new URL(url), options);
-        assert.strictEqual(file, expected);
+        assert.strictEqual(file, url);
     });
 
     it("should return video URL", async function () {
@@ -17,10 +16,9 @@ describe("Scraper: Metacafe", function () {
                                     "/even-the-horse-showed-it-s-sympathy-for" +
                                         "-the-girl-who-just-couldn-t-climb-up/";
         const options = { depth: 0, incognito: false };
-        const expected = "https://cdn.mcstatic.com/videos/11516000/11516798" +
-                                                               "/11516798.m3u8";
 
         const file = await extract(new URL(url), options);
-        assert.strictEqual(file, expected);
+        assert.strictEqual(file,
+            "https://cdn.mcstatic.com/videos/11516000/11516798/11516798.m3u8");
     });
 });

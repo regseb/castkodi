@@ -11,7 +11,7 @@ describe("tools/cacheable.js", function () {
             assert.strictEqual(cached(), "foo");
             assert.strictEqual(cached(), "foo");
 
-            assert.ok(fake.calledOnce);
+            assert.strictEqual(fake.callCount, 1);
         });
     });
 });

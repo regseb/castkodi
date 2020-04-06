@@ -3,19 +3,14 @@ import sinon       from "sinon";
 import { extract } from "../../../../src/core/scraper/flickr.js";
 
 describe("core/scraper/flickr.js", function () {
-    afterEach(function () {
-        sinon.restore();
-    });
-
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             // Appeler les URLs non-sécurisées car l'entête HTTP de la version
             // sécurisé de Flickr est trop grosse pour Node.
             const url = "http://www.flickr.com/explore";
-            const expected = null;
 
             const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
@@ -26,21 +21,19 @@ describe("core/scraper/flickr.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
-            sinon.stub(globalThis, "fetch")
-                 .callsFake(() => Promise.resolve({
-                json: () => ({
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                JSON.stringify({
                     streams: {
                         stream: [{ _content: "https://baz.net/qux.mp4" }],
                     },
                 }),
-            }));
+            ));
 
             const url = "http://www.flickr.com/photos/foo";
             const content = {
@@ -54,16 +47,18 @@ describe("core/scraper/flickr.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = "https://baz.net/qux.mp4";
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
-            const call = globalThis.fetch.firstCall;
-            assert.strictEqual(call.args[0],
-                               "https://api.flickr.com/services/rest" +
-                               "?method=flickr.video.getStreamInfo" +
-                               "&format=json&nojsoncallback=1&photo_id=6" +
-                               "&secret=7&api_key=bar");
+            assert.strictEqual(file, "https://baz.net/qux.mp4");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://api.flickr.com/services/rest" +
+                "?method=flickr.video.getStreamInfo&format=json" +
+                "&nojsoncallback=1&photo_id=6&secret=7&api_key=bar",
+            ]);
+
+            stub.restore();
         });
     });
 });

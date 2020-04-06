@@ -7,10 +7,9 @@ describe("core/scraper/ldjson.js", function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there is not microdata", async function () {
@@ -22,10 +21,9 @@ describe("core/scraper/ldjson.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when JSON is invalid", async function () {
@@ -39,10 +37,9 @@ describe("core/scraper/ldjson.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't type", async function () {
@@ -60,10 +57,9 @@ describe("core/scraper/ldjson.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't content", async function () {
@@ -80,10 +76,9 @@ describe("core/scraper/ldjson.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return contentUrl", async function () {
@@ -101,10 +96,9 @@ describe("core/scraper/ldjson.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = "https://bar.com/baz.mkv";
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://bar.com/baz.mkv");
         });
 
         it("should return contentUrl in children object", async function () {
@@ -125,10 +119,9 @@ describe("core/scraper/ldjson.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = "https://bar.com/baz.flac";
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://bar.com/baz.flac");
         });
 
         it("should return embedUrl", async function () {
@@ -152,11 +145,11 @@ describe("core/scraper/ldjson.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = "plugin://plugin.video.dailymotion_com/" +
-                                                      "?mode=playVideo&url=baz";
 
             const file = await extract(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                                    "&url=baz");
         });
     });
 });

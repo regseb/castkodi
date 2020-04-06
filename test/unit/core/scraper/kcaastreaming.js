@@ -5,10 +5,9 @@ describe("core/scraper/kcaastreaming.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "http://www.kcaaradio.com/";
-            const expected = null;
 
             const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return audio URL", async function () {
@@ -25,10 +24,9 @@ describe("core/scraper/kcaastreaming.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = "http://foo.com:123/bar.mp3";
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "http://foo.com:123/bar.mp3");
         });
     });
 });

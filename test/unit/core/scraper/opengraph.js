@@ -8,10 +8,9 @@ describe("core/scraper/opengraph.js", function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't Open Graph", async function () {
@@ -23,10 +22,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when content is empty", async function () {
@@ -41,10 +39,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when type isn't supported", async function () {
@@ -61,10 +58,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
@@ -80,10 +76,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = "http://bar.com/baz.mkv";
 
             const file = await extractVideo(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "http://bar.com/baz.mkv");
         });
 
         it("should return null when it's depther", async function () {
@@ -99,10 +94,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 1 };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return plugin URL", async function () {
@@ -118,12 +112,11 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0, incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                               "?video_id=foo" +
-                                                              "&incognito=true";
 
             const file = await extractVideo(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                             "&incognito=true");
         });
     });
 
@@ -132,10 +125,9 @@ describe("core/scraper/opengraph.js", function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extractAudio(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't Open Graph", async function () {
@@ -147,10 +139,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extractAudio(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when content is empty", async function () {
@@ -165,10 +156,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extractAudio(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when type isn't supported", async function () {
@@ -185,10 +175,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = null;
 
             const file = await extractAudio(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return audio URL", async function () {
@@ -204,10 +193,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = "http://bar.com/baz.wav";
 
             const file = await extractAudio(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "http://bar.com/baz.wav");
         });
 
         it("should return null when it's depther", async function () {
@@ -223,10 +211,9 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 1 };
-            const expected = null;
 
             const file = await extractAudio(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return plugin URL", async function () {
@@ -242,11 +229,10 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: 0 };
-            const expected = "plugin://plugin.audio.mixcloud/?mode=40&key=" +
-                                                              "%2Ffoo%2Fbar%2F";
 
             const file = await extractAudio(new URL(url), content, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F");
         });
     });
 
@@ -254,10 +240,9 @@ describe("core/scraper/opengraph.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
-            const expected = null;
 
             const file = await extractYandex(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't Open Graph", async function () {
@@ -268,10 +253,9 @@ describe("core/scraper/opengraph.js", function () {
                       <head></head>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extractYandex(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
@@ -285,10 +269,9 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const expected = "https://bar.com/baz.avi";
 
             const file = await extractYandex(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://bar.com/baz.avi");
         });
     });
 });

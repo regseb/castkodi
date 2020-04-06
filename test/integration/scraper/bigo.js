@@ -5,10 +5,9 @@ describe("Scraper: Bigo Live", function () {
     it("should return URL when it's not a video", async function () {
         const url = "https://www.bigo.tv/g";
         const options = { depth: 0, incognito: false };
-        const expected = url;
 
         const file = await extract(new URL(url), options);
-        assert.strictEqual(file, expected);
+        assert.strictEqual(file, url);
     });
 
     it("should return video URL", async function () {
@@ -21,10 +20,9 @@ describe("Scraper: Bigo Live", function () {
 
         const url = "https://www.bigo.tv/" + json[0].bigo_id;
         const options = { depth: 0, incognito: false };
-        const expected = ".m3u8";
 
         const file = await extract(new URL(url), options);
-        assert.ok(new URL(file).pathname.endsWith(expected),
-                  `new URL("${file}").pathname.endsWith(expected)`);
+        assert.ok(new URL(file).pathname.endsWith(".m3u8"),
+                  `new URL("${file}").pathname.endsWith(...)`);
     });
 });

@@ -5,10 +5,9 @@ describe("core/scraper/metacafe.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://www.metacafe.com/galleries/foo";
-            const expected = null;
 
             const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
@@ -27,10 +26,9 @@ describe("core/scraper/metacafe.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = "https://bar.com/baz.mp4";
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://bar.com/baz.mp4");
         });
     });
 });

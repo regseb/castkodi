@@ -8,10 +8,9 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://www.youtube.com/feed/trending";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
@@ -20,10 +19,9 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://www.youtube.com/watch?x=123456";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
 
             browser.storage.local.clear();
         });
@@ -36,12 +34,12 @@ describe("core/scraper/youtube.js", function () {
                                      "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                             "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum" +
-                             "&incognito=false";
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/" +
+                             "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum" +
+                                                            "&incognito=false");
 
             browser.storage.local.clear();
         });
@@ -54,12 +52,11 @@ describe("core/scraper/youtube.js", function () {
                                      "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum";
             const doc = undefined;
             const options = { incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=avt4ZWlVjdY" +
-                                                       "&incognito=true";
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=avt4ZWlVjdY" +
+                                                             "&incognito=true");
 
             browser.storage.local.clear();
         });
@@ -71,12 +68,11 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://www.youtube.com/watch?v=sWfAtMQa_yo";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=sWfAtMQa_yo" +
-                                                       "&incognito=false";
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=sWfAtMQa_yo" +
+                                                            "&incognito=false");
 
             browser.storage.local.clear();
         });
@@ -87,12 +83,11 @@ describe("core/scraper/youtube.js", function () {
             const url = "http://www.youtube.com/watch?v=sWfAtMQa_yo";
             const doc = undefined;
             const options = { incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=sWfAtMQa_yo" +
-                                                       "&incognito=true";
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=sWfAtMQa_yo" +
+                                                             "&incognito=true");
 
             browser.storage.local.clear();
         });
@@ -104,10 +99,9 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://m.youtube.com/watch?a=dQw4w9WgXcQ";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
 
             browser.storage.local.clear();
         });
@@ -118,12 +112,11 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://m.youtube.com/watch?v=dQw4w9WgXcQ";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=dQw4w9WgXcQ" +
-                                                       "&incognito=false";
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=dQw4w9WgXcQ" +
+                                                            "&incognito=false");
 
             browser.storage.local.clear();
         });
@@ -135,10 +128,9 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://music.youtube.com/watch?m=abcdef";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = null;
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
 
             browser.storage.local.clear();
         });
@@ -151,12 +143,11 @@ describe("core/scraper/youtube.js", function () {
                                                       "&list=RDAMVMIOqxarVWKRs";
             const doc = undefined;
             const options = { incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=IOqxarVWKRs" +
-                                                       "&incognito=true";
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=IOqxarVWKRs" +
+                                                             "&incognito=true");
 
             browser.storage.local.clear();
         });
@@ -167,12 +158,11 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://invidio.us/watch?v=e6EQwSadpPk";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=e6EQwSadpPk" +
-                                                       "&incognito=false";
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=e6EQwSadpPk" +
+                                                            "&incognito=false");
 
             browser.storage.local.clear();
         });
@@ -183,12 +173,11 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://hooktube.com/watch?v=LACbVhgtx9I";
             const doc = undefined;
             const options = { incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=LACbVhgtx9I" +
-                                                       "&incognito=true";
 
             const file = await extractVideo(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=LACbVhgtx9I" +
+                                                             "&incognito=true");
 
             browser.storage.local.clear();
         });
@@ -199,10 +188,9 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://www.youtube.com/playlist?v=dQw4w9WgXcQ";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = null;
 
             const file = await extractPlaylist(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return playlist id", async function () {
@@ -210,12 +198,12 @@ describe("core/scraper/youtube.js", function () {
                                      "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                             "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9" +
-                             "&incognito=false";
 
             const file = await extractPlaylist(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/" +
+                             "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9" +
+                                                            "&incognito=false");
         });
 
         it("should return null when it's not a playlist from mobile",
@@ -225,10 +213,9 @@ describe("core/scraper/youtube.js", function () {
                                                    "&incognito=false";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = null;
 
             const file = await extractPlaylist(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return playlist id from mobile", async function () {
@@ -236,12 +223,12 @@ describe("core/scraper/youtube.js", function () {
                                                      "?list=PL3A5849BDE0581B19";
             const doc = undefined;
             const options = { incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                             "?playlist_id=PL3A5849BDE0581B19" +
-                                             "&incognito=true";
 
             const file = await extractPlaylist(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/" +
+                                             "?playlist_id=PL3A5849BDE0581B19" +
+                                                             "&incognito=true");
         });
     });
 
@@ -250,48 +237,44 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://www.youtube.com/embed/v3gefWEggSc";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=v3gefWEggSc" +
-                                                       "&incognito=false";
 
             const file = await extractEmbed(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=v3gefWEggSc" +
+                                                            "&incognito=false");
         });
 
         it("should return video id without cookie", async function () {
             const url = "https://www.youtube-nocookie.com/embed/u9gVaeb9le4";
             const doc = undefined;
             const options = { incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=u9gVaeb9le4" +
-                                                       "&incognito=true";
 
             const file = await extractEmbed(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=u9gVaeb9le4" +
+                                                             "&incognito=true");
         });
 
         it("should return video id form invidio.us", async function () {
             const url = "https://invidio.us/embed/8cmBd7lkunk";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=8cmBd7lkunk" +
-                                                       "&incognito=false";
 
             const file = await extractEmbed(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=8cmBd7lkunk" +
+                                                            "&incognito=false");
         });
 
         it("should return video id from hooktube", async function () {
             const url = "https://hooktube.com/embed/3lPSQ5KjamI";
             const doc = undefined;
             const options = { incognito: true };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=3lPSQ5KjamI" +
-                                                       "&incognito=true";
 
             const file = await extractEmbed(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=3lPSQ5KjamI" +
+                                                             "&incognito=true");
         });
     });
 
@@ -300,12 +283,11 @@ describe("core/scraper/youtube.js", function () {
             const url = "https://youtu.be/NSFbekvYOlI";
             const doc = undefined;
             const options = { incognito: false };
-            const expected = "plugin://plugin.video.youtube/play/" +
-                                                       "?video_id=NSFbekvYOlI" +
-                                                       "&incognito=false";
 
             const file = await extractMinify(new URL(url), doc, options);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/?video_id=NSFbekvYOlI" +
+                                                            "&incognito=false");
         });
     });
 });

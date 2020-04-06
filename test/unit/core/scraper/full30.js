@@ -5,10 +5,9 @@ describe("core/scraper/full30.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = "https://www.full30.com/recently-added";
-            const expected = null;
 
             const file = await extract(new URL(url));
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't noscript", async function () {
@@ -19,10 +18,9 @@ describe("core/scraper/full30.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const expected = null;
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
@@ -41,10 +39,9 @@ describe("core/scraper/full30.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const expected = "https://foo.com/bar.mp4";
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, expected);
+            assert.strictEqual(file, "https://foo.com/bar.mp4");
         });
     });
 });
