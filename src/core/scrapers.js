@@ -22,6 +22,7 @@ import * as gamekult       from "./scraper/gamekult.js";
 // eslint-disable-next-line import/no-cycle
 import * as iframe         from "./scraper/iframe.js";
 import * as kcaastreaming  from "./scraper/kcaastreaming.js";
+// eslint-disable-next-line import/no-cycle
 import * as ldjson         from "./scraper/ldjson.js";
 import * as metacafe       from "./scraper/metacafe.js";
 import * as mixcloud       from "./scraper/mixcloud.js";

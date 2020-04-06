@@ -3,7 +3,9 @@
  */
 /* eslint-disable require-await */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchPattern }           from "../../tools/matchpattern.js";
+// eslint-disable-next-line import/no-cycle
+import { extract as metaExtract } from "../scrapers.js";
 
 /**
  * La liste des types pouvant contenir des URLs de son ou de vidéo.
@@ -36,14 +38,16 @@ const walk = function (root) {
 /**
  * Extrait les informations nécessaire pour lire un média sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une page quelconque.
- * @param {object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML ou <code>null</code>.
+ * @param {URL}      url           L'URL d'une page quelconque.
+ * @param {object}   content       Le contenu de l'URL.
+ * @param {Function} content.html  La fonction retournant la promesse contenant
+ *                                 le document HTML ou <code>null</code>.
+ * @param {object}   options       Les options de l'extraction.
+ * @param {number}   options.depth Le niveau de profondeur de l'extraction.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-const action = async function (_url, content) {
+const action = async function ({ href }, content, options) {
     const doc = await content.html();
     if (null === doc) {
         return null;
@@ -52,9 +56,21 @@ const action = async function (_url, content) {
     for (const script of doc.querySelectorAll(SELECTOR)) {
         try {
             for (const property of walk(JSON.parse(script.text))) {
-                if (TYPES.has(property["@type"]) &&
-                        "contentUrl" in property) {
+                if (!TYPES.has(property["@type"])) {
+                    continue;
+                }
+
+                if ("contentUrl" in property) {
                     return property.contentUrl;
+                }
+                if ("embedUrl" in property) {
+                    const file = await metaExtract(
+                        new URL(property.embedUrl, href),
+                        { ...options, depth: options.depth + 1 },
+                    );
+                    if (null !== file) {
+                        return file;
+                    }
                 }
             }
         } catch {

@@ -6,9 +6,10 @@ describe("core/scraper/ldjson.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
+            const options = { depth: 0 };
             const expected = null;
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, expected);
         });
 
@@ -20,9 +21,10 @@ describe("core/scraper/ldjson.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
+            const options = { depth: 0 };
             const expected = null;
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, expected);
         });
 
@@ -36,9 +38,10 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
+            const options = { depth: 0 };
             const expected = null;
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, expected);
         });
 
@@ -56,9 +59,10 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
+            const options = { depth: 0 };
             const expected = null;
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, expected);
         });
 
@@ -75,9 +79,10 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
+            const options = { depth: 0 };
             const expected = null;
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, expected);
         });
 
@@ -95,9 +100,10 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
+            const options = { depth: 0 };
             const expected = "https://bar.com/baz.mkv";
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, expected);
         });
 
@@ -118,9 +124,38 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
+            const options = { depth: 0 };
             const expected = "https://bar.com/baz.flac";
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(new URL(url), content, options);
+            assert.strictEqual(file, expected);
+        });
+
+        it("should return embedUrl", async function () {
+            const url = "http://foo.com";
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script type="application/ld+json">{
+                            "@context":"http://schema.org/",
+                            "@type":"VideoObject",
+                            "embedUrl":"https://unknowntube.org/embed/bar"
+                        }</script>
+                        <script type="application/ld+json">{
+                            "@context":"http://schema.org/",
+                            "@type":"VideoObject",
+                            "embedUrl":"https://www.dailymotion.com/embed` +
+                                                                    `/video/baz"
+                        }</script>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: 0 };
+            const expected = "plugin://plugin.video.dailymotion_com/" +
+                                                      "?mode=playVideo&url=baz";
+
+            const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, expected);
         });
     });
