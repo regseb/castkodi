@@ -208,6 +208,9 @@
     "options_serverName_placeholder": {
         "message": "Main, Bedroom, ..."
     },
+    "options_serverName_error": {
+        "message": "Name is missing."
+    },
     "options_serverRemove_title": {
         "message": "Remove server"
     },

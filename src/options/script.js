@@ -47,8 +47,8 @@ const check = async function (input) {
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette erreur.
             if (host === input.value) {
-                input.title = err.message;
                 if ("notFound" === err.type) {
+                    input.title = err.message;
                     input.style.backgroundImage = `url("img/warning.svg")`;
                 } else {
                     input.setCustomValidity(err.message);
@@ -57,8 +57,9 @@ const check = async function (input) {
             }
         }
     } else if ((/^\s*$/u).test(input.value)) {
-        input.title = "Le nom du serveur n'est pas renseigné.";
-        input.setCustomValidity(input.title);
+        input.setCustomValidity(
+            browser.i18n.getMessage("options_serverName_error"),
+        );
         input.style.backgroundImage = `url("img/invalid.svg")`;
     }
 };

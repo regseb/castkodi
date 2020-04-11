@@ -208,6 +208,9 @@
     "options_serverName_placeholder": {
         "message": "Salon, Chambre…"
     },
+    "options_serverName_error": {
+        "message": "Le nom du serveur n'est pas renseigné."
+    },
     "options_serverRemove_title": {
         "message": "Supprimer le server"
     },
