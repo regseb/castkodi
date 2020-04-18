@@ -2,25 +2,23 @@
  * @module
  */
 
-import { cast, jsonrpc } from "../core/index.js";
-import { notify }        from "../core/notify.js";
+import { cast, kodi } from "../core/index.js";
+import { notify }     from "../core/notify.js";
 
 /**
- * La liste des vitesses de lecture.
+ * La position de l'élément courant dans la liste de lecture ; ou
+ * <code>-1</code>.
  *
- * @constant {Array.<number>}
- * @see speed
+ * @type {number}
  */
-const SPEEDS = [-32, -16, -8, -4, -2, 1, 2, 4, 8, 16, 32];
+let position = -1;
 
 /**
- * L'indice de la vitesse de lecture ou <code>-1</code> si la lecture est en
- * pause ou <code>null</code> s'il n'y a aucune lecture en cours.
+ * La vitesse de lecture.
  *
- * @type {?number}
- * @see SPEEDS
+ * @type {number}
  */
-let speed  = null;
+let speed = 0;
 
 /**
  * L'identifiant de l'intervalle faisant avancer la barre de progression.
@@ -29,15 +27,10 @@ let speed  = null;
  */
 let interval = null;
 
-const onSeek = function ({ player }) {
-    // Garder seulement les changements sur le lecteur de vidéo.
-    if (1 !== player.playerid) {
-        return;
-    }
-
+const onSeek = function (timestamp) {
     const time = document.querySelector("#time");
     const max = parseInt(time.max, 10);
-    time.valueAsNumber = Math.min(player.time, max);
+    time.valueAsNumber = Math.min(timestamp, max);
 
     if (time.disabled) {
         time.previousElementSibling.textContent = "";
@@ -63,10 +56,10 @@ const onSeek = function ({ player }) {
 };
 
 const onStop = function () {
-    speed = null;
-
+    position = -1;
+    speed = 0;
     document.querySelector("#time").disabled = true;
-    onSeek({ player: { playerid: 1, time: 0 } });
+    onSeek(0);
 
     document.querySelector("#previous").disabled = true;
     document.querySelector("#rewind").disabled = true;
@@ -82,20 +75,16 @@ const onStop = function () {
     document.querySelector("#shuffle input").disabled = true;
 };
 
-const onSpeedChanged = function ({ player }) {
-    // Garder seulement les changements sur le lecteur de vidéo.
-    if (1 !== player.playerid) {
-        return;
-    }
-
-    speed = SPEEDS.indexOf(player.speed);
-
+/* eslint-disable unicorn/no-keyword-prefix */
+const onSpeedChanged = function (newSpeed) {
+    speed = newSpeed;
+    /* eslint-enable unicorn/no-keyword-prefix */
     document.querySelector("#time").disabled = false;
 
     document.querySelector("#previous").disabled = false;
     document.querySelector("#rewind").disabled = false;
     document.querySelector("#stop").disabled = false;
-    if (5 === speed) {
+    if (1 === speed) {
         document.querySelector("#play").style.display = "none";
         document.querySelector("#pause").style.display = "inline";
     } else {
@@ -111,23 +100,18 @@ const onSpeedChanged = function ({ player }) {
     document.querySelector("#shuffle input").disabled = false;
 };
 
-const onPropertyChanged = function ({ player, property }) {
-    // Garder seulement les changements sur le lecteur de vidéo.
-    if (1 !== player.playerid) {
-        return;
-    }
-
-    if ("repeat" in property) {
-        document.querySelector(`[name="repeat"][value="${property.repeat}"]`)
+const onPropertyChanged = function (properties) {
+    if ("repeat" in properties) {
+        document.querySelector(`[name="repeat"][value="${properties.repeat}"]`)
                                                                 .checked = true;
         document.querySelector("#repeat-off").style.display = "none";
         document.querySelector("#repeat-all").style.display = "none";
         document.querySelector("#repeat-one").style.display = "none";
-        document.querySelector(`#repeat-${property.repeat}`).style.display =
+        document.querySelector(`#repeat-${properties.repeat}`).style.display =
                                                                  "inline-block";
     }
-    if ("shuffled" in property) {
-        document.querySelector("#shuffle input").checked = property.shuffled;
+    if ("shuffled" in properties) {
+        document.querySelector("#shuffle input").checked = properties.shuffled;
     }
 };
 
@@ -163,7 +147,10 @@ const splash = function (err) {
 
 const update = async function () {
     try {
-        const properties = await jsonrpc.getProperties();
+        const properties = await kodi.player.getProperties([
+            "position", "repeat", "shuffled", "speed", "timestamp",
+            "totaltimestamp",
+        ]);
         document.querySelector("#send").disabled = false;
         document.querySelector("#insert").disabled = false;
         document.querySelector("#add").disabled = false;
@@ -171,17 +158,17 @@ const update = async function () {
         document.querySelector("#loading").style.display = "none";
         document.querySelector("#rate").style.display = "inline-block";
 
-        if (null === properties.speed) {
+        position = properties.position;
+        if (-1 === properties.position) {
             onStop();
         } else {
-            onSpeedChanged({
-                player: { playerid: 1, speed: properties.speed },
-            });
+            onSpeedChanged(properties.speed);
         }
 
-        document.querySelector("#time").max = properties.totaltime.toString();
+        document.querySelector("#time").max =
+                                           properties.totaltimestamp.toString();
         document.querySelector("#play").disabled = false;
-        if (0 === properties.totaltime) {
+        if (0 === properties.totaltimestamp) {
             document.querySelector("#time").disabled = true;
             document.querySelector("#rewind").disabled = true;
             document.querySelector("#pause").disabled = true;
@@ -192,17 +179,15 @@ const update = async function () {
             document.querySelector("#pause").disabled = false;
             document.querySelector("#forward").disabled = false;
         }
-        onSeek({ player: { playerid: 1, time: properties.time } });
+        onSeek(properties.timestamp);
 
-        onVolumeChanged(properties);
+        onVolumeChanged(await kodi.application.getProperties([
+            "muted", "volume",
+        ]));
 
         onPropertyChanged({
-            player:   { playerid: 1 },
-            property: { repeat: properties.repeat },
-        });
-        onPropertyChanged({
-            player:   { playerid: 1 },
-            property: { shuffled: properties.shuffled },
+            repeat:   properties.repeat,
+            shuffled: properties.shuffled,
         });
 
         document.querySelector("#contextmenu").disabled = false;
@@ -339,22 +324,21 @@ const previous = function () {
         return;
     }
 
-    jsonrpc.previous().catch(splash);
+    kodi.player.previous().catch(splash);
 };
 
-const rewind = function () {
+const rewind = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#rewind").disabled) {
         return;
     }
 
-    switch (speed) {
-        case -1: speed = 4; break;
-        case 0:  speed = 5; break;
-        default: --speed;
+    try {
+        await kodi.player.setSpeed("decrement");
+    } catch (err) {
+        splash(err);
     }
-    jsonrpc.setSpeed(SPEEDS[speed]).catch(splash);
 };
 
 const stop = function () {
@@ -364,42 +348,40 @@ const stop = function () {
         return;
     }
 
-    speed = null;
-    jsonrpc.stop().catch(splash);
+    kodi.player.stop().catch(splash);
 };
 
-const playPause = function () {
-    if (null === speed) {
-        speed = 5;
-        jsonrpc.open().catch(splash);
-    } else if (5 === speed) {
+const playPause = async function () {
+    if (-1 === position) {
+        position = 0;
+        kodi.player.open(position).catch(splash);
+    } else {
         // Annuler l'action (venant d'un raccourci clavier) si le bouton est
         // désactivé (car la connexion à Kodi a échouée).
         if (document.querySelector("#pause").disabled) {
             return;
         }
 
-        speed = -1;
-        jsonrpc.playPause().catch(splash);
-    } else {
-        speed = 5;
-        jsonrpc.playPause().catch(splash);
+        try {
+            speed = await kodi.player.playPause();
+        } catch (err) {
+            splash(err);
+        }
     }
 };
 
-const forward = function () {
+const forward = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#forward").disabled) {
         return;
     }
 
-    switch (speed) {
-        case -1: speed = 6; break;
-        case 10: speed = 5; break;
-        default: ++speed;
+    try {
+        speed = await kodi.player.setSpeed("increment");
+    } catch (err) {
+        splash(err);
     }
-    jsonrpc.setSpeed(SPEEDS[speed]).catch(splash);
 };
 
 const next = function () {
@@ -409,7 +391,7 @@ const next = function () {
         return;
     }
 
-    jsonrpc.next().catch(splash);
+    kodi.player.next().catch(splash);
 };
 
 const setMute = function (event) {
@@ -431,7 +413,7 @@ const setMute = function (event) {
     } else {
         document.querySelector("#volume").classList.remove("disabled");
     }
-    jsonrpc.setMute(input.checked).catch(splash);
+    kodi.application.setMute(input.checked).catch(splash);
 };
 
 const setVolume = function (diff) {
@@ -449,7 +431,7 @@ const setVolume = function (diff) {
     if (Number.isInteger(diff)) {
         input.valueAsNumber += diff;
     }
-    jsonrpc.setVolume(input.valueAsNumber).catch(splash);
+    kodi.application.setVolume(input.valueAsNumber).catch(splash);
 };
 
 const repeat = function () {
@@ -476,7 +458,7 @@ const repeat = function () {
         one.checked = false;
         off.checked = true;
     }
-    jsonrpc.setRepeat().catch(splash);
+    kodi.player.setRepeat().catch(splash);
 };
 
 const shuffle = function () {
@@ -487,7 +469,7 @@ const shuffle = function () {
     }
 
     const input = document.querySelector("#shuffle input");
-    jsonrpc.setShuffle(input.checked).catch(splash);
+    kodi.player.setShuffle(input.checked).catch(splash);
 };
 
 const contextMenu = function () {
@@ -497,7 +479,7 @@ const contextMenu = function () {
         return;
     }
 
-    jsonrpc.contextMenu().catch(splash);
+    kodi.input.contextMenu().catch(splash);
 };
 
 const up = function () {
@@ -507,7 +489,7 @@ const up = function () {
         return;
     }
 
-    jsonrpc.up().catch(splash);
+    kodi.input.up().catch(splash);
 };
 
 const info = function () {
@@ -517,7 +499,7 @@ const info = function () {
         return;
     }
 
-    jsonrpc.info().catch(splash);
+    kodi.input.info().catch(splash);
 };
 
 const left = function () {
@@ -527,7 +509,7 @@ const left = function () {
         return;
     }
 
-    jsonrpc.left().catch(splash);
+    kodi.input.left().catch(splash);
 };
 
 const select = function () {
@@ -537,7 +519,7 @@ const select = function () {
         return;
     }
 
-    jsonrpc.select().catch(splash);
+    kodi.input.select().catch(splash);
 };
 
 const right = function () {
@@ -547,7 +529,7 @@ const right = function () {
         return;
     }
 
-    jsonrpc.right().catch(splash);
+    kodi.input.right().catch(splash);
 };
 
 const back = function () {
@@ -557,7 +539,7 @@ const back = function () {
         return;
     }
 
-    jsonrpc.back().catch(splash);
+    kodi.input.back().catch(splash);
 };
 
 const down = function () {
@@ -567,7 +549,7 @@ const down = function () {
         return;
     }
 
-    jsonrpc.down().catch(splash);
+    kodi.input.down().catch(splash);
 };
 
 const showOSD = function () {
@@ -577,7 +559,7 @@ const showOSD = function () {
         return;
     }
 
-    jsonrpc.showOSD().catch(splash);
+    kodi.input.showOSD().catch(splash);
 };
 
 const setFullscreen = function () {
@@ -587,31 +569,29 @@ const setFullscreen = function () {
         return;
     }
 
-    jsonrpc.setFullscreen().catch(splash);
+    kodi.gui.setFullscreen().catch(splash);
 };
 
 const passing = function () {
-    if (null === speed || -1 === speed) {
+    if (0 === speed) {
         return;
     }
 
     const time = document.querySelector("#time");
-    onSeek({
-        player: { playerid: 1, time: time.valueAsNumber + SPEEDS[speed] },
-    });
+    onSeek(time.valueAsNumber + speed);
 };
 
 const move = function () {
     clearInterval(interval);
     const time = document.querySelector("#time");
 
-    onSeek({ player: { playerid: 1, time: time.valueAsNumber } });
+    onSeek(time.valueAsNumber);
 };
 
 const seek = function () {
     interval = setInterval(passing, 1000);
     const time = document.querySelector("#time");
-    jsonrpc.seek(time.valueAsNumber).catch(splash);
+    kodi.player.seek(time.valueAsNumber).catch(splash);
 };
 
 
@@ -751,15 +731,13 @@ browser.storage.local.get().then((config) => {
     }
 });
 
-jsonrpc.onChanged = () => {
-    jsonrpc.onVolumeChanged   = onVolumeChanged;
-    jsonrpc.onAVStart         = update;
-    jsonrpc.onPause           = onSpeedChanged;
-    jsonrpc.onPlay            = update;
-    jsonrpc.onPropertyChanged = onPropertyChanged;
-    jsonrpc.onResume          = onSpeedChanged;
-    jsonrpc.onSeek            = onSeek;
-    jsonrpc.onSpeedChanged    = onSpeedChanged;
-    jsonrpc.onStop            = onStop;
-    update();
-};
+kodi.application.onVolumeChanged.addListener(onVolumeChanged);
+kodi.player.onAVStart.addListener(update);
+kodi.player.onPause.addListener(onSpeedChanged);
+kodi.player.onPlay.addListener(update);
+kodi.player.onPropertyChanged.addListener(onPropertyChanged);
+kodi.player.onResume.addListener(onSpeedChanged);
+kodi.player.onSeek.addListener(onSeek);
+kodi.player.onSpeedChanged.addListener(onSpeedChanged);
+kodi.player.onStop.addListener(onStop);
+update();

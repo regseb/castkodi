@@ -2,7 +2,7 @@
  * @module
  */
 
-import { JSONRPC } from "../core/jsonrpc.js";
+import { Kodi } from "../core/jsonrpc/kodi.js";
 
 /**
  * Demande (ou enlève) une permission optionnelle.
@@ -35,7 +35,7 @@ const check = async function (input) {
         input.style.backgroundImage = `url("img/loading.svg")`;
         const host = input.value;
         try {
-            await JSONRPC.check(host);
+            await Kodi.check(host);
             // Indiquer la réussite si la valeur testée est toujours la valeur
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette réussite.
@@ -77,7 +77,7 @@ const save = async function () {
             tab.open = true;
             if ("single" === this.value) {
                 // Modifier la configuration en une fois pour éviter d'appeler
-                // les écouteurs à chaque changement.
+                // les auditeurs à chaque changement.
                 browser.storage.local.set({
                     "server-mode":   "single",
                     "server-active": 0,

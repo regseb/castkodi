@@ -2,23 +2,23 @@
  * @module
  */
 
-import { JSONRPC }     from "./jsonrpc.js";
+import { Kodi }        from "./jsonrpc/kodi.js";
 import { PebkacError } from "./pebkac.js";
 import { extract }     from "./scrapers.js";
 
 /**
  * Le client JSON-RPC pour contacter Kodi.
  *
- * @type {object}
+ * @type {Kodi}
  */
-export const jsonrpc = new JSONRPC("");
+export const kodi = new Kodi();
 
 /**
  * Récupère le lien à analyser parmi les données récupérées.
  *
  * @function
- * @param {Array.<string>} urls La liste des liens récupérés par le menu
- *                              contextuel.
+ * @param {Array.<string|undefined>} urls La liste des liens récupérés par le
+ *                                        menu contextuel.
  * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
  *                             aucun lien est valide.
  */
@@ -43,24 +43,6 @@ export const mux = function (urls) {
 };
 
 /**
- * Crée le client JSON-RPC pour contacter Kodi.
- *
- * @param {object} changes Les paramètres modifiés dans la configuration.
- */
-const change = async function (changes) {
-    // Ignorer tous les changements sauf ceux liés au serveur.
-    if (!Object.entries(changes).some(([k, v]) => k.startsWith("server-") &&
-                                                  "newValue" in v)) {
-        return;
-    }
-
-    const config = await browser.storage.local.get();
-    jsonrpc.close();
-    jsonrpc.host = config["server-list"][config["server-active"]].host;
-    jsonrpc.onChanged();
-};
-
-/**
  * Diffuse un média sur Kodi.
  *
  * @function
@@ -81,11 +63,25 @@ export const cast = async function (action, urls) {
         depth:     0,
         incognito: browser.extension.inIncognitoContext,
     });
-    switch (action) {
-        case "send":   await jsonrpc.send(file);   break;
-        case "insert": await jsonrpc.insert(file); break;
-        case "add":    await jsonrpc.add(file);    break;
-        default: throw new Error(action + " is not supported");
+    if ("send" === action) {
+        // Vider la liste de lecture, ajouter le nouveau média et lancer la
+        // lecture.
+        await kodi.playlist.clear();
+        await kodi.playlist.add(file);
+        await kodi.player.open(0);
+    } else if ("insert" === action) {
+        const position = await kodi.player.getProperty("position");
+        // Si aucun média est en cours de lecture : placer le nouveau média à la
+        // fin de la liste de lecture.
+        if (-1 === position) {
+            await kodi.playlist.add(file);
+        } else {
+            await kodi.playlist.insert(file, position + 1);
+        }
+    } else if ("add" === action) {
+        await kodi.playlist.add(file);
+    } else {
+        throw new Error(action + " is not supported");
     }
 
     if (!browser.extension.inIncognitoContext) {
@@ -96,9 +92,17 @@ export const cast = async function (action, urls) {
     }
 };
 
-// Simuler un changement de configuration pour se connecter au bon serveur. Ce
-// bidouillage est utile quand ce fichier est chargé depuis les options ou la
-// popin (dans le background, cette migration qui change la configuration).
-// eslint-disable-next-line unicorn/no-keyword-prefix
-change({ "server-": { newValue: null } });
-browser.storage.onChanged.addListener(change);
+/**
+ * Ferme la connexion avec Kodi pour forcer la reconnexion avec la nouvelle
+ * configuration.
+ *
+ * @param {object} changes Les paramètres modifiés dans la configuration.
+ */
+const handleChange = function (changes) {
+    // Garder seulement les changements liés au serveur.
+    if (Object.keys(changes).some((k) => k.startsWith("server-"))) {
+        kodi.close();
+    }
+};
+
+browser.storage.onChanged.addListener(handleChange);
