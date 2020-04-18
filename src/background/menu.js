@@ -41,7 +41,7 @@ const click = async function (info) {
         }
     } else if (!info.wasChecked) {
         browser.storage.local.set({
-            "server-active": parseInt(info.menuItemId, 10),
+            "server-active": Number.parseInt(info.menuItemId, 10),
         });
     }
 };

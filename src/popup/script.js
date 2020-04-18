@@ -29,7 +29,7 @@ let interval = null;
 
 const onSeek = function (timestamp) {
     const time = document.querySelector("#time");
-    const max = parseInt(time.max, 10);
+    const max = Number.parseInt(time.max, 10);
     time.valueAsNumber = Math.min(timestamp, max);
 
     if (time.disabled) {
