@@ -38,12 +38,15 @@ const walk = function (root) {
 /**
  * Extrait les informations nécessaire pour lire un média sur Kodi.
  *
- * @param {URL}      url           L'URL d'une page quelconque.
- * @param {object}   content       Le contenu de l'URL.
- * @param {Function} content.html  La fonction retournant la promesse contenant
- *                                 le document HTML ou <code>null</code>.
- * @param {object}   options       Les options de l'extraction.
- * @param {number}   options.depth Le niveau de profondeur de l'extraction.
+ * @param {URL}      url               L'URL d'une page quelconque.
+ * @param {object}   content           Le contenu de l'URL.
+ * @param {Function} content.html      La fonction retournant la promesse
+ *                                     contenant le document HTML ou
+ *                                     <code>null</code>.
+ * @param {object}   options           Les options de l'extraction.
+ * @param {number}   options.depth     Le niveau de profondeur de l'extraction.
+ * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
