@@ -61,6 +61,8 @@ const check = async function (input) {
             browser.i18n.getMessage("options_serverName_error"),
         );
         input.style.backgroundImage = `url("img/invalid.svg")`;
+    } else {
+        input.style.backgroundImage = "none";
     }
 };
 
