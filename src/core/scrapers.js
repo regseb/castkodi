@@ -46,6 +46,7 @@ import * as ultimedia      from "./scraper/ultimedia.js";
 import * as veoh           from "./scraper/veoh.js";
 import * as video          from "./scraper/video.js";
 import * as videopress     from "./scraper/videopress.js";
+import * as vidlox         from "./scraper/vidlox.js";
 import * as vimeo          from "./scraper/vimeo.js";
 import * as vrtnu          from "./scraper/vrtnu.js";
 import * as youtube        from "./scraper/youtube.js";
@@ -92,6 +93,7 @@ const SCRAPERS = [
     ultimedia,
     veoh,
     videopress,
+    vidlox,
     vimeo,
     vrtnu,
     youtube,
