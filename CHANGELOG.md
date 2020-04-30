@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.17.0](https://github.com/regseb/castkodi/compare/v4.16.0...v4.17.0) (2020-04-30)
+
+
+### Features
+
+* Ajouter le support de Vidlox. ([fd2222a](https://github.com/regseb/castkodi/commit/fd2222ad8420c3524f321d24c415df7f3321a913))
+* Gérer les médias embarqués dans les micro-données. ([18c7fc2](https://github.com/regseb/castkodi/commit/18c7fc251736f1d0c1fe4aec43eed9ba3ce5c95a))
+* Indiquer le support de Castbox. ([a9ca345](https://github.com/regseb/castkodi/commit/a9ca345b76d38ab2871c3f3438077f059794a593))
+* Indiquer le support de L'Internaute. ([dc2d2c0](https://github.com/regseb/castkodi/commit/dc2d2c092db9b98dea4825b463992b15a0332c1a))
+
+
+### Bug Fixes
+
+* Effacer l'erreur sur le nom des serveurs. ([448d074](https://github.com/regseb/castkodi/commit/448d0742c5e529770361aab706ad0a5e419ce0ef))
+* Mettre des espaces insécables dans la description. ([cd0065f](https://github.com/regseb/castkodi/commit/cd0065fe24526b0b2397c00d21aa8e93baa746ae))
+* Ne pas auto-fermer les <button>. ([ac23873](https://github.com/regseb/castkodi/commit/ac238731abfc507568413c92ec311c73754aa1d3))
+* Traduire le message d'erreur sur le nom des serveurs. ([6146f38](https://github.com/regseb/castkodi/commit/6146f389c78e0d25c9ff19636c5ed63b1e771d15))
+
 ## [4.16.0](https://github.com/regseb/castkodi/compare/v4.15.0...v4.16.0) (2020-03-30)
 
 
