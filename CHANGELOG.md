@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.17.1](https://github.com/regseb/castkodi/compare/v4.17.0...v4.17.1) (2020-05-01)
+
+
+### Bug Fixes
+
+* Gérer l'affichage de la popin quand le lecture audio est actif. ([0156415](https://github.com/regseb/castkodi/commit/0156415dd405bcab2ac0af787af3b3410e96f00e))
+
 ## [4.17.0](https://github.com/regseb/castkodi/compare/v4.16.0...v4.17.0) (2020-04-30)
 
 
