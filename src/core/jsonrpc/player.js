@@ -70,14 +70,26 @@ export const Player = class {
      *                             propriétés.
      */
     async getProperties(properties) {
-        const results = await this.kodi.send("Player.GetProperties", {
-            playerid:   1,
-            properties: properties.map((property) => {
-                return "timestamp" === property || "totaltimestamp" === property
-                                                         ? property.slice(0, -5)
+        let results;
+        try {
+            results = await this.kodi.send("Player.GetProperties", {
+                playerid:   1,
+                properties: properties.map((property) => {
+                    return "timestamp" === property ||
+                           "totaltimestamp" === property ? property.slice(0, -5)
                                                          : property;
-            }),
-        });
+                }),
+            });
+        } catch {
+            results = {
+                position:  -1,
+                repeat:    "off",
+                shuffled:  false,
+                speed:     0,
+                time:      { hours: 0, minutes: 0, seconds: 0 },
+                totaltime: { hours: 0, minutes: 0, seconds: 0 },
+            };
+        }
         return Object.fromEntries(Object.entries(results)
             .map(([key, value]) => {
                 return "time" === key || "totaltime" === key

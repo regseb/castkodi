@@ -35,6 +35,31 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ]);
         });
+
+        it("should return default properties", async function () {
+            const fake = sinon.fake.rejects();
+
+            const player = new Player({ send: fake });
+            const properties = ["foo"];
+            const result = await player.getProperties(properties);
+            assert.deepStrictEqual(result, {
+                position:       -1,
+                repeat:         "off",
+                shuffled:       false,
+                speed:          0,
+                timestamp:      0,
+                totaltimestamp: 0,
+            });
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Player.GetProperties",
+                {
+                    playerid:   1,
+                    properties: ["foo"],
+                },
+            ]);
+        });
     });
 
     describe("getProperty()", function () {
