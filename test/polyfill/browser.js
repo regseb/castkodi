@@ -1,8 +1,10 @@
 import fs   from "fs";
 import path from "path";
 
+const DIRNAME = path.dirname(new URL(import.meta.url).pathname);
+
 const I18NS = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../../locales/en/messages.json"),
+    fs.readFileSync(path.join(DIRNAME, "../../locales/en/messages.json"),
                     "utf8"),
 );
 

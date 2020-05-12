@@ -1,7 +1,6 @@
 {
     "patterns": [
-        "!/.git/", "!/.nyc_output/", "!/coverage/", "!/jsdocs/",
-        "!/node_modules/", "**"
+        "!/.git/", "!/coverage/", "!/jsdocs/", "!/node_modules/", "**"
     ],
     "checkers": [
         {

@@ -1,7 +1,9 @@
 import assert      from "assert";
-import { Server }  from "mock-socket";
+import mockSocket  from "mock-socket";
 import sinon       from "sinon";
 import { JSONRPC } from "../../../src/tools/jsonrpc.js";
+
+const Server = mockSocket.Server;
 
 describe("tools/jsonrpc.js", function () {
     describe("open()", function () {
