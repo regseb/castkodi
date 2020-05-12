@@ -29,7 +29,7 @@ const action = async function (_url, content) {
         if (null === result) {
             continue;
         }
-        return JSON.parse(result[1]).streamUrls[0].streamUrl;
+        return JSON.parse(result[1]).streams[0].url;
     }
     return null;
 };
