@@ -133,7 +133,7 @@ export const Player = class {
     /**
      * Player.Open for {params: {item: {file:}}}
      *
-     * @param {string} path to the file (e.g. plugin://plugin.audio.albums/album_name)
+     * @param {string} filePath path to the file (e.g. plugin://plugin.audio.albums/album_name)
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
     openItem(filePath) {
