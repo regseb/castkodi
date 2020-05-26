@@ -66,9 +66,7 @@ export const cast = async function (action, urls) {
     if ("send" === action) {
         // Vider la liste de lecture, ajouter le nouveau média et lancer la
         // lecture.
-        await kodi.playlist.clear();
-        await kodi.playlist.add(file);
-        await kodi.player.open(0);
+        await kodi.player.openItem(file);
     } else if ("insert" === action) {
         const position = await kodi.player.getProperty("position");
         // Si aucun média est en cours de lecture : placer le nouveau média à la

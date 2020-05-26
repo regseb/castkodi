@@ -131,6 +131,18 @@ export const Player = class {
     }
 
     /**
+     * Player.Open for {params: {item: {file:}}}
+     *
+     * @param {string} path to the file (e.g. plugin://plugin.audio.albums/album_name)
+     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     */
+    openItem(filePath) {
+        return this.kodi.send("Player.Open", {
+            item: { file: filePath },
+        });
+    }
+
+    /**
      * Lance ou mets en pause la lecture.
      *
      * @returns {Promise.<number>} Une promesse contenant la vitesse de lecture.
