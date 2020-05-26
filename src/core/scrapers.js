@@ -10,6 +10,7 @@ import * as applepodcasts  from "./scraper/applepodcasts.js";
 import * as arte           from "./scraper/arte.js";
 import * as arteradio      from "./scraper/arteradio.js";
 import * as audio          from "./scraper/audio.js";
+import * as bandcamp       from "./scraper/bandcamp.js";
 import * as bigo           from "./scraper/bigo.js";
 import * as blogtalkradio  from "./scraper/blogtalkradio.js";
 import * as devtube        from "./scraper/devtube.js";
@@ -65,6 +66,7 @@ const SCRAPERS = [
     applepodcasts,
     arte,
     arteradio,
+    bandcamp,
     bigo,
     blogtalkradio,
     devtube,
