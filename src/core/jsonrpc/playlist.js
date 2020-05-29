@@ -31,9 +31,9 @@ export const Playlist = class {
      * @param {string} file L'URL envoyée à Kodi.
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    add(file) {
+    async add(file) {
         return this.kodi.send("Playlist.Add", {
-            playlistid: 1,
+            playlistid: await this.kodi.getCurrentPlayerId(),
             item:       { file },
         });
     }
@@ -43,8 +43,8 @@ export const Playlist = class {
      *
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    clear() {
-        return this.kodi.send("Playlist.Clear", { playlistid: 1 });
+    async clear() {
+        return this.kodi.send("Playlist.Clear", { playlistid: await this.kodi.getCurrentPlayerId() });
     }
 
     /**
@@ -55,7 +55,7 @@ export const Playlist = class {
      */
     async getItems() {
         const results = await this.kodi.send("Playlist.GetItems", {
-            playlistid: 1,
+            playlistid: await this.kodi.getCurrentPlayerId(),
             properties: ["file"],
         });
         return "items" in results ? results.items
@@ -71,7 +71,7 @@ export const Playlist = class {
      */
     async getItem(position) {
         const results = await this.kodi.send("Playlist.GetItems", {
-            playlistid: 1,
+            playlistid: await this.kodi.getCurrentPlayerId(),
             properties: ["file"],
             limits:     { start: position, end: position + 1 },
         });
@@ -86,9 +86,9 @@ export const Playlist = class {
      * @param {number} position La position où le média sera inséré.
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    insert(file, position) {
+    async insert(file, position) {
         return this.kodi.send("Playlist.Insert", {
-            playlistid: 1,
+            playlistid: await this.kodi.getCurrentPlayerId(),
             position,
             item:       { file },
         });
@@ -100,9 +100,9 @@ export const Playlist = class {
      * @param {number} position La position de l'élément qui sera enlevé.
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    remove(position) {
+    async remove(position) {
         return this.kodi.send("Playlist.Remove", {
-            playlistid: 1,
+            playlistid: await this.kodi.getCurrentPlayerId(),
             position,
         });
     }
@@ -118,7 +118,7 @@ export const Playlist = class {
      */
     handleNotification({ method, params: { data } }) {
         // Garder seulement les notifications de la liste de lecture des vidéos.
-        if (!method.startsWith("Playlist.") || 1 !== data.playlistid) {
+        if (!method.startsWith("Playlist.")) {
             return;
         }
         switch (method) {
