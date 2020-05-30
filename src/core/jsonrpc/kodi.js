@@ -33,6 +33,22 @@ export const Kodi = class {
     }
 
     /**
+     * Get the current player Id. Need in order to support mixed music/video playlists
+     *
+     * @returns {Promise.<object>} Player id. Sometimes in Kodi docs it referenced as Playlist ID.
+     */
+    async getCurrentPlayerId(){
+        let results;
+        results = await this.send("Player.GetActivePlayers");
+        if (results[0]) {
+            return results[0].playerid;
+        } else {
+            return null
+        }
+    }
+
+
+    /**
      * Crée un client JSON-RPC pour contactter Kodi.
      *
      * @param {?string} [host=null] L'adresse IP (ou le nom de domaine) du

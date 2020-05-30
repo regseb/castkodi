@@ -73,7 +73,7 @@ export const Player = class {
         let results;
         try {
             results = await this.kodi.send("Player.GetProperties", {
-                playerid:   1,
+                playerid:   await this.kodi.getCurrentPlayerId(),
                 properties: properties.map((property) => {
                     return "timestamp" === property ||
                            "totaltimestamp" === property ? property.slice(0, -5)
@@ -114,8 +114,8 @@ export const Player = class {
      *
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    next() {
-        return this.kodi.send("Player.GoTo", { playerid: 1, to: "next" });
+    async next() {
+        return this.kodi.send("Player.GoTo", { playerid: await this.kodi.getCurrentPlayerId(), to: "next" });
     }
 
     /**
@@ -131,13 +131,25 @@ export const Player = class {
     }
 
     /**
+     * Player.Open for {params: {item: {file:}}}
+     *
+     * @param {string} filePath path to the file (e.g. plugin://plugin.audio.albums/album_name)
+     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     */
+    openItem(filePath) {
+        return this.kodi.send("Player.Open", {
+            item: { file: filePath },
+        });
+    }
+
+    /**
      * Lance ou mets en pause la lecture.
      *
      * @returns {Promise.<number>} Une promesse contenant la vitesse de lecture.
      */
     async playPause() {
         const result = await this.kodi.send("Player.PlayPause", {
-            playerid: 1,
+            playerid: await this.kodi.getCurrentPlayerId(),
         });
         return result.speed;
     }
@@ -147,8 +159,8 @@ export const Player = class {
      *
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    previous() {
-        return this.kodi.send("Player.GoTo", { playerid: 1, to: "previous" });
+    async previous() {
+        return this.kodi.send("Player.GoTo", { playerid: await this.kodi.getCurrentPlayerId(), to: "previous" });
     }
 
     /**
@@ -160,7 +172,7 @@ export const Player = class {
      */
     async seek(timestamp) {
         const result = await this.kodi.send("Player.Seek", {
-            playerid: 1,
+            playerid: await this.kodi.getCurrentPlayerId(),
             value:    {
                 time: toTime(timestamp),
             },
@@ -173,9 +185,9 @@ export const Player = class {
      *
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    setRepeat() {
+    async setRepeat() {
         return this.kodi.send("Player.SetRepeat", {
-            playerid: 1,
+            playerid: await this.kodi.getCurrentPlayerId(),
             repeat:   "cycle",
         });
     }
@@ -187,8 +199,8 @@ export const Player = class {
      *                          lecture ; sinon <code>false</code>.
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    setShuffle(shuffle) {
-        return this.kodi.send("Player.SetShuffle", { playerid: 1, shuffle });
+    async setShuffle(shuffle) {
+        return this.kodi.send("Player.SetShuffle", { playerid: await this.kodi.getCurrentPlayerId(), shuffle });
     }
 
     /**
@@ -202,7 +214,7 @@ export const Player = class {
      */
     async setSpeed(speed) {
         const result = await this.kodi.send("Player.SetSpeed", {
-            playerid: 1,
+            playerid: await this.kodi.getCurrentPlayerId(),
             speed,
         });
         return result.speed;
@@ -213,8 +225,8 @@ export const Player = class {
      *
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    stop() {
-        return this.kodi.send("Player.Stop", { playerid: 1 });
+    async stop() {
+        return  this.kodi.send("Player.Stop", { playerid: await this.kodi.getCurrentPlayerId() });
     }
 
     /**
@@ -228,8 +240,7 @@ export const Player = class {
      */
     handleNotification({ method, params: { data } }) {
         // Garder seulement les notifications du lecteur de vidéo.
-        if (!method.startsWith("Player.") ||
-                "player" in data && 1 !== data.player.playerid) {
+        if (!method.startsWith("Player.")) {
             return;
         }
         switch (method) {

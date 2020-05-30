@@ -280,5 +280,20 @@
     },
     "options_youtubePlaylistVideo_textcontent": {
         "message": "cast only the video."
+    },
+    "options_youtubePlaylistOrderDescription_textcontent": {
+        "message": "Order of playlist:"
+    },
+    "options_youtubePlaylistOrderDefault_textcontent": {
+        "message": "default"
+    },
+    "options_youtubePlaylistOrderReverse_textcontent": {
+        "message": "reverse"
+    },
+    "options_youtubePlaylistOrderShuffle_textcontent": {
+        "message": "shuffle"
+    },
+    "options_youtubePlaylistOrderAsk_textcontent": {
+        "message": "ask every time"
     }
 }

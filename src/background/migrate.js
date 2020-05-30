@@ -16,6 +16,7 @@ browser.storage.local.get().then((config) => {
                 "audio", "frame", "link", "page", "selection", "tab", "video",
             ],
             "youtube-playlist": "playlist",
+            "youtube-playlist-order": "default",
         });
     } else if (1 === config["config-version"]) {
         const actions = Object.entries(config)
@@ -39,6 +40,7 @@ browser.storage.local.get().then((config) => {
             "menu-actions":     actions,
             "menu-contexts":    contexts,
             "youtube-playlist": config["youtube-playlist"],
+            "youtube-playlist-order": config["youtube-playlist-order"],
         });
     } else {
         // Nettoyer la configuration en gardant seulement les propriétés
@@ -53,6 +55,7 @@ browser.storage.local.get().then((config) => {
             "menu-actions":     config["menu-actions"],
             "menu-contexts":    config["menu-contexts"],
             "youtube-playlist": config["youtube-playlist"],
+            "youtube-playlist-order": config["youtube-playlist-order"],
         });
     }
 });
