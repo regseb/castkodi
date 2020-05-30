@@ -63,7 +63,9 @@ export const cast = async function (action, urls) {
         depth:     0,
         incognito: browser.extension.inIncognitoContext,
     });
-    if ("send" === action) {
+    var currentPlayerId;
+    currentPlayerId = await kodi.getCurrentPlayerId();
+    if ("send" === action || currentPlayerId === null) {
         // Vider la liste de lecture, ajouter le nouveau média et lancer la
         // lecture.
         await kodi.player.openItem(file);
