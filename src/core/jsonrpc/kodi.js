@@ -40,7 +40,11 @@ export const Kodi = class {
     async getCurrentPlayerId(){
         let results;
         results = await this.send("Player.GetActivePlayers");
-        return results[0].playerid;
+        if (results[0]) {
+            return results[0].playerid;
+        } else {
+            return null
+        }
     }
 
 

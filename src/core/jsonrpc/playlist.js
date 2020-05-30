@@ -32,10 +32,16 @@ export const Playlist = class {
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
     async add(file) {
-        return this.kodi.send("Playlist.Add", {
-            playlistid: await this.kodi.getCurrentPlayerId(),
-            item:       { file },
-        });
+        var currentPlayerId;
+        currentPlayerId = await this.kodi.getCurrentPlayerId();
+        if (isNaN(currentPlayerId)) {
+            return this.kodi.player.openItem(file);
+        } else {
+            return this.kodi.send("Playlist.Add", {
+                playlistid: await this.kodi.getCurrentPlayerId(),
+                item:       { file },
+            });
+        }
     }
 
     /**
