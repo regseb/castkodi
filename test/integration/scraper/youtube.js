@@ -25,7 +25,7 @@ describe("Scraper: YouTube", function () {
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
                              "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum" +
-                                                            "&incognito=false");
+                                                     "&play=1&incognito=false");
 
         browser.storage.local.clear();
     });
@@ -144,7 +144,7 @@ describe("Scraper: YouTube", function () {
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
                              "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9" +
-                                                            "&incognito=false");
+                                                     "&play=1&incognito=false");
     });
 
     it("should return URL when it's not a playlist from mobile",
@@ -164,7 +164,7 @@ describe("Scraper: YouTube", function () {
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
                                              "?playlist_id=PL3A5849BDE0581B19" +
-                                                            "&incognito=false");
+                                                     "&play=1&incognito=false");
     });
 
     it("should return embed video id", async function () {

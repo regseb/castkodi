@@ -30,7 +30,7 @@ const actionVideo = async function ({ searchParams }, _content, { incognito }) {
             ("playlist" === config["youtube-playlist"] ||
              !searchParams.has("v"))) {
         return PLUGIN_URL + "?playlist_id=" + searchParams.get("list") +
-                            "&incognito=" + incognito.toString();
+                            "&play=1&incognito=" + incognito.toString();
     }
     if (searchParams.has("v")) {
         return PLUGIN_URL + "?video_id=" + searchParams.get("v") +
@@ -60,7 +60,7 @@ const actionPlaylist = async function ({ searchParams },
                                        { incognito }) {
     return searchParams.has("list")
                      ? PLUGIN_URL + "?playlist_id=" + searchParams.get("list") +
-                                    "&incognito=" + incognito.toString()
+                                    "&play=1&incognito=" + incognito.toString()
                      : null;
 };
 export const extractPlaylist = matchPattern(actionPlaylist,
