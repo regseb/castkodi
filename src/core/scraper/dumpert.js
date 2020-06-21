@@ -22,4 +22,6 @@ const PLUGIN_URL = "plugin://plugin.video.dumpert/?action=play&video_page_url=";
 const action = async function ({ href }) {
     return PLUGIN_URL + encodeURIComponent(href);
 };
-export const extract = matchPattern(action, "*://www.dumpert.nl/mediabase/*");
+export const extract = matchPattern(action,
+    "*://www.dumpert.nl/item/*",
+    "*://www.dumpert.nl/mediabase/*");
