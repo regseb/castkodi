@@ -17,7 +17,7 @@ describe("core/scraper/kcaastreaming.js", function () {
                     <html>
                       <body>
                         <div id="show">
-                          <a href="http://foo.com:123/bar.mp3">
+                          <a href="///foo.com/bar.mp3">
                             Foo
                           </a>
                         </div>
@@ -26,7 +26,7 @@ describe("core/scraper/kcaastreaming.js", function () {
             };
 
             const file = await extract(new URL(url), content);
-            assert.strictEqual(file, "http://foo.com:123/bar.mp3");
+            assert.strictEqual(file, "http://foo.com/bar.mp3");
         });
     });
 });

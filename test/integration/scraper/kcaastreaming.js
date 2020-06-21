@@ -8,6 +8,6 @@ describe("Scraper: KCAA Radio", function () {
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
-            "http://stream.kcaastreaming.com:5222/kcaa.mp3");
+            "http://stream.kcaastreaming.com/kcaa.mp3");
     });
 });

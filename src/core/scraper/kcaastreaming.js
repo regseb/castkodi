@@ -15,8 +15,8 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise.<string>} Une promesse contenant le lien du
  *                             <em>fichier</em>.
  */
-const action = async function (_url, content) {
+const action = async function ({ href }, content) {
     const doc = await content.html();
-    return doc.querySelector("#show a").href;
+    return new URL(doc.querySelector("#show a").href, href).href;
 };
 export const extract = matchPattern(action, "http://live.kcaastreaming.com/");
