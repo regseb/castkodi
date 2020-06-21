@@ -2,7 +2,7 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: magnet", function () {
-    it("should return video URL from magnet", async function () {
+    it("should return video URL from magnet [torrent]", async function () {
         const url = "magnet:" +
                        "?xt=urn:btih:88594AAACBDE40EF3E2510C47374EC0AA396C08E" +
                                     "&dn=bbb_sunflower_1080p_30fps_normal.mp4" +

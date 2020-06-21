@@ -10,7 +10,7 @@ describe("Scraper: PodMust", function () {
         assert.strictEqual(file, url);
     });
 
-    it("should return audio URL", async function () {
+    it("should return audio URL [audio]", async function () {
         const url = "https://podmust.com/podcast/le-billet-de-chris-esquerre/";
         const options = { depth: 0, incognito: false };
 
@@ -19,7 +19,7 @@ describe("Scraper: PodMust", function () {
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
-    it("should return audio URL from home page", async function () {
+    it("should return audio URL from home page [audio]", async function () {
         // Récupérer l'URL d'un podcast sur la page d'accueil.
         const response = await fetch("https://podmust.com/fr/");
         const text = await response.text();

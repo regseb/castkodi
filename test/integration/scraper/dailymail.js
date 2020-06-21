@@ -2,7 +2,7 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Daily Mail", function () {
-    it("should return audio URL", async function () {
+    it("should return audio URL [opengraph]", async function () {
         const url = "https://www.dailymail.co.uk/sciencetech/article-8057229" +
                                   "/Scientists-create-stunning-gifs-Mars-sand" +
                                 "-dunes-understand-conditions-impact-them.html";

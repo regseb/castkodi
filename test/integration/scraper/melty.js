@@ -2,7 +2,7 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Melty", function () {
-    it("should return URL from hosted video", async function () {
+    it("should return URL from hosted video [ldjson]", async function () {
         const url = "https://www.melty.fr/le-joker-la-fin-alternative-bien" +
                                             "-plus-sombre-revelee-a703715.html";
         const options = { depth: 0, incognito: false };
@@ -12,7 +12,8 @@ describe("Scraper: Melty", function () {
             "https://media.melty.fr/article-4052018-desktop/video.mp4");
     });
 
-    it("should return URL from YouTube video", async function () {
+    it("should return URL from YouTube video [iframe-youtube]",
+                                                             async function () {
         const url = "https://www.melty.fr/les-films-d-action-qui-ont-change" +
                                          "-le-game-de-la-decennie-a702835.html";
         const options = { depth: 0, incognito: false };

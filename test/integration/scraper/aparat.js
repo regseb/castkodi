@@ -20,7 +20,8 @@ describe("Scraper: آپارات (Aparat)", function () {
                   `"${file}".includes(...)`);
     });
 
-    it("should return show URL when protocol is HTTP", async function () {
+    it("should return show URL when protocol is HTTP [opengraph]",
+                                                             async function () {
         const url = "http://www.aparat.com/v/Qk9jp";
         const options = { depth: 0, incognito: false };
 

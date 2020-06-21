@@ -10,7 +10,7 @@ describe("Scraper: JeuxVideoCom", function () {
         assert.strictEqual(file, url);
     });
 
-    it("should return video URL from videos-editors page",
+    it("should return video URL from videos-editors page [ldjson]",
                                                          async function () {
         const url = "http://www.jeuxvideo.com/videos-editeurs/0000/00007335" +
                                          "/half-life-2-pc-trailer-00004956.htm";
@@ -18,11 +18,11 @@ describe("Scraper: JeuxVideoCom", function () {
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
-            "http://videohd.jeuxvideo.com/videos_editeurs/0000" +
+            "https://videohd.jeuxvideo.com/videos_editeurs/0000" +
                                                           "/00004956-high.mp4");
     });
 
-    it("should return video URL from extracts-videos page",
+    it("should return video URL from extracts-videos page [ldjson]",
                                                          async function () {
         const url = "http://www.jeuxvideo.com/extraits-videos-jeux/0002" +
                              "/00023827/portal-2-pc-meet-wheatley-00008311.htm";
@@ -30,18 +30,18 @@ describe("Scraper: JeuxVideoCom", function () {
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
-            "http://videohd.jeuxvideo.com/extraits/201104" +
+            "https://videohd.jeuxvideo.com/extraits/201104" +
                                               "/portal_2_pc-00008311-high.mp4");
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL [ldjson]", async function () {
         const url = "http://www.jeuxvideo.com/videos/461728" +
                  "/superhot-notre-avis-en-deux-minutes-sur-ce-fps-original.htm";
         const options = { depth: 0, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
-            "http://video1080.jeuxvideo.com/news/v/t" +
+            "https://video1080.jeuxvideo.com/news/v/t" +
                                      "/vtsuperhot-259342-1457111085-1080p.mp4");
     });
 });

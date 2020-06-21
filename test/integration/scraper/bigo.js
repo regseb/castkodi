@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Bigo Live", function () {
     it("should return URL when it's not a video", async function () {
-        const url = "https://www.bigo.tv/g";
+        const url = "https://www.bigo.tv/games";
         const options = { depth: 0, incognito: false };
 
         const file = await extract(new URL(url), options);

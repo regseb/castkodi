@@ -2,7 +2,7 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Streamable", function () {
-    it("should return video URL", async function () {
+    it("should return video URL [opengraph]", async function () {
         const url = "https://streamable.com/tapn9";
         const options = { depth: 0, incognito: false };
 

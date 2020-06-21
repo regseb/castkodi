@@ -10,7 +10,7 @@ describe("Scraper: Pippa", function () {
         assert.strictEqual(file, url);
     });
 
-    it("should return audio URL", async function () {
+    it("should return audio URL [opengraph]", async function () {
         const url = "https://shows.pippa.io/cdanslair/episodes" +
                                 "/5-decembre-la-greve-qui-fait-peur-22-11-2019";
         const options = { depth: 0, incognito: false };
@@ -22,7 +22,8 @@ describe("Scraper: Pippa", function () {
                                                "/5dd81469bd860fd53f965cf7.mp3");
     });
 
-    it("should return audio URL when protocol is HTTP", async function () {
+    it("should return audio URL when protocol is HTTP [opengraph]",
+                                                             async function () {
         const url = "http://shows.pippa.io/cdanslair/episodes" +
                             "/hongkong-la-colere-monte-pekin-menace-19-11-2019";
         const options = { depth: 0, incognito: false };
@@ -34,7 +35,7 @@ describe("Scraper: Pippa", function () {
                                                "/5dd4250950a8cbb62f4b21ad.mp3");
     });
 
-    it("should return audio URL from acast", async function () {
+    it("should return audio URL from acast [opengraph]", async function () {
         const url = "https://shows.acast.com/cdanslair/episodes" +
                              "/chine-le-virus-qui-inquiete-le-monde-22-01-2020";
         const options = { depth: 0, incognito: false };

@@ -2,7 +2,7 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: France Inter", function () {
-    it("should return audio URL", async function () {
+    it("should return audio URL [ldjson]", async function () {
         const url = "https://www.franceinter.fr/emissions/blockbusters" +
                                             "/blockbusters-19-juillet-2019";
         const options = { depth: 0, incognito: false };

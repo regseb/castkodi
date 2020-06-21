@@ -12,7 +12,7 @@ describe("Scraper: L'internaute", function () {
         assert.strictEqual(file, url);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL [ldjson]", async function () {
         const url = "https://www.linternaute.fr/cinema/tous-les-films" +
                                                "/2424867-les-enfants-du-temps/";
         const options = { depth: 0, incognito: false };

@@ -2,7 +2,7 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: BitChute", function () {
-    it("should return video URL", async function () {
+    it("should return video URL [video]", async function () {
         const url = "https://www.bitchute.com/video/dz5JcCZnJMge/";
         const options = { depth: 0, incognito: false };
 

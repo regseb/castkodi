@@ -14,7 +14,7 @@ describe("Scraper: Le Point", function () {
         assert.strictEqual(file, url);
     });
 
-    it("should return video URL (Dailymotion)", async function () {
+    it("should return video URL [iframe-dailymotion]", async function () {
         const url = "https://www.lepoint.fr/astronomie" +
                                      "/un-nouveau-signal-radio-extraterrestre" +
                                                  "-intrigue-les-scientifiques" +
@@ -28,7 +28,7 @@ describe("Scraper: Le Point", function () {
                                                  "?mode=playVideo&url=x7rz0ur");
     });
 
-    it("should return video URL (YouTube)", async function () {
+    it("should return video URL [iframe-youtube]", async function () {
         const url = "https://www.lepoint.fr/pop-culture" +
                          "/tout-ce-qu-il-faut-savoir-sur-le-prochain-oss-117-" +
                                                  "-20-02-2020-2363643_2920.php";

@@ -2,7 +2,7 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: HookTube", function () {
-    it("should return video id", async function () {
+    it("should return video id [youtube]", async function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = "https://hooktube.com/watch?v=LACbVhgtx9I";
@@ -16,7 +16,7 @@ describe("Scraper: HookTube", function () {
         browser.storage.local.clear();
     });
 
-    it("should return embed video id", async function () {
+    it("should return embed video id [youtube]", async function () {
         const url = "https://hooktube.com/embed/3lPSQ5KjamI";
         const options = { depth: 0, incognito: true };
 

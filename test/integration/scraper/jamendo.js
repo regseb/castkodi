@@ -10,7 +10,7 @@ describe("Scraper: Jamendo", function () {
         assert.strictEqual(file, url);
     });
 
-    it("should return audio URL", async function () {
+    it("should return audio URL [opengraph]", async function () {
         const url = "https://www.jamendo.com/track/3431/avant-j-etais-trappeur";
         const options = { depth: 0, incognito: false };
 
@@ -20,7 +20,8 @@ describe("Scraper: Jamendo", function () {
                   `"${file}".startsWith(...)`);
     });
 
-    it("should return audio URL when protocol is HTTP", async function () {
+    it("should return audio URL when protocol is HTTP [opengraph]",
+                                                             async function () {
         const url = "http://www.jamendo.com/track/33454/vacance-au-camping";
         const options = { depth: 0, incognito: false };
 

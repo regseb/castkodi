@@ -10,14 +10,13 @@ describe("Scraper: Instagram", function () {
         assert.strictEqual(file, url);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL [opengraph]", async function () {
         const url = "https://www.instagram.com/p/BpFwZ6JnYPq/";
         const options = { depth: 0, incognito: false };
 
         const file = await extract(new URL(url), options);
-        assert.ok(file.includes("/43507506_351933205369613" +
-                                                 "_6559511411523846144_n.mp4?"),
-                  `"${file}".includes(...)`);
+        assert.ok(new URL(file).pathname.endsWith(".mp4"),
+                  `new URL("${file}").pathname.endsWith(...)`);
     });
 
     it("should return video URL when protocol is HTTP", async function () {
@@ -25,8 +24,7 @@ describe("Scraper: Instagram", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await extract(new URL(url), options);
-        assert.ok(file.includes("/44876841_340575853170202" +
-                                                 "_7413375163648966656_n.mp4?"),
-                  `"${file}".includes(...)`);
+        assert.ok(new URL(file).pathname.endsWith(".mp4"),
+                  `new URL("${file}").pathname.endsWith(...)`);
     });
 });
