@@ -17,7 +17,7 @@
     "blanks-around-headings": true,
     "heading-start-left": true,
     "no-duplicate-heading": true,
-    "single-h1": true,
+    "single-title": true,
     "no-trailing-punctuation": true,
     "no-multiple-space-blockquote": true,
     "no-blanks-blockquote": true,

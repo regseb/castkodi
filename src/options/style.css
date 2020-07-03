@@ -35,14 +35,14 @@ th {
 }
 
 #server details {
-    background-color: rgba(215, 215, 219, 0.2);
+    background-color: rgba(215 215 219 / 20%);
     border: 1px solid #d7d7db;
     border-radius: 4px;
     margin: 3px 0;
     padding: 9px;
 }
 #server details[open] {
-    background-color: rgba(69, 161, 255, 0.2);
+    background-color: rgba(69 161 255 / 20%);
     border: 1px solid #45a1ff;
 }
 #server summary {

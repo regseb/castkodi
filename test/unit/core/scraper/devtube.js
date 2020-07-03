@@ -12,10 +12,10 @@ describe("core/scraper/devtube.js", function () {
 
         it("should return video id", async function () {
             const url = "https://dev.tube/video/4rWypxBwrR4";
-            const doc = undefined;
+            const content = undefined;
             const options = { incognito: false };
 
-            const file = await extract(new URL(url), doc, options);
+            const file = await extract(new URL(url), content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/?video_id=4rWypxBwrR4" +
                                                             "&incognito=false");

@@ -23,18 +23,18 @@ export const sanitize = function (pattern) {
  */
 export const compile = function (pattern) {
     if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
-        return new RegExp("^" + sanitize(pattern).replace(/\\\*/gu, ".*") + "$",
+        return new RegExp("^" + sanitize(pattern).replaceAll("\\*", ".*") + "$",
                           "iu");
     }
 
-    const RE = /^(\*|https?):\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/iu;
+    const RE = /^(\*|[^:]+):\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/iu;
     const [, scheme, host, path] = RE.exec(pattern);
     return new RegExp("^" +
         ("*" === scheme ? "https?"
                         : sanitize(scheme)) + "://" +
         ("*" === host ? "[^/]+"
-                      : sanitize(host).replace(/^\\\*/gu, "[^./]+")) +
-        "/" + sanitize(path).replace(/\\\*/gu, ".*") + "$", "iu");
+                      : sanitize(host).replace("\\*", "[^./]+")) +
+        "/" + sanitize(path).replaceAll("\\*", ".*") + "$", "iu");
 };
 
 /**

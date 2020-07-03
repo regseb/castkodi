@@ -5,18 +5,22 @@ body {
 input[type="range"] {
     background-color: transparent;
     border: 0;
-    height: 32px;
     margin: 0;
     padding: 5px 0;
-    width: 100%;
 }
 input[type="range"]::-moz-focus-outer {
     border: 0;
 }
+input[type="range"]:not([orient="vertical"]) {
+    height: 32px;
+}
+input[type="range"][orient="vertical"] {
+    width: 16px;
+}
 input[type="range"]::-moz-range-thumb {
     background-color: white;
     border: 0;
-    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.65));
+    filter: drop-shadow(0 0 2px rgba(0 0 0 / 65%));
     height: 12px;
     width: 12px;
 }
@@ -31,7 +35,12 @@ input[type="range"]::-moz-range-progress {
 input[type="range"]::-moz-range-track {
     background-color: #0c0c0d;
     border-radius: 2.5px;
+}
+input[type="range"]:not([orient="vertical"])::-moz-range-track {
     height: 5px;
+}
+input[type="range"][orient="vertical"]::-moz-range-track {
+    width: 5px;
 }
 input[type="range"]:disabled::-moz-range-thumb,
 input[type="range"]:disabled:focus::-moz-range-thumb,
@@ -41,7 +50,7 @@ input[type="range"]:disabled::-moz-range-progress {
 
 select {
     -moz-appearance: none;
-    background-color: rgba(249, 249, 250, 0.1);
+    background-color: rgba(249 249 250 / 10%);
     background-image: url("img/down.svg");
     background-position: right 8px center;
     background-repeat: no-repeat;
@@ -54,21 +63,21 @@ select {
     height: 24px;
     padding: 0 28px 0 8px;
 }
-select:hover:not(:disabled) {
-    background-color: rgba(249, 249, 250, 0.2);
-}
 select:active {
-    background-color: rgba(249, 249, 250, 0.3);
+    background-color: rgba(249 249 250 / 30%);
 }
 select:disabled {
     cursor: default;
-    opacity: 0.4;
+    opacity: 40%;
 }
 select:focus, select:-moz-focusring {
     box-shadow:
         0 0 0 1px #0a84ff inset,
         0 0 0 1px #0a84ff,
-        0 0 0 4px rgba(10, 132, 255, 0.3);
+        0 0 0 4px rgba(10 132 255 / 30%);
     color: transparent;
     text-shadow: 0 0 0 white;
+}
+select:hover:not(:disabled) {
+    background-color: rgba(249 249 250 / 20%);
 }

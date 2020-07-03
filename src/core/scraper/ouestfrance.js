@@ -10,7 +10,7 @@ import { extract as metaExtract } from "../scrapers.js";
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      url               L'URL d'une page de Gamekult.
+ * @param {URL}      url               L'URL d'une page de Ouest-France.
  * @param {object}   content           Le contenu de l'URL.
  * @param {Function} content.html      La fonction retournant la promesse
  *                                     contenant le document HTML ou

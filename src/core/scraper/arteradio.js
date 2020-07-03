@@ -28,5 +28,4 @@ const action = async function (_url, content) {
     return BASE_URL + doc.querySelector(".cover *[data-sound-href]")
                          .dataset.soundHref;
 };
-export const extract = matchPattern(action,
-    "*://www.arteradio.com/son/*");
+export const extract = matchPattern(action, "*://www.arteradio.com/son/*");

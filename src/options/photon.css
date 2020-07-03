@@ -15,9 +15,9 @@ label {
     color: #0c0c0d;
 }
 input[type="text"] {
-    border: 1px solid rgba(12, 12, 13, 0.2);
+    border: 1px solid rgba(12 12 13 / 20%);
     border-radius: 2px;
-    box-shadow: 0 0 0 0 rgba(97, 181, 255, 0);
+    box-shadow: 0 0 0 0 rgba(97 181 255 / 0%);
     font: caption;
     height: 32px;
     padding: 0 8px;
@@ -25,16 +25,16 @@ input[type="text"] {
     transition-property: box-shadow;
 }
 input[type="text"]:hover {
-    border: 1px solid rgba(12, 12, 13, 0.3);
+    border: 1px solid rgba(12 12 13 / 30%);
+}
+input[type="text"]:invalid {
+    border-color: #d70022;
+    box-shadow: 0 0 0 1px #d70022, 0 0 0 4px rgba(251 0 34 / 30%);
 }
 input[type="text"]:focus,
 input[type="text"]:focus:hover {
     border-color: #0a84ff;
-    box-shadow: 0 0 0 1px #0a84ff, 0 0 0 4px rgba(10, 132, 255, 0.3);
-}
-input[type="text"]:invalid {
-    border-color: #d70022;
-    box-shadow: 0 0 0 1px #d70022, 0 0 0 4px rgba(251, 0, 34, 0.3);
+    box-shadow: 0 0 0 1px #0a84ff, 0 0 0 4px rgba(10 132 255 / 30%);
 }
 input[type="text"]::placeholder {
     color: #737373;
@@ -42,19 +42,19 @@ input[type="text"]::placeholder {
 
 input[type="checkbox"] {
     -moz-appearance: none;
-    background-color: rgba(12, 12, 13, 0.1);
-    border: 1px solid rgba(12, 12, 13, 0.3);
+    background-color: rgba(12 12 13 / 10%);
+    border: 1px solid rgba(12 12 13 / 30%);
     border-radius: 2px;
     height: 16px;
     margin: -2px 4px;
     width: 16px;
 }
 input[type="checkbox"]:hover {
-    background-color: rgba(12, 12, 13, 0.2);
+    background-color: rgba(12 12 13 / 20%);
 }
 
 input[type="checkbox"]:active {
-    background-color: rgba(12, 12, 13, 0.3);
+    background-color: rgba(12 12 13 / 30%);
 }
 
 input[type="checkbox"]:focus {
@@ -62,7 +62,7 @@ input[type="checkbox"]:focus {
     box-shadow:
         0 0 0 1px #0a84ff inset,
         0 0 0 1px #0a84ff,
-        0 0 0 4px rgba(10, 132, 255, 0.3);
+        0 0 0 4px rgba(10 132 255 / 30%);
 }
 
 input[type="checkbox"]:checked {
@@ -81,8 +81,8 @@ input[type="checkbox"]:checked:active {
 
 input[type="radio"] {
     -moz-appearance: none;
-    background-color: rgba(12, 12, 13, 0.1);
-    border: 1px solid rgba(12, 12, 13, 0.3);
+    background-color: rgba(12 12 13 / 10%);
+    border: 1px solid rgba(12 12 13 / 30%);
     border-radius: 100%;
     height: 16px;
     margin-bottom: -2px;
@@ -92,18 +92,18 @@ input[type="radio"] {
 }
 
 input[type="radio"]:hover {
-    background-color: rgba(12, 12, 13, 0.2);
+    background-color: rgba(12 12 13 / 20%);
 }
 
 input[type="radio"]:active {
-    background-color: rgba(12, 12, 13, 0.3);
+    background-color: rgba(12 12 13 / 30%);
 }
 
 input[type="radio"]:focus {
     box-shadow:
         0 0 0 1px #0a84ff inset,
         0 0 0 1px #0a84ff,
-        0 0 0 4px rgba(10, 132, 255, 0.3);
+        0 0 0 4px rgba(10 132 255 / 30%);
 }
 input[type="radio"]:checked {
     background-color: #0060df;
@@ -120,7 +120,7 @@ input[type="radio"]:checked:active {
 }
 
 button {
-    background-color: rgba(12, 12, 13, 0.1);
+    background-color: rgba(12 12 13 / 10%);
     border: 0;
     border-radius: 2px;
     color: black;
@@ -129,28 +129,28 @@ button {
     height: 24px;
     padding: 0 8px;
 }
-button.ghost {
-    background-color: transparent;
-}
-button:hover:not(:disabled) {
-    background-color: rgba(12, 12, 13, 0.2);
-}
-button.ghost:hover:not(:disabled) {
-    background-color: rgba(12, 12, 13, 0.1);
-}
 button:active {
-    background-color: rgba(12, 12, 13, 0.3);
-}
-button.ghost:active {
-    background-color: rgba(12, 12, 13, 0.2);
+    background-color: rgba(12 12 13 / 30%);
 }
 button:disabled {
     cursor: default;
-    opacity: 0.4;
+    opacity: 40%;
 }
 button:focus {
     box-shadow:
         0 0 0 1px #0a84ff inset,
         0 0 0 1px #0a84ff,
-        0 0 0 4px rgba(10, 132, 255, 0.3);
+        0 0 0 4px rgba(10 132 255 / 30%);
+}
+button:hover:not(:disabled) {
+    background-color: rgba(12 12 13 / 20%);
+}
+button.ghost {
+    background-color: transparent;
+}
+button.ghost:active {
+    background-color: rgba(12 12 13 / 20%);
+}
+button.ghost:hover:not(:disabled) {
+    background-color: rgba(12 12 13 / 10%);
 }

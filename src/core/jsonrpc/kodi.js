@@ -33,7 +33,7 @@ export const Kodi = class {
     }
 
     /**
-     * Crée un client JSON-RPC pour contactter Kodi.
+     * Crée un client JSON-RPC pour contacter Kodi.
      *
      * @param {?string} [host=null] L'adresse IP (ou le nom de domaine) du
      *                              serveur hébergeant Kodi ; ou

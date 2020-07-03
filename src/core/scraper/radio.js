@@ -26,10 +26,9 @@ const action = async function (_url, content) {
     const doc = await content.html();
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = URL_REGEXP.exec(script.text);
-        if (null === result) {
-            continue;
+        if (null !== result) {
+            return JSON.parse(result[1]).streams[0].url;
         }
-        return JSON.parse(result[1]).streams[0].url;
     }
     return null;
 };

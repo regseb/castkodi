@@ -6,7 +6,7 @@
 import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
- * L'URL du l'API de Mixer pour obtenir des informations sur une chaine.
+ * L'URL de l'API de Mixer pour obtenir des informations sur une chaine.
  *
  * @constant {string}
  */

@@ -8,10 +8,10 @@
             "linters": { "addons-linter": null }
         }, {
             "patterns": "/src/**/*.js",
-            "linters": { "eslint": ["eslint.json", "eslint_webext.json"] }
+            "linters": "eslint"
         }, {
             "patterns": "/test/**/*.js",
-            "linters": { "eslint": ["eslint.json", "eslint_nodejs.json"] }
+            "linters": { "eslint": ["eslint.json", "eslint_test.json"] }
         }, {
             "patterns": "/src/**/*.html",
             "linters": "htmlhint"
@@ -28,13 +28,18 @@
             "linters": { "purgecss": { "content": "/src/options/*.html" } }
         }, {
             "patterns": "/src/popup/*.css",
-            "linters": { "purgecss": { "content": "/src/popup/*.html" } }
+            "linters": {
+                "purgecss": {
+                    "content": "/src/popup/*.html",
+                    "whitelistPatternsChildren": ["/^playlist-items$/u"]
+                }
+            }
         }, {
             "patterns": ["!/CHANGELOG.md", "*.md"],
             "linters": "markdownlint"
         }, {
             "patterns": "*.json",
-            "linters": { "jsonlint": null }
+            "linters": { "jsonlint-mod": null }
         }, {
             "patterns": "*.yml",
             "linters": { "yaml-lint": null }

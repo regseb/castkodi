@@ -1,3 +1,5 @@
+/* eslint-disable no-extend-native */
+
 import AbortController from "abort-controller";
 import eventTargetShim from "event-target-shim";
 import jsdom           from "jsdom";
@@ -6,6 +8,7 @@ import { browser }     from "./polyfill/browser.js";
 import { Event }       from "./polyfill/event.js";
 import { CloseEvent }  from "./polyfill/closeevent.js";
 import { fetch }       from "./polyfill/fetch.js";
+import { replaceAll }  from "./polyfill/replaceall.js";
 
 globalThis.AbortController = AbortController;
 globalThis.EventTarget     = eventTargetShim.EventTarget;
@@ -17,3 +20,5 @@ globalThis.browser    = browser;
 globalThis.Event      = Event;
 globalThis.CloseEvent = CloseEvent;
 globalThis.fetch      = fetch;
+
+String.prototype.replaceAll = replaceAll;

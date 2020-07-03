@@ -6,7 +6,10 @@ describe("core/index.js", function () {
     describe("mux()", function () {
         it("should ignore invalid input", function () {
             const urls = [
-                undefined, "", " ", "www.foo.",
+                undefined,
+                "",
+                " ",
+                "www.foo.",
                 "moz-extension://0123456789abdcef/index.html",
             ];
 

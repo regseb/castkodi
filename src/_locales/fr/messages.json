@@ -111,6 +111,9 @@
     "popup_loading_title": {
         "message": "Connexion en cours…"
     },
+    "popup_donate_title": {
+        "message": "Soutenir"
+    },
     "popup_rate_title": {
         "message": "Évaluer votre expérience"
     },
@@ -135,6 +138,14 @@
     "popup_next_title": {
         "message": "Passer au suivant [Pg.Suiv]"
     },
+    "popup_volume_title": {
+        "message": "$VALUE$ % [-/+]",
+        "placeholders": {
+            "value": {
+                "content": "$1"
+            }
+        }
+    },
     "popup_mute_title": {
         "message": "Activer / Désactiver le son [F8]"
     },
@@ -143,6 +154,9 @@
     },
     "popup_shuffle_title": {
         "message": "Mélanger"
+    },
+    "popup_clear_title": {
+        "message": "Effacer"
     },
     "popup_contextmenu_title": {
         "message": "Ouvrir le menu contextuel [C]"
@@ -171,11 +185,20 @@
     "popup_osd_title": {
         "message": "Afficher le menu à l'écran [M]"
     },
+    "popup_empty_textcontent": {
+        "message": "Liste de lecture vide"
+    },
+    "popup_playItem_title": {
+        "message": "Lire"
+    },
+    "popup_removeItem_title": {
+        "message": "Retirer"
+    },
     "popup_configure_textcontent": {
         "message": "Configurer"
     },
     "popup_text_textcontent": {
-        "message": "ou changer de serveur :"
+        "message": "Changer de serveur :"
     },
 
     "options_serverTitle_textcontent": {
@@ -280,5 +303,9 @@
     },
     "options_youtubePlaylistVideo_textcontent": {
         "message": "diffuser seulement la vidéo."
+    },
+
+    "labeller_youtube_myMix": {
+        "message": "Mon mix"
     }
 }

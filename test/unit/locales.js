@@ -1,7 +1,13 @@
 import assert             from "assert";
 import { promises as fs } from "fs";
 
-const compare = (messages1, messages2) => {
+/**
+ * Comparer deux lots de messages dans deux langues différentes.
+ *
+ * @param {object} messages1 Les messages dans une langue.
+ * @param {object} messages2 Les messages dans une autre langue.
+ */
+const compare = function (messages1, messages2) {
     for (const [name, message] of Object.entries(messages1)) {
         if (!("message" in message)) {
             assert.fail(name);

@@ -101,7 +101,7 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return error when receive 400", async function () {
-            const stub = sinon.stub(JSONRPC, "open").rejects();
+            const stub = sinon.stub(JSONRPC, "open").rejects(new Error("foo"));
 
             try {
                 const kodi = new Kodi("localhost");

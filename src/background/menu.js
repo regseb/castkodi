@@ -20,7 +20,10 @@ const aggregate = async function (info) {
     }
 
     return [
-        info.selectionText, info.linkUrl, info.srcUrl, info.frameUrl,
+        info.selectionText,
+        info.linkUrl,
+        info.srcUrl,
+        info.frameUrl,
         info.pageUrl,
     ];
 };
@@ -30,11 +33,11 @@ const aggregate = async function (info) {
  *
  * @param {object} info Les informations fournies par le menu contextuel.
  */
-const click = async function (info) {
+const handleClick = async function (info) {
     if ("send" === info.menuItemId || "insert" === info.menuItemId ||
             "add" === info.menuItemId) {
-        const urls = await aggregate(info);
         try {
+            const urls = await aggregate(info);
             await cast(info.menuItemId, urls);
         } catch (err) {
             notify(err);
@@ -51,8 +54,8 @@ const click = async function (info) {
  *
  * @param {object} changes Les paramètres modifiés dans la configuration.
  */
-const menu = async function (changes) {
-    // Ignorer tous les changements sauf ceux liés aux menus.
+const handleChange = async function (changes) {
+    // Ignorer tous les changements sauf ceux liés aux menus et aux serveurs.
     if (!Object.entries(changes).some(([k, v]) => k.startsWith("menu-") &&
                                                   "newValue" in v ||
                                                   k.startsWith("server-") &&
@@ -71,16 +74,16 @@ const menu = async function (changes) {
         const key = "menus_first" + actions[0].charAt(0).toUpperCase() +
                     actions[0].slice(1);
         browser.menus.create({
-            contexts: contexts,
-            id:       actions[0],
-            title:    browser.i18n.getMessage(key),
+            contexts,
+            id:    actions[0],
+            title: browser.i18n.getMessage(key),
         });
     } else if (1 === actions.length && "multi" === mode ||
                2 <= actions.length) {
         browser.menus.create({
-            contexts: contexts,
-            id:       "parent",
-            title:    browser.i18n.getMessage("menus_firstParent"),
+            contexts,
+            id:    "parent",
+            title: browser.i18n.getMessage("menus_firstParent"),
         });
         for (const action of actions) {
             const key = "menus_second" + action.charAt(0).toUpperCase() +
@@ -99,8 +102,8 @@ const menu = async function (changes) {
             });
             config["server-list"].forEach((server, index) => {
                 const name = (/^\s*$/u).test(server.name)
-                        ? browser.i18n.getMessage("menus_noName", index + 1)
-                        : server.name;
+                            ? browser.i18n.getMessage("menus_noName", index + 1)
+                            : server.name;
                 browser.menus.create({
                     checked:  config["server-active"] === index,
                     id:       index.toString(),
@@ -113,5 +116,5 @@ const menu = async function (changes) {
     }
 };
 
-browser.storage.onChanged.addListener(menu);
-browser.menus.onClicked.addListener(click);
+browser.storage.onChanged.addListener(handleChange);
+browser.menus.onClicked.addListener(handleClick);

@@ -18,7 +18,8 @@ export const kodi = new Kodi();
  *
  * @function
  * @param {Array.<string|undefined>} urls La liste des liens récupérés par le
- *                                        menu contextuel.
+ *                                        menu contextuel ou dans la zone de
+ *                                        saisie de la popup.
  * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
  *                             aucun lien est valide.
  */
@@ -68,7 +69,7 @@ export const cast = async function (action, urls) {
         // lecture.
         await kodi.playlist.clear();
         await kodi.playlist.add(file);
-        await kodi.player.open(0);
+        await kodi.player.open();
     } else if ("insert" === action) {
         const position = await kodi.player.getProperty("position");
         // Si aucun média est en cours de lecture : placer le nouveau média à la

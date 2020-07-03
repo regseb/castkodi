@@ -6,7 +6,7 @@
 import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
- * La liste des sélecteur retournant les éléments <code>audio</code> et leurs
+ * La liste des sélecteurs retournant les éléments <code>video</code> et leurs
  * sources.
  *
  * @constant {Array.<string>}

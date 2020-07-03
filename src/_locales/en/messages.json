@@ -111,6 +111,9 @@
     "popup_loading_title": {
         "message": "Connecting..."
     },
+    "popup_donate_title": {
+        "message": "Support"
+    },
     "popup_rate_title": {
         "message": "Rate your experience"
     },
@@ -135,6 +138,14 @@
     "popup_next_title": {
         "message": "Go to next [PageDown]"
     },
+    "popup_volume_title": {
+        "message": "$VALUE$% [-/+]",
+        "placeholders": {
+            "value": {
+                "content": "$1"
+            }
+        }
+    },
     "popup_mute_title": {
         "message": "Mute / Unmute [F8]"
     },
@@ -143,6 +154,9 @@
     },
     "popup_shuffle_title": {
         "message": "Shuffle"
+    },
+    "popup_clear_title": {
+        "message": "Clear"
     },
     "popup_contextmenu_title": {
         "message": "Open context menu [C]"
@@ -171,11 +185,20 @@
     "popup_osd_title": {
         "message": "Show OSD [M]"
     },
+    "popup_empty_textcontent": {
+        "message": "Playlist empty"
+    },
+    "popup_playItem_title": {
+        "message": "Play"
+    },
+    "popup_removeItem_title": {
+        "message": "Remove"
+    },
     "popup_configure_textcontent": {
         "message": "Configure"
     },
     "popup_text_textcontent": {
-        "message": "or change server:"
+        "message": "Change server:"
     },
 
     "options_serverTitle_textcontent": {
@@ -280,5 +303,9 @@
     },
     "options_youtubePlaylistVideo_textcontent": {
         "message": "cast only the video."
+    },
+
+    "labeller_youtube_myMix": {
+        "message": "My Mix"
     }
 }

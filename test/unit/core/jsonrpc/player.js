@@ -4,30 +4,41 @@ import { Player } from "../../../../src/core/jsonrpc/player.js";
 
 describe("core/jsonrpc/player.js", function () {
     describe("getProperties()", function () {
-        it("should return properties", async function () {
-            const fake = sinon.fake.resolves({
-                foo:       "bar",
-                baz:       42,
-                qux:       true,
-                time:      { hours: 1, minutes: 2, seconds: 3 },
-                totaltime: { hours: 0, minutes: 0, seconds: 0 },
+        it("should return properties when no player is active",
+                                                             async function () {
+            const fake = sinon.fake((method) => {
+                switch (method) {
+                    case "Player.GetActivePlayers":
+                        return Promise.resolve([]);
+                    case "Player.GetProperties":
+                        return Promise.resolve({
+                            foo:       "bar",
+                            baz:       42,
+                            qux:       true,
+                            time:      { hours: 1, minutes: 2, seconds: 3 },
+                            totaltime: { hours: 0, minutes: 0, seconds: 0 },
+                        });
+                    default:
+                        return Promise.reject(new Error(method));
+                }
             });
 
             const player = new Player({ send: fake });
-            const properties = [
-                "foo", "baz", "quz", "timestamp", "totaltimestamp",
-            ];
+            const properties = ["foo", "baz", "quz", "time", "totaltime"];
             const result = await player.getProperties(properties);
             assert.deepStrictEqual(result, {
-                foo:            "bar",
-                baz:            42,
-                qux:            true,
-                timestamp:      3723,
-                totaltimestamp: 0,
+                foo:       "bar",
+                baz:       42,
+                qux:       true,
+                time:      3723,
+                totaltime: 0,
             });
 
-            assert.strictEqual(fake.callCount, 1);
+            assert.strictEqual(fake.callCount, 2);
             assert.deepStrictEqual(fake.firstCall.args, [
+                "Player.GetActivePlayers",
+            ]);
+            assert.deepStrictEqual(fake.secondCall.args, [
                 "Player.GetProperties",
                 {
                     playerid:   1,
@@ -36,78 +47,127 @@ describe("core/jsonrpc/player.js", function () {
             ]);
         });
 
-        it("should return default properties", async function () {
-            const fake = sinon.fake.rejects();
+        it("should return properties when video player is active",
+                                                             async function () {
+            const fake = sinon.fake((method) => {
+                switch (method) {
+                    case "Player.GetActivePlayers":
+                        return Promise.resolve([{ playerid: 1 }]);
+                    case "Player.GetProperties":
+                        return Promise.resolve({
+                            foo:       "bar",
+                            baz:       42,
+                            qux:       true,
+                            time:      { hours: 1, minutes: 2, seconds: 3 },
+                            totaltime: { hours: 0, minutes: 0, seconds: 0 },
+                        });
+                    default:
+                        return Promise.reject(new Error(method));
+                }
+            });
+
+            const player = new Player({ send: fake });
+            const properties = ["foo", "baz", "quz", "time", "totaltime"];
+            const result = await player.getProperties(properties);
+            assert.deepStrictEqual(result, {
+                foo:       "bar",
+                baz:       42,
+                qux:       true,
+                time:      3723,
+                totaltime: 0,
+            });
+
+            assert.strictEqual(fake.callCount, 2);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Player.GetActivePlayers",
+            ]);
+            assert.deepStrictEqual(fake.secondCall.args, [
+                "Player.GetProperties",
+                {
+                    playerid:   1,
+                    properties: ["foo", "baz", "quz", "time", "totaltime"],
+                },
+            ]);
+        });
+
+        it("should return default properties when an other player is active",
+                                                             async function () {
+            const fake = sinon.fake.resolves([{ playerid: 0 }]);
 
             const player = new Player({ send: fake });
             const properties = ["foo"];
             const result = await player.getProperties(properties);
             assert.deepStrictEqual(result, {
-                position:       -1,
-                repeat:         "off",
-                shuffled:       false,
-                speed:          0,
-                timestamp:      0,
-                totaltimestamp: 0,
+                position:  -1,
+                repeat:    "off",
+                shuffled:  false,
+                speed:     0,
+                time:      0,
+                totaltime: 0,
             });
 
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [
-                "Player.GetProperties",
-                {
-                    playerid:   1,
-                    properties: ["foo"],
-                },
+                "Player.GetActivePlayers",
             ]);
         });
     });
 
     describe("getProperty()", function () {
         it("should return lambda property", async function () {
-            const fake = sinon.fake.resolves({ foo: "bar" });
+            const fake = sinon.fake((method) => {
+                switch (method) {
+                    case "Player.GetActivePlayers":
+                        return Promise.resolve([]);
+                    case "Player.GetProperties":
+                        return Promise.resolve({ foo: "bar" });
+                    default:
+                        return Promise.reject(new Error(method));
+                }
+            });
 
             const player = new Player({ send: fake });
             const property = "foo";
             const result = await player.getProperty(property);
             assert.strictEqual(result, "bar");
 
-            assert.strictEqual(fake.callCount, 1);
+            assert.strictEqual(fake.callCount, 2);
             assert.deepStrictEqual(fake.firstCall.args, [
+                "Player.GetActivePlayers",
+            ]);
+            assert.deepStrictEqual(fake.secondCall.args, [
                 "Player.GetProperties",
                 { playerid: 1, properties: [property] },
             ]);
         });
-
-        it("should return timestamp property", async function () {
-            const fake = sinon.fake.resolves({
-                time: { hours: 3, minutes: 2, seconds: 1 },
-            });
-
-            const player = new Player({ send: fake });
-            const property = "timestamp";
-            const result = await player.getProperty(property);
-            assert.strictEqual(result, 10921);
-
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [
-                "Player.GetProperties",
-                { playerid: 1, properties: ["time"] },
-            ]);
-        });
     });
 
-    describe("next()", function () {
-        it("should send request", async function () {
+    describe("goTo()", function () {
+        it("should send request with 'next'", async function () {
             const fake = sinon.fake.resolves("OK");
 
             const player = new Player({ send: fake });
-            const result = await player.next();
+            const result = await player.goTo("next");
             assert.strictEqual(result, "OK");
 
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [
                 "Player.GoTo",
                 { playerid: 1, to: "next" },
+            ]);
+        });
+
+        it("should send request with 'previous'", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const player = new Player({ send: fake });
+            const result = await player.goTo("previous");
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Player.GoTo",
+                { playerid: 1, to: "previous" },
             ]);
         });
     });
@@ -125,6 +185,20 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepStrictEqual(fake.firstCall.args, [
                 "Player.Open",
                 { item: { playlistid: 1, position } },
+            ]);
+        });
+
+        it("should send request without parameter", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const player = new Player({ send: fake });
+            const result = await player.open();
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Player.Open",
+                { item: { playlistid: 1, position: 0 } },
             ]);
         });
     });
@@ -145,22 +219,6 @@ describe("core/jsonrpc/player.js", function () {
         });
     });
 
-    describe("previous()", function () {
-        it("should send request", async function () {
-            const fake = sinon.fake.resolves("OK");
-
-            const player = new Player({ send: fake });
-            const result = await player.previous();
-            assert.strictEqual(result, "OK");
-
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [
-                "Player.GoTo",
-                { playerid: 1, to: "previous" },
-            ]);
-        });
-    });
-
     describe("seek()", function () {
         it("should send request", async function () {
             const fake = sinon.fake.resolves({
@@ -168,8 +226,8 @@ describe("core/jsonrpc/player.js", function () {
             });
 
             const player = new Player({ send: fake });
-            const timestamp = 100;
-            const result = await player.seek(timestamp);
+            const time = 100;
+            const result = await player.seek(time);
             assert.strictEqual(result, 100);
 
             assert.strictEqual(fake.callCount, 1);
@@ -211,14 +269,13 @@ describe("core/jsonrpc/player.js", function () {
             const fake = sinon.fake.resolves("OK");
 
             const player = new Player({ send: fake });
-            const shuffle = false;
-            const result = await player.setShuffle(shuffle);
+            const result = await player.setShuffle();
             assert.strictEqual(result, "OK");
 
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [
                 "Player.SetShuffle",
-                { playerid: 1, shuffle },
+                { playerid: 1, shuffle: "toggle" },
             ]);
         });
     });
@@ -274,16 +331,9 @@ describe("core/jsonrpc/player.js", function () {
     describe("handleNotification()", function () {
         it("should ignore others namespaces", function (done) {
             const player = new Player({ send: Function.prototype });
-            player.onAVStart.addListener(assert.fail);
-            player.onPause.addListener(assert.fail);
-            player.onPlay.addListener(assert.fail);
             player.onPropertyChanged.addListener(assert.fail);
-            player.onResume.addListener(assert.fail);
-            player.onSeek.addListener(assert.fail);
-            player.onSpeedChanged.addListener(assert.fail);
-            player.onStop.addListener(assert.fail);
             player.handleNotification({
-                method: "Other.onAVStart",
+                method: "Other.OnAVStart",
                 params: { data: { player: { playerid: 1 } } },
             });
             done();
@@ -291,38 +341,75 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should ignore others players", function (done) {
             const player = new Player({ send: Function.prototype });
-            player.onAVStart.addListener(assert.fail);
-            player.onPause.addListener(assert.fail);
-            player.onPlay.addListener(assert.fail);
             player.onPropertyChanged.addListener(assert.fail);
-            player.onResume.addListener(assert.fail);
-            player.onSeek.addListener(assert.fail);
-            player.onSpeedChanged.addListener(assert.fail);
-            player.onStop.addListener(assert.fail);
             player.handleNotification({
-                method: "Player.onAVStart",
+                method: "Player.OnAVStart",
                 params: { data: { player: { playerid: 2 } } },
             });
             done();
         });
 
-        it("should call 'onAVStart' listeners", function (done) {
-            const player = new Player({ send: Function.prototype });
-            player.onAVStart.addListener((data) => {
-                assert.strictEqual(data, 2);
+        it("should ignore when no listener", async function () {
+            const fake = sinon.fake.rejects(new Error("foo"));
+
+            const player = new Player({ send: fake });
+            await player.handleNotification({
+                method: "Player.OnAVStart",
+                params: { data: { player: { playerid: 1 } } },
+            });
+
+            assert.strictEqual(fake.callCount, 0);
+        });
+
+        it("should handle 'OnAVStart'", function (done) {
+            const fake = sinon.fake((method) => {
+                switch (method) {
+                    case "Player.GetActivePlayers":
+                        return Promise.resolve([{ playerid: 1 }]);
+                    case "Player.GetProperties":
+                        return Promise.resolve({
+                            position:  42,
+                            time:      { hours: 1, minutes: 2, seconds: 3 },
+                            totaltime: { hours: 3, minutes: 2, seconds: 1 },
+                        });
+                    default:
+                        return Promise.reject(new Error(method));
+                }
+            });
+
+            const player = new Player({ send: fake });
+            player.onPropertyChanged.addListener((data) => {
+                assert.deepStrictEqual(data, {
+                    position:  42,
+                    speed:     2,
+                    time:      3723,
+                    totaltime: 10921,
+                });
+
+                assert.strictEqual(fake.callCount, 2);
+                assert.deepStrictEqual(fake.firstCall.args, [
+                    "Player.GetActivePlayers",
+                ]);
+                assert.deepStrictEqual(fake.secondCall.args, [
+                    "Player.GetProperties",
+                    {
+                        playerid:   1,
+                        properties: ["position", "time", "totaltime"],
+                    },
+                ]);
+
                 done();
             });
             player.handleNotification({
                 method: "Player.OnAVStart",
                 params: { data: { player: { playerid: 1, speed: 2 } } },
             });
-            assert.fail();
         });
 
-        it("should call 'onPause' listeners", function (done) {
+        it("should handle 'OnPause'", function (done) {
             const player = new Player({ send: Function.prototype });
-            player.onPause.addListener((data) => {
-                assert.strictEqual(data, 0);
+            player.onPropertyChanged.addListener((data) => {
+                assert.deepStrictEqual(data, { speed: 0 });
                 done();
             });
             player.handleNotification({
@@ -332,20 +419,7 @@ describe("core/jsonrpc/player.js", function () {
             assert.fail();
         });
 
-        it("should call 'onPlay' listeners", function (done) {
-            const player = new Player({ send: Function.prototype });
-            player.onPlay.addListener((data) => {
-                assert.strictEqual(data, 8);
-                done();
-            });
-            player.handleNotification({
-                method: "Player.OnPlay",
-                params: { data: { player: { playerid: 1, speed: 8 } } },
-            });
-            assert.fail();
-        });
-
-        it("should call 'onPropertyChanged' listeners", function (done) {
+        it("should handle 'OnPropertyChanged'", function (done) {
             const player = new Player({ send: Function.prototype });
             player.onPropertyChanged.addListener((data) => {
                 assert.deepStrictEqual(data, { foo: "bar" });
@@ -360,10 +434,10 @@ describe("core/jsonrpc/player.js", function () {
             assert.fail();
         });
 
-        it("should call 'onResume' listeners", function (done) {
+        it("should handle 'OnResume'", function (done) {
             const player = new Player({ send: Function.prototype });
-            player.onResume.addListener((data) => {
-                assert.strictEqual(data, -2);
+            player.onPropertyChanged.addListener((data) => {
+                assert.deepStrictEqual(data, { speed: -2 });
                 done();
             });
             player.handleNotification({
@@ -373,10 +447,10 @@ describe("core/jsonrpc/player.js", function () {
             assert.fail();
         });
 
-        it("should call 'onSeek' listeners", function (done) {
+        it("should handle 'OnSeek'", function (done) {
             const player = new Player({ send: Function.prototype });
-            player.onSeek.addListener((data) => {
-                assert.strictEqual(data, 3723);
+            player.onPropertyChanged.addListener((data) => {
+                assert.deepStrictEqual(data, { time: 3723 });
                 done();
             });
             player.handleNotification({
@@ -393,10 +467,10 @@ describe("core/jsonrpc/player.js", function () {
             assert.fail();
         });
 
-        it("should call 'onSpeedChanged' listeners", function (done) {
+        it("should handle 'OnSpeedChanged'", function (done) {
             const player = new Player({ send: Function.prototype });
-            player.onSpeedChanged.addListener((data) => {
-                assert.strictEqual(data, 32);
+            player.onPropertyChanged.addListener((data) => {
+                assert.deepStrictEqual(data, { speed: 32 });
                 done();
             });
             player.handleNotification({
@@ -406,10 +480,15 @@ describe("core/jsonrpc/player.js", function () {
             assert.fail();
         });
 
-        it("should call 'onStop' listeners", function (done) {
+        it("should handle 'OnStop'", function (done) {
             const player = new Player({ send: Function.prototype });
-            player.onStop.addListener((data) => {
-                assert.strictEqual(data, null);
+            player.onPropertyChanged.addListener((data) => {
+                assert.deepStrictEqual(data, {
+                    position:  -1,
+                    speed:     0,
+                    time:      0,
+                    totaltime: 0,
+                });
                 done();
             });
             player.handleNotification({
@@ -421,14 +500,7 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should ignore others notifications", function (done) {
             const player = new Player({ send: Function.prototype });
-            player.onAVStart.addListener(assert.fail);
-            player.onPause.addListener(assert.fail);
-            player.onPlay.addListener(assert.fail);
             player.onPropertyChanged.addListener(assert.fail);
-            player.onResume.addListener(assert.fail);
-            player.onSeek.addListener(assert.fail);
-            player.onSpeedChanged.addListener(assert.fail);
-            player.onStop.addListener(assert.fail);
             player.handleNotification({
                 method: "Player.Other",
                 params: { data: { player: { playerid: 1 } } },

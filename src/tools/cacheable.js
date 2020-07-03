@@ -10,7 +10,8 @@
  * @returns {Function} La fonction avec le cache.
  */
 export const cacheable = function (func) {
-    let cache = undefined;
+    let cached = false;
+    let value = undefined;
 
     /**
      * Enrobe la fonction avec le cache.
@@ -19,10 +20,11 @@ export const cacheable = function (func) {
      *              cache).
      */
     const wrapped = () => {
-        if (undefined === cache) {
-            cache = func();
+        if (!cached) {
+            value = func();
+            cached = true;
         }
-        return cache;
+        return value;
     };
 
     Object.defineProperty(wrapped, "name", {

@@ -21,7 +21,7 @@ export const Application = class {
     constructor(kodi) {
         this.kodi = kodi;
 
-        this.onVolumeChanged = new NotificationListener();
+        this.onPropertyChanged = new NotificationListener();
     }
 
     /**
@@ -36,28 +36,29 @@ export const Application = class {
     }
 
     /**
-     * Coupe ou remets le son.
+     * Coupe ou remet le son.
      *
-     * @param {boolean} mute <code>true</code> pour couper le son ; sinon
-     *                       <code>false</code>.
      * @returns {Promise.<boolean>} Une promesse contenant le nouvel état du
      *                              son.
      */
-    setMute(mute) {
-        return this.kodi.send("Application.SetMute", { mute });
+    setMute() {
+        return this.kodi.send("Application.SetMute", { mute: "toggle" });
     }
 
     /**
-     * Change le volume et remets le son.
+     * Change le volume et remet le son.
      *
-     * @param {number} volume Le nouveau volume (entre <code>0</code> et
-     *                        <code>100</code>).
+     * @param {number|string} volume Le nouveau volume (entre <code>0</code> et
+     *                               <code>100</code>) ; ou
+     *                               <code>"increment"</code> /
+     *                               <code>"decrement"</code> pour augmenter ou
+     *                               diminuer le volume d'un cran.
      * @returns {Promise.<number>} Une promesse contenant la nouvelle valeur du
      *                             son.
      */
     async setVolume(volume) {
         const results = await Promise.all([
-            this.setMute(false),
+            this.kodi.send("Application.SetMute", { mute: false }),
             this.kodi.send("Application.SetVolume", { volume }),
         ]);
         return results[1];
@@ -73,13 +74,21 @@ export const Application = class {
      * @param {*}      notification.params.data Les données des paramètres.
      */
     handleNotification({ method, params: { data } }) {
-        // Garder seulement les notifications sur l'application.
-        if (!method.startsWith("Application.")) {
+        // Garder seulement les notifications sur l'application et si des
+        // auditeurs sont présents.
+        if (!method.startsWith("Application.") ||
+                0 === this.onPropertyChanged.length) {
             return;
         }
         switch (method) {
             case "Application.OnVolumeChanged":
-                this.onVolumeChanged.dispatch(data);
+                this.onPropertyChanged.dispatch({
+                    ...data,
+                    // Convertir le volume en entier.
+                    // https://github.com/xbmc/xbmc/issues/17894.
+                    ..."volume" in data ? { volume: Math.trunc(data.volume) }
+                                        : {},
+                });
                 break;
             default:
                 // Ignorer les autres notifications.

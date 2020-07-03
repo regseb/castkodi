@@ -3,6 +3,7 @@
  */
 
 import { cast, kodi } from "../core/index.js";
+import { extract }    from "../core/labellers.js";
 import { notify }     from "../core/notify.js";
 
 /**
@@ -27,111 +28,8 @@ let speed = 0;
  */
 let interval = null;
 
-const onSeek = function (timestamp) {
-    const time = document.querySelector("#time");
-    const max = Number.parseInt(time.max, 10);
-    time.valueAsNumber = Math.min(timestamp, max);
-
-    if (time.disabled) {
-        time.previousElementSibling.textContent = "";
-        time.nextElementSibling.textContent = "";
-    } else if (3600 < max) {
-        time.previousElementSibling.textContent =
-            Math.trunc(time.valueAsNumber / 3600) + ":" +
-            (Math.trunc(time.valueAsNumber / 60) % 60).toString()
-                                                      .padStart(2, "0") + ":" +
-            (time.valueAsNumber % 60).toString().padStart(2, "0");
-        time.nextElementSibling.textContent =
-            Math.trunc(max / 3600) + ":" +
-            (Math.trunc(max / 60) % 60).toString().padStart(2, "0") + ":" +
-            (max % 60).toString().padStart(2, "0");
-    } else {
-        time.previousElementSibling.textContent =
-            Math.trunc(time.valueAsNumber / 60) + ":" +
-            (time.valueAsNumber % 60).toString().padStart(2, "0");
-        time.nextElementSibling.textContent =
-            Math.trunc(max / 60) + ":" +
-            (max % 60).toString().padStart(2, "0");
-    }
-};
-
-const onStop = function () {
-    position = -1;
-    speed = 0;
-    document.querySelector("#time").disabled = true;
-    onSeek(0);
-
-    document.querySelector("#previous").disabled = true;
-    document.querySelector("#rewind").disabled = true;
-    document.querySelector("#stop").disabled = true;
-    document.querySelector("#pause").style.display = "none";
-    document.querySelector("#play").style.display = "inline";
-    document.querySelector("#forward").disabled = true;
-    document.querySelector("#next").disabled = true;
-
-    for (const input of document.querySelectorAll(`[name="repeat"]`)) {
-        input.disabled = true;
-    }
-    document.querySelector("#shuffle input").disabled = true;
-};
-
-/* eslint-disable unicorn/no-keyword-prefix */
-const onSpeedChanged = function (newSpeed) {
-    speed = newSpeed;
-    /* eslint-enable unicorn/no-keyword-prefix */
-    document.querySelector("#time").disabled = false;
-
-    document.querySelector("#previous").disabled = false;
-    document.querySelector("#rewind").disabled = false;
-    document.querySelector("#stop").disabled = false;
-    if (1 === speed) {
-        document.querySelector("#play").style.display = "none";
-        document.querySelector("#pause").style.display = "inline";
-    } else {
-        document.querySelector("#pause").style.display = "none";
-        document.querySelector("#play").style.display = "inline";
-    }
-    document.querySelector("#forward").disabled = false;
-    document.querySelector("#next").disabled = false;
-
-    for (const input of document.querySelectorAll(`[name="repeat"]`)) {
-        input.disabled = false;
-    }
-    document.querySelector("#shuffle input").disabled = false;
-};
-
-const onPropertyChanged = function (properties) {
-    if ("repeat" in properties) {
-        document.querySelector(`[name="repeat"][value="${properties.repeat}"]`)
-                                                                .checked = true;
-        document.querySelector("#repeat-off").style.display = "none";
-        document.querySelector("#repeat-all").style.display = "none";
-        document.querySelector("#repeat-one").style.display = "none";
-        document.querySelector(`#repeat-${properties.repeat}`).style.display =
-                                                                 "inline-block";
-    }
-    if ("shuffled" in properties) {
-        document.querySelector("#shuffle input").checked = properties.shuffled;
-    }
-};
-
-const onVolumeChanged = function (properties) {
-    const mute = document.querySelector("#mute input");
-    mute.disabled = false;
-    mute.checked = properties.muted;
-
-    const volume = document.querySelector("#volume");
-    volume.disabled = false;
-    volume.valueAsNumber = properties.volume;
-    if (properties.muted) {
-        volume.classList.add("disabled");
-    } else {
-        volume.classList.remove("disabled");
-    }
-};
-
 const splash = function (err) {
-    const article = document.querySelector("article");
+    const article = document.querySelector("#splash");
     if ("PebkacError" === err.name) {
         article.querySelector("h1").textContent = err.title;
     } else {
@@ -140,69 +38,8 @@ const splash = function (err) {
     }
     article.querySelector("p").textContent = err.message;
     article.style.display = "block";
-    document.querySelector("#cast").style.visibility = "hidden";
-    document.querySelector("#playing").style.visibility = "hidden";
-    document.querySelector("#remote").style.visibility = "hidden";
-};
-
-const update = async function () {
-    try {
-        const properties = await kodi.player.getProperties([
-            "position", "repeat", "shuffled", "speed", "timestamp",
-            "totaltimestamp",
-        ]);
-        document.querySelector("#send").disabled = false;
-        document.querySelector("#insert").disabled = false;
-        document.querySelector("#add").disabled = false;
-        document.querySelector("#paste input").disabled = false;
-        document.querySelector("#loading").style.display = "none";
-        document.querySelector("#rate").style.display = "inline-block";
-
-        position = properties.position;
-        if (-1 === properties.position) {
-            onStop();
-        } else {
-            onSpeedChanged(properties.speed);
-        }
-
-        document.querySelector("#time").max =
-                                           properties.totaltimestamp.toString();
-        document.querySelector("#play").disabled = false;
-        if (0 === properties.totaltimestamp) {
-            document.querySelector("#time").disabled = true;
-            document.querySelector("#rewind").disabled = true;
-            document.querySelector("#pause").disabled = true;
-            document.querySelector("#forward").disabled = true;
-        } else {
-            document.querySelector("#time").disabled = false;
-            document.querySelector("#rewind").disabled = false;
-            document.querySelector("#pause").disabled = false;
-            document.querySelector("#forward").disabled = false;
-        }
-        onSeek(properties.timestamp);
-
-        onVolumeChanged(await kodi.application.getProperties([
-            "muted", "volume",
-        ]));
-
-        onPropertyChanged({
-            repeat:   properties.repeat,
-            shuffled: properties.shuffled,
-        });
-
-        document.querySelector("#contextmenu").disabled = false;
-        document.querySelector("#up").disabled = false;
-        document.querySelector("#info").disabled = false;
-        document.querySelector("#left").disabled = false;
-        document.querySelector("#select").disabled = false;
-        document.querySelector("#right").disabled = false;
-        document.querySelector("#back").disabled = false;
-        document.querySelector("#down").disabled = false;
-        document.querySelector("#osd").disabled = false;
-
-        document.querySelector("#fullscreen").disabled = false;
-    } catch (err) {
-        splash(err);
+    for (const section of document.querySelectorAll("section")) {
+        section.style.visibility = "hidden";
     }
 };
 
@@ -278,18 +115,14 @@ const paste = function (event) {
     }
 
     if (input.checked) {
-        document.querySelector("#playing").style.visibility = "hidden";
-        document.querySelector("#remote").style.visibility = "hidden";
-        document.querySelector("#preferences").disabled = true;
-        document.querySelector("#report").disabled = true;
-        document.querySelector("#rate").disabled = true;
+        for (const section of document.querySelectorAll("section:not(#cast)")) {
+            section.style.visibility = "hidden";
+        }
         document.querySelector("textarea").focus();
     } else {
-        document.querySelector("#playing").style.visibility = "visible";
-        document.querySelector("#remote").style.visibility = "visible";
-        document.querySelector("#preferences").disabled = false;
-        document.querySelector("#report").disabled = false;
-        document.querySelector("#rate").disabled = false;
+        for (const section of document.querySelectorAll("section:not(#cast)")) {
+            section.style.visibility = "visible";
+        }
     }
 };
 
@@ -300,23 +133,6 @@ const change = async function (event) {
     document.location.reload();
 };
 
-const preferences = async function () {
-    await browser.runtime.openOptionsPage();
-    close();
-};
-
-const report = async function () {
-    await browser.tabs.create({ url: "https://github.com/regseb/castkodi" });
-    close();
-};
-
-const rate = async function () {
-    await browser.tabs.create({
-        url: "https://addons.mozilla.org/addon/castkodi/reviews/",
-    });
-    close();
-};
-
 const previous = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
@@ -324,21 +140,17 @@ const previous = function () {
         return;
     }
 
-    kodi.player.previous().catch(splash);
+    kodi.player.goTo("previous").catch(splash);
 };
 
-const rewind = async function () {
+const rewind = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#rewind").disabled) {
         return;
     }
 
-    try {
-        await kodi.player.setSpeed("decrement");
-    } catch (err) {
-        splash(err);
-    }
+    kodi.player.setSpeed("decrement").catch(splash);
 };
 
 const stop = function () {
@@ -351,37 +163,29 @@ const stop = function () {
     kodi.player.stop().catch(splash);
 };
 
-const playPause = async function () {
-    if (-1 === position) {
-        position = 0;
-        kodi.player.open(position).catch(splash);
-    } else {
-        // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-        // désactivé (car la connexion à Kodi a échouée).
-        if (document.querySelector("#pause").disabled) {
-            return;
-        }
+const playPause = function () {
+    const play = document.querySelector("#play");
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé (car la connexion à Kodi a échouée).
+    if (play.disabled) {
+        return;
+    }
 
-        try {
-            speed = await kodi.player.playPause();
-        } catch (err) {
-            splash(err);
-        }
+    if ("open" === play.dataset.action) {
+        kodi.player.open().catch(splash);
+    } else {
+        kodi.player.playPause().catch(splash);
     }
 };
 
-const forward = async function () {
+const forward = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#forward").disabled) {
         return;
     }
 
-    try {
-        speed = await kodi.player.setSpeed("increment");
-    } catch (err) {
-        splash(err);
-    }
+    kodi.player.setSpeed("increment").catch(splash);
 };
 
 const next = function () {
@@ -391,29 +195,17 @@ const next = function () {
         return;
     }
 
-    kodi.player.next().catch(splash);
+    kodi.player.goTo("next").catch(splash);
 };
 
-const setMute = function (event) {
+const setMute = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#mute input").disabled) {
         return;
     }
 
-
-    const input = document.querySelector("#mute input");
-    // Inverser l'état si l'origine du changement vient d'un raccourci clavier.
-    if (undefined === event) {
-        input.checked = !input.checked;
-    }
-
-    if (input.checked) {
-        document.querySelector("#volume").classList.add("disabled");
-    } else {
-        document.querySelector("#volume").classList.remove("disabled");
-    }
-    kodi.application.setMute(input.checked).catch(splash);
+    kodi.application.setMute().catch(splash);
 };
 
 const setVolume = function (diff) {
@@ -423,53 +215,12 @@ const setVolume = function (diff) {
         return;
     }
 
-    const input = document.querySelector("#volume");
-
-    document.querySelector("#mute input").checked = false;
-    input.classList.remove("disabled");
-
-    if (Number.isInteger(diff)) {
-        input.valueAsNumber += diff;
-    }
-    kodi.application.setVolume(input.valueAsNumber).catch(splash);
-};
-
-const repeat = function () {
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé.
-    if (document.querySelector(`[name="repeat"]`).disabled) {
-        return;
-    }
-
-    const [off, all, one] = document.querySelectorAll(`[name="repeat"]`);
-    if (off.checked) {
-        document.querySelector("#repeat-off").style.display = "none";
-        document.querySelector("#repeat-all").style.display = "inline-block";
-        off.checked = false;
-        all.checked = true;
-    } else if (all.checked) {
-        document.querySelector("#repeat-all").style.display = "none";
-        document.querySelector("#repeat-one").style.display = "inline-block";
-        all.checked = false;
-        one.checked = true;
+    if ("increment" === diff || "decrement" === diff) {
+        kodi.application.setVolume(diff).catch(splash);
     } else {
-        document.querySelector("#repeat-one").style.display = "none";
-        document.querySelector("#repeat-off").style.display = "inline-block";
-        one.checked = false;
-        off.checked = true;
+        const input = document.querySelector("#volume");
+        kodi.application.setVolume(input.valueAsNumber).catch(splash);
     }
-    kodi.player.setRepeat().catch(splash);
-};
-
-const shuffle = function () {
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé.
-    if (document.querySelector("#shuffle input").disabled) {
-        return;
-    }
-
-    const input = document.querySelector("#shuffle input");
-    kodi.player.setShuffle(input.checked).catch(splash);
 };
 
 const contextMenu = function () {
@@ -562,6 +313,16 @@ const showOSD = function () {
     kodi.input.showOSD().catch(splash);
 };
 
+const home = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#home").disabled) {
+        return;
+    }
+
+    kodi.input.home().catch(splash);
+};
+
 const setFullscreen = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
@@ -572,26 +333,370 @@ const setFullscreen = function () {
     kodi.gui.setFullscreen().catch(splash);
 };
 
+const repeat = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector(`[name="repeat"]`).disabled) {
+        return;
+    }
+
+    kodi.player.setRepeat().catch(splash);
+};
+
+const shuffle = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#shuffle input").disabled) {
+        return;
+    }
+
+    kodi.player.setShuffle().catch(splash);
+};
+
+const clear = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#clear").disabled) {
+        return;
+    }
+
+    kodi.playlist.clear().catch(splash);
+};
+
+const play = function (event) {
+    const li = event.target.closest("li");
+    const index = [...li.parentNode.children].indexOf(li);
+    kodi.player.open(index).catch(splash);
+};
+
+const remove = function (event) {
+    const li = event.target.closest("li");
+    const index = [...li.parentNode.children].indexOf(li);
+    kodi.playlist.remove(index).catch(splash);
+};
+
+const report = async function () {
+    await browser.tabs.create({ url: "https://github.com/regseb/castkodi" });
+    close();
+};
+
+const donate = async function () {
+    await browser.tabs.create({ url: "https://www.paypal.me/sebastienregne" });
+    close();
+};
+
+const rate = async function () {
+    await browser.tabs.create({
+        url: "https://addons.mozilla.org/addon/castkodi/reviews/",
+    });
+    close();
+};
+
+const preferences = async function () {
+    await browser.runtime.openOptionsPage();
+    close();
+};
+
+const handleVolumeChanged = function (value) {
+    const volume = document.querySelector("#volume");
+    volume.valueAsNumber = value;
+    volume.title = browser.i18n.getMessage("popup_volume_title", value);
+};
+
+const handleMutedChanged = function (value) {
+    const mute = document.querySelector("#mute input");
+    mute.checked = value;
+
+    const volume = document.querySelector("#volume");
+    volume.classList.toggle("disabled", value);
+};
+
+const handlePositionChanged = function (value) {
+    position = value;
+    if (-1 === value) {
+        document.querySelector("#time").disabled = true;
+
+        document.querySelector("#previous").disabled = true;
+        document.querySelector("#rewind").disabled = true;
+        document.querySelector("#stop").disabled = true;
+        document.querySelector("#play").dataset.action = "open";
+        document.querySelector("#forward").disabled = true;
+        document.querySelector("#next").disabled = true;
+
+        // Ne pas activer les boutons pour répéter et mélanger la liste de
+        // lecture des vidéos quand le lecteur vidéo est inactif.
+        // https://github.com/xbmc/xbmc/issues/17896
+        for (const input of document.querySelectorAll("#repeat input")) {
+            input.disabled = true;
+        }
+        document.querySelector("#shuffle input").disabled = true;
+    } else {
+        document.querySelector("#time").disabled = false;
+
+        document.querySelector("#previous").disabled = false;
+        document.querySelector("#rewind").disabled = false;
+        document.querySelector("#stop").disabled = false;
+        document.querySelector("#play").dataset.action = "resume";
+        document.querySelector("#forward").disabled = false;
+        document.querySelector("#next").disabled = false;
+
+        for (const input of document.querySelectorAll("#repeat input")) {
+            input.disabled = false;
+        }
+        document.querySelector("#shuffle input").disabled = false;
+    }
+
+    for (const li of document.querySelectorAll("#playlist-items li")) {
+        li.querySelector("span").classList.remove("active");
+        for (const button of li.querySelectorAll("button")) {
+            button.disabled = false;
+        }
+    }
+    for (const li of document.querySelectorAll("#playlist-items" +
+                                               ` li:nth-child(${value + 1})`)) {
+        li.querySelector("span").classList.add("active");
+        for (const button of li.querySelectorAll("button")) {
+            button.disabled = true;
+        }
+    }
+};
+
+const handleSpeedChanged = function (value) {
+    speed = value;
+    if (1 === speed) {
+        document.querySelector("#play").style.display = "none";
+        document.querySelector("#pause").style.display = "inline";
+    } else {
+        document.querySelector("#pause").style.display = "none";
+        document.querySelector("#play").style.display = "inline";
+    }
+};
+
+const handleRepeatChanged = function (value) {
+    document.querySelector(`[name="repeat"][value="${value}"]`).checked = true;
+    document.querySelector("#repeat-off").classList.remove("checked");
+    document.querySelector("#repeat-all").classList.remove("checked");
+    document.querySelector("#repeat-one").classList.remove("checked");
+    document.querySelector(`#repeat-${value}`).classList.add("checked");
+};
+
+const handleShuffledChanged = function (value) {
+    document.querySelector("#shuffle input").checked = value;
+};
+
+const handleTimeChanged = function (value) {
+    const time = document.querySelector("#time");
+    const max = Number.parseInt(time.max, 10);
+    time.valueAsNumber = Math.min(value, max);
+
+    if (3600 < max) {
+        time.previousElementSibling.textContent =
+            Math.trunc(time.valueAsNumber / 3600) + ":" +
+            (Math.trunc(time.valueAsNumber / 60) % 60).toString()
+                                                      .padStart(2, "0") + ":" +
+            (time.valueAsNumber % 60).toString().padStart(2, "0");
+    } else {
+        time.previousElementSibling.textContent =
+            Math.trunc(time.valueAsNumber / 60) + ":" +
+            (time.valueAsNumber % 60).toString().padStart(2, "0");
+    }
+};
+
+const handleTotaltimeChanged = function (value) {
+    document.querySelector("#time").max = value.toString();
+    document.querySelector("#play").disabled = false;
+    if (0 === value) {
+        const time = document.querySelector("#time");
+        time.disabled = true;
+        time.previousElementSibling.style.visibility = "hidden";
+        time.nextElementSibling.style.visibility = "hidden";
+        document.querySelector("#rewind").disabled = true;
+        document.querySelector("#pause").disabled = true;
+        document.querySelector("#forward").disabled = true;
+
+        time.nextElementSibling.textContent = "0:00";
+    } else {
+        const time = document.querySelector("#time");
+        time.disabled = false;
+        time.previousElementSibling.style.visibility = "visible";
+        time.nextElementSibling.style.visibility = "visible";
+        document.querySelector("#rewind").disabled = false;
+        document.querySelector("#pause").disabled = false;
+        document.querySelector("#forward").disabled = false;
+
+        if (3600 < value) {
+            time.nextElementSibling.textContent =
+                Math.trunc(value / 3600) + ":" +
+                (Math.trunc(value / 60) % 60).toString().padStart(2, "0") +
+                ":" + (value % 60).toString().padStart(2, "0");
+        } else {
+            time.nextElementSibling.textContent =
+                Math.trunc(value / 60) + ":" +
+                (value % 60).toString().padStart(2, "0");
+        }
+    }
+};
+
+const handlePropertyChanged = function (properties) {
+    if ("volume" in properties) {
+        handleVolumeChanged(properties.volume);
+    }
+    if ("muted" in properties) {
+        handleMutedChanged(properties.muted);
+    }
+    if ("position" in properties) {
+        handlePositionChanged(properties.position);
+    }
+    if ("repeat" in properties) {
+        handleRepeatChanged(properties.repeat);
+    }
+    if ("shuffled" in properties) {
+        handleShuffledChanged(properties.shuffled);
+    }
+    if ("speed" in properties) {
+        handleSpeedChanged(properties.speed);
+    }
+    // Mettre à jour le temps total avant le temps courant car celui-ci a besoin
+    // du temps total.
+    if ("totaltime" in properties) {
+        handleTotaltimeChanged(properties.totaltime);
+    }
+    if ("time" in properties) {
+        handleTimeChanged(properties.time);
+    }
+};
+
+const handleAdd = async function (item) {
+    const text = await extract(item);
+    const template = document.querySelector("template");
+    const clone = document.importNode(template.content, true);
+    clone.querySelector("span").textContent = text;
+    clone.querySelector("span").title = text;
+    clone.querySelector(".play").addEventListener("click", play);
+    clone.querySelector(".remove").addEventListener("click", remove);
+    if (position === item.position) {
+        clone.querySelector("span").classList.add("active");
+        for (const button of clone.querySelectorAll("button")) {
+            button.disabled = true;
+        }
+    }
+    const li = document.createElement("li");
+    li.append(clone);
+
+    document.querySelector("#playlist-items > span").style.display = "none";
+    const ol = document.querySelector("#playlist-items ol");
+    ol.style.display = "block";
+    ol.insertBefore(li, ol.children[item.position]);
+};
+
+const handleClear = function () {
+    const ol = document.querySelector("#playlist-items ol");
+    ol.style.display = "none";
+    ol.textContent = "";
+    document.querySelector("#playlist-items > span").style.display = "block";
+};
+
+const handleRemove = function (value) {
+    document.querySelector(`#playlist-items li:nth-child(${value + 1})`)
+            .remove();
+};
+
 const passing = function () {
     if (0 === speed) {
         return;
     }
 
     const time = document.querySelector("#time");
-    onSeek(time.valueAsNumber + speed);
+    handleTimeChanged(time.valueAsNumber + speed);
 };
 
 const move = function () {
     clearInterval(interval);
     const time = document.querySelector("#time");
 
-    onSeek(time.valueAsNumber);
+    handleTimeChanged(time.valueAsNumber);
 };
 
 const seek = function () {
     interval = setInterval(passing, 1000);
     const time = document.querySelector("#time");
     kodi.player.seek(time.valueAsNumber).catch(splash);
+};
+
+const load = async function () {
+    try {
+        handlePropertyChanged(await kodi.player.getProperties([
+            "position", "repeat", "shuffled", "speed", "time", "totaltime",
+        ]));
+        handlePropertyChanged(await kodi.application.getProperties([
+            "muted", "volume",
+        ]));
+
+        document.querySelector("#send").disabled = false;
+        document.querySelector("#insert").disabled = false;
+        document.querySelector("#add").disabled = false;
+        document.querySelector("#paste input").disabled = false;
+
+        document.querySelector("#play").disabled = false;
+
+        document.querySelector("#volume").disabled = false;
+        document.querySelector("#mute input").disabled = false;
+
+        document.querySelector("#up").disabled = false;
+        document.querySelector("#left").disabled = false;
+        document.querySelector("#select").disabled = false;
+        document.querySelector("#right").disabled = false;
+        document.querySelector("#down").disabled = false;
+
+        document.querySelector("#back").disabled = false;
+        document.querySelector("#home").disabled = false;
+        document.querySelector("#contextmenu").disabled = false;
+        document.querySelector("#osd").disabled = false;
+        document.querySelector("#info").disabled = false;
+        document.querySelector("#fullscreen").disabled = false;
+
+        document.querySelector("#clear").disabled = false;
+
+        document.querySelector("#loading").style.display = "none";
+        document.querySelector("#report").disabled = false;
+        document.querySelector("#donate").disabled = false;
+        document.querySelector("#rate").disabled = false;
+
+        const items = await kodi.playlist.getItems();
+        if (0 === items.length) {
+            document.querySelector("#playlist-items > span").style.display =
+                                                                        "block";
+        } else {
+            const template = document.querySelector("template");
+            const ol = document.querySelector("#playlist-items ol");
+            ol.textContent = "";
+            let index = -1;
+            for await (const text of items.map(extract)) {
+                ++index;
+                const clone = document.importNode(template.content, true);
+                clone.querySelector("span").textContent = text;
+                clone.querySelector("span").title = text;
+                clone.querySelector(".play").addEventListener("click", play);
+                clone.querySelector(".remove").addEventListener("click",
+                                                                remove);
+                if (position === index) {
+                    clone.querySelector("span").classList.add("active");
+                    for (const button of clone.querySelectorAll("button")) {
+                        button.disabled = true;
+                    }
+                }
+                const li = document.createElement("li");
+                li.append(clone);
+                ol.append(li);
+            }
+
+            document.querySelector("#playlist-items > span").style.display =
+                                                                         "none";
+            ol.style.display = "block";
+        }
+    } catch (err) {
+        splash(err);
+    }
 };
 
 
@@ -602,9 +707,6 @@ document.querySelector("#paste").addEventListener("change", paste);
 for (const input of document.querySelectorAll("select")) {
     input.addEventListener("change", change);
 }
-document.querySelector("#preferences").addEventListener("click", preferences);
-document.querySelector("#report").addEventListener("click", report);
-document.querySelector("#rate").addEventListener("click", rate);
 
 document.querySelector("#time").addEventListener("input", move);
 document.querySelector("#time").addEventListener("change", seek);
@@ -617,13 +719,8 @@ document.querySelector("#play").addEventListener("click", playPause);
 document.querySelector("#forward").addEventListener("click", forward);
 document.querySelector("#next").addEventListener("click", next);
 
-document.querySelector("#mute input").addEventListener("change", setMute);
 document.querySelector("#volume").addEventListener("input", setVolume);
-
-for (const input of document.querySelectorAll("#repeat input")) {
-    input.addEventListener("click", repeat);
-}
-document.querySelector("#shuffle").addEventListener("change", shuffle);
+document.querySelector("#mute input").addEventListener("change", setMute);
 
 document.querySelector("#contextmenu").addEventListener("click", contextMenu);
 document.querySelector("#up").addEventListener("click", up);
@@ -635,13 +732,28 @@ document.querySelector("#back").addEventListener("click", back);
 document.querySelector("#down").addEventListener("click", down);
 document.querySelector("#osd").addEventListener("click", showOSD);
 
+document.querySelector("#home").addEventListener("click", home);
 document.querySelector("#fullscreen").addEventListener("click", setFullscreen);
+
+for (const input of document.querySelectorAll("#repeat input")) {
+    input.addEventListener("click", repeat);
+}
+document.querySelector("#shuffle").addEventListener("change", shuffle);
+document.querySelector("#clear").addEventListener("click", clear);
+
+document.querySelector("#report").addEventListener("click", report);
+document.querySelector("#donate").addEventListener("click", donate);
+document.querySelector("#rate").addEventListener("click", rate);
+document.querySelector("#preferences").addEventListener("click", preferences);
 
 document.querySelector("#configure").addEventListener("click", preferences);
 
 // Insérer le code SVG des icônes dans la page pour pouvoir changer leur couleur
 // avec la feuille de style.
-for (const element of document.querySelectorAll("object")) {
+const objects = [...document.querySelectorAll("object"),
+                 ...[...document.querySelectorAll("template")]
+                    .flatMap((t) => [...t.content.querySelectorAll("object")])];
+for (const element of objects) {
     if ("loading" !== element.parentNode.id) {
         fetch(element.data).then((r) => r.text())
                            .then((text) => {
@@ -652,7 +764,9 @@ for (const element of document.querySelectorAll("object")) {
     }
 }
 
-globalThis.focus();
+// Attention ! La popup n'a pas automatiquement le focus quand elle est ouverte
+// dans le menu prolongeant la barre d'outils.
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1623875
 globalThis.addEventListener("keydown", (event) => {
     // Ignorer les entrées avec une touche de modification.
     if (event.altKey || event.ctrlKey || event.metaKey) {
@@ -670,29 +784,33 @@ globalThis.addEventListener("keydown", (event) => {
     }
 
     switch (event.key) {
-        case "p": case "P": send();          break;
-        case "n": case "N": insert();        break;
-        case "q": case "Q": add();           break;
-        case "v": case "V": paste();         break;
-        case "PageUp":      previous();      break;
-        case "r": case "R": rewind();        break;
-        case "x": case "X": stop();          break;
-        case " ":           playPause();     break;
-        case "f": case "F": forward();       break;
-        case "PageDown":    next();          break;
-        case "F8":          setMute();       break;
-        case "-":           setVolume(-1);   break;
-        case "+": case "=": setVolume(1);    break;
-        case "c": case "C": contextMenu();   break;
-        case "ArrowUp":     up();            break;
-        case "i": case "I": info();          break;
-        case "ArrowLeft":   left();          break;
-        case "Enter":       select();        break;
-        case "ArrowRight":  right();         break;
-        case "Backspace":   back();          break;
-        case "ArrowDown":   down();          break;
-        case "m": case "M": showOSD();       break;
-        case "Tab":         setFullscreen(); break;
+        case "p": case "P": send();                 break;
+        case "n": case "N": insert();               break;
+        case "q": case "Q": add();                  break;
+        case "v": case "V": paste();                break;
+
+        case "PageUp":      previous();             break;
+        case "r": case "R": rewind();               break;
+        case "x": case "X": stop();                 break;
+        case " ":           playPause();            break;
+        case "f": case "F": forward();              break;
+        case "PageDown":    next();                 break;
+
+        case "F8":          setMute();              break;
+        case "-":           setVolume("decrement"); break;
+        case "+": case "=": setVolume("increment"); break;
+
+        case "c": case "C": contextMenu();          break;
+        case "ArrowUp":     up();                   break;
+        case "i": case "I": info();                 break;
+        case "ArrowLeft":   left();                 break;
+        case "Enter":       select();               break;
+        case "ArrowRight":  right();                break;
+        case "Backspace":   back();                 break;
+        case "ArrowDown":   down();                 break;
+        case "m": case "M": showOSD();              break;
+
+        case "Tab":         setFullscreen();        break;
         // Appliquer le traitement par défaut pour les autres entrées.
         default: return;
     }
@@ -705,10 +823,15 @@ globalThis.addEventListener("keyup", (event) => {
     }
 });
 globalThis.addEventListener("wheel", (event) => {
-    if (0 === event.deltaY) {
+    // Garder le comportement classique de la molette pour la liste de lecture
+    // lorsque la barre défilement est présent.
+    const ol = event.target.closest("#playlist-items ol");
+    if (0 === event.deltaY ||
+            null !== ol && ol.scrollHeight > ol.clientHeight) {
         return;
     }
-    setVolume(event.deltaY * -1);
+
+    setVolume(0 < event.deltaY ? "increment" : "decrement");
     event.preventDefault();
 });
 
@@ -727,17 +850,15 @@ browser.storage.local.get().then((config) => {
                                           index === config["server-active"]);
             });
         }
-        document.querySelector("article span").style.display = "inline";
+        document.querySelector("#server").style.visibility = "visible";
+        document.querySelector("#splash li:last-child").style.display =
+                                                                    "list-item";
     }
 });
 
-kodi.application.onVolumeChanged.addListener(onVolumeChanged);
-kodi.player.onAVStart.addListener(update);
-kodi.player.onPause.addListener(onSpeedChanged);
-kodi.player.onPlay.addListener(update);
-kodi.player.onPropertyChanged.addListener(onPropertyChanged);
-kodi.player.onResume.addListener(onSpeedChanged);
-kodi.player.onSeek.addListener(onSeek);
-kodi.player.onSpeedChanged.addListener(onSpeedChanged);
-kodi.player.onStop.addListener(onStop);
-update();
+kodi.application.onPropertyChanged.addListener(handlePropertyChanged);
+kodi.player.onPropertyChanged.addListener(handlePropertyChanged);
+kodi.playlist.onAdd.addListener(handleAdd);
+kodi.playlist.onClear.addListener(handleClear);
+kodi.playlist.onRemove.addListener(handleRemove);
+load();

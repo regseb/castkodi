@@ -22,9 +22,10 @@ const action = async function ({ href }) {
         return "files" in json ? json.files[0].fileUrl
                                : null;
     } catch {
-        // Si le site n'est pas une instance PeerTube, l'appel à l'API échoue.
-        return null;
+        // Ignorer les erreurs car elles proviennent d'un site qui n'est pas une
+        // instance PeerTube (et l'appel à l'API a échoué).
     }
+    return null;
 };
 export const extract = matchPattern(action,
     "*://*/videos/watch/*",

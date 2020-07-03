@@ -21,5 +21,4 @@ const action = async function (_url, content) {
     return null === meta ? null
                          : meta.content;
 };
-export const extract = matchPattern(action,
-    "*://www.blogtalkradio.com/*");
+export const extract = matchPattern(action, "*://www.blogtalkradio.com/*");

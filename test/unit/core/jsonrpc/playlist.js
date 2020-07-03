@@ -166,41 +166,57 @@ describe("core/jsonrpc/playlist.js", function () {
             done();
         });
 
-        it("should call 'onAdd' listeners", function (done) {
-            const playlist = new Playlist({ send: Function.prototype });
-            playlist.onAdd.addListener((data) => {
-                assert.deepStrictEqual(data, { playlistid: 1, foo: "bar" });
+        it("should ignore when no listener", async function () {
+            const fake = sinon.fake.rejects(new Error("bar"));
+
+            const playist = new Playlist({ send: fake });
+            await playist.handleNotification({
+                method: "Playlist.OnAdd",
+                params: { data: "foo" },
+            });
+
+            assert.strictEqual(fake.callCount, 0);
+        });
+
+        it("should handle 'OnAdd'", function (done) {
+            const fake = sinon.fake.resolves({ items: [{ foo: "bar" }] });
+
+            const playlist = new Playlist({ send: fake });
+            playlist.onAdd.addListener((item) => {
+                assert.deepStrictEqual(item, {
+                    foo:      "bar",
+                    position: 2,
+                });
                 done();
             });
             playlist.handleNotification({
                 method: "Playlist.OnAdd",
-                params: { data: { playlistid: 1, foo: "bar" } },
+                params: { data: { playlistid: 1, position: 2 } },
             });
-            assert.fail();
         });
 
-        it("should call 'onClear' listeners", function (done) {
+        it("should handle 'OnClear'", function (done) {
             const playlist = new Playlist({ send: Function.prototype });
             playlist.onClear.addListener((data) => {
-                assert.deepStrictEqual(data, { playlistid: 1, foo: "bar" });
+                assert.strictEqual(data, undefined);
                 done();
             });
             playlist.handleNotification({
                 method: "Playlist.OnClear",
-                params: { data: { playlistid: 1, foo: "bar" } },
+                params: { data: { playlistid: 1 } },
             });
             assert.fail();
         });
 
-        it("should call 'onRemove' listeners", function (done) {
+        it("should handle 'OnRemove'", function (done) {
             const playlist = new Playlist({ send: Function.prototype });
-            playlist.onRemove.addListener((data) => {
-                assert.deepStrictEqual(data, { playlistid: 1, foo: "bar" });
+            playlist.onRemove.addListener((position) => {
+                assert.strictEqual(position, 2);
                 done();
             });
             playlist.handleNotification({
                 method: "Playlist.OnRemove",
-                params: { data: { playlistid: 1, foo: "bar" } },
+                params: { data: { playlistid: 1, position: 2 } },
             });
             assert.fail();
         });

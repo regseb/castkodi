@@ -8,7 +8,8 @@ import { Kodi } from "../core/jsonrpc/kodi.js";
  * Demande (ou enlève) une permission optionnelle.
  *
  * @param {HTMLInputElement} input La case à cocher.
- * @returns {Promise.<boolean>} Une promesse contenant l'état de la permission.
+ * @returns {Promise.<boolean>} Une promesse contenant le nouvel état de la
+ *                              permission.
  */
 const ask = async function (input) {
     if (!("permissions" in input.dataset)) {
@@ -152,6 +153,8 @@ const remove = function (event) {
         ++index;
     }
 
+    // Si un seul serveur est présent dans la liste : désactiver le bouton pour
+    // le supprimer.
     if (1 === document.querySelectorAll("tbody tr").length) {
         document.querySelector("tbody button").disabled = true;
     }

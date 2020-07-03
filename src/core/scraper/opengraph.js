@@ -13,7 +13,6 @@ import { extract as metaExtract } from "../scrapers.js";
  *
  * @constant {Array.<string>}
  * @see {@link https://ogp.me/}
- * @see {@link https://yandex.com/support/video/partners/open-graph.html}
  */
 const SELECTORS = {
     VIDEO: [
@@ -29,7 +28,7 @@ const SELECTORS = {
 };
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo ou un son sur Kodi.
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url              L'URL d'une page quelconque.
  * @param {object}   content           Le contenu de l'URL.
@@ -72,7 +71,7 @@ const actionVideo = async function (_url, content, options) {
 export const extractVideo = matchPattern(actionVideo, "*://*/*");
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo ou un son sur Kodi.
+ * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
  * @param {URL}      _url              L'URL d'une page quelconque.
  * @param {object}   content           Le contenu de l'URL.
@@ -123,6 +122,7 @@ export const extractAudio = matchPattern(actionAudio, "*://*/*");
  *                                le document HTML ou <code>null</code>.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
+ * @see {@link https://yandex.com/support/video/partners/open-graph.html}
  */
 const actionYandex = async function (_url, content) {
     const doc = await content.html();

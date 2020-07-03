@@ -21,10 +21,9 @@ const PLUGIN_URL = "plugin://plugin.video.twitch/?mode=play";
  */
 const actionClip = async function ({ pathname, searchParams }) {
     if (pathname.startsWith("/embed")) {
-        if (searchParams.has("clip")) {
-            return PLUGIN_URL + "&slug=" + searchParams.get("clip");
-        }
-        return null;
+        return searchParams.has("clip")
+                              ? PLUGIN_URL + "&slug=" + searchParams.get("clip")
+                              : null;
     }
     return PLUGIN_URL + "&slug=" + pathname.slice(1);
 };

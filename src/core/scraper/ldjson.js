@@ -10,7 +10,7 @@ import { extract as metaExtract } from "../scrapers.js";
 /**
  * La liste des types pouvant contenir des URLs de son ou de vidéo.
  *
- * @constant {Array.<string>}
+ * @constant {Set.<string>}
  */
 const TYPES = new Set(["AudioObject", "MusicVideoObject", "VideoObject"]);
 

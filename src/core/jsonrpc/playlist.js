@@ -44,6 +44,8 @@ export const Playlist = class {
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
     clear() {
+        // Attention ! Le vidage de la liste de lecture interrompt la continuité
+        // de lecture. https://github.com/xbmc/xbmc/issues/15958
         return this.kodi.send("Playlist.Clear", { playlistid: 1 });
     }
 
@@ -83,7 +85,7 @@ export const Playlist = class {
      * Insère un élément dans la liste de lecture.
      *
      * @param {string} file     L'URL envoyée à Kodi.
-     * @param {number} position La position où le média sera inséré.
+     * @param {number} position La position où l'élément sera inséré.
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
     insert(file, position) {
@@ -116,20 +118,26 @@ export const Playlist = class {
      * @param {object} notification.params      Les paramètres de la méthode.
      * @param {*}      notification.params.data Les données des paramètres.
      */
-    handleNotification({ method, params: { data } }) {
-        // Garder seulement les notifications de la liste de lecture des vidéos.
-        if (!method.startsWith("Playlist.") || 1 !== data.playlistid) {
+    async handleNotification({ method, params: { data } }) {
+        // Garder seulement les notifications de la liste de lecture des vidéos
+        // et si des auditeurs sont présents.
+        if (!method.startsWith("Playlist.") || 1 !== data.playlistid ||
+                0 === this.onAdd.length + this.onClear.length +
+                      this.onRemove.length) {
             return;
         }
         switch (method) {
             case "Playlist.OnAdd":
-                this.onAdd.dispatch(data);
+                this.onAdd.dispatch({
+                    ...await this.getItem(data.position),
+                    position: data.position,
+                });
                 break;
             case "Playlist.OnClear":
-                this.onClear.dispatch(data);
+                this.onClear.dispatch(undefined);
                 break;
             case "Playlist.OnRemove":
-                this.onRemove.dispatch(data);
+                this.onRemove.dispatch(data.position);
                 break;
             default:
                 // Ignorer les autres notifications.

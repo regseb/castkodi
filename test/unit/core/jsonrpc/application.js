@@ -22,29 +22,65 @@ describe("core/jsonrpc/application.js", function () {
 
     describe("setMute()", function () {
         it("should send request", async function () {
-            const fake = sinon.fake.resolves("OK");
+            const fake = sinon.fake.resolves(false);
 
             const application = new Application({ send: fake });
-            const mute = true;
-            const result = await application.setMute(mute);
-            assert.strictEqual(result, "OK");
+            const result = await application.setMute();
+            assert.strictEqual(result, false);
 
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [
                 "Application.SetMute",
-                { mute },
+                { mute: "toggle" },
             ]);
         });
     });
 
     describe("setVolume()", function () {
-        it("should send request", async function () {
-            const fake = sinon.fake.resolves("OK");
+        it("should send request with number", async function () {
+            const fake = sinon.fake((method) => {
+                switch (method) {
+                    case "Application.SetMute":
+                        return Promise.resolve(false);
+                    case "Application.SetVolume":
+                        return Promise.resolve(42);
+                    default:
+                        return Promise.reject(method);
+                }
+            });
 
             const application = new Application({ send: fake });
-            const volume = 51;
+            const volume = 42;
             const result = await application.setVolume(volume);
-            assert.strictEqual(result, "OK");
+            assert.strictEqual(result, volume);
+
+            assert.strictEqual(fake.callCount, 2);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Application.SetMute",
+                { mute: false },
+            ]);
+            assert.deepStrictEqual(fake.secondCall.args, [
+                "Application.SetVolume",
+                { volume },
+            ]);
+        });
+
+        it("should send request with string", async function () {
+            const fake = sinon.fake((method) => {
+                switch (method) {
+                    case "Application.SetMute":
+                        return Promise.resolve(false);
+                    case "Application.SetVolume":
+                        return Promise.resolve(43);
+                    default:
+                        return Promise.reject(method);
+                }
+            });
+
+            const application = new Application({ send: fake });
+            const volume = "increment";
+            const result = await application.setVolume(volume);
+            assert.strictEqual(result, 43);
 
             assert.strictEqual(fake.callCount, 2);
             assert.deepStrictEqual(fake.firstCall.args, [
@@ -61,7 +97,7 @@ describe("core/jsonrpc/application.js", function () {
     describe("handleNotification()", function () {
         it("should ignore others namespaces", function (done) {
             const application = new Application({ send: Function.prototype });
-            application.onVolumeChanged.addListener(assert.fail);
+            application.onPropertyChanged.addListener(assert.fail);
             application.handleNotification({
                 method: "Other.OnVolumeChanged",
                 params: { data: "foo" },
@@ -69,22 +105,47 @@ describe("core/jsonrpc/application.js", function () {
             done();
         });
 
-        it("should call 'onVolumeChanged' listeners", function (done) {
+        it("should ignore when no listener", async function () {
+            const fake = sinon.fake.rejects(new Error("bar"));
+
+            const application = new Application({ send: fake });
+            await application.handleNotification({
+                method: "Application.OnVolumeChanged",
+                params: { data: "foo" },
+            });
+
+            assert.strictEqual(fake.callCount, 0);
+        });
+
+        it("should handle 'OnVolumeChanged'", function (done) {
             const application = new Application({ send: Function.prototype });
-            application.onVolumeChanged.addListener((data) => {
-                assert.strictEqual(data, "foo");
+            application.onPropertyChanged.addListener((data) => {
+                assert.deepStrictEqual(data, { foo: "bar", volume: 98 });
                 done();
             });
             application.handleNotification({
                 method: "Application.OnVolumeChanged",
-                params: { data: "foo" },
+                params: { data: { foo: "bar", volume: 98.7 } },
+            });
+            assert.fail();
+        });
+
+        it("should handle 'OnVolumeChanged' without volume", function (done) {
+            const application = new Application({ send: Function.prototype });
+            application.onPropertyChanged.addListener((data) => {
+                assert.deepStrictEqual(data, { muted: true });
+                done();
+            });
+            application.handleNotification({
+                method: "Application.OnVolumeChanged",
+                params: { data: { muted: true } },
             });
             assert.fail();
         });
 
         it("should ignore others notifications", function (done) {
             const application = new Application({ send: Function.prototype });
-            application.onVolumeChanged.addListener(assert.fail);
+            application.onPropertyChanged.addListener(assert.fail);
             application.handleNotification({
                 method: "Application.Other",
                 params: { data: "foo" },

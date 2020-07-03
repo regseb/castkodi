@@ -13,7 +13,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 const PLUGIN_URL = "plugin://plugin.video.dumpert/?action=play&video_page_url=";
 
 /**
- * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Dumpert.
  * @returns {Promise.<string>} Une promesse contenant le lien du

@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cast Kodi</title>
-    <link rel="stylesheet" href="photon.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link href="photon.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+    <link href="/img/icon.svg" rel="shortcut icon" />
   </head>
   <body>
     <section id="cast">
@@ -22,7 +23,7 @@
       </button>
 
       <label id="paste" data-i18n-title>
-        <input type="checkbox" name="paste" disabled autocomplete="off" />
+        <input name="paste" type="checkbox" disabled autocomplete="off" />
         <object data="img/paste.svg"></object>
         <textarea autocomplete="off" spellcheck="false"></textarea>
       </label>
@@ -30,29 +31,16 @@
       <label id="server" data-i18n-title>
         <select name="server" autocomplete="off"></select>
       </label>
+    </section>
 
-      <button id="preferences" autocomplete="off" data-i18n-title>
-        <object data="img/preferences.svg"></object>
-      </button>
-
-      <button id="report" autocomplete="off" data-i18n-title>
-        <object data="img/report.svg"></object>
-      </button>
-
-      <span id="loading" data-i18n-title>
-        <object data="img/loading.svg"></object>
-      </span>
-      <button id="rate" autocomplete="off" data-i18n-title>
-        <object data="img/rate.svg"></object>
-      </button>
+    <section id="timing">
+      <time></time>
+      <input class="primary" id="time" type="range" value="0" min="0" max="100"
+             disabled autocomplete="off" />
+      <time></time>
     </section>
 
     <section id="playing">
-      <time></time>
-      <input type="range" id="time" min="0" max="100" value="0" disabled
-             autocomplete="off" class="primary" />
-      <time></time>
-
       <button id="previous" disabled autocomplete="off" data-i18n-title>
         <object data="img/previous.svg"></object>
       </button>
@@ -79,36 +67,16 @@
       <button id="next" disabled autocomplete="off" data-i18n-title>
         <object data="img/next.svg"></object>
       </button>
+    </section>
+
+    <section id="sound">
+      <input id="volume" type="range" value="50" disabled autocomplete="off"
+             orient="vertical" />
 
       <label id="mute" data-i18n-title>
-        <input type="checkbox" name="mute" disabled autocomplete="off" />
+        <input name="mute" type="checkbox" disabled autocomplete="off" />
         <object data="img/sound.svg"></object>
         <object data="img/mute.svg"></object>
-      </label>
-
-      <input type="range" id="volume" value="50" disabled autocomplete="off" />
-
-      <div id="repeat">
-        <label id="repeat-off" data-i18n-title="repeat">
-          <input type="radio" name="repeat" value="off" checked disabled
-                 autocomplete="off" />
-          <object data="img/repeat_all.svg"></object>
-        </label>
-        <label id="repeat-all" data-i18-title="repeat">
-          <input type="radio" name="repeat" value="all" disabled
-                 autocomplete="off" />
-          <object data="img/repeat_all.svg"></object>
-        </label>
-        <label id="repeat-one" data-i18n-title="repeat">
-          <input type="radio" name="repeat" value="one" disabled
-                 autocomplete="off" />
-          <object data="img/repeat_one.svg"></object>
-        </label>
-      </div>
-
-      <label id="shuffle" data-i18n-title>
-        <input type="checkbox" name="shuffle" disabled autocomplete="off" />
-        <object data="img/shuffle.svg"></object>
       </label>
     </section>
 
@@ -150,20 +118,94 @@
       </button>
     </section>
 
-    <section id="hidden">
-      <button id="fullscreen" disabled autocomplete="off"></button>
+    <section id="various">
+      <button id="home" disabled autocomplete="off" data-i18n-title>
+        <object data="img/home.svg"></object>
+      </button>
+
+      <button id="fullscreen" disabled autocomplete="off" data-i18n-title>
+        <object data="img/fullscreen.svg"></object>
+      </button>
     </section>
 
-    <article>
+    <section id="playlist-actions">
+      <div id="repeat">
+        <label class="checked" id="repeat-off" data-i18n-title="repeat">
+          <input name="repeat" type="radio" value="off" checked disabled
+                 autocomplete="off" />
+          <object data="img/repeat_all.svg"></object>
+        </label>
+        <label id="repeat-all" data-i18-title="repeat">
+          <input name="repeat" type="radio" value="all" disabled
+                 autocomplete="off" />
+          <object data="img/repeat_all.svg"></object>
+        </label>
+        <label id="repeat-one" data-i18n-title="repeat">
+          <input name="repeat" type="radio" value="one" disabled
+                 autocomplete="off" />
+          <object data="img/repeat_one.svg"></object>
+        </label>
+      </div>
+
+      <label id="shuffle" data-i18n-title>
+        <input name="shuffle" type="checkbox" disabled autocomplete="off" />
+        <object data="img/shuffle.svg"></object>
+      </label>
+
+      <button id="clear" disabled autocomplete="off" data-i18n-title>
+        <object data="img/remove.svg"></object>
+      </button>
+    </section>
+
+    <template>
+      <span></span>
+      <button class="micro play" autocomplete="off" data-i18n-title="play-item">
+        <object data="img/play.svg"></object>
+      </button>
+      <button class="micro remove" autocomplete="off"
+              data-i18n-title="remove-item">
+        <object data="img/remove.svg"></object>
+      </button>
+    </template>
+    <section id="playlist-items">
+      <span data-i18n-textcontent="empty"></span>
+      <ol></ol>
+    </section>
+
+    <section id="external">
+      <span id="loading" data-i18n-title>
+        <object data="img/loading.svg"></object>
+      </span>
+
+      <button id="report" disabled autocomplete="off" data-i18n-title>
+        <object data="img/report.svg"></object>
+      </button>
+
+      <button id="donate" disabled autocomplete="off" data-i18n-title>
+        <object data="img/donate.svg"></object>
+      </button>
+
+      <button id="rate" disabled autocomplete="off" data-i18n-title>
+        <object data="img/rate.svg"></object>
+      </button>
+
+      <button id="preferences" autocomplete="off" data-i18n-title>
+        <object data="img/preferences.svg"></object>
+      </button>
+    </section>
+
+    <article id="splash">
       <h1></h1>
       <p></p>
-      <div>
-        <button id="configure" autocomplete="off"
-                data-i18n-textcontent></button>
-        <span data-i18n-textcontent="text">
+      <ul>
+        <li>
+          <button id="configure" autocomplete="off"
+                  data-i18n-textcontent></button>
+        </li>
+        <li data-i18n-textcontent="text">
           {} <select name="server" autocomplete="off"></select>
-        </span>
-      </div>
+        </li>
+      </ul>
     </article>
 
     <script src="../core/i18n.js" type="module"></script>

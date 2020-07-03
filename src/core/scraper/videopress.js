@@ -6,7 +6,7 @@
 import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
- * L'URL de l'API de WordPress.
+ * L'URL de l'API de VideoPress.
  *
  * @constant {string}
  */

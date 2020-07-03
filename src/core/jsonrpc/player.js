@@ -7,7 +7,7 @@ import { NotificationListener } from "./notificationlistener.js";
 /**
  * Convertit un horodatage vers un temps au format objet.
  *
- * @param {number} timestamp L'horadatage.
+ * @param {number} timestamp L'horodatage en secondes.
  * @returns {object} Le temps au format objet contenant l'heure, les minutes,
  *                   les secondes et les millisecondes.
  */
@@ -30,7 +30,7 @@ const toTime = function (timestamp) {
  * @param {number} time.minutes      La minute du temps.
  * @param {number} time.seconds      La seconde du temps.
  * @param {number} time.milliseconds La milliseconde du temps.
- * @returns {number} L'horadatage.
+ * @returns {number} L'horodatage en secondes.
  */
 const toTimestamp = function (time) {
     return time.hours * 3600 + time.minutes * 60 + time.seconds;
@@ -52,14 +52,7 @@ export const Player = class {
     constructor(kodi) {
         this.kodi = kodi;
 
-        this.onAVStart         = new NotificationListener();
-        this.onPause           = new NotificationListener();
-        this.onPlay            = new NotificationListener();
         this.onPropertyChanged = new NotificationListener();
-        this.onResume          = new NotificationListener();
-        this.onSeek            = new NotificationListener();
-        this.onSpeedChanged    = new NotificationListener();
-        this.onStop            = new NotificationListener();
     }
 
     /**
@@ -70,32 +63,30 @@ export const Player = class {
      *                             propriétés.
      */
     async getProperties(properties) {
-        let results;
-        try {
-            results = await this.kodi.send("Player.GetProperties", {
-                playerid:   1,
-                properties: properties.map((property) => {
-                    return "timestamp" === property ||
-                           "totaltimestamp" === property ? property.slice(0, -5)
-                                                         : property;
-                }),
+        const players = await this.kodi.send("Player.GetActivePlayers");
+        // Ne pas demander les propriétés du lecteur vidéo quand un autre
+        // lecteur est actif. https://github.com/xbmc/xbmc/issues/17897
+        if (0 === players.length || players.some((p) => 1 === p.playerid)) {
+            const results = await this.kodi.send("Player.GetProperties", {
+                playerid: 1,
+                properties,
             });
-        } catch {
-            results = {
-                position:  -1,
-                repeat:    "off",
-                shuffled:  false,
-                speed:     0,
-                time:      { hours: 0, minutes: 0, seconds: 0 },
-                totaltime: { hours: 0, minutes: 0, seconds: 0 },
-            };
+            return Object.fromEntries(Object.entries(results)
+                .map(([key, value]) => {
+                    return "time" === key || "totaltime" === key
+                                                     ? [key, toTimestamp(value)]
+                                                     : [key, value];
+                }));
         }
-        return Object.fromEntries(Object.entries(results)
-            .map(([key, value]) => {
-                return "time" === key || "totaltime" === key
-                                           ? [key + "stamp", toTimestamp(value)]
-                                           : [key, value];
-            }));
+
+        return {
+            position:  -1,
+            repeat:    "off",
+            shuffled:  false,
+            speed:     0,
+            time:      0,
+            totaltime: 0,
+        };
     }
 
     /**
@@ -110,28 +101,31 @@ export const Player = class {
     }
 
     /**
-     * Passe au prochain élément dans la liste de lecture.
+     * Passe au prochain ou précédent élément dans la liste de lecture.
      *
+     * @param {string} to <code>"next"</code> pour le prochain élément ;
+     *                    <code>"previous"</code> pour le précédent.
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    next() {
-        return this.kodi.send("Player.GoTo", { playerid: 1, to: "next" });
+    goTo(to) {
+        return this.kodi.send("Player.GoTo", { playerid: 1, to });
     }
 
     /**
      * Démarre la lecture.
      *
-     * @param {number} position La position dans la liste de lecture.
+     * @param {number} [position] La position dans la liste de lecture (ou par
+     *                            défaut le premier élément).
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    open(position) {
+    open(position = 0) {
         return this.kodi.send("Player.Open", {
             item: { playlistid: 1, position },
         });
     }
 
     /**
-     * Lance ou mets en pause la lecture.
+     * Lance ou met en pause la lecture.
      *
      * @returns {Promise.<number>} Une promesse contenant la vitesse de lecture.
      */
@@ -143,33 +137,24 @@ export const Player = class {
     }
 
     /**
-     * Passe au précédent élément dans la liste de lecture.
-     *
-     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
-     */
-    previous() {
-        return this.kodi.send("Player.GoTo", { playerid: 1, to: "previous" });
-    }
-
-    /**
      * Déplace le curseur de lecture.
      *
-     * @param {number} timestamp La nouvelle position en seconde.
+     * @param {number} time La nouvelle position en seconde.
      * @returns {Promise.<number>} Une promesse contenant la nouvelle position
      *                             en seconde.
      */
-    async seek(timestamp) {
+    async seek(time) {
+        // Attention ! Kodi n'accepte pas des positions supérieures à 24h.
+        // https://github.com/xbmc/xbmc/issues/17907
         const result = await this.kodi.send("Player.Seek", {
             playerid: 1,
-            value:    {
-                time: toTime(timestamp),
-            },
+            value:    { time: toTime(time) },
         });
         return toTimestamp(result.time);
     }
 
     /**
-     * Répète la liste de lecture.
+     * Répète la liste de lecture ou un élément de la liste.
      *
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
@@ -181,14 +166,15 @@ export const Player = class {
     }
 
     /**
-     * Mélange la liste de lecture.
+     * Mélange (ou trie) la liste de lecture.
      *
-     * @param {boolean} shuffle <code>true</<code> pour mélanger la liste de
-     *                          lecture ; sinon <code>false</code>.
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
      */
-    setShuffle(shuffle) {
-        return this.kodi.send("Player.SetShuffle", { playerid: 1, shuffle });
+    setShuffle() {
+        return this.kodi.send("Player.SetShuffle", {
+            playerid: 1,
+            shuffle:  "toggle",
+        });
     }
 
     /**
@@ -226,38 +212,47 @@ export const Player = class {
      * @param {object} notification.params      Les paramètres de la méthode.
      * @param {*}      notification.params.data Les données des paramètres.
      */
-    handleNotification({ method, params: { data } }) {
-        // Garder seulement les notifications du lecteur de vidéo.
+    async handleNotification({ method, params: { data } }) {
+        // Garder seulement les notifications du lecteur de vidéo et si des
+        // auditeurs sont présents.
         if (!method.startsWith("Player.") ||
-                "player" in data && 1 !== data.player.playerid) {
+                "player" in data && 1 !== data.player.playerid ||
+                0 === this.onPropertyChanged.length) {
             return;
         }
         switch (method) {
             case "Player.OnAVStart":
-                // La position de l'élément joué n'est pas fournit.
-                this.onAVStart.dispatch(data.player.speed);
+                this.onPropertyChanged.dispatch({
+                    ...await this.getProperties([
+                        "position", "time", "totaltime",
+                    ]),
+                    speed: data.player.speed,
+                });
                 break;
             case "Player.OnPause":
-                this.onPause.dispatch(data.player.speed);
-                break;
-            case "Player.OnPlay":
-                // La position de l'élément joué n'est pas fournit.
-                this.onPlay.dispatch(data.player.speed);
+                this.onPropertyChanged.dispatch({ speed: data.player.speed });
                 break;
             case "Player.OnPropertyChanged":
                 this.onPropertyChanged.dispatch(data.property);
                 break;
             case "Player.OnResume":
-                this.onResume.dispatch(data.player.speed);
+                this.onPropertyChanged.dispatch({ speed: data.player.speed });
                 break;
             case "Player.OnSeek":
-                this.onSeek.dispatch(toTimestamp(data.player.time));
+                this.onPropertyChanged.dispatch({
+                    time: toTimestamp(data.player.time),
+                });
                 break;
             case "Player.OnSpeedChanged":
-                this.onSpeedChanged.dispatch(data.player.speed);
+                this.onPropertyChanged.dispatch({ speed: data.player.speed });
                 break;
             case "Player.OnStop":
-                this.onStop.dispatch(null);
+                this.onPropertyChanged.dispatch({
+                    position:  -1,
+                    speed:     0,
+                    time:      0,
+                    totaltime: 0,
+                });
                 break;
             default:
                 // Ignorer les autres notifications.

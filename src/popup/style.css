@@ -2,27 +2,33 @@ body {
     background-color: #2a2a2e;
     color: #f9f9fa;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr min-content 1fr;
     margin: 0;
-    width: 500px;
+    min-width: 325px;
 }
 
 button {
     background: none;
     border: 0;
-    padding: 12px 8px;
+    box-sizing: border-box;
+    padding: 8px 16px;
+}
+button.micro {
+    padding: 8px;
 }
 label {
     box-sizing: border-box;
-    padding: 12px 8px;
+    padding: 8px 16px;
     text-align: center;
-    width: 100%;
 }
 div {
     text-align: center;
 }
+input[type="range"][orient="vertical"] {
+    padding: 8px 16px;
+}
 
-input[type="checkbox"], input[type="radio"] {
+input[type="radio"], input[type="checkbox"] {
     display: none;
 }
 
@@ -34,14 +40,14 @@ button:hover object svg > *, label:hover object svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
-input[type="checkbox"]:checked ~ object:last-of-type svg > *,
-input[type="radio"]:checked ~ object svg > * {
+input[type="radio"]:checked ~ object svg > *,
+input[type="checkbox"]:checked ~ object:last-of-type svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
 button:disabled object svg > *,
-input[type="checkbox"]:disabled ~ object svg > *,
-input[type="radio"]:disabled ~ object svg > * {
+input[type="radio"]:disabled ~ object svg > *,
+input[type="checkbox"]:disabled ~ object svg > * {
     fill: #737373;
     stroke: #737373;
 }
@@ -68,10 +74,8 @@ input[type="range"].disabled::-moz-range-progress {
     align-items: center;
     border-bottom: 1px solid #737373;
     display: flex;
-    grid-column-end: span 2;
-}
-#cast > * {
-    flex: 1;
+    grid-column-end: span 3;
+    justify-content: center;
 }
 
 #paste textarea {
@@ -89,59 +93,146 @@ input[type="range"].disabled::-moz-range-progress {
     display: block;
 }
 
-#rate {
-    display: none;
+#server {
+    margin-left: auto;
+    visibility: hidden;
 }
 
-#server {
-    grid-column-end: span 5;
+#timing {
+    display: flex;
+    grid-column-end: span 3;
 }
-#server select:empty {
-    display: none;
+#timing time {
+    margin: 12px 8px;
+}
+#time {
+    flex-grow: 1;
 }
 
 #playing {
-    align-items: center;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-}
-#playing > * {
-    text-align: center;
-}
-
-#time {
-    grid-column-end: span 4;
-}
-#volume {
-    grid-column-end: span 2;
+    border-bottom: 1px solid #737373;
+    display: flex;
+    grid-column-end: span 3;
+    justify-content: center;
 }
 #pause {
     display: none;
+}
+
+#sound {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+#volume {
+    grid-row-end: span 2;
+    height: 64px;
+}
+
+#remote {
+    border-left: 1px solid #737373;
+    border-right: 1px solid #737373;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: center;
+}
+#up, #left, #select, #right, #down {
+    background-color: #38383d;
+}
+
+#various {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+#playlist-actions {
+    border-top: 1px solid #737373;
+    display: flex;
+    grid-column-end: span 3;
+    justify-content: flex-end;
 }
 
 #repeat input[value="off"]:checked:not(:disabled):not(:hover) ~ object svg > * {
     fill: #f9f9fa;
     stroke: #f9f9fa;
 }
-#repeat-all, #repeat-one {
+#repeat label {
     display: none;
 }
-
-#remote {
-    align-items: center;
-    border-left: 1px solid #737373;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+#repeat label.checked {
+    display: inline-block;
 }
-#up, #left, #select, #right, #down {
+
+#playlist-items {
+    grid-column-end: span 3;
+    margin-bottom: 8px;
+    width: 100vw;
+}
+
+#playlist-items > span {
+    color: #737373;
+    display: none;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 32px;
+    overflow: hidden;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 16px);
+}
+
+#playlist-items ol {
+    display: none;
+    font-size: 14px;
+    list-style-type: none;
+    margin-bottom: 0;
+    margin-top: 0;
+    max-height: 176px;
+    overflow-y: auto;
+    padding-left: 0;
+}
+
+#playlist-items li {
+    display: flex;
+    height: 32px;
+}
+#playlist-items li:hover {
     background-color: #38383d;
 }
-
-#hidden {
+#playlist-items li span {
+    flex-grow: 1;
+    line-height: 32px;
+    overflow: hidden;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#playlist-items li span.active {
+    font-weight: bold;
+}
+#playlist-items li button {
     display: none;
 }
+#playlist-items li:hover button {
+    display: inline;
+}
 
-article {
+#external {
+    align-items: center;
+    border-top: 1px solid #737373;
+    display: flex;
+    grid-column-end: span 3;
+    justify-content: flex-end;
+}
+#external span {
+    padding: 8px 16px;
+}
+
+#splash {
     background-color: #d70022;
     background-image: url("img/error.svg");
     background-position: 8px 10px;
@@ -158,16 +249,16 @@ article {
     width: calc(100% - 56px);
     z-index: 2;
 }
-article h1 {
+#splash h1 {
     font-size: 17px;
     font-weight: 600;
     margin: 0;
     padding: 0;
 }
-article div {
-    text-align: left;
+#splash ul {
+    padding-left: 16px;
 }
-article button {
+#splash button {
     background-color: #a4000f;
     border-radius: 2px;
     color: white;
@@ -176,15 +267,15 @@ article button {
     height: 24px;
     padding: 0 8px;
 }
-article button:hover {
+#splash button:hover {
     background-color: #5a0002;
 }
-article span {
+#splash li:last-child {
     display: none;
 }
-article select {
+#splash select {
     background-color: #a4000f;
 }
-article select:hover {
+#splash select:hover {
     background-color: #5a0002;
 }

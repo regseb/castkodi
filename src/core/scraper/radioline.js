@@ -25,7 +25,7 @@ const action = async function ({ hash }) {
         return null;
     }
 
-    const key = hash.slice(1).replace(/-/gu, "_");
+    const key = hash.slice(1).replaceAll("-", "_");
     const response = await fetch(API_URL + key + "/play");
     const json = await response.json();
     return "error" === json.body.type ? null

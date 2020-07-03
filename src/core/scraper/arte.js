@@ -32,5 +32,4 @@ const action = async function ({ pathname }) {
                          : files.reduce((b, f) => (b.height < f.height ? f : b))
                                 .url;
 };
-export const extract = matchPattern(action,
-    "*://www.arte.tv/*/videos/*/*");
+export const extract = matchPattern(action, "*://www.arte.tv/*/videos/*/*");

@@ -15,6 +15,15 @@ export const NotificationListener = class {
     }
 
     /**
+     * Retourne le nombre d'auditeurs.
+     *
+     * @returns {number} Le nombre d'auditeurs.
+     */
+    get length() {
+        return this.listeners.length;
+    }
+
+    /**
      * Ajoute un auditeur dans le gestionnaire.
      *
      * @param {Function} listener La fonction appelée lors d'une notification.

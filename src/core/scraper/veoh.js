@@ -6,7 +6,7 @@
 import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
- * L'URL du l'API de Veoh pour obtenir des informations sur une vidéo.
+ * L'URL de l'API de Veoh pour obtenir des informations sur une vidéo.
  *
  * @constant {string}
  */
