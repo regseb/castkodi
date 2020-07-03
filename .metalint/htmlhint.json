@@ -1,5 +1,5 @@
 {
-    "alt-require": true,
+    "alt-require": false,
     "attr-lowercase": true,
     "attr-no-duplication": true,
     "attr-no-unnecessary-whitespace": true,

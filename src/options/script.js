@@ -76,7 +76,7 @@ const save = async function () {
     const key = this.form.id;
     if ("server" === key) {
         if ("server-mode" === this.name) {
-            const tab = this.parentElement.parentElement.parentElement;
+            const tab = this.closest("details");
             tab.open = true;
             if ("single" === this.value) {
                 // Modifier la configuration en une fois pour éviter d'appeler
@@ -136,13 +136,8 @@ const save = async function () {
 const remove = function (event) {
     const tbody = document.querySelector("tbody");
     // Enlever la ligne.
-    let row;
-    if ("BUTTON" === event.target.tagName) {
-        row = event.target.parentElement.parentElement;
-    } else {
-        row = event.target.parentElement.parentElement.parentElement;
-    }
-    document.querySelector("table").deleteRow(row.rowIndex);
+    document.querySelector("table")
+            .deleteRow(event.target.closest("tr").rowIndex);
 
     // Recalculer les index.
     let index = 0;
@@ -213,7 +208,7 @@ browser.storage.local.get().then((config) => {
         } else if ("server-mode" === key) {
             for (const input of document
                                .querySelectorAll(`input[name="server-mode"]`)) {
-                const tab = input.parentElement.parentElement.parentElement;
+                const tab = input.closest("details");
                 if (value === input.value) {
                     input.checked = true;
                     tab.open = true;
