@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/regseb/castkodi/compare/v5.0.0...v5.0.1) (2020-07-03)
+
+
+### Bug Fixes
+
+* Corriger la suppression d'un serveur. ([d779405](https://github.com/regseb/castkodi/commit/d779405a4b4af80b884d74fec6e4537f48ab824c))
+
 ## [5.0.0](https://github.com/regseb/castkodi/compare/v4.17.1...v5.0.0) (2020-07-03)
 
 
