@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/regseb/castkodi/compare/v4.17.1...v5.0.0) (2020-07-03)
+
+
+### Features
+
+* Ajouter la liste de lecture dans la popup. ([550b768](https://github.com/regseb/castkodi/commit/550b768ed5dad6f97f0e9ab169989dd45d5512c8))
+* Gérer les nouvelles URLs de Dumpert. ([aa36c98](https://github.com/regseb/castkodi/commit/aa36c984456a944f165d568e63986b6435abe3d5))
+* Lire automatiquement les playlists YouTube. ([4e31210](https://github.com/regseb/castkodi/commit/4e312109ff90657acbe0f5dae4e1a537872c9cf4))
+
+
+### Bug Fixes
+
+* Actualiser la scraper de KCAA Radio. ([96a489d](https://github.com/regseb/castkodi/commit/96a489ddbd28635c7200c29fe95d9221264980d9))
+* Actualiser le scraper de Radio. ([79f1a9e](https://github.com/regseb/castkodi/commit/79f1a9eb1b77af70bc6678fdab931da30bc5c9ad))
+
 ### [4.17.1](https://github.com/regseb/castkodi/compare/v4.17.0...v4.17.1) (2020-05-01)
 
 
