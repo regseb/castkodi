@@ -41,14 +41,14 @@
         "message": "Aucune adresse"
     },
     "notifications_unconfigured_message": {
-        "message": "L'adresse IP du serveur Web de Kodi n'est pas renseignée."
+        "message": "L'adresse du serveur Web de Kodi n'est pas renseignée."
     },
 
-    "notifications_badHost_title": {
+    "notifications_badAddress_title": {
         "message": "Adresse invalide"
     },
-    "notifications_badHost_message": {
-        "message": "L'adresse IP du serveur Web de Kodi $ADDRESS$ est invalide.",
+    "notifications_badAddress_message": {
+        "message": "L'adresse du serveur Web de Kodi $ADDRESS$ est invalide.",
         "placeholders": {
             "address": {
                 "content": "$1"
@@ -60,7 +60,7 @@
         "message": "Kodi non trouvé"
     },
     "notifications_notFound_message": {
-        "message": "L'adresse IP du serveur Web de Kodi $ADDRESS$ est invalide ; ou le contrôle à distance n'est pas activé dans Kodi.",
+        "message": "L'adresse du serveur Web de Kodi $ADDRESS$ est invalide ; ou le contrôle à distance n'est pas activé dans Kodi.",
         "placeholders": {
             "address": {
                 "content": "$1"
@@ -210,14 +210,17 @@
     "options_serverModeSingle_textcontent": {
         "message": "Configurer un seul serveur"
     },
-    "options_serverHost_textcontent": {
-        "message": "Adresse IP :"
+    "options_serverAddress_textcontent": {
+        "message": "Adresse :"
+    },
+    "options_serverAddress_title": {
+        "message": "Adresse IP ou adresse complète (par exemple : 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
     },
     "options_serverModeMulti_textcontent": {
         "message": "Configurer plusieurs serveurs"
     },
-    "options_serverHosts_textcontent": {
-        "message": "Adresse IP"
+    "options_serverAddresses_textcontent": {
+        "message": "Adresse"
     },
     "options_serverNames_textcontent": {
         "message": "Nom"
@@ -225,7 +228,7 @@
     "options_serverAdd_textcontent": {
         "message": "Ajouter un serveur"
     },
-    "options_serverHost_placeholder": {
+    "options_serverAddress_placeholder": {
         "message": "192.168.0.1"
     },
     "options_serverName_placeholder": {

@@ -27,27 +27,27 @@ const ask = async function (input) {
 /**
  * Vérifie la connexion à Kodi.
  *
- * @param {HTMLInputElement} input Le champ de l'adresse IP.
+ * @param {HTMLInputElement} input Le champ de l'adresse.
  */
 const check = async function (input) {
     input.setCustomValidity("");
     input.removeAttribute("title");
-    if (input.name.startsWith("host_")) {
+    if (input.name.startsWith("address_")) {
         input.style.backgroundImage = `url("img/loading.svg")`;
-        const host = input.value;
+        const address = input.value;
         try {
-            await Kodi.check(host);
+            await Kodi.check(address);
             // Indiquer la réussite si la valeur testée est toujours la valeur
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette réussite.
-            if (host === input.value) {
+            if (address === input.value) {
                 input.style.backgroundImage = `url("img/connected.svg")`;
             }
         } catch (err) {
             // Afficher l'erreur si la valeur testée est toujours la valeur
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette erreur.
-            if (host === input.value) {
+            if (address === input.value) {
                 if ("notFound" === err.type) {
                     input.title = err.message;
                     input.style.backgroundImage = `url("img/warning.svg")`;
@@ -91,20 +91,21 @@ const save = async function () {
                 tab.previousElementSibling.open = false;
             }
         } else {
-            // Synchroniser les deux champs de l'adresse IP du premier serveur.
-            if ("host_0" === this.name) {
+            // Synchroniser les deux champs de l'adresse du premier serveur.
+            if ("address_0" === this.name) {
                 for (const input of
-                           this.form.querySelectorAll(`input[name="host_0"]`)) {
+                        this.form.querySelectorAll(`input[name="address_0"]`)) {
                     input.value = this.value;
                 }
             }
             const list = [];
             for (const input of this.form.querySelectorAll(`tbody input`)) {
-                const index = Number(input.name.slice(5));
+                const [type, position] = input.name.split("_");
+                const index = Number(position);
                 if (undefined === list[index]) {
-                    list[index] = { [input.name.slice(0, 4)]: input.value };
+                    list[index] = { [type]: input.value };
                 } else {
-                    list[index][input.name.slice(0, 4)] = input.value;
+                    list[index][type] = input.value;
                 }
             }
             browser.storage.local.set({ "server-list": list });
@@ -143,7 +144,8 @@ const remove = function (event) {
     let index = 0;
     for (const tr of document.querySelectorAll("tbody tr")) {
         for (const input of tr.querySelectorAll("input")) {
-            input.name = input.name.slice(0, 5) + index.toString();
+            const type = input.name.slice(0, input.name.indexOf("_"));
+            input.name = type + "_" + index.toString();
         }
         ++index;
     }
@@ -155,7 +157,7 @@ const remove = function (event) {
     }
 
     // Enregistrer la nouvelle configuration.
-    save.bind(tbody.querySelector(`[name="host_0"]`))();
+    save.bind(tbody.querySelector(`[name="address_0"]`))();
     return false;
 };
 
@@ -168,15 +170,15 @@ const add = function (server) {
     const index = document.querySelectorAll("tbody tr").length;
 
     const tr = document.querySelector("template").content.cloneNode(true);
-    const host = tr.querySelector(`[name="host_"]`);
-    if ("host" in server) {
-        host.value = server.host;
+    const address = tr.querySelector(`[name="address_"]`);
+    if ("address" in server) {
+        address.value = server.address;
     }
-    host.name += index.toString();
-    host.addEventListener("input", save);
+    address.name += index.toString();
+    address.addEventListener("input", save);
     if (0 === index) {
-        const single = document.querySelector(`[name="host_0"]`);
-        single.value = server.host;
+        const single = document.querySelector(`[name="address_0"]`);
+        single.value = server.address;
         check(single);
         tr.querySelector("button").disabled = true;
     } else {
@@ -195,7 +197,7 @@ const add = function (server) {
     document.querySelector("tbody").append(tr);
 
     // Vérifier la connexion à Kodi.
-    check(host);
+    check(address);
 
     return false;
 };

@@ -4,12 +4,17 @@ body {
     margin-top: 0;
     padding-top: 8px;
 }
+
+sup {
+    cursor: help;
+}
+
 input[type="text"] {
     background-position: right 8px center;
     background-repeat: no-repeat;
     padding: 0 32px 0 8px;
 }
-input[name^="host_"] {
+input[name^="address_"] {
     background-image: url("img/loading.svg");
 }
 

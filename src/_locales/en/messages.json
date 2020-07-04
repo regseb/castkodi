@@ -41,14 +41,14 @@
         "message": "No address"
     },
     "notifications_unconfigured_message": {
-        "message": "IP address of Kodi Web server is missing in options."
+        "message": "Address of Kodi Web server is missing in options."
     },
 
-    "notifications_badHost_title": {
+    "notifications_badAddress_title": {
         "message": "Address invalid"
     },
-    "notifications_badHost_message": {
-        "message": "IP address of Kodi Web server $ADDRESS$ is invalid.",
+    "notifications_badAddress_message": {
+        "message": "Address of Kodi Web server $ADDRESS$ is invalid.",
         "placeholders": {
             "address": {
                 "content": "$1"
@@ -60,7 +60,7 @@
         "message": "Kodi not found"
     },
     "notifications_notFound_message": {
-        "message": "IP address of Kodi Web server $ADDRESS$ is invalid or Kodi's remote control isn't enabled.",
+        "message": "Address of Kodi Web server $ADDRESS$ is invalid or Kodi's remote control isn't enabled.",
         "placeholders": {
             "address": {
                 "content": "$1"
@@ -210,14 +210,17 @@
     "options_serverModeSingle_textcontent": {
         "message": "Configure one server"
     },
-    "options_serverHost_textcontent": {
-        "message": "IP address:"
+    "options_serverAddress_textcontent": {
+        "message": "Address:"
+    },
+    "options_serverAddress_title": {
+        "message": "IP address or full address (for example : 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
     },
     "options_serverModeMulti_textcontent": {
         "message": "Configure many servers"
     },
-    "options_serverHosts_textcontent": {
-        "message": "IP address"
+    "options_serverAddresses_textcontent": {
+        "message": "Address"
     },
     "options_serverNames_textcontent": {
         "message": "Name"
@@ -225,7 +228,7 @@
     "options_serverAdd_textcontent": {
         "message": "Add server"
     },
-    "options_serverHost_placeholder": {
+    "options_serverAddress_placeholder": {
         "message": "192.168.0.1"
     },
     "options_serverName_placeholder": {

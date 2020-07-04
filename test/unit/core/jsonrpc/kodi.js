@@ -67,7 +67,7 @@ describe("core/jsonrpc/kodi.js", function () {
     });
 
     describe("send()", function () {
-        it("should return error when no host", async function () {
+        it("should return error when no address", async function () {
             try {
                 const kodi = new Kodi("");
                 await kodi.send("foo");
@@ -78,14 +78,14 @@ describe("core/jsonrpc/kodi.js", function () {
             }
         });
 
-        it("should return error when host is invalid", async function () {
+        it("should return error when address is invalid", async function () {
             try {
-                const kodi = new Kodi("bad host");
+                const kodi = new Kodi("bad address");
                 await kodi.send("foo");
                 assert.fail();
             } catch (err) {
                 assert.strictEqual(err.name, "PebkacError");
-                assert.strictEqual(err.type, "badHost");
+                assert.strictEqual(err.type, "badAddress");
             }
         });
 
@@ -96,7 +96,7 @@ describe("core/jsonrpc/kodi.js", function () {
                 assert.fail();
             } catch (err) {
                 assert.strictEqual(err.name, "PebkacError");
-                assert.strictEqual(err.type, "badHost");
+                assert.strictEqual(err.type, "badAddress");
             }
         });
 
@@ -172,7 +172,10 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should send request from configuration", async function () {
             browser.storage.local.set({
-                "server-list":   [{ host: "localhost" }, { host: "127.0.0.1" }],
+                "server-list":   [
+                    { address: "localhost" },
+                    { address: "127.0.0.1" },
+                ],
                 "server-active": 0,
             });
             const fake = sinon.fake.resolves("OK");

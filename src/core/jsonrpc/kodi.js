@@ -20,28 +20,60 @@ export const Kodi = class {
     /**
      * Vérifie la connexion à Kodi.
      *
-     * @param {string} host L'adresse IP (ou le nom de domaine) du serveur
-     *                      hébergeant Kodi.
+     * @param {string} address L'adresse IP ou l'adresse complète du service de
+     *                         Kodi.
      * @returns {Promise.<object>} Une promesse tenue si Kodi est accessible ;
      *                             sinon une promesse rompue.
      */
-    static async check(host) {
-        const kodi = new Kodi(host);
+    static async check(address) {
+        const kodi = new Kodi(address);
         const result = await kodi.send("JSONRPC.Version");
         kodi.close();
         return result;
     }
 
     /**
+     * Construit une URL vers le service de Kodi.
+     *
+     * @param {string} address L'adresse IP ou l'adresse complête du service de
+     *                         Kodi.
+     * @returns {Promise.<URL>} Une promesse contenant l'URL.
+     */
+    static build(address) {
+        if ("" === address) {
+            throw new PebkacError("unconfigured");
+        }
+        let url;
+        try {
+            url = new URL(address);
+        } catch {
+            // Si la connexion avec l'adresse complète n'a pas fonctionnée :
+            // essayer avec l'adresse IP (en y ajoutant le protocol, le port et
+            // le chemin).
+            try {
+                url = new URL("ws://" + address + ":9090/jsonrpc");
+            } catch {
+                throw new PebkacError("badAddress", address);
+            }
+            // Si l'URL est incorrecte (car l'adresse IP a été corrigée par le
+            // constructeur).
+            if (url.hostname !== address.toLowerCase()) {
+                throw new PebkacError("badAddress", address);
+            }
+        }
+        return url;
+    }
+
+    /**
      * Crée un client JSON-RPC pour contacter Kodi.
      *
-     * @param {?string} [host=null] L'adresse IP (ou le nom de domaine) du
-     *                              serveur hébergeant Kodi ; ou
-     *                              <code>null</code> pour récupérer l'adresse
-     *                              dans la configuration.
+     * @param {?string} [address=null] L'adresse IP ou l'adresse complète du
+     *                                 service de Kodi ; ou <code>null</code>
+     *                                 pour récupérer l'adresse dans la
+     *                                 configuration.
      */
-    constructor(host = null) {
-        this.host = host;
+    constructor(address = null) {
+        this.address = address;
         this.jsonrpc = null;
 
         this.application = new Application(this);
@@ -70,30 +102,18 @@ export const Kodi = class {
      */
     async send(method, params) {
         if (null === this.jsonrpc) {
-            let host;
-            if (null === this.host) {
+            let address;
+            if (null === this.address) {
                 const config = await browser.storage.local.get([
                     "server-list",
                     "server-active",
                 ]);
-                host = config["server-list"][config["server-active"]].host;
+                address = config["server-list"][config["server-active"]]
+                                                                       .address;
             } else {
-                host = this.host;
+                address = this.address;
             }
-            if ("" === host) {
-                throw new PebkacError("unconfigured");
-            }
-            let url;
-            try {
-                url = new URL("ws://" + host + ":9090/jsonrpc");
-            } catch {
-                throw new PebkacError("badHost", host);
-            }
-            // Si l'URL est incorrecte (car le nom de domaine a été corrigé
-            // par le constructeur).
-            if (url.hostname !== host.toLowerCase()) {
-                throw new PebkacError("badHost", host);
-            }
+            const url = Kodi.build(address);
 
             try {
                 this.jsonrpc = await JSONRPC.open(url);
@@ -106,7 +126,7 @@ export const Kodi = class {
                     this.playlist.handleNotification(event);
                 });
             } catch {
-                throw new PebkacError("notFound", host);
+                throw new PebkacError("notFound", address);
             }
         }
 

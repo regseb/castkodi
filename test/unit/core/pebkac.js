@@ -6,7 +6,7 @@ describe("core/pebkac.js", function () {
         it("should accept one parameter", function () {
             const err = new PebkacError("unconfigured");
             assert.strictEqual(err.message,
-                               "IP address of Kodi Web server is missing in" +
+                               "Address of Kodi Web server is missing in" +
                                " options.");
             assert.strictEqual(err.name, "PebkacError");
             assert.strictEqual(err.type, "unconfigured");
@@ -14,12 +14,12 @@ describe("core/pebkac.js", function () {
         });
 
         it("should accept two parameters", function () {
-            const err = new PebkacError("badHost", "127.0.0.1");
+            const err = new PebkacError("badAddress", "127.0.0.1");
             assert.strictEqual(err.message,
-                              "IP address of Kodi Web server 127.0.0.1 is" +
+                              "Address of Kodi Web server 127.0.0.1 is" +
                               " invalid.");
             assert.strictEqual(err.name, "PebkacError");
-            assert.strictEqual(err.type, "badHost");
+            assert.strictEqual(err.type, "badAddress");
             assert.strictEqual(err.title, "Address invalid");
         });
     });

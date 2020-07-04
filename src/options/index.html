@@ -19,10 +19,11 @@
           </label>
         </summary>
         <div>
-          <label data-i18n-textcontent="server-host">
-            {}
-            <input name="host_0" type="text" required autocomplete="off"
-                   spellcheck="false" data-i18n-placeholder="server-host" />
+          <label data-i18n-textcontent="server-address"
+                 data-i18n-title="server-address">
+            {} <sup><object data="img/help.svg"></object></sup>
+            <input name="address_0" type="text" required autocomplete="off"
+                   spellcheck="false" data-i18n-placeholder="server-address" />
           </label>
         </div>
       </details>
@@ -35,7 +36,10 @@
         <table>
           <thead>
             <tr>
-              <th data-i18n-textcontent="server-hosts"></th>
+              <th data-i18n-textcontent="server-addresses"
+                  data-i18n-title="server-address">
+                {} <sup><object data="img/help.svg"></object></sup>
+              </th>
               <th data-i18n-textcontent="server-names"></th>
               <th></th>
             </tr>
@@ -53,8 +57,9 @@
         <template>
           <tr>
             <td>
-              <input name="host_" type="text" required autocomplete="off"
-                     spellcheck="false" data-i18n-placeholder="server-host" />
+              <input name="address_" type="text" required autocomplete="off"
+                     spellcheck="false"
+                     data-i18n-placeholder="server-address" />
             </td>
             <td>
               <input name="name_" type="text" required autocomplete="off"
