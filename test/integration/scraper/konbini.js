@@ -5,7 +5,7 @@ describe("Scraper: Konbini", function () {
     it("should return URL [iframe-youtube]", async function () {
         const url = "https://www.konbini.com/fr/cinema/sam-mendes-plonge" +
                                   "-lhorreur-tranchees-premier-trailer-de-1917";
-        const options = { depth: 0, incognito: true };
+        const options = { depth: false, incognito: true };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

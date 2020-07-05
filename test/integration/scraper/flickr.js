@@ -5,7 +5,7 @@ describe("Scraper: Flickr", function () {
     it("should return URL when it's not a video", async function () {
         const url = "https://www.flickr.com/photos/europeanspaceagency" +
                                      "/48194834627/in/album-72157709420314132/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -13,7 +13,7 @@ describe("Scraper: Flickr", function () {
 
     it("should return video URL", async function () {
         const url = "https://www.flickr.com/photos/nasahqphoto/50041655251/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.startsWith("https://live.staticflickr.com/video" +

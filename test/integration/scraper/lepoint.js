@@ -8,7 +8,7 @@ describe("Scraper: Le Point", function () {
                                          "-pression-sur-les-geants-d-internet" +
                                                   "-29-01-2019-2289710_28.php" +
                                                   "#xtmc=firefox&xtnp=1&xtcr=4";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -20,7 +20,7 @@ describe("Scraper: Le Point", function () {
                                                  "-intrigue-les-scientifiques" +
                                                 "-18-02-2020-2363244_1925.php" +
                                                    "#xtmc=video&xtnp=7&xtcr=61";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -32,7 +32,7 @@ describe("Scraper: Le Point", function () {
         const url = "https://www.lepoint.fr/pop-culture" +
                          "/tout-ce-qu-il-faut-savoir-sur-le-prochain-oss-117-" +
                                                  "-20-02-2020-2363643_2920.php";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Ace Stream", function () {
     it("should return video URL", async function () {
         const url = "acestream://94c2fd8fb9bc8f2fc71a2cbe9d4b866f227a0209";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

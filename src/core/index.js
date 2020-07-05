@@ -61,7 +61,7 @@ export const cast = async function (action, urls) {
 
 
     const file = await extract(new URL(url), {
-        depth:     0,
+        depth:     false,
         incognito: browser.extension.inIncognitoContext,
     });
     if ("send" === action) {

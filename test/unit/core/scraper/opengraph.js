@@ -7,7 +7,7 @@ describe("core/scraper/opengraph.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractVideo(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -21,7 +21,7 @@ describe("core/scraper/opengraph.js", function () {
                       <head></head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractVideo(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -38,7 +38,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractVideo(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -57,7 +57,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractVideo(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -75,7 +75,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractVideo(new URL(url), content, options);
             assert.strictEqual(file, "http://bar.com/baz.mkv");
@@ -93,7 +93,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 1 };
+            const options = { depth: true };
 
             const file = await extractVideo(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -111,7 +111,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0, incognito: true };
+            const options = { depth: false, incognito: true };
 
             const file = await extractVideo(new URL(url), content, options);
             assert.strictEqual(file,
@@ -124,7 +124,7 @@ describe("core/scraper/opengraph.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractAudio(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -138,7 +138,7 @@ describe("core/scraper/opengraph.js", function () {
                       <head></head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractAudio(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -155,7 +155,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractAudio(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -174,7 +174,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractAudio(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -192,7 +192,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractAudio(new URL(url), content, options);
             assert.strictEqual(file, "http://bar.com/baz.wav");
@@ -210,7 +210,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 1 };
+            const options = { depth: true };
 
             const file = await extractAudio(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -228,7 +228,7 @@ describe("core/scraper/opengraph.js", function () {
                       </head>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extractAudio(new URL(url), content, options);
             assert.strictEqual(file,

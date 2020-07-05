@@ -16,14 +16,15 @@ import { extract as metaExtract } from "../scrapers.js";
  *                                     contenant le document HTML ou
  *                                     <code>null</code>.
  * @param {object}   options           Les options de l'extraction.
- * @param {number}   options.depth     Le niveau de profondeur de l'extraction.
+ * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ href }, content, options) {
-    if (0 < options.depth) {
+    if (options.depth) {
         return null;
     }
     const doc = await content.html();
@@ -34,7 +35,7 @@ const action = async function ({ href }, content, options) {
     for (const iframe of doc.querySelectorAll("iframe[src]")) {
         const file = await metaExtract(
             new URL(iframe.getAttribute("src"), href),
-            { ...options, depth: options.depth + 1 },
+            { ...options, depth: true },
         );
         if (null !== file) {
             return file;

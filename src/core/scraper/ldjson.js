@@ -44,7 +44,8 @@ const walk = function (root) {
  *                                     contenant le document HTML ou
  *                                     <code>null</code>.
  * @param {object}   options           Les options de l'extraction.
- * @param {number}   options.depth     Le niveau de profondeur de l'extraction.
+ * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
@@ -66,10 +67,10 @@ const action = async function ({ href }, content, options) {
                 if ("contentUrl" in property) {
                     return property.contentUrl;
                 }
-                if ("embedUrl" in property) {
+                if ("embedUrl" in property && !options.depth) {
                     const file = await metaExtract(
                         new URL(property.embedUrl, href),
-                        { ...options, depth: options.depth + 1 },
+                        { ...options, depth: true },
                     );
                     if (null !== file) {
                         return file;

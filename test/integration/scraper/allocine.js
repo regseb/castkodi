@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: AlloCiné", function () {
     it("should return URL when it's not a video", async function () {
         const url = "http://www.allocine.fr/video/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -12,7 +12,7 @@ describe("Scraper: AlloCiné", function () {
 
     it("should return standard video URL", async function () {
         const url = "http://www.allocine.fr/video/video-19577157/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -23,7 +23,7 @@ describe("Scraper: AlloCiné", function () {
     it("should return high video URL", async function () {
         const url = "http://www.allocine.fr/video" +
                                 "/player_gen_cmedia=19583315&cfilm=232669.html";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -34,7 +34,7 @@ describe("Scraper: AlloCiné", function () {
     it("should return medium video URL", async function () {
         const url = "http://www.allocine.fr/video" +
                                   "/player_gen_cmedia=19432206&cfilm=1051.html";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -45,7 +45,7 @@ describe("Scraper: AlloCiné", function () {
     it("should return video URL from RSS", async function () {
         const url = "http://rss.allocine.fr/~r/ac/actualites/cine/~3" +
                          "/JT3DmCdQCdQ/fichearticle_gen_carticle=18685966.html";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

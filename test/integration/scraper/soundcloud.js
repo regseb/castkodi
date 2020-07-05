@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: SoundCloud", function () {
     it("should return URL when it's not an audio", async function () {
         const url = "https://developers.soundcloud.com/docs/api/guide";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -13,7 +13,7 @@ describe("Scraper: SoundCloud", function () {
     it("should return audio url", async function () {
         const url = "https://soundcloud.com/a-tribe-called-red" +
                                                        "/electric-pow-wow-drum";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -24,7 +24,7 @@ describe("Scraper: SoundCloud", function () {
 
     it("should return audio url from mobile version", async function () {
         const url = "https://mobi.soundcloud.com/esa/a-singing-comet";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

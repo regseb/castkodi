@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Steam", function () {
     it("should return URL when it's not a video", async function () {
         const url = "https://store.steampowered.com/app/400/Portal/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -12,7 +12,7 @@ describe("Scraper: Steam", function () {
 
     it("should return video URL", async function () {
         const url = "https://store.steampowered.com/app/620/Portal_2/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -22,7 +22,7 @@ describe("Scraper: Steam", function () {
 
     it("should return video URL when protocol is HTTP", async function () {
         const url = "http://store.steampowered.com/app/322500/SUPERHOT/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -32,7 +32,7 @@ describe("Scraper: Steam", function () {
 
     it("should return URL when it's not a broadcast", async function () {
         const url = "https://steamcommunity.com/broadcast/watch/404";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -46,7 +46,7 @@ describe("Scraper: Steam", function () {
         const doc = new DOMParser().parseFromString(text, "text/html");
 
         const url = doc.querySelector("a").href;
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith("/master.m3u8"),

@@ -5,7 +5,7 @@ describe("Scraper: Metacafe", function () {
     it("should return URL when it's not a video", async function () {
         const url = "https://www.metacafe.com/galleries/62479" +
                            "/just-let-these-pictures-do-the-explaining/305047/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -15,7 +15,7 @@ describe("Scraper: Metacafe", function () {
         const url = "https://www.metacafe.com/watch/11516798" +
                                     "/even-the-horse-showed-it-s-sympathy-for" +
                                         "-the-girl-who-just-couldn-t-climb-up/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

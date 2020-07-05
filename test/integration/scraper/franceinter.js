@@ -5,7 +5,7 @@ describe("Scraper: France Inter", function () {
     it("should return audio URL [ldjson]", async function () {
         const url = "https://www.franceinter.fr/emissions/blockbusters" +
                                             "/blockbusters-19-juillet-2019";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

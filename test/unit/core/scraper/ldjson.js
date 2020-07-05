@@ -6,7 +6,7 @@ describe("core/scraper/ldjson.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://foo.com";
             const content = { html: () => Promise.resolve(null) };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -20,7 +20,7 @@ describe("core/scraper/ldjson.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -36,7 +36,7 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -56,7 +56,7 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -75,7 +75,7 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -95,7 +95,7 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, "https://bar.com/baz.mkv");
@@ -118,7 +118,7 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, "https://bar.com/baz.flac");
@@ -144,12 +144,33 @@ describe("core/scraper/ldjson.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                                     "&url=baz");
+        });
+
+        it("should ignore embedUrl in depther", async function () {
+            const url = "http://foo.com";
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script type="application/ld+json">{
+                            "@context":"http://schema.org/",
+                            "@type":"VideoObject",
+                            "embedUrl":"https://www.dailymotion.com/embed` +
+                                                                    `/video/baz"
+                        }</script>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: true };
+
+            const file = await extract(new URL(url), content, options);
+            assert.strictEqual(file, null);
         });
     });
 });

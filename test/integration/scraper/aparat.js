@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: آپارات (Aparat)", function () {
     it("should return URL when it's not a show", async function () {
         const url = "https://www.aparat.com/movies";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -12,7 +12,7 @@ describe("Scraper: آپارات (Aparat)", function () {
 
     it("should return show URL", async function () {
         const url = "https://www.aparat.com/v/IWTPf";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.includes(".cdn.asset.aparat.com/aparat-video" +
@@ -23,7 +23,7 @@ describe("Scraper: آپارات (Aparat)", function () {
     it("should return show URL when protocol is HTTP [opengraph]",
                                                              async function () {
         const url = "http://www.aparat.com/v/Qk9jp";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.includes(".cdn.asset.aparat.com/aparat-video" +

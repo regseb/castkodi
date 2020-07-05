@@ -5,7 +5,7 @@ describe("Scraper: Útvarp Saga", function () {
     it("should return video URL [audio]", async function () {
         const url = "https://utvarpsaga.is/" +
                              "snjallsimarnir-eru-farnir-ad-stjorna-lifi-folks/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

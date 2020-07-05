@@ -13,7 +13,7 @@ describe("core/scraper/ouestfrance.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://www.ouest-france.fr/foo";
             const content = { html: () => Promise.resolve(null) };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -30,7 +30,7 @@ describe("core/scraper/ouestfrance.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 1 };
+            const options = { depth: true };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -44,7 +44,7 @@ describe("core/scraper/ouestfrance.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -61,7 +61,7 @@ describe("core/scraper/ouestfrance.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file,

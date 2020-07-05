@@ -6,7 +6,7 @@ describe("Scraper: 20 Minutes", function () {
         const url = "https://www.20minutes.fr/high-tech" +
                                        "/2694715-20200114-mozilla-devoile-son" +
                                         "-assistant-virtuel-pense-pour-firefox";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -15,7 +15,7 @@ describe("Scraper: 20 Minutes", function () {
     it("should return video URL [ldjson-ultimedia]", async function () {
         const url = "https://www.20minutes.fr/sciences" +
                     "/2697215-20200117-ariane-5-succes-premier-lancement-annee";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.endsWith("/59/6b/596b282e57e592e47df9a6f0434f3281f82b7" +

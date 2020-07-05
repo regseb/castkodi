@@ -13,7 +13,7 @@ describe("Labeller: Twitch", function () {
 
         const url = "https://m.twitch.tv" +
                     doc.querySelector(".channel-list a.tw-link").href;
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await scraper(new URL(url), options);
         const label = await extract({ file, label: "", type: "unknown" });
@@ -23,7 +23,7 @@ describe("Labeller: Twitch", function () {
     it("should return default label when channel is offline",
                                                              async function () {
         const url = "https://www.twitch.tv/supersynock";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await scraper(new URL(url), options);
         const label = await extract({ file, label: "", type: "unknown" });
@@ -40,7 +40,7 @@ describe("Labeller: Twitch", function () {
 
         const url = "https://m.twitch.tv" +
                     doc.querySelector(`a.tw-link[href^="/videos/"]`).href;
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await scraper(new URL(url), options);
         const label = await extract({ file, label: "", type: "unknown" });

@@ -6,7 +6,7 @@ describe("Scraper: Invidious", function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = "https://invidio.us/watch?v=e6EQwSadpPk";
-        const options = { depth: 0, incognito: true };
+        const options = { depth: false, incognito: true };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -18,7 +18,7 @@ describe("Scraper: Invidious", function () {
 
     it("should return embed video id [youtube]", async function () {
         const url = "https://invidio.us/embed/8cmBd7lkunk";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

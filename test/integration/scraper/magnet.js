@@ -10,7 +10,7 @@ describe("Scraper: magnet", function () {
                         "&tr=udp%3a%2f%2ftracker.publicbt.com%3a80%2fannounce" +
                        "&ws=http%3a%2f%2fdistribution.bbb3d.renderfarming.net" +
                         "%2fvideo%2fmp4%2fbbb_sunflower_1080p_30fps_normal.mp4";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

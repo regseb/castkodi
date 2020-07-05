@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Первый канал (1tv.ru)", function () {
     it("should return URL when it's not a show", async function () {
         const url = "https://www.1tv.ru/shows/kvn";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -14,7 +14,7 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
         const url = "https://www.1tv.ru/shows/pozner/izbrannoe" +
                     "/razvlech-publiku-lozhyu-slozhno-maksim-galkin-o-svobode" +
                                 "-yumora-pozner-fragment-vypuska-ot-03-06-2019";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -26,7 +26,7 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
     it("should return show URL when protocol is HTTP", async function () {
         const url = "http://www.1tv.ru/shows/zdorove/vypuski" +
                                                 "/zdorove-vypusk-ot-26-05-2019";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,
@@ -37,7 +37,7 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
 
     it("should return show URL from embed", async function () {
         const url = "https://www.1tv.ru/embed/160522:12";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.startsWith("https://balancer-vod.1tv.ru/video" +
@@ -51,7 +51,7 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
 
     it("should return URL when it's not a movie", async function () {
         const url = "https://www.1tv.ru/movies/vse-filmy";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -66,7 +66,7 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
         const url = "https://www.1tv.ru" +
                doc.querySelector(`article.hasVideo[data-type="content_modal"]` +
                                  ` a[href^="/movies/"]`);
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.startsWith("https://balancer-vod.1tv.ru/video" +

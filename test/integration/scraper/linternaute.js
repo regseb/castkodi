@@ -6,7 +6,7 @@ describe("Scraper: L'internaute", function () {
         const url = "https://www.linternaute.com/cinema/film" +
                                 "/2462551-films-pixar-selection-des-meilleurs" +
                                            "-et-liste-de-tous-les-films-pixar/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -15,7 +15,7 @@ describe("Scraper: L'internaute", function () {
     it("should return video URL [ldjson]", async function () {
         const url = "https://www.linternaute.fr/cinema/tous-les-films" +
                                                "/2424867-les-enfants-du-temps/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

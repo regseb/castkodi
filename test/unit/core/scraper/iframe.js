@@ -6,7 +6,7 @@ describe("core/scraper/iframe.js", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = "https://example.com/not_html.zip";
             const content = { html: () => Promise.resolve(null) };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -22,7 +22,7 @@ describe("core/scraper/iframe.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 1 };
+            const options = { depth: true };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -36,7 +36,7 @@ describe("core/scraper/iframe.js", function () {
                       <body></body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0 };
+            const options = { depth: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file, null);
@@ -52,7 +52,7 @@ describe("core/scraper/iframe.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0, incognito: true };
+            const options = { depth: false, incognito: true };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file,
@@ -71,7 +71,7 @@ describe("core/scraper/iframe.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { depth: 0, incognito: false };
+            const options = { depth: false, incognito: false };
 
             const file = await extract(new URL(url), content, options);
             assert.strictEqual(file,

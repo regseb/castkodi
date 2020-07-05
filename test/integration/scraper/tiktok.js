@@ -5,7 +5,7 @@ describe("Scraper: TikTok", function () {
     it("should return video URL [ldjson]", async function () {
         const url = "https://www.tiktok.com/@the90guy/video" +
                                           "/6710341586984635654?langCountry=fr";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(file.endsWith("&lr=tiktok_m&mime_type=video_mp4&qs=0" +

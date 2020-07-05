@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Facebook", function () {
     it("should return URL when it's not a video", async function () {
         const url = "https://www.facebook.com/XBMC/videos/666/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -12,7 +12,7 @@ describe("Scraper: Facebook", function () {
 
     it("should return video URL [opengraph]", async function () {
         const url = "https://www.facebook.com/XBMC/videos/10152476888501641/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith(".mp4"),
@@ -22,7 +22,7 @@ describe("Scraper: Facebook", function () {
     it("should return video URL when protocol is HTTP [opengraph]",
                                                              async function () {
         const url = "http://www.facebook.com/XBMC/videos/10152476888501641/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith(".mp4"),
@@ -32,7 +32,7 @@ describe("Scraper: Facebook", function () {
     it("should return video URL when it's mobile version [opengraph]",
                                                              async function () {
         const url = "https://m.facebook.com/XBMC/videos/10152476888501641/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith(".mp4"),
@@ -43,7 +43,7 @@ describe("Scraper: Facebook", function () {
                                                              async function () {
         const url = "https://www.facebook.com/foxcarolinanews/videos" +
                                                            "/2332364197043199/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith(".mp4"),
@@ -53,7 +53,7 @@ describe("Scraper: Facebook", function () {
     it("should return URL when video doesn't exist [opengraph]",
                                                              async function () {
         const url = "https://www.facebook.com/watch/?v=666";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -61,7 +61,7 @@ describe("Scraper: Facebook", function () {
 
     it("should return URL when it's not video [opengraph]", async function () {
         const url = "https://www.facebook.com/watch/?x=315156812365737";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -70,7 +70,7 @@ describe("Scraper: Facebook", function () {
     it("should return video URL from watch page [opengraph]",
                                                              async function () {
         const url = "https://www.facebook.com/watch/?v=315156812365737";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith(".mp4"),
@@ -80,7 +80,7 @@ describe("Scraper: Facebook", function () {
     it("should return video URL when protocol is HTTP from watch page" +
                                               "[opengraph]", async function () {
         const url = "http://www.facebook.com/watch?v=315156812365737";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith(".mp4"),

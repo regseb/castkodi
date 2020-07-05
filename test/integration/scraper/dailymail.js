@@ -6,7 +6,7 @@ describe("Scraper: Daily Mail", function () {
         const url = "https://www.dailymail.co.uk/sciencetech/article-8057229" +
                                   "/Scientists-create-stunning-gifs-Mars-sand" +
                                 "-dunes-understand-conditions-impact-them.html";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file,

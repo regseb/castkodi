@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: PodMust", function () {
     it("should return URL when it's not an audio", async function () {
         const url = "https://podmust.com/tendances-podcast-2021/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.strictEqual(file, url);
@@ -12,7 +12,7 @@ describe("Scraper: PodMust", function () {
 
     it("should return audio URL [audio]", async function () {
         const url = "https://podmust.com/podcast/le-billet-de-chris-esquerre/";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith(".mp3"),
@@ -26,7 +26,7 @@ describe("Scraper: PodMust", function () {
         const doc = new DOMParser().parseFromString(text, "text/html");
 
         const url = doc.querySelector("a.tile").href;
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
         assert.ok(new URL(file).pathname.endsWith(".mp3"),

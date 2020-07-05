@@ -5,7 +5,7 @@ import { extract }            from "../../../src/core/labellers.js";
 describe("Labeller: Dailymotion", function () {
     it("should return video label", async function () {
         const url = "https://www.dailymotion.com/video/x2knr9t";
-        const options = { depth: 0, incognito: false };
+        const options = { depth: false, incognito: false };
 
         const file = await scraper(new URL(url), options);
         const label = await extract({ file, label: "", type: "unknown" });

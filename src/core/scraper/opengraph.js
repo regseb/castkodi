@@ -36,7 +36,8 @@ const SELECTORS = {
  *                                     contenant le document HTML ou
  *                                     <code>null</code>.
  * @param {object}   options           Les options de l'extraction.
- * @param {number}   options.depth     Le niveau de profondeur de l'extraction.
+ * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
@@ -62,9 +63,9 @@ const actionVideo = async function (_url, content, options) {
     if (type.content.startsWith("video/")) {
         return meta.content;
     }
-    if ("text/html" === type.content && 0 === options.depth) {
+    if ("text/html" === type.content && !options.depth) {
         return metaExtract(new URL(meta.content),
-                           { ...options, depth: options.depth + 1 });
+                           { ...options, depth: true });
     }
     return null;
 };
@@ -79,7 +80,8 @@ export const extractVideo = matchPattern(actionVideo, "*://*/*");
  *                                     contenant le document HTML ou
  *                                     <code>null</code>.
  * @param {object}   options           Les options de l'extraction.
- * @param {number}   options.depth     Le niveau de profondeur de l'extraction.
+ * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
@@ -105,9 +107,9 @@ const actionAudio = async function (_url, content, options) {
     if (type.content.startsWith("audio/")) {
         return meta.content;
     }
-    if ("text/html" === type.content && 0 === options.depth) {
+    if ("text/html" === type.content && !options.depth) {
         return metaExtract(new URL(meta.content),
-                           { ...options, depth: options.depth + 1 });
+                           { ...options, depth: true });
     }
     return null;
 };
