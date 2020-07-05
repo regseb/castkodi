@@ -8,7 +8,7 @@ describe("Labeller: SoundCloud", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "play" });
+        const label = await extract({ file, label: "play", type: "unknown" });
         assert.strictEqual(label, "Hear the lightning");
     });
 
@@ -17,7 +17,7 @@ describe("Labeller: SoundCloud", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "play" });
+        const label = await extract({ file, label: "play", type: "unknown" });
         assert.strictEqual(label, "News & Views");
     });
 
@@ -27,7 +27,7 @@ describe("Labeller: SoundCloud", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "play" });
+        const label = await extract({ file, label: "play", type: "unknown" });
         assert.strictEqual(label, "play");
     });
 });

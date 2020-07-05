@@ -8,7 +8,7 @@ describe("Labeller: Vimeo", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "" });
+        const label = await extract({ file, label: "play", type: "unknown" });
         assert.strictEqual(label, "Looking For Something");
     });
 });

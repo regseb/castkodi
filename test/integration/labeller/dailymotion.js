@@ -8,7 +8,7 @@ describe("Labeller: Dailymotion", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "" });
+        const label = await extract({ file, label: "", type: "unknown" });
         assert.strictEqual(label,
             "Comment perdre 30 secondes sur Dailymotion ? - Archive INA");
     });

@@ -16,7 +16,7 @@ describe("Labeller: Twitch", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "" });
+        const label = await extract({ file, label: "", type: "unknown" });
         assert.notStrictEqual(label, null);
     });
 
@@ -43,7 +43,7 @@ describe("Labeller: Twitch", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "" });
+        const label = await extract({ file, label: "", type: "unknown" });
         assert.notStrictEqual(label, null);
     });
 });
