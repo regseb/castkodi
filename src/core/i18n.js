@@ -3,27 +3,25 @@
  */
 
 /**
- * Parcourt tous les élements de la page courante (même ceux dans un
- * <code>template</code>).
- *
- * @returns {Array.<HTMLElement>} La liste des éléments.
- */
-const walk = function () {
-    return [...document.querySelectorAll("*")].flatMap((element) => {
-        return "TEMPLATE" === element.tagName
-                                    ? [...element.content.querySelectorAll("*")]
-                                    : element;
-    });
-};
-
-/**
  * Le nom de la page courante (récupérée à partir du répertoire).
  *
  * @constant {string}
  */
 const PAGE = location.pathname.slice(1, location.pathname.indexOf("/", 1));
 
-for (const element of walk()) {
+/**
+ * La liste de tous les élements de la page courante (même ceux dans un
+ * <code>template</code>).
+ *
+ * @constant {Array.<HTMLElement>}
+ */
+const elements = [...document.querySelectorAll("*")].flatMap((element) => {
+    return "TEMPLATE" === element.tagName
+                                    ? [...element.content.querySelectorAll("*")]
+                                    : element;
+});
+
+for (const element of elements) {
     for (const attribute of element.attributes) {
         if (!attribute.name.startsWith("data-i18n-")) {
             continue;

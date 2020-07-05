@@ -748,22 +748,6 @@ document.querySelector("#preferences").addEventListener("click", preferences);
 
 document.querySelector("#configure").addEventListener("click", preferences);
 
-// Insérer le code SVG des icônes dans la page pour pouvoir changer leur couleur
-// avec la feuille de style.
-const objects = [...document.querySelectorAll("object"),
-                 ...[...document.querySelectorAll("template")]
-                    .flatMap((t) => [...t.content.querySelectorAll("object")])];
-for (const element of objects) {
-    if ("loading" !== element.parentNode.id) {
-        fetch(element.data).then((r) => r.text())
-                           .then((text) => {
-            const svg = new DOMParser().parseFromString(text, "image/svg+xml");
-            element.append(svg.documentElement);
-            element.removeAttribute("data");
-        });
-    }
-}
-
 // Attention ! La popup n'a pas automatiquement le focus quand elle est ouverte
 // dans le menu prolongeant la barre d'outils.
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1623875
