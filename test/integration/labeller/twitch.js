@@ -26,8 +26,8 @@ describe("Labeller: Twitch", function () {
         const options = { depth: 0, incognito: false };
 
         const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "foo" });
-        assert.strictEqual(label, "foo");
+        const label = await extract({ file, label: "", type: "unknown" });
+        assert.strictEqual(label, "supersynock");
     });
 
     it("should return video label", async function () {

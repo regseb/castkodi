@@ -28,9 +28,14 @@ const action = async function ({ searchParams }) {
             doc.querySelector(`script[type="application/ld+json"]`).text
                .replaceAll("&quot;", `"`),
         );
-        // Si la chaine n'est pas en live : il n'y a pas de description.
-        return "description" in ldjson[0] ? ldjson[0].description
-                                          : null;
+        if ("description" in ldjson[0]) {
+            return ldjson[0].description;
+        }
+        // S'il n'y a pas de description (car la chaine n'est pas en live) :
+        // utiliser le nom de la chaine.
+        return searchParams.has("channel_name")
+                                              ? searchParams.get("channel_name")
+                                              : null;
     }
     if (searchParams.has("slug")) {
         return searchParams.get("slug");
