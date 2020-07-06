@@ -65,3 +65,9 @@ th {
     box-sizing: border-box;
     width: 100%;
 }
+
+#menu-contexts div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
