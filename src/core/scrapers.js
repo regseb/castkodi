@@ -22,6 +22,7 @@ import * as gamekult       from "./scraper/gamekult.js";
 // eslint-disable-next-line import/no-cycle
 import * as iframe         from "./scraper/iframe.js";
 import * as kcaastreaming  from "./scraper/kcaastreaming.js";
+import * as lbry           from "./scraper/lbry.js";
 // eslint-disable-next-line import/no-cycle
 import * as ldjson         from "./scraper/ldjson.js";
 import * as metacafe       from "./scraper/metacafe.js";
@@ -75,6 +76,7 @@ const SCRAPERS = [
     full30,
     gamekult,
     kcaastreaming,
+    lbry,
     metacafe,
     mixcloud,
     mixer,

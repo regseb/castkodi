@@ -16,9 +16,9 @@ des vidéos et des musiques sur **Kodi** :
 - liens directs : *avi*, *mkv*, *mp3*, *flac*… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace Stream, Apple Podcasts,
   Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion, DevTube, Facebook,
-  Flickr, Full30, Instagram, Jamendo, LiveLeak, Metacafe, Mixcloud, Mixer, My
-  Cloud Player, Overcast, PeerTube, Pippa, podCloud, PodMust, Radio, Radioline,
-  Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, YT Home ;
+  Flickr, Full30, Instagram, Jamendo, LBRY, LiveLeak, Metacafe, Mixcloud, Mixer,
+  My Cloud Player, Overcast, PeerTube, Pippa, podCloud, PodMust, Radio,
+  Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, YT Home ;
   - Allemagne : Arte ;
   - Belgique : VRT NU ;
   - États-Unis : KCAA Radio ;
