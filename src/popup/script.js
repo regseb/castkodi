@@ -333,6 +333,16 @@ const setFullscreen = function () {
     kodi.gui.setFullscreen().catch(splash);
 };
 
+const showPlayerProcessInfo = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#playerprocessinfo").disabled) {
+        return;
+    }
+
+    kodi.input.showPlayerProcessInfo().catch(splash);
+};
+
 const repeat = function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
@@ -653,6 +663,7 @@ const load = async function () {
 
         document.querySelector("#home").disabled = false;
         document.querySelector("#fullscreen").disabled = false;
+        document.querySelector("#playerprocessinfo").disabled = false;
 
         document.querySelector("#clear").disabled = false;
 
@@ -710,6 +721,10 @@ document.querySelector("#osd").addEventListener("click", showOSD);
 
 document.querySelector("#home").addEventListener("click", home);
 document.querySelector("#fullscreen").addEventListener("click", setFullscreen);
+document.querySelector("#playerprocessinfo").addEventListener(
+    "click",
+    showPlayerProcessInfo,
+);
 
 for (const input of document.querySelectorAll("#repeat input")) {
     input.addEventListener("click", repeat);
@@ -744,33 +759,34 @@ globalThis.addEventListener("keydown", (event) => {
     }
 
     switch (event.key) {
-        case "p": case "P": send();                 break;
-        case "n": case "N": insert();               break;
-        case "q": case "Q": add();                  break;
-        case "v": case "V": paste();                break;
+        case "p": case "P": send();                  break;
+        case "n": case "N": insert();                break;
+        case "q": case "Q": add();                   break;
+        case "v": case "V": paste();                 break;
 
-        case "PageUp":      previous();             break;
-        case "r": case "R": rewind();               break;
-        case "x": case "X": stop();                 break;
-        case " ":           playPause();            break;
-        case "f": case "F": forward();              break;
-        case "PageDown":    next();                 break;
+        case "PageUp":      previous();              break;
+        case "r": case "R": rewind();                break;
+        case "x": case "X": stop();                  break;
+        case " ":           playPause();             break;
+        case "f": case "F": forward();               break;
+        case "PageDown":    next();                  break;
 
-        case "F8":          setMute();              break;
-        case "-":           setVolume("decrement"); break;
-        case "+": case "=": setVolume("increment"); break;
+        case "F8":          setMute();               break;
+        case "-":           setVolume("decrement");  break;
+        case "+": case "=": setVolume("increment");  break;
 
-        case "c": case "C": contextMenu();          break;
-        case "ArrowUp":     up();                   break;
-        case "i": case "I": info();                 break;
-        case "ArrowLeft":   left();                 break;
-        case "Enter":       select();               break;
-        case "ArrowRight":  right();                break;
-        case "Backspace":   back();                 break;
-        case "ArrowDown":   down();                 break;
-        case "m": case "M": showOSD();              break;
+        case "c": case "C": contextMenu();           break;
+        case "ArrowUp":     up();                    break;
+        case "i": case "I": info();                  break;
+        case "ArrowLeft":   left();                  break;
+        case "Enter":       select();                break;
+        case "ArrowRight":  right();                 break;
+        case "Backspace":   back();                  break;
+        case "ArrowDown":   down();                  break;
+        case "m": case "M": showOSD();               break;
 
-        case "Tab":         setFullscreen();        break;
+        case "Tab":         setFullscreen();         break;
+        case "o": case "O": showPlayerProcessInfo(); break;
         // Appliquer le traitement par défaut pour les autres entrées.
         default: return;
     }

@@ -102,6 +102,15 @@ export const Input = class {
     }
 
     /**
+     * Affiche les informations sur le processus de lecture.
+     *
+     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     */
+    showPlayerProcessInfo() {
+        return this.kodi.send("Input.ShowPlayerProcessInfo");
+    }
+
+    /**
      * Navigue vers le haut dans l'interface.
      *
      * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.

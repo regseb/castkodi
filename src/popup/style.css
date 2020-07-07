@@ -145,6 +145,9 @@ input[type="range"].disabled::-moz-range-progress {
     display: flex;
     flex-direction: column;
 }
+#playerprocessinfo {
+    display: none;
+}
 
 #playlist-actions {
     border-top: 1px solid #737373;

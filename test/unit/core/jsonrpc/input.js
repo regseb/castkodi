@@ -120,6 +120,21 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
+    describe("showPlayerProcessInfo()", function () {
+        it("should send request", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const input = new Input({ send: fake });
+            const result = await input.showPlayerProcessInfo();
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Input.ShowPlayerProcessInfo",
+            ]);
+        });
+    });
+
     describe("up()", function () {
         it("should send request", async function () {
             const fake = sinon.fake.resolves("OK");
