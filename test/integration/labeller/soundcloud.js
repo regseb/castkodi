@@ -1,24 +1,32 @@
-import assert                 from "assert";
-import { extract as scraper } from "../../../src/core/scrapers.js";
-import { extract }            from "../../../src/core/labellers.js";
+import assert       from "assert";
+import { extract }  from "../../../src/core/scrapers.js";
+import { complete } from "../../../src/core/labellers.js";
 
 describe("Labeller: SoundCloud", function () {
     it("should return audio label", async function () {
         const url = "https://soundcloud.com/esa/hear-the-lightning";
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "play", type: "unknown" });
-        assert.strictEqual(label, "Hear the lightning");
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "play", type: "unknown" });
+        assert.deepStrictEqual(item, {
+            file,
+            label: "Hear the lightning",
+            type:  "unknown",
+        });
     });
 
     it("should return set label", async function () {
         const url = "https://soundcloud.com/esa/sets/news-views";
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "play", type: "unknown" });
-        assert.strictEqual(label, "News & Views");
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "play", type: "unknown" });
+        assert.deepStrictEqual(item, {
+            file,
+            label: "News & Views",
+            type:  "unknown",
+        });
     });
 
     it("should return default label when it's dynamic set", async function () {
@@ -26,8 +34,12 @@ describe("Labeller: SoundCloud", function () {
                                                   "/charts-top:alternativerock";
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "play", type: "unknown" });
-        assert.strictEqual(label, "play");
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "play", type: "unknown" });
+        assert.deepStrictEqual(item, {
+            file,
+            label: "play",
+            type:  "unknown",
+        });
     });
 });

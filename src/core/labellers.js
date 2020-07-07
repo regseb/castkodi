@@ -27,23 +27,27 @@ const LABELLERS = [
 ].flatMap((l) => Object.values(l));
 
 /**
- * Extrait un titre d'une URL.
+ * Complète un élément de la liste de lecture avec un label.
  *
  * @function
  * @param {object} item       L'élément de la liste de lecture.
  * @param {string} item.file  Le fichier de l'élément.
  * @param {string} item.label Le label de l'élément.
- * @returns {Promise.<string>} Une promesse contenant le titre.
+ * @returns {Promise.<object>} Une promesse contenant l'élément complété de la
+ *                             liste de lecture.
  */
-export const extract = async function (item) {
+export const complete = async function (item) {
     const url = new URL(item.file.startsWith("/") ? "file:/" + item.file
                                                   : item.file);
     for (const labeller of LABELLERS) {
         const label = await labeller(url);
         if (null !== label) {
-            return label;
+            return { ...item, label };
         }
     }
-    return "" === item.label ? item.file
-                             : item.label;
+    return {
+        ...item,
+        label: "" === item.label ? item.file
+                                 : item.label,
+    };
 };

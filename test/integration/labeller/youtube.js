@@ -1,6 +1,6 @@
-import assert                 from "assert";
-import { extract as scraper } from "../../../src/core/scrapers.js";
-import { extract }            from "../../../src/core/labellers.js";
+import assert       from "assert";
+import { extract }  from "../../../src/core/scrapers.js";
+import { complete } from "../../../src/core/labellers.js";
 
 describe("Labeller: YouTube", function () {
     it("should return video label", async function () {
@@ -9,10 +9,13 @@ describe("Labeller: YouTube", function () {
         const url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "", type: "unknown" });
-        assert.strictEqual(label,
-            "Rick Astley - Never Gonna Give You Up (Video)");
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "", type: "unknown" });
+        assert.deepStrictEqual(item, {
+            file,
+            label: "Rick Astley - Never Gonna Give You Up (Video)",
+            type:  "unknown",
+        });
 
         browser.storage.local.clear();
     });
@@ -23,9 +26,13 @@ describe("Labeller: YouTube", function () {
         const url = "https://www.youtube.com/playlist?list=PL6B3937A5D230E335";
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "", type: "unknown" });
-        assert.strictEqual(label, "Official Blender Open Movies");
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "", type: "unknown" });
+        assert.deepStrictEqual(item, {
+            file,
+            label: "Official Blender Open Movies",
+            type:  "unknown",
+        });
 
         browser.storage.local.clear();
     });
@@ -37,9 +44,13 @@ describe("Labeller: YouTube", function () {
                                                    "&list=RD9bZkp7q19f0";
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "", type: "unknown" });
-        assert.strictEqual(label, "My Mix");
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "", type: "unknown" });
+        assert.deepStrictEqual(item, {
+            file,
+            label: "My Mix",
+            type:  "unknown",
+        });
 
         browser.storage.local.clear();
     });

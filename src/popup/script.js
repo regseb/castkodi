@@ -3,7 +3,7 @@
  */
 
 import { cast, kodi } from "../core/index.js";
-import { extract }    from "../core/labellers.js";
+import { complete }   from "../core/labellers.js";
 import { notify }     from "../core/notify.js";
 
 /**
@@ -566,12 +566,11 @@ const handlePropertyChanged = function (properties) {
     }
 };
 
-const handleAdd = async function (item) {
-    const text = await extract(item);
+const handleAdd = function (item) {
     const template = document.querySelector("template");
     const clone = document.importNode(template.content, true);
-    clone.querySelector("span").textContent = text;
-    clone.querySelector("span").title = text;
+    clone.querySelector("span").textContent = item.label;
+    clone.querySelector("span").title = item.label;
     clone.querySelector(".play").addEventListener("click", play);
     clone.querySelector(".remove").addEventListener("click", remove);
     if (position === item.position) {
@@ -642,17 +641,17 @@ const load = async function () {
         document.querySelector("#volume").disabled = false;
         document.querySelector("#mute input").disabled = false;
 
+        document.querySelector("#contextmenu").disabled = false;
         document.querySelector("#up").disabled = false;
+        document.querySelector("#info").disabled = false;
         document.querySelector("#left").disabled = false;
         document.querySelector("#select").disabled = false;
         document.querySelector("#right").disabled = false;
-        document.querySelector("#down").disabled = false;
-
         document.querySelector("#back").disabled = false;
-        document.querySelector("#home").disabled = false;
-        document.querySelector("#contextmenu").disabled = false;
+        document.querySelector("#down").disabled = false;
         document.querySelector("#osd").disabled = false;
-        document.querySelector("#info").disabled = false;
+
+        document.querySelector("#home").disabled = false;
         document.querySelector("#fullscreen").disabled = false;
 
         document.querySelector("#clear").disabled = false;
@@ -667,32 +666,9 @@ const load = async function () {
             document.querySelector("#playlist-items > span").style.display =
                                                                         "block";
         } else {
-            const template = document.querySelector("template");
-            const ol = document.querySelector("#playlist-items ol");
-            ol.textContent = "";
-            let index = -1;
-            for await (const text of items.map(extract)) {
-                ++index;
-                const clone = document.importNode(template.content, true);
-                clone.querySelector("span").textContent = text;
-                clone.querySelector("span").title = text;
-                clone.querySelector(".play").addEventListener("click", play);
-                clone.querySelector(".remove").addEventListener("click",
-                                                                remove);
-                if (position === index) {
-                    clone.querySelector("span").classList.add("active");
-                    for (const button of clone.querySelectorAll("button")) {
-                        button.disabled = true;
-                    }
-                }
-                const li = document.createElement("li");
-                li.append(clone);
-                ol.append(li);
+            for await (const item of items.map(complete)) {
+                handleAdd(item);
             }
-
-            document.querySelector("#playlist-items > span").style.display =
-                                                                         "none";
-            ol.style.display = "block";
         }
     } catch (err) {
         splash(err);
@@ -842,7 +818,7 @@ browser.storage.local.get().then((config) => {
 
 kodi.application.onPropertyChanged.addListener(handlePropertyChanged);
 kodi.player.onPropertyChanged.addListener(handlePropertyChanged);
-kodi.playlist.onAdd.addListener(handleAdd);
+kodi.playlist.onAdd.addListener(async (i) => handleAdd(await complete(i)));
 kodi.playlist.onClear.addListener(handleClear);
 kodi.playlist.onRemove.addListener(handleRemove);
 load();

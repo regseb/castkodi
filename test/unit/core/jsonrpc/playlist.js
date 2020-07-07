@@ -38,11 +38,16 @@ describe("core/jsonrpc/playlist.js", function () {
 
     describe("getItems()", function () {
         it("should return items", async function () {
-            const fake = sinon.fake.resolves({ items: ["foo", "bar"] });
+            const fake = sinon.fake.resolves({
+                items: [{ foo: "bar" }, { foo: "baz" }]
+            });
 
             const playlist = new Playlist({ send: fake });
             const result = await playlist.getItems();
-            assert.deepStrictEqual(result, ["foo", "bar"]);
+            assert.deepStrictEqual(result, [
+                { foo: "bar", position: 0 },
+                { foo: "baz", position: 1 }
+            ]);
 
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [

@@ -1,6 +1,6 @@
-import assert      from "assert";
-import sinon       from "sinon";
-import { extract } from "../../../src/core/labellers.js";
+import assert       from "assert";
+import sinon        from "sinon";
+import { complete } from "../../../src/core/labellers.js";
 
 describe("core/labellers.js", function () {
     describe("extract()", function () {
@@ -10,8 +10,11 @@ describe("core/labellers.js", function () {
                 label: "bar",
             };
 
-            const label = await extract(item);
-            assert.strictEqual(label, "bar");
+            const result = await complete(item);
+            assert.deepStrictEqual(result, {
+                file:  "https://foo.com/",
+                label: "bar",
+            });
         });
 
         it("should return 'file' when no labeller and no 'label'",
@@ -21,8 +24,11 @@ describe("core/labellers.js", function () {
                 label: "",
             };
 
-            const label = await extract(item);
-            assert.strictEqual(label, "https://foo.com/");
+            const result = await complete(item);
+            assert.deepStrictEqual(result, {
+                file:  "https://foo.com/",
+                label: "https://foo.com/",
+            });
         });
 
         it("should return 'label' from labeller", async function () {
@@ -39,8 +45,11 @@ describe("core/labellers.js", function () {
                 label: "bar",
             };
 
-            const label = await extract(item);
-            assert.strictEqual(label, "bar");
+            const result = await complete(item);
+            assert.deepStrictEqual(result, {
+                file:  "plugin://plugin.video.youtube/play/?video_id=foo",
+                label: "bar",
+            });
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
@@ -56,8 +65,11 @@ describe("core/labellers.js", function () {
                 label: "",
             };
 
-            const label = await extract(item);
-            assert.strictEqual(label, "/foo/bar.mp3");
+            const result = await complete(item);
+            assert.deepStrictEqual(result, {
+                file:  "/foo/bar.mp3",
+                label: "/foo/bar.mp3",
+            });
         });
     });
 });

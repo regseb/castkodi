@@ -60,8 +60,9 @@ export const Playlist = class {
             playlistid: 1,
             properties: ["file"],
         });
-        return "items" in results ? results.items
-                                  : [];
+        return "items" in results
+                          ? results.items.map((i, p) => ({ ...i, position: p }))
+                          : [];
     }
 
     /**

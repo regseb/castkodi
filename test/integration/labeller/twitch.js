@@ -1,6 +1,6 @@
-import assert                 from "assert";
-import { extract as scraper } from "../../../src/core/scrapers.js";
-import { extract }            from "../../../src/core/labellers.js";
+import assert       from "assert";
+import { extract }  from "../../../src/core/scrapers.js";
+import { complete } from "../../../src/core/labellers.js";
 
 describe("Labeller: Twitch", function () {
     it("should return channel label", async function () {
@@ -15,9 +15,10 @@ describe("Labeller: Twitch", function () {
                     doc.querySelector(".channel-list a.tw-link").href;
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "", type: "unknown" });
-        assert.notStrictEqual(label, null);
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "", type: "unknown" });
+        assert.notStrictEqual(item.label, null);
+        assert.notStrictEqual(item.label, "");
     });
 
     it("should return default label when channel is offline",
@@ -25,9 +26,13 @@ describe("Labeller: Twitch", function () {
         const url = "https://www.twitch.tv/supersynock";
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "", type: "unknown" });
-        assert.strictEqual(label, "supersynock");
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "", type: "unknown" });
+        assert.deepStrictEqual(item, {
+            file,
+            label: "supersynock",
+            type:  "unknown",
+        });
     });
 
     it("should return video label", async function () {
@@ -42,8 +47,9 @@ describe("Labeller: Twitch", function () {
                     doc.querySelector(`a.tw-link[href^="/videos/"]`).href;
         const options = { depth: false, incognito: false };
 
-        const file = await scraper(new URL(url), options);
-        const label = await extract({ file, label: "", type: "unknown" });
-        assert.notStrictEqual(label, null);
+        const file = await extract(new URL(url), options);
+        const item = await complete({ file, label: "", type: "unknown" });
+        assert.notStrictEqual(item.label, null);
+        assert.notStrictEqual(item.label, "");
     });
 });
