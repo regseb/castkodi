@@ -10,7 +10,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @constant {RegExp}
  */
-const URL_REGEXP = /^ *station: *(\{.+\}),$/mu;
+const URL_REGEXP = /^ *station: *(?<station>\{.+\}),$/mu;
 
 /**
  * Extrait les informations nécessaire pour lire une radio sur Kodi.
@@ -27,7 +27,7 @@ const action = async function (_url, content) {
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = URL_REGEXP.exec(script.text);
         if (null !== result) {
-            return JSON.parse(result[1]).streams[0].url;
+            return JSON.parse(result.groups.station).streams[0].url;
         }
     }
     return null;

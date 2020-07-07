@@ -10,7 +10,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @constant {RegExp}
  */
-const DATA_REGEXP = /"mp4":(\{[^}]+\})/u;
+const DATA_REGEXP = /"mp4":(?<mp4>\{[^}]+\})/u;
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -27,7 +27,7 @@ const action = async function (_url, content) {
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = DATA_REGEXP.exec(script.text);
         if (null !== result) {
-            return Object.values(JSON.parse(result[1])).shift();
+            return Object.values(JSON.parse(result.groups.mp4)).shift();
         }
     }
     return null;

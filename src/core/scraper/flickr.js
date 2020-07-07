@@ -10,7 +10,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @constant {RegExp}
  */
-const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "([^"]+)"/u;
+const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "(?<key>[^"]+)"/u;
 
 /**
  * L'URL de l'API de Flickr pour obtenir des informations sur la vidéo.
@@ -44,7 +44,8 @@ const action = async function (_url, content) {
     const secret  = parts[7];
     const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
                           "&api_key=" +
-                          KEY_REGEXP.exec(doc.documentElement.innerHTML)[1];
+                          KEY_REGEXP.exec(doc.documentElement.innerHTML)
+                                    .groups.key;
     const response = await fetch(url);
     const json = await response.json();
     return json.streams.stream[0]["_content"];

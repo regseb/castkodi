@@ -10,7 +10,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @constant {RegExp}
  */
-const UUID_REGEXP = /"videoId":"([0-9a-f-]+)"/u;
+const UUID_REGEXP = /"videoId":"(?<videoId>[0-9a-f-]+)"/u;
 
 /**
  * L'URL de l'API de France tv.
@@ -37,8 +37,8 @@ const action = async function (_url, content) {
             continue;
         }
 
-        const url = API_URL + result[1] + "?device_type=desktop" +
-                                          "&browser=firefox";
+        const url = API_URL + result.groups.videoId + "?device_type=desktop" +
+                                                      "&browser=firefox";
         const response = await fetch(url);
         const json = await response.json();
         return json.streamroot.content_id;

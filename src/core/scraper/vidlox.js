@@ -10,7 +10,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @constant {RegExp}
  */
-const URL_REGEXP = /sources: \["([^"]+)",/u;
+const URL_REGEXP = /sources: \["(?<sources>[^"]+)",/u;
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -27,7 +27,7 @@ const action = async function (_url, content) {
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = URL_REGEXP.exec(script.text);
         if (null !== result) {
-            return result[1];
+            return result.groups.sources;
         }
     }
     return null;
