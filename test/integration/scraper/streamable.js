@@ -7,8 +7,7 @@ describe("Scraper: Streamable", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
-        assert.ok(file.startsWith("https://cdn-b-east.streamable.com/video" +
-                                                             "/mp4/tapn9.mp4?"),
-                  `"${file}".startsWith(...)`);
+        assert.ok(new URL(file).pathname.endsWith("tapn9.mp4"),
+                  `new URL("${file}").pathname.endsWith(...)`);
     });
 });

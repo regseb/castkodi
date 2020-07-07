@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: PodMust", function () {
     it("should return URL when it's not an audio", async function () {
-        const url = "https://podmust.com/tendances-podcast-2021/";
+        const url = "https://podmust.com/fr/?s=foo";
         const options = { depth: false, incognito: false };
 
         const file = await extract(new URL(url), options);
