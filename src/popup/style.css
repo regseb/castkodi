@@ -86,6 +86,7 @@ input[type="range"].disabled::-moz-range-progress {
     left: 8px;
     padding: 8px;
     position: fixed;
+    resize: none;
     width: calc(100% - 32px);
     z-index: 1;
 }
