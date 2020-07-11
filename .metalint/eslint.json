@@ -184,7 +184,7 @@
         "func-style": 2,
         "function-call-argument-newline": [2, "consistent"],
         "function-paren-newline": [2, "consistent"],
-        "id-blacklist": 0,
+        "id-denylist": 0,
         "id-length": 0,
         "id-match": 0,
         "implicit-arrow-linebreak": 2,
