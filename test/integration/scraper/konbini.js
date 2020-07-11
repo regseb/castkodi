@@ -2,7 +2,7 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Konbini", function () {
-    it("should return URL [iframe-youtube]", async function () {
+    it("should return URL", async function () {
         const url = "https://www.konbini.com/fr/cinema/sam-mendes-plonge" +
                                   "-lhorreur-tranchees-premier-trailer-de-1917";
         const options = { depth: false, incognito: true };
