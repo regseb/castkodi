@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/regseb/castkodi/compare/v5.0.1...v5.1.0) (2020-07-11)
+
+
+### Features
+
+* Afficher les élément dans les options sur plusieurs colonnes. ([3eeee42](https://github.com/regseb/castkodi/commit/3eeee42f2f669281c48176ff5f0fbb891c99b62a))
+* Ajouter le support de LBRY. ([e463d4c](https://github.com/regseb/castkodi/commit/e463d4c23ad3b8ece8392a9ba0d618f92d187ba1))
+* Ajouter un raccourci pour les informations sur le processus de lecture. ([def8651](https://github.com/regseb/castkodi/commit/def86510954a28dac21d91762b1ec32c9fce0e74))
+* Gérer la saisie d'une adresse complète de Kodi. ([3ad60d5](https://github.com/regseb/castkodi/commit/3ad60d5e6998b4f912c55cf71971fa52933369b9))
+
+
+### Bug Fixes
+
+* Ajouter un scraper spécifique pour Konbini. ([5e5e564](https://github.com/regseb/castkodi/commit/5e5e56417a748383b6f8b3f5d682d075f8b78764))
+* Utiliser le nom de la chaine quand elle est hors-ligne. ([12c6d3c](https://github.com/regseb/castkodi/commit/12c6d3c3120984cadf6bb5a74cc722b5f1fc9517))
+
 ### [5.0.1](https://github.com/regseb/castkodi/compare/v5.0.0...v5.0.1) (2020-07-03)
 
 
