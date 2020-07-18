@@ -27,23 +27,17 @@ describe("core/jsonrpc/player.js", function () {
             const properties = ["foo", "baz", "quz", "time", "totaltime"];
             const result = await player.getProperties(properties);
             assert.deepStrictEqual(result, {
-                foo:       "bar",
-                baz:       42,
-                qux:       true,
-                time:      3723,
+                position:  -1,
+                repeat:    "off",
+                shuffled:  false,
+                speed:     0,
+                time:      0,
                 totaltime: 0,
             });
 
-            assert.strictEqual(fake.callCount, 2);
+            assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [
                 "Player.GetActivePlayers",
-            ]);
-            assert.deepStrictEqual(fake.secondCall.args, [
-                "Player.GetProperties",
-                {
-                    playerid:   1,
-                    properties: ["foo", "baz", "quz", "time", "totaltime"],
-                },
             ]);
         });
 
@@ -118,7 +112,7 @@ describe("core/jsonrpc/player.js", function () {
             const fake = sinon.fake((method) => {
                 switch (method) {
                     case "Player.GetActivePlayers":
-                        return Promise.resolve([]);
+                        return Promise.resolve([{ playerid: 1 }]);
                     case "Player.GetProperties":
                         return Promise.resolve({ foo: "bar" });
                     default:

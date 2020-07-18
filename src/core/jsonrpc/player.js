@@ -66,7 +66,7 @@ export const Player = class {
         const players = await this.kodi.send("Player.GetActivePlayers");
         // Ne pas demander les propriétés du lecteur vidéo quand un autre
         // lecteur est actif. https://github.com/xbmc/xbmc/issues/17897
-        if (0 === players.length || players.some((p) => 1 === p.playerid)) {
+        if (players.some((p) => 1 === p.playerid)) {
             const results = await this.kodi.send("Player.GetProperties", {
                 playerid: 1,
                 properties,
