@@ -22,6 +22,7 @@
     "funding": "https://www.paypal.me/sebastienregne",
     "type": "module",
     "scripts": {
+        "postinstall": "node .scripts/postinstall.js",
         "lint": "metalint",
         "test": "npm run test:unit && npm run test:integration",
         "test:unit": "c8 mocha -r test/polyfill.js test/unit/",
@@ -34,8 +35,11 @@
         "release": "standard-version",
         "clean": "rm -rf build/ coverage/ jsdocs/ node_modules/"
     },
+    "dependencies": {
+        "dialog-polyfill": "^0.5.1"
+    },
     "devDependencies": {
-        "abort-controller": "3.0.0",
+        "abort-controller": "^3.0.0",
         "addons-linter": "^2.0.1",
         "c8": "^7.2.1",
         "david": "^12.0.0",

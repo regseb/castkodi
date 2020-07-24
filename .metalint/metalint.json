@@ -1,6 +1,7 @@
 {
     "patterns": [
-        "!/.git/", "!/coverage/", "!/jsdocs/", "!/node_modules/", "**"
+        "!/.git/", "!/coverage/", "!/jsdocs/", "!/node_modules/", "!/src/lib/",
+        "**"
     ],
     "checkers": [
         {
@@ -11,7 +12,14 @@
             "linters": "eslint"
         }, {
             "patterns": "/test/**/*.js",
-            "linters": { "eslint": ["eslint.json", "eslint_test.json"] }
+            "linters": {
+                "eslint": [
+                    "eslint.json", "eslint_node.json", "eslint_test.json"
+                ]
+            }
+        }, {
+            "patterns": "/.scripts/**/*.js",
+            "linters": { "eslint": ["eslint.json", "eslint_node.json"] }
         }, {
             "patterns": "/src/**/*.html",
             "linters": "htmlhint"
