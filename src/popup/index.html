@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cast Kodi</title>
+    <link href="../lib/dialog-polyfill/style.css" rel="stylesheet" />
     <link href="../photon/style.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
     <link href="/img/icon.svg" rel="shortcut icon" />
@@ -147,6 +148,11 @@
         <object data="img/fullscreen.svg"></object>
       </button>
 
+      <button class="ghost" id="opensendtext" disabled autocomplete="off"
+              data-i18n-title>
+        <object data="img/sendtext.svg"></object>
+      </button>
+
       <button class="ghost" id="playerprocessinfo" disabled autocomplete="off"
               data-i18n-title>
         <object data="img/playerprocessinfo.svg"></object>
@@ -222,6 +228,28 @@
         <object data="img/preferences.svg"></object>
       </button>
     </section>
+
+    <dialog id="dialogsendtext">
+      <form method="dialog">
+        <p>
+          <label>
+            <input name="text" type="text" autocomplete="off"
+                   data-i18n-placeholder="text" />
+          </label>
+        </p>
+        <p>
+          <label data-i18n-textcontent="done">
+            <input name="done" type="checkbox" checked autocomplete="off" />
+            {}
+          </label>
+        </p>
+        <menu>
+          <button id="cancel" value="cancel" data-i18n-textcontent></button>
+          <button class="primary" id="sendtext" value="send"
+                  data-i18n-textcontent></button>
+        </menu>
+      </form>
+    </dialog>
 
     <article id="splash">
       <h1></h1>

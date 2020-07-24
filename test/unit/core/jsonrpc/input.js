@@ -107,6 +107,36 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
+    describe("sendText()", function () {
+        it("should send request", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const input = new Input({ send: fake });
+            const result = await input.sendText("foo", false);
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Input.SendText",
+                { text: "foo", done: false },
+            ]);
+        });
+
+        it("should send request and finish", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const input = new Input({ send: fake });
+            const result = await input.sendText("foo", true);
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Input.SendText",
+                { text: "foo", done: true },
+            ]);
+        });
+    });
+
     describe("showOSD()", function () {
         it("should send request", async function () {
             const fake = sinon.fake.resolves("OK");

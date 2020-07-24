@@ -185,6 +185,18 @@
     "popup_osd_title": {
         "message": "Afficher le menu à l'écran [M]"
     },
+    "popup_home_title": {
+        "message": "Aller à la page d'accueil"
+    },
+    "popup_fullscreen_title": {
+        "message": "Basculer en plein écran [Tab]"
+    },
+    "popup_opensendtext_title": {
+        "message": "Envoyer du texte"
+    },
+    "popup_playerprocessinfo_title": {
+        "message": "Afficher les informations sur le processus de lecture [O]"
+    },
     "popup_empty_textcontent": {
         "message": "Liste de lecture vide"
     },
@@ -193,6 +205,18 @@
     },
     "popup_removeItem_title": {
         "message": "Retirer"
+    },
+    "popup_text_placeholder": {
+        "message": "Texte à envoyer"
+    },
+    "popup_done_textcontent": {
+        "message": "Terminer après l'envoi"
+    },
+    "popup_cancel_textcontent": {
+        "message": "Annuler"
+    },
+    "popup_sendtext_textcontent": {
+        "message": "Envoyer"
     },
     "popup_configure_textcontent": {
         "message": "Configurer"

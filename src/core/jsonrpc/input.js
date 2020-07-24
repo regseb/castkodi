@@ -92,6 +92,18 @@ export const Input = class {
     }
 
     /**
+     * Envoie du texte.
+     *
+     * @param {string}  text Le texte envoyé.
+     * @param {boolean} done La marque indiquant s'il faut fermer la boite de
+     *                       saisie.
+     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     */
+    sendText(text, done) {
+        return this.kodi.send("Input.SendText", { text, done });
+    }
+
+    /**
      * Affiche le <em>menu à l'écran</em> (<em>On Screen Display</em>) du
      * lecteur courant.
      *

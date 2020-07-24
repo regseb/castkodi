@@ -2,6 +2,7 @@
  * @module
  */
 
+import dialogPolyfill from "../lib/dialog-polyfill/script.js";
 import { cast, kodi } from "../core/index.js";
 import { complete }   from "../core/labellers.js";
 import { notify }     from "../core/notify.js";
@@ -331,6 +332,39 @@ const setFullscreen = function () {
     }
 
     kodi.gui.setFullscreen().catch(splash);
+};
+
+const openSendText = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#opensendtext").disabled) {
+        return;
+    }
+
+    const dialog = document.querySelector("#dialogsendtext");
+    dialog.querySelector(`input[name="text"]`).value = "";
+    // Utiliser une prothèse en attendant que les boites de dialogue soit
+    // implémentées dans Firefox.
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=840640
+    dialogPolyfill.registerDialog(dialog);
+    dialog.showModal();
+};
+
+const closeDialog = function (event) {
+    // Fermer la boite de dialogue si l'utilisateur clique en dehors de la
+    // boite.
+    if (event.explicitOriginalTarget.classList.contains("backdrop")) {
+        event.target.close();
+    }
+};
+
+const sendText = function (event) {
+    const dialog = event.target;
+    if ("send" === dialog.returnValue) {
+        const text = dialog.querySelector(`input[name="text"]`).value;
+        const done = dialog.querySelector(`input[name="done"]`).checked;
+        kodi.input.sendText(text, done).catch(splash);
+    }
 };
 
 const showPlayerProcessInfo = function () {
@@ -663,6 +697,7 @@ const load = async function () {
 
         document.querySelector("#home").disabled = false;
         document.querySelector("#fullscreen").disabled = false;
+        document.querySelector("#opensendtext").disabled = false;
         document.querySelector("#playerprocessinfo").disabled = false;
 
         document.querySelector("#clear").disabled = false;
@@ -721,6 +756,7 @@ document.querySelector("#osd").addEventListener("click", showOSD);
 
 document.querySelector("#home").addEventListener("click", home);
 document.querySelector("#fullscreen").addEventListener("click", setFullscreen);
+document.querySelector("#opensendtext").addEventListener("click", openSendText);
 document.querySelector("#playerprocessinfo").addEventListener(
     "click",
     showPlayerProcessInfo,
@@ -737,6 +773,10 @@ document.querySelector("#donate").addEventListener("click", donate);
 document.querySelector("#rate").addEventListener("click", rate);
 document.querySelector("#preferences").addEventListener("click", preferences);
 
+document.querySelector("#dialogsendtext").addEventListener("close", sendText);
+document.querySelector("#dialogsendtext").addEventListener("click",
+                                                           closeDialog);
+
 document.querySelector("#configure").addEventListener("click", preferences);
 
 // Attention ! La popup n'a pas automatiquement le focus quand elle est ouverte
@@ -745,6 +785,17 @@ document.querySelector("#configure").addEventListener("click", preferences);
 globalThis.addEventListener("keydown", (event) => {
     // Ignorer les entrées avec une touche de modification.
     if (event.altKey || event.ctrlKey || event.metaKey) {
+        return;
+    }
+
+    // Ignorer les raccourcis clavier quand une boite de dialogue est ouverte
+    // (sauf pour la touche Entrée qui valide le formulaire).
+    const dialog = event.target.closest("dialog");
+    if (null !== dialog) {
+        if ("Enter" === event.key) {
+            dialog.close(dialog.querySelector(".primary").value);
+            event.preventDefault();
+        }
         return;
     }
 

@@ -185,6 +185,18 @@
     "popup_osd_title": {
         "message": "Show OSD [M]"
     },
+    "popup_home_title": {
+        "message": "Go to home"
+    },
+    "popup_fullscreen_title": {
+        "message": "Toogle fullscreen [Tab]"
+    },
+    "popup_opensendtext_title": {
+        "message": "Send text"
+    },
+    "popup_playerprocessinfo_title": {
+        "message": "Show player process information [O]"
+    },
     "popup_empty_textcontent": {
         "message": "Playlist empty"
     },
@@ -193,6 +205,18 @@
     },
     "popup_removeItem_title": {
         "message": "Remove"
+    },
+    "popup_text_placeholder": {
+        "message": "Text to send"
+    },
+    "popup_done_textcontent": {
+        "message": "Finish after send"
+    },
+    "popup_cancel_textcontent": {
+        "message": "Cancel"
+    },
+    "popup_sendtext_textcontent": {
+        "message": "Send"
     },
     "popup_configure_textcontent": {
         "message": "Configure"
