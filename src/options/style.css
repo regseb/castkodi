@@ -20,7 +20,6 @@ input[name^="address_"] {
 
 table {
     border-spacing: 0;
-    margin-bottom: 1rem;
     max-width: 100%;
     overflow-x: auto;
     vertical-align: top;

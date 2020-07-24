@@ -4,21 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cast Kodi</title>
-    <link href="photon.css" rel="stylesheet" />
+    <link href="../photon/style.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
     <link href="/img/icon.svg" rel="shortcut icon" />
   </head>
   <body>
     <section id="cast">
-      <button id="send" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="send" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/send.svg"></object>
       </button>
 
-      <button id="insert" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="insert" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/insert.svg"></object>
       </button>
 
-      <button id="add" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="add" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/add.svg"></object>
       </button>
 
@@ -41,30 +44,37 @@
     </section>
 
     <section id="playing">
-      <button id="previous" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="previous" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/previous.svg"></object>
       </button>
 
-      <button id="rewind" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="rewind" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/rewind.svg"></object>
       </button>
 
-      <button id="stop" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="stop" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/stop.svg"></object>
       </button>
 
-      <button id="pause" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="pause" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/pause.svg"></object>
       </button>
-      <button id="play" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="play" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/play.svg"></object>
       </button>
 
-      <button id="forward" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="forward" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/forward.svg"></object>
       </button>
 
-      <button id="next" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="next" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/next.svg"></object>
       </button>
     </section>
@@ -81,53 +91,63 @@
     </section>
 
     <section id="remote">
-      <button id="contextmenu" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="contextmenu" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/contextmenu.svg"></object>
       </button>
 
-      <button id="up" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="up" disabled autocomplete="off" data-i18n-title>
         <object data="img/up.svg"></object>
       </button>
 
-      <button id="info" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="info" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/info.svg"></object>
       </button>
 
-      <button id="left" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="left" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/left.svg"></object>
       </button>
 
-      <button id="select" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="select" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/select.svg"></object>
       </button>
 
-      <button id="right" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="right" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/right.svg"></object>
       </button>
 
-      <button id="back" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="back" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/back.svg"></object>
       </button>
 
-      <button id="down" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="down" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/down.svg"></object>
       </button>
 
-      <button id="osd" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="osd" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/osd.svg"></object>
       </button>
     </section>
 
     <section id="various">
-      <button id="home" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="home" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/home.svg"></object>
       </button>
 
-      <button id="fullscreen" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="fullscreen" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/fullscreen.svg"></object>
       </button>
 
-      <button id="playerprocessinfo" disabled autocomplete="off"
+      <button class="ghost" id="playerprocessinfo" disabled autocomplete="off"
               data-i18n-title>
         <object data="img/playerprocessinfo.svg"></object>
       </button>
@@ -157,17 +177,18 @@
         <object data="img/shuffle.svg"></object>
       </label>
 
-      <button id="clear" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="clear" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/remove.svg"></object>
       </button>
     </section>
 
     <template>
       <span></span>
-      <button class="micro play" autocomplete="off" data-i18n-title="play-item">
+      <button class="ghost play" autocomplete="off" data-i18n-title="play-item">
         <object data="img/play.svg"></object>
       </button>
-      <button class="micro remove" autocomplete="off"
+      <button class="ghost remove" autocomplete="off"
               data-i18n-title="remove-item">
         <object data="img/remove.svg"></object>
       </button>
@@ -182,19 +203,22 @@
         <object data="img/loading.svg"></object>
       </span>
 
-      <button id="report" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="report" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/report.svg"></object>
       </button>
 
-      <button id="donate" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="donate" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/donate.svg"></object>
       </button>
 
-      <button id="rate" disabled autocomplete="off" data-i18n-title>
+      <button class="ghost" id="rate" disabled autocomplete="off"
+              data-i18n-title>
         <object data="img/rate.svg"></object>
       </button>
 
-      <button id="preferences" autocomplete="off" data-i18n-title>
+      <button class="ghost" id="preferences" autocomplete="off" data-i18n-title>
         <object data="img/preferences.svg"></object>
       </button>
     </section>

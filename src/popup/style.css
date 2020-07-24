@@ -7,19 +7,24 @@ body {
     min-width: 325px;
 }
 
-button {
-    background: none;
-    border: 0;
-    box-sizing: border-box;
-    padding: 8px 16px;
+button.ghost {
+    height: 40px;
+    padding: 0;
+    width: 48px;
 }
-button.micro {
-    padding: 8px;
+button.ghost:focus {
+    box-shadow: none;
+}
+button.ghost:hover:not(:disabled) {
+    background-color: transparent;
 }
 label {
     box-sizing: border-box;
-    padding: 8px 16px;
+    cursor: pointer;
+    height: 40px;
+    padding: 12px 0;
     text-align: center;
+    width: 48px;
 }
 div {
     text-align: center;
@@ -71,11 +76,9 @@ input[type="range"].disabled::-moz-range-progress {
 }
 
 #cast {
-    align-items: center;
     border-bottom: 1px solid #737373;
     display: flex;
     grid-column-end: span 3;
-    justify-content: center;
 }
 
 #paste textarea {
@@ -95,8 +98,11 @@ input[type="range"].disabled::-moz-range-progress {
 }
 
 #server {
-    margin-left: auto;
+    height: initial;
+    margin: 8px 16px 8px auto;
+    padding: 0;
     visibility: hidden;
+    width: initial;
 }
 
 #timing {
@@ -135,7 +141,6 @@ input[type="range"].disabled::-moz-range-progress {
     border-right: 1px solid #737373;
     display: grid;
     grid-template-columns: repeat(3, auto);
-    justify-content: center;
 }
 #up, #left, #select, #right, #down {
     background-color: #38383d;
@@ -213,20 +218,26 @@ input[type="range"].disabled::-moz-range-progress {
     padding-left: 8px;
     padding-right: 8px;
     text-overflow: ellipsis;
+    user-select: none;
     white-space: nowrap;
+}
+#playlist-items li:hover span {
+    padding-right: 0;
 }
 #playlist-items li span.active {
     font-weight: bold;
 }
 #playlist-items li button {
     display: none;
+    height: 32px;
+    min-width: 32px;
+    width: 32px;
 }
 #playlist-items li:hover button {
     display: inline;
 }
 
 #external {
-    align-items: center;
     border-top: 1px solid #737373;
     display: flex;
     grid-column-end: span 3;

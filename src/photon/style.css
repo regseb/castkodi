@@ -67,7 +67,7 @@ input[type="checkbox"]:focus {
 
 input[type="checkbox"]:checked {
     background-color: #0060df;
-    background-image: url("img/photon/check.svg");
+    background-image: url("img/check.svg");
     background-position: center center;
 }
 
@@ -107,7 +107,7 @@ input[type="radio"]:focus {
 }
 input[type="radio"]:checked {
     background-color: #0060df;
-    background-image: url("img/photon/marker.svg");
+    background-image: url("img/marker.svg");
     background-position: center center;
 }
 
@@ -119,14 +119,61 @@ input[type="radio"]:checked:active {
     background-color: #002275;
 }
 
+input[type="range"] {
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    padding: 5px 0;
+}
+input[type="range"]::-moz-focus-outer {
+    border: 0;
+}
+input[type="range"]:not([orient="vertical"]) {
+    height: 32px;
+}
+input[type="range"][orient="vertical"] {
+    width: 16px;
+}
+input[type="range"]::-moz-range-thumb {
+    background-color: white;
+    border: 0;
+    filter: drop-shadow(0 0 2px rgba(0 0 0 / 65%));
+    height: 12px;
+    width: 12px;
+}
+input[type="range"]:hover::-moz-range-thumb {
+    background-color: #0a84ff;
+}
+input[type="range"]::-moz-range-progress {
+    background-color: #f9f9fa;
+    border-radius: 2.5px;
+    height: 5px;
+}
+input[type="range"]::-moz-range-track {
+    background-color: #0c0c0d;
+    border-radius: 2.5px;
+}
+input[type="range"]:not([orient="vertical"])::-moz-range-track {
+    height: 5px;
+}
+input[type="range"][orient="vertical"]::-moz-range-track {
+    width: 5px;
+}
+input[type="range"]:disabled::-moz-range-thumb,
+input[type="range"]:disabled:focus::-moz-range-thumb,
+input[type="range"]:disabled::-moz-range-progress {
+    background-color: #737373;
+}
+
 button {
     background-color: rgba(12 12 13 / 10%);
     border: 0;
     border-radius: 2px;
     color: black;
     cursor: pointer;
-    font-size: 11px;
-    height: 24px;
+    font-size: 13px;
+    height: 32px;
+    min-width: 132px;
     padding: 0 8px;
 }
 button:active {
@@ -145,8 +192,26 @@ button:focus {
 button:hover:not(:disabled) {
     background-color: rgba(12 12 13 / 20%);
 }
+button.primary {
+    background-color: #0060df;
+    color: white;
+}
+button.primary:active {
+    background-color: #002275;
+}
+button.primary:hover:not(:disabled) {
+    background-color: #003eaa;
+}
+button.micro {
+    font-size: 11px;
+    height: 24px;
+    min-width: initial;
+}
 button.ghost {
     background-color: transparent;
+    height: 32px;
+    min-width: initial;
+    width: 32px;
 }
 button.ghost:active {
     background-color: rgba(12 12 13 / 20%);
@@ -154,3 +219,59 @@ button.ghost:active {
 button.ghost:hover:not(:disabled) {
     background-color: rgba(12 12 13 / 10%);
 }
+
+select {
+    -moz-appearance: none;
+    background-color: rgba(249 249 250 / 10%);
+    background-image: url("img/drop.svg");
+    background-position: right 8px center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    font-size: 11px;
+    height: 24px;
+    padding: 0 28px 0 8px;
+}
+select:active {
+    background-color: rgba(249 249 250 / 30%);
+}
+select:disabled {
+    cursor: default;
+    opacity: 40%;
+}
+select:focus, select:-moz-focusring {
+    box-shadow:
+        0 0 0 1px #0a84ff inset,
+        0 0 0 1px #0a84ff,
+        0 0 0 4px rgba(10 132 255 / 30%);
+    color: transparent;
+    text-shadow: 0 0 0 white;
+}
+select:hover:not(:disabled) {
+    background-color: rgba(249 249 250 / 20%);
+}
+
+dialog {
+    border: none;
+    border-radius: 4px;
+    box-shadow: 1px 4px rgba(12 12 13 / 10%);
+    padding: 16px;
+}
+dialog::backdrop, dialog + .backdrop {
+    background-color: rgba(0 0 0 / 50%);
+}
+dialog menu {
+    display: flex;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+dialog menu button {
+    flex: 1 1 0;
+}
+dialog menu button:not(:last-child) {
+    margin-right: 8px;
+}
+
