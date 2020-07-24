@@ -615,6 +615,7 @@ const handleAdd = function (item) {
     const clone = document.importNode(template.content, true);
     clone.querySelector("span").textContent = item.label;
     clone.querySelector("span").title = item.label;
+    clone.querySelector("span").addEventListener("dblclick", play);
     clone.querySelector(".play").addEventListener("click", play);
     clone.querySelector(".remove").addEventListener("click", remove);
     if (position === item.position) {
