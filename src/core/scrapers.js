@@ -42,6 +42,7 @@ import * as radio          from "./scraper/radio.js";
 import * as radioline      from "./scraper/radioline.js";
 import * as soundcloud     from "./scraper/soundcloud.js";
 import * as steam          from "./scraper/steam.js";
+import * as tiktok         from "./scraper/tiktok.js";
 import * as theguardian    from "./scraper/theguardian.js";
 import * as torrent        from "./scraper/torrent.js";
 import * as twitch         from "./scraper/twitch.js";
@@ -90,6 +91,7 @@ const SCRAPERS = [
     radioline,
     soundcloud,
     steam,
+    tiktok,
     theguardian,
     torrent,
     twitch,
