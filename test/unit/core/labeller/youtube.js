@@ -5,9 +5,9 @@ import { extract } from "../../../../src/core/labeller/youtube.js";
 describe("core/labeller/youtube.js", function () {
     describe("extract()", function () {
         it("should return null when there isn't parameter", async function () {
-            const url = "plugin://plugin.video.youtube/play/";
+            const url = new URL("plugin://plugin.video.youtube/play/");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, null);
         });
 
@@ -20,9 +20,10 @@ describe("core/labeller/youtube.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.youtube/play/?video_id=foo";
+            const url = new URL("plugin://plugin.video.youtube/play/" +
+                                                               "?video_id=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
@@ -42,9 +43,10 @@ describe("core/labeller/youtube.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.youtube/play/?playlist_id=foo";
+            const url = new URL("plugin://plugin.video.youtube/play/" +
+                                                            "?playlist_id=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
@@ -60,9 +62,10 @@ describe("core/labeller/youtube.js", function () {
                 "<html><head></head></html>",
             ));
 
-            const url = "plugin://plugin.video.youtube/play/?playlist_id=foo";
+            const url = new URL("plugin://plugin.video.youtube/play/" +
+                                                            "?playlist_id=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "My Mix");
 
             assert.strictEqual(stub.callCount, 1);

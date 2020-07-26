@@ -64,8 +64,7 @@ const actionVideo = async function (_url, content, options) {
         return meta.content;
     }
     if ("text/html" === type.content && !options.depth) {
-        return metaExtract(new URL(meta.content),
-                           { ...options, depth: true });
+        return metaExtract(new URL(meta.content), { ...options, depth: true });
     }
     return null;
 };
@@ -108,8 +107,7 @@ const actionAudio = async function (_url, content, options) {
         return meta.content;
     }
     if ("text/html" === type.content && !options.depth) {
-        return metaExtract(new URL(meta.content),
-                           { ...options, depth: true });
+        return metaExtract(new URL(meta.content), { ...options, depth: true });
     }
     return null;
 };

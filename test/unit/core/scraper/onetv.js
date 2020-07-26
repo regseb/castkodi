@@ -5,7 +5,7 @@ import { extract } from "../../../../src/core/scraper/onetv.js";
 describe("core/scraper/onetv.js", function () {
     describe("extract()", function () {
         it("should return null when there isn't Open Graph", async function () {
-            const url = "https://www.1tv.ru/foo.html";
+            const url = new URL("https://www.1tv.ru/foo.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -13,7 +13,7 @@ describe("core/scraper/onetv.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -22,7 +22,7 @@ describe("core/scraper/onetv.js", function () {
                 JSON.stringify([{ mbr: [{ src: "//qux.com/quux.avi" }] }]),
             ));
 
-            const url = "https://www.1tv.ru/foo.html";
+            const url = new URL("https://www.1tv.ru/foo.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -32,7 +32,7 @@ describe("core/scraper/onetv.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, "https://qux.com/quux.avi");
 
             assert.strictEqual(stub.callCount, 1);
@@ -48,10 +48,10 @@ describe("core/scraper/onetv.js", function () {
                 JSON.stringify([{ mbr: [{ src: "//baz.com/qux.avi" }] }]),
             ));
 
-            const url = "https://www.1tv.ru/embed/foo:bar";
+            const url = new URL("https://www.1tv.ru/embed/foo:bar");
             const content = undefined;
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, "https://baz.com/qux.avi");
 
             assert.strictEqual(stub.callCount, 1);

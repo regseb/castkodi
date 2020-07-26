@@ -5,9 +5,9 @@ import { extract } from "../../../../src/core/scraper/videopress.js";
 describe("core/scraper/videopress.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = "https://videopress.com/";
+            const url = new URL("https://videopress.com/");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -16,9 +16,9 @@ describe("core/scraper/videopress.js", function () {
                 JSON.stringify({ original: "https://bar.com/baz.avi" }),
             ));
 
-            const url = "https://videopress.com/v/foo";
+            const url = new URL("https://videopress.com/v/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, "https://bar.com/baz.avi");
 
             assert.strictEqual(stub.callCount, 1);
@@ -34,9 +34,9 @@ describe("core/scraper/videopress.js", function () {
                 JSON.stringify({ original: "https://qux.com/quux.avi" }),
             ));
 
-            const url = "https://videopress.com/embed/foo?bar=baz";
+            const url = new URL("https://videopress.com/embed/foo?bar=baz");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, "https://qux.com/quux.avi");
 
             assert.strictEqual(stub.callCount, 1);
@@ -53,9 +53,9 @@ describe("core/scraper/videopress.js", function () {
                 { status: 404 },
             ));
 
-            const url = "https://videopress.com/v/foo";
+            const url = new URL("https://videopress.com/v/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);

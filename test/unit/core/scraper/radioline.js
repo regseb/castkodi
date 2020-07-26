@@ -5,16 +5,16 @@ import { extract } from "../../../../src/core/scraper/radioline.js";
 describe("core/scraper/radioline.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = "http://twitter.com/RadiolineFrance";
+            const url = new URL("http://twitter.com/RadiolineFrance");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
         });
 
         it("should return null when it's not an audio", async function () {
-            const url = "https://fr-fr.radioline.co/foo";
+            const url = new URL("https://fr-fr.radioline.co/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -24,9 +24,9 @@ describe("core/scraper/radioline.js", function () {
                 JSON.stringify({ body: { type: "error" } }),
             ));
 
-            const url = "http://www.radioline.co/foo#bar-baz";
+            const url = new URL("http://www.radioline.co/foo#bar-baz");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -49,9 +49,9 @@ describe("core/scraper/radioline.js", function () {
                 }),
             ));
 
-            const url = "http://www.radioline.co/foo#bar/baz";
+            const url = new URL("http://www.radioline.co/foo#bar/baz");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, "https://qux.com/quux.mp4");
 
             assert.strictEqual(stub.callCount, 1);

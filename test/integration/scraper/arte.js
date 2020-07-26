@@ -3,11 +3,12 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Arte", function () {
     it("should return URL when video is unavailable", async function () {
-        const url = "https://www.arte.tv/fr/videos/067125-020-A/bits-top-list/";
+        const url = new URL("https://www.arte.tv/fr/videos/067125-020-A" +
+                                                             "/bits-top-list/");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
-        assert.strictEqual(file, url);
+        const file = await extract(url, options);
+        assert.strictEqual(file, url.href);
     });
 
     it("should return french video URL", async function () {
@@ -18,10 +19,10 @@ describe("Scraper: Arte", function () {
 
         // Récupérer le dernier de la liste pour ne pas prendre des vidéos qui
         // ne sont pas encore disponibles.
-        const url = doc.querySelector(".teaserItem:last-child a").href;
+        const url = new URL(doc.querySelector(".teaserItem:last-child a").href);
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.ok(file.endsWith(".mp4") || file.endsWith("/master.m3u8"),
                   `"${file}".endsWith(...) from ${url}`);
     });
@@ -34,10 +35,10 @@ describe("Scraper: Arte", function () {
 
         // Récupérer le dernier de la liste pour ne pas prendre des vidéos qui
         // ne sont pas encore disponibles.
-        const url = doc.querySelector(".teaserItem:last-child a").href;
+        const url = new URL(doc.querySelector(".teaserItem:last-child a").href);
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.ok(file.endsWith(".mp4") || file.endsWith("/master.m3u8"),
                   `"${file}".endsWith(...) from ${url}`);
     });

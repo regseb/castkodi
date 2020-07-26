@@ -5,14 +5,15 @@ import { extract } from "../../../../src/core/scraper/francetv.js";
 describe("core/scraper/francetv.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = "https://www.francetelevisions.fr/et-vous/programme-tv";
+            const url = new URL("https://www.francetelevisions.fr/et-vous" +
+                                                               "/programme-tv");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
-            const url = "https://www.france.tv/foo";
+            const url = new URL("https://www.france.tv/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -22,7 +23,7 @@ describe("core/scraper/francetv.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -34,7 +35,7 @@ describe("core/scraper/francetv.js", function () {
                 }),
             ));
 
-            const url = "https://www.france.tv/foo";
+            const url = new URL("https://www.france.tv/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -49,7 +50,7 @@ describe("core/scraper/francetv.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, "https://bar.fr/baz.mp4");
 
             assert.strictEqual(stub.callCount, 1);

@@ -1,7 +1,7 @@
 import assert      from "assert";
-import { extract } from "../../../../src/core/scraper/iframe.js";
+import { extract } from "../../../../src/core/scraper/noscript.js";
 
-describe("core/scraper/iframe.js", function () {
+describe("core/scraper/noscript.js", function () {
     describe("extract()", function () {
         it("should return null when it's not a HTML page", async function () {
             const url = new URL("https://foo.com/bar.zip");
@@ -12,23 +12,7 @@ describe("core/scraper/iframe.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return null when depth is 1", async function () {
-            const url = new URL("https://foo.com/bar.html");
-            const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <iframe src="https://www.youtube.com/embed/baz" />
-                      </body>
-                    </html>`, "text/html")),
-            };
-            const options = { depth: true };
-
-            const file = await extract(url, content, options);
-            assert.strictEqual(file, null);
-        });
-
-        it("should return null when there isn't iframe", async function () {
+        it("should return null when there isn't noscript", async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -42,41 +26,57 @@ describe("core/scraper/iframe.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return URL from iframe", async function () {
+        it("should return null when noscript is empty", async function () {
+            const url = new URL("https://foo.com/bar.html");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body><noscript></noscript></body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false };
+
+            const file = await extract(url, content, options);
+            assert.strictEqual(file, null);
+        });
+
+        it("should return URL from video in noscript", async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <iframe src="https://www.youtube.com/embed/baz" />
+                        <noscript>
+                          <video src="https://baz.org/qux.mp4" />
+                        </noscript>
                       </body>
                     </html>`, "text/html")),
             };
             const options = { depth: false, incognito: true };
 
             const file = await extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/?video_id=baz" +
-                                                   "&incognito=true");
+            assert.strictEqual(file, "https://baz.org/qux.mp4");
         });
 
-        it("should return URL from second iframe", async function () {
-            const url = new URL("https://www.youtube.com/index.html");
+        it("should return URL from second noscript", async function () {
+            const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <iframe src="http://exemple.com/data.zip"></iframe>
-                        <iframe src="/embed/foo"></iframe>
+                        <noscript>
+                          <a href="http://baz.org/">link</a>
+                        </noscript>
+                        <noscript>
+                          <audio src="https://qux.org/quxx.mp3" />
+                        </noscript>
                       </body>
                     </html>`, "text/html")),
             };
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/?video_id=foo" +
-                                                            "&incognito=false");
+            assert.strictEqual(file, "https://qux.org/quxx.mp3");
         });
     });
 });

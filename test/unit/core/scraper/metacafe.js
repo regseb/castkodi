@@ -4,14 +4,15 @@ import { extract } from "../../../../src/core/scraper/metacafe.js";
 describe("core/scraper/metacafe.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = "https://www.metacafe.com/galleries/foo";
+            const url = new URL("https://www.metacafe.com/galleries/foo");
+            const content = undefined;
 
-            const file = await extract(new URL(url));
+            const file = await extract(url, content);
             assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
-            const url = "https://www.metacafe.com/watch/foo";
+            const url = new URL("https://www.metacafe.com/watch/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -27,7 +28,7 @@ describe("core/scraper/metacafe.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, "https://bar.com/baz.mp4");
         });
     });

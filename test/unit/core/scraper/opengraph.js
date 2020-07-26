@@ -5,16 +5,16 @@ import { extractVideo, extractAudio, extractYandex }
 describe("core/scraper/opengraph.js", function () {
     describe("extractVideo()", function () {
         it("should return null when it's not a HTML page", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: false };
 
-            const file = await extractVideo(new URL(url), content, options);
+            const file = await extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't Open Graph", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -23,12 +23,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractVideo(new URL(url), content, options);
+            const file = await extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return null when content is empty", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -40,12 +40,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractVideo(new URL(url), content, options);
+            const file = await extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return null when type isn't supported", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -59,12 +59,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractVideo(new URL(url), content, options);
+            const file = await extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -77,12 +77,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractVideo(new URL(url), content, options);
+            const file = await extractVideo(url, content, options);
             assert.strictEqual(file, "http://bar.com/baz.mkv");
         });
 
         it("should return null when it's depther", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -95,12 +95,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: true };
 
-            const file = await extractVideo(new URL(url), content, options);
+            const file = await extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return plugin URL", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -113,25 +113,25 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false, incognito: true };
 
-            const file = await extractVideo(new URL(url), content, options);
+            const file = await extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/?video_id=foo" +
-                                                             "&incognito=true");
+                                                   "&incognito=true");
         });
     });
 
     describe("extractAudio()", function () {
         it("should return null when it's not a HTML page", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: false };
 
-            const file = await extractAudio(new URL(url), content, options);
+            const file = await extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't Open Graph", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -140,12 +140,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(new URL(url), content, options);
+            const file = await extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return null when content is empty", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -157,12 +157,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(new URL(url), content, options);
+            const file = await extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return null when type isn't supported", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -176,12 +176,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(new URL(url), content, options);
+            const file = await extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return audio URL", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -194,12 +194,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(new URL(url), content, options);
+            const file = await extractAudio(url, content, options);
             assert.strictEqual(file, "http://bar.com/baz.wav");
         });
 
         it("should return null when it's depther", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -212,12 +212,12 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: true };
 
-            const file = await extractAudio(new URL(url), content, options);
+            const file = await extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
         it("should return plugin URL", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -230,7 +230,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(new URL(url), content, options);
+            const file = await extractAudio(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F");
         });
@@ -238,15 +238,15 @@ describe("core/scraper/opengraph.js", function () {
 
     describe("extractYandex()", function () {
         it("should return null when it's not a HTML page", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = { html: () => Promise.resolve(null) };
 
-            const file = await extractYandex(new URL(url), content);
+            const file = await extractYandex(url, content);
             assert.strictEqual(file, null);
         });
 
         it("should return null when there isn't Open Graph", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -254,12 +254,12 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractYandex(new URL(url), content);
+            const file = await extractYandex(url, content);
             assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
-            const url = "https://foo.com";
+            const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -270,7 +270,7 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractYandex(new URL(url), content);
+            const file = await extractYandex(url, content);
             assert.strictEqual(file, "https://bar.com/baz.avi");
         });
     });

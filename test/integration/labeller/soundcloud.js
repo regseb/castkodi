@@ -4,10 +4,10 @@ import { complete } from "../../../src/core/labellers.js";
 
 describe("Labeller: SoundCloud", function () {
     it("should return audio label", async function () {
-        const url = "https://soundcloud.com/esa/hear-the-lightning";
+        const url = new URL("https://soundcloud.com/esa/hear-the-lightning");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "play", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,
@@ -17,10 +17,10 @@ describe("Labeller: SoundCloud", function () {
     });
 
     it("should return set label", async function () {
-        const url = "https://soundcloud.com/esa/sets/news-views";
+        const url = new URL("https://soundcloud.com/esa/sets/news-views");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "play", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,
@@ -30,11 +30,11 @@ describe("Labeller: SoundCloud", function () {
     });
 
     it("should return default label when it's dynamic set", async function () {
-        const url = "https://soundcloud.com/discover/sets" +
-                                                  "/charts-top:alternativerock";
+        const url = new URL("https://soundcloud.com/discover/sets" +
+                                                 "/charts-top:alternativerock");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "play", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,

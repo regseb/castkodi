@@ -5,182 +5,166 @@ import { extractClip, extractEmbed, extract }
 describe("core/scraper/twitch.js", function () {
     describe("extractClip()", function () {
         it("should return null when it's not a clip", async function () {
-            const url = "https://clips.twitch.tv/embed?noclip=Awesome";
+            const url = new URL("https://clips.twitch.tv/embed?noclip=foo");
 
-            const file = await extractClip(new URL(url));
+            const file = await extractClip(url);
             assert.strictEqual(file, null);
         });
 
         it("should return embed clip name", async function () {
-            const url = "https://clips.twitch.tv/embed" +
-                                    "?clip=IncredulousAbstemiousFennelImGlitch";
+            const url = new URL("https://clips.twitch.tv/embed?clip=foo");
 
-            const file = await extractClip(new URL(url));
+            const file = await extractClip(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play" +
-                                   "&slug=IncredulousAbstemiousFennelImGlitch");
+                "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
 
         it("should return clip name", async function () {
-            const url = "https://clips.twitch.tv/GleamingWildCougarFUNgineer";
+            const url = new URL("https://clips.twitch.tv/foo");
 
-            const file = await extractClip(new URL(url));
+            const file = await extractClip(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
 
         it("should return clip name when protocol is HTTP", async function () {
-            const url = "http://clips.twitch.tv/GleamingWildCougarFUNgineer";
+            const url = new URL("http://clips.twitch.tv/foo");
 
-            const file = await extractClip(new URL(url));
+            const file = await extractClip(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
     });
 
     describe("extractEmbed()", function () {
         it("should return null when it's not channel or video",
                                                              async function () {
-            const url = "https://player.twitch.tv/?other=foobar";
+            const url = new URL("https://player.twitch.tv/?other=foo");
 
-            const file = await extractEmbed(new URL(url));
+            const file = await extractEmbed(url);
             assert.strictEqual(file, null);
         });
 
         it("should return channel name", async function () {
-            const url = "https://player.twitch.tv/?channel=canardpc&muted=true";
+            const url = new URL("https://player.twitch.tv/?channel=foo");
 
-            const file = await extractEmbed(new URL(url));
+            const file = await extractEmbed(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play" +
-                                                      "&channel_name=canardpc");
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
 
         it("should return video id", async function () {
-            const url = "https://player.twitch.tv/?video=474384559" +
-                                                 "&autoplay=false";
+            const url = new URL("https://player.twitch.tv/?video=12345");
 
-            const file = await extractEmbed(new URL(url));
+            const file = await extractEmbed(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=474384559");
+                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
         });
     });
 
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = "https://app.twitch.tv/download";
+            const url = new URL("https://app.twitch.tv/download");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
         });
 
         it("should return video id", async function () {
-            const url = "https://www.twitch.tv/videos/164088111";
+            const url = new URL("https://www.twitch.tv/videos/12345");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=164088111");
+                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
         });
 
         it("should return video id when protocol is HTTP", async function () {
-            const url = "http://www.twitch.tv/videos/164088111";
+            const url = new URL("http://www.twitch.tv/videos/12345");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=164088111");
+                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
         });
 
         it("should return video id from 'go'", async function () {
-            const url = "https://go.twitch.tv/videos/164088111";
+            const url = new URL("https://go.twitch.tv/videos/12345");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=164088111");
+                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
         });
 
         it("should return video id from mobile version", async function () {
-            const url = "https://m.twitch.tv/videos/164088111";
+            const url = new URL("https://m.twitch.tv/videos/12345");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=164088111");
+                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
         });
 
         it("should return clip name", async function () {
-            const url = "https://www.twitch.tv/twitch/clip" +
-                                                "/GleamingWildCougarFUNgineer" +
-                                             "?filter=clips&range=7d&sort=time";
+            const url = new URL("https://www.twitch.tv/twitch/clip/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
 
         it("should return clip name when protocol is HTTP", async function () {
-            const url = "http://www.twitch.tv/twitch/clip" +
-                                                "/GleamingWildCougarFUNgineer" +
-                                             "?filter=clips&range=7d&sort=time";
+            const url = new URL("http://www.twitch.tv/twitch/clip/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
 
         it("should return clip name from 'go'", async function () {
-            const url = "https://go.twitch.tv/twitch/clip" +
-                                                 "/GleamingWildCougarFUNgineer";
+            const url = new URL("https://go.twitch.tv/twitch/clip/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
 
         it("should return clip name from mobile version", async function () {
-            const url = "https://m.twitch.tv/twitch/clip" +
-                                                 "/GleamingWildCougarFUNgineer";
+            const url = new URL("https://m.twitch.tv/twitch/clip/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
 
         it("should return channel name", async function () {
-            const url = "https://www.twitch.tv/nolife";
+            const url = new URL("https://www.twitch.tv/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&channel_name=nolife");
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
 
         it("should return channel name when protocol is HTTP",
                                                              async function () {
-            const url = "http://www.twitch.tv/nolife";
+            const url = new URL("http://www.twitch.tv/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&channel_name=nolife");
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
 
         it("should return channel name form 'go'", async function () {
-            const url = "https://go.twitch.tv/nolife";
+            const url = new URL("https://go.twitch.tv/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&channel_name=nolife");
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
 
         it("should return channel name from mobile version", async function () {
-            const url = "https://m.twitch.tv/jvtv";
+            const url = new URL("https://m.twitch.tv/foo");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&channel_name=jvtv");
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
     });
 });

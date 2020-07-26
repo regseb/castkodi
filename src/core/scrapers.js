@@ -17,7 +17,6 @@ import * as dumpert        from "./scraper/dumpert.js";
 import * as dailymotion    from "./scraper/dailymotion.js";
 import * as flickr         from "./scraper/flickr.js";
 import * as francetv       from "./scraper/francetv.js";
-import * as full30         from "./scraper/full30.js";
 import * as gamekult       from "./scraper/gamekult.js";
 // eslint-disable-next-line import/no-cycle
 import * as iframe         from "./scraper/iframe.js";
@@ -30,6 +29,8 @@ import * as ldjson         from "./scraper/ldjson.js";
 import * as metacafe       from "./scraper/metacafe.js";
 import * as mixcloud       from "./scraper/mixcloud.js";
 import * as mycloudplayers from "./scraper/mycloudplayers.js";
+// eslint-disable-next-line import/no-cycle
+import * as noscript       from "./scraper/noscript.js";
 import * as onetv          from "./scraper/onetv.js";
 // eslint-disable-next-line import/no-cycle
 import * as opengraph      from "./scraper/opengraph.js";
@@ -74,7 +75,6 @@ const SCRAPERS = [
     dailymotion,
     flickr,
     francetv,
-    full30,
     gamekult,
     kcaastreaming,
     konbini,
@@ -106,6 +106,7 @@ const SCRAPERS = [
     ldjson,
     opengraph,
     iframe,
+    noscript,
 ].flatMap((s) => Object.values(s));
 
 /**

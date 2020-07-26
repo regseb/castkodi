@@ -5,10 +5,10 @@ describe("Scraper: Invidious", function () {
     it("should return video id [youtube]", async function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
 
-        const url = "https://invidio.us/watch?v=e6EQwSadpPk";
+        const url = new URL("https://invidio.us/watch?v=e6EQwSadpPk");
         const options = { depth: false, incognito: true };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/?video_id=e6EQwSadpPk" +
                                                              "&incognito=true");
@@ -17,10 +17,10 @@ describe("Scraper: Invidious", function () {
     });
 
     it("should return embed video id [youtube]", async function () {
-        const url = "https://invidio.us/embed/8cmBd7lkunk";
+        const url = new URL("https://invidio.us/embed/8cmBd7lkunk");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/?video_id=8cmBd7lkunk" +
                                                             "&incognito=false");

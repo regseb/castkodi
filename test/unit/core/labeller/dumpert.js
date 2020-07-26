@@ -6,9 +6,9 @@ describe("core/labeller/dumpert.js", function () {
     describe("extract()", function () {
         it("should return null when there isn't 'video_page_url' parameter",
                                                              async function () {
-            const url = "plugin://plugin.video.dumpert/?foo=bar";
+            const url = new URL("plugin://plugin.video.dumpert/?foo=bar");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, null);
         });
 
@@ -21,10 +21,10 @@ describe("core/labeller/dumpert.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.dumpert/" +
-                                      "?video_page_url=http%3A%2F%2Ffoo.com%2F";
+            const url = new URL("plugin://plugin.video.dumpert/" +
+                                     "?video_page_url=http%3A%2F%2Ffoo.com%2F");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);

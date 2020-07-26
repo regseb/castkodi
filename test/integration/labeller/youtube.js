@@ -6,10 +6,10 @@ describe("Labeller: YouTube", function () {
     it("should return video label", async function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
 
-        const url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        const url = new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,
@@ -23,10 +23,11 @@ describe("Labeller: YouTube", function () {
     it("should return playlist label", async function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
 
-        const url = "https://www.youtube.com/playlist?list=PL6B3937A5D230E335";
+        const url = new URL("https://www.youtube.com/playlist" +
+                                                    "?list=PL6B3937A5D230E335");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,
@@ -40,11 +41,11 @@ describe("Labeller: YouTube", function () {
     it("should return mix label", async function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
 
-        const url = "https://music.youtube.com/watch?v=9bZkp7q19f0" +
-                                                   "&list=RD9bZkp7q19f0";
+        const url = new URL("https://music.youtube.com/watch" +
+                                           "?v=9bZkp7q19f0&list=RD9bZkp7q19f0");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,

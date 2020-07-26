@@ -4,14 +4,14 @@ import { extract } from "../../../../src/core/scraper/vidlox.js";
 describe("core/scraper/vidlox.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = "https://twitter.com/vidloxtv";
+            const url = new URL("https://twitter.com/vidloxtv");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
-            const url = "https://vidlox.me/foo";
+            const url = new URL("https://vidlox.me/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -19,12 +19,12 @@ describe("core/scraper/vidlox.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
-            const url = "https://vidlox.me/foo";
+            const url = new URL("https://vidlox.me/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -38,7 +38,7 @@ describe("core/scraper/vidlox.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, "https://bar.baz/qux.m3u8");
         });
     });

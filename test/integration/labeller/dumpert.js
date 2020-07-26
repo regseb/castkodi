@@ -4,10 +4,10 @@ import { complete } from "../../../src/core/labellers.js";
 
 describe("Labeller: Dumpert", function () {
     it("should return video label", async function () {
-        const url = "https://www.dumpert.nl/item/7924631_3a727e30";
+        const url = new URL("https://www.dumpert.nl/item/7924631_3a727e30");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,

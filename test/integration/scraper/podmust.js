@@ -3,18 +3,19 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: PodMust", function () {
     it("should return URL when it's not an audio", async function () {
-        const url = "https://podmust.com/fr/?s=foo";
+        const url = new URL("https://podmust.com/fr/?s=foo");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
-        assert.strictEqual(file, url);
+        const file = await extract(url, options);
+        assert.strictEqual(file, url.href);
     });
 
     it("should return audio URL [audio]", async function () {
-        const url = "https://podmust.com/podcast/le-billet-de-chris-esquerre/";
+        const url = new URL("https://podmust.com/podcast" +
+                                               "/le-billet-de-chris-esquerre/");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.ok(new URL(file).pathname.endsWith(".mp3"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
@@ -25,11 +26,11 @@ describe("Scraper: PodMust", function () {
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const url = doc.querySelector("a.tile").href;
+        const url = new URL(doc.querySelector("a.tile").href);
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.ok(new URL(file).pathname.endsWith(".mp3"),
-                  `new URL("${file}").pathname.endsWith(...)`);
+                  `new URL("${file}").pathname.endsWith(...) from ${url}`);
     });
 });

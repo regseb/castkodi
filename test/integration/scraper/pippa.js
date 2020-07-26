@@ -3,19 +3,19 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Pippa", function () {
     it("should return URL when it's not an audio", async function () {
-        const url = "https://shows.pippa.io/studio-404/";
+        const url = new URL("https://shows.pippa.io/studio-404/");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
-        assert.strictEqual(file, url);
+        const file = await extract(url, options);
+        assert.strictEqual(file, url.href);
     });
 
     it("should return audio URL [opengraph]", async function () {
-        const url = "https://shows.pippa.io/cdanslair/episodes" +
-                                "/5-decembre-la-greve-qui-fait-peur-22-11-2019";
+        const url = new URL("https://shows.pippa.io/cdanslair/episodes" +
+                               "/5-decembre-la-greve-qui-fait-peur-22-11-2019");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.strictEqual(file,
             "https://open.acast.com/public/streams" +
                                           "/5bb36892b799143c5a063e7f/episodes" +
@@ -24,11 +24,11 @@ describe("Scraper: Pippa", function () {
 
     it("should return audio URL when protocol is HTTP [opengraph]",
                                                              async function () {
-        const url = "http://shows.pippa.io/cdanslair/episodes" +
-                            "/hongkong-la-colere-monte-pekin-menace-19-11-2019";
+        const url = new URL("http://shows.pippa.io/cdanslair/episodes" +
+                           "/hongkong-la-colere-monte-pekin-menace-19-11-2019");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.strictEqual(file,
             "https://open.acast.com/public/streams" +
                                           "/5bb36892b799143c5a063e7f/episodes" +
@@ -36,11 +36,11 @@ describe("Scraper: Pippa", function () {
     });
 
     it("should return audio URL from acast [opengraph]", async function () {
-        const url = "https://shows.acast.com/cdanslair/episodes" +
-                             "/chine-le-virus-qui-inquiete-le-monde-22-01-2020";
+        const url = new URL("https://shows.acast.com/cdanslair/episodes" +
+                            "/chine-le-virus-qui-inquiete-le-monde-22-01-2020");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.strictEqual(file,
             "https://open.acast.com/public/streams" +
                                           "/5bb36892b799143c5a063e7f/episodes" +

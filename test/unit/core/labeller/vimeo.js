@@ -6,9 +6,9 @@ describe("core/labeller/vimeo.js", function () {
     describe("extract()", function () {
         it("should return null when there isn't 'video_id' parameter",
                                                              async function () {
-            const url = "plugin://plugin.video.vimeo/play/?foo=bar";
+            const url = new URL("plugin://plugin.video.vimeo/play/?foo=bar");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, null);
         });
 
@@ -21,9 +21,10 @@ describe("core/labeller/vimeo.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.vimeo/play/?video_id=foo";
+            const url = new URL("plugin://plugin.video.vimeo/play/" +
+                                                               "?video_id=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);

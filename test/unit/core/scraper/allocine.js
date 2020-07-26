@@ -4,14 +4,14 @@ import { extract } from "../../../../src/core/scraper/allocine.js";
 describe("core/scraper/allocine.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = "https://secure.allocine.fr/account";
+            const url = new URL("https://secure.allocine.fr/account");
 
-            const file = await extract(new URL(url));
+            const file = await extract(url);
             assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
-            const url = "http://www.allocine.fr/foo";
+            const url = new URL("http://www.allocine.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -19,12 +19,12 @@ describe("core/scraper/allocine.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, null);
         });
 
         it("should return video URL", async function () {
-            const url = "http://www.allocine.fr/video/video-19577157/";
+            const url = new URL("http://www.allocine.fr/video/video-19577157/");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -38,7 +38,7 @@ describe("core/scraper/allocine.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(new URL(url), content);
+            const file = await extract(url, content);
             assert.strictEqual(file, "http://www.allocine.fr/bar.mp4");
         });
     });

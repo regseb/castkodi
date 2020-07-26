@@ -11,11 +11,11 @@ describe("Scraper: StormoTV", function () {
     });
 
     it("should return video URL [opengraph]", async function () {
-        const url = "https://stormo.online/videos/244" +
-                                            "/zvezdnye-voyny-probujdenie-sily/";
+        const url = new URL("https://stormo.online/videos/244" +
+                                           "/zvezdnye-voyny-probujdenie-sily/");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         assert.ok(file.endsWith(".mp4/"), `"${file}".endsWith(...)`);
     });
 });

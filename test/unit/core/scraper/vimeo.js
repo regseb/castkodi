@@ -5,50 +5,50 @@ import { extractVideo, extractEmbed }
 describe("core/scraper/vimeo.js", function () {
     describe("extractVideo()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = "https://developer.vimeo.com/";
+            const url = new URL("https://developer.vimeo.com/");
 
-            const file = await extractVideo(new URL(url));
+            const file = await extractVideo(url);
             assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
-            const url = "https://vimeo.com/channels";
+            const url = new URL("https://vimeo.com/channels");
 
-            const file = await extractVideo(new URL(url));
+            const file = await extractVideo(url);
             assert.strictEqual(file, null);
         });
 
         it("should return video id", async function () {
-            const url = "https://vimeo.com/228786490";
+            const url = new URL("https://vimeo.com/12345");
 
-            const file = await extractVideo(new URL(url));
+            const file = await extractVideo(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vimeo/play/?video_id=228786490");
+                "plugin://plugin.video.vimeo/play/?video_id=12345");
         });
 
         it("should return video id when protocol is HTTP", async function () {
-            const url = "http://vimeo.com/228786490";
+            const url = new URL("http://vimeo.com/12345");
 
-            const file = await extractVideo(new URL(url));
+            const file = await extractVideo(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vimeo/play/?video_id=228786490");
+                "plugin://plugin.video.vimeo/play/?video_id=12345");
         });
     });
 
     describe("extractEmbed()", function () {
         it("should return null when it's not a video", async function () {
-            const url = "https://player.vimeo.com/video/foobar";
+            const url = new URL("https://player.vimeo.com/video/foo");
 
-            const file = await extractEmbed(new URL(url));
+            const file = await extractEmbed(url);
             assert.strictEqual(file, null);
         });
 
         it("should return video id", async function () {
-            const url = "https://player.vimeo.com/video/228786490";
+            const url = new URL("https://player.vimeo.com/video/12345");
 
-            const file = await extractEmbed(new URL(url));
+            const file = await extractEmbed(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vimeo/play/?video_id=228786490");
+                "plugin://plugin.video.vimeo/play/?video_id=12345");
         });
     });
 });

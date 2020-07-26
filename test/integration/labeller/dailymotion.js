@@ -4,10 +4,10 @@ import { complete } from "../../../src/core/labellers.js";
 
 describe("Labeller: Dailymotion", function () {
     it("should return video label", async function () {
-        const url = "https://www.dailymotion.com/video/x2knr9t";
+        const url = new URL("https://www.dailymotion.com/video/x2knr9t");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,

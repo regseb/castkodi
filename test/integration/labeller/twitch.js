@@ -11,22 +11,22 @@ describe("Labeller: Twitch", function () {
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const url = "https://m.twitch.tv" +
-                    doc.querySelector(".channel-list a.tw-link").href;
+        const url = new URL("https://m.twitch.tv" +
+                            doc.querySelector(".channel-list a.tw-link").href);
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "", type: "unknown" });
-        assert.notStrictEqual(item.label, null);
-        assert.notStrictEqual(item.label, "");
+        assert.notStrictEqual(item.label, null, `from ${url}`);
+        assert.notStrictEqual(item.label, "",   `from ${url}`);
     });
 
     it("should return default label when channel is offline",
                                                              async function () {
-        const url = "https://www.twitch.tv/supersynock";
+        const url = new URL("https://www.twitch.tv/supersynock");
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,
@@ -43,13 +43,14 @@ describe("Labeller: Twitch", function () {
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const url = "https://m.twitch.tv" +
-                    doc.querySelector(`a.tw-link[href^="/videos/"]`).href;
+        const url = new URL("https://m.twitch.tv" +
+                            doc.querySelector(`a.tw-link[href^="/videos/"]`)
+                               .href);
         const options = { depth: false, incognito: false };
 
-        const file = await extract(new URL(url), options);
+        const file = await extract(url, options);
         const item = await complete({ file, label: "", type: "unknown" });
-        assert.notStrictEqual(item.label, null);
-        assert.notStrictEqual(item.label, "");
+        assert.notStrictEqual(item.label, null, `from ${url}`);
+        assert.notStrictEqual(item.label, "",   `from ${url}`);
     });
 });

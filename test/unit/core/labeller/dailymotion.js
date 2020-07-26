@@ -6,9 +6,10 @@ describe("core/labeller/dailymotion.js", function () {
     describe("extract()", function () {
         it("should return null when there isn't 'url' parameter",
                                                              async function () {
-            const url = "plugin://plugin.video.dailymotion_com/?foo=bar";
+            const url = new URL("plugin://plugin.video.dailymotion_com/" +
+                                                                    "?foo=bar");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, null);
         });
 
@@ -21,9 +22,10 @@ describe("core/labeller/dailymotion.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.dailymotion_com/?url=foo";
+            const url = new URL("plugin://plugin.video.dailymotion_com/" +
+                                                                    "?url=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "bar - baz");
 
             assert.strictEqual(stub.callCount, 1);

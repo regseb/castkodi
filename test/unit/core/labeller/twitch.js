@@ -5,9 +5,9 @@ import { extract } from "../../../../src/core/labeller/twitch.js";
 describe("core/labeller/twitch.js", function () {
     describe("extract()", function () {
         it("should return null when there isn't parameter", async function () {
-            const url = "plugin://plugin.video.twitch/";
+            const url = new URL("plugin://plugin.video.twitch/");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, null);
         });
 
@@ -24,9 +24,10 @@ describe("core/labeller/twitch.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.twitch/?channel_name=foo";
+            const url = new URL("plugin://plugin.video.twitch/" +
+                                                           "?channel_name=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
@@ -47,9 +48,10 @@ describe("core/labeller/twitch.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.twitch/?channel_name=foo";
+            const url = new URL("plugin://plugin.video.twitch/" +
+                                                           "?channel_name=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
@@ -73,9 +75,9 @@ describe("core/labeller/twitch.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.twitch/?video_id=foo";
+            const url = new URL("plugin://plugin.video.twitch/?video_id=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
@@ -96,9 +98,9 @@ describe("core/labeller/twitch.js", function () {
                  </html>`,
             ));
 
-            const url = "plugin://plugin.video.twitch/?video_id=foo";
+            const url = new URL("plugin://plugin.video.twitch/?video_id=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -110,9 +112,9 @@ describe("core/labeller/twitch.js", function () {
         });
 
         it("should return clip label", async function () {
-            const url = "plugin://plugin.video.twitch/?slug=foo";
+            const url = new URL("plugin://plugin.video.twitch/?slug=foo");
 
-            const label = await extract(new URL(url));
+            const label = await extract(url);
             assert.strictEqual(label, "foo");
         });
     });
