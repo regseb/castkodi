@@ -72,13 +72,9 @@ export const cast = async function (action, urls) {
         await kodi.player.open();
     } else if ("insert" === action) {
         const position = await kodi.player.getProperty("position");
-        // Si aucun média est en cours de lecture : placer le nouveau média à la
-        // fin de la liste de lecture.
-        if (-1 === position) {
-            await kodi.playlist.add(file);
-        } else {
-            await kodi.playlist.insert(file, position + 1);
-        }
+        // Si aucun média est en cours de lecture : le nouveau média sera placé
+        // en première position.
+        await kodi.playlist.insert(file, position + 1);
     } else if ("add" === action) {
         await kodi.playlist.add(file);
     } else {
