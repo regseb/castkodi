@@ -26,6 +26,7 @@ import * as konbini        from "./scraper/konbini.js";
 import * as lbry           from "./scraper/lbry.js";
 // eslint-disable-next-line import/no-cycle
 import * as ldjson         from "./scraper/ldjson.js";
+import * as melty          from "./scraper/melty.js";
 import * as metacafe       from "./scraper/metacafe.js";
 import * as mixcloud       from "./scraper/mixcloud.js";
 import * as mycloudplayers from "./scraper/mycloudplayers.js";
@@ -80,6 +81,7 @@ const SCRAPERS = [
     kcaastreaming,
     konbini,
     lbry,
+    melty,
     metacafe,
     mixcloud,
     mycloudplayers,
