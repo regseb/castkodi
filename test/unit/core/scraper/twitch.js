@@ -1,5 +1,5 @@
 import assert from "assert";
-import { extractClip, extractEmbed, extract }
+import { extract, extractClip, extractEmbed }
                                   from "../../../../src/core/scraper/twitch.js";
 
 describe("core/scraper/twitch.js", function () {

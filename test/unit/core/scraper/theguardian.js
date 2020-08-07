@@ -1,5 +1,5 @@
 import assert from "assert";
-import { extractVideo, extractAudio }
+import { extractAudio, extractVideo }
                              from "../../../../src/core/scraper/theguardian.js";
 
 describe("core/scraper/theguardian.js", function () {

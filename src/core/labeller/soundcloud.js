@@ -19,8 +19,7 @@ const action = async function ({ searchParams }) {
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
         const meta = doc.querySelector(`meta[property="og:title"]`);
-        return null === meta ? null
-                             : meta.content;
+        return meta?.content ?? null;
     }
     return null;
 };

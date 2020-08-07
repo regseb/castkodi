@@ -1,5 +1,5 @@
 import assert from "assert";
-import { extractVideo, extractAudio, extractYandex }
+import { extractAudio, extractVideo, extractYandex }
                                from "../../../../src/core/scraper/opengraph.js";
 
 describe("core/scraper/opengraph.js", function () {

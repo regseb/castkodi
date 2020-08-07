@@ -23,6 +23,7 @@
         "mocha/max-top-level-suites": 2,
         "mocha/no-async-describe": 2,
         "mocha/no-exclusive-tests": 2,
+        "mocha/no-exports": 2,
         "mocha/no-global-tests": 2,
         "mocha/no-hooks": [2, { "allow": ["before"] }],
         "mocha/no-hooks-for-single-case": 0,

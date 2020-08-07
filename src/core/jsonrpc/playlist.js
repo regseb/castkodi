@@ -60,9 +60,7 @@ export const Playlist = class {
             playlistid: 1,
             properties: ["file"],
         });
-        return "items" in results
-                          ? results.items.map((i, p) => ({ ...i, position: p }))
-                          : [];
+        return results.items?.map((i, p) => ({ ...i, position: p })) ?? [];
     }
 
     /**
@@ -78,8 +76,7 @@ export const Playlist = class {
             properties: ["file"],
             limits:     { start: position, end: position + 1 },
         });
-        return "items" in results ? results.items[0]
-                                  : null;
+        return results.items?.[0] ?? null;
     }
 
     /**

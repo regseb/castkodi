@@ -15,8 +15,7 @@ import { notify } from "../core/notify.js";
 const aggregate = async function (info) {
     if ("bookmarkId" in info) {
         const bookmarks = await browser.bookmarks.get(info.bookmarkId);
-        return bookmarks.map((b) => ("url" in b ? b.url
-                                                : b.title));
+        return bookmarks.map((b) => b?.url ?? b.title);
     }
 
     return [

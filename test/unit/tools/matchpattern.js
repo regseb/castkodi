@@ -1,6 +1,6 @@
 import assert        from "assert";
 import sinon         from "sinon";
-import { sanitize, compile, matchPattern }
+import { compile, matchPattern, sanitize }
                                       from "../../../src/tools/matchpattern.js";
 
 describe("tools/matchpattern.js", function () {

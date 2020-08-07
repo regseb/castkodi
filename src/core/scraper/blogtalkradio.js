@@ -18,7 +18,6 @@ import { matchPattern } from "../../tools/matchpattern.js";
 const action = async function (_url, content) {
     const doc = await content.html();
     const meta = doc.querySelector(`meta[property="twitter:player:stream"]`);
-    return null === meta ? null
-                         : meta.content;
+    return meta?.content ?? null;
 };
 export const extract = matchPattern(action, "*://www.blogtalkradio.com/*");

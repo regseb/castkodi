@@ -1,5 +1,5 @@
 import assert from "assert";
-import { extractVideo, extractPlaylist, extractEmbed, extractMinify }
+import { extractEmbed, extractMinify, extractPlaylist, extractVideo }
                                  from "../../../../src/core/scraper/youtube.js";
 
 describe("core/scraper/youtube.js", function () {

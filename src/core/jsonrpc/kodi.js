@@ -37,7 +37,7 @@ export const Kodi = class {
      *
      * @param {string} address L'adresse IP ou l'adresse complête du service de
      *                         Kodi.
-     * @returns {Promise.<URL>} Une promesse contenant l'URL.
+     * @returns {URL} L'URL vers le service de Kodi.
      */
     static build(address) {
         if ("" === address) {

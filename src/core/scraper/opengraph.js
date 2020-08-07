@@ -131,7 +131,6 @@ const actionYandex = async function (_url, content) {
     }
 
     const meta = doc.querySelector(`meta[property="ya:ovs:content_url"]`);
-    return null === meta ? null
-                         : meta.content;
+    return meta?.content ?? null;
 };
 export const extractYandex = matchPattern(actionYandex, "*://*/*");

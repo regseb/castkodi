@@ -16,7 +16,7 @@ const objects = [...document.querySelectorAll("object"),
 // avec la feuille de style.
 for (const object of objects) {
     fetch(object.data).then((r) => r.text())
-                       .then((text) => {
+                      .then((text) => {
         const svg = new DOMParser().parseFromString(text, "image/svg+xml");
         object.append(svg.documentElement);
         object.removeAttribute("data");

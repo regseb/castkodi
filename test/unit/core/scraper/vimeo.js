@@ -1,5 +1,5 @@
 import assert from "assert";
-import { extractVideo, extractEmbed }
+import { extractEmbed, extractVideo }
                                    from "../../../../src/core/scraper/vimeo.js";
 
 describe("core/scraper/vimeo.js", function () {

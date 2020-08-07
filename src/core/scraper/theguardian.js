@@ -48,8 +48,7 @@ export const extractVideo = matchPattern(actionVideo,
 const actionAudio = async function (_url, content) {
     const doc = await content.html();
     const figure = doc.querySelector("figure#audio-component-container");
-    return null === figure ? null
-                           : figure.dataset.source;
+    return figure?.dataset.source ?? null;
 };
 export const extractAudio = matchPattern(actionAudio,
     "*://www.theguardian.com/*");

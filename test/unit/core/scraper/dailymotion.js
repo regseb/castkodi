@@ -1,5 +1,5 @@
 import assert from "assert";
-import { extractVideo, extractMinify, extractEmbed }
+import { extractEmbed, extractMinify, extractVideo }
                              from "../../../../src/core/scraper/dailymotion.js";
 
 describe("core/scraper/dailymotion.js", function () {

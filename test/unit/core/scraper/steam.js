@@ -1,6 +1,6 @@
 import assert from "assert";
 import sinon  from "sinon";
-import { extractGame, extractBroadcast }
+import { extractBroadcast, extractGame }
                                    from "../../../../src/core/scraper/steam.js";
 
 describe("core/scraper/steam.js", function () {

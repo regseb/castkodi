@@ -19,8 +19,7 @@ const action = async function ({ href }) {
     try {
         const response = await fetch(url);
         const json = await response.json();
-        return "files" in json ? json.files[0].fileUrl
-                               : null;
+        return json.files?.[0].fileUrl ?? null;
     } catch {
         // Ignorer les erreurs car elles proviennent d'un site qui n'est pas une
         // instance PeerTube (et l'appel à l'API a échoué).

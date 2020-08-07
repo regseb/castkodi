@@ -322,7 +322,10 @@
         "prefer-template": 0,
         "require-yield": 2,
         "rest-spread-spacing": 2,
-        "sort-imports": 0,
+        "sort-imports": [2, {
+            "ignoreDeclarationSort": true,
+            "allowSeparatedGroups": true
+        }],
         "symbol-description": 2,
         "template-curly-spacing": 2,
         "yield-star-spacing": 2,
@@ -450,6 +453,7 @@
         "unicorn/no-nested-ternary": 2,
         "unicorn/no-new-buffer": 2,
         "unicorn/no-null": 0,
+        "unicorn/no-object-as-default-parameter": 2,
         "unicorn/no-process-exit": 2,
         "unicorn/no-reduce": 0,
         "unicorn/no-unreadable-array-destructuring": 2,
@@ -459,6 +463,7 @@
         "unicorn/no-zero-fractions": 2,
         "unicorn/number-literal-case": 2,
         "unicorn/prefer-add-event-listener": 2,
+        "unicorn/prefer-array-find": 2,
         "unicorn/prefer-dataset": 2,
         "unicorn/prefer-event-key": 2,
         "unicorn/prefer-flat-map": 2,

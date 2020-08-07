@@ -19,8 +19,7 @@ const action = async function (_url, content) {
     const doc = await content.html();
     const script = doc.querySelector("script#__NEXT_DATA__");
 
-    const videoData = JSON.parse(script.text).props.pageProps.videoData;
-    return undefined === videoData ? null
-                                   : videoData.itemInfos.video.urls[0];
+    const json = JSON.parse(script.text);
+    return json.props.pageProps.videoData?.itemInfos.video.urls[0] ?? null;
 };
 export const extract = matchPattern(action, "*://www.tiktok.com/*");
