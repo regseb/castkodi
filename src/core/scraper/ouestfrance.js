@@ -32,11 +32,15 @@ const action = async function ({ href }, content, options) {
         return null;
     }
 
-    const iframe = doc.querySelector("iframe[data-ofiframe-src]");
-    if (null === iframe) {
-        return null;
+    for (const iframe of doc.querySelectorAll("iframe[data-ofiframe-src]")) {
+        const file = await metaExtract(
+            new URL(iframe.dataset.ofiframeSrc, href),
+            { ...options, depth: true },
+        );
+        if (null !== file) {
+            return file;
+        }
     }
-    return metaExtract(new URL(iframe.dataset.ofiframeSrc, href),
-                       { ...options, depth: true });
+    return null;
 };
 export const extract = matchPattern(action, "*://www.ouest-france.fr/*");

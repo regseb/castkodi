@@ -26,7 +26,7 @@ describe("core/scraper/ouestfrance.js", function () {
                     <html>
                       <body>
                         <iframe data-ofiframe-src="https://www.youtube.com` +
-                                                                 `/embed/foo" />
+                                                          `/embed/foo"></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -50,14 +50,31 @@ describe("core/scraper/ouestfrance.js", function () {
             assert.strictEqual(file, null);
         });
 
+        it("should return null with iframe no video", async function () {
+            const url = new URL("https://www.ouest-france.fr/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <iframe data-ofiframe-src="//bar.com/"></iframe>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false };
+
+            const file = await extract(url, content, options);
+            assert.strictEqual(file, null);
+        });
+
         it("should return video URL", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
+                        <iframe data-ofiframe-src="//bar.com/"></iframe>
                         <iframe data-ofiframe-src="//www.dailymotion.com` +
-                                                           `/video/123456789" />
+                                                    `/video/123456789"></iframe>
                       </body>
                     </html>`, "text/html")),
             };

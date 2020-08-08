@@ -23,4 +23,16 @@ describe("Scraper: Ouest-France", function () {
                                                        "162.mp4?mdtk=01124706"),
                   `"${file}".endsWith(...)`);
     });
+
+    it("should return video URL when two iframe in page", async function () {
+        const url = new URL("https://www.ouest-france.fr/sante/virus" +
+            "/coronavirus/coronavirus-en-france-le-nombre-de-cas-detectes" +
+            "-augmente-plus-que-le-nombre-de-tests-effectues-6930380");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.ok(file.endsWith("/d7/5d/d75df81c7abb517d514bff22ab74816fa86a3" +
+                                                       "850.mp4?mdtk=01124706"),
+                  `"${file}".endsWith(...)`);
+    });
 });

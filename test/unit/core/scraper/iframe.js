@@ -18,7 +18,8 @@ describe("core/scraper/iframe.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <iframe src="https://www.youtube.com/embed/baz" />
+                        <iframe src="https://www.youtube.com/embed/baz"
+                                                                      ></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -48,7 +49,8 @@ describe("core/scraper/iframe.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <iframe src="https://www.youtube.com/embed/baz" />
+                        <iframe src="https://www.youtube.com/embed/baz"
+                                                                      ></iframe>
                       </body>
                     </html>`, "text/html")),
             };
