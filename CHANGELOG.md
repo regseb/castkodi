@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/regseb/castkodi/compare/v5.1.0...v5.2.0) (2020-08-09)
+
+
+### Features
+
+* Créer un scraper spécifique pour Melty. ([a053b26](https://github.com/regseb/castkodi/commit/a053b269a5903e21929cd3300114362d760d928b))
+* Enlever Mixer. ([dedc2de](https://github.com/regseb/castkodi/commit/dedc2de45b85fa3345d4bbb58ff7d57fb9f718b5))
+* Enlever StormoTV. ([cf19546](https://github.com/regseb/castkodi/commit/cf19546def21e792c194751397fb796927cf4a16))
+* Fouiller dans les éléments noscript. ([8c914d6](https://github.com/regseb/castkodi/commit/8c914d64873f59c15c5ec4e6aaf937e4ab9bf5af))
+* Insérer en début de liste si aucun média en cours. ([f69dae2](https://github.com/regseb/castkodi/commit/f69dae2495953e7b2f338e3547c522f6f2ae5ced))
+* Lancer la lecture d'un élément avec un double-clic. ([10d70eb](https://github.com/regseb/castkodi/commit/10d70ebe43e2457f7ec7070c7d2a43cdf15a16f0))
+* Permettre d'envoyer du texte. ([d00adab](https://github.com/regseb/castkodi/commit/d00adabd63910747d565b20db39d3d1dfb0cfc1a))
+
+
+### Bug Fixes
+
+* Adapter le scraper de TikTok. ([9300a18](https://github.com/regseb/castkodi/commit/9300a189ba769b4263f4461b019252bdf4d347df))
+* Gérer les pages Ouest-France avec deux iframes. ([6d715db](https://github.com/regseb/castkodi/commit/6d715db1079b24f77daa5e47ac3ef3fa808c71f9))
+
 ## [5.1.0](https://github.com/regseb/castkodi/compare/v5.0.1...v5.1.0) (2020-07-11)
 
 
