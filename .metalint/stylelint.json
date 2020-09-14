@@ -49,11 +49,11 @@
         "color-named": "always-where-possible",
         "color-no-hex": null,
 
-        "function-blacklist": null,
+        "function-disallowed-list": null,
         "function-url-no-scheme-relative": null,
-        "function-url-scheme-blacklist": null,
-        "function-url-scheme-whitelist": null,
-        "function-whitelist": null,
+        "function-url-scheme-disallowed-list": null,
+        "function-url-scheme-allowed-list": null,
+        "function-allowed-list": null,
 
         "keyframes-name-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
 
@@ -61,8 +61,8 @@
 
         "time-min-milliseconds": 100,
 
-        "unit-blacklist": null,
-        "unit-whitelist": null,
+        "unit-disallowed-list": null,
+        "unit-allowed-list": null,
 
         "shorthand-property-no-redundant-values": true,
 
@@ -70,26 +70,26 @@
 
         "custom-property-pattern": null,
 
-        "property-blacklist": null,
+        "property-disallowed-list": null,
         "property-no-vendor-prefix": [true, {
             "ignoreProperties": ["appearance"]
         }],
-        "property-whitelist": null,
+        "property-allowed-list": null,
 
         "declaration-block-no-redundant-longhand-properties": true,
         "declaration-no-important": true,
-        "declaration-property-unit-blacklist": null,
-        "declaration-property-unit-whitelist": null,
-        "declaration-property-value-blacklist": null,
-        "declaration-property-value-whitelist": null,
+        "declaration-property-unit-disallowed-list": null,
+        "declaration-property-unit-allowed-list": null,
+        "declaration-property-value-disallowed-list": null,
+        "declaration-property-value-allowed-list": null,
 
         "declaration-block-single-line-max-declarations": 1,
 
-        "selector-attribute-operator-blacklist": null,
-        "selector-attribute-operator-whitelist": null,
+        "selector-attribute-operator-disallowed-list": null,
+        "selector-attribute-operator-allowed-list": null,
         "selector-class-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
-        "selector-combinator-blacklist": null,
-        "selector-combinator-whitelist": null,
+        "selector-combinator-disallowed-list": null,
+        "selector-combinator-allowed-list": null,
         "selector-id-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
         "selector-max-attribute": null,
         "selector-max-class": null,
@@ -104,24 +104,24 @@
         "selector-nested-pattern": null,
         "selector-no-qualifying-type": null,
         "selector-no-vendor-prefix": true,
-        "selector-pseudo-class-blacklist": null,
-        "selector-pseudo-class-whitelist": null,
-        "selector-pseudo-element-blacklist": null,
-        "selector-pseudo-element-whitelist": null,
+        "selector-pseudo-class-disallowed-list": null,
+        "selector-pseudo-class-allowed-list": null,
+        "selector-pseudo-element-disallowed-list": null,
+        "selector-pseudo-element-allowed-list": null,
 
-        "media-feature-name-blacklist": null,
+        "media-feature-name-disallowed-list": null,
         "media-feature-name-no-vendor-prefix": true,
-        "media-feature-name-value-whitelist": null,
-        "media-feature-name-whitelist": null,
+        "media-feature-name-value-allowed-list": null,
+        "media-feature-name-allowed-list": null,
 
         "custom-media-pattern": null,
 
-        "at-rule-blacklist": null,
+        "at-rule-disallowed-list": null,
         "at-rule-no-vendor-prefix": true,
-        "at-rule-property-requirelist": null,
-        "at-rule-whitelist": null,
+        "at-rule-property-required-list": null,
+        "at-rule-allowed-list": null,
 
-        "comment-word-blacklist": [["/^TODO /", "/^FIXME /"], {
+        "comment-word-disallowed-list": [["/^TODO /", "/^FIXME /"], {
             "severity": "warning"
         }],
 
