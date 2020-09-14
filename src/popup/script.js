@@ -643,6 +643,13 @@ const handleClear = function () {
 const handleRemove = function (value) {
     document.querySelector(`#playlist-items li:nth-child(${value + 1})`)
             .remove();
+
+    const ol = document.querySelector("#playlist-items ol");
+    if (0 === ol.childElementCount) {
+        ol.style.display = "none";
+        document.querySelector("#playlist-items > span").style.display =
+                                                                        "block";
+    }
 };
 
 const passing = function () {
