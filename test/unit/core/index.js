@@ -1,6 +1,6 @@
-import assert        from "assert";
-import sinon         from "sinon";
-import { kodi, mux } from "../../../src/core/index.js";
+import assert              from "assert";
+import sinon               from "sinon";
+import { cast, kodi, mux } from "../../../src/core/index.js";
 
 describe("core/index.js", function () {
     describe("mux()", function () {
@@ -56,6 +56,135 @@ describe("core/index.js", function () {
 
             const url = mux(urls);
             assert.strictEqual(url, "acestream://0123456789abcdef");
+        });
+    });
+
+    describe("cast()", function () {
+        it("should reject invalid url", async function () {
+            try {
+                await cast("send", ["foo"]);
+                assert.fail();
+            } catch (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.strictEqual(err.message, "Link foo is invalid.");
+            }
+            const histories = browser.history.search({ text: "" });
+            assert.strictEqual(histories.length, 0);
+        });
+
+        it("should reject invalid urls", async function () {
+            try {
+                await cast("send", ["foo", "bar"]);
+                assert.fail();
+            } catch (err) {
+                assert.strictEqual(err.name, "PebkacError");
+                assert.strictEqual(err.message, "Text isn't a valid link.");
+            }
+            const histories = browser.history.search({ text: "" });
+            assert.strictEqual(histories.length, 0);
+        });
+
+        it("should send url", async function () {
+            browser.extension.inIncognitoContext = true;
+            const stubClear = sinon.stub(kodi.playlist, "clear").resolves("OK");
+            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const stubOpen = sinon.stub(kodi.player, "open").resolves("OK");
+
+            await cast("send", ["http://foo.com/bar"]);
+            const histories = browser.history.search({ text: "" });
+            assert.strictEqual(histories.length, 0);
+
+            assert.strictEqual(stubClear.callCount, 1);
+            assert.deepStrictEqual(stubClear.firstCall.args, []);
+            assert.strictEqual(stubAdd.callCount, 1);
+            assert.deepStrictEqual(stubAdd.firstCall.args, [
+                "http://foo.com/bar",
+            ]);
+            assert.strictEqual(stubOpen.callCount, 1);
+            assert.deepStrictEqual(stubOpen.firstCall.args, []);
+
+            stubClear.restore();
+            stubAdd.restore();
+            stubOpen.restore();
+            browser.extension.inIncognitoContext = false;
+        });
+
+        it("should insert url", async function () {
+            browser.extension.inIncognitoContext = true;
+            const stubGetProperty = sinon.stub(kodi.player, "getProperty")
+                                         .resolves(42);
+            const stubInsert = sinon.stub(kodi.playlist, "insert")
+                                    .resolves("OK");
+
+            await cast("insert", ["http://foo.com/bar"]);
+            const histories = browser.history.search({ text: "" });
+            assert.strictEqual(histories.length, 0);
+
+            assert.strictEqual(stubGetProperty.callCount, 1);
+            assert.deepStrictEqual(stubGetProperty.firstCall.args,
+                                   ["position"]);
+            assert.strictEqual(stubInsert.callCount, 1);
+            assert.deepStrictEqual(stubInsert.firstCall.args, [
+                "http://foo.com/bar",
+                43,
+            ]);
+
+            stubGetProperty.restore();
+            stubInsert.restore();
+            browser.extension.inIncognitoContext = false;
+        });
+
+        it("should add url", async function () {
+            browser.extension.inIncognitoContext = true;
+            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+
+            await cast("add", ["http://foo.com/bar"]);
+            const histories = browser.history.search({ text: "" });
+            assert.strictEqual(histories.length, 0);
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+
+            stub.restore();
+            browser.extension.inIncognitoContext = false;
+        });
+
+        it("should reject invalid action", async function () {
+            try {
+                await cast("foo", ["http://foo.com/bar"]);
+            } catch (err) {
+                assert.strictEqual(err.name, "Error");
+                assert.strictEqual(err.message, "foo is not supported");
+            }
+            const histories = browser.history.search({ text: "" });
+            assert.strictEqual(histories.length, 0);
+        });
+
+        it("shouldn't add in history in incognito", async function () {
+            browser.extension.inIncognitoContext = true;
+            browser.storage.local.set({ "general-history": true });
+            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+
+            await cast("add", ["http://foo.com/bar"]);
+            const histories = browser.history.search({ text: "" });
+            assert.strictEqual(histories.length, 0);
+
+            stub.restore();
+            browser.storage.local.clear();
+            browser.extension.inIncognitoContext = false;
+        });
+
+        it("should add in history", async function () {
+            browser.storage.local.set({ "general-history": true });
+            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+
+            await cast("add", ["http://foo.com/bar"]);
+            const histories = browser.history.search({ text: "" });
+            assert.deepStrictEqual(histories, [{ url: "http://foo.com/bar" }]);
+
+            stub.restore();
+            browser.storage.local.clear();
+            browser.history.deleteAll();
         });
     });
 

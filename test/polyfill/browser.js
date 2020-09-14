@@ -37,6 +37,9 @@ export const browser = {
         deleteAll: () => {
             data.histories.length = 0;
         },
+        search: ({ text }) => {
+            return data.histories.filter((h) => h.url.includes(text));
+        },
     },
     i18n: {
         getMessage: (key, ...substitutions) => {
