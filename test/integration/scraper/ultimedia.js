@@ -1,7 +1,17 @@
 import assert      from "assert";
+import { config }  from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Ultimedia", function () {
+    before(function () {
+        // Désactiver les tests d'Ultimedia en dehors de la France car les pages
+        // sont en "maintenance" dans les autres pays.
+        if (null !== config.country && "fr" !== config.country) {
+            // eslint-disable-next-line no-invalid-this
+            this.skip();
+        }
+    });
+
     it("should return URL when it's not an audio", async function () {
         const url = new URL("https://www.ultimedia.com/default/presentation" +
                                                                         "/cgu");

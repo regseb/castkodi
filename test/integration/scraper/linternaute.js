@@ -18,7 +18,8 @@ describe("Scraper: L'Internaute", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://media.ccmbg.com/vc/767071118/852438/mp4/1577209511");
+        assert.ok(file.startsWith("https://media.ccmbg.com/vc/767071118" +
+                                                                "/852438/mp4/"),
+                  `"${file}".startsWith(...)`);
     });
 });

@@ -29,7 +29,7 @@ describe("Labeller: SoundCloud", function () {
         });
     });
 
-    it("should return default label when it's dynamic set", async function () {
+    it("should return dynamic set label", async function () {
         const url = new URL("https://soundcloud.com/discover/sets" +
                                                  "/charts-top:alternativerock");
         const options = { depth: false, incognito: false };
@@ -38,7 +38,7 @@ describe("Labeller: SoundCloud", function () {
         const item = await complete({ file, label: "play", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,
-            label: "play",
+            label: "Top 50: Alternative Rock",
             type:  "unknown",
         });
     });
