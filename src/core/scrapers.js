@@ -17,6 +17,8 @@ import * as dumpert        from "./scraper/dumpert.js";
 import * as dailymotion    from "./scraper/dailymotion.js";
 import * as flickr         from "./scraper/flickr.js";
 import * as francetv       from "./scraper/francetv.js";
+// eslint-disable-next-line import/no-cycle
+import * as futurasciences from "./scraper/futurasciences.js";
 import * as gamekult       from "./scraper/gamekult.js";
 // eslint-disable-next-line import/no-cycle
 import * as iframe         from "./scraper/iframe.js";
@@ -77,6 +79,7 @@ const SCRAPERS = [
     dailymotion,
     flickr,
     francetv,
+    futurasciences,
     gamekult,
     kcaastreaming,
     konbini,
