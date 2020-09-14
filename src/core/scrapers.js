@@ -28,6 +28,8 @@ import * as konbini        from "./scraper/konbini.js";
 import * as lbry           from "./scraper/lbry.js";
 // eslint-disable-next-line import/no-cycle
 import * as ldjson         from "./scraper/ldjson.js";
+// eslint-disable-next-line import/no-cycle
+import * as lepoint        from "./scraper/lepoint.js";
 import * as melty          from "./scraper/melty.js";
 import * as metacafe       from "./scraper/metacafe.js";
 import * as mixcloud       from "./scraper/mixcloud.js";
@@ -85,6 +87,7 @@ const SCRAPERS = [
     kcaastreaming,
     konbini,
     lbry,
+    lepoint,
     melty,
     metacafe,
     mixcloud,
