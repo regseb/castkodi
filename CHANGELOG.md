@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/regseb/castkodi/compare/v5.2.0...v5.3.0) (2020-09-15)
+
+
+### Features
+
+* Ajouter le support de Futura Sciences. ([0cac514](https://github.com/regseb/castkodi/commit/0cac5140e65fdda08aefd076d185f749a9e8d447))
+* Ajouter le support Viously. ([d9b2116](https://github.com/regseb/castkodi/commit/d9b21164688137d8854a2b73996eec88e883b1e9))
+
+
+### Bug Fixes
+
+* Créer un scraper spécifique pour Le Point. ([2dac3f0](https://github.com/regseb/castkodi/commit/2dac3f0d037cab3696cc6c34186a621231fd757e))
+* Indiquer que la liste est vide après une suppression. ([70c401d](https://github.com/regseb/castkodi/commit/70c401d7f100598a6233eb9464e246a81de5853d))
+
 ## [5.2.0](https://github.com/regseb/castkodi/compare/v5.1.0...v5.2.0) (2020-08-09)
 
 
