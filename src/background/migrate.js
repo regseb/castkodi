@@ -50,7 +50,7 @@ browser.storage.local.get().then((current) => {
             "server-list":      [{ address: "", name: "" }],
             "server-active":    0,
             "general-history":  false,
-            "menu-actions":     ["send", "insert", "add"],
+            "menu-actions":     ["send", "insert", "add", "subtitle"],
             "menu-contexts":    [
                 "audio", "frame", "link", "page", "selection", "tab", "video",
             ],

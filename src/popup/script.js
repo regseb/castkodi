@@ -101,6 +101,22 @@ const add = async function () {
     }
 };
 
+const subtitle = async function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#subtitle").disabled) {
+        return;
+    }
+
+    const url = await mux();
+    try {
+        await cast("subtitle", [url]);
+        close();
+    } catch (err) {
+        notify(err);
+    }
+};
+
 const paste = function (event) {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
@@ -687,6 +703,7 @@ const load = async function () {
         document.querySelector("#send").disabled = false;
         document.querySelector("#insert").disabled = false;
         document.querySelector("#add").disabled = false;
+        document.querySelector("#subtitle").disabled = false;
         document.querySelector("#paste input").disabled = false;
 
         document.querySelector("#play").disabled = false;
@@ -734,6 +751,7 @@ const load = async function () {
 document.querySelector("#send").addEventListener("click", send);
 document.querySelector("#insert").addEventListener("click", insert);
 document.querySelector("#add").addEventListener("click", add);
+document.querySelector("#subtitle").addEventListener("click", subtitle);
 document.querySelector("#paste").addEventListener("change", paste);
 for (const input of document.querySelectorAll("select")) {
     input.addEventListener("change", change);
@@ -823,6 +841,7 @@ globalThis.addEventListener("keydown", (event) => {
         case "n": case "N": insert();                break;
         case "q": case "Q": add();                   break;
         case "v": case "V": paste();                 break;
+        case "s": case "S": subtitle();              break;
 
         case "PageUp":      previous();              break;
         case "r": case "R": rewind();                break;

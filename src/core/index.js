@@ -70,6 +70,8 @@ export const cast = async function (action, urls) {
         await kodi.playlist.clear();
         await kodi.playlist.add(file);
         await kodi.player.open();
+    } else if ("subtitle" === action) {
+        await kodi.player.addSubtitle(file);
     } else if ("insert" === action) {
         const position = await kodi.player.getProperty("position");
         // Si aucun média est en cours de lecture : le nouveau média sera placé

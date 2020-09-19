@@ -15,6 +15,9 @@
     "menus_firstAdd": {
         "message": "Placer en file d'attente de Kodi"
     },
+    "menus_firstSubtile": {
+        "message": "Add subtitle to Kodi"
+    },
     "menus_secondSend": {
         "message": "Lire maintenant"
     },
@@ -23,6 +26,9 @@
     },
     "menus_secondAdd": {
         "message": "Placer en file d'attente"
+    },
+    "menus_secondSubtitle": {
+        "message": "Add subtitle"
     },
     "menus_noName": {
         "message": "(sans nom $INDEX$)",
@@ -98,6 +104,9 @@
     },
     "popup_paste_title": {
         "message": "Coller un lien [V]"
+    },
+    "popup_subtitle_title": {
+        "message": "Paste Subtitle link [S]"
     },
     "popup_server_title": {
         "message": "Changer de serveur"
@@ -289,6 +298,9 @@
     },
     "options_menuActionsAdd_textcontent": {
         "message": "placer en file d'attente"
+    },
+    "options_menuActionsSubtitle_textcontent": {
+        "message": "add subtitle"
     },
 
     "options_menuContextsDescription_textcontent": {
