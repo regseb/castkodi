@@ -15,6 +15,9 @@
     "menus_firstAdd": {
         "message": "Placer en file d'attente de Kodi"
     },
+    "menus_firstSubtile": {
+        "message": "Add subtitle to Kodi"
+    },
     "menus_secondSend": {
         "message": "Lire maintenant"
     },
@@ -23,6 +26,9 @@
     },
     "menus_secondAdd": {
         "message": "Placer en file d'attente"
+    },
+    "menus_secondSubtitle": {
+        "message": "Add subtitle"
     },
     "menus_noName": {
         "message": "(sans nom $INDEX$)",
@@ -105,6 +111,9 @@
     },
     "popup_paste_title": {
         "message": "Coller un lien [V]"
+    },
+    "popup_subtitle_title": {
+        "message": "Paste Subtitle link [S]"
     },
     "popup_server_title": {
         "message": "Changer de serveur"
@@ -204,6 +213,9 @@
     "popup_opensendtext_title": {
         "message": "Envoyer du texte"
     },
+    "popup_openaddsubtitle_title": {
+        "message": "Add Subtitle link"
+    },
     "popup_playerprocessinfo_title": {
         "message": "Afficher les informations sur le processus de lecture [O]"
     },
@@ -227,6 +239,9 @@
     },
     "popup_sendtext_textcontent": {
         "message": "Envoyer"
+    },
+    "popup_addsubtitle_textcontent": {
+        "message": "Add"
     },
     "popup_configure_textcontent": {
         "message": "Configurer"
@@ -300,7 +315,9 @@
     "options_menuActionsAdd_textcontent": {
         "message": "Placer en file d'attente"
     },
-
+    "options_menuActionsSubtitle_textcontent": {
+        "message": "Add Subtitle"
+    },
     "options_menuContextsDescription_textcontent": {
         "message": "Indiquez les éléments où le menu contextuel est ajouté :"
     },

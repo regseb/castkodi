@@ -72,6 +72,19 @@ input[type="checkbox"]:checked ~ img:last-of-type {
     display: inline-block;
 }
 
+#dialogaddsubtitle {
+    width: calc(100% - 36px);
+}
+#dialogaddsubtitle p:first-child {
+    margin-top: 0;
+}
+#dialogaddsubtitle input[name="text"] {
+    width: 100%;
+}
+#dialogaddsubtitle input[name="done"] {
+    display: inline-block;
+}
+
 #cast {
     border-bottom: 1px solid var(--input-border-color);
     display: flex;

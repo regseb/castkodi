@@ -15,6 +15,9 @@
     "menus_firstAdd": {
         "message": "Pridať do poradia v Kodi"
     },
+    "menus_firstSubtile": {
+        "message": "Add subtitle to Kodi"
+    },
     "menus_secondSend": {
         "message": "Prehrať teraz"
     },
@@ -23,6 +26,9 @@
     },
     "menus_secondAdd": {
         "message": "Do poradia"
+    },
+    "menus_secondSubtitle": {
+        "message": "Add subtitle"
     },
     "menus_noName": {
         "message": "(bez názvu $INDEX$)",
@@ -204,6 +210,9 @@
     "popup_opensendtext_title": {
         "message": "Poslať text"
     },
+    "popup_openaddsubtitle_title": {
+        "message": "Add Subtitle link"
+    },
     "popup_playerprocessinfo_title": {
         "message": "Zobraziť informácie o prehrávaní [O]"
     },
@@ -300,7 +309,9 @@
     "options_menuActionsAdd_textcontent": {
         "message": "Do poradia"
     },
-
+    "options_menuActionsSubtitle_textcontent": {
+        "message": "Add Subtitle"
+    },
     "options_menuContextsDescription_textcontent": {
         "message": "Vyberte položky, ku ktorým bude pridaná kontextová ponuka:"
     },

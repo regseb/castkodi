@@ -157,6 +157,11 @@
           <img src="/design/icon/sendtext-white.svg" alt="sendtext-white">
         </button>
 
+        <button class="ghost" id="openaddsubtitle" disabled autocomplete="off"
+              data-i18n-title>
+          <img src="/design/icon/subtitle-white.svg" alt="subtitle-white">
+        </button>
+
         <button class="ghost" id="playerprocessinfo" disabled autocomplete="off"
                 data-i18n-title>
           <img src="/design/icon/playerprocessinfo-white.svg"
@@ -260,6 +265,29 @@
         <menu>
           <button id="cancel" value="cancel" data-i18n-textcontent></button>
           <button class="primary" id="sendtext" value="send"
+                  data-i18n-textcontent></button>
+        </menu>
+      </form>
+    </dialog>
+
+    <dialog id="dialogaddsubtitle">
+      <form method="dialog">
+        <p>
+          <label>
+            <!-- Ne pas mettre de type car celui-ci sera spécifié lors de
+                 l'ouverture de la boite de dialogue selon la donnée à
+                 renseigner dans Kodi. -->
+            <input name="text" autocomplete="off" data-i18n-placeholder="text">
+          </label>
+        </p>
+        <p>
+          <label data-i18n-textcontent="done">
+            <input name="done" type="checkbox" checked autocomplete="off"> {}
+          </label>
+        </p>
+        <menu>
+          <button id="cancel" value="cancel" data-i18n-textcontent></button>
+          <button class="primary" id="addsubtitle" value="send"
                   data-i18n-textcontent></button>
         </menu>
       </form>

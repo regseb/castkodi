@@ -15,6 +15,9 @@
     "menus_firstAdd": {
         "message": "Queue item to Kodi"
     },
+    "menus_firstSubtile": {
+        "message": "Add subtitle to Kodi"
+    },
     "menus_secondSend": {
         "message": "Play now"
     },
@@ -23,6 +26,9 @@
     },
     "menus_secondAdd": {
         "message": "Queue item"
+    },
+    "menus_secondSubtitle": {
+        "message": "Add subtitle"
     },
     "menus_noName": {
         "message": "(noname $INDEX$)",
@@ -204,6 +210,9 @@
     "popup_opensendtext_title": {
         "message": "Send text"
     },
+    "popup_openaddsubtitle_title": {
+        "message": "Add Subtitle link"
+    },
     "popup_playerprocessinfo_title": {
         "message": "Show player process information [O]"
     },
@@ -227,6 +236,9 @@
     },
     "popup_sendtext_textcontent": {
         "message": "Send"
+    },
+    "popup_addsubtitle_textcontent": {
+        "message": "Add"
     },
     "popup_configure_textcontent": {
         "message": "Configure"
@@ -300,7 +312,9 @@
     "options_menuActionsAdd_textcontent": {
         "message": "Queue item"
     },
-
+    "options_menuActionsSubtitle_textcontent": {
+        "message": "Add Subtitle"
+    },
     "options_menuContextsDescription_textcontent": {
         "message": "Specify the items where the context menu is added:"
     },

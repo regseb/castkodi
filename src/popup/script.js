@@ -444,6 +444,22 @@ const openSendText = function () {
     }
 };
 
+const openAddSubtitle = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#openaddsubtitle").disabled) {
+        return;
+    }
+
+    const dialog = document.querySelector("#dialogaddsubtitle");
+    if (!dialog.open) {
+        const text = dialog.querySelector(`input[name="text"]`);
+        text.type = "text";
+        text.value = "";
+        dialog.showModal();
+    }
+};
+
 const closeDialog = function (event) {
     // Fermer la boite de dialogue si l'utilisateur clique en dehors de la
     // boite.
@@ -463,6 +479,19 @@ const sendText = async function (event) {
         const done = dialog.querySelector(`input[name="done"]`).checked;
         try {
             await kodi.input.sendText(text, done);
+        } catch (err) {
+            splash(err);
+        }
+    }
+};
+
+const addSubtitle = async function (event) {
+    const dialog = event.target;
+    if ("send" === dialog.returnValue) {
+        const text = dialog.querySelector(`input[name="text"]`).value;
+        const done = dialog.querySelector(`input[name="done"]`).checked;
+        try {
+            await kodi.player.addSubtitle(text);
         } catch (err) {
             splash(err);
         }
@@ -979,6 +1008,7 @@ const load = async function () {
         document.querySelector("#home").disabled = false;
         document.querySelector("#fullscreen").disabled = false;
         document.querySelector("#opensendtext").disabled = false;
+        document.querySelector("#openaddsubtitle").disabled = false;
         document.querySelector("#playerprocessinfo").disabled = false;
 
         document.querySelector("#clear").disabled = false;
@@ -1037,6 +1067,7 @@ document.querySelector("#osd").addEventListener("click", showOSD);
 document.querySelector("#home").addEventListener("click", home);
 document.querySelector("#fullscreen").addEventListener("click", setFullscreen);
 document.querySelector("#opensendtext").addEventListener("click", openSendText);
+document.querySelector("#openaddsubtitle").addEventListener("click", openAddSubtitle);
 document.querySelector("#playerprocessinfo").addEventListener(
     "click",
     showPlayerProcessInfo,
@@ -1056,6 +1087,9 @@ document.querySelector("#preferences").addEventListener("click", preferences);
 
 document.querySelector("#dialogsendtext").addEventListener("close", sendText);
 document.querySelector("#dialogsendtext").addEventListener("click",
+                                                           closeDialog);
+document.querySelector("#dialogaddsubtitle").addEventListener("close", addSubtitle);
+document.querySelector("#dialogaddsubtitle").addEventListener("click",
                                                            closeDialog);
 
 document.querySelector("#configure").addEventListener("click", preferences);
