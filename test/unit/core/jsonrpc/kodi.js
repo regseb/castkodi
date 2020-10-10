@@ -7,12 +7,10 @@ import { NotificationEvent } from "../../../../src/tools/notificationevent.js";
 describe("core/jsonrpc/kodi.js", function () {
     describe("check()", function () {
         it("should return promise rejected", async function () {
-            try {
-                await Kodi.check("");
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.name, "PebkacError");
-            }
+            await assert.rejects(() => Kodi.check(""), {
+                name: "PebkacError",
+                type: "unconfigured",
+            });
         });
 
         it("should return promise fulfilled", async function () {
@@ -68,49 +66,37 @@ describe("core/jsonrpc/kodi.js", function () {
 
     describe("send()", function () {
         it("should return error when no address", async function () {
-            try {
-                const kodi = new Kodi("");
-                await kodi.send("foo");
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.strictEqual(err.type, "unconfigured");
-            }
+            const kodi = new Kodi("");
+            await assert.rejects(() => kodi.send("Foo"), {
+                name: "PebkacError",
+                type: "unconfigured",
+            });
         });
 
         it("should return error when address is invalid", async function () {
-            try {
-                const kodi = new Kodi("bad address");
-                await kodi.send("foo");
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.strictEqual(err.type, "badAddress");
-            }
+            const kodi = new Kodi("bad address");
+            await assert.rejects(() => kodi.send("Foo"), {
+                name: "PebkacError",
+                type: "badAddress",
+            });
         });
 
         it("should return error when IP is invalid", async function () {
-            try {
-                const kodi = new Kodi("192.168");
-                await kodi.send("foo");
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.strictEqual(err.type, "badAddress");
-            }
+            const kodi = new Kodi("192.168");
+            await assert.rejects(() => kodi.send("Foo"), {
+                name: "PebkacError",
+                type: "badAddress",
+            });
         });
 
         it("should return error when receive 400", async function () {
             const stub = sinon.stub(JSONRPC, "open").rejects(new Error("foo"));
 
-            try {
-                const kodi = new Kodi("localhost");
-                await kodi.send("foo");
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.strictEqual(err.type, "notFound");
-            }
+            const kodi = new Kodi("localhost");
+            await assert.rejects(() => kodi.send("Foo"), {
+                name: "PebkacError",
+                type: "notFound",
+            });
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
@@ -127,14 +113,11 @@ describe("core/jsonrpc/kodi.js", function () {
                 send:             fake,
             });
 
-            try {
-                const kodi = new Kodi("localhost");
-                await kodi.send("Foo");
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.name, "Error");
-                assert.strictEqual(err.message, "FooError");
-            }
+            const kodi = new Kodi("localhost");
+            await assert.rejects(() => kodi.send("Foo"), {
+                name:    "Error",
+                message: "FooError",
+            });
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

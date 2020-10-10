@@ -21,7 +21,9 @@ export const JSONRPC = class extends EventTarget {
         return new Promise((resolve, reject) => {
             const ws = new WebSocket(url.href);
             ws.addEventListener("open", () => resolve(new JSONRPC(ws)));
-            ws.addEventListener("error", reject);
+            ws.addEventListener("error",
+                () => reject(new Error("Connection to the server at " +
+                                       url.href + " unestablished")));
         });
     }
 

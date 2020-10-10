@@ -21,12 +21,13 @@ describe("tools/jsonrpc.js", function () {
 
         it("should return promise rejected", async function () {
             // Ne pas instancier de serveur pour faire échouer la connexion.
-            try {
-                await JSONRPC.open(new URL("ws://localhost/"));
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.type, "error");
-            }
+            await assert.rejects(
+                () => JSONRPC.open(new URL("ws://localhost/")), {
+                    name:    "Error",
+                    message: "Connection to the server at ws://localhost/" +
+                             " unestablished",
+                },
+            );
         });
     });
 
@@ -126,12 +127,10 @@ describe("tools/jsonrpc.js", function () {
             });
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
-            try {
-                await jsonrpc.send("foo");
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.message, "bar");
-            }
+            await assert.rejects(() => jsonrpc.send("foo"), {
+                name:    "Error",
+                message: "bar",
+            });
 
             server.close();
         });

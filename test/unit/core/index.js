@@ -61,25 +61,20 @@ describe("core/index.js", function () {
 
     describe("cast()", function () {
         it("should reject invalid url", async function () {
-            try {
-                await cast("send", ["foo"]);
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.strictEqual(err.message, "Link foo is invalid.");
-            }
+            await assert.rejects(() => cast("send", ["foo"]), {
+                name:    "PebkacError",
+                type:    "noLink",
+                message: "Link foo is invalid.",
+            });
             const histories = browser.history.search({ text: "" });
             assert.strictEqual(histories.length, 0);
         });
 
         it("should reject invalid urls", async function () {
-            try {
-                await cast("send", ["foo", "bar"]);
-                assert.fail();
-            } catch (err) {
-                assert.strictEqual(err.name, "PebkacError");
-                assert.strictEqual(err.message, "Text isn't a valid link.");
-            }
+            await assert.rejects(() => cast("send", ["foo", "bar"]), {
+                name: "PebkacError",
+                type: "noLinks",
+            });
             const histories = browser.history.search({ text: "" });
             assert.strictEqual(histories.length, 0);
         });
@@ -150,12 +145,10 @@ describe("core/index.js", function () {
         });
 
         it("should reject invalid action", async function () {
-            try {
-                await cast("foo", ["http://foo.com/bar"]);
-            } catch (err) {
-                assert.strictEqual(err.name, "Error");
-                assert.strictEqual(err.message, "foo is not supported");
-            }
+            await assert.rejects(() => cast("foo", ["http://foo.com/bar"]), {
+                name:    "Error",
+                message: "foo is not supported",
+            });
             const histories = browser.history.search({ text: "" });
             assert.strictEqual(histories.length, 0);
         });
