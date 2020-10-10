@@ -31,7 +31,6 @@ describe("Scraper: The Guardian", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://flex.acast.com/audio.guim.co.uk/2020/02" +
-                                                "/24-70184-200225TIFchina.mp3");
+            "https://audio.guim.co.uk/2020/02/24-70184-200225TIFchina.mp3");
     });
 });
