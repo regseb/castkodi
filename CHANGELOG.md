@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/regseb/castkodi/compare/v5.3.0...v5.4.0) (2020-10-10)
+
+
+### Features
+
+* Add Slovak translation ([#39](https://github.com/regseb/castkodi/issues/39)) ([90b5d85](https://github.com/regseb/castkodi/commit/90b5d855aafac9793fa1c8cce76debfd386faab3))
+
 ## [5.3.0](https://github.com/regseb/castkodi/compare/v5.2.0...v5.3.0) (2020-09-15)
 
 
