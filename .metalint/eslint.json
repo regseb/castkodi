@@ -442,6 +442,7 @@
         "unicorn/explicit-length-check": 2,
         "unicorn/filename-case": [2, { "case": "kebabCase" }],
         "unicorn/import-index": 0,
+        "unicorn/import-style": 2,
         "unicorn/new-for-builtins": 2,
         "unicorn/no-abusive-eslint-disable": 2,
         "unicorn/no-array-instanceof": 2,
