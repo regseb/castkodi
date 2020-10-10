@@ -22,7 +22,7 @@
     "funding": "https://www.paypal.me/sebastienregne",
     "type": "module",
     "scripts": {
-        "postinstall": "node .scripts/postinstall.js",
+        "postinstall": "node scripts/postinstall.js",
         "lint": "metalint",
         "test": "npm run test:unit && npm run test:integration",
         "test:unit": "c8 mocha -r test/polyfill.js test/unit/",
