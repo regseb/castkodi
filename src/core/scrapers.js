@@ -30,6 +30,7 @@ import * as lbry           from "./scraper/lbry.js";
 import * as ldjson         from "./scraper/ldjson.js";
 // eslint-disable-next-line import/no-cycle
 import * as lepoint        from "./scraper/lepoint.js";
+import * as megaphone      from "./scraper/megaphone.js";
 import * as melty          from "./scraper/melty.js";
 import * as metacafe       from "./scraper/metacafe.js";
 import * as mixcloud       from "./scraper/mixcloud.js";
@@ -88,6 +89,7 @@ const SCRAPERS = [
     konbini,
     lbry,
     lepoint,
+    megaphone,
     melty,
     metacafe,
     mixcloud,
