@@ -544,6 +544,11 @@ const handleTimeChanged = function (value) {
             Math.trunc(time.valueAsNumber / 60) + ":" +
             (time.valueAsNumber % 60).toString().padStart(2, "0");
     }
+
+    // Utiliser la taille du temps total pour que l'élément est toujours la
+    // même taille (même durant le passage à la dizaine).
+    time.previousElementSibling.style.width =
+                          time.nextElementSibling.offsetWidth.toString() + "px";
 };
 
 const handleTotaltimeChanged = function (value) {

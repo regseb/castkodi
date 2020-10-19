@@ -124,6 +124,7 @@ input[type="range"].disabled::-moz-range-progress {
 }
 #timing time {
     margin: 12px 8px;
+    text-align: right;
 }
 #time {
     flex-grow: 1;
