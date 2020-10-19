@@ -6,26 +6,37 @@
 import { matchPattern } from "../../tools/matchpattern.js";
 
 /**
- * Le chemin de l'API de LBRY.
+ * L'URL de l'API de LBRY.
  *
  * @constant {string}
  */
-const API_PATH = "/cdn.lbryplayer.xyz/api/v2/streams/free/";
+const API_URL = "https://api.lbry.tv/api/v1";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une vidéo LBRY.
- * @param {object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML.
+ * @param {URL} url L'URL d'une vidéo LBRY.
  * @returns {Promise.<?string>} Une promesse contenant le lien du
  *                              <em>fichier</em> ou <code>null</code>.
  */
-const action = async function (_url, content) {
-    const doc = await content.html();
-    const meta = doc.querySelector(`meta[property="og:video:secure_url"]`);
-    return meta?.content.replace("/lbry.tv/$/embed/", API_PATH) ?? null;
+const action = async function ({ href, pathname }) {
+    const uri = "lbry://" + (href.startsWith("https://lbry.tv/$/embed/")
+                                       ? pathname.slice(9).replace("/", "#")
+                                       : pathname.slice(1).replace(/:/gu, "#"));
+
+    const response = await fetch(API_URL + "/proxy?m=get", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json-rpc" },
+        body:    JSON.stringify({
+            jsonrpc: "2.0",
+            method:  "get",
+            // eslint-disable-next-line camelcase
+            params:  { uri, save_file: false },
+            id:      Date.now(),
+        }),
+    });
+    const json = await response.json();
+    return json.result?.streaming_url ?? null;
 };
 export const extract = matchPattern(action,
     "https://lbry.tv/*",

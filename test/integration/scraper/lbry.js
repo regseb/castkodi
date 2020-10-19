@@ -16,8 +16,8 @@ describe("Scraper: LBRY", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://cdn.lbryplayer.xyz/api/v2/streams/free/lbry-foundation" +
-                                  "/0a4ef1c64f1c44b4e740dcf3f439afb8389a79e1?");
+            "https://cdn.lbryplayer.xyz/api/v3/streams/free/lbry-foundation" +
+                            "/0a4ef1c64f1c44b4e740dcf3f439afb8389a79e1/97d008");
     });
 
     it("should return embed video URL", async function () {
@@ -28,9 +28,9 @@ describe("Scraper: LBRY", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://cdn.lbryplayer.xyz/api/v2/streams/free" +
+            "https://cdn.lbryplayer.xyz/api/v3/streams/free" +
                                    "/which-operating-system-should-you-choose" +
-                                  "/75defbc6fa104a78bb83e9d6ce378b1009313575?");
+                            "/75defbc6fa104a78bb83e9d6ce378b1009313575/824a95");
     });
 
     it("should return open video URL", async function () {
@@ -39,7 +39,7 @@ describe("Scraper: LBRY", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://cdn.lbryplayer.xyz/api/v2/streams/free/KODI" +
-                                  "/dbdd6c2222d80bae1a47275210231ad3a9222a64?");
+            "https://cdn.lbryplayer.xyz/api/v3/streams/free/KODI" +
+                            "/dbdd6c2222d80bae1a47275210231ad3a9222a64/64210c");
     });
 });
