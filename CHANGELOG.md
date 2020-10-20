@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.5.0](https://github.com/regseb/castkodi/compare/v5.4.0...v5.5.0) (2020-10-20)
+
+
+### Features
+
+* Ajouter le support de Megaphone. ([7872071](https://github.com/regseb/castkodi/commit/78720716e7e38001643a161730d95d8576817079))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de LBRY. ([48b8a75](https://github.com/regseb/castkodi/commit/48b8a75d1845c5a00c61171f27a8359fcfa2fc4b))
+* Fixer la taille du bloc du temps. ([ea95a2d](https://github.com/regseb/castkodi/commit/ea95a2d030088f04f2c6c431d727eac5aa955e16))
+
 ## [5.4.0](https://github.com/regseb/castkodi/compare/v5.3.0...v5.4.0) (2020-10-10)
 
 
