@@ -36,12 +36,11 @@ describe("core/scraper/tiktok.js", function () {
                         <script id="__NEXT_DATA__">${JSON.stringify({
                             props: {
                                 pageProps: {
-                                    videoData: {
-                                        itemInfos: {
+                                    itemInfo: {
+                                        itemStruct: {
                                             video: {
-                                                urls: [
-                                                    "https://bar.com/baz.mp4",
-                                                ],
+                                                playAddr: "https://bar.com" +
+                                                                     "/baz.mp4",
                                             },
                                         },
                                     },
