@@ -1,0 +1,4 @@
+{
+    "content": "/src/popup/*.html",
+    "whitelistPatternsChildren": ["/^playlist-items$/u"]
+}

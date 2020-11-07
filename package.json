@@ -22,7 +22,7 @@
     "funding": "https://www.paypal.me/sebastienregne",
     "type": "module",
     "scripts": {
-        "postinstall": "node scripts/postinstall.js",
+        "postinstall": "node script/sync.js",
         "lint": "metalint",
         "test": "npm run test:unit && npm run test:integration",
         "test:unit": "c8 mocha -r test/polyfill.js test/unit/",
@@ -33,7 +33,7 @@
         "start": "web-ext run -s src/",
         "build": "web-ext build -s src/ -a build/ -o",
         "release": "standard-version",
-        "clean": "rm -rf build/ coverage/ jsdocs/ node_modules/"
+        "clean": "node script/clean.js"
     },
     "dependencies": {
         "dialog-polyfill": "0.5.3"

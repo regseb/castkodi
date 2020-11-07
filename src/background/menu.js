@@ -101,8 +101,9 @@ const handleChange = async function (changes) {
             });
             config["server-list"].forEach((server, index) => {
                 const name = (/^\s*$/u).test(server.name)
-                            ? browser.i18n.getMessage("menus_noName", index + 1)
-                            : server.name;
+                               ? browser.i18n.getMessage("menus_noName",
+                                                         (index + 1).toString())
+                               : server.name;
                 browser.menus.create({
                     checked:  config["server-active"] === index,
                     id:       index.toString(),

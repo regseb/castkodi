@@ -2,7 +2,6 @@
  * @module
  */
 
-import dialogPolyfill from "../lib/dialog-polyfill/script.js";
 import { cast, kodi } from "../core/index.js";
 import { complete }   from "../core/labellers.js";
 import { notify }     from "../core/notify.js";
@@ -343,10 +342,6 @@ const openSendText = function () {
 
     const dialog = document.querySelector("#dialogsendtext");
     dialog.querySelector(`input[name="text"]`).value = "";
-    // Utiliser une prothèse en attendant que les boites de dialogue soit
-    // implémentées dans Firefox.
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=840640
-    dialogPolyfill.registerDialog(dialog);
     dialog.showModal();
 };
 
@@ -444,7 +439,8 @@ const preferences = async function () {
 const handleVolumeChanged = function (value) {
     const volume = document.querySelector("#volume");
     volume.valueAsNumber = value;
-    volume.title = browser.i18n.getMessage("popup_volume_title", value);
+    volume.title = browser.i18n.getMessage("popup_volume_title",
+                                           value.toString());
 };
 
 const handleMutedChanged = function (value) {
@@ -882,8 +878,9 @@ browser.storage.local.get().then((config) => {
         for (const input of document.querySelectorAll("select")) {
             config["server-list"].forEach((server, index) => {
                 const name = (/^\s*$/u).test(server.name)
-                            ? browser.i18n.getMessage("menus_noName", index + 1)
-                            : server.name;
+                               ? browser.i18n.getMessage("menus_noName",
+                                                         (index + 1).toString())
+                               : server.name;
                 input[index] = new Option(name,
                                           index,
                                           index === config["server-active"],

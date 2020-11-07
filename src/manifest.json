@@ -28,7 +28,7 @@
     },
     "author": "Sébastien Règne",
     "background": {
-        "page": "background.html"
+        "page": "background/index.html"
     },
     "default_locale": "en",
     "homepage_url": "https://github.com/regseb/castkodi",

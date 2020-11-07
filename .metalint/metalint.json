@@ -1,7 +1,7 @@
 {
     "patterns": [
-        "!/.git/", "!/coverage/", "!/jsdocs/", "!/node_modules/", "!/src/lib/",
-        "**"
+        "!/.git/", "!/coverage/", "!/jsdocs/", "!/node_modules/",
+        "!/src/polyfill/lib/", "**"
     ],
     "checkers": [
         {
@@ -33,15 +33,10 @@
             "linters": "stylelint"
         }, {
             "patterns": "/src/options/*.css",
-            "linters": { "purgecss": { "content": "/src/options/*.html" } }
+            "linters": { "purgecss": "purgecss_options.json" }
         }, {
             "patterns": "/src/popup/*.css",
-            "linters": {
-                "purgecss": {
-                    "content": "/src/popup/*.html",
-                    "whitelistPatternsChildren": ["/^playlist-items$/u"]
-                }
-            }
+            "linters": { "purgecss": "purgecss_popup.json" }
         }, {
             "patterns": ["!/CHANGELOG.md", "*.md"],
             "linters": "markdownlint"
