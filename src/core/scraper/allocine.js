@@ -27,5 +27,5 @@ const action = async function ({ href }, content) {
     return new URL(source, href).href;
 };
 export const extract = matchPattern(action,
-    "http://www.allocine.fr/*",
-    "http://rss.allocine.fr/*");
+    "*://www.allocine.fr/*",
+    "*://rss.allocine.fr/*");

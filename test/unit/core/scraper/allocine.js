@@ -11,7 +11,7 @@ describe("core/scraper/allocine.js", function () {
         });
 
         it("should return null when it's not a video", async function () {
-            const url = new URL("http://www.allocine.fr/foo");
+            const url = new URL("https://www.allocine.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -24,14 +24,14 @@ describe("core/scraper/allocine.js", function () {
         });
 
         it("should return video URL", async function () {
-            const url = new URL("http://www.allocine.fr/video/video-19577157/");
+            const url = new URL("https://www.allocine.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
                         <figure data-model="${JSON.stringify({
                             videos: [{
-                                sources: { sd: "/foo.avi", hd: "/bar.mp4" },
+                                sources: { sd: "/bar.avi", hd: "/baz.mp4" },
                             }],
                         }).replace(/"/gu, "&quot;")}"></figure>
                       </body>
@@ -39,7 +39,7 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await extract(url, content);
-            assert.strictEqual(file, "http://www.allocine.fr/bar.mp4");
+            assert.strictEqual(file, "https://www.allocine.fr/baz.mp4");
         });
     });
 });
