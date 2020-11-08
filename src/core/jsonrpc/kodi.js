@@ -121,6 +121,7 @@ export const Kodi = class {
                     this.jsonrpc = null;
                 });
                 this.jsonrpc.addEventListener("notification", (event) => {
+                    this.input.handleNotification(event);
                     this.application.handleNotification(event);
                     this.player.handleNotification(event);
                     this.playlist.handleNotification(event);

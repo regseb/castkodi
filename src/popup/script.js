@@ -341,15 +341,23 @@ const openSendText = function () {
     }
 
     const dialog = document.querySelector("#dialogsendtext");
-    dialog.querySelector(`input[name="text"]`).value = "";
-    dialog.showModal();
+    if (!dialog.open) {
+        const text = dialog.querySelector(`input[name="text"]`);
+        text.type = "text";
+        text.value = "";
+        dialog.showModal();
+    }
 };
 
 const closeDialog = function (event) {
     // Fermer la boite de dialogue si l'utilisateur clique en dehors de la
     // boite.
-    if (event.explicitOriginalTarget.classList.contains("backdrop")) {
-        event.target.close();
+    if ("DIALOG" === event.target.tagName) {
+        const rect = event.target.getBoundingClientRect();
+        if (rect.top > event.clientY || rect.bottom < event.clientY ||
+                rect.left > event.clientX || rect.right < event.clientX) {
+            event.target.close();
+        }
     }
 };
 
@@ -449,6 +457,29 @@ const handleMutedChanged = function (value) {
 
     const volume = document.querySelector("#volume");
     volume.classList.toggle("disabled", value);
+};
+
+const handleInputRequested = function ({ type, value }) {
+    const dialog = document.querySelector("#dialogsendtext");
+    if (!dialog.open) {
+        const text = dialog.querySelector(`input[name="text"]`);
+        switch (type) {
+            case "date":
+                text.type = "date";
+                break;
+            case "password":
+            case "numericpassword":
+                text.type = "password";
+                break;
+            case "number":
+                text.type = "number";
+                break;
+            default:
+                text.type = "text";
+        }
+        text.value = value;
+        dialog.showModal();
+    }
 };
 
 const handlePositionChanged = function (value) {
@@ -894,6 +925,7 @@ browser.storage.local.get().then((config) => {
 });
 
 kodi.application.onPropertyChanged.addListener(handlePropertyChanged);
+kodi.input.onInputRequested.addListener(handleInputRequested);
 kodi.player.onPropertyChanged.addListener(handlePropertyChanged);
 kodi.playlist.onAdd.addListener(async (i) => handleAdd(await complete(i)));
 kodi.playlist.onClear.addListener(handleClear);

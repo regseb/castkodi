@@ -2,6 +2,8 @@
  * @module
  */
 
+import { NotificationListener } from "./notificationlistener.js";
+
 /**
  * Le client JSON-RPC pour contacter l'espace de nom <em>Input</em> de Kodi.
  *
@@ -17,6 +19,8 @@ export const Input = class {
      */
     constructor(kodi) {
         this.kodi = kodi;
+
+        this.onInputRequested = new NotificationListener();
     }
 
     /**
@@ -129,5 +133,30 @@ export const Input = class {
      */
     up() {
         return this.kodi.send("Input.Up");
+    }
+
+    /**
+     * Appelle les auditeurs d'une notification liée à l'espace de nom
+     * <em>Input</em>.
+     *
+     * @param {object} notification             La notification reçu de Kodi.
+     * @param {string} notification.method      La méthode de la notification.
+     * @param {object} notification.params      Les paramètres de la méthode.
+     * @param {*}      notification.params.data Les données des paramètres.
+     */
+    handleNotification({ method, params: { data } }) {
+        // Garder seulement les notifications sur les entrées et si des
+        // auditeurs sont présents.
+        if (!method.startsWith("Input.") ||
+                0 === this.onInputRequested.length) {
+            return;
+        }
+        switch (method) {
+            case "Input.OnInputRequested":
+                this.onInputRequested.dispatch(data);
+                break;
+            default:
+                // Ignorer les autres notifications.
+        }
     }
 };

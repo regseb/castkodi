@@ -14,6 +14,9 @@ p {
 label {
     color: #0c0c0d;
 }
+input[type="date"],
+input[type="password"],
+input[type="number"],
 input[type="text"] {
     border: 1px solid rgba(12 12 13 / 20%);
     border-radius: 2px;
@@ -24,18 +27,33 @@ input[type="text"] {
     transition-duration: 250ms;
     transition-property: box-shadow;
 }
+input[type="date"]:hover,
+input[type="password"]:hover,
+input[type="number"]:hover,
 input[type="text"]:hover {
     border: 1px solid rgba(12 12 13 / 30%);
 }
+input[type="date"]:invalid,
+input[type="password"]:invalid,
+input[type="number"]:invalid,
 input[type="text"]:invalid {
     border-color: #d70022;
     box-shadow: 0 0 0 1px #d70022, 0 0 0 4px rgba(251 0 34 / 30%);
 }
+input[type="date"]:focus,
+input[type="date"]:focus:hover,
+input[type="password"]:focus,
+input[type="password"]:focus:hover,
+input[type="number"]:focus,
+input[type="number"]:focus:hover,
 input[type="text"]:focus,
 input[type="text"]:focus:hover {
     border-color: #0a84ff;
     box-shadow: 0 0 0 1px #0a84ff, 0 0 0 4px rgba(10 132 255 / 30%);
 }
+input[type="date"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder,
 input[type="text"]::placeholder {
     color: #737373;
 }

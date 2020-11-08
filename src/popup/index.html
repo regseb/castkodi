@@ -233,7 +233,10 @@
       <form method="dialog">
         <p>
           <label>
-            <input name="text" type="text" autocomplete="off"
+            <!-- Ne pas mettre de type car celui-ci sera spécifié lors de
+                 l'ouverture de la boite de dialogue selon la donnée à
+                 renseigner dans Kodi. -->
+            <input name="text" autocomplete="off"
                    data-i18n-placeholder="text" />
           </label>
         </p>

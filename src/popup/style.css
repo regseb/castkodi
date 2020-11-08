@@ -81,10 +81,10 @@ input[type="range"].disabled::-moz-range-progress {
 #dialogsendtext p:first-child {
     margin-top: 0;
 }
-#dialogsendtext input[type="text"] {
+#dialogsendtext input[name="text"] {
     width: calc(100% - 16px);
 }
-#dialogsendtext input[type="checkbox"] {
+#dialogsendtext input[name="done"] {
     display: inline-block;
 }
 

@@ -177,4 +177,51 @@ describe("core/jsonrpc/input.js", function () {
             assert.deepStrictEqual(fake.firstCall.args, ["Input.Up"]);
         });
     });
+
+    describe("handleNotification()", function () {
+        it("should ignore others namespaces", function (done) {
+            const input = new Input({ send: Function.prototype });
+            input.onInputRequested.addListener(assert.fail);
+            input.handleNotification({
+                method: "Other.OnInputRequested",
+                params: { data: "foo" },
+            });
+            done();
+        });
+
+        it("should ignore when no listener", async function () {
+            const fake = sinon.fake.rejects(new Error("bar"));
+
+            const input = new Input({ send: fake });
+            await input.handleNotification({
+                method: "Input.OnInputRequested",
+                params: { data: "foo" },
+            });
+
+            assert.strictEqual(fake.callCount, 0);
+        });
+
+        it("should handle 'OnInputRequested'", function (done) {
+            const input = new Input({ send: Function.prototype });
+            input.onInputRequested.addListener((data) => {
+                assert.deepStrictEqual(data, { foo: "bar" });
+                done();
+            });
+            input.handleNotification({
+                method: "Input.OnInputRequested",
+                params: { data: { foo: "bar" } },
+            });
+            assert.fail();
+        });
+
+        it("should ignore others notifications", function (done) {
+            const input = new Input({ send: Function.prototype });
+            input.onInputRequested.addListener(assert.fail);
+            input.handleNotification({
+                method: "Input.Other",
+                params: { data: "foo" },
+            });
+            done();
+        });
+    });
 });
