@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.6.0](https://github.com/regseb/castkodi/compare/v5.5.0...v5.6.0) (2020-11-09)
+
+
+### Features
+
+* Afficher la boite de dialogue quand une saisie est demandée. ([1257711](https://github.com/regseb/castkodi/commit/125771175a174c9b09143566ed0f02f22331626e))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de Bigo Live. ([b4b3d28](https://github.com/regseb/castkodi/commit/b4b3d28df67f81988f01985df44d779f2f31fc37))
+* Actualiser le scraper de TikTok. ([6f58893](https://github.com/regseb/castkodi/commit/6f5889344c5760b56d5a91d84b73d70e14ace740))
+* Avoid getting properties from unavailable player ([#36](https://github.com/regseb/castkodi/issues/36)) ([f9c0536](https://github.com/regseb/castkodi/commit/f9c0536f2f6c51eb7d827f27ebc912373eff8c88))
+* Enlever le support de Full30. ([7944ebd](https://github.com/regseb/castkodi/commit/7944ebd594d6a9a7651aa6e23798a86f8fa40139))
+* Gérer les URLs sécurisées de AlloCiné. ([c7bb350](https://github.com/regseb/castkodi/commit/c7bb35034b49dca94623668f62d53993c815587c))
+
 ## [5.5.0](https://github.com/regseb/castkodi/compare/v5.4.0...v5.5.0) (2020-10-20)
 
 
