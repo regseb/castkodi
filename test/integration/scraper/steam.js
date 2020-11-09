@@ -15,9 +15,8 @@ describe("Scraper: Steam", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://cdn.cloudflare.steamstatic.com/steam/apps/81613" +
-                                                 "/movie_max.mp4?t=1452903069");
+        assert.ok(file.endsWith("/steam/apps/81613/movie_max.mp4?t=1452903069"),
+                  `"${file}".endsWith(...)`);
     });
 
     it("should return video URL when protocol is HTTP", async function () {
@@ -26,9 +25,9 @@ describe("Scraper: Steam", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://cdn.cloudflare.steamstatic.com/steam/apps/256682033" +
-                                                 "/movie_max.mp4?t=1492645342");
+        assert.ok(file.endsWith("/steam/apps/256682033/movie_max.mp4" +
+                                                               "?t=1492645342"),
+                  `"${file}".endsWith(...)`);
     });
 
     it("should return URL when it's not a broadcast", async function () {
