@@ -156,8 +156,10 @@
         "no-undef": 2,
         "no-undefined": 0,
         "no-unused-vars": [2, {
-            "args": "all", "argsIgnorePattern": "^_",
-            "caughtErrors": "all", "caughtErrorsIgnorePattern": "^_"
+            "args": "all",
+            "argsIgnorePattern": "^_",
+            "caughtErrors": "all",
+            "caughtErrorsIgnorePattern": "^_"
         }],
         "no-use-before-define": 2,
 
@@ -226,7 +228,8 @@
         "no-nested-ternary": 0,
         "no-new-object": 2,
         "no-plusplus": 0,
-        "no-restricted-syntax": [2,
+        "no-restricted-syntax": [
+            2,
             "ClassDeclaration",
             "DebuggerStatement",
             "EmptyStatement",
@@ -268,7 +271,7 @@
         "one-var": [2, "never"],
         "operator-assignment": 2,
         "operator-linebreak": 2,
-        "padded-blocks": [2, { "blocks": "never", "switches": "never" }],
+        "padded-blocks": [2, { "switches": "never" }],
         "padding-line-between-statements": [2, {
             "blankLine": "always", "prev": "directive", "next": "*"
         }],
@@ -495,9 +498,11 @@
 
     "settings": {
         "jsdoc": {
+            "mode": "typescript",
             "preferredTypes": {
-                "[]": "Array.<>",
-                "<>": ".<>"
+                ".<>": "<>",
+                "Array<>": "[]",
+                "object": "Object"
             },
             "tagNamePreference": {
                 "virtual": "abstract",

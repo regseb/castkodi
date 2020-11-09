@@ -9,8 +9,8 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * Extrait le titre d'une vidéo Vimeo.
  *
  * @param {URL} url Une URL utilisant le plugin de Vimeo.
- * @returns {Promise.<?string>} Une promesse contenant le titre ou
- *                              <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le titre ou
+ *                             <code>null</code>.
  */
 const action = async function ({ searchParams }) {
     if (searchParams.has("video_id")) {

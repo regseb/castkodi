@@ -16,8 +16,8 @@ const PLUGIN_URL = "plugin://plugin.video.twitch/?mode=play";
  * Extrait les informations nécessaire pour lire un clip sur Kodi.
  *
  * @param {URL} url L'URL d'un clip Twitch.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const actionClip = async function ({ pathname, searchParams }) {
     if (pathname.startsWith("/embed")) {
@@ -34,8 +34,8 @@ export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
  * intégré sur Kodi.
  *
  * @param {URL} url L'URL d'un <em>live</em> ou d'une vidéo intégré.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const actionEmbed = async function ({ searchParams }) {
     if (searchParams.has("channel")) {
@@ -52,8 +52,8 @@ export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
  * Extrait les informations nécessaire pour lire un <em>live</em> sur Kodi.
  *
  * @param {URL} url L'URL d'un <em>live</em> Twitch.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ pathname }) {
     if (pathname.startsWith("/videos/")) {

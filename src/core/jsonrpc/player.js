@@ -8,7 +8,7 @@ import { NotificationListener } from "./notificationlistener.js";
  * Convertit un horodatage vers un temps au format objet.
  *
  * @param {number} timestamp L'horodatage en secondes.
- * @returns {object} Le temps au format objet contenant l'heure, les minutes,
+ * @returns {Object} Le temps au format objet contenant l'heure, les minutes,
  *                   les secondes et les millisecondes.
  */
 const toTime = function (timestamp) {
@@ -23,7 +23,7 @@ const toTime = function (timestamp) {
 /**
  * Convertit un temps au format objet vers un horodatage.
  *
- * @param {object} time              Le temps au format objet contenant l'heure,
+ * @param {Object} time              Le temps au format objet contenant l'heure,
  *                                   les minutes, les secondes et les
  *                                   millisecondes.
  * @param {number} time.hours        L'heure du temps.
@@ -46,7 +46,7 @@ export const Player = class {
     /**
      * Crée un client JSON-RPC pour l'espace de nom <em>Player</em>.
      *
-     * @param {object}   kodi      Le client pour contacter Kodi.
+     * @param {Object}   kodi      Le client pour contacter Kodi.
      * @param {Function} kodi.send La méthode pour envoyer une requête.
      */
     constructor(kodi) {
@@ -58,9 +58,9 @@ export const Player = class {
     /**
      * Récupère des propriétés de l'espace de nom <em>Player</em> de Kodi.
      *
-     * @param {Array.<string>} properties Les noms des propriétés demandées.
-     * @returns {Promise.<object>} Une promesse contenant les valeurs des
-     *                             propriétés.
+     * @param {string[]} properties Les noms des propriétés demandées.
+     * @returns {Promise<Object>} Une promesse contenant les valeurs des
+     *                            propriétés.
      */
     async getProperties(properties) {
         const players = await this.kodi.send("Player.GetActivePlayers");
@@ -93,7 +93,7 @@ export const Player = class {
      * Récupère une propriété de l'espace de nom <em>Player</em> de Kodi.
      *
      * @param {string} property Le nom de la propriété demandée.
-     * @returns {Promise.<*>} Une promesse contenant la valeur de la propriété.
+     * @returns {Promise<*>} Une promesse contenant la valeur de la propriété.
      */
     async getProperty(property) {
         const result = await this.getProperties([property]);
@@ -105,7 +105,7 @@ export const Player = class {
      *
      * @param {string} to <code>"next"</code> pour le prochain élément ;
      *                    <code>"previous"</code> pour le précédent.
-     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     goTo(to) {
         return this.kodi.send("Player.GoTo", { playerid: 1, to });
@@ -116,7 +116,7 @@ export const Player = class {
      *
      * @param {number} [position] La position dans la liste de lecture (ou par
      *                            défaut le premier élément).
-     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     open(position = 0) {
         return this.kodi.send("Player.Open", {
@@ -127,7 +127,7 @@ export const Player = class {
     /**
      * Lance ou met en pause la lecture.
      *
-     * @returns {Promise.<number>} Une promesse contenant la vitesse de lecture.
+     * @returns {Promise<number>} Une promesse contenant la vitesse de lecture.
      */
     async playPause() {
         const result = await this.kodi.send("Player.PlayPause", {
@@ -140,8 +140,8 @@ export const Player = class {
      * Déplace le curseur de lecture.
      *
      * @param {number} time La nouvelle position en seconde.
-     * @returns {Promise.<number>} Une promesse contenant la nouvelle position
-     *                             en seconde.
+     * @returns {Promise<number>} Une promesse contenant la nouvelle position en
+     *                            seconde.
      */
     async seek(time) {
         // Attention ! Kodi n'accepte pas des positions supérieures à 24h.
@@ -156,7 +156,7 @@ export const Player = class {
     /**
      * Répète la liste de lecture ou un élément de la liste.
      *
-     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     setRepeat() {
         return this.kodi.send("Player.SetRepeat", {
@@ -168,7 +168,7 @@ export const Player = class {
     /**
      * Mélange (ou trie) la liste de lecture.
      *
-     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     setShuffle() {
         return this.kodi.send("Player.SetShuffle", {
@@ -183,8 +183,8 @@ export const Player = class {
      * @param {string} speed La variation de la vitesse :
      *                       <code>"increment"</code> ou
      *                       <code>"decrement"</code>.
-     * @returns {Promise.<number>} Une promesse contenant la nouvelle vitesse de
-     *                             lecture.
+     * @returns {Promise<number>} Une promesse contenant la nouvelle vitesse de
+     *                            lecture.
      */
     async setSpeed(speed) {
         const result = await this.kodi.send("Player.SetSpeed", {
@@ -197,7 +197,7 @@ export const Player = class {
     /**
      * Arrête la lecture.
      *
-     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     stop() {
         return this.kodi.send("Player.Stop", { playerid: 1 });
@@ -207,9 +207,9 @@ export const Player = class {
      * Appelle les auditeurs d'une notification liée à l'espace de nom
      * <em>Player</em>.
      *
-     * @param {object} notification             La notification reçu de Kodi.
+     * @param {Object} notification             La notification reçu de Kodi.
      * @param {string} notification.method      La méthode de la notification.
-     * @param {object} notification.params      Les paramètres de la méthode.
+     * @param {Object} notification.params      Les paramètres de la méthode.
      * @param {*}      notification.params.data Les données des paramètres.
      */
     async handleNotification({ method, params: { data } }) {

@@ -16,8 +16,8 @@ const API_URL = "https://www.veoh.com/watch/getVideo/";
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Veoh.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ pathname }) {
     const response = await fetch(API_URL + pathname.slice(7));

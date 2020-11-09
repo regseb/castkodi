@@ -67,7 +67,7 @@ import * as youtube        from "./scraper/youtube.js";
  * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
  * <code>null</code>).
  *
- * @constant {Array.<Function>}
+ * @constant {Function[]}
  */
 const SCRAPERS = [
     // Lister les scrapers (triés par ordre alphabétique).
@@ -128,13 +128,13 @@ const SCRAPERS = [
  *
  * @function
  * @param {URL}     url               L'URL d'une page Internet.
- * @param {object}  options           Les options de l'extraction.
+ * @param {Object}  options           Les options de l'extraction.
  * @param {boolean} options.depth     La marque indiquant si l'extraction est en
  *                                    profondeur.
  * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 export const extract = async function (url, options) {
     const content = {

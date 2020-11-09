@@ -10,7 +10,7 @@ import { extract as metaExtract } from "../scrapers.js";
 /**
  * La liste des types pouvant contenir des URLs de son ou de vidéo.
  *
- * @constant {Set.<string>}
+ * @constant {Set<string>}
  */
 const TYPES = new Set(["AudioObject", "MusicVideoObject", "VideoObject"]);
 
@@ -24,8 +24,8 @@ const SELECTOR = `script[type="application/ld+json"]`;
 /**
  * Extrait récursivement les propriétés de type objet d'un objet JSON.
  *
- * @param {object} root Un objet JSON.
- * @returns {Array.<object>} La liste des objets extraits.
+ * @param {Object} root Un objet JSON.
+ * @returns {Object[]} La liste des objets extraits.
  */
 const walk = function (root) {
     return [root, ...Object.values(root)
@@ -39,17 +39,17 @@ const walk = function (root) {
  * Extrait les informations nécessaire pour lire un média sur Kodi.
  *
  * @param {URL}      url               L'URL d'une page quelconque.
- * @param {object}   content           Le contenu de l'URL.
+ * @param {Object}   content           Le contenu de l'URL.
  * @param {Function} content.html      La fonction retournant la promesse
  *                                     contenant le document HTML ou
  *                                     <code>null</code>.
- * @param {object}   options           Les options de l'extraction.
+ * @param {Object}   options           Les options de l'extraction.
  * @param {boolean}  options.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ href }, content, options) {
     const doc = await content.html();

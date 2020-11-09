@@ -15,7 +15,7 @@ export const JSONRPC = class extends EventTarget {
      * Ouvre une connexion avec un serveur JSON-RPC.
      *
      * @param {URL} url L'URL du serveur.
-     * @returns {Promise.<JSONRPC>} Une promesse contenant le client JSON-RPC.
+     * @returns {Promise<JSONRPC>} Une promesse contenant le client JSON-RPC.
      */
     static open(url) {
         return new Promise((resolve, reject) => {
@@ -35,8 +35,29 @@ export const JSONRPC = class extends EventTarget {
      */
     constructor(ws) {
         super();
+
+        /**
+         * La WebSocket connectée au serveur.
+         *
+         * @private
+         * @type {WebSocket}
+         */
         this.ws = ws;
+
+        /**
+         * L'identifiant de la précédente requête.
+         *
+         * @private
+         * @type {number}
+         */
         this.id = 0;
+
+        /**
+         * La liste des promesses en attente d'être réalisées.
+         *
+         * @private
+         * @type {Map<number, Object>}
+         */
         this.promises = new Map();
 
         this.ws.addEventListener("close", this.handleClose.bind(this));
@@ -55,8 +76,7 @@ export const JSONRPC = class extends EventTarget {
      *
      * @param {string} method   La méthode appelée.
      * @param {*}      [params] Les éventuels paramètres de la méthode.
-     * @returns {Promise.<object>} Une promesse contenant le résultat du
-     *                             serveur.
+     * @returns {Promise<*>} Une promesse contenant le résultat du serveur.
      */
     send(method, params) {
         return new Promise((resolve, reject) => {

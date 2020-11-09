@@ -41,9 +41,8 @@ export const compile = function (pattern) {
  * Ajoute un filtre sur l'URL en paramètre d'une fonction.
  *
  * @function
- * @param {Function}       func     La fonction qui sera filtrée.
- * @param {Array.<string>} patterns Les modèles de correspondance pour filtrer
- *                                  l'URL.
+ * @param {Function} func     La fonction qui sera filtrée.
+ * @param {string[]} patterns Les modèles de correspondance pour filtrer l'URL.
  * @returns {Function} La fonction filtrée.
  */
 export const matchPattern = function (func, ...patterns) {
@@ -52,10 +51,10 @@ export const matchPattern = function (func, ...patterns) {
     /**
      * Enrobe la fonction avec le filtre.
      *
-     * @param {URL}       url    L'URL qui sera filtrée.
-     * @param {Array.<*>} others Les autres paramètres.
-     * @returns {Promise.<?string>} Une promesse contenant le lien du
-     *                              <em>fichier</em> ou <code>null</code>.
+     * @param {URL} url    L'URL qui sera filtrée.
+     * @param {*[]} others Les autres paramètres.
+     * @returns {Promise<?string>} Une promesse contenant le lien du
+     *                             <em>fichier</em> ou <code>null</code>.
      */
     const wrapped = (url, ...others) => {
         return regexes.some((r) => r.test(url.href)) ? func(url, ...others)

@@ -9,8 +9,8 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * Extrait le titre d'un son SoundCloud.
  *
  * @param {URL} url L'URL utilisant le plugin de SoundCloud.
- * @returns {Promise.<?string>} Une promesse contenant le titre ou
- *                              <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le titre ou
+ *                             <code>null</code>.
  */
 const action = async function ({ searchParams }) {
     if (searchParams.has("url")) {

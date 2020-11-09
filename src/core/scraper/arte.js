@@ -16,8 +16,8 @@ const API_URL = "https://api.arte.tv/api/player/v1/config";
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Arte.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                            <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ pathname }) {
     const [, lang, , id] = pathname.split("/");

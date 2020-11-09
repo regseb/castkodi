@@ -16,8 +16,8 @@ const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
  * Extrait les informations nécessaire pour lire une musique sur Kodi.
  *
  * @param {URL} url L'URL d'une musique Mixcloud.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ pathname }) {
     return pathname.startsWith("/discover/")

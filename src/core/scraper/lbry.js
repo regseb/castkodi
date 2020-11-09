@@ -16,8 +16,8 @@ const API_URL = "https://api.lbry.tv/api/v1";
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo LBRY.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ href, pathname }) {
     const uri = "lbry://" + (href.startsWith("https://lbry.tv/$/embed/")

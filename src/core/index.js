@@ -17,9 +17,9 @@ export const kodi = new Kodi();
  * Récupère le lien à analyser parmi les données récupérées.
  *
  * @function
- * @param {Array.<string|undefined>} urls La liste des liens récupérés par le
- *                                        menu contextuel ou dans la zone de
- *                                        saisie de la popup.
+ * @param {(string|undefined)[]} urls La liste des liens récupérés par le menu
+ *                                    contextuel ou dans la zone de saisie de la
+ *                                    popup.
  * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
  *                             aucun lien est valide.
  */
@@ -47,10 +47,10 @@ export const mux = function (urls) {
  * Diffuse un média sur Kodi.
  *
  * @function
- * @param {string}         action L'action à effectuer (<code>"send"</code>,
- *                                <code>"insert"</code> ou <code>"add"</code>).
- * @param {Array.<string>} urls   La liste des éventuelles URLs.
- * @returns {Promise.<void>} Une promesse tenue vide.
+ * @param {string}   action L'action à effectuer (<code>"send"</code>,
+ *                          <code>"insert"</code> ou <code>"add"</code>).
+ * @param {string[]} urls   La liste des éventuelles URLs.
+ * @returns {Promise<void>} Une promesse tenue vide.
  */
 export const cast = async function (action, urls) {
     const url = mux(urls);
@@ -93,7 +93,7 @@ export const cast = async function (action, urls) {
  * Ferme la connexion avec Kodi pour forcer la reconnexion avec la nouvelle
  * configuration.
  *
- * @param {object} changes Les paramètres modifiés dans la configuration.
+ * @param {Object} changes Les paramètres modifiés dans la configuration.
  */
 const handleChange = function (changes) {
     // Garder seulement les changements liés au serveur.

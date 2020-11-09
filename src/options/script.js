@@ -8,8 +8,8 @@ import { Kodi } from "../core/jsonrpc/kodi.js";
  * Demande (ou enlève) une permission optionnelle.
  *
  * @param {HTMLInputElement} input La case à cocher.
- * @returns {Promise.<boolean>} Une promesse contenant le nouvel état de la
- *                              permission.
+ * @returns {Promise<boolean>} Une promesse contenant le nouvel état de la
+ *                             permission.
  */
 const ask = async function (input) {
     if (!("permissions" in input.dataset)) {
@@ -70,7 +70,7 @@ const check = async function (input) {
 /**
  * Enregistre un paramètre.
  *
- * @this HTMLInputElement
+ * @this {HTMLInputElement}
  */
 const save = async function () {
     const key = this.form.id;
@@ -164,7 +164,7 @@ const remove = function (event) {
 /**
  * Ajoute un serveur.
  *
- * @param {object} server Le serveur à ajouter.
+ * @param {Object} server Le serveur à ajouter.
  */
 const add = function (server) {
     const index = document.querySelectorAll("tbody tr").length;

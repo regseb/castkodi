@@ -16,8 +16,8 @@ const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?url=";
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son SoundCloud.
- * @returns {Promise.<string>} Une promesse contenant le lien du
- *                             <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
  */
 const action = async function ({ href }) {
     return PLUGIN_URL + encodeURIComponent(href);

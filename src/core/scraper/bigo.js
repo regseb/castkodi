@@ -16,8 +16,8 @@ const API_URL = "https://www.bigo.tv/studio/getInternalStudioInfo";
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo de Bigo Live.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ pathname }) {
     const response = await fetch(API_URL, {

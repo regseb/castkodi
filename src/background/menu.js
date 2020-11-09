@@ -8,9 +8,8 @@ import { notify } from "../core/notify.js";
 /**
  * Agrège les liens des différents points d'entrée.
  *
- * @param {object} info Les informations fournies par le menu contextuel.
- * @returns {Promise.<Array.<string>>} Une promesse contenant les liens
- *                                     récupérés.
+ * @param {Object} info Les informations fournies par le menu contextuel.
+ * @returns {Promise<string[]>} Une promesse contenant les liens récupérés.
  */
 const aggregate = async function (info) {
     if ("bookmarkId" in info) {
@@ -30,7 +29,7 @@ const aggregate = async function (info) {
 /**
  * Exécute l'action sélectionnée dans le menu contextuel.
  *
- * @param {object} info Les informations fournies par le menu contextuel.
+ * @param {Object} info Les informations fournies par le menu contextuel.
  */
 const handleClick = async function (info) {
     if ("send" === info.menuItemId || "insert" === info.menuItemId ||
@@ -51,7 +50,7 @@ const handleClick = async function (info) {
 /**
  * Ajoute les options dans les menus contextuels.
  *
- * @param {object} changes Les paramètres modifiés dans la configuration.
+ * @param {Object} changes Les paramètres modifiés dans la configuration.
  */
 const handleChange = async function (changes) {
     // Ignorer tous les changements sauf ceux liés aux menus et aux serveurs.

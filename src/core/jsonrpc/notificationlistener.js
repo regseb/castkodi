@@ -11,6 +11,13 @@ export const NotificationListener = class {
      * Initialise un gestionnaire.
      */
     constructor() {
+
+        /**
+         * Les auditeurs dans le gestionnaire.
+         *
+         * @private
+         * @type {Function[]}
+         */
         this.listeners = [];
     }
 

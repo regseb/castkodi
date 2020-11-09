@@ -16,8 +16,8 @@ const API_URL = "https://www.radioline.co/Pillow/";
  * Extrait les informations nécessaire pour lire une musique sur Kodi.
  *
  * @param {URL} url L'URL d'une musique Radioline.
- * @returns {Promise.<?string>} Une promesse contenant le lien du
- *                              <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ hash }) {
     // Si l'URL n'a pas de hash.

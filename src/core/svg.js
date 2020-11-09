@@ -6,7 +6,7 @@
  * La liste de tous les élements <code>object</code> de la page courante (même
  * ceux dans un <code>template</code>).
  *
- * @constant {Array.<HTMLElement>}
+ * @constant {HTMLElement[]}
  */
 const objects = [...document.querySelectorAll("object"),
                   ...[...document.querySelectorAll("template")]

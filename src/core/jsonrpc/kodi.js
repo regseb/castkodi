@@ -22,8 +22,8 @@ export const Kodi = class {
      *
      * @param {string} address L'adresse IP ou l'adresse complète du service de
      *                         Kodi.
-     * @returns {Promise.<object>} Une promesse tenue si Kodi est accessible ;
-     *                             sinon une promesse rompue.
+     * @returns {Promise<Object>} Une promesse tenue si Kodi est accessible ;
+     *                            sinon une promesse rompue.
      */
     static async check(address) {
         const kodi = new Kodi(address);
@@ -98,7 +98,7 @@ export const Kodi = class {
      *
      * @param {string} method   La méthode appelée.
      * @param {*}      [params] Les éventuels paramètres de la méthode.
-     * @returns {Promise.<*>} Une promesse contenant le résultat de Kodi.
+     * @returns {Promise<*>} Une promesse contenant le résultat de Kodi.
      */
     async send(method, params) {
         if (null === this.jsonrpc) {

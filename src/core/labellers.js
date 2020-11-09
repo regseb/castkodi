@@ -14,7 +14,7 @@ import * as youtube     from "./labeller/youtube.js";
 /**
  * La liste des étiqueteuses (retournant le label extrait ou <code>null</code>).
  *
- * @constant {Array.<Function>}
+ * @constant {Function[]}
  */
 const LABELLERS = [
     // Lister les étiqueteuses (triées par ordre alphabétique).
@@ -30,11 +30,11 @@ const LABELLERS = [
  * Complète un élément de la liste de lecture avec un label.
  *
  * @function
- * @param {object} item       L'élément de la liste de lecture.
+ * @param {Object} item       L'élément de la liste de lecture.
  * @param {string} item.file  Le fichier de l'élément.
  * @param {string} item.label Le label de l'élément.
- * @returns {Promise.<object>} Une promesse contenant l'élément complété de la
- *                             liste de lecture.
+ * @returns {Promise<Object>} Une promesse contenant l'élément complété de la
+ *                            liste de lecture.
  */
 export const complete = async function (item) {
     const url = new URL(item.file.startsWith("/") ? "file:/" + item.file

@@ -9,8 +9,8 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * Extrait le titre d'une vidéo Dailymotion.
  *
  * @param {URL} url L'URL utilisant le plugin de Dailymotion.
- * @returns {Promise.<?string>} Une promesse contenant le titre ou
- *                              <code>null</code>.
+ * @returns {Promise<?string>} Une promesse contenant le titre ou
+ *                             <code>null</code>.
  */
 const action = async function ({ searchParams }) {
     if (searchParams.has("url")) {
