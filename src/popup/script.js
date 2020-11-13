@@ -422,7 +422,7 @@ const remove = function (event) {
     kodi.playlist.remove(index).catch(splash);
 };
 
-const report = async function () {
+const feedback = async function () {
     await browser.tabs.create({ url: "https://github.com/regseb/castkodi" });
     close();
 };
@@ -743,7 +743,7 @@ const load = async function () {
         document.querySelector("#clear").disabled = false;
 
         document.querySelector("#loading").style.display = "none";
-        document.querySelector("#report").disabled = false;
+        document.querySelector("#feedback").disabled = false;
         document.querySelector("#donate").disabled = false;
         document.querySelector("#rate").disabled = false;
 
@@ -808,7 +808,7 @@ for (const input of document.querySelectorAll("#repeat input")) {
 document.querySelector("#shuffle").addEventListener("change", shuffle);
 document.querySelector("#clear").addEventListener("click", clear);
 
-document.querySelector("#report").addEventListener("click", report);
+document.querySelector("#feedback").addEventListener("click", feedback);
 document.querySelector("#donate").addEventListener("click", donate);
 document.querySelector("#rate").addEventListener("click", rate);
 document.querySelector("#preferences").addEventListener("click", preferences);
