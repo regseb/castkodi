@@ -332,7 +332,7 @@
         "message": "poslať iba aktuálne video."
     },
 
-    "labeller_youtube_myMix": {
-        "message": "Môj Mix"
+    "labeller_youtube_mix": {
+        "message": "Mix"
     }
 }

@@ -26,8 +26,9 @@ const action = async function ({ searchParams }) {
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
         const label = doc.querySelector(`meta[property="og:title"]`);
-        return label?.content ??
-                              browser.i18n.getMessage("labeller_youtube_myMix");
+        return "null" === label.content
+                               ? browser.i18n.getMessage("labeller_youtube_mix")
+                               : label.content;
     }
     return null;
 };

@@ -332,7 +332,7 @@
         "message": "cast only the video."
     },
 
-    "labeller_youtube_myMix": {
-        "message": "My Mix"
+    "labeller_youtube_mix": {
+        "message": "Mix"
     }
 }

@@ -332,7 +332,7 @@
         "message": "diffuser seulement la vidéo."
     },
 
-    "labeller_youtube_myMix": {
-        "message": "Mon mix"
+    "labeller_youtube_mix": {
+        "message": "Mix"
     }
 }

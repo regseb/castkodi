@@ -59,14 +59,18 @@ describe("core/labeller/youtube.js", function () {
 
         it("should return mix label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                "<html><head></head></html>",
+                `<html>
+                   <head>
+                     <meta property="og:title" content="null" />
+                   </head>
+                 </html>`,
             ));
 
             const url = new URL("plugin://plugin.video.youtube/play/" +
                                                             "?playlist_id=foo");
 
             const label = await extract(url);
-            assert.strictEqual(label, "My Mix");
+            assert.strictEqual(label, "Mix");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
