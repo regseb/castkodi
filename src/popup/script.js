@@ -165,15 +165,21 @@ const stop = function () {
 
 const playPause = function () {
     const play = document.querySelector("#play");
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé (car la connexion à Kodi a échouée).
-    if (play.disabled) {
-        return;
-    }
-
     if ("open" === play.dataset.action) {
+        // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+        // désactivé (car la connexion à Kodi a échouée).
+        if (play.disabled) {
+            return;
+        }
+
         kodi.player.open().catch(splash);
     } else {
+        // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+        // désactivé.
+        if (document.querySelector("#pause").disabled) {
+            return;
+        }
+
         kodi.player.playPause().catch(splash);
     }
 };
