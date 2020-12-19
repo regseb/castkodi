@@ -440,7 +440,7 @@ const donate = async function () {
 
 const rate = async function () {
     await browser.tabs.create({
-        url: "https://addons.mozilla.org/addon/castkodi/reviews/",
+        url: "https://addons.mozilla.org/addon/castkodi/",
     });
     close();
 };
