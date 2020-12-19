@@ -28,7 +28,9 @@ describe("Scraper: Arte", function () {
 
         // Récupérer le dernier de la liste pour ne pas prendre des vidéos qui
         // ne sont pas encore disponibles.
-        const url = new URL(doc.querySelector(".teaserItem:last-child a").href);
+        const url = new URL(
+            doc.querySelector(`[data-testid="teaserItem"]:last-child a`).href,
+        );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -44,7 +46,9 @@ describe("Scraper: Arte", function () {
 
         // Récupérer le dernier de la liste pour ne pas prendre des vidéos qui
         // ne sont pas encore disponibles.
-        const url = new URL(doc.querySelector(".teaserItem:last-child a").href);
+        const url = new URL(
+            doc.querySelector(`[data-testid="teaserItem"]:last-child a`).href,
+        );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
