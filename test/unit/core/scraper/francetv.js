@@ -28,12 +28,12 @@ describe("core/scraper/francetv.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
-                    // eslint-disable-next-line camelcase
-                    streamroot: { content_id: "https://bar.fr/baz.mp4" },
-                }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch").callsFake((url) => {
+                const json = url.startsWith("https://player.webservices.")
+                                       ? { video: { token: "https://bar.fr/" } }
+                                       : { url: "https://baz.fr/qux.mpd" };
+                return Promise.resolve(new Response(JSON.stringify(json)));
+            });
 
             const url = new URL("https://www.france.tv/foo");
             const content = {
@@ -51,13 +51,14 @@ describe("core/scraper/francetv.js", function () {
             };
 
             const file = await extract(url, content);
-            assert.strictEqual(file, "https://bar.fr/baz.mp4");
+            assert.strictEqual(file, "https://baz.fr/qux.mpd");
 
-            assert.strictEqual(stub.callCount, 1);
+            assert.strictEqual(stub.callCount, 2);
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://player.webservices.francetelevisions.fr/v1/videos" +
                 "/123-abc?device_type=desktop&browser=firefox",
             ]);
+            assert.deepStrictEqual(stub.secondCall.args, ["https://bar.fr/"]);
 
             stub.restore();
         });

@@ -16,13 +16,11 @@ describe("Scraper: France tv", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://replayftv-vh.akamaihd.net/i" +
-                   "/streaming-adaptatif/2020/S01/J3/220156965-5e0cf4f0c0f35-" +
-               ",standard1,standard2,standard3,standard4,standard5,.mp4.csmil" +
-                                                                "/master.m3u8" +
-                                      "?caption=%2F2020%2F01%2F01%2F220156965" +
-                             "-5e0cf4f0c0f35-1577907730.m3u8%3Afra%3AFrancais" +
-                                              "&audiotrack=0%3Afra%3AFrancais");
+        assert.ok(file.startsWith("https://replayftv-vh.akamaihd.net/i" +
+                                            "/streaming-adaptatif/2020/S01/J3" +
+                                         "/220156965-5e0cf4f0c0f35-,standard1" +
+                                    ",standard2,standard3,standard4,standard5" +
+                                                     ",.mp4.csmil/master.m3u8"),
+                  `"${file}".startsWith(...)`);
     });
 });

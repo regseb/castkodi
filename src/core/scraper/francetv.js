@@ -39,9 +39,12 @@ const action = async function (_url, content) {
 
         const url = API_URL + result.groups.videoId + "?device_type=desktop" +
                                                       "&browser=firefox";
-        const response = await fetch(url);
-        const json = await response.json();
-        return json.streamroot.content_id;
+        let response = await fetch(url);
+        let json = await response.json();
+
+        response = await fetch(json.video.token);
+        json = await response.json();
+        return json.url;
     }
     return null;
 };
