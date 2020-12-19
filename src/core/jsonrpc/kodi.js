@@ -74,6 +74,7 @@ export const Kodi = class {
      */
     constructor(address = null) {
         this.address = address;
+        this.url = null;
         this.jsonrpc = null;
 
         this.application = new Application(this);
@@ -88,6 +89,7 @@ export const Kodi = class {
      */
     close() {
         if (null !== this.jsonrpc) {
+            this.url = null;
             this.jsonrpc.close();
             this.jsonrpc = null;
         }
@@ -103,6 +105,7 @@ export const Kodi = class {
     async send(method, params) {
         if (null === this.jsonrpc) {
             let address;
+            // S'il faut récupérer l'adresse dans la configuration.
             if (null === this.address) {
                 const config = await browser.storage.local.get([
                     "server-list",
@@ -113,10 +116,10 @@ export const Kodi = class {
             } else {
                 address = this.address;
             }
-            const url = Kodi.build(address);
+            this.url = Kodi.build(address);
 
             try {
-                this.jsonrpc = await JSONRPC.open(url);
+                this.jsonrpc = await JSONRPC.open(this.url);
                 this.jsonrpc.addEventListener("close", () => {
                     this.jsonrpc = null;
                 });

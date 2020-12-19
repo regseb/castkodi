@@ -105,6 +105,9 @@
     "popup_preferences_title": {
         "message": "Nastaviť"
     },
+    "popup_web_title": {
+        "message": "Prejdite na webové rozhranie Kodi"
+    },
     "popup_feedback_title": {
         "message": "Nahlásiť chybyu / Požiadať o novú funkciu"
     },

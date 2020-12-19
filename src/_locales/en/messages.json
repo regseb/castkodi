@@ -105,6 +105,9 @@
     "popup_preferences_title": {
         "message": "Configure"
     },
+    "popup_web_title": {
+        "message": "Go to Kodi web interface"
+    },
     "popup_feedback_title": {
         "message": "Report a bug / Request a feature"
     },

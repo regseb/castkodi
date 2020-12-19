@@ -428,6 +428,12 @@ const remove = function (event) {
     kodi.playlist.remove(index).catch(splash);
 };
 
+const web = async function () {
+    const url = document.querySelector("#web").dataset.url;
+    await browser.tabs.create({ url });
+    close();
+};
+
 const feedback = async function () {
     await browser.tabs.create({ url: "https://github.com/regseb/castkodi" });
     close();
@@ -749,6 +755,7 @@ const load = async function () {
         document.querySelector("#clear").disabled = false;
 
         document.querySelector("#loading").style.display = "none";
+        document.querySelector("#web").disabled = false;
         document.querySelector("#feedback").disabled = false;
         document.querySelector("#donate").disabled = false;
         document.querySelector("#rate").disabled = false;
@@ -761,6 +768,17 @@ const load = async function () {
             for await (const item of items.map(complete)) {
                 handleAdd(item);
             }
+        }
+
+        // Afficher le bouton vers l'interface Web de Kodi seulement si
+        // celle-ci est accessible.
+        try {
+            const url = `http://${kodi.url.hostname}:8080`;
+            await fetch(url);
+            document.querySelector("#web").dataset.url = url;
+            document.querySelector("#web").style.display = "block";
+        } catch {
+            // Laisser le bouton caché.
         }
     } catch (err) {
         splash(err);
@@ -814,6 +832,7 @@ for (const input of document.querySelectorAll("#repeat input")) {
 document.querySelector("#shuffle").addEventListener("change", shuffle);
 document.querySelector("#clear").addEventListener("click", clear);
 
+document.querySelector("#web").addEventListener("click", web);
 document.querySelector("#feedback").addEventListener("click", feedback);
 document.querySelector("#donate").addEventListener("click", donate);
 document.querySelector("#rate").addEventListener("click", rate);

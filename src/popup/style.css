@@ -260,6 +260,9 @@ input[type="range"].disabled::-moz-range-progress {
 #external span {
     padding: 8px 16px;
 }
+#web {
+    display: none;
+}
 
 #splash {
     background-color: #d70022;
