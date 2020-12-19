@@ -37,6 +37,10 @@ browser.storage.local.get().then((current) => {
             config["config-version"] = 3;
             config["server-list"]    = servers;
         }
+        if (3 === config["config-version"]) {
+            config["config-version"] = 4;
+            config["youtube-order"]  = "";
+        }
 
         // Nettoyer la configuration pour garder seulement les propriétés
         // nécessaire.
@@ -45,7 +49,7 @@ browser.storage.local.get().then((current) => {
     } else {
         browser.storage.local.clear();
         browser.storage.local.set({
-            "config-version":   3,
+            "config-version":   4,
             "server-mode":      "single",
             "server-list":      [{ address: "", name: "" }],
             "server-active":    0,
@@ -55,6 +59,7 @@ browser.storage.local.get().then((current) => {
                 "audio", "frame", "link", "page", "selection", "tab", "video",
             ],
             "youtube-playlist": "playlist",
+            "youtube-order":    "",
         });
     }
 });

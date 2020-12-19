@@ -331,6 +331,21 @@
     "options_youtubePlaylistVideo_textcontent": {
         "message": "diffuser seulement la vidéo."
     },
+    "options_youtubeOrderDescription_textcontent": {
+        "message": "Sélectionner l'ordre des playlists :"
+    },
+    "options_youtubeOrderAsk_textcontent": {
+        "message": "demander"
+    },
+    "options_youtubeOrderDefault_textcontent": {
+        "message": "défaut"
+    },
+    "options_youtubeOrderReverse_textcontent": {
+        "message": "inverser"
+    },
+    "options_youtubeOrderShuffle_textcontent": {
+        "message": "aléatoire"
+    },
 
     "labeller_youtube_mix": {
         "message": "Mix"

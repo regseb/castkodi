@@ -25,11 +25,14 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
  *                             <em>fichier</em> ou <code>null</code>.
  */
 const actionVideo = async function ({ searchParams }, _content, { incognito }) {
-    const config = await browser.storage.local.get(["youtube-playlist"]);
+    const config = await browser.storage.local.get([
+        "youtube-playlist", "youtube-order",
+    ]);
     if (searchParams.has("list") &&
             ("playlist" === config["youtube-playlist"] ||
              !searchParams.has("v"))) {
         return PLUGIN_URL + "?playlist_id=" + searchParams.get("list") +
+                            "&order=" + config["youtube-order"] +
                             "&play=1&incognito=" + incognito.toString();
     }
     if (searchParams.has("v")) {
@@ -58,8 +61,10 @@ export const extractVideo = matchPattern(actionVideo,
 const actionPlaylist = async function ({ searchParams },
                                        _content,
                                        { incognito }) {
+    const config = await browser.storage.local.get(["youtube-order"]);
     return searchParams.has("list")
                      ? PLUGIN_URL + "?playlist_id=" + searchParams.get("list") +
+                                    "&order=" + config["youtube-order"] +
                                     "&play=1&incognito=" + incognito.toString()
                      : null;
 };

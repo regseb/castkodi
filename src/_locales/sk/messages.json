@@ -331,6 +331,21 @@
     "options_youtubePlaylistVideo_textcontent": {
         "message": "poslať iba aktuálne video."
     },
+    "options_youtubeOrderDescription_textcontent": {
+        "message": "Vyberte poradie zoznamu:"
+    },
+    "options_youtubeOrderAsk_textcontent": {
+        "message": "opýtať sa"
+    },
+    "options_youtubeOrderDefault_textcontent": {
+        "message": "štandardný"
+    },
+    "options_youtubeOrderReverse_textcontent": {
+        "message": "naopak"
+    },
+    "options_youtubeOrderShuffle_textcontent": {
+        "message": "náhodne"
+    },
 
     "labeller_youtube_mix": {
         "message": "Mix"

@@ -15,7 +15,10 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return playlist id from video in playlist", async function () {
-        browser.storage.local.set({ "youtube-playlist": "playlist" });
+        browser.storage.local.set({
+            "youtube-playlist": "playlist",
+            "youtube-order":    "default",
+        });
 
         const url = new URL("https://www.youtube.com/watch?v=avt4ZWlVjdY" +
                                     "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum");
@@ -25,7 +28,7 @@ describe("Scraper: YouTube", function () {
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
                              "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum" +
-                                                     "&play=1&incognito=false");
+                                       "&order=default&play=1&incognito=false");
 
         browser.storage.local.clear();
     });
@@ -39,8 +42,8 @@ describe("Scraper: YouTube", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=avt4ZWlVjdY" +
-                                                             "&incognito=true");
+            "plugin://plugin.video.youtube/play/" +
+                                        "?video_id=avt4ZWlVjdY&incognito=true");
 
         browser.storage.local.clear();
     });
@@ -53,8 +56,8 @@ describe("Scraper: YouTube", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=sWfAtMQa_yo" +
-                                                            "&incognito=false");
+            "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=sWfAtMQa_yo&incognito=false");
 
         browser.storage.local.clear();
     });
@@ -67,8 +70,8 @@ describe("Scraper: YouTube", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=sWfAtMQa_yo" +
-                                                            "&incognito=false");
+            "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=sWfAtMQa_yo&incognito=false");
 
         browser.storage.local.clear();
     });
@@ -94,8 +97,8 @@ describe("Scraper: YouTube", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=dQw4w9WgXcQ" +
-                                                            "&incognito=false");
+            "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=dQw4w9WgXcQ&incognito=false");
 
         browser.storage.local.clear();
     });
@@ -121,8 +124,8 @@ describe("Scraper: YouTube", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=IOqxarVWKRs" +
-                                                             "&incognito=true");
+            "plugin://plugin.video.youtube/play/" +
+                                        "?video_id=IOqxarVWKRs&incognito=true");
 
         browser.storage.local.clear();
     });
@@ -136,6 +139,8 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return playlist id", async function () {
+        browser.storage.local.set({ "youtube-order": "" });
+
         const url = new URL("https://www.youtube.com/playlist" +
                                     "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9");
         const options = { depth: false, incognito: false };
@@ -144,7 +149,9 @@ describe("Scraper: YouTube", function () {
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
                              "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9" +
-                                                     "&play=1&incognito=false");
+                                              "&order=&play=1&incognito=false");
+
+        browser.storage.local.clear();
     });
 
     it("should return URL when it's not a playlist from mobile",
@@ -158,6 +165,8 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return playlist id from mobile", async function () {
+        browser.storage.local.set({ "youtube-order": "reverse" });
+
         const url = new URL("https://m.youtube.com/playlist" +
                                                     "?list=PL3A5849BDE0581B19");
         const options = { depth: false, incognito: false };
@@ -166,7 +175,9 @@ describe("Scraper: YouTube", function () {
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
                                              "?playlist_id=PL3A5849BDE0581B19" +
-                                                     "&play=1&incognito=false");
+                                       "&order=reverse&play=1&incognito=false");
+
+        browser.storage.local.clear();
     });
 
     it("should return embed video id", async function () {
@@ -175,8 +186,8 @@ describe("Scraper: YouTube", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=v3gefWEggSc" +
-                                                             "&incognito=true");
+            "plugin://plugin.video.youtube/play/" +
+                                        "?video_id=v3gefWEggSc&incognito=true");
     });
 
     it("should return video id without cookie", async function () {
@@ -186,8 +197,8 @@ describe("Scraper: YouTube", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=u9gVaeb9le4" +
-                                                            "&incognito=false");
+            "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=u9gVaeb9le4&incognito=false");
     });
 
     it("should return video id from tiny URL", async function () {
@@ -196,7 +207,7 @@ describe("Scraper: YouTube", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=NSFbekvYOlI" +
-                                                            "&incognito=false");
+            "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=NSFbekvYOlI&incognito=false");
     });
 });

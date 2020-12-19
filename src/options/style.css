@@ -70,3 +70,9 @@ th {
     grid-template-columns: repeat(3, 1fr);
 }
 
+#youtube-order div {
+    display: flex;
+}
+#youtube-order label {
+    flex-grow: 1;
+}
