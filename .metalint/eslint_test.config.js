@@ -1,16 +1,14 @@
-{
-    "plugins": ["mocha"],
-
-    "env": {
-        "browser": true,
-        "node": true,
-        "es2020": true,
-        "mocha": true,
-        "webextensions": true
+export default {
+    env: {
+        browser: true,
+        node: true,
+        es2020: true,
+        mocha: true,
+        webextensions: true,
     },
 
-    "rules": {
-        "complexity": 0,
+    rules: {
+        complexity: 0,
 
         "func-names": 0,
         "max-lines": 0,
@@ -25,7 +23,7 @@
         "mocha/no-exclusive-tests": 2,
         "mocha/no-exports": 2,
         "mocha/no-global-tests": 2,
-        "mocha/no-hooks": [2, { "allow": ["before"] }],
+        "mocha/no-hooks": [2, { allow: ["before"] }],
         "mocha/no-hooks-for-single-case": 0,
         "mocha/no-identical-title": 2,
         "mocha/no-mocha-arrows": 2,
@@ -40,6 +38,6 @@
         "mocha/no-top-level-hooks": 2,
         "mocha/prefer-arrow-callback": 0,
         "mocha/valid-suite-description": 0,
-        "mocha/valid-test-description": 0
-    }
-}
+        "mocha/valid-test-description": 0,
+    },
+};

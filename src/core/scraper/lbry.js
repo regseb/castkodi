@@ -21,8 +21,8 @@ const API_URL = "https://api.lbry.tv/api/v1";
  */
 const action = async function ({ href, pathname }) {
     const uri = "lbry://" + (href.startsWith("https://lbry.tv/$/embed/")
-                                       ? pathname.slice(9).replace("/", "#")
-                                       : pathname.slice(1).replace(/:/gu, "#"));
+                                      ? pathname.slice(9).replace("/", "#")
+                                      : pathname.slice(1).replaceAll(":", "#"));
 
     const response = await fetch(API_URL + "/proxy?m=get", {
         method:  "POST",

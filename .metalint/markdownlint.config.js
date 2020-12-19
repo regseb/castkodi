@@ -1,7 +1,7 @@
-{
+export default {
     "heading-increment": true,
-    "heading-style": { "style": "atx" },
-    "ul-style": { "style": "dash" },
+    "heading-style": { style: "atx" },
+    "ul-style": { style: "dash" },
     "list-indent": true,
     "ul-indent": true,
     "no-trailing-spaces": true,
@@ -21,13 +21,13 @@
     "no-trailing-punctuation": true,
     "no-multiple-space-blockquote": true,
     "no-blanks-blockquote": true,
-    "ol-prefix": { "style": "ordered" },
+    "ol-prefix": { style: "ordered" },
     "list-marker-space": true,
     "blanks-around-fences": true,
     "blanks-around-lists": true,
     "no-inline-html": true,
     "no-bare-urls": true,
-    "hr-style": { "style": "---" },
+    "hr-style": { style: "---" },
     "no-emphasis-as-heading": true,
     "no-space-in-emphasis": true,
     "no-space-in-code": true,
@@ -38,7 +38,7 @@
     "required-headings": true,
     "proper-names": false,
     "no-alt-text": true,
-    "code-block-style": { "style": "fenced" },
+    "code-block-style": { style: "fenced" },
     "single-trailing-newline": true,
-    "code-fence-style": { "style": "backtick" }
-}
+    "code-fence-style": { style: "backtick" },
+};

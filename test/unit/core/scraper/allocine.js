@@ -33,7 +33,7 @@ describe("core/scraper/allocine.js", function () {
                             videos: [{
                                 sources: { sd: "/bar.avi", hd: "/baz.mp4" },
                             }],
-                        }).replace(/"/gu, "&quot;")}"></figure>
+                        }).replaceAll(`"`, "&quot;")}"></figure>
                       </body>
                     </html>`, "text/html")),
             };

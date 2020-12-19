@@ -1,7 +1,7 @@
-{
-    "plugins": ["stylelint-order"],
+export default {
+    plugins: ["stylelint-order"],
 
-    "rules": {
+    rules: {
         "color-no-invalid-hex": true,
 
         "font-family-no-duplicate-names": true,
@@ -22,11 +22,11 @@
         "declaration-block-no-duplicate-properties": true,
         "declaration-block-no-shorthand-property-overrides": true,
 
-        "block-no-empty": [true, { "ignore": ["comments"] }],
+        "block-no-empty": [true, { ignore: ["comments"] }],
 
         "selector-pseudo-class-no-unknown": true,
         "selector-pseudo-element-no-unknown": true,
-        "selector-type-no-unknown": [true, { "ignore": ["custom-elements"] }],
+        "selector-type-no-unknown": [true, { ignore: ["custom-elements"] }],
 
         "media-feature-name-no-unknown": true,
 
@@ -49,11 +49,17 @@
         "color-named": "always-where-possible",
         "color-no-hex": null,
 
+        "length-zero-no-unit": true,
+
+        "font-weight-notation": ["named-where-possible", {
+            ignore: ["relative"],
+        }],
+
+        "function-allowed-list": null,
         "function-disallowed-list": null,
         "function-url-no-scheme-relative": null,
-        "function-url-scheme-disallowed-list": null,
         "function-url-scheme-allowed-list": null,
-        "function-allowed-list": null,
+        "function-url-scheme-disallowed-list": null,
 
         "keyframes-name-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
 
@@ -61,8 +67,8 @@
 
         "time-min-milliseconds": 100,
 
-        "unit-disallowed-list": null,
         "unit-allowed-list": null,
+        "unit-disallowed-list": null,
 
         "shorthand-property-no-redundant-values": true,
 
@@ -70,26 +76,27 @@
 
         "custom-property-pattern": null,
 
+        "property-allowed-list": null,
         "property-disallowed-list": null,
         "property-no-vendor-prefix": [true, {
-            "ignoreProperties": ["appearance"]
+            ignoreProperties: ["appearance"],
         }],
-        "property-allowed-list": null,
 
         "declaration-block-no-redundant-longhand-properties": true,
         "declaration-no-important": true,
-        "declaration-property-unit-disallowed-list": null,
         "declaration-property-unit-allowed-list": null,
-        "declaration-property-value-disallowed-list": null,
+        "declaration-property-unit-disallowed-list": null,
         "declaration-property-value-allowed-list": null,
+        "declaration-property-value-disallowed-list": null,
 
         "declaration-block-single-line-max-declarations": 1,
 
-        "selector-attribute-operator-disallowed-list": null,
+        "selector-attribute-name-disallowed-list": null,
         "selector-attribute-operator-allowed-list": null,
+        "selector-attribute-operator-disallowed-list": null,
         "selector-class-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
-        "selector-combinator-disallowed-list": null,
         "selector-combinator-allowed-list": null,
+        "selector-combinator-disallowed-list": null,
         "selector-id-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
         "selector-max-attribute": null,
         "selector-max-class": null,
@@ -104,25 +111,27 @@
         "selector-nested-pattern": null,
         "selector-no-qualifying-type": null,
         "selector-no-vendor-prefix": true,
-        "selector-pseudo-class-disallowed-list": null,
         "selector-pseudo-class-allowed-list": null,
-        "selector-pseudo-element-disallowed-list": null,
+        "selector-pseudo-class-disallowed-list": null,
         "selector-pseudo-element-allowed-list": null,
+        "selector-pseudo-element-colon-notation": "double",
+        "selector-pseudo-element-disallowed-list": null,
 
+        "media-feature-name-allowed-list": null,
         "media-feature-name-disallowed-list": null,
         "media-feature-name-no-vendor-prefix": true,
         "media-feature-name-value-allowed-list": null,
-        "media-feature-name-allowed-list": null,
 
         "custom-media-pattern": null,
 
+        "at-rule-allowed-list": null,
         "at-rule-disallowed-list": null,
         "at-rule-no-vendor-prefix": true,
         "at-rule-property-required-list": null,
-        "at-rule-allowed-list": null,
 
+        "comment-pattern": null,
         "comment-word-disallowed-list": [["/^TODO /", "/^FIXME /"], {
-            "severity": "warning"
+            severity: "warning",
         }],
 
         "max-nesting-depth": null,
@@ -132,10 +141,6 @@
         "color-hex-length": "long",
 
         "font-family-name-quotes": "always-where-recommended",
-
-        "font-weight-notation": ["named-where-possible", {
-            "ignore": ["relative"]
-        }],
 
         "function-comma-newline-after": null,
         "function-comma-newline-before": null,
@@ -152,8 +157,6 @@
         "number-no-trailing-zeros": true,
 
         "string-quotes": "double",
-
-        "length-zero-no-unit": true,
 
         "unit-case": "lower",
 
@@ -202,7 +205,6 @@
         "selector-pseudo-class-case": "lower",
         "selector-pseudo-class-parentheses-space-inside": "never",
         "selector-pseudo-element-case": "lower",
-        "selector-pseudo-element-colon-notation": "double",
         "selector-type-case": "lower",
 
         "selector-list-comma-newline-after": "always-multi-line",
@@ -234,20 +236,24 @@
         "comment-empty-line-before": null,
         "comment-whitespace-inside": "always",
 
-        "indentation": 4,
-        "linebreaks": "unix",
+        indentation: 4,
+        linebreaks: "unix",
         "max-empty-lines": 2,
-        "max-line-length": [80, { "severity": "warning" }],
+        "max-line-length": [80, { severity: "warning" }],
         "no-eol-whitespace": true,
         "no-missing-end-of-source-newline": true,
         "no-empty-first-line": true,
         "unicode-bom": "never",
 
         "order/order": [
-            "custom-properties", "dollar-variables", "at-variables",
-            "declarations", "rules", "at-rules"
+            "custom-properties",
+            "dollar-variables",
+            "at-variables",
+            "declarations",
+            "rules",
+            "at-rules",
         ],
         "order/properties-order": null,
-        "order/properties-alphabetical-order": true
-    }
-}
+        "order/properties-alphabetical-order": true,
+    },
+};

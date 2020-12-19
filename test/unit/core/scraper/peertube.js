@@ -71,7 +71,8 @@ describe("core/scraper/peertube.js", function () {
 
         it("should return null when it's not a PeerTube website",
                                                              async function () {
-            const stub = sinon.stub(globalThis, "fetch").rejects(new Error());
+            const stub = sinon.stub(globalThis, "fetch")
+                              .rejects(new Error("baz"));
 
             const url = new URL("https://foo.com/videos/embed/bar");
 

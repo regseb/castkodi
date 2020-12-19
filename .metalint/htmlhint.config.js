@@ -1,4 +1,4 @@
-{
+export default {
     "alt-require": true,
     "attr-lowercase": true,
     "attr-no-duplication": true,
@@ -29,5 +29,5 @@
     "tagname-lowercase": true,
     "tagname-specialchars": true,
     "tags-check": false,
-    "title-require": true
-}
+    "title-require": true,
+};
