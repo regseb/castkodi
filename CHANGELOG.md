@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.7.0](https://github.com/regseb/castkodi/compare/v5.6.0...v5.7.0) (2020-12-22)
+
+
+### Features
+
+* Ajouter un bouton pour aller sur l'interface Web. ([ec0cdc9](https://github.com/regseb/castkodi/commit/ec0cdc986b4da29c9f4a32fd716293d4c56b0853))
+* Rendre configuration l'ordre des playlists YouTube. ([826d1c4](https://github.com/regseb/castkodi/commit/826d1c48756b763ea93219e8fef0969898469376))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de France.tv. ([6d2f314](https://github.com/regseb/castkodi/commit/6d2f3149cc66f705dccf67328b36b6063bb39183))
+* Améliorer les tests du scraper de Arte. ([36517ac](https://github.com/regseb/castkodi/commit/36517acab1516acf21f76729916f17f3aec357d8))
+* Désactiver le bouton pause pour les lives. ([bdb2aff](https://github.com/regseb/castkodi/commit/bdb2affdefbc7ccbc9e34717d9031bac20f4fddc))
+* Rediriger vers la page de l'extension pour la note. ([9071879](https://github.com/regseb/castkodi/commit/90718791101fa6a24468ef7147fdab45d3c4f439))
+* Utiliser 'Mix' pour les playlists YouTube sans nom. ([39ae042](https://github.com/regseb/castkodi/commit/39ae04291b723e0ed10895b7d83bed62d7dc9573))
+
 ## [5.6.0](https://github.com/regseb/castkodi/compare/v5.5.0...v5.6.0) (2020-11-09)
 
 
