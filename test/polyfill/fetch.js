@@ -5,8 +5,8 @@ import nodeFetch from "node-fetch";
  *
  * @constant {string}
  */
-const USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:82.0)" +
-                   " Gecko/20100101 Firefox/82.0";
+const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0)" +
+                                                 " Gecko/20100101 Firefox/84.0";
 
 /**
  * Cherche une ressource.
