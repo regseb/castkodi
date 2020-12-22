@@ -17,8 +17,8 @@ describe("Scraper: Apple Podcasts", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://dts.podtrac.com/redirect.mp3" +
-                               "/www.arteradio.com/podcast_sound/61661310.mp3");
+        assert.ok(file.startsWith("http://arte.proxycast.org/m/media" +
+                                                          "/226026218795.mp3?"),
+                  `"${file}".startsWith(...)`);
     });
 });
