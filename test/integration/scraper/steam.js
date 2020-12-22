@@ -3,7 +3,8 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Steam", function () {
     it("should return URL when it's not a video", async function () {
-        const url = new URL("https://store.steampowered.com/app/400/Portal/");
+        const url = new URL("https://store.steampowered.com/bundle/234" +
+                                                             "/Portal_Bundle/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
