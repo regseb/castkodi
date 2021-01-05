@@ -89,7 +89,7 @@ describe("core/scrapers.js", function () {
                 { headers: { "Content-Type": "application/xhtml+xml" } },
             ));
 
-            const url = new URL("HTTPS://VIMEO.COM/195613867");
+            const url = new URL("HTTPS://PLAYER.VIMEO.COM/VIDEO/12345");
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
