@@ -11,8 +11,7 @@ describe("Scraper: PodMust", function () {
     });
 
     it("should return audio URL [audio]", async function () {
-        const url = new URL("https://podmust.com/podcast" +
-                                               "/le-billet-de-chris-esquerre/");
+        const url = new URL("https://podmust.com/podcast/sixieme-science/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

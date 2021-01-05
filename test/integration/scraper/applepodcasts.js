@@ -13,12 +13,13 @@ describe("Scraper: Apple Podcasts", function () {
 
     it("should return audio URL", async function () {
         const url = new URL("https://podcasts.apple.com/fr/podcast" +
-                               "/cest-papy-mamie/id1093080425?i=1000435243113");
+                             "/les-infos-de-07h00-du-vendredi-01-janvier-2021" +
+                                               "/id1041742167?i=1000504035248");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.startsWith("http://arte.proxycast.org/m/media" +
-                                                          "/226026218795.mp3?"),
-                  `"${file}".startsWith(...)`);
+        assert.strictEqual(file,
+            "http://rf.proxycast.org/225d33fa-b601-4c07-a44b-a7485ae504dd" +
+                        "/14929-01.01.2021-ITEMA_22528945-2021B20133S0001.mp3");
     });
 });

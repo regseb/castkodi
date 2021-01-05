@@ -29,8 +29,9 @@ describe("Scraper: Instagram", function () {
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
-    it("should return video URL when protocol is HTTP", async function () {
-        const url = new URL("https://www.instagram.com/p/Bpji87LiJFs/");
+    it("should return video URL when protocol is HTTP [opengraph]",
+                                                             async function () {
+        const url = new URL("http://www.instagram.com/p/Bpji87LiJFs/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
