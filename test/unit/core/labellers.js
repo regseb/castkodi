@@ -71,5 +71,18 @@ describe("core/labellers.js", function () {
                 label: "/foo/bar.mp3",
             });
         });
+
+        it("should strip tags",  async function () {
+            const item = {
+                file:  "/foo.mkv",
+                label: "[B][UPPERCASE]Label[/UPPERCASE][/B] !",
+            };
+
+            const result = await complete(item);
+            assert.deepStrictEqual(result, {
+                file:  "/foo.mkv",
+                label: "Label !",
+            });
+        });
     });
 });

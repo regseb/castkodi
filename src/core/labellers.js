@@ -10,6 +10,7 @@ import * as twitch      from "./labeller/twitch.js";
 import * as vimeo       from "./labeller/vimeo.js";
 import * as youtube     from "./labeller/youtube.js";
 /* eslint-enable import/no-namespace */
+import { strip } from "./sanitizer.js";
 
 /**
  * La liste des étiqueteuses (retournant le label extrait ou <code>null</code>).
@@ -48,6 +49,6 @@ export const complete = async function (item) {
     return {
         ...item,
         label: "" === item.label ? item.file
-                                 : item.label,
+                                 : strip(item.label),
     };
 };
