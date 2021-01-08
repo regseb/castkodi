@@ -1,24 +1,24 @@
 /* eslint-disable no-extend-native */
 
-import AbortController from "abort-controller";
-import eventTargetShim from "event-target-shim";
-import jsdom           from "jsdom";
-import nodeFetch       from "node-fetch";
-import { browser }     from "./polyfill/browser.js";
-import { Event }       from "./polyfill/event.js";
-import { CloseEvent }  from "./polyfill/closeevent.js";
-import { fetch }       from "./polyfill/fetch.js";
-import { replaceAll }  from "./polyfill/replaceall.js";
+import AbortController       from "abort-controller";
+import { EventTarget }       from "event-target-shim";
+import { JSDOM }             from "jsdom";
+import { Headers, Response } from "node-fetch";
+import { browser }           from "./polyfill/browser.js";
+import { CloseEvent }        from "./polyfill/closeevent.js";
+import { Event }             from "./polyfill/event.js";
+import { fetch }             from "./polyfill/fetch.js";
+import { replaceAll }        from "./polyfill/replaceall.js";
 
 globalThis.AbortController = AbortController;
-globalThis.EventTarget     = eventTargetShim.EventTarget;
-globalThis.DOMParser       = new jsdom.JSDOM().window.DOMParser;
-globalThis.Headers         = nodeFetch.Headers;
-globalThis.Response        = nodeFetch.Response;
+globalThis.EventTarget     = EventTarget;
+globalThis.DOMParser       = new JSDOM().window.DOMParser;
+globalThis.Headers         = Headers;
+globalThis.Response        = Response;
 
 globalThis.browser    = browser;
-globalThis.Event      = Event;
 globalThis.CloseEvent = CloseEvent;
+globalThis.Event      = Event;
 globalThis.fetch      = fetch;
 
 String.prototype.replaceAll = replaceAll;

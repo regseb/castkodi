@@ -4,7 +4,7 @@
 
 import dialogPolyfill from "./lib/dialog-polyfill/script.js";
 
-// Utiliser une prothèse en attendant que les boites de dialogue soit
+// Utiliser une prothèse en attendant que les boites de dialogue soient
 // implémentées dans Firefox.
 // https://bugzilla.mozilla.org/show_bug.cgi?id=840640
 HTMLUnknownElement.prototype.showModal = function showModal() {

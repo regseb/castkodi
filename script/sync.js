@@ -7,7 +7,7 @@ const copy = async function (src, dest) {
     if (stats.isDirectory()) {
         await fs.mkdir(dest, { recursive: true });
 
-        for await (const filename of fs.readdir(src)) {
+        for (const filename of await fs.readdir(src)) {
             copy(path.join(src, filename), path.join(dest, filename));
         }
     } else {

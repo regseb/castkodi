@@ -144,12 +144,12 @@ export default {
 
         "function-comma-newline-after": null,
         "function-comma-newline-before": null,
-        "function-comma-space-after": "always",
+        "function-comma-space-after": "always-single-line",
         "function-comma-space-before": "never",
         "function-max-empty-lines": 0,
         "function-name-case": "lower",
         "function-parentheses-newline-inside": "always-multi-line",
-        "function-parentheses-space-inside": "never",
+        "function-parentheses-space-inside": "never-single-line",
         "function-url-quotes": "always",
         "function-whitespace-after": "always",
 
@@ -188,7 +188,7 @@ export default {
         "block-closing-brace-empty-line-before": "never",
         "block-closing-brace-newline-after": "always",
         "block-closing-brace-newline-before": "always-multi-line",
-        "block-closing-brace-space-after": "always-single-line",
+        "block-closing-brace-space-after": null,
         "block-closing-brace-space-before": "always-single-line",
         "block-opening-brace-newline-after": "always-multi-line",
         "block-opening-brace-newline-before": null,

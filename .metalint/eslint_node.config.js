@@ -1,8 +1,6 @@
 export default {
     env: {
-        browser: true,
         node: true,
-        es2020: true,
     },
 
     rules: {

@@ -13,7 +13,9 @@ export default {
             linters: { "addons-linter": null },
         }, {
             patterns: "/src/**/*.js",
-            linters: "eslint",
+            linters: {
+                eslint: ["eslint.config.js", "eslint_webext.config.js"],
+            },
         }, {
             patterns: "/test/**/*.js",
             linters: {
@@ -29,12 +31,9 @@ export default {
                 eslint: ["eslint.config.js", "eslint_node.config.js"],
             },
         }, {
-            patterns: "*.config.js",
+            patterns: "/.metalint/**/*.js",
             linters: {
-                eslint: [
-                    "eslint.config.js",
-                    "eslint_config.config.js",
-                ],
+                eslint: ["eslint.config.js", "eslint_config.config.js"],
             },
         }, {
             patterns: "/src/**/*.html",
