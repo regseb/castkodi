@@ -13,15 +13,15 @@ describe("Scraper: Pokémon TV", function () {
 
     it("should return french video URL", async function () {
         const url = new URL("https://watch.pokemon.com/fr-fr/#/player" +
-                                        "?id=65492fc4bd634c69b1337593a2d99007");
+                                        "?id=31ed3ab48e734662bdeffe02ba591f34");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file,
             "https://s2.content.video.llnw.net/smedia" +
-                                        "/4953336d7f544f678a12270b176ea386/F7" +
-                                  "/at49C7yB6RvUkECXsAgbmq2F7-mmZVWo1kM3cMYVo" +
-                                                            "/fr-fr-23-01.mp4");
+                                        "/4953336d7f544f678a12270b176ea386/Lp" +
+                                  "/oOj5FgrXMO5KVDQNYScXLLLcSxAeZuive13gOTsqw" +
+                                              "/pokemon_season22_ep01_fre.mp4");
     });
 
     it("should return america video URL", async function () {
