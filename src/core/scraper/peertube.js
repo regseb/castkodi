@@ -14,8 +14,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  */
 const action = async function ({ href }) {
     const url = href.replace(/^http:/iu, "https:")
-                    .replace("videos/watch", "api/v1/videos")
-                    .replace("videos/embed", "api/v1/videos");
+                    .replace(/videos\/(watch|embed)/iu, "api/v1/videos");
     try {
         const response = await fetch(url);
         const json = await response.json();
@@ -23,8 +22,8 @@ const action = async function ({ href }) {
     } catch {
         // Ignorer les erreurs car elles proviennent d'un site qui n'est pas une
         // instance PeerTube (et l'appel à l'API a échoué).
+        return null;
     }
-    return null;
 };
 export const extract = matchPattern(action,
     "*://*/videos/watch/*",
