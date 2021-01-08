@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.8.0](https://github.com/regseb/castkodi/compare/v5.7.0...v5.8.0) (2021-01-08)
+
+
+### Features
+
+* Ajouter le support de Pokémon TV. ([ea6d4ac](https://github.com/regseb/castkodi/commit/ea6d4acc42f8232b5c4c471b07b78f3337f82ce5))
+
+
+### Bug Fixes
+
+* Enlever les balises de mises en forme des titres. ([edcb4af](https://github.com/regseb/castkodi/commit/edcb4af8f6114e4eaebfbfa715aaf033cc80315c))
+
 ## [5.7.0](https://github.com/regseb/castkodi/compare/v5.6.0...v5.7.0) (2020-12-22)
 
 
