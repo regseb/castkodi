@@ -9,9 +9,13 @@ const I18NS = JSON.parse(
 );
 
 const data = {
-    bookmarks: {},
-    histories: [],
-    storage:   {
+    bookmarks:   {},
+    histories:   [],
+    permissions: {
+        data:      new Set(),
+        listeners: [],
+    },
+    storage:     {
         local: {
             data:      {},
             listeners: [],
@@ -63,6 +67,34 @@ export const browser = {
         },
     },
 
+    permissions: {
+        remove: ({ permissions }) => {
+            const changes = { permissions: [] };
+            for (const permission of permissions) {
+                const deleted = data.permissions.data.delete(permission);
+                if (deleted) {
+                    changes.permissions.push(permission);
+                }
+            }
+            if (0 !== changes.permissions.length) {
+                data.permissions.listeners.forEach((l) => l(changes));
+                return Promise.resolve(true);
+            }
+            return Promise.resolve(false);
+        },
+        request: ({ permissions }) => {
+            for (const permission of permissions) {
+                data.permissions.data.add(permission);
+            }
+            return Promise.resolve(true);
+        },
+        onRemoved: {
+            addListener: (listener) => {
+                data.permissions.listeners.push(listener);
+            },
+        },
+    },
+
     storage: {
         local: {
             get:   (properties = null) => {
@@ -91,7 +123,7 @@ export const browser = {
                         }
                         return [key, change];
                     }));
-                data.storage.local.listeners.map((l) => l(changes));
+                data.storage.local.listeners.forEach((l) => l(changes));
                 Object.assign(data.storage.local.data, values);
             },
             clear: () => {
