@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.9.0](https://github.com/regseb/castkodi/compare/v5.8.0...v5.9.0) (2021-01-29)
+
+
+### Features
+
+* Améliorer l'interface de la popup. ([60b8898](https://github.com/regseb/castkodi/commit/60b8898dca4041031cf5b5f54cae887603091a66))
+* Autoriser les URLs "plugin:*". ([ac9d6c6](https://github.com/regseb/castkodi/commit/ac9d6c6a276ab837b2866cf88c29dbc64c1b3192))
+
+
+### Bug Fixes
+
+* Enlever le support de YT Home. ([12770a9](https://github.com/regseb/castkodi/commit/12770a9b718ad21ffb2d0ac4dc0c8adb91ede04d))
+* Gérer la suppression de permissions optionnelles. ([097ca00](https://github.com/regseb/castkodi/commit/097ca00d325fb11f53df5787099b1de511d57b9d))
+
 ## [5.8.0](https://github.com/regseb/castkodi/compare/v5.7.0...v5.8.0) (2021-01-08)
 
 
