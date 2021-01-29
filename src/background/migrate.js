@@ -14,6 +14,10 @@ browser.storage.local.get().then((current) => {
                              .filter(([k, v]) => k.startsWith("contexts-") && v)
                              .map(([k]) => k.slice(9));
 
+            // Nettoyer la configuration pour garder seulement les propriétés
+            // nécessaire.
+            browser.storage.local.clear();
+
             config = {
                 "config-version":   2,
                 "server-mode":      "single",
@@ -42,9 +46,6 @@ browser.storage.local.get().then((current) => {
             config["youtube-order"]  = "";
         }
 
-        // Nettoyer la configuration pour garder seulement les propriétés
-        // nécessaire.
-        browser.storage.local.clear();
         browser.storage.local.set(config);
     } else {
         browser.storage.local.clear();
