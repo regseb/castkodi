@@ -19,7 +19,7 @@ des vidéos et des musiques sur **Kodi** :
   Flickr, Instagram, Jamendo, LBRY, LiveLeak, Megaphone, Metacafe, Mixcloud,
   My Cloud Player, Overcast, PeerTube, Pippa, podCloud, PodMust, Pokémon TV,
   Radio, Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress,
-  Viously, YT Home ;
+  Viously ;
   - Allemagne : Arte ;
   - Belgique : VRT NU ;
   - États-Unis : KCAA Radio ;
