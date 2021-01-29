@@ -35,7 +35,8 @@ export const mux = function (urls) {
             return Boolean(new URL(url)) && (
                    (/^https?:\/\/[^/]+\/.*$/iu).test(url) ||
                    (/^magnet:.*$/iu).test(url) ||
-                   (/^acestream:.*$/iu).test(url));
+                   (/^acestream:.*$/iu).test(url) ||
+                   (/^plugin:.*$/iu).test(url));
         } catch {
             // Indiquer que la construction de l'URL a échouée.
             return false;

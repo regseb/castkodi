@@ -57,6 +57,13 @@ describe("core/index.js", function () {
             const url = mux(urls);
             assert.strictEqual(url, "acestream://0123456789abcdef");
         });
+
+        it("should get plugin URL", function () {
+            const urls = ["plugin://plugin.video.foo/bar?baz=qux"];
+
+            const url = mux(urls);
+            assert.strictEqual(url, "plugin://plugin.video.foo/bar?baz=qux");
+        });
     });
 
     describe("cast()", function () {
