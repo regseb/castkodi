@@ -671,29 +671,18 @@ const handleAdd = function (item) {
     const li = document.createElement("li");
     li.append(clone);
 
-    document.querySelector("#playlist-items > span").style.display = "none";
     const ol = document.querySelector("#playlist-items ol");
-    ol.style.display = "block";
     ol.insertBefore(li, ol.children[item.position]);
 };
 
 const handleClear = function () {
     const ol = document.querySelector("#playlist-items ol");
-    ol.style.display = "none";
     ol.textContent = "";
-    document.querySelector("#playlist-items > span").style.display = "block";
 };
 
 const handleRemove = function (value) {
     document.querySelector(`#playlist-items li:nth-child(${value + 1})`)
             .remove();
-
-    const ol = document.querySelector("#playlist-items ol");
-    if (0 === ol.childElementCount) {
-        ol.style.display = "none";
-        document.querySelector("#playlist-items > span").style.display =
-                                                                        "block";
-    }
 };
 
 const passing = function () {
@@ -761,14 +750,10 @@ const load = async function () {
         document.querySelector("#rate").disabled = false;
 
         const items = await kodi.playlist.getItems();
-        if (0 === items.length) {
-            document.querySelector("#playlist-items > span").style.display =
-                                                                        "block";
-        } else {
-            for await (const item of items.map(complete)) {
-                handleAdd(item);
-            }
+        for await (const item of items.map(complete)) {
+            handleAdd(item);
         }
+        document.querySelector("#playlist-items").classList.remove("waiting");
 
         // Afficher le bouton vers l'interface Web de Kodi seulement si
         // celle-ci est accessible.
@@ -917,9 +902,9 @@ globalThis.addEventListener("keyup", (event) => {
 globalThis.addEventListener("wheel", (event) => {
     // Garder le comportement classique de la molette pour la liste de lecture
     // lorsque la barre défilement est présent.
-    const ol = event.target.closest("#playlist-items ol");
+    const section = event.target.closest("#playlist-items");
     if (0 === event.deltaY ||
-            null !== ol && ol.scrollHeight > ol.clientHeight) {
+            null !== section && section.scrollHeight > section.clientHeight) {
         return;
     }
 

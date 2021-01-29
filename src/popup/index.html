@@ -80,84 +80,87 @@
       </button>
     </section>
 
-    <section id="sound">
-      <input id="volume" type="range" value="50" disabled autocomplete="off"
-             orient="vertical" />
+   <div id="others">
+      <section id="sound">
+        <input id="volume" type="range" value="50" disabled autocomplete="off"
+               orient="vertical" />
 
-      <label id="mute" data-i18n-title>
-        <input name="mute" type="checkbox" disabled autocomplete="off" />
-        <object data="img/sound.svg"></object>
-        <object data="img/mute.svg"></object>
-      </label>
-    </section>
+        <label id="mute" data-i18n-title>
+          <input name="mute" type="checkbox" disabled autocomplete="off" />
+          <object data="img/sound.svg"></object>
+          <object data="img/mute.svg"></object>
+        </label>
+      </section>
 
-    <section id="remote">
-      <button class="ghost" id="contextmenu" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/contextmenu.svg"></object>
-      </button>
+      <section id="remote">
+        <button class="ghost" id="contextmenu" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/contextmenu.svg"></object>
+        </button>
 
-      <button class="ghost" id="up" disabled autocomplete="off" data-i18n-title>
-        <object data="img/up.svg"></object>
-      </button>
+        <button class="ghost" id="up" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/up.svg"></object>
+        </button>
 
-      <button class="ghost" id="info" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/info.svg"></object>
-      </button>
+        <button class="ghost" id="info" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/info.svg"></object>
+        </button>
 
-      <button class="ghost" id="left" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/left.svg"></object>
-      </button>
+        <button class="ghost" id="left" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/left.svg"></object>
+        </button>
 
-      <button class="ghost" id="select" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/select.svg"></object>
-      </button>
+        <button class="ghost" id="select" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/select.svg"></object>
+        </button>
 
-      <button class="ghost" id="right" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/right.svg"></object>
-      </button>
+        <button class="ghost" id="right" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/right.svg"></object>
+        </button>
 
-      <button class="ghost" id="back" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/back.svg"></object>
-      </button>
+        <button class="ghost" id="back" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/back.svg"></object>
+        </button>
 
-      <button class="ghost" id="down" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/down.svg"></object>
-      </button>
+        <button class="ghost" id="down" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/down.svg"></object>
+        </button>
 
-      <button class="ghost" id="osd" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/osd.svg"></object>
-      </button>
-    </section>
+        <button class="ghost" id="osd" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/osd.svg"></object>
+        </button>
+      </section>
 
-    <section id="various">
-      <button class="ghost" id="home" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/home.svg"></object>
-      </button>
+      <section id="various">
+        <button class="ghost" id="home" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/home.svg"></object>
+        </button>
 
-      <button class="ghost" id="fullscreen" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/fullscreen.svg"></object>
-      </button>
+        <button class="ghost" id="fullscreen" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/fullscreen.svg"></object>
+        </button>
 
-      <button class="ghost" id="opensendtext" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/sendtext.svg"></object>
-      </button>
+        <button class="ghost" id="opensendtext" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/sendtext.svg"></object>
+        </button>
 
-      <button class="ghost" id="playerprocessinfo" disabled autocomplete="off"
-              data-i18n-title>
-        <object data="img/playerprocessinfo.svg"></object>
-      </button>
-    </section>
+        <button class="ghost" id="playerprocessinfo" disabled autocomplete="off"
+                data-i18n-title>
+          <object data="img/playerprocessinfo.svg"></object>
+        </button>
+      </section>
+    </div>
 
     <section id="playlist-actions">
       <div id="repeat">
@@ -199,9 +202,9 @@
         <object data="img/remove.svg"></object>
       </button>
     </template>
-    <section id="playlist-items">
-      <span data-i18n-textcontent="empty"></span>
+    <section class="waiting" id="playlist-items">
       <ol></ol>
+      <span data-i18n-textcontent="empty"></span>
     </section>
 
     <section id="external">

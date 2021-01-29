@@ -1,8 +1,13 @@
+html {
+    height: 100%;
+}
+
 body {
     background-color: #2a2a2e;
     color: #f9f9fa;
-    display: grid;
-    grid-template-columns: 1fr min-content 1fr;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     margin: 0;
     min-width: 325px;
 }
@@ -91,7 +96,6 @@ input[type="range"].disabled::-moz-range-progress {
 #cast {
     border-bottom: 1px solid #737373;
     display: flex;
-    grid-column-end: span 3;
 }
 
 #paste textarea {
@@ -120,7 +124,6 @@ input[type="range"].disabled::-moz-range-progress {
 
 #timing {
     display: flex;
-    grid-column-end: span 3;
 }
 #timing time {
     margin: 12px 8px;
@@ -133,15 +136,18 @@ input[type="range"].disabled::-moz-range-progress {
 #playing {
     border-bottom: 1px solid #737373;
     display: flex;
-    grid-column-end: span 3;
     justify-content: center;
 }
 #pause {
     display: none;
 }
 
+#others {
+    display: flex;
+    justify-content: center;
+}
+
 #sound {
-    align-items: flex-end;
     display: flex;
     flex-direction: column;
 }
@@ -161,7 +167,6 @@ input[type="range"].disabled::-moz-range-progress {
 }
 
 #various {
-    align-items: flex-start;
     display: flex;
     flex-direction: column;
 }
@@ -172,7 +177,6 @@ input[type="range"].disabled::-moz-range-progress {
 #playlist-actions {
     border-top: 1px solid #737373;
     display: flex;
-    grid-column-end: span 3;
     justify-content: flex-end;
 }
 
@@ -188,34 +192,22 @@ input[type="range"].disabled::-moz-range-progress {
 }
 
 #playlist-items {
-    grid-column-end: span 3;
+    flex-grow: 1;
     margin-bottom: 8px;
+    min-height: 144px;
+    overflow-y: scroll;
     width: 100vw;
 }
 
-#playlist-items > span {
-    color: #737373;
-    display: none;
-    font-size: 14px;
-    font-style: italic;
-    line-height: 32px;
-    overflow: hidden;
-    padding-left: 8px;
-    padding-right: 8px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: calc(100% - 16px);
-}
-
 #playlist-items ol {
-    display: none;
     font-size: 14px;
     list-style-type: none;
     margin-bottom: 0;
     margin-top: 0;
-    max-height: 176px;
-    overflow-y: auto;
     padding-left: 0;
+}
+#playlist-items ol:empty {
+    display: none;
 }
 
 #playlist-items li {
@@ -251,10 +243,27 @@ input[type="range"].disabled::-moz-range-progress {
     display: inline;
 }
 
+#playlist-items > span {
+    color: #737373;
+    display: block;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 32px;
+    overflow: hidden;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 16px);
+}
+#playlist-items.waiting span,
+#playlist-items ol:not(:empty) + span {
+    display: none;
+}
+
 #external {
     border-top: 1px solid #737373;
     display: flex;
-    grid-column-end: span 3;
     justify-content: flex-end;
 }
 #external span {
