@@ -32,7 +32,8 @@ describe("Scraper: Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "http://antena1.newradio.it/stream/1/");
+        assert.strictEqual(file,
+            "https://antenaone.crossradio.com.br/stream/1/");
     });
 
     it("should return audio URL from french version", async function () {

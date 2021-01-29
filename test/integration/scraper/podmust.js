@@ -2,14 +2,6 @@ import assert      from "assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: PodMust", function () {
-    it("should return URL when it's not an audio", async function () {
-        const url = new URL("https://podmust.com/fr/?s=foo");
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
-    });
-
     it("should return audio URL [audio]", async function () {
         const url = new URL("https://podmust.com/podcast/sixieme-science/");
         const options = { depth: false, incognito: false };
