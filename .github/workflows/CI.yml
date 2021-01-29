@@ -12,13 +12,13 @@ jobs:
       - name: Setup Node.js 14
         uses: actions/setup-node@v1
         with:
-            node-version: '14'
+          node-version: 14
 
       - name: Checkout project
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Lint files
         run: npm run lint
@@ -29,13 +29,13 @@ jobs:
       - name: Setup Node.js 14
         uses: actions/setup-node@v1
         with:
-            node-version: '14'
+          node-version: 14
 
       - name: Checkout project
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run unit tests
         run: npm run test:unit
@@ -50,13 +50,13 @@ jobs:
       - name: Setup Node.js 14
         uses: actions/setup-node@v1
         with:
-            node-version: '14'
+          node-version: 14
 
       - name: Checkout project
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run unit tests
         run: npm run test:unit

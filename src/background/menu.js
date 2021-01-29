@@ -98,7 +98,7 @@ const handleChange = async function (changes) {
                 parentId: "parent",
                 type:     "separator",
             });
-            config["server-list"].forEach((server, index) => {
+            for (const [index, server] of config["server-list"].entries()) {
                 const name = (/^\s*$/u).test(server.name)
                                ? browser.i18n.getMessage("menus_noName",
                                                          (index + 1).toString())
@@ -110,7 +110,7 @@ const handleChange = async function (changes) {
                     title:    name,
                     type:     "radio",
                 });
-            });
+            }
         }
     }
 };

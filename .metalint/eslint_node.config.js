@@ -21,7 +21,7 @@ export default {
         "node/no-unpublished-require": 2,
         "node/no-unsupported-features/es-builtins": 2,
         "node/no-unsupported-features/es-syntax": [2, {
-            ignores: ["modules"],
+            ignores: ["dynamicImport", "modules"],
         }],
         "node/no-unsupported-features/node-builtins": 2,
         "node/process-exit-as-throw": 2,

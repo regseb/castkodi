@@ -917,7 +917,7 @@ interval = setInterval(passing, 1000);
 browser.storage.local.get().then((config) => {
     if ("multi" === config["server-mode"]) {
         for (const input of document.querySelectorAll("select")) {
-            config["server-list"].forEach((server, index) => {
+            for (const [index, server] of config["server-list"].entries()) {
                 const name = (/^\s*$/u).test(server.name)
                                ? browser.i18n.getMessage("menus_noName",
                                                          (index + 1).toString())
@@ -926,7 +926,7 @@ browser.storage.local.get().then((config) => {
                                           index,
                                           index === config["server-active"],
                                           index === config["server-active"]);
-            });
+            }
         }
         document.querySelector("#server").style.visibility = "visible";
         document.querySelector("#splash li:last-child").style.display =

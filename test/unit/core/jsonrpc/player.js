@@ -377,7 +377,7 @@ describe("core/jsonrpc/player.js", function () {
                     position:  42,
                     speed:     2,
                     time:      3723,
-                    totaltime: 10921,
+                    totaltime: 10_921,
                 });
 
                 assert.strictEqual(fake.callCount, 2);
