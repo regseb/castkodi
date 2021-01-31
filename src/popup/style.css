@@ -123,10 +123,11 @@ input[type="range"].disabled::-moz-range-progress {
 }
 
 #timing {
+    align-items: center;
     display: flex;
 }
 #timing time {
-    margin: 12px 8px;
+    margin: 0 8px;
     text-align: right;
 }
 #time {
