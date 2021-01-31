@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.9.1](https://github.com/regseb/castkodi/compare/v5.9.0...v5.9.1) (2021-01-31)
+
+
+### Bug Fixes
+
+* Corriger l'affichage de la popup sous Windows. ([505d757](https://github.com/regseb/castkodi/commit/505d7579c7e5c5500893ea990f098417467797df))
+
 ## [5.9.0](https://github.com/regseb/castkodi/compare/v5.8.0...v5.9.0) (2021-01-29)
 
 

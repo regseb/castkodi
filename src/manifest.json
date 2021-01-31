@@ -7,7 +7,7 @@
     },
     "manifest_version": 2,
     "name": "Cast Kodi",
-    "version": "5.9.0",
+    "version": "5.9.1",
     "description": "__MSG_manifest_description__",
     "icons": {
         "48": "img/icon.svg",
