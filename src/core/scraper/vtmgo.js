@@ -1,6 +1,7 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
 
@@ -15,57 +16,63 @@ const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog/";
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo VRT NU.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
+ */
+const actionEpisode = async function ({ pathname }) {
+    return PLUGIN_URL + "episodes/" + pathname.slice(17);
+};
+
+export const extractEpisode = matchPattern(actionEpisode,
+    "*://www.vtm.be/vtmgo/afspelen/e*",
+    "*://vtm.be/vtmgo/afspelen/e*");
+
+/**
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ *
+ * @param {URL} url L'URL d'une vidéo VRT NU.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
+ */
+const actionMovie = async function ({ pathname }) {
+    return PLUGIN_URL + "movies/" + pathname.slice(17);
+};
+
+export const extractMovie = matchPattern(actionMovie,
+    "*://www.vtm.be/vtmgo/afspelen/m*",
+    "*://vtm.be/vtmgo/afspelen/m*");
+
+/**
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ *
+ * @param {URL} url L'URL d'une vidéo VRT NU.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
+ */
+const actionMoviePage = async function ({ pathname }) {
+    return PLUGIN_URL + "movies/" + pathname.slice(pathname.indexOf("~m") + 2);
+};
+
+export const extractMoviePage = matchPattern(actionMoviePage,
+    "*://www.vtm.be/vtmgo/*~m*",
+    "*://vtm.be/vtmgo/*~m*");
+
+/**
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ *
+ * @param {URL} _url L'URL d'une vidéo VRT NU.
  * @param {Object}   content      Le contenu de l'URL.
  * @param {Function} content.html La fonction retournant la promesse contenant
  *                                le document HTML.
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ pathname }, content) {
-    const tryPathname = function () {
-        const categories = {
-            e: "episodes",
-            m: "movies",
-        };
-        const regex = /^\/vtmgo\/(?:afspelen\/|[^/]*~)([em])([\da-z-]+)$/u;
-        const matches = regex.exec(pathname);
-        if (null === matches) {
-            return null;
-        }
-        const [, categoryIdentifier, item] = matches;
-
-        return PLUGIN_URL + categories[categoryIdentifier] + "/" + item;
-    };
-    const tryContent = async function () {
-        if (null === content || undefined === content) {
-            return null;
-        }
-        const doc = await content.html();
-        if (null === doc) {
-            return null;
-        }
-
-        const playerDiv = doc.querySelector(".fjs-player");
-        if (null === playerDiv) {
-            return null;
-        }
-        let category = playerDiv.getAttribute("data-assettype");
-        if (null === category || "" === category) {
-            return null;
-        }
-        if ("s" !== category.slice(-1)) {
-            category += "s";
-        }
-        const item = playerDiv.getAttribute("data-id");
-
-        return PLUGIN_URL + category + "/" + item;
-    };
-    let returnValue = await tryContent();
-    if (null === returnValue) {
-        returnValue = tryPathname();
-    }
-    return returnValue;
+const actionLive = async function (_url, content) {
+    const doc = await content.html();
+    const div = doc.querySelector("div.fjs-player[data-id]");
+    return null === div ? null
+                        : PLUGIN_URL + "channels/" + div.dataset.id;
 };
-export const extract = matchPattern(action,
-    "*://www.vtm.be/vtmgo/*",
-    "*://vtm.be/vtmgo/*");
+export const extractLive = matchPattern(actionLive,
+    "*://www.vtm.be/vtmgo/live-kijken/*",
+    "*://vtm.be/vtmgo/live-kijken/*");
