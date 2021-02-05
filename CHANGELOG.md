@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.10.0](https://github.com/regseb/castkodi/compare/v5.9.1...v5.10.0) (2021-02-05)
+
+
+### Features
+
+* Ajouter le support de VTM GO ([#48](https://github.com/regseb/castkodi/issues/48)) ([25fc00f](https://github.com/regseb/castkodi/commit/25fc00f7f781c877a3237446fad3709dd62a0a1b))
+
 ### [5.9.1](https://github.com/regseb/castkodi/compare/v5.9.0...v5.9.1) (2021-01-31)
 
 
