@@ -19,7 +19,7 @@ describe("Scraper: Apple Podcasts", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "http://rf.proxycast.org/225d33fa-b601-4c07-a44b-a7485ae504dd" +
+            "https://rf.proxycast.org/c4d77f0f-51bd-4e29-aaba-e6d8fbc78edb" +
                         "/14929-01.01.2021-ITEMA_22528945-2021B20133S0001.mp3");
     });
 });
