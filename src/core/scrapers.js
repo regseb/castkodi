@@ -61,6 +61,7 @@ import * as vidlox         from "./scraper/vidlox.js";
 import * as vimeo          from "./scraper/vimeo.js";
 import * as viously        from "./scraper/viously.js";
 import * as vrtnu          from "./scraper/vrtnu.js";
+import * as vtmgo          from "./scraper/vtmgo.js";
 import * as youtube        from "./scraper/youtube.js";
 /* eslint-enable import/no-namespace */
 
@@ -115,6 +116,7 @@ const SCRAPERS = [
     vimeo,
     viously,
     vrtnu,
+    vtmgo,
     youtube,
     // Utiliser les scrapers génériques en dernier recours.
     video,
