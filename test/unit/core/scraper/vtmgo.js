@@ -1,5 +1,5 @@
-import assert      from "assert";
-import { extractEpisode, extractLive, extractMovie, extractMoviePage }
+import assert from "assert";
+import { extractChannel, extractEpisode, extractMovie, extractMoviePage }
                                    from "../../../../src/core/scraper/vtmgo.js";
 
 describe("core/scraper/vtmgo.js", function () {
@@ -11,25 +11,20 @@ describe("core/scraper/vtmgo.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return video URL when format is afspelen/<character><uuid>",
-                                                             async function () {
-            const url = new URL("http://www.vtm.be/vtmgo/" +
-                              "afspelen/e97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+        it("should return video UUID", async function () {
+            const url = new URL("http://vtm.be/vtmgo/afspelen/efoo");
 
             const file = await extractEpisode(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vtm.go/play/catalog/" +
-                               "episodes/97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+                "plugin://plugin.video.vtm.go/play/catalog/episodes/foo");
         });
 
-        it("should return video URL without 'www'", async function () {
-            const url = new URL("http://vtm.be/vtmgo/" +
-                              "afspelen/e97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+        it("should return video UUID with 'www'", async function () {
+            const url = new URL("http://www.vtm.be/vtmgo/afspelen/efoo");
 
             const file = await extractEpisode(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vtm.go/play/catalog/" +
-                               "episodes/97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+                "plugin://plugin.video.vtm.go/play/catalog/episodes/foo");
         });
     });
 
@@ -41,25 +36,20 @@ describe("core/scraper/vtmgo.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return video URL when format is afspelen/<character><uuid>",
-                                                             async function () {
-            const url = new URL("http://www.vtm.be/vtmgo/" +
-                              "afspelen/m97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+        it("should return video UUID", async function () {
+            const url = new URL("http://vtm.be/vtmgo/afspelen/mfoo");
 
             const file = await extractMovie(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vtm.go/play/catalog/" +
-                               "movies/97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+                "plugin://plugin.video.vtm.go/play/catalog/movies/foo");
         });
 
-        it("should return video URL without 'www'", async function () {
-            const url = new URL("http://vtm.be/vtmgo/" +
-                              "afspelen/m97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+        it("should return video UUID with 'www'", async function () {
+            const url = new URL("http://www.vtm.be/vtmgo/afspelen/mfoo");
 
             const file = await extractMovie(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vtm.go/play/catalog/" +
-                               "movies/97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+                "plugin://plugin.video.vtm.go/play/catalog/movies/foo");
         });
     });
 
@@ -71,29 +61,33 @@ describe("core/scraper/vtmgo.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return video URL when format is <name>~<character><uuid>",
-                                                             async function () {
-            const url = new URL("https://vtm.be/vtmgo/" +
-                                   "foo~m97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+        it("should return video UUID", async function () {
+            const url = new URL("https://vtm.be/vtmgo/foo~mbar");
 
             const file = await extractMoviePage(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vtm.go/play/catalog/" +
-                                 "movies/97f7cf4a-1cb8-4564-a6e5-ee1f94052574");
+                "plugin://plugin.video.vtm.go/play/catalog/movies/bar");
+        });
+
+        it("should return video UUID with 'www'", async function () {
+            const url = new URL("https://www.vtm.be/vtmgo/foo~mbar");
+
+            const file = await extractMoviePage(url);
+            assert.strictEqual(file,
+                "plugin://plugin.video.vtm.go/play/catalog/movies/bar");
         });
     });
 
-    describe("extractLive()", function () {
+    describe("extractChannel()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://foo.be");
 
-            const file = await extractLive(url);
+            const file = await extractChannel(url);
             assert.strictEqual(file, null);
         });
 
-        it("should return null without fjs-player and url without id",
-                                                             async function () {
-            const url = new URL("https://vtm.be/vtmgo/live-kijken/vtm");
+        it("should return null when there isn't player", async function () {
+            const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -101,27 +95,24 @@ describe("core/scraper/vtmgo.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractLive(url, content);
+            const file = await extractChannel(url, content);
             assert.strictEqual(file, null);
         });
 
-        it("should return video URL from live content", async function () {
-            const url = new URL("https://vtm.be/vtmgo/live-kijken/vtm3");
+        it("should return video UUID", async function () {
+            const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <div class="fjs-player" data-assettype="channel"
-                                 data-id="d9a8ca31-850d-4536-87e8-d4928ce5ec6e">
-                        </div>
+                        <div class="fjs-player" data-id="bar"></div>
                       </body>
                     </html>`, "text/html")),
             };
 
-            const file = await extractLive(url, content);
+            const file = await extractChannel(url, content);
             assert.strictEqual(file,
-                "plugin://plugin.video.vtm.go/play/catalog/" +
-                               "channels/d9a8ca31-850d-4536-87e8-d4928ce5ec6e");
+                "plugin://plugin.video.vtm.go/play/catalog/channels/bar");
         });
     });
 });
