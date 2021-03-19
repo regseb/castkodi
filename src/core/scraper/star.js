@@ -17,8 +17,8 @@ import { matchPattern } from "../../tools/matchpattern.js";
  const action = async function (url, _content) {
     const html = await (await fetch(url)).text();
     const found = html.match(/https:.*.m3u8/gmu);
-    if (found === null) {
-        return "";
+    if (null === found) {
+        return null;
     }
     return found[0];
 };
