@@ -8,17 +8,16 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      url         L'URL d'un jeu Steam.
- * @param {Object}   _content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML.
+ * @param {URL}      url       L'URL d'un jeu Steam.
+ * @param {Object}   _content  Le contenu de l'URL.
+ *
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
  const action = async function (url, _content) {
     const html = await (await fetch(url)).text();
-    const found = html.match(/https:.*.m3u8/gm);
-    if (found == null) {
+    const found = html.match(/https:.*.m3u8/gmu);
+    if (found === null) {
         return "";
     }
     return found[0];
