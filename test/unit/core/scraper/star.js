@@ -1,7 +1,7 @@
 import assert      from "assert";
 import sinon       from "sinon";
 import { extract } from "../../../../src/core/scraper/star.js";
- 
+
 describe("core/scraper/star.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
@@ -33,7 +33,7 @@ describe("core/scraper/star.js", function () {
             stub.restore();
         });
 
-        it("should return null when video m3u8 URL is not present", async function () {
+        it("should return null when m3u8 url not present", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                     <body>
