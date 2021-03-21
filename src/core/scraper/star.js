@@ -22,4 +22,4 @@ import { matchPattern } from "../../tools/matchpattern.js";
     }
     return found[0];
 };
-export const extract = matchPattern(action, "https://www.star.gr/*");
+export const extract = matchPattern(action, "https://www.star.gr/tv/*");
