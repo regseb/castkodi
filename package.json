@@ -16,7 +16,7 @@
     "bugs": {
         "url": "https://github.com/regseb/castkodi/issues"
     },
-    "license": "EUPL-1.2",
+    "license": "MIT",
     "author": "Sébastien Règne <regseb@gmail.com> (https://github.com/regseb)",
     "funding": "https://www.paypal.me/sebastienregne",
     "repository": "regseb/castkodi",
