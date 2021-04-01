@@ -51,8 +51,8 @@ export const matchPattern = function (func, ...patterns) {
     /**
      * Enrobe la fonction avec le filtre.
      *
-     * @param {URL} url    L'URL qui sera filtrée.
-     * @param {*[]} others Les autres paramètres.
+     * @param {URL}   url    L'URL qui sera filtrée.
+     * @param {any[]} others Les autres paramètres.
      * @returns {Promise<?string>} Une promesse contenant le lien du
      *                             <em>fichier</em> ou <code>null</code>.
      */

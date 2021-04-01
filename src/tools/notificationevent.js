@@ -14,11 +14,23 @@ export const NotificationEvent = class extends Event {
      *                               (<code>"notification"</code>).
      * @param {Object} init          Les paramètres de l'évènement.
      * @param {string} init.method   La méthode de la notification.
-     * @param {*}      [init.params] Les éventuels paramètres de la méthode.
+     * @param {any}    [init.params] Les éventuels paramètres de la méthode.
      */
     constructor(type, { method, params }) {
         super(type);
+
+        /**
+         * La méthode de la notification.
+         *
+         * @type {string}
+         */
         this.method = method;
+
+        /**
+         * Les éventuels paramètres de la méthode.
+         *
+         * @type {any}
+         */
         this.params = params;
     }
 };

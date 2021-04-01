@@ -21,15 +21,15 @@ export const cacheable = function (func) {
     /**
      * La valeur de retour en cache.
      *
-     * @type {*}
+     * @type {any}
      */
     let value = undefined;
 
     /**
      * Enrobe la fonction avec le cache.
      *
-     * @returns {*} Le retour de la fonction (éventuellement récupéré dans le
-     *              cache).
+     * @returns {any} Le retour de la fonction (éventuellement récupéré dans le
+     *                cache).
      */
     const wrapped = () => {
         if (!cached) {

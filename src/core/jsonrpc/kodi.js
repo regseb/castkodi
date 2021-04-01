@@ -73,25 +73,153 @@ export const Kodi = class {
      *                                 configuration.
      */
     constructor(address = null) {
-        this.address = address;
-        this.url = null;
-        this.jsonrpc = null;
 
-        this.application = new Application(this);
-        this.gui         = new GUI(this);
-        this.input       = new Input(this);
-        this.player      = new Player(this);
-        this.playlist    = new Playlist(this);
+        /**
+         * L'adresse IP ou l'adresse complète du service de Kodi ; ou
+         * <code>null</code> pour récupérer l'adresse dans la configuration.
+         *
+         * @private
+         * @type {?string}
+         */
+        this._address = address;
+
+        /**
+         * L'URL du service de Kodi ; ou <code>null</code> si l'URL n'a pas
+         * encore été déterminée.
+         *
+         * @private
+         * @type {?URL}
+         */
+        this._url = null;
+
+        /**
+         * Le client connecté au service de Kodi ; ou <code>null</code> si le
+         * n'est pas connecté.
+         *
+         * @private
+         * @type {?JSONRPC}
+         */
+        this._jsonrpc = null;
+
+        /**
+         * Le client JSON-RPC pour contacter l'espace de nom
+         * <em>Application</em> de Kodi.
+         *
+         * @private
+         * @type {Application}
+         */
+        this._application = new Application(this);
+
+        /**
+         * Le client JSON-RPC pour contacter l'espace de nom <em>GUI</em> de
+         * Kodi.
+         *
+         * @private
+         * @type {GUI}
+         */
+        this._gui = new GUI(this);
+
+        /**
+         * Le client JSON-RPC pour contacter l'espace de nom <em>Input</em> de
+         * Kodi.
+         *
+         * @private
+         * @type {Input}
+         */
+        this._input = new Input(this);
+
+        /**
+         * Le client JSON-RPC pour contacter l'espace de nom <em>Player</em> de
+         * Kodi.
+         *
+         * @private
+         * @type {Player}
+         */
+        this._player = new Player(this);
+
+        /**
+         * Le client JSON-RPC pour contacter l'espace de nom <em>Playlist</em>
+         * de Kodi.
+         *
+         * @private
+         * @type {Playlist}
+         */
+        this._playlist = new Playlist(this);
+    }
+
+    /**
+     * Retourne l'URL du service de Kodi ; ou <code>null</code> si l'URL n'a pas
+     * encore été déterminée.
+     *
+     * @returns {?URL} L'URL du service de Kodi ; ou <code>null</code> si l'URL
+     *                 n'a pas encore été déterminée.
+     */
+    get url() {
+        return this._url;
+    }
+
+    /**
+     * Retourne le client JSON-RPC pour contacter l'espace de nom
+     * <em>Application</em> de Kodi.
+     *
+     * @returns {Application} Le client JSON-RPC pour contacter l'espace de nom
+     *                        <em>Application</em> de Kodi.
+     */
+    get application() {
+        return this._application;
+    }
+
+    /**
+     * Retourne le client JSON-RPC pour contacter l'espace de nom <em>GUI</em>
+     * de Kodi.
+     *
+     * @returns {GUI} Le client JSON-RPC pour contacter l'espace de nom
+     *                <em>GUI</em> de Kodi.
+     */
+    get gui() {
+        return this._gui;
+    }
+
+    /**
+     * Retourne le client JSON-RPC pour contacter l'espace de nom <em>Input</em>
+     * de Kodi.
+     *
+     * @returns {Input} Le client JSON-RPC pour contacter l'espace de nom
+     *                  <em>Input</em> de Kodi.
+     */
+    get input() {
+        return this._input;
+    }
+
+    /**
+     * Retourne le client JSON-RPC pour contacter l'espace de nom
+     * <em>Player</em> de Kodi.
+     *
+     * @returns {Player} Le client JSON-RPC pour contacter l'espace de nom
+     *                   <em>Player</em> de Kodi.
+     */
+    get player() {
+        return this._player;
+    }
+
+    /**
+     * Retourne le client JSON-RPC pour contacter l'espace de nom
+     * <em>Playlist</em> de Kodi.
+     *
+     * @returns {Playlist} Le client JSON-RPC pour contacter l'espace de nom
+     *                     <em>Playlist</em> de Kodi.
+     */
+    get playlist() {
+        return this._playlist;
     }
 
     /**
      * Ferme la connexion.
      */
     close() {
-        if (null !== this.jsonrpc) {
-            this.url = null;
-            this.jsonrpc.close();
-            this.jsonrpc = null;
+        if (null !== this._jsonrpc) {
+            this._jsonrpc.close();
+            this._jsonrpc = null;
         }
     }
 
@@ -99,14 +227,14 @@ export const Kodi = class {
      * Envoi une requête JSON-RPC à Kodi.
      *
      * @param {string} method   La méthode appelée.
-     * @param {*}      [params] Les éventuels paramètres de la méthode.
-     * @returns {Promise<*>} Une promesse contenant le résultat de Kodi.
+     * @param {any}    [params] Les éventuels paramètres de la méthode.
+     * @returns {Promise<any>} Une promesse contenant le résultat de Kodi.
      */
     async send(method, params) {
-        if (null === this.jsonrpc) {
+        if (null === this._jsonrpc) {
             let address;
             // S'il faut récupérer l'adresse dans la configuration.
-            if (null === this.address) {
+            if (null === this._address) {
                 const config = await browser.storage.local.get([
                     "server-list",
                     "server-active",
@@ -114,26 +242,26 @@ export const Kodi = class {
                 address = config["server-list"][config["server-active"]]
                                                                        .address;
             } else {
-                address = this.address;
+                address = this._address;
             }
-            this.url = Kodi.build(address);
+            this._url = Kodi.build(address);
 
             try {
-                this.jsonrpc = await JSONRPC.open(this.url);
-                this.jsonrpc.addEventListener("close", () => {
-                    this.jsonrpc = null;
+                this._jsonrpc = await JSONRPC.open(this._url);
+                this._jsonrpc.addEventListener("close", () => {
+                    this._jsonrpc = null;
                 });
-                this.jsonrpc.addEventListener("notification", (event) => {
-                    this.input.handleNotification(event);
-                    this.application.handleNotification(event);
-                    this.player.handleNotification(event);
-                    this.playlist.handleNotification(event);
+                this._jsonrpc.addEventListener("notification", (event) => {
+                    this._input.handleNotification(event);
+                    this._application.handleNotification(event);
+                    this._player.handleNotification(event);
+                    this._playlist.handleNotification(event);
                 });
             } catch {
                 throw new PebkacError("notFound", address);
             }
         }
 
-        return this.jsonrpc.send(method, params);
+        return this._jsonrpc.send(method, params);
     }
 };

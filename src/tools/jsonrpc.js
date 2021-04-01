@@ -42,7 +42,7 @@ export const JSONRPC = class extends EventTarget {
          * @private
          * @type {WebSocket}
          */
-        this.ws = ws;
+        this._ws = ws;
 
         /**
          * L'identifiant de la précédente requête.
@@ -50,7 +50,7 @@ export const JSONRPC = class extends EventTarget {
          * @private
          * @type {number}
          */
-        this.id = 0;
+        this._id = 0;
 
         /**
          * La liste des promesses en attente d'être réalisées.
@@ -58,34 +58,34 @@ export const JSONRPC = class extends EventTarget {
          * @private
          * @type {Map<number, Object>}
          */
-        this.promises = new Map();
+        this._promises = new Map();
 
-        this.ws.addEventListener("close", this.handleClose.bind(this));
-        this.ws.addEventListener("message", this.handleMessage.bind(this));
+        this._ws.addEventListener("close", this._handleClose.bind(this));
+        this._ws.addEventListener("message", this._handleMessage.bind(this));
     }
 
     /**
      * Ferme la connexion.
      */
     close() {
-        this.ws.close();
+        this._ws.close();
     }
 
     /**
      * Envoie une requête au serveur.
      *
      * @param {string} method   La méthode appelée.
-     * @param {*}      [params] Les éventuels paramètres de la méthode.
-     * @returns {Promise<*>} Une promesse contenant le résultat du serveur.
+     * @param {any}    [params] Les éventuels paramètres de la méthode.
+     * @returns {Promise<any>} Une promesse contenant le résultat du serveur.
      */
     send(method, params) {
         return new Promise((resolve, reject) => {
-            this.promises.set(++this.id, { resolve, reject });
-            this.ws.send(JSON.stringify({
+            this._promises.set(++this._id, { resolve, reject });
+            this._ws.send(JSON.stringify({
                 jsonrpc: "2.0",
                 method,
                 ...undefined === params ? {} : { params },
-                id:      this.id,
+                id:      this._id,
             }));
         });
     }
@@ -96,7 +96,7 @@ export const JSONRPC = class extends EventTarget {
      * @private
      * @param {CloseEvent} event L'évènement de fermeture reçu de la WebSocket.
      */
-    handleClose(event) {
+    _handleClose(event) {
         this.dispatchEvent(new CloseEvent(event.type, event));
     }
 
@@ -106,17 +106,17 @@ export const JSONRPC = class extends EventTarget {
      * @private
      * @param {MessageEvent} message Le message reçu du serveur.
      */
-    handleMessage({ data }) {
+    _handleMessage({ data }) {
         const response = JSON.parse(data);
         if ("id" in response) {
             if ("error" in response) {
-                this.promises.get(response.id).reject(
+                this._promises.get(response.id).reject(
                     new Error(response.error.message),
                 );
             } else {
-                this.promises.get(response.id).resolve(response.result);
+                this._promises.get(response.id).resolve(response.result);
             }
-            this.promises.delete(response.id);
+            this._promises.delete(response.id);
         } else {
             this.dispatchEvent(new NotificationEvent("notification", response));
         }

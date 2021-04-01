@@ -1,6 +1,11 @@
 import assert                from "assert";
 import sinon                 from "sinon";
+import { Application }       from "../../../../src/core/jsonrpc/application.js";
+import { GUI }               from "../../../../src/core/jsonrpc/gui.js";
+import { Input }             from "../../../../src/core/jsonrpc/input.js";
 import { Kodi }              from "../../../../src/core/jsonrpc/kodi.js";
+import { Player }            from "../../../../src/core/jsonrpc/player.js";
+import { Playlist }          from "../../../../src/core/jsonrpc/playlist.js";
 import { JSONRPC }           from "../../../../src/tools/jsonrpc.js";
 import { NotificationEvent } from "../../../../src/tools/notificationevent.js";
 
@@ -35,6 +40,66 @@ describe("core/jsonrpc/kodi.js", function () {
             ]);
 
             stub.restore();
+        });
+    });
+
+    describe("get url()", function () {
+        it("should return null when url isn't built", function () {
+            const kodi = new Kodi("localhost");
+            assert.strictEqual(kodi.url, null);
+        });
+
+        it("should return URL when url is built", async function () {
+            const stub = sinon.stub(JSONRPC, "open").resolves({
+                addEventListener: () => {},
+                send:             () => Promise.resolve({}),
+            });
+
+            const kodi = new Kodi("localhost");
+            await kodi.send("foo");
+            assert.strictEqual(kodi.url.href, "ws://localhost:9090/jsonrpc");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                new URL("ws://localhost:9090/jsonrpc"),
+            ]);
+
+            stub.restore();
+        });
+    });
+
+    describe("get application()", function () {
+        it("should return Application object", function () {
+            const kodi = new Kodi("localhost");
+            assert.ok(kodi.application instanceof Application);
+        });
+    });
+
+    describe("get gui()", function () {
+        it("should return GUI object", function () {
+            const kodi = new Kodi("localhost");
+            assert.ok(kodi.gui instanceof GUI);
+        });
+    });
+
+    describe("get input()", function () {
+        it("should return Input object", function () {
+            const kodi = new Kodi("localhost");
+            assert.ok(kodi.input instanceof Input);
+        });
+    });
+
+    describe("get player()", function () {
+        it("should return Player object", function () {
+            const kodi = new Kodi("localhost");
+            assert.ok(kodi.player instanceof Player);
+        });
+    });
+
+    describe("get playlist()", function () {
+        it("should return Playlist object", function () {
+            const kodi = new Kodi("localhost");
+            assert.ok(kodi.playlist instanceof Playlist);
         });
     });
 

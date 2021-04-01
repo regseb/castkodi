@@ -2,7 +2,6 @@
  * @module
  */
 
-/* eslint-disable import/no-namespace */
 import * as dailymotion from "./labeller/dailymotion.js";
 import * as dumpert     from "./labeller/dumpert.js";
 import * as soundcloud  from "./labeller/soundcloud.js";
@@ -10,8 +9,7 @@ import * as twitch      from "./labeller/twitch.js";
 import * as vimeo       from "./labeller/vimeo.js";
 import * as vtmgo       from "./labeller/vtmgo.js";
 import * as youtube     from "./labeller/youtube.js";
-/* eslint-enable import/no-namespace */
-import { strip } from "./sanitizer.js";
+import { strip }        from "./sanitizer.js";
 
 /**
  * La liste des étiqueteuses (retournant le label extrait ou <code>null</code>).

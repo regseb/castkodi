@@ -16,7 +16,14 @@ export const GUI = class {
      * @param {Function} kodi.send La méthode pour envoyer une requête.
      */
     constructor(kodi) {
-        this.kodi = kodi;
+
+        /**
+         * Le client pour contacter Kodi.
+         *
+         * @private
+         * @type {Object}
+         */
+        this._kodi = kodi;
     }
 
     /**
@@ -26,6 +33,6 @@ export const GUI = class {
      *                             plein écran.
      */
     setFullscreen() {
-        return this.kodi.send("GUI.SetFullscreen", { fullscreen: "toggle" });
+        return this._kodi.send("GUI.SetFullscreen", { fullscreen: "toggle" });
     }
 };

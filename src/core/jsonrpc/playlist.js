@@ -18,10 +18,37 @@ export const Playlist = class {
      * @param {Function} kodi.send La méthode pour envoyer une requête.
      */
     constructor(kodi) {
-        this.kodi = kodi;
 
-        this.onAdd    = new NotificationListener();
-        this.onClear  = new NotificationListener();
+        /**
+         * Le client pour contacter Kodi.
+         *
+         * @private
+         * @type {Object}
+         */
+        this._kodi = kodi;
+
+        /**
+         * Le gestionnaire des auditeurs pour les notifications d'ajout d'un
+         * média dans la liste de lecture.
+         *
+         * @type {NotificationListener}
+         */
+        this.onAdd = new NotificationListener();
+
+        /**
+         * Le gestionnaire des auditeurs pour les notifications de vidage de la
+         * liste de lecture.
+         *
+         * @type {NotificationListener}
+         */
+        this.onClear = new NotificationListener();
+
+        /**
+         * Le gestionnaire des auditeurs pour les notifications d'enlèvement
+         * d'un média de la liste de lecture.
+         *
+         * @type {NotificationListener}
+         */
         this.onRemove = new NotificationListener();
     }
 
@@ -32,7 +59,7 @@ export const Playlist = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     add(file) {
-        return this.kodi.send("Playlist.Add", {
+        return this._kodi.send("Playlist.Add", {
             playlistid: 1,
             item:       { file },
         });
@@ -46,7 +73,7 @@ export const Playlist = class {
     clear() {
         // Attention ! Le vidage de la liste de lecture interrompt la continuité
         // de lecture. https://github.com/xbmc/xbmc/issues/15958
-        return this.kodi.send("Playlist.Clear", { playlistid: 1 });
+        return this._kodi.send("Playlist.Clear", { playlistid: 1 });
     }
 
     /**
@@ -56,7 +83,7 @@ export const Playlist = class {
      *                              liste de lecture.
      */
     async getItems() {
-        const results = await this.kodi.send("Playlist.GetItems", {
+        const results = await this._kodi.send("Playlist.GetItems", {
             playlistid: 1,
             properties: ["file"],
         });
@@ -71,7 +98,7 @@ export const Playlist = class {
      *                             de lecture ou <code>null</code>.
      */
     async getItem(position) {
-        const results = await this.kodi.send("Playlist.GetItems", {
+        const results = await this._kodi.send("Playlist.GetItems", {
             playlistid: 1,
             properties: ["file"],
             limits:     { start: position, end: position + 1 },
@@ -87,7 +114,7 @@ export const Playlist = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     insert(file, position) {
-        return this.kodi.send("Playlist.Insert", {
+        return this._kodi.send("Playlist.Insert", {
             playlistid: 1,
             position,
             item:       { file },
@@ -101,7 +128,7 @@ export const Playlist = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     remove(position) {
-        return this.kodi.send("Playlist.Remove", {
+        return this._kodi.send("Playlist.Remove", {
             playlistid: 1,
             position,
         });
@@ -114,7 +141,7 @@ export const Playlist = class {
      * @param {Object} notification             La notification reçu de Kodi.
      * @param {string} notification.method      La méthode de la notification.
      * @param {Object} notification.params      Les paramètres de la méthode.
-     * @param {*}      notification.params.data Les données des paramètres.
+     * @param {any}    notification.params.data Les données des paramètres.
      */
     async handleNotification({ method, params: { data } }) {
         // Garder seulement les notifications de la liste de lecture des vidéos

@@ -572,19 +572,15 @@ const handleTimeChanged = function (value) {
     const max = Number.parseInt(time.max, 10);
     time.valueAsNumber = Math.min(value, max);
 
-    if (3600 < max) {
-        time.previousElementSibling.textContent =
-            Math.trunc(time.valueAsNumber / 3600) + ":" +
-            (Math.trunc(time.valueAsNumber / 60) % 60).toString()
-                                                      .padStart(2, "0") + ":" +
-            (time.valueAsNumber % 60).toString().padStart(2, "0");
-    } else {
-        time.previousElementSibling.textContent =
-            Math.trunc(time.valueAsNumber / 60) + ":" +
-            (time.valueAsNumber % 60).toString().padStart(2, "0");
-    }
+    time.previousElementSibling.textContent = 3600 < max
+           ? Math.trunc(time.valueAsNumber / 3600) + ":" +
+             (Math.trunc(time.valueAsNumber / 60) % 60).toString()
+                                                       .padStart(2, "0") + ":" +
+             (time.valueAsNumber % 60).toString().padStart(2, "0")
+           : Math.trunc(time.valueAsNumber / 60) + ":" +
+             (time.valueAsNumber % 60).toString().padStart(2, "0");
 
-    // Utiliser la taille du temps total pour que l'élément est toujours la
+    // Utiliser la taille du temps total pour que l'élément ait toujours la
     // même taille (même durant le passage à la dizaine).
     time.previousElementSibling.style.width =
                           time.nextElementSibling.offsetWidth.toString() + "px";
@@ -612,16 +608,13 @@ const handleTotaltimeChanged = function (value) {
         document.querySelector("#pause").disabled = false;
         document.querySelector("#forward").disabled = false;
 
-        if (3600 < value) {
-            time.nextElementSibling.textContent =
-                Math.trunc(value / 3600) + ":" +
-                (Math.trunc(value / 60) % 60).toString().padStart(2, "0") +
-                ":" + (value % 60).toString().padStart(2, "0");
-        } else {
-            time.nextElementSibling.textContent =
-                Math.trunc(value / 60) + ":" +
-                (value % 60).toString().padStart(2, "0");
-        }
+        time.nextElementSibling.textContent = 3600 < value
+                        ? Math.trunc(value / 3600) + ":" +
+                          (Math.trunc(value / 60) % 60).toString()
+                                                       .padStart(2, "0") + ":" +
+                          (value % 60).toString().padStart(2, "0")
+                        : Math.trunc(value / 60) + ":" +
+                          (value % 60).toString().padStart(2, "0");
     }
 };
 
