@@ -12,14 +12,19 @@ describe("Scraper: Apple Podcasts", function () {
     });
 
     it("should return audio URL", async function () {
-        const url = new URL("https://podcasts.apple.com/fr/podcast" +
-                             "/les-infos-de-07h00-du-vendredi-01-janvier-2021" +
-                                               "/id1041742167?i=1000504035248");
+        // Récupérer un podcast récent car ils ne sont pas gardés indéfiniment.
+        const response = await fetch("https://podcasts.apple.com/fr/podcast" +
+                          "/les-journaux-de-france-bleu-provence/id1041742167");
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+
+        const url = new URL(doc.querySelector(".tracks a").href);
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://rf.proxycast.org/c4d77f0f-51bd-4e29-aaba-e6d8fbc78edb" +
-                        "/14929-01.01.2021-ITEMA_22528945-2021B20133S0001.mp3");
+        assert.ok(file?.startsWith("https://rf.proxycast.org/"),
+                  `"${file}"?.startsWith(...) from ${url}`);
+        assert.ok(file?.endsWith(".mp3"),
+                  `"${file}"?.endsWith(...) from ${url}`);
     });
 });

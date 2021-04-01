@@ -33,9 +33,11 @@ describe("core/scraper/applepodcasts.js", function () {
                       <body>
                         <script id="shoebox-ember-data-store">
                             {
-                                "data": {
-                                    "attributes": {
-                                        "assetUrl": "https://foo.com/bar.mp3"
+                                "123456789": {
+                                    "data": {
+                                        "attributes": {
+                                            "assetUrl": "https://foo.fr/bar.mp3"
+                                        }
                                     }
                                 }
                             }
@@ -45,7 +47,7 @@ describe("core/scraper/applepodcasts.js", function () {
             };
 
             const file = await extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp3");
+            assert.strictEqual(file, "https://foo.fr/bar.mp3");
         });
     });
 });

@@ -18,8 +18,9 @@ import { matchPattern } from "../../tools/matchpattern.js";
 const action = async function (_url, content) {
     const doc = await content.html();
     const script = doc.querySelector("#shoebox-ember-data-store");
-    return null === script ? null
-                           : JSON.parse(script.text).data.attributes.assetUrl;
+    return null === script
+           ? null
+           : Object.values(JSON.parse(script.text))[0].data.attributes.assetUrl;
 };
 export const extract = matchPattern(action,
     "https://podcasts.apple.com/*/podcast/*/id*");
