@@ -12,7 +12,7 @@ describe("Labeller: Twitch", function () {
         const doc = new DOMParser().parseFromString(text, "text/html");
 
         const url = new URL("https://m.twitch.tv" +
-                            doc.querySelector(".channel-list a.tw-link").href);
+                            doc.querySelector(".tw-card a.tw-link").href);
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -30,7 +30,7 @@ describe("Labeller: Twitch", function () {
         const item = await complete({ file, label: "", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,
-            label: "supersynock",
+            label: "SuperSynock",
             type:  "unknown",
         });
     });

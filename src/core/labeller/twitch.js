@@ -28,14 +28,10 @@ const action = async function ({ searchParams }) {
             doc.querySelector(`script[type="application/ld+json"]`).text
                .replaceAll("&quot;", `"`),
         );
-        if ("description" in ldjson[0]) {
-            return ldjson[0].description;
-        }
         // S'il n'y a pas de description (car la chaine n'est pas en live) :
         // utiliser le nom de la chaine.
-        return searchParams.has("channel_name")
-                                              ? searchParams.get("channel_name")
-                                              : null;
+        return "" === ldjson[0].description ? ldjson[0].author.name
+                                            : ldjson[0].description;
     }
     if (searchParams.has("slug")) {
         return searchParams.get("slug");

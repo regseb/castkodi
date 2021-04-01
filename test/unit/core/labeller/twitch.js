@@ -38,12 +38,19 @@ describe("core/labeller/twitch.js", function () {
             stub.restore();
         });
 
-        it("should return null channel name when channel is offline",
+        it("should return channel name when channel is offline",
                                                              async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <script type="application/ld+json">[{}]</script>
+                     <script type="application/ld+json">
+                        [
+                            {
+                                &quot;author&quot;: { &quot;name&quot;: "bar" },
+                                &quot;description&quot;: &quot;&quot;
+                            }
+                        ]
+                     </script>
                    </head>
                  </html>`,
             ));
@@ -52,7 +59,7 @@ describe("core/labeller/twitch.js", function () {
                                                            "?channel_name=foo");
 
             const label = await extract(url);
-            assert.strictEqual(label, "foo");
+            assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
@@ -79,29 +86,6 @@ describe("core/labeller/twitch.js", function () {
 
             const label = await extract(url);
             assert.strictEqual(label, "bar");
-
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/videos/foo",
-            ]);
-
-            stub.restore();
-        });
-
-        it("should return null when video hasn't description",
-                                                             async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head>
-                     <script type="application/ld+json">[{}]</script>
-                   </head>
-                 </html>`,
-            ));
-
-            const url = new URL("plugin://plugin.video.twitch/?video_id=foo");
-
-            const label = await extract(url);
-            assert.strictEqual(label, null);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
