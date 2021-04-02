@@ -28,6 +28,8 @@ import * as lbry           from "./scraper/lbry.js";
 // eslint-disable-next-line import/no-cycle
 import * as ldjson         from "./scraper/ldjson.js";
 // eslint-disable-next-line import/no-cycle
+import * as lemonde        from "./scraper/lemonde.js";
+// eslint-disable-next-line import/no-cycle
 import * as lepoint        from "./scraper/lepoint.js";
 import * as megaphone      from "./scraper/megaphone.js";
 import * as melty          from "./scraper/melty.js";
@@ -88,6 +90,7 @@ const SCRAPERS = [
     kcaastreaming,
     konbini,
     lbry,
+    lemonde,
     lepoint,
     megaphone,
     melty,

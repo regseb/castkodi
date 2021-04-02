@@ -22,8 +22,8 @@ des vidéos et des musiques sur **Kodi** :
   - Belgique : VRT NU, VTM GO ;
   - États-Unis : KCAA Radio ;
   - France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
-    Sciences, Gamekult, JeuxVideoCom, Konbini, Le Point, L'Internaute, Melty,
-    Ouest-France ;
+    Sciences, Gamekult, JeuxVideoCom, Konbini, Le Monde, Le Point, L'Internaute,
+    Melty, Ouest-France ;
   - Iran : آپارات ;
   - Islande : Útvarp Saga ;
   - Pays-Bas : Dumpert ;
