@@ -47,7 +47,7 @@ describe("tools/jsonrpc.js", function () {
             const server = new Server("ws://localhost/");
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
-                    const request = JSON.parse(data);
+                    const request = JSON.parse(data.toString());
                     assert.deepStrictEqual(request, {
                         jsonrpc: "2.0",
                         method:  "foo",
@@ -74,7 +74,7 @@ describe("tools/jsonrpc.js", function () {
             const server = new Server("ws://localhost/");
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
-                    const request = JSON.parse(data);
+                    const request = JSON.parse(data.toString());
                     assert.deepStrictEqual(request, {
                         jsonrpc: "2.0",
                         method:  "foo",
@@ -117,7 +117,7 @@ describe("tools/jsonrpc.js", function () {
             const server = new Server("ws://localhost/");
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
-                    const request = JSON.parse(data);
+                    const request = JSON.parse(data.toString());
                     socket.send(JSON.stringify({
                         jsonrpc: "2.0",
                         error:   { code: 42, message: "bar" },
@@ -139,7 +139,7 @@ describe("tools/jsonrpc.js", function () {
             const server = new Server("ws://localhost/");
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
-                    const request = JSON.parse(data);
+                    const request = JSON.parse(data.toString());
                     switch (request.id) {
                         case 1:
                             socket.send(JSON.stringify({
@@ -196,7 +196,7 @@ describe("tools/jsonrpc.js", function () {
                         });
 
                         server.close();
-                        resolve();
+                        resolve(null);
                     });
                 });
             });

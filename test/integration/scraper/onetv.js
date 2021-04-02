@@ -40,13 +40,13 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.startsWith("https://balancer-vod.1tv.ru/video" +
+        assert.ok(file?.startsWith("https://balancer-vod.1tv.ru/video" +
                                                         "/multibitrate/video/"),
-                  `"${file}".startsWith(...) from ${url}`);
-        assert.ok(file.includes("_Golos-"),
-                  `"${file}".includes(...) from ${url}`);
-        assert.ok(file.endsWith(".mp4"),
-                  `"${file}".endsWith(...) from ${url}`);
+                  `"${file}"?.startsWith(...) from ${url}`);
+        assert.ok(file?.includes("_Golos-"),
+                  `"${file}"?.includes(...) from ${url}`);
+        assert.ok(file?.endsWith(".mp4"),
+                  `"${file}"?.endsWith(...) from ${url}`);
     });
 
     it("should return URL when it's not a movie", async function () {
@@ -69,10 +69,10 @@ describe("Scraper: Первый канал (1tv.ru)", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.startsWith("https://balancer-vod.1tv.ru/video" +
+        assert.ok(file?.startsWith("https://balancer-vod.1tv.ru/video" +
                                                         "/multibitrate/video/"),
-                  `"${file}".startsWith(...) from ${url}`);
-        assert.ok(file.endsWith(".mp4"),
-                  `"${file}".endsWith(...) from ${url}`);
+                  `"${file}"?.startsWith(...) from ${url}`);
+        assert.ok(file?.endsWith(".mp4"),
+                  `"${file}"?.endsWith(...) from ${url}`);
     });
 });

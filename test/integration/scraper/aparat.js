@@ -15,9 +15,9 @@ describe("Scraper: آپارات (Aparat)", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.includes(".cdn.asset.aparat.com/aparat-video" +
+        assert.ok(file?.includes(".cdn.asset.aparat.com/aparat-video" +
                          "/50e29576af712008fd3c439b21a345ec20298541-720p.apt?"),
-                  `"${file}".includes(...)`);
+                  `"${file}"?.includes(...)`);
     });
 
     it("should return show URL when protocol is HTTP [opengraph]",
@@ -26,8 +26,8 @@ describe("Scraper: آپارات (Aparat)", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.includes(".cdn.asset.aparat.com/aparat-video" +
+        assert.ok(file?.includes(".cdn.asset.aparat.com/aparat-video" +
                          "/294334a32a660e853e0fb546f12ec36b20286453-480p.apt?"),
-                  `"${file}".includes(...)`);
+                  `"${file}"?.includes(...)`);
     });
 });

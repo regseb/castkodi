@@ -75,8 +75,9 @@ describe("core/scrapers.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.ok(file.startsWith("plugin://plugin.video.dailymotion_com/"),
-                      `"${file}".startsWith(...)`);
+            assert.ok(file?.startsWith("plugin://plugin.video" +
+                                                           ".dailymotion_com/"),
+                      `"${file}"?.startsWith(...)`);
 
             assert.strictEqual(stub.callCount, 0);
 
@@ -93,8 +94,8 @@ describe("core/scrapers.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.ok(file.startsWith("plugin://plugin.video.vimeo/"),
-                      `"${file}".startsWith(...)`);
+            assert.ok(file?.startsWith("plugin://plugin.video.vimeo/"),
+                      `"${file}"?.startsWith(...)`);
 
             assert.strictEqual(stub.callCount, 0);
 

@@ -19,9 +19,9 @@ describe("Scraper: Ouest-France", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.endsWith("/cd/be/cdbeda603ae5805ab0561403d5e1afabcd685" +
-                                                       "162.mp4?mdtk=01124706"),
-                  `"${file}".endsWith(...)`);
+        assert.ok(file?.endsWith("/cd/be/cdbeda603ae5805ab0561403d5e1afabcd68" +
+                                                      "5162.mp4?mdtk=01124706"),
+                  `"${file}"?.endsWith(...)`);
     });
 
     it("should return video URL when two iframe in page", async function () {
@@ -31,8 +31,8 @@ describe("Scraper: Ouest-France", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.endsWith("/d7/5d/d75df81c7abb517d514bff22ab74816fa86a3" +
-                                                       "850.mp4?mdtk=01124706"),
-                  `"${file}".endsWith(...)`);
+        assert.ok(file?.endsWith("/d7/5d/d75df81c7abb517d514bff22ab74816fa86a" +
+                                                      "3850.mp4?mdtk=01124706"),
+                  `"${file}"?.endsWith(...)`);
     });
 });
