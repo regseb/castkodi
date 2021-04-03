@@ -61,6 +61,6 @@ dans la page *Paramètres* / *Infos sur le système* / *Résumé*.
 [img-rating]:https://img.shields.io/amo/stars/castkodi.svg?label=rating
 
 [link-firefox_add-on]:https://addons.mozilla.org/addon/castkodi/
-[link-build]:https://github.com/regseb/castkodi/actions?query=workflow%3ACI+branch%3Amaster
+[link-build]:https://github.com/regseb/castkodi/actions/workflows/CI.yml?query=branch%3Amaster
 [link-coverage]:https://coveralls.io/github/regseb/castkodi
 [link-rating]:https://addons.mozilla.org/addon/castkodi/reviews/
