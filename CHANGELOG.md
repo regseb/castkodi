@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.11.0](https://github.com/regseb/castkodi/compare/v5.10.0...v5.11.0) (2021-04-03)
+
+
+### Features
+
+* Ajouter le support de StarGR. ([#51](https://github.com/regseb/castkodi/issues/51)) ([2d5e4d0](https://github.com/regseb/castkodi/commit/2d5e4d060e7ea90b6f311d21894e967bb7214216))
+* Ajouter le support du Le Monde. ([190216f](https://github.com/regseb/castkodi/commit/190216f158bd97f0f48cebda86158d680ec9aa5f))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de Apple Podcasts. ([0ec3ce0](https://github.com/regseb/castkodi/commit/0ec3ce072a0dde376b91dd92a2c57368c540f10a))
+* Actualiser le scraper de Twitch. ([e75480a](https://github.com/regseb/castkodi/commit/e75480ae3549e3281be595506a475ca9723ddd30))
+* Enlever le support de PodMust. ([6ea558f](https://github.com/regseb/castkodi/commit/6ea558f749a42e74423059ee50f60114e2f9e380))
+* Gérer les vidéos non disponibles de YouTube. ([3ee6dd4](https://github.com/regseb/castkodi/commit/3ee6dd4839cbc810668a6fecfd9a07eb8ea6932e))
+
 ## [5.10.0](https://github.com/regseb/castkodi/compare/v5.9.1...v5.10.0) (2021-02-05)
 
 
