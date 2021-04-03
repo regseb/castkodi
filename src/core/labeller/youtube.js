@@ -18,7 +18,8 @@ const action = async function ({ searchParams }) {
                                      searchParams.get("video_id"));
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
-        return doc.querySelector(`meta[property="og:title"]`).content;
+        return doc.querySelector(`meta[property="og:title"]`)?.content ??
+               browser.i18n.getMessage("labeller_youtube_unavailable");
     }
     if (searchParams.has("playlist_id")) {
         const response = await fetch("https://www.youtube.com/playlist?list=" +
