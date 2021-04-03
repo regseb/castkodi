@@ -26,6 +26,7 @@ des vidéos et des musiques sur **Kodi** :
   - France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
     Sciences, Gamekult, JeuxVideoCom, Konbini, Le Point, L'Internaute, Melty,
     Ouest-France ;
+  - Grèce : StarGR ;
   - Iran : آپارات ;
   - Islande : Útvarp Saga ;
   - Pays-Bas : Dumpert ;
