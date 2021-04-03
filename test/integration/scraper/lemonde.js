@@ -1,4 +1,5 @@
 import assert      from "assert";
+import { config }  from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Le Monde", function () {
@@ -36,6 +37,11 @@ describe("Scraper: Le Monde", function () {
     });
 
     it("should return video url [lemonde-tiktok]", async function () {
+        if (null !== config.country && "us" === config.country) {
+            // eslint-disable-next-line no-invalid-this, @babel/no-invalid-this
+            this.skip();
+        }
+
         const url = new URL("https://www.lemonde.fr/actualite-medias/article" +
                                      "/2020/06/18/le-monde-sur-tiktok-la-meme" +
                                    "-info-de-nouveaux-codes_6043338_3236.html");
