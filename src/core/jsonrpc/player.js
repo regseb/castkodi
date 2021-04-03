@@ -50,8 +50,21 @@ export const Player = class {
      * @param {Function} kodi.send La méthode pour envoyer une requête.
      */
     constructor(kodi) {
-        this.kodi = kodi;
 
+        /**
+         * Le client pour contacter Kodi.
+         *
+         * @private
+         * @type {Object}
+         */
+        this._kodi = kodi;
+
+        /**
+         * Le gestionnaire des auditeurs pour les notifications de changement
+         * de propriétés du lecteur.
+         *
+         * @type {NotificationListener}
+         */
         this.onPropertyChanged = new NotificationListener();
     }
 
@@ -63,11 +76,11 @@ export const Player = class {
      *                            propriétés.
      */
     async getProperties(properties) {
-        const players = await this.kodi.send("Player.GetActivePlayers");
+        const players = await this._kodi.send("Player.GetActivePlayers");
         // Ne pas demander les propriétés du lecteur vidéo quand un autre
         // lecteur est actif. https://github.com/xbmc/xbmc/issues/17897
         if (players.some((p) => 1 === p.playerid)) {
-            const results = await this.kodi.send("Player.GetProperties", {
+            const results = await this._kodi.send("Player.GetProperties", {
                 playerid: 1,
                 properties,
             });
@@ -93,7 +106,7 @@ export const Player = class {
      * Récupère une propriété de l'espace de nom <em>Player</em> de Kodi.
      *
      * @param {string} property Le nom de la propriété demandée.
-     * @returns {Promise<*>} Une promesse contenant la valeur de la propriété.
+     * @returns {Promise<any>} Une promesse contenant la valeur de la propriété.
      */
     async getProperty(property) {
         const result = await this.getProperties([property]);
@@ -108,7 +121,7 @@ export const Player = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     goTo(to) {
-        return this.kodi.send("Player.GoTo", { playerid: 1, to });
+        return this._kodi.send("Player.GoTo", { playerid: 1, to });
     }
 
     /**
@@ -119,7 +132,7 @@ export const Player = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     open(position = 0) {
-        return this.kodi.send("Player.Open", {
+        return this._kodi.send("Player.Open", {
             item: { playlistid: 1, position },
         });
     }
@@ -130,7 +143,7 @@ export const Player = class {
      * @returns {Promise<number>} Une promesse contenant la vitesse de lecture.
      */
     async playPause() {
-        const result = await this.kodi.send("Player.PlayPause", {
+        const result = await this._kodi.send("Player.PlayPause", {
             playerid: 1,
         });
         return result.speed;
@@ -146,7 +159,7 @@ export const Player = class {
     async seek(time) {
         // Attention ! Kodi n'accepte pas des positions supérieures à 24h.
         // https://github.com/xbmc/xbmc/issues/17907
-        const result = await this.kodi.send("Player.Seek", {
+        const result = await this._kodi.send("Player.Seek", {
             playerid: 1,
             value:    { time: toTime(time) },
         });
@@ -159,7 +172,7 @@ export const Player = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     setRepeat() {
-        return this.kodi.send("Player.SetRepeat", {
+        return this._kodi.send("Player.SetRepeat", {
             playerid: 1,
             repeat:   "cycle",
         });
@@ -171,7 +184,7 @@ export const Player = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     setShuffle() {
-        return this.kodi.send("Player.SetShuffle", {
+        return this._kodi.send("Player.SetShuffle", {
             playerid: 1,
             shuffle:  "toggle",
         });
@@ -187,7 +200,7 @@ export const Player = class {
      *                            lecture.
      */
     async setSpeed(speed) {
-        const result = await this.kodi.send("Player.SetSpeed", {
+        const result = await this._kodi.send("Player.SetSpeed", {
             playerid: 1,
             speed,
         });
@@ -200,7 +213,7 @@ export const Player = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     stop() {
-        return this.kodi.send("Player.Stop", { playerid: 1 });
+        return this._kodi.send("Player.Stop", { playerid: 1 });
     }
 
     /**
@@ -210,7 +223,7 @@ export const Player = class {
      * @param {Object} notification             La notification reçu de Kodi.
      * @param {string} notification.method      La méthode de la notification.
      * @param {Object} notification.params      Les paramètres de la méthode.
-     * @param {*}      notification.params.data Les données des paramètres.
+     * @param {any}    notification.params.data Les données des paramètres.
      */
     async handleNotification({ method, params: { data } }) {
         // Garder seulement les notifications du lecteur de vidéo et si des

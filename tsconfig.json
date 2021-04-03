@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
+        "module": "ESNext",
+        "noEmit": true,
+        "target": "ESNext",
+
+        "strict": true,
+
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+
+        "allowUnreachableCode": false,
+        "noStrictGenericChecks": true
+    },
+    "include": [
+        ".script/", "src/", "test/"
+    ]
+}

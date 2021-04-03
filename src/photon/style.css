@@ -143,14 +143,14 @@ input[type="range"] {
     margin: 0;
     padding: 5px 0;
 }
-input[type="range"]::-moz-focus-outer {
-    border: 0;
-}
 input[type="range"]:not([orient="vertical"]) {
     height: 32px;
 }
 input[type="range"][orient="vertical"] {
     width: 16px;
+}
+input[type="range"]:focus {
+    outline: none;
 }
 input[type="range"]::-moz-range-thumb {
     background-color: white;

@@ -26,15 +26,15 @@ describe("Scraper: Pokémon TV", function () {
 
     it("should return america video URL", async function () {
         const url = new URL("https://watch.pokemon.com/en-us/#/player" +
-                                        "?id=25de3fd5c65245a488de0fc0b73087a0");
+                                        "?id=7fe404392a77410e88af4a19ca20184f");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file,
             "https://s2.content.video.llnw.net/smedia" +
-                                        "/4953336d7f544f678a12270b176ea386/7o" +
-                                  "/hdyMZqlhQDxc3NNJJuw4mEBtCWWS9hpRfvXfV_Ppo" +
-                                              "/pokemon-op-trailer_102220.mp4");
+                                        "/4953336d7f544f678a12270b176ea386/9d" +
+                                  "/PJNLXod-FofH7EQth_xQW5otkXT6dCxyvcjvJPSrA" +
+                                            "/pok_tv_s0101_2398-master-en.mp4");
     });
 
     it("should return latin video URL", async function () {

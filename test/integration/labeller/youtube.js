@@ -20,6 +20,23 @@ describe("Labeller: YouTube", function () {
         browser.storage.local.clear();
     });
 
+    it("should return unavailable label", async function () {
+        browser.storage.local.set({ "youtube-playlist": "video" });
+
+        const url = new URL("https://www.youtube.com/watch?v=v_cwYv4K2vo");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        const item = await complete({ file, label: "", type: "unknown" });
+        assert.deepStrictEqual(item, {
+            file,
+            label: "(Video unavailable)",
+            type:  "unknown",
+        });
+
+        browser.storage.local.clear();
+    });
+
     it("should return playlist label", async function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
 

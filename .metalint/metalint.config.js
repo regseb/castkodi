@@ -26,7 +26,7 @@ export default {
                 ],
             },
         }, {
-            patterns: "/scripts/**/*.js",
+            patterns: "/.script/**/*.js",
             linters: {
                 eslint: ["eslint.config.js", "eslint_node.config.js"],
             },

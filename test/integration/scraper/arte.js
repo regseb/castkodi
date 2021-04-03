@@ -6,7 +6,7 @@ describe("Scraper: Arte", function () {
     before(function () {
         if (null !== config.country && "de" !== config.country &&
                 "fr" !== config.country) {
-            // eslint-disable-next-line no-invalid-this
+            // eslint-disable-next-line no-invalid-this, @babel/no-invalid-this
             this.skip();
         }
     });
@@ -34,8 +34,8 @@ describe("Scraper: Arte", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.endsWith(".mp4") || file.endsWith("/master.m3u8"),
-                  `"${file}".endsWith(...) from ${url}`);
+        assert.ok(file?.endsWith(".mp4") || file?.endsWith("/master.m3u8"),
+                  `"${file}"?.endsWith(...) from ${url}`);
     });
 
     it("should return german video URL", async function () {
@@ -52,7 +52,7 @@ describe("Scraper: Arte", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.endsWith(".mp4") || file.endsWith("/master.m3u8"),
-                  `"${file}".endsWith(...) from ${url}`);
+        assert.ok(file?.endsWith(".mp4") || file?.endsWith("/master.m3u8"),
+                  `"${file}"?.endsWith(...) from ${url}`);
     });
 });

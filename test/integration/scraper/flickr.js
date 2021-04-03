@@ -17,8 +17,8 @@ describe("Scraper: Flickr", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.startsWith("https://live.staticflickr.com/video" +
+        assert.ok(file?.startsWith("https://live.staticflickr.com/video" +
                                           "/50041655251/5178cf57ec/1080p.mp4?"),
-                  `"${file}".startsWith(...)`);
+                  `"${file}"?.startsWith(...)`);
     });
 });

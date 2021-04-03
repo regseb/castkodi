@@ -19,8 +19,21 @@ export const Application = class {
      * @param {Function} kodi.send La méthode pour envoyer une requête.
      */
     constructor(kodi) {
-        this.kodi = kodi;
 
+        /**
+         * Le client pour contacter Kodi.
+         *
+         * @private
+         * @type {Object}
+         */
+        this._kodi = kodi;
+
+        /**
+         * Le gestionnaire des auditeurs pour les notifications de changement
+         * de propriétés de l'application.
+         *
+         * @type {NotificationListener}
+         */
         this.onPropertyChanged = new NotificationListener();
     }
 
@@ -32,7 +45,7 @@ export const Application = class {
      *                            propriétés.
      */
     getProperties(properties) {
-        return this.kodi.send("Application.GetProperties", { properties });
+        return this._kodi.send("Application.GetProperties", { properties });
     }
 
     /**
@@ -41,7 +54,7 @@ export const Application = class {
      * @returns {Promise<boolean>} Une promesse contenant le nouvel état du son.
      */
     setMute() {
-        return this.kodi.send("Application.SetMute", { mute: "toggle" });
+        return this._kodi.send("Application.SetMute", { mute: "toggle" });
     }
 
     /**
@@ -57,8 +70,8 @@ export const Application = class {
      */
     async setVolume(volume) {
         const results = await Promise.all([
-            this.kodi.send("Application.SetMute", { mute: false }),
-            this.kodi.send("Application.SetVolume", { volume }),
+            this._kodi.send("Application.SetMute", { mute: false }),
+            this._kodi.send("Application.SetVolume", { volume }),
         ]);
         return results[1];
     }
@@ -70,7 +83,7 @@ export const Application = class {
      * @param {Object} notification             La notification reçu de Kodi.
      * @param {string} notification.method      La méthode de la notification.
      * @param {Object} notification.params      Les paramètres de la méthode.
-     * @param {*}      notification.params.data Les données des paramètres.
+     * @param {any}    notification.params.data Les données des paramètres.
      */
     handleNotification({ method, params: { data } }) {
         // Garder seulement les notifications sur l'application et si des

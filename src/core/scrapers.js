@@ -3,7 +3,6 @@
  */
 
 import { cacheable }       from "../tools/cacheable.js";
-/* eslint-disable import/no-namespace */
 import * as acestream      from "./scraper/acestream.js";
 import * as allocine       from "./scraper/allocine.js";
 import * as applepodcasts  from "./scraper/applepodcasts.js";
@@ -28,6 +27,8 @@ import * as konbini        from "./scraper/konbini.js";
 import * as lbry           from "./scraper/lbry.js";
 // eslint-disable-next-line import/no-cycle
 import * as ldjson         from "./scraper/ldjson.js";
+// eslint-disable-next-line import/no-cycle
+import * as lemonde        from "./scraper/lemonde.js";
 // eslint-disable-next-line import/no-cycle
 import * as lepoint        from "./scraper/lepoint.js";
 import * as megaphone      from "./scraper/megaphone.js";
@@ -65,7 +66,6 @@ import * as viously        from "./scraper/viously.js";
 import * as vrtnu          from "./scraper/vrtnu.js";
 import * as vtmgo          from "./scraper/vtmgo.js";
 import * as youtube        from "./scraper/youtube.js";
-/* eslint-enable import/no-namespace */
 
 /**
  * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
@@ -92,6 +92,7 @@ const SCRAPERS = [
     kcaastreaming,
     konbini,
     lbry,
+    lemonde,
     lepoint,
     megaphone,
     melty,

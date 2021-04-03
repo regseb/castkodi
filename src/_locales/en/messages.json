@@ -350,6 +350,9 @@
         "message": "shuffle"
     },
 
+    "labeller_youtube_unavailable": {
+        "message": "(Video unavailable)"
+    },
     "labeller_youtube_mix": {
         "message": "Mix"
     }

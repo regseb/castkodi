@@ -29,7 +29,8 @@ describe("core/scraper/francetv.js", function () {
 
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").callsFake((url) => {
-                const json = url.startsWith("https://player.webservices.")
+                const json = url.toString()
+                                .startsWith("https://player.webservices.")
                                        ? { video: { token: "https://bar.fr/" } }
                                        : { url: "https://baz.fr/qux.mpd" };
                 return Promise.resolve(new Response(JSON.stringify(json)));

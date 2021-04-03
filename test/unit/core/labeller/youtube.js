@@ -34,6 +34,27 @@ describe("core/labeller/youtube.js", function () {
             stub.restore();
         });
 
+        it("should return unavailable label", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                `<html>
+                   <head></head>
+                 </html>`,
+            ));
+
+            const url = new URL("plugin://plugin.video.youtube/play/" +
+                                                               "?video_id=foo");
+
+            const label = await extract(url);
+            assert.strictEqual(label, "(Video unavailable)");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://www.youtube.com/watch?v=foo",
+            ]);
+
+            stub.restore();
+        });
+
         it("should return playlist label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>

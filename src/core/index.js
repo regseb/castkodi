@@ -13,13 +13,16 @@ import { extract }     from "./scrapers.js";
  */
 export const kodi = new Kodi();
 
+/* eslint-disable jsdoc/check-types -- Utiliser la notation Array<> car l'outil
+ *     JSDoc ne gère pas les tableaux de types complexes déclarés avec [].
+ *     https://github.com/jsdoc/jsdoc/issues/1133 */
 /**
  * Récupère le lien à analyser parmi les données récupérées.
  *
  * @function
- * @param {(string|undefined)[]} urls La liste des liens récupérés par le menu
- *                                    contextuel ou dans la zone de saisie de la
- *                                    popup.
+ * @param {Array<string|undefined>} urls La liste des liens récupérés par le
+ *                                       menu contextuel ou dans la zone de
+ *                                       saisie de la popup.
  * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
  *                             aucun lien est valide.
  */

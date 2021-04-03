@@ -1,10 +1,9 @@
 # Cast Kodi
 
+[![firefox add-on][img-firefox_add-on]][link-firefox_add-on]
 [![build][img-build]][link-build]
 [![coverage][img-coverage]][link-coverage]
-[![firefox add-on][img-addon]][link-addon]
 [![rating][img-rating]][link-rating]
-[![license][img-license]][link-license]
 
 > WebExtension pour diffuser des vidéos et des musiques sur Kodi.
 
@@ -17,15 +16,14 @@ des vidéos et des musiques sur **Kodi** :
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace Stream, Apple Podcasts,
   Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion, DevTube, Facebook,
   Flickr, Instagram, Jamendo, LBRY, LiveLeak, Megaphone, Metacafe, Mixcloud,
-  My Cloud Player, Overcast, PeerTube, Pippa, podCloud, PodMust, Pokémon TV,
-  Radio, Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress,
-  Viously ;
+  My Cloud Player, Overcast, PeerTube, Pippa, podCloud, Pokémon TV, Radio,
+  Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, Viously ;
   - Allemagne : Arte ;
   - Belgique : VRT NU, VTM GO ;
   - États-Unis : KCAA Radio ;
   - France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
-    Sciences, Gamekult, JeuxVideoCom, Konbini, Le Point, L'Internaute, Melty,
-    Ouest-France ;
+    Sciences, Gamekult, JeuxVideoCom, Konbini, Le Monde, Le Point, L'Internaute,
+    Melty, Ouest-France ;
   - Grèce : StarGR ;
   - Iran : آپارات ;
   - Islande : Útvarp Saga ;
@@ -58,15 +56,12 @@ Vous devez ensuite configurer les *Préférences* de Cast Kodi en copiant
 l'*Adresse* IP du serveur hébergeant Kodi ; cette information est disponible
 dans la page *Paramètres* / *Infos sur le système* / *Résumé*.
 
+[img-firefox_add-on]:https://img.shields.io/amo/v/castkodi.svg?label=add-on&logo=firefox-browser&logoColor=white
 [img-build]:https://img.shields.io/github/workflow/status/regseb/castkodi/CI
 [img-coverage]:https://img.shields.io/coveralls/github/regseb/castkodi
-[img-addon]:https://img.shields.io/amo/v/castkodi.svg?label=firefox%20add-on
 [img-rating]:https://img.shields.io/amo/stars/castkodi.svg?label=rating
-[img-license]:https://img.shields.io/badge/license-EUPL-blue.svg
 
-[link-build]:https://github.com/regseb/castkodi/actions?query=workflow%3ACI
+[link-firefox_add-on]:https://addons.mozilla.org/addon/castkodi/
+[link-build]:https://github.com/regseb/castkodi/actions?query=workflow%3ACI+branch%3Amaster
 [link-coverage]:https://coveralls.io/github/regseb/castkodi
-[link-addon]:https://addons.mozilla.org/addon/castkodi/
 [link-rating]:https://addons.mozilla.org/addon/castkodi/reviews/
-[link-license]:https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12
-               "Licence publique de l’Union européenne"

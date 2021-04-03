@@ -350,6 +350,9 @@
         "message": "náhodne"
     },
 
+    "labeller_youtube_unavailable": {
+        "message": "(Video nie je k dispozícii)"
+    },
     "labeller_youtube_mix": {
         "message": "Mix"
     }

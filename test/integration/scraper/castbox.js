@@ -17,6 +17,6 @@ describe("Scraper: Castbox", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.endsWith(".mp3"), `"${file}".endsWith(...)`);
+        assert.ok(file?.endsWith(".mp3"), `"${file}"?.endsWith(...)`);
     });
 });

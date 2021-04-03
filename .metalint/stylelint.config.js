@@ -19,6 +19,7 @@ export default {
 
         "keyframe-declaration-no-important": true,
 
+        "declaration-block-no-duplicate-custom-properties": true,
         "declaration-block-no-duplicate-properties": true,
         "declaration-block-no-shorthand-property-overrides": true,
 

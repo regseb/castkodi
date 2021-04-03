@@ -18,7 +18,7 @@ export const NotificationListener = class {
          * @private
          * @type {Function[]}
          */
-        this.listeners = [];
+        this._listeners = [];
     }
 
     /**
@@ -27,7 +27,7 @@ export const NotificationListener = class {
      * @returns {number} Le nombre d'auditeurs.
      */
     get length() {
-        return this.listeners.length;
+        return this._listeners.length;
     }
 
     /**
@@ -36,15 +36,15 @@ export const NotificationListener = class {
      * @param {Function} listener La fonction appelée lors d'une notification.
      */
     addListener(listener) {
-        this.listeners.push(listener);
+        this._listeners.push(listener);
     }
 
     /**
      * Envoi une notification aux auditeurs.
      *
-     * @param {*} data Les données de la notification.
+     * @param {any} data Les données de la notification.
      */
     dispatch(data) {
-        this.listeners.map((l) => l(data));
+        this._listeners.map((l) => l(data));
     }
 };

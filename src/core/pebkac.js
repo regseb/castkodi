@@ -19,7 +19,31 @@ export const PebkacError = class extends Error {
         super(browser.i18n.getMessage("notifications_" + key + "_message",
                                       substitutions));
         this.name = "PebkacError";
-        this.type = key;
-        this.title = browser.i18n.getMessage("notifications_" + key + "_title");
+
+        /**
+         * La clé du message d'erreur.
+         *
+         * @private
+         * @type {string}
+         */
+        this._key = key;
+    }
+
+    /**
+     * Retourne le type de l'erreur.
+     *
+     * @returns {string} Le type de l'erreur.
+     */
+    get type() {
+        return this._key;
+    }
+
+    /**
+     * Retourne le titre de l'erreur.
+     *
+     * @returns {string} Le titre de l'erreur.
+     */
+    get title() {
+        return browser.i18n.getMessage("notifications_" + this._key + "_title");
     }
 };

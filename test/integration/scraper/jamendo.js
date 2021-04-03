@@ -16,9 +16,9 @@ describe("Scraper: Jamendo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.startsWith("https://mp3l.jamendo.com/?trackid=3431" +
+        assert.ok(file?.startsWith("https://mp3l.jamendo.com/?trackid=3431" +
                                                                 "&format=mp31"),
-                  `"${file}".startsWith(...)`);
+                  `"${file}"?.startsWith(...)`);
     });
 
     it("should return audio URL when protocol is HTTP [opengraph]",
@@ -28,8 +28,8 @@ describe("Scraper: Jamendo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.startsWith("https://mp3l.jamendo.com/?trackid=33454" +
+        assert.ok(file?.startsWith("https://mp3l.jamendo.com/?trackid=33454" +
                                                                 "&format=mp31"),
-                  `"${file}".startsWith(...)`);
+                  `"${file}"?.startsWith(...)`);
     });
 });

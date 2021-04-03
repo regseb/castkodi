@@ -32,8 +32,8 @@ describe("Scraper: Veoh", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.startsWith("https://redirect.veoh.com/flash/p/2" +
+        assert.ok(file?.startsWith("https://redirect.veoh.com/flash/p/2" +
                                           "/v141918964qPaACxYC/h141918964.mp4"),
-                  `"${file}".startsWith(...)`);
+                  `"${file}"?.startsWith(...)`);
     });
 });

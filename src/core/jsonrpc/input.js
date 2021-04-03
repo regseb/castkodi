@@ -18,8 +18,21 @@ export const Input = class {
      * @param {Function} kodi.send La méthode pour envoyer une requête.
      */
     constructor(kodi) {
-        this.kodi = kodi;
 
+        /**
+         * Le client pour contacter Kodi.
+         *
+         * @private
+         * @type {Object}
+         */
+        this._kodi = kodi;
+
+        /**
+         * Le gestionnaire des auditeurs pour les notifications de demande de
+         * saisie.
+         *
+         * @type {NotificationListener}
+         */
         this.onInputRequested = new NotificationListener();
     }
 
@@ -29,7 +42,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     back() {
-        return this.kodi.send("Input.Back");
+        return this._kodi.send("Input.Back");
     }
 
     /**
@@ -38,7 +51,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     contextMenu() {
-        return this.kodi.send("Input.ContextMenu");
+        return this._kodi.send("Input.ContextMenu");
     }
 
     /**
@@ -47,7 +60,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     down() {
-        return this.kodi.send("Input.Down");
+        return this._kodi.send("Input.Down");
     }
 
     /**
@@ -56,7 +69,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     home() {
-        return this.kodi.send("Input.Home");
+        return this._kodi.send("Input.Home");
     }
 
     /**
@@ -65,7 +78,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     info() {
-        return this.kodi.send("Input.Info");
+        return this._kodi.send("Input.Info");
     }
 
     /**
@@ -74,7 +87,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     left() {
-        return this.kodi.send("Input.Left");
+        return this._kodi.send("Input.Left");
     }
 
     /**
@@ -83,7 +96,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     right() {
-        return this.kodi.send("Input.Right");
+        return this._kodi.send("Input.Right");
     }
 
     /**
@@ -92,7 +105,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     select() {
-        return this.kodi.send("Input.Select");
+        return this._kodi.send("Input.Select");
     }
 
     /**
@@ -104,7 +117,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     sendText(text, done) {
-        return this.kodi.send("Input.SendText", { text, done });
+        return this._kodi.send("Input.SendText", { text, done });
     }
 
     /**
@@ -114,7 +127,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     showOSD() {
-        return this.kodi.send("Input.ShowOSD");
+        return this._kodi.send("Input.ShowOSD");
     }
 
     /**
@@ -123,7 +136,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     showPlayerProcessInfo() {
-        return this.kodi.send("Input.ShowPlayerProcessInfo");
+        return this._kodi.send("Input.ShowPlayerProcessInfo");
     }
 
     /**
@@ -132,7 +145,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     up() {
-        return this.kodi.send("Input.Up");
+        return this._kodi.send("Input.Up");
     }
 
     /**
@@ -142,7 +155,7 @@ export const Input = class {
      * @param {Object} notification             La notification reçu de Kodi.
      * @param {string} notification.method      La méthode de la notification.
      * @param {Object} notification.params      Les paramètres de la méthode.
-     * @param {*}      notification.params.data Les données des paramètres.
+     * @param {any}    notification.params.data Les données des paramètres.
      */
     handleNotification({ method, params: { data } }) {
         // Garder seulement les notifications sur les entrées et si des

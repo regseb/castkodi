@@ -1,13 +1,28 @@
 export default {
     plugins: [
-        "filenames", "import", "jsdoc", "mocha", "node", "promise", "unicorn",
+        "@babel",
+        "filenames",
+        "import",
+        "jsdoc",
+        "mocha",
+        "node",
+        "promise",
+        "unicorn",
     ],
 
+    parser: "@babel/eslint-parser",
     parserOptions: {
-        sourceType: "module",
+        requireConfigFile: false,
+        babelOptions: {
+            plugins: [
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-syntax-top-level-await",
+            ],
+        },
     },
 
     env: {
+        "shared-node-browser": true,
         es2021: true,
     },
 
@@ -127,7 +142,7 @@ export default {
         "no-script-url": 2,
         "no-self-assign": 2,
         "no-self-compare": 2,
-        "no-sequences": 2,
+        "no-sequences": [2, { allowInParentheses: false }],
         "no-throw-literal": 2,
         "no-unmodified-loop-condition": 2,
         "no-unused-expressions": 2,
@@ -155,7 +170,7 @@ export default {
         "init-declarations": 0,
         "no-delete-var": 2,
         "no-label-var": 2,
-        "no-restricted-globals": [2, "event"],
+        "no-restricted-globals": 2,
         "no-shadow-restricted-names": 2,
         "no-shadow": 2,
         "no-undef": 2,
@@ -263,7 +278,10 @@ export default {
         "no-tabs": 2,
         "no-ternary": 0,
         "no-trailing-spaces": 2,
-        "no-underscore-dangle": 2,
+        // Autoriser les underscores pour pouvoir indiquer qu'une propriété est
+        // privée (en attendant l'implémentation des propriétés privées avec #).
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=1562054
+        "no-underscore-dangle": 0,
         "no-unneeded-ternary": 2,
         "no-whitespace-before-property": 2,
         "nonblock-statement-body-position": 2,
@@ -338,6 +356,12 @@ export default {
         "template-curly-spacing": 2,
         "yield-star-spacing": 2,
 
+        "@babel/new-cap": 2,
+        "@babel/no-invalid-this": 2,
+        "@babel/no-unused-expressions": 2,
+        "@babel/object-curly-spacing": 0,
+        "@babel/semi": 2,
+
         "filenames/match-regex": [2, "^_?[a-z][0-9a-z]*(-[0-9a-z]+)*$"],
         "filenames/match-exported": [2, "kebab"],
         "filenames/no-index": 0,
@@ -372,7 +396,7 @@ export default {
         "import/first": 2,
         "import/exports-last": 0,
         "import/no-duplicates": 2,
-        "import/no-namespace": 2,
+        "import/no-namespace": 0,
         "import/extensions": [2, "ignorePackages"],
         "import/order": 2,
         "import/newline-after-import": 2,
@@ -471,6 +495,7 @@ export default {
         "unicorn/no-null": 0,
         "unicorn/no-object-as-default-parameter": 2,
         "unicorn/no-process-exit": 2,
+        "unicorn/no-static-only-class": 2,
         "unicorn/no-this-assignment": 2,
         "unicorn/no-unreadable-array-destructuring": 2,
         "unicorn/no-unsafe-regex": 2,
@@ -481,6 +506,7 @@ export default {
         "unicorn/numeric-separators-style": 2,
         "unicorn/prefer-add-event-listener": 2,
         "unicorn/prefer-array-find": 2,
+        "unicorn/prefer-array-flat": 2,
         "unicorn/prefer-array-flat-map": 2,
         "unicorn/prefer-array-index-of": 2,
         "unicorn/prefer-array-some": 2,

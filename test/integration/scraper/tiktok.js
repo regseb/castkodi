@@ -16,11 +16,11 @@ describe("Scraper: TikTok", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.includes("&lr=tiktok_m&mime_type=video_mp4&pl=0" +
+        assert.ok(file?.includes("&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0" +
                                     "&policy=2&qs=0&rc=ampvbHJwdnV4bjMzOjczM0" +
                                     "ApPDM7OGU0aWU3NzM8aTY1PGc0azNhbmpja2NfLS" +
                                      "0zMTZzczI1LzQyMF8yYV81X141LS06Yw%3D%3D&"),
-                  `"${file}".includes(...)`);
+                  `"${file}"?.includes(...)`);
     });
 
     it("should return video when protocol is HTTP", async function () {
@@ -29,10 +29,10 @@ describe("Scraper: TikTok", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file.includes("&lr=tiktok_m&mime_type=video_mp4&pl=0" +
+        assert.ok(file?.includes("&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0" +
                                     "&policy=2&qs=0&rc=ampvbHJwdnV4bjMzOjczM0" +
                                     "ApPDM7OGU0aWU3NzM8aTY1PGc0azNhbmpja2NfLS" +
                                      "0zMTZzczI1LzQyMF8yYV81X141LS06Yw%3D%3D&"),
-                  `"${file}".endsWith(...)`);
+                  `"${file}"?.endsWith(...)`);
     });
 });
