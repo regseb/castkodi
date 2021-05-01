@@ -1,5 +1,5 @@
-import assert      from "assert";
-import sinon       from "sinon";
+import assert from "node:assert";
+import sinon from "sinon";
 import { extract } from "../../../../src/core/labeller/dailymotion.js";
 
 describe("core/labeller/dailymotion.js", function () {

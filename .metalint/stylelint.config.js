@@ -41,6 +41,7 @@ export default {
         "no-empty-source": true,
         "no-extra-semicolons": true,
         "no-invalid-double-slash-comments": true,
+        "no-invalid-position-at-import-rule": true,
 
         "alpha-value-notation": "percentage",
 
@@ -98,6 +99,7 @@ export default {
         "selector-class-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
         "selector-combinator-allowed-list": null,
         "selector-combinator-disallowed-list": null,
+        "selector-disallowed-list": null,
         "selector-id-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
         "selector-max-attribute": null,
         "selector-max-class": null,
@@ -245,6 +247,7 @@ export default {
         "no-missing-end-of-source-newline": true,
         "no-empty-first-line": true,
         "unicode-bom": "never",
+        "no-irregular-whitespace": true,
 
         "order/order": [
             "custom-properties",

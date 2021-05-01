@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 import { extractEmbed, extractMinify, extractPlaylist, extractVideo }
                                  from "../../../../src/core/scraper/youtube.js";
 

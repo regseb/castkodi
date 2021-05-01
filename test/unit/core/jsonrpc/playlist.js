@@ -1,5 +1,5 @@
-import assert       from "assert";
-import sinon        from "sinon";
+import assert from "node:assert";
+import sinon from "sinon";
 import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
 
 describe("core/jsonrpc/playlist.js", function () {

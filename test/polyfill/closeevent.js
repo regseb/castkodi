@@ -1,5 +1,3 @@
-import { Event } from "./event.js";
-
 /**
  * @type {CloseEvent}
  */

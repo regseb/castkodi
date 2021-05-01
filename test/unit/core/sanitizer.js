@@ -1,4 +1,4 @@
-import assert    from "assert";
+import assert from "node:assert";
 import { strip } from "../../../src/core/sanitizer.js";
 
 describe("core/sanitizer.js", function () {

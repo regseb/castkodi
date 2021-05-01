@@ -1,5 +1,5 @@
-import assert      from "assert";
-import sinon       from "sinon";
+import assert from "node:assert";
+import sinon from "sinon";
 import { extract } from "../../../../src/core/labeller/youtube.js";
 
 describe("core/labeller/youtube.js", function () {

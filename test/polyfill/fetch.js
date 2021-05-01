@@ -3,16 +3,16 @@ import nodeFetch from "node-fetch";
 /**
  * L'agent utilisateur par défaut.
  *
- * @constant {string}
+ * @type {string}
  */
-const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0)" +
-                                                 " Gecko/20100101 Firefox/84.0";
+const USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:88.0)" +
+                                                 " Gecko/20100101 Firefox/88.0";
 
 /**
  * Cherche une ressource.
  *
- * @param {string}           input La ressource à collecter.
- * @param {Object|undefined} init  Les paramètres de la requête.
+ * @param {string}           input  La ressource à collecter.
+ * @param {Object|undefined} [init] Les paramètres de la requête.
  * @returns {Promise<Response>} Une promesse contenant la réponse.
  */
 export const fetch = function (input, init = {}) {

@@ -1,5 +1,5 @@
-import { promises as fs } from "fs";
-import path               from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
 
 const copy = async function (src, dest) {
     await fs.mkdir(path.dirname(dest), { recursive: true });

@@ -97,6 +97,8 @@ export const JSONRPC = class extends EventTarget {
      * @param {CloseEvent} event L'évènement de fermeture reçu de la WebSocket.
      */
     _handleClose(event) {
+        // Redéclarer un CloseEvent, sinon l'évènement n'est pas réparti dans
+        // les écouteurs "close".
         this.dispatchEvent(new CloseEvent(event.type, event));
     }
 

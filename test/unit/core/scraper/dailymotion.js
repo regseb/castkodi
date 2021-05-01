@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 import { extractEmbed, extractMinify, extractVideo }
                              from "../../../../src/core/scraper/dailymotion.js";
 

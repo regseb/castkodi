@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 // eslint-disable-next-line import/no-unassigned-import
 import "../../../src/background/permissions.js";
 

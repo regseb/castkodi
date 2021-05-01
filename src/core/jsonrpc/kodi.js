@@ -2,13 +2,13 @@
  * @module
  */
 
-import { JSONRPC }     from "../../tools/jsonrpc.js";
+import { JSONRPC } from "../../tools/jsonrpc.js";
 import { PebkacError } from "../pebkac.js";
 import { Application } from "./application.js";
-import { GUI }         from "./gui.js";
-import { Input }       from "./input.js";
-import { Player }      from "./player.js";
-import { Playlist }    from "./playlist.js";
+import { GUI } from "./gui.js";
+import { Input } from "./input.js";
+import { Player } from "./player.js";
+import { Playlist } from "./playlist.js";
 
 /**
  * Le client JSON-RPC pour contacter Kodi.

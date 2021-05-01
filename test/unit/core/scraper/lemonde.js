@@ -1,5 +1,5 @@
-import assert      from "assert";
-import sinon       from "sinon";
+import assert from "node:assert";
+import sinon from "sinon";
 import { extract } from "../../../../src/core/scraper/lemonde.js";
 
 describe("core/scraper/lemonde.js", function () {

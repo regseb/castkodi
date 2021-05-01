@@ -20,6 +20,6 @@
         "noStrictGenericChecks": true
     },
     "include": [
-        ".script/", "src/", "test/"
+        ".metalint/", ".script/", "src/", "test/"
     ]
 }

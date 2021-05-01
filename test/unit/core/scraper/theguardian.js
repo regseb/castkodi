@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 import { extractAudio, extractVideo }
                              from "../../../../src/core/scraper/theguardian.js";
 

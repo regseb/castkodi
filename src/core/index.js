@@ -2,9 +2,9 @@
  * @module
  */
 
-import { Kodi }        from "./jsonrpc/kodi.js";
+import { Kodi } from "./jsonrpc/kodi.js";
 import { PebkacError } from "./pebkac.js";
-import { extract }     from "./scrapers.js";
+import { extract } from "./scrapers.js";
 
 /**
  * Le client JSON-RPC pour contacter Kodi.

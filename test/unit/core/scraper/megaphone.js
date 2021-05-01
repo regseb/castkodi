@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 import { extractPlayer, extractPlaylist }
                                from "../../../../src/core/scraper/megaphone.js";
 

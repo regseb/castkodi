@@ -1,6 +1,6 @@
-import assert      from "assert";
-import mockSocket  from "mock-socket";
-import sinon       from "sinon";
+import assert from "node:assert";
+import mockSocket from "mock-socket";
+import sinon from "sinon";
 import { JSONRPC } from "../../../src/tools/jsonrpc.js";
 
 const Server = mockSocket.Server;
@@ -95,25 +95,8 @@ describe("tools/jsonrpc.js", function () {
 
             server.close();
         });
-    });
 
-    describe("handleClose()", function () {
-        it("should dispatch event", async function () {
-            const fake = sinon.fake();
-            const server = new Server("ws://localhost/");
-
-            const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
-            jsonrpc.addEventListener("close", fake);
-
-            server.close();
-
-            assert.strictEqual(fake.callCount, 1);
-            assert.strictEqual(fake.firstCall.args[0].type, "close");
-        });
-    });
-
-    describe("handleMessage()", function () {
-        it("should dispatch error", async function () {
+        it("should dispatch error message", async function () {
             const server = new Server("ws://localhost/");
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
@@ -173,8 +156,23 @@ describe("tools/jsonrpc.js", function () {
 
             server.close();
         });
+    });
 
-        it("should dispatch notification", function () {
+    describe("addEventListener()", function () {
+        it("should dispatch close event", async function () {
+            const fake = sinon.fake();
+            const server = new Server("ws://localhost/");
+
+            const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
+            jsonrpc.addEventListener("close", fake);
+
+            server.close();
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.strictEqual(fake.firstCall.args[0].type, "close");
+        });
+
+        it("should dispatch notification event", function () {
             const server = new Server("ws://localhost/");
             server.on("connection", (socket) => {
                 // Décaler l'envoi de la notification pour laisser le temps au

@@ -1,6 +1,6 @@
-import assert          from "assert";
-import sinon           from "sinon";
-import { notify }      from "../../../src/core/notify.js";
+import assert from "node:assert";
+import sinon from "sinon";
+import { notify } from "../../../src/core/notify.js";
 import { PebkacError } from "../../../src/core/pebkac.js";
 
 describe("core/notify.js", function () {

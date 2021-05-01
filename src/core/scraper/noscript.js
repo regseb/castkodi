@@ -3,13 +3,13 @@
  */
 /* eslint-disable require-await */
 
-import { cacheable }                from "../../tools/cacheable.js";
-import { matchPattern }             from "../../tools/matchpattern.js";
+import { cacheable } from "../../tools/cacheable.js";
+import { matchPattern } from "../../tools/matchpattern.js";
 /* eslint-disable import/no-cycle */
-import { extract as audioExtract }  from "./audio.js";
+import { extract as audioExtract } from "./audio.js";
 import { extract as iframeExtract } from "./iframe.js";
 import { extract as ldjsonExtract } from "./ldjson.js";
-import { extract as videoExtract }  from "./video.js";
+import { extract as videoExtract } from "./video.js";
 /* eslint-enable import/no-cycle */
 
 /**

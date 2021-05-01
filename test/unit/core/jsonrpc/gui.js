@@ -1,5 +1,5 @@
-import assert  from "assert";
-import sinon   from "sinon";
+import assert from "node:assert";
+import sinon from "sinon";
 import { GUI } from "../../../../src/core/jsonrpc/gui.js";
 
 describe("core/jsonrpc/gui.js", function () {

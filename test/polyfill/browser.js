@@ -1,11 +1,11 @@
-import fs   from "fs";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
 
 const DIRNAME = path.dirname(new URL(import.meta.url).pathname);
 
 const I18NS = JSON.parse(
-    fs.readFileSync(path.join(DIRNAME, "../../locales/en/messages.json"),
-                    "utf8"),
+    await fs.readFile(path.join(DIRNAME, "../../locales/en/messages.json"),
+                      "utf8"),
 );
 
 const data = {
@@ -52,17 +52,11 @@ export const browser = {
     },
     i18n: {
         getMessage: (key, ...substitutions) => {
-            if (!(key in I18NS)) {
-                return "";
-            }
-            if (!("placeholders" in I18NS[key])) {
-                return I18NS[key].message;
-            }
-            return Object.keys(I18NS[key].placeholders)
+            return Object.keys(I18NS[key]?.placeholders ?? {})
                          .reduce((message, placeholder, index) => {
                 return message.replace("$" + placeholder.toUpperCase() + "$",
                                        substitutions[index]);
-            }, I18NS[key].message);
+            }, I18NS[key]?.message ?? "");
         },
     },
 

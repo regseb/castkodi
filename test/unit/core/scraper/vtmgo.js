@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 import { extractChannel, extractEpisode, extractMovie, extractMoviePage }
                                    from "../../../../src/core/scraper/vtmgo.js";
 

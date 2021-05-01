@@ -1,4 +1,4 @@
-import assert      from "assert";
+import assert from "node:assert";
 import { extract } from "../../../../src/core/scraper/audio.js";
 
 describe("core/scraper/audio.js", function () {

@@ -1,12 +1,12 @@
-import assert                from "assert";
-import sinon                 from "sinon";
-import { Application }       from "../../../../src/core/jsonrpc/application.js";
-import { GUI }               from "../../../../src/core/jsonrpc/gui.js";
-import { Input }             from "../../../../src/core/jsonrpc/input.js";
-import { Kodi }              from "../../../../src/core/jsonrpc/kodi.js";
-import { Player }            from "../../../../src/core/jsonrpc/player.js";
-import { Playlist }          from "../../../../src/core/jsonrpc/playlist.js";
-import { JSONRPC }           from "../../../../src/tools/jsonrpc.js";
+import assert from "node:assert";
+import sinon from "sinon";
+import { Application } from "../../../../src/core/jsonrpc/application.js";
+import { GUI } from "../../../../src/core/jsonrpc/gui.js";
+import { Input } from "../../../../src/core/jsonrpc/input.js";
+import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
+import { Player } from "../../../../src/core/jsonrpc/player.js";
+import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
+import { JSONRPC } from "../../../../src/tools/jsonrpc.js";
 import { NotificationEvent } from "../../../../src/tools/notificationevent.js";
 
 describe("core/jsonrpc/kodi.js", function () {

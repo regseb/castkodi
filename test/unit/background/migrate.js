@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 describe("background/migrate.js", function () {
     it("should create config", async function () {

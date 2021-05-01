@@ -1,4 +1,4 @@
-import assert          from "assert";
+import assert from "node:assert";
 import { PebkacError } from "../../../src/core/pebkac.js";
 
 describe("core/pebkac.js", function () {

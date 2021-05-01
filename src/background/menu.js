@@ -2,7 +2,7 @@
  * @module
  */
 
-import { cast }   from "../core/index.js";
+import { cast } from "../core/index.js";
 import { notify } from "../core/notify.js";
 
 /**

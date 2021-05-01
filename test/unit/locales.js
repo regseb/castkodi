@@ -1,5 +1,5 @@
-import assert             from "assert";
-import { promises as fs } from "fs";
+import assert from "node:assert";
+import fs from "node:fs/promises";
 
 /**
  * Comparer deux lots de messages dans deux langues différentes.

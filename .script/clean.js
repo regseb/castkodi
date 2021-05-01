@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import fs from "node:fs/promises";
 
 const paths = await fs.readFile(".gitignore");
 paths.toString()

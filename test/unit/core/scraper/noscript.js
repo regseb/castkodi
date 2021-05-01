@@ -1,4 +1,4 @@
-import assert      from "assert";
+import assert from "node:assert";
 import { extract } from "../../../../src/core/scraper/noscript.js";
 
 describe("core/scraper/noscript.js", function () {

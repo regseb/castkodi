@@ -1,5 +1,5 @@
-import assert      from "assert";
-import { config }  from "../config.js";
+import assert from "node:assert";
+import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Le Monde", function () {

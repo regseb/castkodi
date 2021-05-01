@@ -1,5 +1,5 @@
-import assert              from "assert";
-import sinon               from "sinon";
+import assert from "node:assert";
+import sinon from "sinon";
 import { cast, kodi, mux } from "../../../src/core/index.js";
 
 describe("core/index.js", function () {
