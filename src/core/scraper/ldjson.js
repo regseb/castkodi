@@ -10,14 +10,14 @@ import { extract as metaExtract } from "../scrapers.js";
 /**
  * La liste des types pouvant contenir des URLs de son ou de vidéo.
  *
- * @constant {Set<string>}
+ * @type {Set<string>}
  */
 const TYPES = new Set(["AudioObject", "MusicVideoObject", "VideoObject"]);
 
 /**
  * Le sélecteur retournant les scripts contenant des microdonnées.
  *
- * @constant {string}
+ * @type {string}
  */
 const SELECTOR = `script[type="application/ld+json"]`;
 

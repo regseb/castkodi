@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'extension pour lire des sons issus de SoundCloud.
  *
- * @constant {string}
+ * @type {string}
  */
 const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?url=";
 

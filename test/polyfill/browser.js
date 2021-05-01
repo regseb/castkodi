@@ -23,6 +23,11 @@ const data = {
     },
 };
 
+/**
+ * La prothèse pour les APIs des WebExtensions.
+ *
+ * @type {browser}
+ */
 export const browser = {
     bookmarks: {
         get: (id) => {

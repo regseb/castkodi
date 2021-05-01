@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'extension Plexus pour lire des liens Ace Stream.
  *
- * @constant {string}
+ * @type {string}
  */
 const PLUGIN_URL = "plugin://program.plexus/?mode=1&name=&url=";
 

@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL du répertoire où sont les sons de Arte Radio.
  *
- * @constant {string}
+ * @type {string}
  */
 const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
                                                          "/default/files/sons/";

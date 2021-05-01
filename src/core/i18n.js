@@ -5,7 +5,7 @@
 /**
  * Le nom de la page courante (récupérée à partir du répertoire).
  *
- * @constant {string}
+ * @type {string}
  */
 const PAGE = location.pathname.slice(1, location.pathname.indexOf("/", 1));
 
@@ -13,7 +13,7 @@ const PAGE = location.pathname.slice(1, location.pathname.indexOf("/", 1));
  * La liste de tous les élements de la page courante (même ceux dans un
  * <code>template</code>).
  *
- * @constant {HTMLElement[]}
+ * @type {HTMLElement[]}
  */
 const elements = [...document.querySelectorAll("*")].flatMap((element) => {
     return "TEMPLATE" === element.tagName

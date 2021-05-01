@@ -7,7 +7,7 @@ import { NotificationEvent } from "./notificationevent.js";
 /**
  * Le client pour se connecter à un serveur JSON-RPC.
  *
- * @see {@link https://www.jsonrpc.org/}
+ * @see https://www.jsonrpc.org/
  */
 export const JSONRPC = class extends EventTarget {
 
@@ -56,7 +56,7 @@ export const JSONRPC = class extends EventTarget {
          * La liste des promesses en attente d'être réalisées.
          *
          * @private
-         * @type {Map<number, Object>}
+         * @type {Map<number, Object<string, Function>>}
          */
         this._promises = new Map();
 

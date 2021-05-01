@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'API de VideoPress.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://public-api.wordpress.com/rest/v1.1/videos/";
 

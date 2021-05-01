@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'API de Radioline pour obtenir l'URL de la musique.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://www.radioline.co/Pillow/";
 

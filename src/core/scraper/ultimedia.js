@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'expression rationnelle pour extraire les données de la vidéo.
  *
- * @constant {RegExp}
+ * @type {RegExp}
  */
 const DATA_REGEXP = /"mp4":(?<mp4>\{[^}]+\})/u;
 

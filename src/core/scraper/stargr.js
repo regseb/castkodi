@@ -10,14 +10,14 @@ import { extract as metaExtract } from "../scrapers.js";
 /**
  * L'expression rationnelle pour extraire l'URL de la vidéo.
  *
- * @constant {RegExp}
+ * @type {RegExp}
  */
 const URL_REGEXP = /url: '(?<url>https:\/\/.*\/manifest.m3u8)'/u;
 
 /**
  * L'expression rationnelle pour extraire l'identifiant de la vidéo YouTube.
  *
- * @constant {RegExp}
+ * @type {RegExp}
  */
 const YOUTUBE_REGEXP = /videoId: '(?<videoId>.*)'/u;
 

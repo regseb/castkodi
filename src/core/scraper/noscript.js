@@ -12,6 +12,11 @@ import { extract as ldjsonExtract } from "./ldjson.js";
 import { extract as videoExtract }  from "./video.js";
 /* eslint-enable import/no-cycle */
 
+/**
+ * La liste des extracteurs génériques.
+ *
+ * @type {Function[]}
+ */
 const GENERIC_EXTRACTS = [
     videoExtract, audioExtract, ldjsonExtract, iframeExtract,
 ];

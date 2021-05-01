@@ -5,7 +5,6 @@
 /**
  * Enlève les balises de mise en forme.
  *
- * @function
  * @param {string} text Le texte qui sera nettoyé.
  * @returns {string} Le textenettoyé.
  */

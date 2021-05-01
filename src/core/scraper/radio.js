@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'expression rationnelle pour extraire les données de la radio.
  *
- * @constant {RegExp}
+ * @type {RegExp}
  */
 const URL_REGEXP = /^ *station: *(?<station>\{.+\}),$/mu;
 

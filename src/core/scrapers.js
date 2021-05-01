@@ -71,7 +71,7 @@ import * as youtube        from "./scraper/youtube.js";
  * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
  * <code>null</code>).
  *
- * @constant {Function[]}
+ * @type {Function[]}
  */
 const SCRAPERS = [
     // Lister les scrapers (triés par ordre alphabétique).
@@ -134,7 +134,6 @@ const SCRAPERS = [
 /**
  * Extrait le <em>fichier</em> d'une URL.
  *
- * @function
  * @param {URL}     url               L'URL d'une page Internet.
  * @param {Object}  options           Les options de l'extraction.
  * @param {boolean} options.depth     La marque indiquant si l'extraction est en

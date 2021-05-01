@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'API de Первый канал (1tv.ru).
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://www.1tv.ru/playlist?single=true&video_id=";
 

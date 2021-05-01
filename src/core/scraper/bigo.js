@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'API de Bigo Live pour obtenir des informations sur la vidéo.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://www.bigo.tv/studio/getInternalStudioInfo";
 

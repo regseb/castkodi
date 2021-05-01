@@ -11,8 +11,8 @@ import { extract as metaExtract } from "../scrapers.js";
  * La liste des sélecteur retournant les éléments <code>meta</code> liés aux
  * vidéos et audio d'Open Graph.
  *
- * @constant {string[]}
- * @see {@link https://ogp.me/}
+ * @type {Object<string, string[]>}
+ * @see https://ogp.me/
  */
 const SELECTORS = {
     VIDEO: [
@@ -122,7 +122,7 @@ export const extractAudio = matchPattern(actionAudio, "*://*/*");
  *                                le document HTML ou <code>null</code>.
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
- * @see {@link https://yandex.com/support/video/partners/open-graph.html}
+ * @see https://yandex.com/support/video/partners/open-graph.html
  */
 const actionYandex = async function (_url, content) {
     const doc = await content.html();

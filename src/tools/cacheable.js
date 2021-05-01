@@ -5,7 +5,6 @@
 /**
  * Stocke en cache le retour d'une méthode pour les prochains appels.
  *
- * @function
  * @param {Function} func La fonction dont le retour sera mis en cache.
  * @returns {Function} La fonction avec le cache.
  */
@@ -31,7 +30,7 @@ export const cacheable = function (func) {
      * @returns {any} Le retour de la fonction (éventuellement récupéré dans le
      *                cache).
      */
-    const wrapped = () => {
+    const wrapped = function () {
         if (!cached) {
             value = func();
             cached = true;

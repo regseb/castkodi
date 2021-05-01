@@ -8,14 +8,14 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'expression rationnelle pour extraire l'identifiant de la vidéo.
  *
- * @constant {RegExp}
+ * @type {RegExp}
  */
 const UUID_REGEXP = /"videoId":"(?<videoId>[0-9a-f-]+)"/u;
 
 /**
  * L'URL de l'API de France tv.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://player.webservices.francetelevisions.fr/v1/videos/";
 

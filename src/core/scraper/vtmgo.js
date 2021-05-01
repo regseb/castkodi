@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'extension pour lire des vidéos issues de VTM GO.
  *
- * @constant {string}
+ * @type {string}
  */
 const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog/";
 

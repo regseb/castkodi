@@ -8,14 +8,14 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'expression rationnelle pour extraire la clé de l'API de Flickr.
  *
- * @constant {RegExp}
+ * @type {RegExp}
  */
 const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "(?<key>[^"]+)"/u;
 
 /**
  * L'URL de l'API de Flickr pour obtenir des informations sur la vidéo.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://api.flickr.com/services/rest" +
                                           "?method=flickr.video.getStreamInfo" +

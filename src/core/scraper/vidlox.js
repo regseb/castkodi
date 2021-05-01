@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'expression rationnelle pour extraire l'URL de la vidéo.
  *
- * @constant {RegExp}
+ * @type {RegExp}
  */
 const URL_REGEXP = /sources: \["(?<sources>[^"]+)",/u;
 

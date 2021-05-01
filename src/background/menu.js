@@ -8,7 +8,8 @@ import { notify } from "../core/notify.js";
 /**
  * Agrège les liens des différents points d'entrée.
  *
- * @param {Object} info Les informations fournies par le menu contextuel.
+ * @param {browser.menus.OnClickData} info Les informations fournies par le menu
+ *                                         contextuel.
  * @returns {Promise<string[]>} Une promesse contenant les liens récupérés.
  */
 const aggregate = async function (info) {
@@ -29,7 +30,8 @@ const aggregate = async function (info) {
 /**
  * Exécute l'action sélectionnée dans le menu contextuel.
  *
- * @param {Object} info Les informations fournies par le menu contextuel.
+ * @param {browser.menus.OnClickData} info Les informations fournies par le menu
+ *                                         contextuel.
  */
 const handleClick = async function (info) {
     if ("send" === info.menuItemId || "insert" === info.menuItemId ||
@@ -50,7 +52,8 @@ const handleClick = async function (info) {
 /**
  * Ajoute les options dans les menus contextuels.
  *
- * @param {Object} changes Les paramètres modifiés dans la configuration.
+ * @param {browser.storage.StorageChange} changes Les paramètres modifiés dans
+ *                                                la configuration.
  */
 const handleChange = async function (changes) {
     // Ignorer tous les changements sauf ceux liés aux menus et aux serveurs.

@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'extension pour lire des musiques issues de Mixcloud.
  *
- * @constant {string}
+ * @type {string}
  */
 const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
 

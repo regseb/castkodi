@@ -11,15 +11,12 @@ describe("core/notify.js", function () {
             notify(new Error("foo"));
 
             assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                null,
-                {
-                    type:    "basic",
-                    iconUrl: "img/icon.svg",
-                    title:   "Unknown error",
-                    message: "foo",
-                },
-            ]);
+            assert.deepStrictEqual(stub.firstCall.args, [{
+                type:    "basic",
+                iconUrl: "img/icon.svg",
+                title:   "Unknown error",
+                message: "foo",
+            }]);
 
             stub.restore();
         });
@@ -30,15 +27,12 @@ describe("core/notify.js", function () {
             notify(new PebkacError("noLink", "foo"));
 
             assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                null,
-                {
-                    type:    "basic",
-                    iconUrl: "img/icon.svg",
-                    title:   "Unsupported link",
-                    message: "Link foo is invalid.",
-                },
-            ]);
+            assert.deepStrictEqual(stub.firstCall.args, [{
+                type:    "basic",
+                iconUrl: "img/icon.svg",
+                title:   "Unsupported link",
+                message: "Link foo is invalid.",
+            }]);
 
             stub.restore();
         });

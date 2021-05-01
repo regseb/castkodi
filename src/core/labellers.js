@@ -14,7 +14,7 @@ import { strip }        from "./sanitizer.js";
 /**
  * La liste des étiqueteuses (retournant le label extrait ou <code>null</code>).
  *
- * @constant {Function[]}
+ * @type {Function[]}
  */
 const LABELLERS = [
     // Lister les étiqueteuses (triées par ordre alphabétique).
@@ -30,7 +30,6 @@ const LABELLERS = [
 /**
  * Complète un élément de la liste de lecture avec un label.
  *
- * @function
  * @param {Object} item       L'élément de la liste de lecture.
  * @param {string} item.file  Le fichier de l'élément.
  * @param {string} item.label Le label de l'élément.

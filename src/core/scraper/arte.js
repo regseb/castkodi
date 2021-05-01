@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'API de Arte.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://api.arte.tv/api/player/v1/config";
 
@@ -17,7 +17,7 @@ const API_URL = "https://api.arte.tv/api/player/v1/config";
  *
  * @param {URL} url L'URL d'une vidéo Arte.
  * @returns {Promise<?string>} Une promesse contenant le lien du
- *                            <em>fichier</em> ou <code>null</code>.
+ *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ pathname }) {
     const [, lang, , id] = pathname.split("/");

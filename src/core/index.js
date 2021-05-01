@@ -13,14 +13,10 @@ import { extract }     from "./scrapers.js";
  */
 export const kodi = new Kodi();
 
-/* eslint-disable jsdoc/check-types -- Utiliser la notation Array<> car l'outil
- *     JSDoc ne gère pas les tableaux de types complexes déclarés avec [].
- *     https://github.com/jsdoc/jsdoc/issues/1133 */
 /**
  * Récupère le lien à analyser parmi les données récupérées.
  *
- * @function
- * @param {Array<string|undefined>} urls La liste des liens récupérés par le
+ * @param {(string|undefined)[]} urls La liste des liens récupérés par le
  *                                       menu contextuel ou dans la zone de
  *                                       saisie de la popup.
  * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
@@ -47,10 +43,12 @@ export const mux = function (urls) {
     });
 };
 
+// Désactiver cette règle car il y a des faux-positifs avec les fonctions
+// asynchrones. https://github.com/gajus/eslint-plugin-jsdoc/issues/722
+// eslint-disable-next-line jsdoc/require-throws
 /**
  * Diffuse un média sur Kodi.
  *
- * @function
  * @param {string}   action L'action à effectuer (<code>"send"</code>,
  *                          <code>"insert"</code> ou <code>"add"</code>).
  * @param {string[]} urls   La liste des éventuelles URLs.
@@ -97,7 +95,8 @@ export const cast = async function (action, urls) {
  * Ferme la connexion avec Kodi pour forcer la reconnexion avec la nouvelle
  * configuration.
  *
- * @param {Object} changes Les paramètres modifiés dans la configuration.
+ * @param {browser.storage.StorageChange} changes Les paramètres modifiés dans
+ *                                                la configuration.
  */
 const handleChange = function (changes) {
     // Garder seulement les changements liés au serveur.

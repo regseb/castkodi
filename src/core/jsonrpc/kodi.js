@@ -13,7 +13,7 @@ import { Playlist }    from "./playlist.js";
 /**
  * Le client JSON-RPC pour contacter Kodi.
  *
- * @see {@link https://kodi.wiki/view/JSON-RPC_API}
+ * @see https://kodi.wiki/view/JSON-RPC_API
  */
 export const Kodi = class {
 
@@ -38,6 +38,7 @@ export const Kodi = class {
      * @param {string} address L'adresse IP ou l'adresse complête du service de
      *                         Kodi.
      * @returns {URL} L'URL vers le service de Kodi.
+     * @throws {PebkacError} Si l'adresse du service de Kodi est invalide.
      */
     static build(address) {
         if ("" === address) {
@@ -67,10 +68,9 @@ export const Kodi = class {
     /**
      * Crée un client JSON-RPC pour contacter Kodi.
      *
-     * @param {?string} [address=null] L'adresse IP ou l'adresse complète du
-     *                                 service de Kodi ; ou <code>null</code>
-     *                                 pour récupérer l'adresse dans la
-     *                                 configuration.
+     * @param {?string} [address] L'adresse IP ou l'adresse complète du service
+     *                            de Kodi ; ou <code>null</code> pour récupérer
+     *                            l'adresse dans la configuration.
      */
     constructor(address = null) {
 
@@ -223,6 +223,9 @@ export const Kodi = class {
         }
     }
 
+    // Désactiver cette règle car il y a des faux-positifs avec les fonctions
+    // asynchrones. https://github.com/gajus/eslint-plugin-jsdoc/issues/722
+    // eslint-disable-next-line jsdoc/require-throws
     /**
      * Envoi une requête JSON-RPC à Kodi.
      *

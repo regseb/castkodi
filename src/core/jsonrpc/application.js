@@ -8,15 +8,14 @@ import { NotificationListener } from "./notificationlistener.js";
  * Le client JSON-RPC pour contacter l'espace de nom <em>Application</em> de
  * Kodi.
  *
- * @see {@link https://kodi.wiki/view/JSON-RPC_API}
+ * @see https://kodi.wiki/view/JSON-RPC_API
  */
 export const Application = class {
 
     /**
      * Crée un client JSON-RPC pour l'espace de nom <em>Application</em>.
      *
-     * @param {Object}   kodi      Le client pour contacter Kodi.
-     * @param {Function} kodi.send La méthode pour envoyer une requête.
+     * @param {import("./kodi.js").Kodi} kodi Le client pour contacter Kodi.
      */
     constructor(kodi) {
 
@@ -24,7 +23,7 @@ export const Application = class {
          * Le client pour contacter Kodi.
          *
          * @private
-         * @type {Object}
+         * @type {import("./kodi.js").Kodi}
          */
         this._kodi = kodi;
 

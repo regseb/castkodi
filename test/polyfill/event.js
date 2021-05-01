@@ -1,7 +1,7 @@
 /**
  * La prothèse de la classe <code>Event</code>.
  *
- * @see {@link https://developer.mozilla.org/docs/Web/API/Event/Event}
+ * @see https://developer.mozilla.org/docs/Web/API/Event/Event
  */
 export const Event = class {
 

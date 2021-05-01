@@ -9,7 +9,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * La liste des sélecteurs retournant les éléments <code>audio</code> et leurs
  * sources.
  *
- * @constant {string[]}
+ * @type {string[]}
  */
 const SELECTORS = ["audio source[src]", "audio[src]"];
 

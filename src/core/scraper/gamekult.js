@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'extension pour lire des vidéos issues de Dailymotion.
  *
- * @constant {string}
+ * @type {string}
  */
 const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
 

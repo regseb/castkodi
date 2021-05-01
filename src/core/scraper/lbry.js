@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'API de LBRY.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://api.lbry.tv/api/v1";
 

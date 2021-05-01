@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * Les codes des régions pour l'API en fonction des langues dans l'URL.
  *
- * @constant {Object<string, string>}
+ * @type {Object<string, string>}
  */
 const LANGS = {
     "es-xl": "el",
@@ -30,7 +30,7 @@ const LANGS = {
 /**
  * L'URL de l'API des séries Pokémon.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://www.pokemon.com/api/pokemontv/v2/channels/";
 

@@ -5,8 +5,8 @@
 /**
  * Actualise la configuration suite la suppression de permissions optionnelles.
  *
- * @param {Object}   changes             Les changements sur les permissions.
- * @param {string[]} changes.permissions Les permissions supprimées.
+ * @param {browser.permissions.Permissions} changes Les changements sur les
+ *                                                  permissions.
  */
 const handleRemove = async function ({ permissions }) {
     if (permissions.includes("history")) {

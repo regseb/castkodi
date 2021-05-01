@@ -8,7 +8,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
 /**
  * L'URL de l'API de Veoh pour obtenir des informations sur une vidéo.
  *
- * @constant {string}
+ * @type {string}
  */
 const API_URL = "https://www.veoh.com/watch/getVideo/";
 
