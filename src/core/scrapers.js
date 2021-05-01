@@ -5,6 +5,7 @@
 import { cacheable } from "../tools/cacheable.js";
 import * as acestream from "./scraper/acestream.js";
 import * as allocine from "./scraper/allocine.js";
+import * as aparat from "./scraper/aparat.js";
 import * as applepodcasts from "./scraper/applepodcasts.js";
 import * as arte from "./scraper/arte.js";
 import * as arteradio from "./scraper/arteradio.js";
@@ -77,6 +78,7 @@ const SCRAPERS = [
     // Lister les scrapers (triés par ordre alphabétique).
     acestream,
     allocine,
+    aparat,
     applepodcasts,
     arte,
     arteradio,
