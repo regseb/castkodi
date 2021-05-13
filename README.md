@@ -15,7 +15,7 @@ des vidéos et des musiques sur **Kodi** :
 - liens directs : *avi*, *mkv*, *mp3*, *flac*… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace Stream, Apple Podcasts,
   Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion, DevTube, Facebook,
-  Flickr, Instagram, Jamendo, LBRY, LiveLeak, Megaphone, Metacafe, Mixcloud,
+  Flickr, Instagram, ItemFix, Jamendo, LBRY, Megaphone, Metacafe, Mixcloud,
   My Cloud Player, Overcast, PeerTube, Pippa, podCloud, Pokémon TV, Radio,
   Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, Viously ;
   - Allemagne : Arte ;
