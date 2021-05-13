@@ -16,8 +16,9 @@ des vidéos et des musiques sur **Kodi** :
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace Stream, Apple Podcasts,
   Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion, DevTube, Facebook,
   Flickr, Instagram, ItemFix, Jamendo, LBRY, Megaphone, Metacafe, Mixcloud,
-  My Cloud Player, Overcast, PeerTube, Pippa, podCloud, Pokémon TV, Radio,
-  Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, Viously ;
+  My Cloud Player, Odysee, Overcast, PeerTube, Pippa, podCloud, Pokémon TV,
+  Radio, Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress,
+  Viously ;
   - Allemagne : Arte ;
   - Belgique : VRT NU, VTM GO ;
   - États-Unis : KCAA Radio ;
