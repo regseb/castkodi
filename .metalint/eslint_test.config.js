@@ -31,7 +31,7 @@ export default {
         "mocha/no-return-from-async": 2,
         "mocha/no-setup-in-describe": 2,
         "mocha/no-sibling-hooks": 2,
-        "mocha/no-skipped-tests": 2,
+        "mocha/no-skipped-tests": 0,
         "mocha/no-synchronous-tests": 0,
         "mocha/no-top-level-hooks": 2,
         "mocha/prefer-arrow-callback": 0,

@@ -12,7 +12,10 @@ describe("Scraper: Instagram", function () {
         }
     });
 
-    it("should return URL when it's not a video", async function () {
+    // Désactiver les tests d'Instagram car ils ne fonctionnent pas dans Node.
+    // La méthode fetch() se connecte en IPV4 à Instagram et les pages semblent
+    // accessible seulement en IPV6.
+    it.skip("should return URL when it's not a video", async function () {
         const url = new URL("https://www.instagram.com/p/6p_BDeK-8G/");
         const options = { depth: false, incognito: false };
 
@@ -20,7 +23,7 @@ describe("Scraper: Instagram", function () {
         assert.strictEqual(file, url.href);
     });
 
-    it("should return video URL [opengraph]", async function () {
+    it.skip("should return video URL [opengraph]", async function () {
         const url = new URL("https://www.instagram.com/p/BpFwZ6JnYPq/");
         const options = { depth: false, incognito: false };
 
@@ -29,7 +32,7 @@ describe("Scraper: Instagram", function () {
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
-    it("should return video URL when protocol is HTTP [opengraph]",
+    it.skip("should return video URL when protocol is HTTP [opengraph]",
                                                              async function () {
         const url = new URL("http://www.instagram.com/p/Bpji87LiJFs/");
         const options = { depth: false, incognito: false };
