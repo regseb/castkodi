@@ -67,6 +67,7 @@ import * as viously from "./scraper/viously.js";
 import * as vrtnu from "./scraper/vrtnu.js";
 import * as vtmgo from "./scraper/vtmgo.js";
 import * as youtube from "./scraper/youtube.js";
+import * as zdf from "./scraper/zdf.js";
 
 /**
  * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
@@ -124,6 +125,7 @@ const SCRAPERS = [
     vrtnu,
     vtmgo,
     youtube,
+    zdf,
     // Utiliser les scrapers génériques en dernier recours.
     video,
     audio,
