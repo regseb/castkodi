@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.12.0](https://github.com/regseb/castkodi/compare/v5.11.0...v5.12.0) (2021-05-14)
+
+
+### Features
+
+* Ajouter le support de Odysee. ([0864359](https://github.com/regseb/castkodi/commit/08643594598007504c9e74f2c0bd7372f0956bb7))
+* Ajouter le support de ZDF. ([45be3f7](https://github.com/regseb/castkodi/commit/45be3f7690014ae0abab42352fa5f1aef2030656))
+* Gérer les autres langues de Bigo Live. ([2290687](https://github.com/regseb/castkodi/commit/2290687cf6a37a8b2a0ccf1b250cf1d7a32dd9d6))
+
+
+### Bug Fixes
+
+* Créer un scraper spécifique pour Aparat. ([b9d76bd](https://github.com/regseb/castkodi/commit/b9d76bd3e3876a16537f2219944c69524bc0c09d))
+* Remplacer LiveLeak par ItemFix. ([19e3d37](https://github.com/regseb/castkodi/commit/19e3d37202092d939293363bcbcd572ba1f1928c))
+
 ## [5.11.0](https://github.com/regseb/castkodi/compare/v5.10.0...v5.11.0) (2021-04-03)
 
 
