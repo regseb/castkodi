@@ -36,10 +36,10 @@ export default {
                 eslint: ["eslint.config.js", "eslint_config.config.js"],
             },
         }, {
-            patterns: "/src/**/*.html",
+            patterns: "*.html",
             linters: "htmlhint",
         }, {
-            patterns: "/locales/**/*.html",
+            patterns: "*.tpl",
             linters: {
                 htmlhint: ["htmlhint.config.js", { "doctype-first": false }],
             },
