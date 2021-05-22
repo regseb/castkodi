@@ -63,6 +63,10 @@ const action = async function ({ pathname }) {
         return PLUGIN_URL + "&slug=" +
                                   pathname.slice(pathname.lastIndexOf("/") + 1);
     }
+    if (pathname.includes("/moderator/")) {
+        return PLUGIN_URL + "&channel_name=" +
+                                  pathname.slice(pathname.lastIndexOf("/") + 1);
+    }
     return PLUGIN_URL + "&channel_name=" + pathname.slice(1);
 };
 export const extract = matchPattern(action,
