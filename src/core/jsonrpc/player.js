@@ -207,6 +207,18 @@ export const Player = class {
     }
 
     /**
+     * Add subtitle to player
+     *
+     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
+     */
+    addSubtitle(subtitle) {
+        return this.kodi.send("Player.AddSubtitle", {
+            playerid: 1,
+            subtitle:  subtitle,
+        });
+    }
+
+    /**
      * Arrête la lecture.
      *
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
