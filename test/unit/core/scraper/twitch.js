@@ -134,6 +134,14 @@ describe("core/scraper/twitch.js", function () {
                 "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
 
+        it("should return channel name from moderator URL", async function () {
+            const url = new URL("http://www.twitch.tv/moderator/foo");
+
+            const file = await extract(url);
+            assert.strictEqual(file,
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
+        });
+
         it("should return channel name", async function () {
             const url = new URL("https://www.twitch.tv/foo");
 
