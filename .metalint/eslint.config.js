@@ -250,7 +250,6 @@ export default {
         "no-plusplus": 0,
         "no-restricted-syntax": [
             2,
-            "ClassDeclaration",
             "DebuggerStatement",
             "EmptyStatement",
             "ForInStatement",
@@ -271,7 +270,6 @@ export default {
             "JSXAttribute",
             "JSXSpreadAttribute",
             "JSXText",
-            "ExportDefaultDeclaration",
             "ExportAllDeclaration",
         ],
         "no-tabs": 2,
@@ -407,7 +405,7 @@ export default {
         "import/no-named-default": 2,
         "import/no-default-export": 2,
         "import/no-named-export": 0,
-        "import/no-anonymous-default-export": 2,
+        "import/no-anonymous-default-export": 0,
         "import/group-exports": 0,
         "import/dynamic-import-chunkname": 0,
 
