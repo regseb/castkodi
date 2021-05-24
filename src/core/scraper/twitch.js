@@ -49,11 +49,12 @@ const actionEmbed = async function ({ searchParams }) {
 export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
 
 /**
- * Extrait les informations nécessaire pour lire un <em>live</em> sur Kodi.
+ * Extrait les informations nécessaire pour lire un <em>live</em> ou un clip sur
+ * Kodi.
  *
- * @param {URL} url L'URL d'un <em>live</em> Twitch.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @param {URL} url L'URL d'un <em>live</em> ou d'un clip Twitch.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
  */
 const action = async function ({ pathname }) {
     if (pathname.startsWith("/videos/")) {
@@ -63,9 +64,8 @@ const action = async function ({ pathname }) {
         return PLUGIN_URL + "&slug=" +
                                   pathname.slice(pathname.lastIndexOf("/") + 1);
     }
-    if (pathname.includes("/moderator/")) {
-        return PLUGIN_URL + "&channel_name=" +
-                                  pathname.slice(pathname.lastIndexOf("/") + 1);
+    if (pathname.startsWith("/moderator/")) {
+        return PLUGIN_URL + "&channel_name=" + pathname.slice(11);
     }
     return PLUGIN_URL + "&channel_name=" + pathname.slice(1);
 };

@@ -141,6 +141,15 @@ describe("Scraper: Twitch", function () {
             "plugin://plugin.video.twitch/?mode=play&video_id=474384559");
     });
 
+    it("should return channel name from moderator URL", async function () {
+        const url = new URL("https://www.twitch.tv/moderator/artefr");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file,
+            "plugin://plugin.video.twitch/?mode=play&channel_name=artefr");
+    });
+
     it("should return channel name", async function () {
         const url = new URL("https://www.twitch.tv/nolife");
         const options = { depth: false, incognito: false };
