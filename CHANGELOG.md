@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.13.0](https://github.com/regseb/castkodi/compare/v5.12.0...v5.13.0) (2021-05-24)
+
+
+### Features
+
+* Add support for moderator UI URL. ([#60](https://github.com/regseb/castkodi/issues/60)) ([a7adca9](https://github.com/regseb/castkodi/commit/a7adca9d4dc99880ce9de3a40312a7adc99438c2))
+
+
+### Bug Fixes
+
+* Corriger le scraper de Konbini. ([d3ad141](https://github.com/regseb/castkodi/commit/d3ad14101077f37058b5764e86e279593c5d1263))
+
 ## [5.12.0](https://github.com/regseb/castkodi/compare/v5.11.0...v5.12.0) (2021-05-14)
 
 
