@@ -20,6 +20,7 @@ import * as francetv from "./scraper/francetv.js";
 // eslint-disable-next-line import/no-cycle
 import * as futurasciences from "./scraper/futurasciences.js";
 import * as gamekult from "./scraper/gamekult.js";
+import * as goplay from "./scraper/goplay.js";
 // eslint-disable-next-line import/no-cycle
 import * as iframe from "./scraper/iframe.js";
 import * as kcaastreaming from "./scraper/kcaastreaming.js";
@@ -90,6 +91,7 @@ const SCRAPERS = [
     francetv,
     futurasciences,
     gamekult,
+    goplay,
     kcaastreaming,
     lbry,
     lemonde,
