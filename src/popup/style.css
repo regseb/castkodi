@@ -195,17 +195,20 @@ input[type="range"].disabled::-moz-range-progress {
 #playlist-items {
     flex-grow: 1;
     margin-bottom: 8px;
-    min-height: 144px;
+    /* Afficher 4,5 élements : (1 + 32) * 4 + (1 + 32 / 2) */
+    min-height: 149px;
     overflow-y: scroll;
     width: 100vw;
 }
 
 #playlist-items ol {
+    display: flex;
+    flex-direction: column;
     font-size: 14px;
     list-style-type: none;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding-left: 0;
+    margin: 0;
+    padding: 1px 0;
+    row-gap: 1px;
 }
 #playlist-items ol:empty {
     display: none;
@@ -214,9 +217,19 @@ input[type="range"].disabled::-moz-range-progress {
 #playlist-items li {
     display: flex;
     height: 32px;
+    user-select: none;
 }
 #playlist-items li:hover {
     background-color: #38383d;
+}
+#playlist-items li.drag {
+    opacity: 40%;
+}
+#playlist-items li.drop-before:not(.drag) {
+    box-shadow: 0 -1px #0a84ff;
+}
+#playlist-items li.drop-after:not(.drag) {
+    box-shadow: 0 1px #0a84ff;
 }
 #playlist-items li span {
     flex-grow: 1;
@@ -228,7 +241,7 @@ input[type="range"].disabled::-moz-range-progress {
     user-select: none;
     white-space: nowrap;
 }
-#playlist-items li:hover span {
+#playlist-items li:hover:not(.drag) span {
     padding-right: 0;
 }
 #playlist-items li span.active {
@@ -240,7 +253,7 @@ input[type="range"].disabled::-moz-range-progress {
     min-width: 32px;
     width: 32px;
 }
-#playlist-items li:hover button {
+#playlist-items li:hover:not(.drag) button {
     display: inline;
 }
 

@@ -28,6 +28,13 @@ let speed = 0;
  */
 let interval = null;
 
+/**
+ * L'élément de la liste de lecture en cours de déplacement.
+ *
+ * @type {HTMLLIElement}
+ */
+let dragItem = null;
+
 const splash = function (err) {
     const article = document.querySelector("#splash");
     if ("PebkacError" === err.name) {
@@ -647,6 +654,91 @@ const handlePropertyChanged = function (properties) {
     }
 };
 
+/**
+ * Gère le début d'un glissement d'un élément.
+ *
+ * @this {HTMLLIElement}
+ * @param {DragEvent} event L'évènement du glissement.
+ */
+const handleDragStart = function (event) {
+    // eslint-disable-next-line no-param-reassign
+    event.dataTransfer.effectAllowed = "move";
+
+    this.classList.add("drag");
+    // eslint-disable-next-line consistent-this, unicorn/no-this-assignment
+    dragItem = this;
+};
+
+/**
+ * Gère le déplacement d'un glissement sur un élement déposable.
+ *
+ * @this {HTMLLIElement}
+ * @param {DragEvent} event L'évènement du glissement.
+ */
+const handleDragOver = function (event) {
+    event.preventDefault();
+
+    const section = this.closest("section");
+    const center = this.offsetTop - section.scrollTop + this.offsetHeight / 2;
+    if (event.clientY < center) {
+        this.classList.remove("drop-after");
+        this.classList.add("drop-before");
+    } else {
+        this.classList.remove("drop-before");
+        this.classList.add("drop-after");
+    }
+
+    // eslint-disable-next-line no-param-reassign
+    event.dataTransfer.dropEffect = "move";
+
+    return false;
+};
+
+/**
+ * Gère la sortie d'un élement déposable d'un glissement.
+ *
+ * @this {HTMLLIElement}
+ */
+const handleDragLeave = function () {
+    this.classList.remove("drop-before", "drop-after");
+};
+
+/**
+ * Gère le dépôt d'un élément de glissement.
+ *
+ * @this {HTMLLIElement}
+ * @param {DragEvent} event L'évènement du glissement.
+ */
+const handleDrop = function (event) {
+    event.stopPropagation();
+
+    if (dragItem !== this) {
+        const items = Array.from(dragItem.parentElement.children);
+        const source = items.indexOf(dragItem);
+        let destination = items.indexOf(this);
+        dragItem.remove();
+        if (this.classList.contains("drop-before")) {
+            this.before(dragItem);
+        } else {
+            ++destination;
+            this.after(dragItem);
+        }
+        dragItem.scrollIntoView();
+        kodi.playlist.move(source, destination).catch(splash);
+    }
+    this.classList.remove("drop-before", "drop-after");
+    return false;
+};
+
+/**
+ * Gère la fin du glissement.
+ *
+ * @this {HTMLLIElement}
+ */
+const handleDragEnd = function () {
+    this.classList.remove("drag");
+};
+
 const handleAdd = function (item) {
     const template = document.querySelector("template");
     const clone = document.importNode(template.content, true);
@@ -662,6 +754,12 @@ const handleAdd = function (item) {
         }
     }
     const li = document.createElement("li");
+    li.addEventListener("dragstart", handleDragStart, false);
+    li.addEventListener("dragover",  handleDragOver,  false);
+    li.addEventListener("dragleave", handleDragLeave, false);
+    li.addEventListener("drop",      handleDrop,      false);
+    li.addEventListener("dragend",   handleDragEnd,   false);
+    li.draggable = true;
     li.append(clone);
 
     const ol = document.querySelector("#playlist-items ol");

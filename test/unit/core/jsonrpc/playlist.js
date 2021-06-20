@@ -146,6 +146,80 @@ describe("core/jsonrpc/playlist.js", function () {
         });
     });
 
+    describe("swap()", function () {
+        it("should send request", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const playlist = new Playlist({ send: fake });
+            const position1 = 42;
+            const position2 = 24;
+            const result = await playlist.swap(position1, position2);
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Playlist.Swap",
+                { playlistid: 1, position1, position2 },
+            ]);
+        });
+    });
+
+    describe("move()", function () {
+        it("should move before", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const playlist = new Playlist({ send: fake });
+            const position = 2;
+            const destination = 0;
+            const result = await playlist.move(position, destination);
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 2);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Playlist.Swap",
+                { playlistid: 1, position1: 2, position2: 1 },
+            ]);
+            assert.deepStrictEqual(fake.secondCall.args, [
+                "Playlist.Swap",
+                { playlistid: 1, position1: 1, position2: 0 },
+            ]);
+        });
+
+        it("should move after", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const playlist = new Playlist({ send: fake });
+            const position = 1;
+            const destination = 5;
+            const result = await playlist.move(position, destination);
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 3);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Playlist.Swap",
+                { playlistid: 1, position1: 1, position2: 2 },
+            ]);
+            assert.deepStrictEqual(fake.secondCall.args, [
+                "Playlist.Swap",
+                { playlistid: 1, position1: 2, position2: 3 },
+            ]);
+            assert.deepStrictEqual(fake.thirdCall.args, [
+                "Playlist.Swap",
+                { playlistid: 1, position1: 3, position2: 4 },
+            ]);
+        });
+
+        it("should not move", async function () {
+            const fake = sinon.fake.resolves("OK");
+
+            const playlist = new Playlist({ send: fake });
+            const result = await playlist.move(42, 42);
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(fake.callCount, 0);
+        });
+    });
+
     describe("handleNotification()", function () {
         it("should ignore others namespaces", function (done) {
             const playlist = new Playlist({ send: Function.prototype });

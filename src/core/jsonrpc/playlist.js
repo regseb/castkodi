@@ -127,10 +127,43 @@ export const Playlist = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     remove(position) {
-        return this._kodi.send("Playlist.Remove", {
+        return this._kodi.send("Playlist.Remove", { playlistid: 1, position });
+    }
+
+    /**
+     * Échange la position de deux éléments de la liste de lecture.
+     *
+     * @param {number} position1 La position de l'élément qui sera échangé.
+     * @param {number} position2 La position de l'autre élément qui sera
+     *                           échangé.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     */
+    swap(position1, position2) {
+        return this._kodi.send("Playlist.Swap", {
             playlistid: 1,
-            position,
+            position1,
+            position2,
         });
+    }
+
+    /**
+     * Déplace un élément dans la liste de lecture.
+     *
+     * @param {number} position La position de l'élément qui sera déplacé.
+     * @param {number} destination La future position de l'élément.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     */
+    async move(position, destination) {
+        if (position < destination) {
+            for (let i = position; i < destination - 1; ++i) {
+                await this.swap(i, i + 1);
+            }
+        } else {
+            for (let i = position; i > destination; --i) {
+                await this.swap(i, i - 1);
+            }
+        }
+        return "OK";
     }
 
     /**
