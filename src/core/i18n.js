@@ -16,7 +16,7 @@ const PAGE = location.pathname.slice(1, location.pathname.indexOf("/", 1));
  * @type {HTMLElement[]}
  */
 const elements = [...document.querySelectorAll("*")].flatMap((element) => {
-    return "TEMPLATE" === element.tagName
+    return "TEMPLATE" === element.nodeName
                                     ? [...element.content.querySelectorAll("*")]
                                     : element;
 });

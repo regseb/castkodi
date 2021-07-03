@@ -13,6 +13,7 @@ export default {
     "doctype-html5": true,
     "head-script-disabled": true,
     "href-abs-or-rel": false,
+    "html-lang-require": false,
     "id-class-ad-disabled": true,
     "id-class-value": "dash",
     "id-unique": true,

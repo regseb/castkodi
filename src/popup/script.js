@@ -365,7 +365,7 @@ const openSendText = function () {
 const closeDialog = function (event) {
     // Fermer la boite de dialogue si l'utilisateur clique en dehors de la
     // boite.
-    if ("DIALOG" === event.target.tagName) {
+    if ("DIALOG" === event.target.nodeName) {
         const rect = event.target.getBoundingClientRect();
         if (rect.top > event.clientY || rect.bottom < event.clientY ||
                 rect.left > event.clientX || rect.right < event.clientX) {
@@ -942,7 +942,7 @@ globalThis.addEventListener("keydown", (event) => {
 
     // Écrire normalement les caractères dans la zone de texte (sauf pour la
     // touche Entrée qui envoi l'URL saisie).
-    if ("TEXTAREA" === event.target.tagName) {
+    if ("TEXTAREA" === event.target.nodeName) {
         if ("Enter" === event.key) {
             send();
             event.preventDefault();

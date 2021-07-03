@@ -18,7 +18,7 @@ const copy = async function (src, dest) {
 // Intégrer la prothèse pour l'élément HTML <dialog> en attendant que cette
 // fonctionnalité soit implémentée.
 // https://bugzilla.mozilla.org/show_bug.cgi?id=840640
-copy("node_modules/dialog-polyfill/dist/dialog-polyfill.css",
-     "src/polyfill/lib/dialog-polyfill/style.css");
-copy("node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js",
-     "src/polyfill/lib/dialog-polyfill/script.js");
+await copy("node_modules/dialog-polyfill/dist/dialog-polyfill.css",
+           "src/polyfill/lib/dialog-polyfill/style.css");
+await copy("node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js",
+           "src/polyfill/lib/dialog-polyfill/script.js");
