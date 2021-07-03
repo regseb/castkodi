@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.14.0](https://github.com/regseb/castkodi/compare/v5.13.0...v5.14.0) (2021-07-03)
+
+
+### Features
+
+* Ajouter le support de GoPlay. ([02e2ab5](https://github.com/regseb/castkodi/commit/02e2ab592b16195da917ba241ed454f39de0d4a5))
+* Réorganiser la playlist par drag-n-drop. ([a437c24](https://github.com/regseb/castkodi/commit/a437c24620bf1464eafe1b8c4f57c2d835b6c279))
+
+
+### Bug Fixes
+
+* Corriger la récupération des noms des chaines Twitch. ([3b9bda5](https://github.com/regseb/castkodi/commit/3b9bda5f722b32662c610e915f7b497600899aa2))
+
 ## [5.13.0](https://github.com/regseb/castkodi/compare/v5.12.0...v5.13.0) (2021-05-24)
 
 
