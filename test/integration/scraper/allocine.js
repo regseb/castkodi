@@ -10,7 +10,7 @@ describe("Scraper: AlloCiné", function () {
         assert.strictEqual(file, url.href);
     });
 
-    it("should return standard video URL", async function () {
+    it("should return video URL", async function () {
         const url = new URL("https://www.allocine.fr/video/video-19577157/");
         const options = { depth: false, incognito: false };
 
@@ -20,28 +20,6 @@ describe("Scraper: AlloCiné", function () {
                                                         "/19577157_sd_013.mp4");
     });
 
-    it("should return high video URL", async function () {
-        const url = new URL("https://www.allocine.fr/video" +
-                               "/player_gen_cmedia=19583315&cfilm=232669.html");
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://fr.vid.web.acsta.net/nmedia/33/19/04/02/14" +
-                                                       "//19583315_hd_013.mp4");
-    });
-
-    it("should return medium video URL", async function () {
-        const url = new URL("https://www.allocine.fr/video" +
-                                 "/player_gen_cmedia=19432206&cfilm=1051.html");
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://fr.vid.web.acsta.net/nmedia/s3/33/18/66/14" +
-                                                     "/37/19432206_sd_013.mp4");
-    });
-
     it("should return video URL when protocol is HTTP", async function () {
         const url = new URL("http://www.allocine.fr/video" +
                                "/player_gen_cmedia=19131078&cfilm=147912.html");
@@ -49,7 +27,7 @@ describe("Scraper: AlloCiné", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "http://fr.vid.web.acsta.net/nmedia/s3/33/18/78/52/54" +
+            "https://fr.vid.web.acsta.net/nmedia/s3/33/18/78/52/54" +
                                                         "/19131078_sd_013.mp4");
     });
 

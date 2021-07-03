@@ -13,7 +13,8 @@ describe("Labeller: YouTube", function () {
         const item = await complete({ file, label: "", type: "unknown" });
         assert.deepStrictEqual(item, {
             file,
-            label: "Rick Astley - Never Gonna Give You Up (Video)",
+            label: "Rick Astley - Never Gonna Give You Up (Official Music" +
+                                                                      " Video)",
             type:  "unknown",
         });
 
