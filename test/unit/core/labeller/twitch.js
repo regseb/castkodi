@@ -15,42 +15,7 @@ describe("core/labeller/twitch.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <script type="application/ld+json">
-                        [
-                            { &quot;description&quot;: &quot;bar&quot; }
-                        ]
-                     </script>
-                   </head>
-                 </html>`,
-            ));
-
-            const url = new URL("plugin://plugin.video.twitch/" +
-                                                           "?channel_name=foo");
-
-            const label = await extract(url);
-            assert.strictEqual(label, "bar");
-
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/foo",
-            ]);
-
-            stub.restore();
-        });
-
-        it("should return channel name when channel is offline",
-                                                             async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head>
-                     <script type="application/ld+json">
-                        [
-                            {
-                                &quot;author&quot;: { &quot;name&quot;: "bar" },
-                                &quot;description&quot;: &quot;&quot;
-                            }
-                        ]
-                     </script>
+                     <title>bar - Twitch</title>
                    </head>
                  </html>`,
             ));
@@ -73,11 +38,7 @@ describe("core/labeller/twitch.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <script type="application/ld+json">
-                        [
-                            { &quot;description&quot;: &quot;bar&quot; }
-                        ]
-                     </script>
+                     <title>bar - baz sur Twitch</title>
                    </head>
                  </html>`,
             ));

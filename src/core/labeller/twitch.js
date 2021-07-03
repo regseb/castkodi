@@ -24,14 +24,8 @@ const action = async function ({ searchParams }) {
         const response = await fetch(url);
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
-        const ldjson = JSON.parse(
-            doc.querySelector(`script[type="application/ld+json"]`).text
-               .replaceAll("&quot;", `"`),
-        );
-        // S'il n'y a pas de description (car la chaine n'est pas en live) :
-        // utiliser le nom de la chaine.
-        return "" === ldjson[0].description ? ldjson[0].author.name
-                                            : ldjson[0].description;
+        const title = doc.querySelector("title").textContent;
+        return title.slice(0, title.lastIndexOf(" - "));
     }
     if (searchParams.has("slug")) {
         return searchParams.get("slug");
