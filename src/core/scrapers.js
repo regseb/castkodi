@@ -35,7 +35,6 @@ import * as megaphone from "./scraper/megaphone.js";
 import * as melty from "./scraper/melty.js";
 import * as metacafe from "./scraper/metacafe.js";
 import * as mixcloud from "./scraper/mixcloud.js";
-import * as mycloudplayers from "./scraper/mycloudplayers.js";
 // eslint-disable-next-line import/no-cycle
 import * as noscript from "./scraper/noscript.js";
 import * as onetv from "./scraper/onetv.js";
@@ -100,7 +99,6 @@ const SCRAPERS = [
     melty,
     metacafe,
     mixcloud,
-    mycloudplayers,
     onetv,
     ouestfrance,
     peertube,
