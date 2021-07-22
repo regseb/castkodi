@@ -1,18 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/labeller/dailymotion.js";
+import * as labeller from "../../../../src/core/labeller/dailymotion.js";
 
 describe("core/labeller/dailymotion.js", function () {
     describe("extract()", function () {
-        it("should return null when there isn't 'url' parameter",
-                                                             async function () {
-            const url = new URL("plugin://plugin.video.dailymotion_com/" +
-                                                                    "?foo=bar");
-
-            const label = await extract(url);
-            assert.strictEqual(label, null);
-        });
-
         it("should return video label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -22,10 +13,9 @@ describe("core/labeller/dailymotion.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.dailymotion_com/" +
-                                                                    "?url=foo");
+            const videoId = "foo";
 
-            const label = await extract(url);
+            const label = await labeller.extract(videoId);
             assert.strictEqual(label, "bar - baz");
 
             assert.strictEqual(stub.callCount, 1);

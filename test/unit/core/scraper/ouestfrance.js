@@ -1,12 +1,12 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/ouestfrance.js";
+import * as scraper from "../../../../src/core/scraper/ouestfrance.js";
 
 describe("core/scraper/ouestfrance.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://www.sud-france.fr/foo");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -15,7 +15,7 @@ describe("core/scraper/ouestfrance.js", function () {
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -32,7 +32,7 @@ describe("core/scraper/ouestfrance.js", function () {
             };
             const options = { depth: true };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -46,7 +46,7 @@ describe("core/scraper/ouestfrance.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -62,7 +62,7 @@ describe("core/scraper/ouestfrance.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -74,16 +74,16 @@ describe("core/scraper/ouestfrance.js", function () {
                       <body>
                         <iframe data-ofiframe-src="//bar.com/"></iframe>
                         <iframe data-ofiframe-src="//www.dailymotion.com` +
-                                                    `/video/123456789"></iframe>
+                                                          `/video/baz"></iframe>
                       </body>
                     </html>`, "text/html")),
             };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/" +
-                                               "?mode=playVideo&url=123456789");
+                                                     "?mode=playVideo&url=baz");
         });
     });
 });

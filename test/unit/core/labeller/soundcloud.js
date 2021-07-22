@@ -1,18 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/labeller/soundcloud.js";
+import * as labeller from "../../../../src/core/labeller/soundcloud.js";
 
 describe("core/labeller/soundcloud.js", function () {
     describe("extract()", function () {
-        it("should return null when there isn't 'url' parameter",
-                                                             async function () {
-            const url = new URL("plugin://plugin.audio.soundcloud/play/" +
-                                                                    "?foo=bar");
-
-            const label = await extract(url);
-            assert.strictEqual(label, null);
-        });
-
         it("should return audio label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -22,10 +13,9 @@ describe("core/labeller/soundcloud.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.audio.soundcloud/play/" +
-                                                "?url=http%3A%2F%2Ffoo.com%2F");
+            const audioUrl = new URL("http://foo.com/");
 
-            const label = await extract(url);
+            const label = await labeller.extract(audioUrl);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
@@ -41,10 +31,9 @@ describe("core/labeller/soundcloud.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.audio.soundcloud/play/" +
-                                                "?url=http%3A%2F%2Ffoo.com%2F");
+            const audioUrl = new URL("http://foo.com/");
 
-            const label = await extract(url);
+            const label = await labeller.extract(audioUrl);
             assert.strictEqual(label, null);
 
             assert.strictEqual(stub.callCount, 1);

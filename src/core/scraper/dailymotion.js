@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des vidéos issues de Dailymotion.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
+import * as plugin from "../plugin/dailymotion.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -20,7 +14,7 @@ const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
  *                            <em>fichier</em>.
  */
 const actionVideo = async function ({ pathname }) {
-    return PLUGIN_URL + pathname.slice(7);
+    return plugin.generateUrl(pathname.slice(7));
 };
 export const extractVideo = matchPattern(actionVideo,
     "*://www.dailymotion.com/video/*");
@@ -33,7 +27,7 @@ export const extractVideo = matchPattern(actionVideo,
  *                            <em>fichier</em>.
  */
 const actionMinify = async function ({ pathname }) {
-    return PLUGIN_URL + pathname.slice(1);
+    return plugin.generateUrl(pathname.slice(1));
 };
 export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
 
@@ -45,7 +39,7 @@ export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
  *                            <em>fichier</em>.
  */
 const actionEmbed = async function ({ pathname }) {
-    return PLUGIN_URL + pathname.slice(13);
+    return plugin.generateUrl(pathname.slice(13));
 };
 export const extractEmbed = matchPattern(actionEmbed,
     "*://www.dailymotion.com/embed/video/*");

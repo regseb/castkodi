@@ -1,17 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/labeller/dumpert.js";
+import * as labeller from "../../../../src/core/labeller/dumpert.js";
 
 describe("core/labeller/dumpert.js", function () {
     describe("extract()", function () {
-        it("should return null when there isn't 'video_page_url' parameter",
-                                                             async function () {
-            const url = new URL("plugin://plugin.video.dumpert/?foo=bar");
-
-            const label = await extract(url);
-            assert.strictEqual(label, null);
-        });
-
         it("should return video label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -21,10 +13,9 @@ describe("core/labeller/dumpert.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.dumpert/" +
-                                     "?video_page_url=http%3A%2F%2Ffoo.com%2F");
+            const videoUrl = new URL("http://foo.com/");
 
-            const label = await extract(url);
+            const label = await labeller.extract(videoUrl);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);

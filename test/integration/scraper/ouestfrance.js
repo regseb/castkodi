@@ -20,7 +20,7 @@ describe("Scraper: Ouest-France", function () {
 
         const file = await extract(url, options);
         assert.ok(file?.endsWith("/cd/be/cdbeda603ae5805ab0561403d5e1afabcd68" +
-                                                      "5162.mp4?mdtk=01124706"),
+                                                                    "5162.mp4"),
                   `"${file}"?.endsWith(...)`);
     });
 
@@ -32,7 +32,7 @@ describe("Scraper: Ouest-France", function () {
 
         const file = await extract(url, options);
         assert.ok(file?.endsWith("/d7/5d/d75df81c7abb517d514bff22ab74816fa86a" +
-                                                      "3850.mp4?mdtk=01124706"),
+                                                                    "3850.mp4"),
                   `"${file}"?.endsWith(...)`);
     });
 });

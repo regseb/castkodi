@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/flickr.js";
+import * as scraper from "../../../../src/core/scraper/flickr.js";
 
 describe("core/scraper/flickr.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://www.flickr.com/explore");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -20,7 +20,7 @@ describe("core/scraper/flickr.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -46,7 +46,7 @@ describe("core/scraper/flickr.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "https://baz.net/qux.mp4");
 
             assert.strictEqual(stub.callCount, 1);

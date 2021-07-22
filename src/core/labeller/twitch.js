@@ -3,33 +3,45 @@
  */
 /* eslint-disable require-await */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+/**
+ * Extrait le titre d'un <em>live</em> Twitch.
+ *
+ * @param {string} channelName L'identifiant du <em>live</em> Twitch.
+ * @returns {Promise<string>} Une promesse contenant le titre.
+ */
+export const extractLive = async function (channelName) {
+    // Consulter la page du live en passant par la version mobile car la version
+    // classique charge le contenu de la page en asynchrone avec des APIs.
+    const response = await fetch(`https://m.twitch.tv/${channelName}`);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
+    const title = doc.querySelector("title").textContent;
+    return title.slice(0, title.lastIndexOf(" - "));
+};
 
 /**
- * Extrait le titre d'un <em>live</em>, d'une vidéo, ou d'un clip Twitch.
+ * Extrait le titre d'une vidéo Twitch.
  *
- * @param {URL} url L'URL utilisant le plugin de Twitch.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @param {string} videoId L'identifiant de la vidéo Twitch.
+ * @returns {Promise<string>} Une promesse contenant le titre.
  */
-const action = async function ({ searchParams }) {
-    if (searchParams.has("channel_name") || searchParams.has("video_id")) {
-        // Consulter la page du live ou de la vidéo en passant par la version
-        // mobile car la version classique charge le contenu de la page en
-        // asynchrone avec des APIs.
-        const url = "https://m.twitch.tv/" +
-                    (searchParams.has("channel_name")
-                                    ? searchParams.get("channel_name")
-                                    : "videos/" + searchParams.get("video_id"));
-        const response = await fetch(url);
-        const text = await response.text();
-        const doc = new DOMParser().parseFromString(text, "text/html");
-        const title = doc.querySelector("title").textContent;
-        return title.slice(0, title.lastIndexOf(" - "));
-    }
-    if (searchParams.has("slug")) {
-        return searchParams.get("slug");
-    }
-    return null;
+export const extractVideo = async function (videoId) {
+    // Consulter la page de la vidéo en passant par la version mobile car la
+    // version classique charge le contenu de la page en asynchrone avec des
+    // APIs.
+    const response = await fetch(`https://m.twitch.tv/videos/${videoId}`);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
+    const title = doc.querySelector("title").textContent;
+    return title.slice(0, title.lastIndexOf(" - "));
 };
-export const extract = matchPattern(action, "plugin://plugin.video.twitch/*");
+
+/**
+ * Extrait le titre d'un clip Twitch.
+ *
+ * @param {string} clipId L'identifiant du clip Twitch.
+ * @returns {Promise<string>} Une promesse contenant le titre.
+ */
+export const extractClip = async function (clipId) {
+    return clipId;
+};

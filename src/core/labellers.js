@@ -2,22 +2,22 @@
  * @module
  */
 
-import * as dailymotion from "./labeller/dailymotion.js";
-import * as dumpert  from "./labeller/dumpert.js";
-import * as soundcloud from "./labeller/soundcloud.js";
-import * as twitch from "./labeller/twitch.js";
-import * as vimeo from "./labeller/vimeo.js";
-import * as vtmgo from "./labeller/vtmgo.js";
-import * as youtube from "./labeller/youtube.js";
+import * as dailymotion from "./plugin/dailymotion.js";
+import * as dumpert  from "./plugin/dumpert.js";
+import * as soundcloud from "./plugin/soundcloud.js";
+import * as twitch from "./plugin/twitch.js";
+import * as vimeo from "./plugin/vimeo.js";
+import * as vtmgo from "./plugin/vtmgo.js";
+import * as youtube from "./plugin/youtube.js";
 import { strip } from "./sanitizer.js";
 
 /**
- * La liste des étiqueteuses (retournant le label extrait ou <code>null</code>).
+ * La liste des fonctions des extensions de Kodi retournant le label d'une URL.
  *
  * @type {Function[]}
  */
-const LABELLERS = [
-    // Lister les étiqueteuses (triées par ordre alphabétique).
+const PLUGINS = [
+    // Lister les extensions de Kodi (triées par ordre alphabétique).
     dailymotion,
     dumpert,
     soundcloud,
@@ -25,7 +25,9 @@ const LABELLERS = [
     vimeo,
     vtmgo,
     youtube,
-].flatMap((l) => Object.values(l));
+].flatMap((p) => Object.entries(p)
+                       .filter(([n]) => n.startsWith("extract"))
+                       .map(([_, f]) => f));
 
 /**
  * Complète un élément de la liste de lecture avec un label.
@@ -39,8 +41,8 @@ const LABELLERS = [
 export const complete = async function (item) {
     const url = new URL(item.file.startsWith("/") ? "file:/" + item.file
                                                   : item.file);
-    for (const labeller of LABELLERS) {
-        const label = await labeller(url);
+    for (const extract of PLUGINS) {
+        const label = await extract(url);
         if (null !== label) {
             return { ...item, label };
         }

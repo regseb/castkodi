@@ -1,14 +1,13 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extractBroadcast, extractGame }
-                                   from "../../../../src/core/scraper/steam.js";
+import * as scraper from "../../../../src/core/scraper/steam.js";
 
 describe("core/scraper/steam.js", function () {
     describe("extractGame()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://store.steampowered.com/stats/");
 
-            const file = await extractGame(url);
+            const file = await scraper.extractGame(url);
             assert.strictEqual(file, null);
         });
 
@@ -21,7 +20,7 @@ describe("core/scraper/steam.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractGame(url, content);
+            const file = await scraper.extractGame(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -37,7 +36,7 @@ describe("core/scraper/steam.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractGame(url, content);
+            const file = await scraper.extractGame(url, content);
             assert.strictEqual(file, "https://foo.com/bar.mp4");
         });
     });
@@ -51,7 +50,7 @@ describe("core/scraper/steam.js", function () {
             const url = new URL("https://steamcommunity.com/broadcast/watch" +
                                                                         "/foo");
 
-            const file = await extractBroadcast(url);
+            const file = await scraper.extractBroadcast(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -72,7 +71,7 @@ describe("core/scraper/steam.js", function () {
             const url = new URL("https://steamcommunity.com/broadcast/watch" +
                                                                         "/foo");
 
-            const file = await extractBroadcast(url);
+            const file = await scraper.extractBroadcast(url);
             assert.strictEqual(file, "https://bar.com/baz.mp4");
 
             assert.strictEqual(stub.callCount, 1);

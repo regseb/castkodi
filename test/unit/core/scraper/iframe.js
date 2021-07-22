@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/iframe.js";
+import * as scraper from "../../../../src/core/scraper/iframe.js";
 
 describe("core/scraper/iframe.js", function () {
     describe("extract()", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/iframe.js", function () {
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -25,7 +25,7 @@ describe("core/scraper/iframe.js", function () {
             };
             const options = { depth: true };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -39,7 +39,7 @@ describe("core/scraper/iframe.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -56,7 +56,7 @@ describe("core/scraper/iframe.js", function () {
             };
             const options = { depth: false, incognito: true };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/?video_id=baz" +
                                                    "&incognito=true");
@@ -75,7 +75,7 @@ describe("core/scraper/iframe.js", function () {
             };
             const options = { depth: false, incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/?video_id=foo" +
                                                             "&incognito=false");

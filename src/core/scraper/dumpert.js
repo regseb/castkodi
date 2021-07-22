@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des vidéos issues de Dumpert.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.dumpert/?action=play&video_page_url=";
+import * as plugin from "../plugin/dumpert.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -19,8 +13,8 @@ const PLUGIN_URL = "plugin://plugin.video.dumpert/?action=play&video_page_url=";
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ href }) {
-    return PLUGIN_URL + encodeURIComponent(href);
+const action = async function (url) {
+    return plugin.generateUrl(url);
 };
 export const extract = matchPattern(action,
     "*://www.dumpert.nl/item/*",

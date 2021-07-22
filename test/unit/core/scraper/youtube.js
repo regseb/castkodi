@@ -1,6 +1,5 @@
 import assert from "node:assert";
-import { extractEmbed, extractMinify, extractPlaylist, extractVideo }
-                                 from "../../../../src/core/scraper/youtube.js";
+import * as scraper from "../../../../src/core/scraper/youtube.js";
 
 describe("core/scraper/youtube.js", function () {
     describe("extractVideo()", function () {
@@ -9,7 +8,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -20,7 +19,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
 
             browser.storage.local.clear();
@@ -36,7 +35,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                               "?playlist_id=bar&order=&play=1&incognito=false");
@@ -54,7 +53,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                        "?playlist_id=bar&order=default&play=1&incognito=false");
@@ -69,7 +68,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: true };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
@@ -85,7 +84,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
@@ -100,7 +99,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: true };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
@@ -116,7 +115,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
 
             browser.storage.local.clear();
@@ -129,7 +128,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
@@ -145,7 +144,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
 
             browser.storage.local.clear();
@@ -159,7 +158,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: true };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
@@ -174,7 +173,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
@@ -189,7 +188,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: true };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
@@ -206,7 +205,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractPlaylist(url, content, options);
+            const file = await scraper.extractPlaylist(url, content, options);
             assert.strictEqual(file, null);
 
             browser.storage.local.clear();
@@ -219,7 +218,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractPlaylist(url, content, options);
+            const file = await scraper.extractPlaylist(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                               "?playlist_id=foo&order=&play=1&incognito=false");
@@ -234,7 +233,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractPlaylist(url, content, options);
+            const file = await scraper.extractPlaylist(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                        "?playlist_id=foo&order=shuffle&play=1&incognito=false");
@@ -252,7 +251,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractPlaylist(url, content, options);
+            const file = await scraper.extractPlaylist(url, content, options);
             assert.strictEqual(file, null);
 
             browser.storage.local.clear();
@@ -265,7 +264,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: true };
 
-            const file = await extractPlaylist(url, content, options);
+            const file = await scraper.extractPlaylist(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                         "?playlist_id=foo&order=reverse&play=1&incognito=true");
@@ -280,7 +279,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractEmbed(url, content, options);
+            const file = await scraper.extractEmbed(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
@@ -291,7 +290,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: true };
 
-            const file = await extractEmbed(url, content, options);
+            const file = await scraper.extractEmbed(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
@@ -302,7 +301,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractEmbed(url, content, options);
+            const file = await scraper.extractEmbed(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
@@ -313,7 +312,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: true };
 
-            const file = await extractEmbed(url, content, options);
+            const file = await scraper.extractEmbed(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
@@ -326,7 +325,7 @@ describe("core/scraper/youtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extractMinify(url, content, options);
+            const file = await scraper.extractMinify(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");

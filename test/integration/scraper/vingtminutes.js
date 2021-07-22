@@ -19,7 +19,7 @@ describe("Scraper: 20 Minutes", function () {
 
         const file = await extract(url, options);
         assert.ok(file?.endsWith("/59/6b/596b282e57e592e47df9a6f0434f3281f82b" +
-                                                      "79df.mp4?mdtk=01357940"),
+                                                                    "79df.mp4"),
                   `"${file}"?.endsWith(...)`);
     });
 });

@@ -1,6 +1,5 @@
 import assert from "node:assert";
-import { extractAudio, extractVideo, extractYandex }
-                               from "../../../../src/core/scraper/opengraph.js";
+import * as scraper from "../../../../src/core/scraper/opengraph.js";
 
 describe("core/scraper/opengraph.js", function () {
     describe("extractVideo()", function () {
@@ -9,7 +8,7 @@ describe("core/scraper/opengraph.js", function () {
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -23,7 +22,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -40,7 +39,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -59,7 +58,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -77,7 +76,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, "http://bar.com/baz.mkv");
         });
 
@@ -95,7 +94,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: true };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -113,7 +112,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false, incognito: true };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/?video_id=foo" +
                                                    "&incognito=true");
@@ -126,7 +125,7 @@ describe("core/scraper/opengraph.js", function () {
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: false };
 
-            const file = await extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -140,7 +139,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -157,7 +156,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -176,7 +175,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -194,7 +193,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, content, options);
             assert.strictEqual(file, "http://bar.com/baz.wav");
         });
 
@@ -212,7 +211,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: true };
 
-            const file = await extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -230,7 +229,7 @@ describe("core/scraper/opengraph.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F");
         });
@@ -241,7 +240,7 @@ describe("core/scraper/opengraph.js", function () {
             const url = new URL("https://foo.com");
             const content = { html: () => Promise.resolve(null) };
 
-            const file = await extractYandex(url, content);
+            const file = await scraper.extractYandex(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -254,7 +253,7 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractYandex(url, content);
+            const file = await scraper.extractYandex(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -270,7 +269,7 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractYandex(url, content);
+            const file = await scraper.extractYandex(url, content);
             assert.strictEqual(file, "https://bar.com/baz.avi");
         });
     });

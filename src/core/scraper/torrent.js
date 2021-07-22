@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension Elementum pour lire des torrents ou des magnets.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.elementum/play?uri=";
+import * as plugin from "../plugin/elementum.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -19,7 +13,7 @@ const PLUGIN_URL = "plugin://plugin.video.elementum/play?uri=";
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ href }) {
-    return PLUGIN_URL + encodeURIComponent(href);
+const action = async function (url) {
+    return plugin.generateUrl(url);
 };
 export const extract = matchPattern(action, "*://*/*.torrent", "magnet:*");

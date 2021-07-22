@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des vidéos issues de VTM GO.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog/";
+import * as plugin from "../plugin/vtmgo.js";
 
 /**
  * Extrait les informations nécessaire pour lire un épisode sur Kodi.
@@ -20,7 +14,7 @@ const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog/";
  *                            <em>fichier</em>.
  */
 const actionEpisode = async function ({ pathname }) {
-    return PLUGIN_URL + "episodes/" + pathname.slice(17);
+    return plugin.generateEpisodeUrl(pathname.slice(17));
 };
 
 export const extractEpisode = matchPattern(actionEpisode,
@@ -35,7 +29,7 @@ export const extractEpisode = matchPattern(actionEpisode,
  *                            <em>fichier</em>.
  */
 const actionMovie = async function ({ pathname }) {
-    return PLUGIN_URL + "movies/" + pathname.slice(17);
+    return plugin.generateMovieUrl(pathname.slice(17));
 };
 
 export const extractMovie = matchPattern(actionMovie,
@@ -50,7 +44,7 @@ export const extractMovie = matchPattern(actionMovie,
  *                            <em>fichier</em>.
  */
 const actionMoviePage = async function ({ pathname }) {
-    return PLUGIN_URL + "movies/" + pathname.slice(pathname.indexOf("~m") + 2);
+    return plugin.generateMovieUrl(pathname.slice(pathname.indexOf("~m") + 2));
 };
 
 export const extractMoviePage = matchPattern(actionMoviePage,
@@ -71,7 +65,7 @@ const actionChannel = async function (_url, content) {
     const doc = await content.html();
     const div = doc.querySelector("div.fjs-player[data-id]");
     return null === div ? null
-                        : PLUGIN_URL + "channels/" + div.dataset.id;
+                        : plugin.generateChannelUrl(div.dataset.id);
 };
 export const extractChannel = matchPattern(actionChannel,
     "*://vtm.be/vtmgo/live-kijken/*",

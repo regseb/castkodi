@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/video.js";
+import * as scraper from "../../../../src/core/scraper/video.js";
 
 describe("core/scraper/video.js", function () {
     describe("extract()", function () {
@@ -7,7 +7,7 @@ describe("core/scraper/video.js", function () {
             const url = new URL("https://foo.com");
             const content = { html: () => Promise.resolve(null) };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -20,7 +20,7 @@ describe("core/scraper/video.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -35,7 +35,7 @@ describe("core/scraper/video.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -50,7 +50,7 @@ describe("core/scraper/video.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "https://foo.com/bar.mp4");
         });
     });

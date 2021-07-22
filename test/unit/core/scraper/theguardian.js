@@ -1,6 +1,5 @@
 import assert from "node:assert";
-import { extractAudio, extractVideo }
-                             from "../../../../src/core/scraper/theguardian.js";
+import * as scraper from "../../../../src/core/scraper/theguardian.js";
 
 describe("core/scraper/theguardian.js", function () {
     describe("extractVideo()", function () {
@@ -8,7 +7,7 @@ describe("core/scraper/theguardian.js", function () {
             const url = new URL("https://support.theguardian.com/eu" +
                                                                  "/contribute");
 
-            const file = await extractVideo(url);
+            const file = await scraper.extractVideo(url);
             assert.strictEqual(file, null);
         });
 
@@ -22,7 +21,7 @@ describe("core/scraper/theguardian.js", function () {
             };
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -39,7 +38,7 @@ describe("core/scraper/theguardian.js", function () {
             };
             const options = { incognito: false };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
@@ -58,7 +57,7 @@ describe("core/scraper/theguardian.js", function () {
             };
             const options = { incognito: true };
 
-            const file = await extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
@@ -70,7 +69,7 @@ describe("core/scraper/theguardian.js", function () {
             const url = new URL("https://support.theguardian.com/eu" +
                                                                  "/contribute");
 
-            const file = await extractAudio(url);
+            const file = await scraper.extractAudio(url);
             assert.strictEqual(file, null);
         });
 
@@ -83,7 +82,7 @@ describe("core/scraper/theguardian.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractAudio(url, content);
+            const file = await scraper.extractAudio(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -99,7 +98,7 @@ describe("core/scraper/theguardian.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractAudio(url, content);
+            const file = await scraper.extractAudio(url, content);
             assert.strictEqual(file, "https://foo.com/bar.mp3");
         });
     });

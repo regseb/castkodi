@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/noscript.js";
+import * as scraper from "../../../../src/core/scraper/noscript.js";
 
 describe("core/scraper/noscript.js", function () {
     describe("extract()", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/noscript.js", function () {
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -22,7 +22,7 @@ describe("core/scraper/noscript.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -36,7 +36,7 @@ describe("core/scraper/noscript.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -54,7 +54,7 @@ describe("core/scraper/noscript.js", function () {
             };
             const options = { depth: false, incognito: true };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, "https://baz.org/qux.mp4");
         });
 
@@ -75,7 +75,7 @@ describe("core/scraper/noscript.js", function () {
             };
             const options = { depth: false, incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, "https://qux.org/quxx.mp3");
         });
     });

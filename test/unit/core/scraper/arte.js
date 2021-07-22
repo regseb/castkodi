@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/arte.js";
+import * as scraper from "../../../../src/core/scraper/arte.js";
 
 describe("core/scraper/arte.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://www.arte.tv/fr/guide/");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -20,7 +20,7 @@ describe("core/scraper/arte.js", function () {
 
             const url = new URL("https://www.arte.tv/de/videos/foo/bar");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -54,7 +54,7 @@ describe("core/scraper/arte.js", function () {
 
             const url = new URL("https://www.arte.tv/fr/videos/foo/bar");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, "https://qux.tv/quux.mp4");
 
             assert.strictEqual(stub.callCount, 1);

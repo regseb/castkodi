@@ -4,6 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
+import * as plugin from "../plugin/dailymotion.js";
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
 
@@ -36,10 +37,7 @@ const action = async function (_url, content, options) {
 
     const div = doc.querySelector(`div[data-provider="dailymotion"]`);
     if (null !== div) {
-        return metaExtract(
-            new URL(div.dataset.id, "https://www.dailymotion.com/embed/video/"),
-            { ...options, depth: true },
-        );
+        return plugin.generateUrl(div.dataset.id);
     }
 
     const blockquote = doc.querySelector("blockquote.tiktok-embed");

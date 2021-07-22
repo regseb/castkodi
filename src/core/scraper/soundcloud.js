@@ -4,23 +4,17 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
+import * as plugin from "../plugin/soundcloud.js";
 
 /**
- * L'URL de l'extension pour lire des sons issus de SoundCloud.
+ * Extrait les informations nécessaire pour lire une musique sur Kodi.
  *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?url=";
-
-/**
- * Extrait les informations nécessaire pour lire un son sur Kodi.
- *
- * @param {URL} url L'URL d'un son SoundCloud.
+ * @param {URL} url L'URL d'une musique SoundCloud.
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ href }) {
-    return PLUGIN_URL + encodeURIComponent(href);
+const action = async function (url) {
+    return plugin.generateUrl(url);
 };
 export const extract = matchPattern(action,
     "*://soundcloud.com/*",

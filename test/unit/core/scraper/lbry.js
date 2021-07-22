@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/lbry.js";
+import * as scraper from "../../../../src/core/scraper/lbry.js";
 
 describe("core/scraper/lbry.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://lbry.tech/");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -19,7 +19,7 @@ describe("core/scraper/lbry.js", function () {
 
             const url = new URL("https://lbry.tv/foo");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -56,7 +56,7 @@ describe("core/scraper/lbry.js", function () {
 
             const url = new URL("https://lbry.tv/foo:0/bar:1");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, "https://baz.com/");
 
             assert.strictEqual(stub.callCount, 1);
@@ -93,7 +93,7 @@ describe("core/scraper/lbry.js", function () {
 
             const url = new URL("https://lbry.tv/$/embed/foo/bar");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, "https://baz.com/");
 
             assert.strictEqual(stub.callCount, 1);

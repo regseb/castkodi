@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des vidéos issues de Vimeo.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
+import * as plugin from "../plugin/vimeo.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi. Seul les
@@ -23,6 +17,6 @@ const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
                               <em>fichier</em>.
  */
 const action = async function ({ pathname }) {
-    return PLUGIN_URL + pathname.slice(7);
+    return plugin.generateUrl(pathname.slice(7));
 };
 export const extract = matchPattern(action, "*://player.vimeo.com/video/*");

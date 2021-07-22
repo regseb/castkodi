@@ -1,12 +1,12 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/lepoint.js";
+import * as scraper from "../../../../src/core/scraper/lepoint.js";
 
 describe("core/scraper/lepoint.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://moncompte.lepoint.fr/");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -20,7 +20,7 @@ describe("core/scraper/lepoint.js", function () {
             };
             const options = { depth: false, incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -37,7 +37,7 @@ describe("core/scraper/lepoint.js", function () {
             };
             const options = { depth: true, incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -54,7 +54,7 @@ describe("core/scraper/lepoint.js", function () {
             };
             const options = { depth: false, incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/?video_id=baz" +
                                                             "&incognito=false");

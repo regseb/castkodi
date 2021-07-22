@@ -1,12 +1,12 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/kcaastreaming.js";
+import * as scraper from "../../../../src/core/scraper/kcaastreaming.js";
 
 describe("core/scraper/kcaastreaming.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("http://www.kcaaradio.com/");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -25,7 +25,7 @@ describe("core/scraper/kcaastreaming.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "http://foo.com/bar.mp3");
         });
     });

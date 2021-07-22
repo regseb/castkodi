@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des vidéos issues de Dailymotion.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
+import * as plugin from "../plugin/dailymotion.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -26,7 +20,7 @@ const action = async function (_url, content) {
     const doc = await content.html();
     const video = doc.querySelector(".js-dailymotion-video[data-id]");
     return null === video ? null
-                          : PLUGIN_URL + video.dataset.id;
+                          : plugin.generateUrl(video.dataset.id);
 };
 export const extract = matchPattern(action,
     "*://www.gamekult.com/*",

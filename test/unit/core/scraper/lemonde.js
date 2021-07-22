@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/lemonde.js";
+import * as scraper from "../../../../src/core/scraper/lemonde.js";
 
 describe("core/scraper/lemonde.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://journal.lemonde.fr/");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -26,7 +26,7 @@ describe("core/scraper/lemonde.js", function () {
             };
             const options = { depth: true };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -41,7 +41,7 @@ describe("core/scraper/lemonde.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -60,7 +60,7 @@ describe("core/scraper/lemonde.js", function () {
             };
             const options = { depth: false, incognito: true };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/?video_id=bar" +
                                                    "&incognito=true");
@@ -78,7 +78,7 @@ describe("core/scraper/lemonde.js", function () {
             };
             const options = { depth: false, incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                       "&url=bar");
@@ -118,7 +118,7 @@ describe("core/scraper/lemonde.js", function () {
             };
             const options = { depth: false, incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, "https://baz.fr/qux.mp4");
 
             assert.strictEqual(stub.callCount, 1);

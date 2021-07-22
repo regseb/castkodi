@@ -1,20 +1,19 @@
 import assert from "node:assert";
-import { extractChannel, extractEpisode, extractMovie, extractMoviePage }
-                                   from "../../../../src/core/scraper/vtmgo.js";
+import * as scraper from "../../../../src/core/scraper/vtmgo.js";
 
 describe("core/scraper/vtmgo.js", function () {
     describe("extractEpisode()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://foo.be");
 
-            const file = await extractEpisode(url);
+            const file = await scraper.extractEpisode(url);
             assert.strictEqual(file, null);
         });
 
         it("should return video UUID", async function () {
             const url = new URL("http://vtm.be/vtmgo/afspelen/efoo");
 
-            const file = await extractEpisode(url);
+            const file = await scraper.extractEpisode(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.vtm.go/play/catalog/episodes/foo");
         });
@@ -22,7 +21,7 @@ describe("core/scraper/vtmgo.js", function () {
         it("should return video UUID with 'www'", async function () {
             const url = new URL("http://www.vtm.be/vtmgo/afspelen/efoo");
 
-            const file = await extractEpisode(url);
+            const file = await scraper.extractEpisode(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.vtm.go/play/catalog/episodes/foo");
         });
@@ -32,14 +31,14 @@ describe("core/scraper/vtmgo.js", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://foo.be");
 
-            const file = await extractMovie(url);
+            const file = await scraper.extractMovie(url);
             assert.strictEqual(file, null);
         });
 
         it("should return video UUID", async function () {
             const url = new URL("http://vtm.be/vtmgo/afspelen/mfoo");
 
-            const file = await extractMovie(url);
+            const file = await scraper.extractMovie(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/foo");
         });
@@ -47,7 +46,7 @@ describe("core/scraper/vtmgo.js", function () {
         it("should return video UUID with 'www'", async function () {
             const url = new URL("http://www.vtm.be/vtmgo/afspelen/mfoo");
 
-            const file = await extractMovie(url);
+            const file = await scraper.extractMovie(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/foo");
         });
@@ -57,14 +56,14 @@ describe("core/scraper/vtmgo.js", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://foo.be");
 
-            const file = await extractMoviePage(url);
+            const file = await scraper.extractMoviePage(url);
             assert.strictEqual(file, null);
         });
 
         it("should return video UUID", async function () {
             const url = new URL("https://vtm.be/vtmgo/foo~mbar");
 
-            const file = await extractMoviePage(url);
+            const file = await scraper.extractMoviePage(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/bar");
         });
@@ -72,7 +71,7 @@ describe("core/scraper/vtmgo.js", function () {
         it("should return video UUID with 'www'", async function () {
             const url = new URL("https://www.vtm.be/vtmgo/foo~mbar");
 
-            const file = await extractMoviePage(url);
+            const file = await scraper.extractMoviePage(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/bar");
         });
@@ -82,7 +81,7 @@ describe("core/scraper/vtmgo.js", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://foo.be");
 
-            const file = await extractChannel(url);
+            const file = await scraper.extractChannel(url);
             assert.strictEqual(file, null);
         });
 
@@ -95,7 +94,7 @@ describe("core/scraper/vtmgo.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractChannel(url, content);
+            const file = await scraper.extractChannel(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -110,7 +109,7 @@ describe("core/scraper/vtmgo.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extractChannel(url, content);
+            const file = await scraper.extractChannel(url, content);
             assert.strictEqual(file,
                 "plugin://plugin.video.vtm.go/play/catalog/channels/bar");
         });

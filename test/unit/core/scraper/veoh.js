@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/veoh.js";
+import * as scraper from "../../../../src/core/scraper/veoh.js";
 
 describe("core/scraper/veoh.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://www.veoh.com/list-c/foo");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -18,7 +18,7 @@ describe("core/scraper/veoh.js", function () {
 
             const url = new URL("https://www.veoh.com/watch/foo");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -36,7 +36,7 @@ describe("core/scraper/veoh.js", function () {
 
             const url = new URL("https://www.veoh.com/watch/foo");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -57,7 +57,7 @@ describe("core/scraper/veoh.js", function () {
 
             const url = new URL("https://www.veoh.com/watch/foo");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, "https://foo.com/bar.mp4");
 
             assert.strictEqual(stub.callCount, 1);

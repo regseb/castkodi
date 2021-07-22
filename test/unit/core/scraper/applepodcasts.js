@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/applepodcasts.js";
+import * as scraper from "../../../../src/core/scraper/applepodcasts.js";
 
 describe("core/scraper/applepodcasts.js", function () {
     describe("extract()", function () {
@@ -7,7 +7,7 @@ describe("core/scraper/applepodcasts.js", function () {
             const url = new URL("https://podcasts.apple.com/us/artist" +
                                                       "/arte-radio/1251092473");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -20,7 +20,7 @@ describe("core/scraper/applepodcasts.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -46,7 +46,7 @@ describe("core/scraper/applepodcasts.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "https://foo.fr/bar.mp3");
         });
     });

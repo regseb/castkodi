@@ -1,20 +1,20 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/bigo.js";
+import * as scraper from "../../../../src/core/scraper/bigo.js";
 
 describe("core/scraper/bigo.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://www.bigo.sg/");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
         it("should return null when it's not an id", async function () {
             const url = new URL("https://www.bigo.tv/foo");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -25,7 +25,7 @@ describe("core/scraper/bigo.js", function () {
 
             const url = new URL("https://www.bigo.tv/123");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -45,7 +45,7 @@ describe("core/scraper/bigo.js", function () {
 
             const url = new URL("http://www.bigo.tv/123");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, "http://foo.tv/bar.m3u8");
 
             assert.strictEqual(stub.callCount, 1);
@@ -65,7 +65,7 @@ describe("core/scraper/bigo.js", function () {
 
             const url = new URL("http://www.bigo.tv/ab/123");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, "http://foo.tv/bar.m3u8");
 
             assert.strictEqual(stub.callCount, 1);

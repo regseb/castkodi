@@ -11,14 +11,14 @@ describe("Scraper: StarGR", function () {
     });
 
     it("should return video URL", async function () {
-        const url = new URL("https://www.star.gr/video/lifestyle/viral/538100");
+        const url = new URL("https://www.star.gr/video/lifestyle/viral/549561" +
+                                    "/ayto-einai-to-pshlotero-kastro-apo-ammo");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.startsWith("https://cdnapisec.kaltura.com/p/713821/sp" +
-                         "/0/playManifest/entryId/1_n0gatj56/format/applehttp" +
-                               "/protocol/https/flavorParamId/0/manifest.m3u8"),
-                  `"${file}"?.startsWith(...)`);
+        assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp/0" +
+                           "/playManifest/entryId/1_dy97qz9k/format/applehttp" +
+                               "/protocol/https/flavorParamId/0/manifest.m3u8");
     });
 
     it("should return video URL from StarTV", async function () {
@@ -27,23 +27,21 @@ describe("Scraper: StarGR", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.startsWith("https://cdnapisec.kaltura.com/p/713821/sp" +
+        assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp" +
                          "/0/playManifest/entryId/1_uscdf5as/format/applehttp" +
-                               "/protocol/https/flavorParamId/0/manifest.m3u8"),
-                  `"${file}"?.startsWith(...)`);
+                               "/protocol/https/flavorParamId/0/manifest.m3u8");
     });
 
     it("should return video URL from StarTV when protocol is HTTP",
                                                              async function () {
-        const url = new URL("http://www.star.gr/tv/psychagogia" +
-                              "/sti-folia-ton-kou-kou/bolonez-garidas-932021/");
+        const url = new URL("http://www.star.gr/tv/psychagogia/globetrotters" +
+               "/to-neo-taxidiotiko-paihnidi-tou-star-globetrotters-xekinaei/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.startsWith("https://cdnapisec.kaltura.com/p/713821/sp" +
-                         "/0/playManifest/entryId/1_ocn00cdc/format/applehttp" +
-                               "/protocol/https/flavorParamId/0/manifest.m3u8"),
-                  `"${file}"?.startsWith(...)`);
+        assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp/0" +
+                           "/playManifest/entryId/1_p9vdk3nq/format/applehttp" +
+                               "/protocol/https/flavorParamId/0/manifest.m3u8");
     });
 
     it("should return video id [stargr-youtube]", async function () {
@@ -52,8 +50,7 @@ describe("Scraper: StarGR", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.startsWith("plugin://plugin.video.youtube/play/" +
-                                       "?video_id=p9DYioRLAXE&incognito=false"),
-                  `"${file}"?.startsWith(...)`);
+        assert.strictEqual(file, "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=p9DYioRLAXE&incognito=false");
     });
 });

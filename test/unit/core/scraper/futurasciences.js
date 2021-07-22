@@ -1,12 +1,12 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/futurasciences.js";
+import * as scraper from "../../../../src/core/scraper/futurasciences.js";
 
 describe("core/scraper/futurasciences.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://cdn.futura-sciences.com/");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -15,7 +15,7 @@ describe("core/scraper/futurasciences.js", function () {
             const content = { html: () => Promise.resolve(null) };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -29,7 +29,7 @@ describe("core/scraper/futurasciences.js", function () {
             };
             const options = { depth: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -45,7 +45,7 @@ describe("core/scraper/futurasciences.js", function () {
             };
             const options = { depth: false, incognito: true };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/" +
                                                      "?mode=playVideo&url=bar");
@@ -65,7 +65,7 @@ describe("core/scraper/futurasciences.js", function () {
             };
             const options = { depth: false, incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/" +
                                                     "?mode=playVideo&url=quux");
@@ -84,7 +84,7 @@ describe("core/scraper/futurasciences.js", function () {
             };
             const options = { depth: false, incognito: true };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/" +
                                                      "?mode=playVideo&url=bar");

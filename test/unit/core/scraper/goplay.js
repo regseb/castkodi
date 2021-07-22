@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/goplay.js";
+import * as scraper from "../../../../src/core/scraper/goplay.js";
 
 describe("core/scraper/goplay.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://www.goplay.be/profiel");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -20,7 +20,7 @@ describe("core/scraper/goplay.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -41,7 +41,7 @@ describe("core/scraper/goplay.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "http://foo.be/bar.mp4");
 
             assert.strictEqual(stub.callCount, 1);

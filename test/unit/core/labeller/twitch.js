@@ -1,16 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/labeller/twitch.js";
+import * as labeller from "../../../../src/core/labeller/twitch.js";
 
 describe("core/labeller/twitch.js", function () {
-    describe("extract()", function () {
-        it("should return null when there isn't parameter", async function () {
-            const url = new URL("plugin://plugin.video.twitch/");
-
-            const label = await extract(url);
-            assert.strictEqual(label, null);
-        });
-
+    describe("extractLive()", function () {
         it("should return live label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -20,10 +13,9 @@ describe("core/labeller/twitch.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.twitch/" +
-                                                           "?channel_name=foo");
+            const channelName = "foo";
 
-            const label = await extract(url);
+            const label = await labeller.extractLive(channelName);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
@@ -33,7 +25,9 @@ describe("core/labeller/twitch.js", function () {
 
             stub.restore();
         });
+    });
 
+    describe("extractVideo()", function () {
         it("should return video label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -43,9 +37,9 @@ describe("core/labeller/twitch.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.twitch/?video_id=foo");
+            const videoId = "foo";
 
-            const label = await extract(url);
+            const label = await labeller.extractVideo(videoId);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
@@ -55,12 +49,14 @@ describe("core/labeller/twitch.js", function () {
 
             stub.restore();
         });
+    });
 
+    describe("extractClip()", function () {
         it("should return clip label", async function () {
-            const url = new URL("plugin://plugin.video.twitch/?slug=foo");
+            const clipId = "foo";
 
-            const label = await extract(url);
-            assert.strictEqual(label, "foo");
+            const label = await labeller.extractClip(clipId);
+            assert.strictEqual(label, clipId);
         });
     });
 });

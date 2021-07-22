@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/onetv.js";
+import * as scraper from "../../../../src/core/scraper/onetv.js";
 
 describe("core/scraper/onetv.js", function () {
     describe("extract()", function () {
@@ -13,7 +13,7 @@ describe("core/scraper/onetv.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -32,7 +32,7 @@ describe("core/scraper/onetv.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "https://qux.com/quux.avi");
 
             assert.strictEqual(stub.callCount, 1);
@@ -51,7 +51,7 @@ describe("core/scraper/onetv.js", function () {
             const url = new URL("https://www.1tv.ru/embed/foo:bar");
             const content = undefined;
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "https://baz.com/qux.avi");
 
             assert.strictEqual(stub.callCount, 1);

@@ -1,17 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/labeller/vimeo.js";
+import * as labeller from "../../../../src/core/labeller/vimeo.js";
 
 describe("core/labeller/vimeo.js", function () {
     describe("extract()", function () {
-        it("should return null when there isn't 'video_id' parameter",
-                                                             async function () {
-            const url = new URL("plugin://plugin.video.vimeo/play/?foo=bar");
-
-            const label = await extract(url);
-            assert.strictEqual(label, null);
-        });
-
         it("should return video label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -21,10 +13,9 @@ describe("core/labeller/vimeo.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.vimeo/play/" +
-                                                               "?video_id=foo");
+            const videoId = "foo";
 
-            const label = await extract(url);
+            const label = await labeller.extract(videoId);
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);

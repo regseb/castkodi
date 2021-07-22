@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des vidéos issues de YouTube.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
+import * as plugin from "../plugin/youtube.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo / playlist sur Kodi.
@@ -25,19 +19,14 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
  *                             <em>fichier</em> ou <code>null</code>.
  */
 const actionVideo = async function ({ searchParams }, _content, { incognito }) {
-    const config = await browser.storage.local.get([
-        "youtube-playlist", "youtube-order",
-    ]);
+    const config = await browser.storage.local.get(["youtube-playlist"]);
     if (searchParams.has("list") &&
             ("playlist" === config["youtube-playlist"] ||
              !searchParams.has("v"))) {
-        return PLUGIN_URL + "?playlist_id=" + searchParams.get("list") +
-                            "&order=" + config["youtube-order"] +
-                            "&play=1&incognito=" + incognito.toString();
+        return plugin.generatePlaylistUrl(searchParams.get("list"), incognito);
     }
     if (searchParams.has("v")) {
-        return PLUGIN_URL + "?video_id=" + searchParams.get("v") +
-                            "&incognito=" + incognito.toString();
+        return plugin.generateVideoUrl(searchParams.get("v"), incognito);
     }
 
     return null;
@@ -61,12 +50,9 @@ export const extractVideo = matchPattern(actionVideo,
 const actionPlaylist = async function ({ searchParams },
                                        _content,
                                        { incognito }) {
-    const config = await browser.storage.local.get(["youtube-order"]);
     return searchParams.has("list")
-                     ? PLUGIN_URL + "?playlist_id=" + searchParams.get("list") +
-                                    "&order=" + config["youtube-order"] +
-                                    "&play=1&incognito=" + incognito.toString()
-                     : null;
+               ? plugin.generatePlaylistUrl(searchParams.get("list"), incognito)
+               : null;
 };
 export const extractPlaylist = matchPattern(actionPlaylist,
     "*://*.youtube.com/playlist*");
@@ -84,8 +70,7 @@ export const extractPlaylist = matchPattern(actionPlaylist,
  *                            <em>fichier</em>.
  */
 const actionEmbed = async function ({ pathname }, _content, { incognito }) {
-    return PLUGIN_URL + "?video_id=" + pathname.slice(7) +
-                        "&incognito=" + incognito.toString();
+    return plugin.generateVideoUrl(pathname.slice(7), incognito);
 };
 export const extractEmbed = matchPattern(actionEmbed,
     "*://www.youtube.com/embed/*",
@@ -105,7 +90,6 @@ export const extractEmbed = matchPattern(actionEmbed,
  *                            <em>fichier</em>.
  */
 const actionMinify = async function ({ pathname }, _content, { incognito }) {
-    return PLUGIN_URL + "?video_id=" + pathname.slice(1) +
-                        "&incognito=" + incognito.toString();
+    return plugin.generateVideoUrl(pathname.slice(1), incognito);
 };
 export const extractMinify = matchPattern(actionMinify, "*://youtu.be/*");

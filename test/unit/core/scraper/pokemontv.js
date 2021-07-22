@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extract } from "../../../../src/core/scraper/pokemontv.js";
+import * as scraper from "../../../../src/core/scraper/pokemontv.js";
 
 describe("core/scraper/pokemontv.js", function () {
     describe("extract()", function () {
@@ -8,14 +8,14 @@ describe("core/scraper/pokemontv.js", function () {
             const url = new URL("ihttps://watch.pokemon.com/fr-fr/#/season" +
                                             "?id=la-serie-pokemon-les-voyages");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
         it("should return null when video is unavailable", async function () {
             const url = new URL("https://watch.pokemon.com/fr-fr/#/player?");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -41,7 +41,7 @@ describe("core/scraper/pokemontv.js", function () {
             const url = new URL("https://watch.pokemon.com/fr-fr/#/player" +
                                                                      "?id=bar");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, "http://bar.fr");
 
             assert.strictEqual(stub.callCount, 1);
@@ -68,7 +68,7 @@ describe("core/scraper/pokemontv.js", function () {
             const url = new URL("https://watch.pokemon.com/en-gb/#/player" +
                                                                      "?id=foo");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, "http://foo.co.uk");
 
             assert.strictEqual(stub.callCount, 1);
@@ -95,7 +95,7 @@ describe("core/scraper/pokemontv.js", function () {
             const url = new URL("https://watch.pokemon.com/en-us/#/player" +
                                                                      "?id=bar");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);

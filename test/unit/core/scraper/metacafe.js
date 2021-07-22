@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/metacafe.js";
+import * as scraper from "../../../../src/core/scraper/metacafe.js";
 
 describe("core/scraper/metacafe.js", function () {
     describe("extract()", function () {
@@ -7,7 +7,7 @@ describe("core/scraper/metacafe.js", function () {
             const url = new URL("https://www.metacafe.com/galleries/foo");
             const content = undefined;
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -28,7 +28,7 @@ describe("core/scraper/metacafe.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "https://bar.com/baz.mp4");
         });
     });

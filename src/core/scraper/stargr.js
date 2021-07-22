@@ -4,8 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-// eslint-disable-next-line import/no-cycle
-import { extract as metaExtract } from "../scrapers.js";
+import * as plugin from "../plugin/youtube.js";
 
 /**
  * L'expression rationnelle pour extraire l'URL de la vidéo.
@@ -29,18 +28,12 @@ const YOUTUBE_REGEXP = /videoId: '(?<videoId>.*)'/u;
  * @param {Function} content.html      La fonction retournant la promesse
  *                                     contenant le document HTML.
  * @param {Object}   options           Les options de l'extraction.
- * @param {boolean}  options.depth     La marque indiquant si l'extraction est
- *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function (_url, content, options) {
-    if (options.depth) {
-        return null;
-    }
-
+const action = async function (_url, content, { incognito }) {
     const doc = await content.html();
     for (const script of doc.querySelectorAll("script:not([src])")) {
         let result = URL_REGEXP.exec(script.text);
@@ -50,9 +43,7 @@ const action = async function (_url, content, options) {
 
         result = YOUTUBE_REGEXP.exec(script.text);
         if (null !== result) {
-            return metaExtract(new URL(result.groups.videoId,
-                                       "https://www.youtube.com/embed/"),
-                               { ...options, depth: true });
+            return plugin.generateVideoUrl(result.groups.videoId, incognito);
         }
     }
     return null;

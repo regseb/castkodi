@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des vidéos issues de YouTube.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
+import * as plugin from "../plugin/youtube.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -28,9 +22,9 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
 const actionVideo = async function (_url, content, { incognito }) {
     const doc = await content.html();
     const div = doc.querySelector("div.youtube-media-atom__iframe");
-    return null === div ? null
-                        : PLUGIN_URL + "?video_id=" + div.dataset.assetId +
-                                       "&incognito=" + incognito.toString();
+    return null === div
+                      ? null
+                      : plugin.generateVideoUrl(div.dataset.assetId, incognito);
 };
 export const extractVideo = matchPattern(actionVideo,
     "*://www.theguardian.com/*");

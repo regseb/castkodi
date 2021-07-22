@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/ultimedia.js";
+import * as scraper from "../../../../src/core/scraper/ultimedia.js";
 
 describe("core/scraper/ultimedia.js", function () {
     describe("extract()", function () {
@@ -7,7 +7,7 @@ describe("core/scraper/ultimedia.js", function () {
             const url = new URL("https://www.ultimedia.com/default" +
                                                            "/presentation/cgu");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -21,7 +21,7 @@ describe("core/scraper/ultimedia.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -38,7 +38,7 @@ describe("core/scraper/ultimedia.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -56,7 +56,7 @@ describe("core/scraper/ultimedia.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -79,7 +79,7 @@ describe("core/scraper/ultimedia.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "https://foo.com/bar_1080.mp4");
         });
     });

@@ -1,12 +1,12 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/vidlox.js";
+import * as scraper from "../../../../src/core/scraper/vidlox.js";
 
 describe("core/scraper/vidlox.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://twitter.com/vidloxtv");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -19,7 +19,7 @@ describe("core/scraper/vidlox.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
 
@@ -38,7 +38,7 @@ describe("core/scraper/vidlox.js", function () {
                     </html>`, "text/html")),
             };
 
-            const file = await extract(url, content);
+            const file = await scraper.extract(url, content);
             assert.strictEqual(file, "https://bar.baz/qux.m3u8");
         });
     });

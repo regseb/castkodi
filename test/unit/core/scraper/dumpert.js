@@ -1,12 +1,12 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/dumpert.js";
+import * as scraper from "../../../../src/core/scraper/dumpert.js";
 
 describe("core/scraper/dumpert.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("http://www.dumpert.nl/toppers/");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file, null);
         });
 
@@ -14,7 +14,7 @@ describe("core/scraper/dumpert.js", function () {
             const url = new URL("https://www.dumpert.nl/mediabase/7248279" +
                                                 "/47066e59/wheelie_in_ny.html");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.dumpert/?action=play" +
                                 "&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
@@ -26,7 +26,7 @@ describe("core/scraper/dumpert.js", function () {
             const url = new URL("http://www.dumpert.nl/mediabase/7248279" +
                                                 "/47066e59/wheelie_in_ny.html");
 
-            const file = await extract(url);
+            const file = await scraper.extract(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.dumpert/?action=play" +
                                  "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +

@@ -1,18 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { extractChannel, extractVideo }
-                                  from "../../../../src/core/labeller/vtmgo.js";
+import * as labeller from "../../../../src/core/labeller/vtmgo.js";
 
 describe("core/labeller/vtmgo.js", function () {
-    describe("extractVideo()", function () {
-        it("should return null when type is unknown", async function () {
-            const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
-                                                                        "/foo");
-
-            const label = await extractVideo(url);
-            assert.strictEqual(label, null);
-        });
-
+    describe("extractEpisode()", function () {
         it("should return episode label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -22,10 +13,9 @@ describe("core/labeller/vtmgo.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
-                                                               "/episodes/bar");
+            const episodeId = "bar";
 
-            const label = await extractVideo(url);
+            const label = await labeller.extractEpisode(episodeId);
             assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
@@ -35,7 +25,9 @@ describe("core/labeller/vtmgo.js", function () {
 
             stub.restore();
         });
+    });
 
+    describe("extractMovie()", function () {
         it("should return movie label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -45,10 +37,9 @@ describe("core/labeller/vtmgo.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
-                                                                 "/movies/bar");
+            const movieId = "bar";
 
-            const label = await extractVideo(url);
+            const label = await labeller.extractMovie(movieId);
             assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
@@ -68,10 +59,9 @@ describe("core/labeller/vtmgo.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
-                                                                 "/movies/bar");
+            const movieId = "bar";
 
-            const label = await extractVideo(url);
+            const label = await labeller.extractMovie(movieId);
             assert.strictEqual(label, null);
 
             assert.strictEqual(stub.callCount, 1);
@@ -84,14 +74,6 @@ describe("core/labeller/vtmgo.js", function () {
     });
 
     describe("extractChannel()", function () {
-        it("should return null when type is unknown", async function () {
-            const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
-                                                                        "/foo");
-
-            const label = await extractChannel(url);
-            assert.strictEqual(label, null);
-        });
-
         it("should return channel label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
@@ -101,10 +83,9 @@ describe("core/labeller/vtmgo.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
-                                                               "/channels/bar");
+            const channelId = "bar";
 
-            const label = await extractChannel(url);
+            const label = await labeller.extractChannel(channelId);
             assert.strictEqual(label, "baz");
 
             assert.strictEqual(stub.callCount, 1);
@@ -122,10 +103,9 @@ describe("core/labeller/vtmgo.js", function () {
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
-                                                               "/channels/bar");
+            const channelId = "bar";
 
-            const label = await extractChannel(url);
+            const label = await labeller.extractChannel(channelId);
             assert.strictEqual(label, null);
 
             assert.strictEqual(stub.callCount, 1);

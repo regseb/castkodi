@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des vidéos issues de YouTube.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
+import * as plugin from "../plugin/youtube.js";
 
 /**
  * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
@@ -24,7 +18,6 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
  *                            <em>fichier</em>.
  */
 const action = async function ({ pathname }, _content, { incognito }) {
-    return PLUGIN_URL + "?video_id=" + pathname.slice(7) +
-                        "&incognito=" + incognito.toString();
+    return plugin.generateVideoUrl(pathname.slice(7), incognito);
 };
 export const extract = matchPattern(action, "*://dev.tube/video/*");

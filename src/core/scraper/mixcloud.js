@@ -4,13 +4,7 @@
 /* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
-
-/**
- * L'URL de l'extension pour lire des musiques issues de Mixcloud.
- *
- * @type {string}
- */
-const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
+import * as plugin from "../plugin/mixcloud.js";
 
 /**
  * Extrait les informations nécessaire pour lire une musique sur Kodi.
@@ -20,8 +14,7 @@ const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
  *                             <em>fichier</em> ou <code>null</code>.
  */
 const action = async function ({ pathname }) {
-    return pathname.startsWith("/discover/")
-                                    ? null
-                                    : PLUGIN_URL + encodeURIComponent(pathname);
+    return pathname.startsWith("/discover/") ? null
+                                             : plugin.generateUrl(pathname);
 };
 export const extract = matchPattern(action, "*://www.mixcloud.com/*/*/");

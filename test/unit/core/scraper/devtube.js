@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { extract } from "../../../../src/core/scraper/devtube.js";
+import * as scraper from "../../../../src/core/scraper/devtube.js";
 
 describe("core/scraper/devtube.js", function () {
     describe("extract()", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/devtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -17,7 +17,7 @@ describe("core/scraper/devtube.js", function () {
             const content = undefined;
             const options = { incognito: false };
 
-            const file = await extract(url, content, options);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/?video_id=4rWypxBwrR4" +
                                                             "&incognito=false");
