@@ -363,6 +363,8 @@ describe("core/jsonrpc/player.js", function () {
                     case "Player.GetProperties":
                         return Promise.resolve({
                             position:  42,
+                            repeat:    false,
+                            shuffled:  true,
                             time:      { hours: 1, minutes: 2, seconds: 3 },
                             totaltime: { hours: 3, minutes: 2, seconds: 1 },
                         });
@@ -375,6 +377,8 @@ describe("core/jsonrpc/player.js", function () {
             player.onPropertyChanged.addListener((data) => {
                 assert.deepStrictEqual(data, {
                     position:  42,
+                    repeat:    false,
+                    shuffled:  true,
                     speed:     2,
                     time:      3723,
                     totaltime: 10_921,
@@ -388,7 +392,13 @@ describe("core/jsonrpc/player.js", function () {
                     "Player.GetProperties",
                     {
                         playerid:   1,
-                        properties: ["position", "time", "totaltime"],
+                        properties: [
+                            "position",
+                            "repeat",
+                            "shuffled",
+                            "time",
+                            "totaltime",
+                        ],
                     },
                 ]);
 

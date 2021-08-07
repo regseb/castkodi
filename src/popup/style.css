@@ -50,8 +50,8 @@ button:hover object svg > *, label:hover object svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }
-input[type="radio"]:checked ~ object svg > *,
-input[type="checkbox"]:checked ~ object:last-of-type svg > * {
+input[type="radio"]:checked:not(:disabled) ~ object svg > *,
+input[type="checkbox"]:checked:not(:disabled) ~ object:last-of-type svg > * {
     fill: #0a84ff;
     stroke: #0a84ff;
 }

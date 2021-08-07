@@ -236,7 +236,7 @@ export const Player = class {
             case "Player.OnAVStart":
                 this.onPropertyChanged.dispatch({
                     ...await this.getProperties([
-                        "position", "time", "totaltime",
+                        "position", "repeat", "shuffled", "time", "totaltime",
                     ]),
                     speed: data.player.speed,
                 });
