@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.14.1](https://github.com/regseb/castkodi/compare/v5.14.0...v5.14.1) (2021-08-08)
+
+
+### Bug Fixes
+
+* Garder à jour l'état du bouton "Mélanger". ([d4d71b2](https://github.com/regseb/castkodi/commit/d4d71b2e2364a8d1b4bf17af7502974e2cfb3a73))
+* Supprimer My Cloud Player qui n'existe plus. ([f688150](https://github.com/regseb/castkodi/commit/f688150ea378dfd849ff24257c81840b1cdfa49f))
+* Synchroniser la playlist quand elle est mélangée. ([a9c1d3e](https://github.com/regseb/castkodi/commit/a9c1d3eef6639c8daef9aac88a2ac3f144e9a87e))
+
 ## [5.14.0](https://github.com/regseb/castkodi/compare/v5.13.0...v5.14.0) (2021-07-03)
 
 
