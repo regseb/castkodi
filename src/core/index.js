@@ -27,7 +27,7 @@ export const mux = function (urls) {
                .map((u) => u.trim())
                .map((url) => {
         // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
-        return (/^[a-z-]+:/iu).test(url) ? url
+        return (/^[-a-z]+:/iu).test(url) ? url
                                          : url.replace(/^\/*/u, "http://");
     }).find((url) => {
         try {

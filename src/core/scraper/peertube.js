@@ -14,7 +14,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  */
 const action = async function ({ href }) {
     const url = href.replace(/^http:/iu, "https:")
-                    .replace(/videos\/(watch|embed)/iu, "api/v1/videos");
+                    .replace(/videos\/(embed|watch)/iu, "api/v1/videos");
     try {
         const response = await fetch(url);
         const json = await response.json();

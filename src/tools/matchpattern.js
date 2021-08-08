@@ -10,7 +10,7 @@
  *                   protégés.
  */
 export const sanitize = function (pattern) {
-    return pattern.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+    return pattern.replace(/[$()*+.?[\\\]^{|}]/gu, "\\$&");
 };
 
 /**
@@ -25,7 +25,7 @@ export const compile = function (pattern) {
                           "iu");
     }
 
-    const RE = /^(\*|[^:]+):\/\/(\*|(?:\*\.)?[^/*]+|)\/(.*)$/iu;
+    const RE = /^(\*|[^:]+):\/\/(\*|(?:\*\.)?[^*/]+)?\/(.*)$/u;
     const [, scheme, host, path] = RE.exec(pattern);
     return new RegExp("^" +
         ("*" === scheme ? "https?"

@@ -14,7 +14,7 @@ import * as plugin from "../plugin/vimeo.js";
  *
  * @param {URL} url L'URL d'une vidéo Vimeo intégrée.
  * @returns {Promise<string>} Une promesse contenant le lien du
-                              <em>fichier</em>.
+ *                            <em>fichier</em>.
  */
 const action = async function ({ pathname }) {
     return plugin.generateUrl(pathname.slice(7));

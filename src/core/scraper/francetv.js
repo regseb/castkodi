@@ -10,7 +10,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @type {RegExp}
  */
-const UUID_REGEXP = /"videoId":"(?<videoId>[0-9a-f-]+)"/u;
+const UUID_REGEXP = /"videoId":"(?<videoId>[\d\-a-f]+)"/u;
 
 /**
  * L'URL de l'API de France tv.

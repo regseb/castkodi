@@ -11,9 +11,7 @@ export default {
         "node/no-exports-assign": 2,
         "node/no-extraneous-import": 2,
         "node/no-extraneous-require": 2,
-        // Désactiver cette règle car elle ne gère pas le préfixe "node:".
-        // https://github.com/mysticatea/eslint-plugin-node/issues/275
-        "node/no-missing-import": 0,
+        "node/no-missing-import": 2,
         "node/no-missing-require": 2,
         "node/no-new-require": 2,
         "node/no-path-concat": 2,

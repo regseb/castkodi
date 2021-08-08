@@ -19,7 +19,7 @@ const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
  *
  * @param {string} videoId L'identifiant de la vidéo Vimeo.
  * @returns {Promise<string>} Une promesse contenant le lien du
-                              <em>fichier</em>.
+ *                            <em>fichier</em>.
  */
 export const generateUrl = async function (videoId) {
     return PLUGIN_URL + videoId;

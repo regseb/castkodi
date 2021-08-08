@@ -100,17 +100,10 @@ export const browser = {
                 if (null === properties) {
                     return Promise.resolve(data.storage.local.data);
                 }
-                return Promise.resolve(properties.reduce((result, property) => {
-                    if (property in data.storage.local.data) {
-                        return {
-                            ...result,
-                            ...{
-                                [property]: data.storage.local.data[property],
-                            },
-                        };
-                    }
-                    return result;
-                }, {}));
+                return Promise.resolve(Object.fromEntries(
+                    Object.entries(data.storage.local.data)
+                          .filter(([k]) => properties.includes(k)),
+                ));
             },
             set:   (values) => {
                 const changes = Object.fromEntries(Object.entries(values)

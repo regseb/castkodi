@@ -39,7 +39,7 @@ const action = async function (_url, content) {
         return null;
     }
 
-    const parts = video.poster.split(/[/_.]/u);
+    const parts = video.poster.split(/[./_]/u);
     const photoId = parts[6];
     const secret  = parts[7];
     const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
