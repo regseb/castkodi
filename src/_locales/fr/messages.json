@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "Diffuser des vidéos et des musiques sur Kodi."
+        "message": "Diffuser des vidéos et des musiques depuis plus de 50 sites (YouTube, Twitch, Vimeo, SoundCloud, torrents…) sur Kodi."
     },
 
     "menus_firstParent": {

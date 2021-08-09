@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "Cast videos and music to Kodi."
+        "message": "Cast videos and music from more than 50 sites (YouTube, Twitch, Vimeo, SoundCloud, torrent, ...) to Kodi."
     },
 
     "menus_firstParent": {

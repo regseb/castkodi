@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "Poslať videá a hudbu do Kodi."
+        "message": "Pošlite do Kodi videá a hudbu z viac ako 50 serverov (YouTube, Twitch, Vimeo, SoundCloud, torrent, ...)."
     },
 
     "menus_firstParent": {
