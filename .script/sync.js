@@ -8,17 +8,21 @@ const copy = async function (src, dest) {
         await fs.mkdir(dest, { recursive: true });
 
         for (const filename of await fs.readdir(src)) {
-            copy(path.join(src, filename), path.join(dest, filename));
+            await copy(path.join(src, filename), path.join(dest, filename));
         }
     } else {
-        fs.copyFile(src, dest);
+        try {
+            // Supprimer le fichier de destination s'il existe.
+            await fs.access(dest);
+            await fs.rm(dest);
+        } catch {
+            // Ne rien faire si le fichier de destination n'existe pas.
+        }
+        await fs.link(src, dest);
     }
 };
 
-// Intégrer la prothèse pour l'élément HTML <dialog> en attendant que cette
-// fonctionnalité soit implémentée.
-// https://bugzilla.mozilla.org/show_bug.cgi?id=840640
 await copy("node_modules/dialog-polyfill/dist/dialog-polyfill.css",
-           "src/polyfill/lib/dialog-polyfill/style.css");
+           "src/polyfill/lib/dialog-polyfill.css");
 await copy("node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js",
-           "src/polyfill/lib/dialog-polyfill/script.js");
+           "src/polyfill/lib/dialog-polyfill-esm.js");
