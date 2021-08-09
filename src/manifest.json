@@ -43,7 +43,7 @@
     "permissions": [
         "<all_urls>",
         "activeTab",
-        "menus",
+        "contextMenus",
         "notifications",
         "storage"
     ]

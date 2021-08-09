@@ -8,8 +8,8 @@ import { notify } from "../core/notify.js";
 /**
  * Agrège les liens des différents points d'entrée.
  *
- * @param {browser.menus.OnClickData} info Les informations fournies par le menu
- *                                         contextuel.
+ * @param {browser.contextMenus.OnClickData} info Les informations fournies par
+ *                                                le menu contextuel.
  * @returns {Promise<string[]>} Une promesse contenant les liens récupérés.
  */
 const aggregate = async function (info) {
@@ -30,8 +30,8 @@ const aggregate = async function (info) {
 /**
  * Exécute l'action sélectionnée dans le menu contextuel.
  *
- * @param {browser.menus.OnClickData} info Les informations fournies par le menu
- *                                         contextuel.
+ * @param {browser.contextMenus.OnClickData} info Les informations fournies par
+ *                                                le menu contextuel.
  */
 const handleClick = async function (info) {
     if ("send" === info.menuItemId || "insert" === info.menuItemId ||
@@ -65,7 +65,7 @@ const handleChange = async function (changes) {
     }
 
     // Vider les options du menu contextuel, puis ajouter les options.
-    await browser.menus.removeAll();
+    await browser.contextMenus.removeAll();
     const config = await browser.storage.local.get();
 
     const mode     = config["server-mode"];
@@ -74,14 +74,14 @@ const handleChange = async function (changes) {
     if (1 === actions.length && "single" === mode) {
         const key = "menus_first" + actions[0].charAt(0).toUpperCase() +
                     actions[0].slice(1);
-        browser.menus.create({
+        browser.contextMenus.create({
             contexts,
             id:    actions[0],
             title: browser.i18n.getMessage(key),
         });
     } else if (1 === actions.length && "multi" === mode ||
                2 <= actions.length) {
-        browser.menus.create({
+        browser.contextMenus.create({
             contexts,
             id:    "parent",
             title: browser.i18n.getMessage("menus_firstParent"),
@@ -89,7 +89,7 @@ const handleChange = async function (changes) {
         for (const action of actions) {
             const key = "menus_second" + action.charAt(0).toUpperCase() +
                         action.slice(1);
-            browser.menus.create({
+            browser.contextMenus.create({
                 id:       action,
                 parentId: "parent",
                 title:    browser.i18n.getMessage(key),
@@ -97,7 +97,7 @@ const handleChange = async function (changes) {
         }
 
         if ("multi" === mode) {
-            browser.menus.create({
+            browser.contextMenus.create({
                 parentId: "parent",
                 type:     "separator",
             });
@@ -106,7 +106,7 @@ const handleChange = async function (changes) {
                                ? browser.i18n.getMessage("menus_noName",
                                                          (index + 1).toString())
                                : server.name;
-                browser.menus.create({
+                browser.contextMenus.create({
                     checked:  config["server-active"] === index,
                     id:       index.toString(),
                     parentId: "parent",
@@ -119,4 +119,4 @@ const handleChange = async function (changes) {
 };
 
 browser.storage.onChanged.addListener(handleChange);
-browser.menus.onClicked.addListener(handleClick);
+browser.contextMenus.onClicked.addListener(handleClick);
