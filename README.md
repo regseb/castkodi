@@ -3,7 +3,7 @@
 [![firefox add-on][img-firefox_add-on]][link-firefox_add-on]
 [![build][img-build]][link-build]
 [![coverage][img-coverage]][link-coverage]
-[![rating][img-rating]][link-rating]
+[![firefox rating][img-firefox_rating]][link-firefox_rating]
 
 > WebExtension pour diffuser des vidéos et des musiques sur Kodi.
 
@@ -59,9 +59,9 @@ dans la page *Paramètres* / *Infos sur le système* / *Résumé*.
 [img-firefox_add-on]:https://img.shields.io/amo/v/castkodi.svg?label=add-on&logo=firefox-browser&logoColor=white
 [img-build]:https://img.shields.io/github/workflow/status/regseb/castkodi/CI
 [img-coverage]:https://img.shields.io/coveralls/github/regseb/castkodi
-[img-rating]:https://img.shields.io/amo/stars/castkodi.svg?label=rating
+[img-firefox_rating]:https://img.shields.io/amo/stars/castkodi.svg?label=rating&logo=firefox-browser&logoColor=white
 
 [link-firefox_add-on]:https://addons.mozilla.org/addon/castkodi/
 [link-build]:https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amaster
 [link-coverage]:https://coveralls.io/github/regseb/castkodi
-[link-rating]:https://addons.mozilla.org/addon/castkodi/reviews/
+[link-firefox_rating]:https://addons.mozilla.org/addon/castkodi/reviews/
