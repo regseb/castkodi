@@ -33,7 +33,7 @@ const check = async function (input) {
     input.setCustomValidity("");
     input.removeAttribute("title");
     if (input.name.startsWith("address_")) {
-        input.style.backgroundImage = `url("img/loading.svg")`;
+        input.style.backgroundImage = `url("/design/icon/loading-gray.svg")`;
         const address = input.value;
         try {
             await Kodi.check(address);
@@ -41,7 +41,8 @@ const check = async function (input) {
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette réussite.
             if (address === input.value) {
-                input.style.backgroundImage = `url("img/connected.svg")`;
+                input.style.backgroundImage =
+                                      `url("/design/icon/connected-green.svg")`;
             }
         } catch (err) {
             // Afficher l'erreur si la valeur testée est toujours la valeur
@@ -50,10 +51,12 @@ const check = async function (input) {
             if (address === input.value) {
                 if ("notFound" === err.type) {
                     input.title = err.message;
-                    input.style.backgroundImage = `url("img/warning.svg")`;
+                    input.style.backgroundImage =
+                                       `url("/design/icon/warning-yellow.svg")`;
                 } else {
                     input.setCustomValidity(err.message);
-                    input.style.backgroundImage = `url("img/invalid.svg")`;
+                    input.style.backgroundImage =
+                                          `url("/design/icon/invalid-red.svg")`;
                 }
             }
         }
@@ -61,7 +64,7 @@ const check = async function (input) {
         input.setCustomValidity(
             browser.i18n.getMessage("options_serverName_error"),
         );
-        input.style.backgroundImage = `url("img/invalid.svg")`;
+        input.style.backgroundImage = `url("/design/icon/invalid-red.svg")`;
     } else {
         input.style.backgroundImage = "none";
     }

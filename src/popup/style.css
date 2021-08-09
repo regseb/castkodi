@@ -289,7 +289,7 @@ input[type="range"].disabled::-moz-range-progress {
 
 #splash {
     background-color: #d70022;
-    background-image: url("img/error.svg");
+    background-image: url("/design/icon/error-white.svg");
     background-position: 8px 10px;
     background-repeat: no-repeat;
     border-radius: 4px;

@@ -1,6 +1,6 @@
 body {
     /* Déplacer la marge supérieure dans le rembourrage pour contourner le
-       problème de la barre de défilement. */
+       problème de la barre de défilement dans Firefox. */
     margin-top: 0;
     padding-top: 8px;
 }
@@ -15,7 +15,7 @@ input[type="text"] {
     padding: 0 32px 0 8px;
 }
 input[name^="address_"] {
-    background-image: url("img/loading.svg");
+    background-image: url("/design/icon/loading-gray.svg");
 }
 
 table {
