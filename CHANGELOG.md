@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.14.2](https://github.com/regseb/castkodi/compare/v5.14.1...v5.14.2) (2021-08-11)
+
+
+### Bug Fixes
+
+* Désactiver le lien vers l'interface Web de Kodi. ([#63](https://github.com/regseb/castkodi/issues/63)) ([5cdeb5b](https://github.com/regseb/castkodi/commit/5cdeb5bc8a50068192c9d5911a54bdb502834da4))
+
 ### [5.14.1](https://github.com/regseb/castkodi/compare/v5.14.0...v5.14.1) (2021-08-08)
 
 
