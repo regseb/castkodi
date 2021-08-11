@@ -40,10 +40,10 @@ const handleClick = async function (info) {
             const urls = await aggregate(info);
             await cast(info.menuItemId, urls);
         } catch (err) {
-            notify(err);
+            await notify(err);
         }
     } else if (!info.wasChecked) {
-        browser.storage.local.set({
+        await browser.storage.local.set({
             "server-active": Number.parseInt(info.menuItemId, 10),
         });
     }

@@ -2,7 +2,10 @@
  * @module
  */
 
-browser.storage.local.get().then((current) => {
+browser.storage.local.get().then(async (current) => {
+    // Vider la configuration pour enlever les éventuelles propriétés obsolètes.
+    await browser.storage.local.clear();
+
     if ("config-version" in current) {
         let config = current;
         if (1 === config["config-version"]) {
@@ -13,10 +16,6 @@ browser.storage.local.get().then((current) => {
             const contexts = Object.entries(config)
                              .filter(([k, v]) => k.startsWith("contexts-") && v)
                              .map(([k]) => k.slice(9));
-
-            // Nettoyer la configuration pour garder seulement les propriétés
-            // nécessaire.
-            browser.storage.local.clear();
 
             config = {
                 "config-version":   2,
@@ -46,10 +45,9 @@ browser.storage.local.get().then((current) => {
             config["youtube-order"]  = "";
         }
 
-        browser.storage.local.set(config);
+        await browser.storage.local.set(config);
     } else {
-        browser.storage.local.clear();
-        browser.storage.local.set({
+        await browser.storage.local.set({
             "config-version":   4,
             "server-mode":      "single",
             "server-list":      [{ address: "", name: "" }],
