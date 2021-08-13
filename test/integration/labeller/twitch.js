@@ -16,9 +16,19 @@ describe("Labeller: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
+        assert.strictEqual(item.file, file);
         assert.notStrictEqual(item.label, null, `from ${url}`);
         assert.notStrictEqual(item.label, "",   `from ${url}`);
+        assert.strictEqual(item.position, 0);
+        assert.strictEqual(item.title, "");
+        assert.strictEqual(item.type, "unknown");
     });
 
     it("should return default label when channel is offline",
@@ -27,11 +37,19 @@ describe("Labeller: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "SuperSynock",
-            type:  "unknown",
+            label:    "SuperSynock",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
     });
 
@@ -49,8 +67,18 @@ describe("Labeller: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
+        assert.strictEqual(item.file, file);
         assert.notStrictEqual(item.label, null, `from ${url}`);
         assert.notStrictEqual(item.label, "",   `from ${url}`);
+        assert.strictEqual(item.position, 0);
+        assert.strictEqual(item.title, "");
+        assert.strictEqual(item.type, "unknown");
     });
 });

@@ -52,7 +52,7 @@ describe("core/jsonrpc/playlist.js", function () {
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [
                 "Playlist.GetItems",
-                { playlistid: 1, properties: ["file"] },
+                { playlistid: 1, properties: ["file", "title"] },
             ]);
         });
 
@@ -66,7 +66,7 @@ describe("core/jsonrpc/playlist.js", function () {
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [
                 "Playlist.GetItems",
-                { playlistid: 1, properties: ["file"] },
+                { playlistid: 1, properties: ["file", "title"] },
             ]);
         });
     });
@@ -85,7 +85,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
-                    properties: ["file"],
+                    properties: ["file", "title"],
                     limits:     { start: 42, end: 43 },
                 },
             ]);
@@ -104,7 +104,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
-                    properties: ["file"],
+                    properties: ["file", "title"],
                     limits:     { start: 42, end: 43 },
                 },
             ]);
@@ -272,6 +272,16 @@ describe("core/jsonrpc/playlist.js", function () {
                 method: "Playlist.OnAdd",
                 params: { data: { playlistid: 1, position: 2 } },
             });
+
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "Playlist.GetItems",
+                {
+                    playlistid: 1,
+                    properties: ["file", "title"],
+                    limits:     { start: 2, end: 3 },
+                },
+            ]);
         });
 
         it("should handle 'OnClear'", function (done) {

@@ -10,15 +10,44 @@ describe("Labeller: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "play",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "Rick Astley - Never Gonna Give You Up (Official Music" +
+            label:    "Rick Astley - Never Gonna Give You Up (Official Music" +
                                                                       " Video)",
-            type:  "unknown",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
 
         browser.storage.local.clear();
+    });
+
+    it("should return video title", async function () {
+        // Tester le cas quand la lecture de la vidéo est terminé et que
+        // l'extension a modifié le titre.
+        const item = await complete({
+            file:     "plugin://plugin.video.youtube/play/" +
+                                        "?video_id=WBNjyvbqRYY&incognito=false",
+            label:    "La Marseillaise s’empare de Paris",
+            position: 0,
+            title:    "La Marseillaise s’empare de Paris",
+            type:     "unknown",
+        });
+        assert.deepStrictEqual(item, {
+            file:     "plugin://plugin.video.youtube/play/" +
+                                        "?video_id=WBNjyvbqRYY&incognito=false",
+            label:    "La Marseillaise s’empare de Paris",
+            position: 0,
+            title:    "La Marseillaise s’empare de Paris",
+            type:     "unknown",
+        });
     });
 
     it("should return unavailable label", async function () {
@@ -28,11 +57,19 @@ describe("Labeller: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "(Video unavailable)",
-            type:  "unknown",
+            label:    "(Video unavailable)",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
 
         browser.storage.local.clear();
@@ -46,11 +83,19 @@ describe("Labeller: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "Official Blender Open Movies",
-            type:  "unknown",
+            label:    "Official Blender Open Movies",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
 
         browser.storage.local.clear();
@@ -64,11 +109,19 @@ describe("Labeller: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "Mix",
-            type:  "unknown",
+            label:    "Mix",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
 
         browser.storage.local.clear();
@@ -82,11 +135,19 @@ describe("Labeller: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "Mix",
-            type:  "unknown",
+            label:    "Mix",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
 
         browser.storage.local.clear();

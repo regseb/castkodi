@@ -84,7 +84,7 @@ export const Playlist = class {
     async getItems() {
         const results = await this._kodi.send("Playlist.GetItems", {
             playlistid: 1,
-            properties: ["file"],
+            properties: ["file", "title"],
         });
         return results.items?.map((i, p) => ({ ...i, position: p })) ?? [];
     }
@@ -99,7 +99,7 @@ export const Playlist = class {
     async getItem(position) {
         const results = await this._kodi.send("Playlist.GetItems", {
             playlistid: 1,
-            properties: ["file"],
+            properties: ["file", "title"],
             limits:     { start: position, end: position + 1 },
         });
         return results.items?.[0] ?? null;

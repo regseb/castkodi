@@ -32,13 +32,20 @@ const PLUGINS = [
 /**
  * Complète un élément de la liste de lecture avec un label.
  *
- * @param {Object} item       L'élément de la liste de lecture.
- * @param {string} item.file  Le fichier de l'élément.
- * @param {string} item.label Le label de l'élément.
+ * @param {Object} item          L'élément de la liste de lecture.
+ * @param {string} item.file     Le fichier de l'élément.
+ * @param {string} item.label    Le label de l'élément.
+ * @param {number} item.position La position de l'élément.
+ * @param {string} item.title    Le titre de l'élément.
+ * @param {string} item.type     Le type de l'élément.
  * @returns {Promise<Object>} Une promesse contenant l'élément complété de la
  *                            liste de lecture.
  */
 export const complete = async function (item) {
+    if ("" !== item.title) {
+        return { ...item, label: strip(item.title) };
+    }
+
     const url = new URL(item.file.startsWith("/") ? "file:/" + item.file
                                                   : item.file);
     for (const extract of PLUGINS) {
@@ -47,6 +54,7 @@ export const complete = async function (item) {
             return { ...item, label };
         }
     }
+
     return {
         ...item,
         label: "" === item.label ? item.file

@@ -8,11 +8,19 @@ describe("Labeller: SoundCloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "play", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "play",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "Hear the lightning",
-            type:  "unknown",
+            label:    "Hear the lightning",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
     });
 
@@ -21,11 +29,19 @@ describe("Labeller: SoundCloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "play", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "play",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "News & Views",
-            type:  "unknown",
+            label:    "News & Views",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
     });
 
@@ -35,11 +51,19 @@ describe("Labeller: SoundCloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "play", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "play",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "Top 50: Alternative Rock",
-            type:  "unknown",
+            label:    "Top 50: Alternative Rock",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
     });
 });

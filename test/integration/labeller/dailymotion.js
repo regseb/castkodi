@@ -8,11 +8,20 @@ describe("Labeller: Dailymotion", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const item = await complete({ file, label: "", type: "unknown" });
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
         assert.deepStrictEqual(item, {
             file,
-            label: "Comment perdre 30 secondes sur Dailymotion ? - Archive INA",
-            type:  "unknown",
+            label:    "Comment perdre 30 secondes sur Dailymotion ? - Archive" +
+                                                                         " INA",
+            position: 0,
+            title:    "",
+            type:     "unknown",
         });
     });
 });

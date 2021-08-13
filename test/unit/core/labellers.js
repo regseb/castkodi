@@ -4,16 +4,48 @@ import { complete } from "../../../src/core/labellers.js";
 
 describe("core/labellers.js", function () {
     describe("extract()", function () {
+        it("should return 'title' when it's present", async function () {
+            const item = {
+                file:  "https://foo.com/",
+                label: "bar",
+                title: "baz",
+            };
+
+            const result = await complete(item);
+            assert.deepStrictEqual(result, {
+                file:  "https://foo.com/",
+                label: "baz",
+                title: "baz",
+            });
+        });
+
+        it("should return 'title' striped", async function () {
+            const item = {
+                file:  "https://foo.com/",
+                label: "bar",
+                title: "[B]baz[/B]",
+            };
+
+            const result = await complete(item);
+            assert.deepStrictEqual(result, {
+                file:  "https://foo.com/",
+                label: "baz",
+                title: "[B]baz[/B]",
+            });
+        });
+
         it("should return 'label' when no labeller", async function () {
             const item = {
                 file:  "https://foo.com/",
                 label: "bar",
+                title: "",
             };
 
             const result = await complete(item);
             assert.deepStrictEqual(result, {
                 file:  "https://foo.com/",
                 label: "bar",
+                title: "",
             });
         });
 
@@ -22,12 +54,14 @@ describe("core/labellers.js", function () {
             const item = {
                 file:  "https://foo.com/",
                 label: "",
+                title: "",
             };
 
             const result = await complete(item);
             assert.deepStrictEqual(result, {
                 file:  "https://foo.com/",
                 label: "https://foo.com/",
+                title: "",
             });
         });
 
@@ -43,12 +77,14 @@ describe("core/labellers.js", function () {
             const item = {
                 file:  "plugin://plugin.video.youtube/play/?video_id=foo",
                 label: "bar",
+                title: "",
             };
 
             const result = await complete(item);
             assert.deepStrictEqual(result, {
                 file:  "plugin://plugin.video.youtube/play/?video_id=foo",
                 label: "bar",
+                title: "",
             });
 
             assert.strictEqual(stub.callCount, 1);
@@ -63,25 +99,29 @@ describe("core/labellers.js", function () {
             const item = {
                 file:  "/foo/bar.mp3",
                 label: "",
+                title: "",
             };
 
             const result = await complete(item);
             assert.deepStrictEqual(result, {
                 file:  "/foo/bar.mp3",
                 label: "/foo/bar.mp3",
+                title: "",
             });
         });
 
-        it("should strip tags",  async function () {
+        it("should strip tags in label",  async function () {
             const item = {
                 file:  "/foo.mkv",
                 label: "[B][UPPERCASE]Label[/UPPERCASE][/B] !",
+                title: "",
             };
 
             const result = await complete(item);
             assert.deepStrictEqual(result, {
                 file:  "/foo.mkv",
                 label: "Label !",
+                title: "",
             });
         });
     });
