@@ -87,43 +87,33 @@ describe("core/scraper/lemonde.js", function () {
         it("should return URL from tiktok", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
-                   <body>
-                     <script id="__NEXT_DATA__">${JSON.stringify({
-                         props: {
-                             pageProps: {
-                                 itemInfo: {
-                                     itemStruct: {
-                                         video: {
-                                             playAddr: "https://baz.fr/qux.mp4",
-                                         },
-                                     },
-                                 },
-                             },
-                         },
-                     })}</script>
-                   </body>
+                   <head>
+                     <meta property="og:video:secure_url"
+                           content="https://foo.com/bar.mp4" />
+                   </head>
                  </html>`,
                 { headers: { "Content-Type": "text/html" } },
             ));
 
-            const url = new URL("https://www.lemonde.fr/foo.html");
+            const url = new URL("https://www.lemonde.fr/baz.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
                         <blockquote class="tiktok-embed"
-                                    cite="https://www.tiktok.com/bar" />
+                                    cite="https://www.tiktok.com/qux" />
                       </body>
                     </html>`, "text/html")),
             };
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://baz.fr/qux.mp4");
+            assert.strictEqual(file,
+                "https://foo.com/bar.mp4|Referer=https://www.tiktok.com/");
 
             assert.strictEqual(stub.callCount, 1);
             assert.strictEqual(stub.firstCall.args[0],
-                               "https://www.tiktok.com/bar");
+                               "https://www.tiktok.com/qux");
 
             stub.restore();
         });

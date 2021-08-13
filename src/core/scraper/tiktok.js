@@ -17,9 +17,8 @@ import { matchPattern } from "../../tools/matchpattern.js";
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    const script = doc.querySelector("script#__NEXT_DATA__");
-
-    const json = JSON.parse(script.text);
-    return json.props.pageProps.itemInfo?.itemStruct.video.playAddr ?? null;
+    const meta = doc.querySelector(`meta[property="og:video:secure_url"]`);
+    return null === meta ? null
+                         : meta.content + "|Referer=https://www.tiktok.com/";
 };
 export const extract = matchPattern(action, "*://www.tiktok.com/*");

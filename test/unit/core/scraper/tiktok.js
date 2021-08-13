@@ -15,11 +15,9 @@ describe("core/scraper/tiktok.js", function () {
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
-                      <body>
-                        <script id="__NEXT_DATA__">${JSON.stringify({
-                            props: { pageProps: {} },
-                        })}</script>
-                      </body>
+                      <head>
+                        <meta property="og:title" content="bar" />
+                      </head>
                     </html>`, "text/html")),
             };
 
@@ -32,27 +30,16 @@ describe("core/scraper/tiktok.js", function () {
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
-                      <body>
-                        <script id="__NEXT_DATA__">${JSON.stringify({
-                            props: {
-                                pageProps: {
-                                    itemInfo: {
-                                        itemStruct: {
-                                            video: {
-                                                playAddr: "https://bar.com" +
-                                                                     "/baz.mp4",
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                        })}</script>
-                      </body>
+                      <head>
+                        <meta property="og:video:secure_url"
+                              content="https://bar.com/baz.mp4" />
+                      </head>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.mp4");
+            assert.strictEqual(file,
+                "https://bar.com/baz.mp4|Referer=https://www.tiktok.com/");
         });
     });
 });
