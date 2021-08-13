@@ -275,7 +275,7 @@
         "message": "Všeobecné"
     },
     "options_generalHistoryInput_textcontent": {
-        "message": "Pridať odoslané odkazy do histórie prehliadača."
+        "message": "Pridať odoslané odkazy do histórie prehliadača"
     },
 
     "options_menuTitle_textcontent": {
@@ -285,41 +285,41 @@
         "message": "Vyberte položky pridané do kontextovej ponuky:"
     },
     "options_menuActionsSend_textcontent": {
-        "message": "prehrať teraz"
+        "message": "Prehrať teraz"
     },
     "options_menuActionsInsert_textcontent": {
-        "message": "prehrať neskôr"
+        "message": "Prehrať neskôr"
     },
     "options_menuActionsAdd_textcontent": {
-        "message": "do poradia"
+        "message": "Do poradia"
     },
 
     "options_menuContextsDescription_textcontent": {
         "message": "Vyberte položky, ku ktorým bude pridaná kontextová ponuka:"
     },
     "options_menuContextsAudio_textcontent": {
-        "message": "zvuk"
+        "message": "Zvuk"
     },
     "options_menuContextsBookmark_textcontent": {
-        "message": "záložka"
+        "message": "Záložka"
     },
     "options_menuContextsFrame_textcontent": {
-        "message": "iframe"
+        "message": "IFrame"
     },
     "options_menuContextsLink_textcontent": {
-        "message": "odkaz"
+        "message": "Odkaz"
     },
     "options_menuContextsPage_textcontent": {
-        "message": "stránka"
+        "message": "Stránka"
     },
     "options_menuContextsSelection_textcontent": {
-        "message": "výber"
+        "message": "Výber"
     },
     "options_menuContextsTab_textcontent": {
-        "message": "karta"
+        "message": "Karta"
     },
     "options_menuContextsVideo_textcontent": {
-        "message": "video"
+        "message": "Video"
     },
 
     "options_youtubeTitle_textcontent": {
@@ -329,25 +329,25 @@
         "message": "Pre odkazy na video v playliste:"
     },
     "options_youtubePlaylistPlaylist_textcontent": {
-        "message": "poslať všetky videá v playliste."
+        "message": "Poslať všetky videá v playliste"
     },
     "options_youtubePlaylistVideo_textcontent": {
-        "message": "poslať iba aktuálne video."
+        "message": "Poslať iba aktuálne video"
     },
     "options_youtubeOrderDescription_textcontent": {
         "message": "Vyberte poradie zoznamu:"
     },
     "options_youtubeOrderAsk_textcontent": {
-        "message": "opýtať sa"
+        "message": "Opýtať sa"
     },
     "options_youtubeOrderDefault_textcontent": {
-        "message": "štandardný"
+        "message": "Štandardný"
     },
     "options_youtubeOrderReverse_textcontent": {
-        "message": "naopak"
+        "message": "Naopak"
     },
     "options_youtubeOrderShuffle_textcontent": {
-        "message": "náhodne"
+        "message": "Náhodne"
     },
 
     "labeller_youtube_unavailable": {
