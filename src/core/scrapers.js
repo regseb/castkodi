@@ -60,6 +60,7 @@ import * as veoh from "./scraper/veoh.js";
 import * as video from "./scraper/video.js";
 import * as videopress from "./scraper/videopress.js";
 import * as vidlox from "./scraper/vidlox.js";
+import * as vidyard from "./scraper/vidyard.js";
 import * as vimeo from "./scraper/vimeo.js";
 import * as viously from "./scraper/viously.js";
 import * as vrtnu from "./scraper/vrtnu.js";
@@ -117,6 +118,7 @@ const SCRAPERS = [
     veoh,
     videopress,
     vidlox,
+    vidyard,
     vimeo,
     viously,
     vrtnu,
