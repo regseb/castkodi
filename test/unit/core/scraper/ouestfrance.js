@@ -19,7 +19,7 @@ describe("core/scraper/ouestfrance.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return null when depth is 1", async function () {
+        it("should return null when it's depth", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`

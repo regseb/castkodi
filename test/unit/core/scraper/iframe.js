@@ -12,7 +12,7 @@ describe("core/scraper/iframe.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return null when depth is 1", async function () {
+        it("should return null when it's depth", async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`

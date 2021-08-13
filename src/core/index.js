@@ -16,9 +16,9 @@ export const kodi = new Kodi();
 /**
  * Récupère le lien à analyser parmi les données récupérées.
  *
- * @param {(string|undefined)[]} urls La liste des liens récupérés par le
- *                                       menu contextuel ou dans la zone de
- *                                       saisie de la popup.
+ * @param {(string|undefined)[]} urls La liste des liens récupérés par le menu
+ *                                    contextuel ou dans la zone de saisie de la
+ *                                    popup.
  * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
  *                             aucun lien est valide.
  */

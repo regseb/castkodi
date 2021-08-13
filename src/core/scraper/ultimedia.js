@@ -15,7 +15,7 @@ const DATA_REGEXP = /"mp4":(?<mp4>\{[^}]+\})/u;
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une video de Ultimedia.
+ * @param {URL}      _url         L'URL d'une vidéo de Ultimedia.
  * @param {Object}   content      Le contenu de l'URL.
  * @param {Function} content.html La fonction retournant la promesse contenant
  *                                le document HTML.

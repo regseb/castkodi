@@ -14,8 +14,8 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
       <li>Island: Útvarp&nbsp;Saga;</li>
       <li>Nemecko: Arte, ZDF;</li>
       <li>Rusko: Первый&nbsp;канал;</li>
-      <li>Spojené kráľovstvo: Daily&nbsp;Mail, The&nbsp;Guardian.</li>
-      <li>USA: KCAA&nbsp;Radio;</li>
+      <li>Spojené kráľovstvo: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
+      <li>USA: KCAA&nbsp;Radio.</li>
     </ul>
   </li>
 </ul>

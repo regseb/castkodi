@@ -15,7 +15,7 @@ const API_URL = "https://public-api.wordpress.com/rest/v1.1/videos/";
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une video de VideoPress.
+ * @param {URL} url L'URL d'une vidéo de VideoPress.
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */

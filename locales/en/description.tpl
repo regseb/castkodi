@@ -14,8 +14,8 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
       <li>Iran: آپارات;</li>
       <li>Netherlands: Dumpert;</li>
       <li>Russia: Первый&nbsp;канал;</li>
-      <li>United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian.</li>
-      <li>USA: KCAA&nbsp;Radio;</li>
+      <li>United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
+      <li>USA: KCAA&nbsp;Radio.</li>
     </ul>
   </li>
 </ul>
