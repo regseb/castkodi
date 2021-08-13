@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.15.0](https://github.com/regseb/castkodi/compare/v5.14.2...v5.15.0) (2021-08-13)
+
+
+### Features
+
+* Ajouter le support des vidéos Vidyard. ([b1c5f06](https://github.com/regseb/castkodi/commit/b1c5f06c0f1f8ea769dfb07653202f9dbd25e4f2))
+
+
+### Bug Fixes
+
+* Afficher le titre des œuvres dans Kodi. ([198bfe5](https://github.com/regseb/castkodi/commit/198bfe52c66c5a22ae0603118397dda845f462b7))
+* Corriger des coquilles dans les textes de la page des options. ([0072386](https://github.com/regseb/castkodi/commit/0072386c07ec21a6cda78ca80f3a0d56f71975e6))
+* Corriger le support de TikTok. ([8a602dd](https://github.com/regseb/castkodi/commit/8a602dd22ff8d0d61234ce61fa6a5f60caffd91b))
+* Gérer l'accès asynchrone à la configuration. ([3cc8497](https://github.com/regseb/castkodi/commit/3cc84971858e2af3893ca637b863308f42564c83))
+* Réactiver le lien vers l'interface Web de Kodi. ([6d6a90d](https://github.com/regseb/castkodi/commit/6d6a90d458770289027e48aba220259964426bf9))
+* Réduire le texte de la description. ([3e553f3](https://github.com/regseb/castkodi/commit/3e553f35d077413177823bb0df90f7c300a8c671))
+
 ### [5.14.2](https://github.com/regseb/castkodi/compare/v5.14.1...v5.14.2) (2021-08-11)
 
 
