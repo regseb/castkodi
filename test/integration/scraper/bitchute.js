@@ -7,7 +7,7 @@ describe("Scraper: BitChute", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://seed126.bitchute.com/hU2elaB5u3kB/dz5JcCZnJMge.mp4");
+        assert.ok(file?.endsWith(".bitchute.com/hU2elaB5u3kB/dz5JcCZnJMge.mp4"),
+                  `"${file}"?.endsWith(...)`);
     });
 });
