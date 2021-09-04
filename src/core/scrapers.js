@@ -33,7 +33,6 @@ import * as lemonde from "./scraper/lemonde.js";
 import * as lepoint from "./scraper/lepoint.js";
 import * as megaphone from "./scraper/megaphone.js";
 import * as melty from "./scraper/melty.js";
-import * as metacafe from "./scraper/metacafe.js";
 import * as mixcloud from "./scraper/mixcloud.js";
 // eslint-disable-next-line import/no-cycle
 import * as noscript from "./scraper/noscript.js";
@@ -59,6 +58,7 @@ import * as ultimedia from "./scraper/ultimedia.js";
 import * as veoh from "./scraper/veoh.js";
 import * as video from "./scraper/video.js";
 import * as videopress from "./scraper/videopress.js";
+import * as videoshub from "./scraper/videoshub.js";
 import * as vidlox from "./scraper/vidlox.js";
 import * as vidyard from "./scraper/vidyard.js";
 import * as vimeo from "./scraper/vimeo.js";
@@ -98,7 +98,6 @@ const SCRAPERS = [
     lepoint,
     megaphone,
     melty,
-    metacafe,
     mixcloud,
     onetv,
     ouestfrance,
@@ -117,6 +116,7 @@ const SCRAPERS = [
     ultimedia,
     veoh,
     videopress,
+    videoshub,
     vidlox,
     vidyard,
     vimeo,
