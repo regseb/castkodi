@@ -49,7 +49,7 @@ const check = async function (input) {
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette erreur.
             if (address === input.value) {
-                if ("notFound" === err.type) {
+                if ("notFound" === err.type || "notSupported" === err.type) {
                     input.title = err.message;
                     input.style.backgroundImage =
                                        `url("/design/icon/warning-yellow.svg")`;

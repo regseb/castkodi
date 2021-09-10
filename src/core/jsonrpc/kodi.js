@@ -11,6 +11,13 @@ import { Player } from "./player.js";
 import { Playlist } from "./playlist.js";
 
 /**
+ * La version minimale de l'API JSON-RPC de Kodi nécessaire.
+ *
+ * @type {number}
+ */
+const KODI_JSONRPC_API_VERSION = 12;
+
+/**
  * Le client JSON-RPC pour contacter Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
@@ -18,18 +25,22 @@ import { Playlist } from "./playlist.js";
 export const Kodi = class {
 
     /**
-     * Vérifie la connexion à Kodi.
+     * Vérifie la connexion et la version de Kodi.
      *
      * @param {string} address L'adresse IP ou l'adresse complète du service de
      *                         Kodi.
-     * @returns {Promise<Object>} Une promesse tenue si Kodi est accessible ;
-     *                            sinon une promesse rompue.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code> si
+     *                            Kodi est accessible et a une version
+     *                            supportée ;
      */
     static async check(address) {
         const kodi = new Kodi(address);
         const result = await kodi.send("JSONRPC.Version");
         kodi.close();
-        return result;
+        if (KODI_JSONRPC_API_VERSION > result.version.major) {
+            throw new PebkacError("notSupported");
+        }
+        return "OK";
     }
 
     /**

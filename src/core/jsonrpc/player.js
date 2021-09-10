@@ -156,8 +156,6 @@ export const Player = class {
      *                            seconde.
      */
     async seek(time) {
-        // Attention ! Kodi n'accepte pas des positions supérieures à 24h.
-        // https://github.com/xbmc/xbmc/issues/17907
         const result = await this._kodi.send("Player.Seek", {
             playerid: 1,
             value:    { time: toTime(time) },

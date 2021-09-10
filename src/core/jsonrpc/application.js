@@ -93,13 +93,7 @@ export const Application = class {
         }
         switch (method) {
             case "Application.OnVolumeChanged":
-                this.onPropertyChanged.dispatch({
-                    ...data,
-                    // Convertir le volume en entier.
-                    // https://github.com/xbmc/xbmc/issues/17894.
-                    ..."volume" in data ? { volume: Math.trunc(data.volume) }
-                                        : {},
-                });
+                this.onPropertyChanged.dispatch(data);
                 break;
             default:
                 // Ignorer les autres notifications.

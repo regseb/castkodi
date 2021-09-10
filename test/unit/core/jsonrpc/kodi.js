@@ -18,8 +18,35 @@ describe("core/jsonrpc/kodi.js", function () {
             });
         });
 
+        it("should return promise rejected with old version",
+                                                             async function () {
+            const fake = sinon.fake.resolves({ version: { major: 11 } });
+            const stub = sinon.stub(JSONRPC, "open").resolves({
+                addEventListener: () => {},
+                send:             fake,
+                close:            () => {},
+            });
+
+            await assert.rejects(() => Kodi.check("foo.com"), {
+                name: "PebkacError",
+                type: "notSupported",
+            });
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                new URL("ws://foo.com:9090/jsonrpc"),
+            ]);
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [
+                "JSONRPC.Version",
+                undefined,
+            ]);
+
+            stub.restore();
+        });
+
         it("should return promise fulfilled", async function () {
-            const fake = sinon.fake.resolves({ bar: "baz" });
+            const fake = sinon.fake.resolves({ version: { major: 12 } });
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
                 send:             fake,
@@ -27,7 +54,7 @@ describe("core/jsonrpc/kodi.js", function () {
             });
 
             const result = await Kodi.check("foo.com");
-            assert.deepStrictEqual(result, { bar: "baz" });
+            assert.strictEqual(result, "OK");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

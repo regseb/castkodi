@@ -125,20 +125,7 @@ describe("core/jsonrpc/application.js", function () {
             });
             application.handleNotification({
                 method: "Application.OnVolumeChanged",
-                params: { data: { foo: "bar", volume: 98.7 } },
-            });
-            assert.fail();
-        });
-
-        it("should handle 'OnVolumeChanged' without volume", function (done) {
-            const application = new Application({ send: Function.prototype });
-            application.onPropertyChanged.addListener((data) => {
-                assert.deepStrictEqual(data, { muted: true });
-                done();
-            });
-            application.handleNotification({
-                method: "Application.OnVolumeChanged",
-                params: { data: { muted: true } },
+                params: { data: { foo: "bar", volume: 98 } },
             });
             assert.fail();
         });
