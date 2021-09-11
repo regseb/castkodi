@@ -18,7 +18,7 @@ des vidéos et des musiques sur **Kodi** :
   Flickr, Instagram, ItemFix, Jamendo, LBRY, Megaphone, Mixcloud, Odysee,
   Overcast, PeerTube, Pippa, podCloud, Pokémon TV, Radio, Radioline, Steam,
   Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously ;
-  - Allemagne : Arte, ZDF ;
+  - Allemagne : ARD Mediathek, Arte, ZDF ;
   - Belgique : GoPlay, VRT NU, VTM GO ;
   - États-Unis : KCAA Radio ;
   - France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura

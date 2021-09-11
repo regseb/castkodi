@@ -7,6 +7,7 @@ import * as acestream from "./scraper/acestream.js";
 import * as allocine from "./scraper/allocine.js";
 import * as aparat from "./scraper/aparat.js";
 import * as applepodcasts from "./scraper/applepodcasts.js";
+import * as ardmediathek from "./scraper/ardmediathek.js";
 import * as arte from "./scraper/arte.js";
 import * as arteradio from "./scraper/arteradio.js";
 import * as audio from "./scraper/audio.js";
@@ -81,6 +82,7 @@ const SCRAPERS = [
     allocine,
     aparat,
     applepodcasts,
+    ardmediathek,
     arte,
     arteradio,
     bigo,

@@ -8,7 +8,7 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
     <ul>
       <li>Belgium: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
       <li>France: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
-      <li>Germany: Arte, ZDF;</li>
+      <li>Germany: ARD&nbsp;Mediathek, Arte, ZDF;</li>
       <li>Greece: StarGR;</li>
       <li>Iceland: Útvarp&nbsp;Saga;</li>
       <li>Iran: آپارات;</li>
