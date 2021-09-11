@@ -7,7 +7,7 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
     YouTube, Twitch, Vimeo, SoundCloud a tiež Ace&nbsp;Stream, Apple&nbsp;Podcasty, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, Jamendo, ItemFix, LBRY, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Pippa, podCloud, Pokémon&nbsp;TV, Radio, Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously;
     <ul>
       <li>Belgicko: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
-      <li>Francúzsko:  20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JeuxVideoCom, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
+      <li>Francúzsko:  20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
       <li>Grécko: StarGR;</li>
       <li>Holandsko: Dumpert;</li>
       <li>Irán: آپارات;</li>

@@ -23,6 +23,7 @@ import * as gamekult from "./scraper/gamekult.js";
 import * as goplay from "./scraper/goplay.js";
 // eslint-disable-next-line import/no-cycle
 import * as iframe from "./scraper/iframe.js";
+import * as jv from "./scraper/jv.js";
 import * as kcaastreaming from "./scraper/kcaastreaming.js";
 import * as lbry from "./scraper/lbry.js";
 // eslint-disable-next-line import/no-cycle
@@ -92,6 +93,7 @@ const SCRAPERS = [
     futurasciences,
     gamekult,
     goplay,
+    jv,
     kcaastreaming,
     lbry,
     lemonde,
