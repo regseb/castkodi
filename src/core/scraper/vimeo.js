@@ -16,7 +16,8 @@ import * as plugin from "../plugin/vimeo.js";
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ pathname }) {
-    return plugin.generateUrl(pathname.slice(7));
+const action = async function ({ pathname, searchParams }) {
+    return plugin.generateUrl(pathname.slice(7),
+                              searchParams.get("h") ?? undefined);
 };
 export const extract = matchPattern(action, "*://player.vimeo.com/video/*");

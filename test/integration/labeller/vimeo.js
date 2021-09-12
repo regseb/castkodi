@@ -24,6 +24,27 @@ describe("Labeller: Vimeo", function () {
         });
     });
 
+    it("should return video label from unlisted video", async function () {
+        const url = new URL("https://vimeo.com/304887422/34c51f7a09");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        const item = await complete({
+            file,
+            label:    "play",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
+        assert.deepStrictEqual(item, {
+            file,
+            label:    "Shaking",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
+    });
+
     it("should return video title", async function () {
         // Tester le cas quand la lecture de la vidéo a commencé et que
         // l'extension a modifié le fichier et le titre.

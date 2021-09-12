@@ -11,11 +11,19 @@ describe("core/scraper/vimeo.js", function () {
         });
 
         it("should return video id", async function () {
-            const url = new URL("https://player.vimeo.com/video/12345");
+            const url = new URL("https://player.vimeo.com/video/foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.vimeo/play/?video_id=12345");
+                "plugin://plugin.video.vimeo/play/?video_id=foo");
+        });
+
+        it("should return video id with hash", async function () {
+            const url = new URL("https://player.vimeo.com/video/foo?h=bar");
+
+            const file = await scraper.extract(url);
+            assert.strictEqual(file,
+                "plugin://plugin.video.vimeo/play/?video_id=foo:bar");
         });
     });
 });

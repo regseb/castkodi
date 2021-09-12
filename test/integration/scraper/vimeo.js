@@ -16,7 +16,7 @@ describe("Scraper: Vimeo", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.vimeo/play/?video_id=228786490");
+            "plugin://plugin.video.vimeo/play/?video_id=228786490:a81341a31d");
     });
 
     it("should return video id when protocol is HTTP [opengraph-vimeo]",
@@ -26,7 +26,7 @@ describe("Scraper: Vimeo", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.vimeo/play/?video_id=228786490");
+            "plugin://plugin.video.vimeo/play/?video_id=228786490:a81341a31d");
     });
 
     it("should return video id from groups video [opengraph-vimeo]",
@@ -36,7 +36,17 @@ describe("Scraper: Vimeo", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.vimeo/play/?video_id=93206523");
+            "plugin://plugin.video.vimeo/play/?video_id=93206523:d496437eee");
+    });
+
+    it("should return video id from unlisted video [opengraph-vimeo]",
+                                                             async function () {
+        const url = new URL("https://vimeo.com/304887422/34c51f7a09");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file,
+            "plugin://plugin.video.vimeo/play/?video_id=304887422:34c51f7a09");
     });
 
     it("should return embed video id", async function () {
@@ -46,5 +56,15 @@ describe("Scraper: Vimeo", function () {
         const file = await extract(url, options);
         assert.strictEqual(file,
             "plugin://plugin.video.vimeo/play/?video_id=228786490");
+    });
+
+    it("should return embed video id from unlisted video", async function () {
+        const url = new URL("https://player.vimeo.com/video/304887422" +
+                                                    "?autoplay=1&h=34c51f7a09");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file,
+            "plugin://plugin.video.vimeo/play/?video_id=304887422:34c51f7a09");
     });
 });

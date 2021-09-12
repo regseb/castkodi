@@ -17,12 +17,15 @@ const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
 /**
  * Génère l'URL d'une vidéo dans l'extension SoundCloud.
  *
- * @param {string} videoId L'identifiant de la vidéo Vimeo.
+ * @param {string}           videoId L'identifiant de la vidéo Vimeo.
+ * @param {string|undefined} hash    L'éventuel <em>hash</em> pour accéder à une
+ *                                   vidéo non-listée.
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-export const generateUrl = async function (videoId) {
-    return PLUGIN_URL + videoId;
+export const generateUrl = async function (videoId, hash) {
+    return PLUGIN_URL + videoId + (undefined === hash ? ""
+                                                      : `:${hash}`);
 };
 
 /**
@@ -33,9 +36,12 @@ export const generateUrl = async function (videoId) {
  *                             <code>null</code>.
  */
 const action = async function ({ searchParams }) {
-    return searchParams.has("video_id")
-                                ? labeller.extract(searchParams.get("video_id"))
-                                : null;
+    if (!searchParams.has("video_id")) {
+        return null;
+    }
+
+    const [videoId, hash] = searchParams.get("video_id").split(":");
+    return labeller.extract(videoId, hash);
 };
 export const extract = matchPattern(action,
     "plugin://plugin.video.vimeo/play/*");
