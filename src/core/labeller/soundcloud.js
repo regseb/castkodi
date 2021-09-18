@@ -10,8 +10,8 @@
  * @returns {Promise<?string>} Une promesse contenant le titre ou
  *                             <code>null</code>.
  */
-export const extract = async function ({ href }) {
-    const response = await fetch(href);
+export const extract = async function (audioUrl) {
+    const response = await fetch(audioUrl);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
     const meta = doc.querySelector(`meta[property="og:title"]`);

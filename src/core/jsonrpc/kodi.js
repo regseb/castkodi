@@ -234,9 +234,6 @@ export const Kodi = class {
         }
     }
 
-    // Désactiver cette règle car il y a des faux-positifs avec les fonctions
-    // asynchrones. https://github.com/gajus/eslint-plugin-jsdoc/issues/722
-    // eslint-disable-next-line jsdoc/require-throws
     /**
      * Envoi une requête JSON-RPC à Kodi.
      *

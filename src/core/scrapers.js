@@ -155,7 +155,7 @@ export const extract = async function (url, options) {
         html: cacheable(async () => {
             try {
                 const controller = new AbortController();
-                const response = await fetch(url.href, {
+                const response = await fetch(url, {
                     signal: controller.signal,
                 });
                 const contentType = response.headers.get("Content-Type");

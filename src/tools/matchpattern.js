@@ -25,7 +25,7 @@ export const compile = function (pattern) {
                           "iu");
     }
 
-    const RE = /^(\*|[^:]+):\/\/(\*|(?:\*\.)?[^*/]+)?\/(.*)$/u;
+    const RE = /^([^:]+):\/\/(\*|(?:\*\.)?[^*/]+)?\/(.*)$/u;
     const [, scheme, host, path] = RE.exec(pattern);
     return new RegExp("^" +
         ("*" === scheme ? "https?"

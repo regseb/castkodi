@@ -43,9 +43,6 @@ export const mux = function (urls) {
     });
 };
 
-// Désactiver cette règle car il y a des faux-positifs avec les fonctions
-// asynchrones. https://github.com/gajus/eslint-plugin-jsdoc/issues/722
-// eslint-disable-next-line jsdoc/require-throws
 /**
  * Diffuse un média sur Kodi.
  *

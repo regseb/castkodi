@@ -2,7 +2,7 @@
     "applications": {
         "gecko": {
             "id": "castkodi@regseb.github.io",
-            "strict_min_version": "89.0"
+            "strict_min_version": "92.0"
         }
     },
     "manifest_version": 2,

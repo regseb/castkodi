@@ -112,8 +112,10 @@ describe("core/scraper/lemonde.js", function () {
                 "https://foo.com/bar.mp4|Referer=https://www.tiktok.com/");
 
             assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args[0],
-                               "https://www.tiktok.com/qux");
+            assert.strictEqual(stub.firstCall.args.length, 2);
+            assert.deepStrictEqual(stub.firstCall.args[0],
+                                   new URL("https://www.tiktok.com/qux"));
+            assert.strictEqual(typeof stub.firstCall.args[1], "object");
 
             stub.restore();
         });

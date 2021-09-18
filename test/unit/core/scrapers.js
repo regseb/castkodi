@@ -17,7 +17,8 @@ describe("core/scrapers.js", function () {
             assert.strictEqual(file, url.href);
 
             assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args[0], url.href);
+            assert.strictEqual(stub.firstCall.args.length, 2);
+            assert.deepStrictEqual(stub.firstCall.args[0], url);
             assert.strictEqual(typeof stub.firstCall.args[1], "object");
 
             stub.restore();
@@ -37,7 +38,8 @@ describe("core/scrapers.js", function () {
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args[0], url.href);
+            assert.strictEqual(stub.firstCall.args.length, 2);
+            assert.deepStrictEqual(stub.firstCall.args[0], url);
             assert.strictEqual(typeof stub.firstCall.args[1], "object");
 
             stub.restore();
@@ -60,7 +62,8 @@ describe("core/scrapers.js", function () {
             assert.strictEqual(file, "https://foo.com/baz.mp4");
 
             assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args[0], url.href);
+            assert.strictEqual(stub.firstCall.args.length, 2);
+            assert.deepStrictEqual(stub.firstCall.args[0], url);
             assert.strictEqual(typeof stub.firstCall.args[1], "object");
 
             stub.restore();

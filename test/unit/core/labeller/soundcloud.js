@@ -19,7 +19,9 @@ describe("core/labeller/soundcloud.js", function () {
             assert.strictEqual(label, "bar");
 
             assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/"]);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                new URL("http://foo.com/"),
+            ]);
 
             stub.restore();
         });
@@ -37,7 +39,9 @@ describe("core/labeller/soundcloud.js", function () {
             assert.strictEqual(label, null);
 
             assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/"]);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                new URL("http://foo.com/"),
+            ]);
 
             stub.restore();
         });

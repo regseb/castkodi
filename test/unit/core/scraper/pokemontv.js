@@ -5,7 +5,7 @@ import * as scraper from "../../../../src/core/scraper/pokemontv.js";
 describe("core/scraper/pokemontv.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
-            const url = new URL("ihttps://watch.pokemon.com/fr-fr/#/season" +
+            const url = new URL("https://watch.pokemon.com/fr-fr/#/season" +
                                             "?id=la-serie-pokemon-les-voyages");
 
             const file = await scraper.extract(url);

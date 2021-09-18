@@ -331,6 +331,7 @@ describe("core/jsonrpc/kodi.js", function () {
             }));
 
             assert.strictEqual(stubApplication.callCount, 1);
+            assert.strictEqual(stubApplication.firstCall.args.length, 1);
             assert.strictEqual(stubApplication.firstCall.args[0].type,
                                "notification");
             assert.strictEqual(stubApplication.firstCall.args[0].method, "Qux");

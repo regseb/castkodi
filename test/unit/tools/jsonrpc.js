@@ -169,6 +169,7 @@ describe("tools/jsonrpc.js", function () {
             server.close();
 
             assert.strictEqual(fake.callCount, 1);
+            assert.strictEqual(fake.firstCall.args.length, 1);
             assert.strictEqual(fake.firstCall.args[0].type, "close");
         });
 
