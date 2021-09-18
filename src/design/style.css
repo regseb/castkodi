@@ -1,5 +1,7 @@
 body {
-    font-family: "Segoe UI", Ubuntu, sans-serif;
+    background-color: var(--background-color);
+    color: var(--color);
+    font-family: system-ui;
 }
 h3 {
     font-size: 22px;
@@ -12,95 +14,104 @@ p {
 
 
 label {
-    color: #0c0c0d;
+    color: var(--label-color);
+}
+input[type="date"],
+input[type="password"],
+input[type="number"],
+input[type="text"],
+textarea {
+    background-color: white;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font: caption;
+    outline: 2px solid transparent;
+    outline-offset: -1px;
 }
 input[type="date"],
 input[type="password"],
 input[type="number"],
 input[type="text"] {
-    border: 1px solid rgba(12 12 13 / 20%);
-    border-radius: 2px;
-    box-shadow: 0 0 0 0 rgba(97 181 255 / 0%);
-    font: caption;
     height: 32px;
     padding: 0 8px;
-    transition-duration: 250ms;
-    transition-property: box-shadow;
 }
-input[type="date"]:hover,
-input[type="password"]:hover,
-input[type="number"]:hover,
-input[type="text"]:hover {
-    border: 1px solid rgba(12 12 13 / 30%);
+textarea {
+    padding: 8px;
 }
 input[type="date"]:invalid,
 input[type="password"]:invalid,
 input[type="number"]:invalid,
-input[type="text"]:invalid {
-    border-color: #d70022;
-    box-shadow: 0 0 0 1px #d70022, 0 0 0 4px rgba(251 0 34 / 30%);
+input[type="text"]:invalid,
+textarea:invalid {
+    border-color: transparent;
+    outline-color: var(--input-invalid-border-color);
 }
-input[type="date"]:focus,
-input[type="date"]:focus:hover,
-input[type="password"]:focus,
-input[type="password"]:focus:hover,
-input[type="number"]:focus,
-input[type="number"]:focus:hover,
-input[type="text"]:focus,
-input[type="text"]:focus:hover {
-    border-color: #0a84ff;
-    box-shadow: 0 0 0 1px #0a84ff, 0 0 0 4px rgba(10 132 255 / 30%);
+input[type="date"]:hover:not(:disabled),
+input[type="date"]:focus:not(:disabled),
+input[type="password"]:hover:not(:disabled),
+input[type="password"]:focus:not(:disabled),
+input[type="number"]:hover:not(:disabled),
+input[type="number"]:focus:not(:disabled),
+input[type="text"]:hover:not(:disabled),
+input[type="text"]:focus:not(:disabled),
+textarea:hover:not(:disabled),
+textarea:focus:not(:disabled) {
+    outline-color: var(--input-focus-border-color);
 }
 input[type="date"]::placeholder,
 input[type="password"]::placeholder,
 input[type="number"]::placeholder,
-input[type="text"]::placeholder {
-    color: #737373;
+input[type="text"]::placeholder,
+textarea::placeholder {
+    color: var(--input-border-color);
+}
+input[type="date"]:disabled,
+input[type="password"]:disabled,
+input[type="number"]:disabled,
+input[type="text"]:disabled,
+textarea:disabled {
+    cursor: default;
+    opacity: 50%;
 }
 
 input[type="checkbox"] {
-    -moz-appearance: none;
-    background-color: rgba(12 12 13 / 10%);
-    border: 1px solid rgba(12 12 13 / 30%);
+    appearance: none;
+    background-color: var(--checkboxradio-background-color);
+    border: 1px solid var(--input-border-color);
     border-radius: 2px;
     height: 16px;
     margin: -2px 4px;
     width: 16px;
 }
-input[type="checkbox"]:hover {
-    background-color: rgba(12 12 13 / 20%);
+input[type="checkbox"]:hover:not(:disabled),
+input[type="checkbox"]:focus:not(:disabled) {
+    background-color: var(--checkboxradio-hover-background-color);
 }
-
-input[type="checkbox"]:active {
-    background-color: rgba(12 12 13 / 30%);
+input[type="checkbox"]:active:not(:disabled) {
+    background-color: var(--checkboxradio-active-background-color);
 }
-
-input[type="checkbox"]:focus {
-    border: none;
-    box-shadow:
-        0 0 0 1px #0a84ff inset,
-        0 0 0 1px #0a84ff,
-        0 0 0 4px rgba(10 132 255 / 30%);
+input[type="checkbox"]:disabled {
+    cursor: default;
+    opacity: 50%;
 }
-
 input[type="checkbox"]:checked {
-    background-color: #0060df;
+    background-color: var(--checkboxradio-checked-background-color);
     background-image: url("img/check.svg");
     background-position: center center;
 }
-
-input[type="checkbox"]:checked:hover {
-    background-color: #003eaa;
+input[type="checkbox"]:checked:hover:not(:disabled),
+input[type="checkbox"]:checked:focus:not(:disabled) {
+    background-color: var(--checkboxradio-checked-hover-background-color);
 }
-
-input[type="checkbox"]:checked:active {
-    background-color: #002275;
+input[type="checkbox"]:checked:active:not(:disabled) {
+    background-color: var(--checkboxradio-checked-active-background-color);
 }
 
 input[type="radio"] {
-    -moz-appearance: none;
-    background-color: rgba(12 12 13 / 10%);
-    border: 1px solid rgba(12 12 13 / 30%);
+    appearance: none;
+    background-color: var(--checkboxradio-background-color);
+    border: 1px solid var(--input-border-color);
     border-radius: 100%;
     height: 16px;
     margin-bottom: -2px;
@@ -108,33 +119,24 @@ input[type="radio"] {
     margin-right: 4px;
     width: 16px;
 }
-
-input[type="radio"]:hover {
-    background-color: rgba(12 12 13 / 20%);
+input[type="radio"]:hover:not(:disabled),
+input[type="radio"]:focus:not(:disabled) {
+    background-color: var(--checkboxradio-hover-background-color);
 }
-
-input[type="radio"]:active {
-    background-color: rgba(12 12 13 / 30%);
-}
-
-input[type="radio"]:focus {
-    box-shadow:
-        0 0 0 1px #0a84ff inset,
-        0 0 0 1px #0a84ff,
-        0 0 0 4px rgba(10 132 255 / 30%);
+input[type="radio"]:active:not(:disabled) {
+    background-color: var(--checkboxradio-active-background-color);
 }
 input[type="radio"]:checked {
-    background-color: #0060df;
+    background-color: var(--checkboxradio-checked-background-color);
     background-image: url("img/marker.svg");
     background-position: center center;
 }
-
-input[type="radio"]:checked:hover {
-    background-color: #003eaa;
+input[type="radio"]:checked:hover:not(:disabled),
+input[type="radio"]:checked:focus:not(:disabled) {
+    background-color: var(--checkboxradio-checked-hover-background-color);
 }
-
-input[type="radio"]:checked:active {
-    background-color: #002275;
+input[type="radio"]:checked:active:not(:disabled) {
+    background-color: var(--checkboxradio-checked-active-background-color);
 }
 
 input[type="range"] {
@@ -149,133 +151,127 @@ input[type="range"]:not([orient="vertical"]) {
 input[type="range"][orient="vertical"] {
     width: 16px;
 }
-input[type="range"]:focus {
+input[type="range"]:focus:not(:disabled) {
     outline: none;
 }
 input[type="range"]::-moz-range-thumb {
-    background-color: white;
+    background-color: var(--range-thumb-background-color);
     border: 0;
     filter: drop-shadow(0 0 2px rgba(0 0 0 / 65%));
     height: 12px;
     width: 12px;
 }
-input[type="range"]:hover::-moz-range-thumb {
-    background-color: #0a84ff;
+input[type="range"]:hover:not(:disabled)::-moz-range-thumb {
+    outline: 6px solid var(--button-hover-background-color);
 }
 input[type="range"]::-moz-range-progress {
-    background-color: #f9f9fa;
+    background-color: var(--range-progress-background-color);
     border-radius: 2.5px;
     height: 5px;
 }
+input[type="range"].primary::-moz-range-progress {
+    background-color: var(--range-primary-progress-background-color);
+}
 input[type="range"]::-moz-range-track {
-    background-color: #0c0c0d;
+    background-color: var(--range-track-background-color);
     border-radius: 2.5px;
 }
+input[type="range"]:hover:not(:disabled)::-moz-range-track {
+    background-color: var(--range-hover-track-background-color);
+}
+input[type="range"]:not([orient="vertical"])::-moz-range-progress,
 input[type="range"]:not([orient="vertical"])::-moz-range-track {
     height: 5px;
 }
+input[type="range"][orient="vertical"]::-moz-range-progress,
 input[type="range"][orient="vertical"]::-moz-range-track {
     width: 5px;
 }
-input[type="range"]:disabled::-moz-range-thumb,
-input[type="range"]:disabled:focus::-moz-range-thumb,
-input[type="range"]:disabled::-moz-range-progress {
-    background-color: #737373;
+input[type="range"]:disabled {
+    cursor: default;
+    opacity: 50%;
 }
 
 button {
-    background-color: rgba(12 12 13 / 10%);
+    align-items: center;
+    background-color: var(--button-background-color);
     border: 0;
-    border-radius: 2px;
-    color: black;
+    border-radius: 4px;
+    color: var(--button-color);
     cursor: pointer;
+    display: flex;
     font-size: 13px;
-    height: 32px;
+    justify-content: center;
     min-width: 132px;
-    padding: 0 8px;
+    padding: 8px;
 }
-button:active {
-    background-color: rgba(12 12 13 / 30%);
+button:hover:not(:disabled) {
+    background-color: var(--button-hover-background-color);
+}
+button:active:not(:disabled) {
+    background-color: var(--button-active-background-color);
 }
 button:disabled {
     cursor: default;
-    opacity: 40%;
-}
-button:focus {
-    box-shadow:
-        0 0 0 1px #0a84ff inset,
-        0 0 0 1px #0a84ff,
-        0 0 0 4px rgba(10 132 255 / 30%);
-}
-button:hover:not(:disabled) {
-    background-color: rgba(12 12 13 / 20%);
+    opacity: 50%;
 }
 button.primary {
-    background-color: #0060df;
-    color: white;
-}
-button.primary:active {
-    background-color: #002275;
+    background-color: var(--button-primary-background-color);
+    color: var(--button-primary-color);
 }
 button.primary:hover:not(:disabled) {
-    background-color: #003eaa;
+    background-color: var(--button-primary-hover-background-color);
+}
+button.primary:active:not(:disabled) {
+    background-color: var(--button-primary-active-background-color);
 }
 button.micro {
-    font-size: 11px;
-    height: 24px;
     min-width: initial;
+    padding: 4px;
 }
 button.ghost {
     background-color: transparent;
-    height: 32px;
     min-width: initial;
-    width: 32px;
-}
-button.ghost:active {
-    background-color: rgba(12 12 13 / 20%);
 }
 button.ghost:hover:not(:disabled) {
-    background-color: rgba(12 12 13 / 10%);
+    background-color: var(--button-hover-background-color);
+}
+button.ghost:active:not(:disabled) {
+    background-color: var(--button-active-background-color);
 }
 
 select {
-    -moz-appearance: none;
-    background-color: rgba(249 249 250 / 10%);
+    appearance: none;
+    background-color: var(--button-background-color);
     background-image: url("img/drop.svg");
     background-position: right 8px center;
     background-repeat: no-repeat;
     background-size: 16px 16px;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    color: white;
+    border: 0;
+    border-radius: 4px;
+    color: var(--button-color);
     cursor: pointer;
     font-size: 11px;
     height: 24px;
     padding: 0 28px 0 8px;
 }
-select:active {
-    background-color: rgba(249 249 250 / 30%);
+select:hover:not(:disabled) {
+    background-color: var(--button-hover-background-color);
+}
+select:active:not(:disabled) {
+    background-color: var(--button-active-background-color);
 }
 select:disabled {
     cursor: default;
-    opacity: 40%;
-}
-select:focus, select:-moz-focusring {
-    box-shadow:
-        0 0 0 1px #0a84ff inset,
-        0 0 0 1px #0a84ff,
-        0 0 0 4px rgba(10 132 255 / 30%);
-    color: transparent;
-    text-shadow: 0 0 0 white;
-}
-select:hover:not(:disabled) {
-    background-color: rgba(249 249 250 / 20%);
+    opacity: 50%;
 }
 
 dialog {
+    background-color: var(--background-color);
     border: none;
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(12 12 13 / 10%);
+    box-sizing: border-box;
     padding: 16px;
 }
 dialog::backdrop, dialog + .backdrop {
@@ -292,4 +288,3 @@ dialog menu button {
 dialog menu button:not(:last-child) {
     margin-right: 8px;
 }
-

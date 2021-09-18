@@ -3,8 +3,6 @@ html {
 }
 
 body {
-    background-color: #2a2a2e;
-    color: #f9f9fa;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -12,25 +10,14 @@ body {
     min-width: 325px;
 }
 
-button.ghost {
-    height: 40px;
-    padding: 0;
-    width: 48px;
+button.ghost, label.checkbox, label.radio {
+    margin: 8px;
 }
-button.ghost:focus {
-    box-shadow: none;
+button.micro {
+    margin: 4px;
 }
-button.ghost:hover:not(:disabled) {
-    background-color: transparent;
-}
-label {
-    box-sizing: border-box;
-    cursor: pointer;
-    height: 40px;
-    padding: 12px 0;
-    text-align: center;
-    width: 48px;
-}
+
+
 div {
     text-align: center;
 }
@@ -38,76 +25,72 @@ input[type="range"][orient="vertical"] {
     padding: 8px 16px;
 }
 
+label.checkbox, label.radio {
+    cursor: pointer;
+    display: flex;
+    height: 32px;
+    width: 32px;
+}
+label.checkbox img, label.radio img {
+    border-radius: 4px;
+    padding: 8px;
+}
+label.checkbox input[type="checkbox"]:not(:disabled) ~ img:hover,
+label.radio input[type="radio"]:not(:disabled) ~ img:hover {
+    background-color: var(--button-hover-background-color);
+}
+label.checkbox input[type="checkbox"]:active:not(:disabled) ~ img,
+label.radio input[type="radio"]:active:not(:disabled) ~ img {
+    background-color: var(--button-active-background-color);
+}
+label.checkbox input[type="checkbox"]:disabled ~ img,
+label.radio input[type="radio"]:disabled ~ img {
+    cursor: default;
+    opacity: 50%;
+}
+
 input[type="radio"], input[type="checkbox"] {
     display: none;
 }
 
-button object svg > *, label object svg > * {
-    fill: #f9f9fa;
-    stroke: #f9f9fa;
-}
-button:hover object svg > *, label:hover object svg > * {
-    fill: #0a84ff;
-    stroke: #0a84ff;
-}
-input[type="radio"]:checked:not(:disabled) ~ object svg > *,
-input[type="checkbox"]:checked:not(:disabled) ~ object:last-of-type svg > * {
-    fill: #0a84ff;
-    stroke: #0a84ff;
-}
-button:disabled object svg > *,
-input[type="radio"]:disabled ~ object svg > *,
-input[type="checkbox"]:disabled ~ object svg > * {
-    fill: #737373;
-    stroke: #737373;
-}
-
-input[type="checkbox"] ~ object:first-of-type:not(:last-of-type),
-input[type="checkbox"]:checked ~ object:last-of-type:not(:first-of-type) {
-    display: inline-block;
-}
-input[type="checkbox"] ~ object:last-of-type:not(:first-of-type),
-input[type="checkbox"]:checked ~ object:first-of-type:not(:last-of-type) {
+input[type="checkbox"] ~ img:last-of-type,
+input[type="checkbox"]:checked ~ img:first-of-type {
     display: none;
 }
-
-input[type="range"].primary::-moz-range-progress {
-    background-color: #45a1ff;
-}
-input[type="range"].disabled::-moz-range-thumb,
-input[type="range"].disabled:focus::-moz-range-thumb,
-input[type="range"].disabled::-moz-range-progress {
-    background-color: #737373;
+input[type="checkbox"] ~ img:first-of-type,
+input[type="checkbox"]:checked ~ img:last-of-type {
+    display: inline-block;
 }
 
 #dialogsendtext {
-    width: calc(100% - 56px);
+    width: calc(100% - 36px);
 }
 #dialogsendtext p:first-child {
     margin-top: 0;
 }
 #dialogsendtext input[name="text"] {
-    width: calc(100% - 16px);
+    width: 100%;
 }
 #dialogsendtext input[name="done"] {
     display: inline-block;
 }
 
 #cast {
-    border-bottom: 1px solid #737373;
+    border-bottom: 1px solid var(--input-border-color);
     display: flex;
 }
 
 #paste textarea {
-    border: 0;
     bottom: 8px;
     display: none;
-    height: calc(100% - 78px);
+    /* Réduire de 64px (48px pour la ligne des boutons et 16px des marges). */
+    height: calc(100% - 64px);
     left: 8px;
     padding: 8px;
     position: fixed;
     resize: none;
-    width: calc(100% - 32px);
+    /* Réduire de 16px pour les marges). */
+    width: calc(100% - 16px);
     z-index: 1;
 }
 #paste input:checked ~ textarea {
@@ -135,7 +118,7 @@ input[type="range"].disabled::-moz-range-progress {
 }
 
 #playing {
-    border-bottom: 1px solid #737373;
+    border-bottom: 1px solid var(--input-border-color);
     display: flex;
     justify-content: center;
 }
@@ -153,18 +136,22 @@ input[type="range"].disabled::-moz-range-progress {
     flex-direction: column;
 }
 #volume {
-    grid-row-end: span 2;
-    height: 64px;
+    height: 80px;
 }
 
 #remote {
-    border-left: 1px solid #737373;
-    border-right: 1px solid #737373;
+    border-left: 1px solid var(--input-border-color);
+    border-right: 1px solid var(--input-border-color);
     display: grid;
     grid-template-columns: repeat(3, auto);
 }
-#up, #left, #select, #right, #down {
-    background-color: #38383d;
+#up::before, #left::before, #select::before, #right::before, #down::before {
+    background-color: var(--button-background-color);
+    content: "";
+    height: 48px;
+    position: absolute;
+    width: 48px;
+    z-index: -1;
 }
 
 #various {
@@ -176,20 +163,13 @@ input[type="range"].disabled::-moz-range-progress {
 }
 
 #playlist-actions {
-    border-top: 1px solid #737373;
+    border-top: 1px solid var(--input-border-color);
     display: flex;
     justify-content: flex-end;
 }
 
-#repeat input[value="off"]:checked:not(:disabled):not(:hover) ~ object svg > * {
-    fill: #f9f9fa;
-    stroke: #f9f9fa;
-}
-#repeat label {
+#repeat label:not(.checked) {
     display: none;
-}
-#repeat label.checked {
-    display: inline-block;
 }
 
 #playlist-items {
@@ -220,16 +200,16 @@ input[type="range"].disabled::-moz-range-progress {
     user-select: none;
 }
 #playlist-items li:hover {
-    background-color: #38383d;
+    background-color: var(--button-background-color);
 }
 #playlist-items li.drag {
     opacity: 40%;
 }
 #playlist-items li.drop-before:not(.drag) {
-    box-shadow: 0 -1px #0a84ff;
+    box-shadow: 0 -1px var(--button-primary-background-color);
 }
 #playlist-items li.drop-after:not(.drag) {
-    box-shadow: 0 1px #0a84ff;
+    box-shadow: 0 1px var(--button-primary-background-color);
 }
 #playlist-items li span {
     flex-grow: 1;
@@ -249,20 +229,18 @@ input[type="range"].disabled::-moz-range-progress {
 }
 #playlist-items li button {
     display: none;
-    height: 32px;
-    min-width: 32px;
-    width: 32px;
 }
 #playlist-items li:hover:not(.drag) button {
-    display: inline;
+    display: flex;
 }
 
 #playlist-items > span {
-    color: #737373;
+    color: white;
     display: block;
     font-size: 14px;
     font-style: italic;
     line-height: 32px;
+    opacity: 50%;
     overflow: hidden;
     padding-left: 8px;
     padding-right: 8px;
@@ -276,12 +254,14 @@ input[type="range"].disabled::-moz-range-progress {
 }
 
 #external {
-    border-top: 1px solid #737373;
+    border-top: 1px solid var(--input-border-color);
     display: flex;
     justify-content: flex-end;
 }
 #external span {
-    padding: 8px 16px;
+    display: flex;
+    margin: 8px;
+    padding: 8px;
 }
 #web {
     display: none;

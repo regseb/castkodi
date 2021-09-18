@@ -1,0 +1,35 @@
+:root {
+    --background-color: rgb(255 255 255);
+    --color: rgb(0 0 0);
+
+    --label-color: rgb(21 20 26);
+
+    --button-color: rgb(21 20 26);
+    --button-background-color: rgba(207 207 216 / 33%);
+    --button-hover-background-color: rgba(207 207 216 / 66%);
+    --button-active-background-color: rgb(207 207 216);
+
+    --button-primary-color: rgb(251 251 254);
+    --button-primary-background-color: rgb(0 97 224);
+    --button-primary-hover-background-color: rgb(2 80 187);
+    --button-primary-active-background-color: rgb(5 62 148);
+
+    --input-border-color: rgba(21 20 26 / 41%);
+    --input-focus-border-color: rgb(0 97 224);
+    --input-invalid-border-color: rgb(215 0 34);
+
+    --checkboxradio-background-color: rgba(207 207 216 / 33%);
+    --checkboxradio-hover-background-color: rgba(207 207 216 / 66%);
+    --checkboxradio-active-background-color: rgba(207 207 216);
+
+    --checkboxradio-checked-background-color: rgb(0 97 224);
+    --checkboxradio-checked-hover-background-color: rgb(2 80 187);
+    --checkboxradio-checked-active-background-color: rgb(5 62 148);
+
+    --range-thumb-background-color: rgb(21 20 26);
+    --range-progress-background-color: rgb(21 20 26);
+    --range-track-background-color: rgb(21 20 26 / 33%);
+    --range-hover-track-background-color: rgb(21 20 26 / 66%);
+
+    --range-primary-progress-background-color: rgb(0 97 224);
+}

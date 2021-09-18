@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-  <g fill="#f9f9fa">
+  <g fill="white">
     <animateTransform
         attributeName="transform" type="translate" dur="1.05s"
         values="0; -16; -32; -48; -64; -80; -96; -112; -128; -144; -160; -176;

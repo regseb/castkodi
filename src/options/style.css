@@ -12,42 +12,59 @@ sup {
 input[type="text"] {
     background-position: right 8px center;
     background-repeat: no-repeat;
-    padding: 0 32px 0 8px;
+    /* Ajouter du rembourrage à droite pour y mettre une icône. */
+    padding-right: 32px;
 }
 input[name^="address_"] {
     background-image: url("/design/icon/loading-gray.svg");
 }
 
 table {
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
     border-spacing: 0;
     max-width: 100%;
     overflow-x: auto;
     vertical-align: top;
     width: 100%;
 }
-tbody {
-    background-color: white;
-}
 th, td {
     padding: 8px;
 }
 th {
-    background-color: #d7d7db;
+    background-color: var(--button-background-color);
     font-size: 13px;
     font-weight: 500;
     text-align: left;
 }
+th:not(:first-child) {
+    border-image:
+        linear-gradient(
+            transparent 0%,
+            transparent 20%,
+            var(--input-border-color) 20%,
+            var(--input-border-color) 80%,
+            transparent 80%,
+            transparent 100%
+        ) 1 1;
+    border-inline-start-style: solid;
+    border-inline-start-width: 1px;
+}
+td * {
+    /* Définir une marge automatique pour que les éléments soient centrés. */
+    margin: auto;
+}
 
 #server details {
-    background-color: rgba(215 215 219 / 20%);
-    border: 1px solid #d7d7db;
+    background-color: var(--button-background-color);
+    border: 1px solid var(--button-active-background-color);
     border-radius: 4px;
     margin: 3px 0;
     padding: 9px;
 }
 #server details[open] {
-    background-color: rgba(69 161 255 / 20%);
-    border: 1px solid #45a1ff;
+    background-color: rgba(0 97 224 / 20%);
+    border: 1px solid var(--button-primary-background-color);
 }
 #server summary {
     font-weight: bold;

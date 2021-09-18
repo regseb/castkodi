@@ -679,10 +679,10 @@ const handleSpeedChanged = function (value) {
     speed = value;
     if (1 === speed) {
         document.querySelector("#play").style.display = "none";
-        document.querySelector("#pause").style.display = "inline";
+        document.querySelector("#pause").style.display = "flex";
     } else {
         document.querySelector("#pause").style.display = "none";
-        document.querySelector("#play").style.display = "inline";
+        document.querySelector("#play").style.display = "flex";
     }
 };
 
@@ -866,7 +866,7 @@ const load = async function () {
         const url = `http://${kodi.url.hostname}:8080`;
         if (await ping(url)) {
             document.querySelector("#web").dataset.url = url;
-            document.querySelector("#web").style.display = "block";
+            document.querySelector("#web").style.display = "flex";
         }
     } catch (err) {
         splash(err);

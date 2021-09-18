@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cast Kodi</title>
     <link href="/polyfill/style.css" rel="stylesheet" />
+    <link href="/design/color-light.css" rel="stylesheet" />
     <link href="/design/style.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
     <link href="/img/icon.svg" rel="shortcut icon" />
@@ -22,7 +23,9 @@
         <div>
           <label data-i18n-textcontent="server-address"
                  data-i18n-title="server-address">
-            {} <sup><object data="/design/icon/help-black.svg"></object></sup>
+            {}
+            <sup><img src="/design/icon/help-black.svg"
+                      alt="help-black" /></sup>
             <input name="address_0" type="text" required autocomplete="off"
                    spellcheck="false" data-i18n-placeholder="server-address" />
           </label>
@@ -40,22 +43,18 @@
               <th data-i18n-textcontent="server-addresses"
                   data-i18n-title="server-address">
                 {}
-                <sup><object data="/design/icon/help-black.svg"></object></sup>
+                <sup><img src="/design/icon/help-black.svg"
+                          alt="help-black" /></sup>
               </th>
               <th data-i18n-textcontent="server-names"></th>
               <th></th>
             </tr>
           </thead>
           <tbody></tbody>
-          <tfoot>
-            <tr>
-              <td colspan="2">
-                <button data-i18n-textcontent="server-add"></button>
-              </td>
-              <td></td>
-            </tr>
-          </tfoot>
         </table>
+        <div>
+          <button data-i18n-textcontent="server-add"></button>
+        </div>
         <template>
           <tr>
             <td>
@@ -69,7 +68,7 @@
             </td>
             <td>
               <button class="ghost" data-i18n-title="server-remove">
-                <object data="/design/icon/remove-black.svg"></object>
+                <img src="/design/icon/remove-black.svg" alt="remove-black" />
               </button>
             </td>
           </tr>
@@ -170,7 +169,6 @@
 
     <script src="/polyfill/script.js" type="module"></script>
     <script src="/core/i18n.js" type="module"></script>
-    <script src="/core/svg.js" type="module"></script>
     <script src="script.js" type="module"></script>
   </body>
 </html>
