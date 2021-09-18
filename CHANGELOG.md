@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.16.0](https://github.com/regseb/castkodi/compare/v5.15.0...v5.16.0) (2021-09-18)
+
+
+### Features
+
+* Ajouter le support de ARD Mediathek. ([0e1e927](https://github.com/regseb/castkodi/commit/0e1e9274679b8883dc37b79e1e6a0627ae0871f1))
+* Améliorer le design de la popup et des options. ([c9aec32](https://github.com/regseb/castkodi/commit/c9aec32630bb5c49785a7a5e6f4767e6dd2c3241))
+
+
+### Bug Fixes
+
+* Actualiser les tests de France tv. ([12e2f5b](https://github.com/regseb/castkodi/commit/12e2f5b0c9f8c177b8e0cfc4762b627fcf6fa8dc))
+* Gérer les vidéos non-listées de Vimeo. ([df3b5ba](https://github.com/regseb/castkodi/commit/df3b5babeb8e3305e3b0ec1023113330a1192b28))
+* Indiquer que Kodi v19+ est nécessaire. ([88be23e](https://github.com/regseb/castkodi/commit/88be23e79fcb74708fd7e1a20fa2436cf4462d00))
+* Remplacer Metacafe par VideosHub. ([9bf0c35](https://github.com/regseb/castkodi/commit/9bf0c35195d54f66d9b526c4752355b48da42f48))
+* Renommer JeuxVideoCom en JV. ([4e20893](https://github.com/regseb/castkodi/commit/4e208935f4d77cbbadce427e83f867d667b63d32))
+
 ## [5.15.0](https://github.com/regseb/castkodi/compare/v5.14.2...v5.15.0) (2021-08-13)
 
 
