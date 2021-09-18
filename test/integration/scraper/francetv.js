@@ -11,12 +11,14 @@ describe("Scraper: France tv", function () {
     });
 
     it("should return video URL", async function () {
-        const url = new URL("https://www.france.tv/france-2/journal-20h00" +
-                                                 "/1133923-journal-20h00.html");
+        const url = new URL("https://www.france.tv/france-3" +
+                                                   "/des-racines-et-des-ailes" +
+                                         "/316863-les-imprenables-forteresses" +
+                                     "-cathares-queribus-et-peyrepertuse.html");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(new URL(file).pathname.endsWith("=/master.m3u8"),
+        assert.ok(new URL(file).pathname.endsWith("/master.m3u8"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 });
