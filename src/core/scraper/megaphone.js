@@ -27,8 +27,8 @@ export const extractPlayer = matchPattern(actionPlayer,
  */
 const actionPlaylist = async function ({ searchParams }) {
     return searchParams.has("e")
-                  ? "https://dcs.megaphone.fm/" + searchParams.get("e") + ".mp3"
-                  : null;
+                       ? `https://dcs.megaphone.fm/${searchParams.get("e")}.mp3`
+                       : null;
 };
 export const extractPlaylist = matchPattern(actionPlaylist,
     "*://playlist.megaphone.fm/*");

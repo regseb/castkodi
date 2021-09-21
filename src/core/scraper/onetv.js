@@ -37,6 +37,6 @@ const action = async function ({ pathname }, content) {
 
     const response = await fetch(API_URL + id);
     const json = await response.json();
-    return "https:" + json[0].mbr[0].src;
+    return `https:${json[0].mbr[0].src}`;
 };
 export const extract = matchPattern(action, "*://www.1tv.ru/*");

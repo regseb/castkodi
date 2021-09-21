@@ -16,7 +16,7 @@ export const PebkacError = class extends Error {
      *                                          insérées dans le message.
      */
     constructor(key, substitutions = []) {
-        super(browser.i18n.getMessage("notifications_" + key + "_message",
+        super(browser.i18n.getMessage(`notifications_${key}_message`,
                                       substitutions));
         this.name = "PebkacError";
 
@@ -44,6 +44,6 @@ export const PebkacError = class extends Error {
      * @returns {string} Le titre de l'erreur.
      */
     get title() {
-        return browser.i18n.getMessage("notifications_" + this._key + "_title");
+        return browser.i18n.getMessage(`notifications_${this._key}_title`);
     }
 };

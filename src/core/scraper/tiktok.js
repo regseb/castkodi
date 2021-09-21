@@ -19,6 +19,6 @@ const action = async function (_url, content) {
     const doc = await content.html();
     const meta = doc.querySelector(`meta[property="og:video:secure_url"]`);
     return null === meta ? null
-                         : meta.content + "|Referer=https://www.tiktok.com/";
+                         : `${meta.content}|Referer=https://www.tiktok.com/`;
 };
 export const extract = matchPattern(action, "*://www.tiktok.com/*");

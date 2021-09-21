@@ -2,7 +2,7 @@ import assert from "node:assert";
 import fs from "node:fs/promises";
 
 /**
- * Comparer deux lots de messages dans deux langues différentes.
+ * Compare deux lots de messages dans deux langues différentes.
  *
  * @param {Object} messages1 Les messages dans une langue.
  * @param {Object} messages2 Les messages dans une autre langue.
@@ -22,13 +22,13 @@ const compare = function (messages1, messages2) {
             for (const [key, placeholder] of
                                          Object.entries(message.placeholders)) {
                 if (!message.message.includes("$" + key.toUpperCase() + "$")) {
-                    assert.fail(message + "." + key);
+                    assert.fail(`${message}.${key}`);
                 }
                 if (!("content" in placeholder)) {
-                    assert.fail(message + "." + key);
+                    assert.fail(`${message}.${key}`);
                 }
                 if (!(key in messages2[name].placeholders)) {
-                    assert.fail(message + "." + key);
+                    assert.fail(`${message}.${key}`);
                 }
             }
         }

@@ -46,10 +46,10 @@ export const complete = async function (item) {
         return { ...item, label: strip(item.title) };
     }
 
-    const url = new URL(item.file.startsWith("/") ? "file:/" + item.file
+    const url = new URL(item.file.startsWith("/") ? `file:/${item.file}`
                                                   : item.file);
-    for (const extract of PLUGINS) {
-        const label = await extract(url);
+    for (const plugin of PLUGINS) {
+        const label = await plugin(url);
         if (null !== label) {
             return { ...item, label };
         }

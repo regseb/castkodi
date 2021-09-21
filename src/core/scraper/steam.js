@@ -31,9 +31,9 @@ export const extractGame = matchPattern(actionGame,
  *                             <em>fichier</em> ou <code>null</code>.
  */
 const actionBroadcast = async function ({ pathname }) {
-    const url = "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
-                                               "?steamid=" + pathname.slice(17);
-    const response = await fetch(url);
+    const id = pathname.slice(17);
+    const response = await fetch("https://steamcommunity.com/broadcast" +
+                                             `/getbroadcastmpd/?steamid=${id}`);
     const json = await response.json();
     return json?.hls_url ?? null;
 };

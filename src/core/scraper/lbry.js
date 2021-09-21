@@ -24,7 +24,7 @@ const action = async function ({ href, pathname }) {
                                       ? pathname.slice(9).replace("/", "#")
                                       : pathname.slice(1).replaceAll(":", "#"));
 
-    const response = await fetch(API_URL + "/proxy?m=get", {
+    const response = await fetch(`${API_URL}/proxy?m=get`, {
         method:  "POST",
         headers: { "Content-Type": "application/json-rpc" },
         body:    JSON.stringify({

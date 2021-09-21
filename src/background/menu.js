@@ -6,6 +6,16 @@ import { cast } from "../core/index.js";
 import { notify } from "../core/notify.js";
 
 /**
+ * Met en majuscule la première lettre d'un texte.
+ *
+ * @param {string} text Le texte avec modifié.
+ * @returns {string} Le texte avec sa première lettre en majuscule.
+ */
+const capitalize = function (text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
+/**
  * Agrège les liens des différents points d'entrée.
  *
  * @param {browser.contextMenus.OnClickData} info Les informations fournies par
@@ -72,8 +82,7 @@ const handleChange = async function (changes) {
     const actions  = config["menu-actions"];
     const contexts = config["menu-contexts"];
     if (1 === actions.length && "single" === mode) {
-        const key = "menus_first" + actions[0].charAt(0).toUpperCase() +
-                    actions[0].slice(1);
+        const key = `menus_first${capitalize(actions[0])}`;
         browser.contextMenus.create({
             contexts,
             id:    actions[0],
@@ -87,8 +96,7 @@ const handleChange = async function (changes) {
             title: browser.i18n.getMessage("menus_firstParent"),
         });
         for (const action of actions) {
-            const key = "menus_second" + action.charAt(0).toUpperCase() +
-                        action.slice(1);
+            const key = `menus_second${capitalize(action)}`;
             browser.contextMenus.create({
                 id:       action,
                 parentId: "parent",

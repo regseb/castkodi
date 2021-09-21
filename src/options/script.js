@@ -148,7 +148,7 @@ const remove = function (event) {
     for (const tr of document.querySelectorAll("tbody tr")) {
         for (const input of tr.querySelectorAll("input")) {
             const type = input.name.slice(0, input.name.indexOf("_"));
-            input.name = type + "_" + index.toString();
+            input.name = `${type}_${index.toString()}`;
         }
         ++index;
     }

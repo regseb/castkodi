@@ -42,11 +42,9 @@ const action = async function (_url, content) {
     const parts = video.poster.split(/[./_]/u);
     const photoId = parts[6];
     const secret  = parts[7];
-    const url = API_URL + "&photo_id=" + photoId + "&secret=" + secret +
-                          "&api_key=" +
-                          KEY_REGEXP.exec(doc.documentElement.innerHTML)
-                                    .groups.key;
-    const response = await fetch(url);
+    const key = KEY_REGEXP.exec(doc.documentElement.innerHTML).groups.key;
+    const response = await fetch(`${API_URL}&photo_id=${photoId}` +
+                                           `&secret=${secret}&api_key=${key}`);
     const json = await response.json();
     return json.streams.stream[0]["_content"];
 };

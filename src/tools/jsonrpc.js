@@ -23,7 +23,7 @@ export const JSONRPC = class extends EventTarget {
             ws.addEventListener("open", () => resolve(new JSONRPC(ws)));
             ws.addEventListener("error",
                 () => reject(new Error("Connection to the server at " +
-                                       url.href + " unestablished")));
+                                                 `${url.href} unestablished`)));
         });
     }
 

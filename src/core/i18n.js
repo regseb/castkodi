@@ -3,7 +3,7 @@
  */
 
 /**
- * Le nom de la page courante (récupérée à partir du répertoire).
+ * Le nom de la page courante (récupéré à partir du répertoire).
  *
  * @type {string}
  */
@@ -38,7 +38,7 @@ for (const element of elements) {
         }
         key = key.replace(/-./gu, (m) => m[1].toUpperCase());
 
-        const value = browser.i18n.getMessage(PAGE + "_" + key + "_" + place);
+        const value = browser.i18n.getMessage(`${PAGE}_${key}_${place}`);
 
         if ("textcontent" === place) {
             if (0 === element.children.length) {

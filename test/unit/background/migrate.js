@@ -4,7 +4,7 @@ describe("background/migrate.js", function () {
     it("should create config", async function () {
         browser.storage.local.set({ foo: "bar" });
 
-        await import("../../../src/background/migrate.js?" + Date.now());
+        await import(`../../../src/background/migrate.js?${Date.now()}`);
         const config = await browser.storage.local.get();
         assert.deepStrictEqual(config, {
             "config-version":   4,
@@ -42,7 +42,7 @@ describe("background/migrate.js", function () {
             bar:                  "baz",
         });
 
-        await import("../../../src/background/migrate.js?" + Date.now());
+        await import(`../../../src/background/migrate.js?${Date.now()}`);
         const config = await browser.storage.local.get();
         assert.deepStrictEqual(config, {
             "config-version":   4,
@@ -74,7 +74,7 @@ describe("background/migrate.js", function () {
             "youtube-playlist": "playlist",
         });
 
-        await import("../../../src/background/migrate.js?" + Date.now());
+        await import(`../../../src/background/migrate.js?${Date.now()}`);
         const config = await browser.storage.local.get();
         assert.deepStrictEqual(config, {
             "config-version":   4,
@@ -106,7 +106,7 @@ describe("background/migrate.js", function () {
             "youtube-playlist": "playlist",
         });
 
-        await import("../../../src/background/migrate.js?" + Date.now());
+        await import(`../../../src/background/migrate.js?${Date.now()}`);
         const config = await browser.storage.local.get();
         assert.deepStrictEqual(config, {
             "config-version":   4,
@@ -139,7 +139,7 @@ describe("background/migrate.js", function () {
             "youtube-order":    "default",
         });
 
-        await import("../../../src/background/migrate.js?" + Date.now());
+        await import(`../../../src/background/migrate.js?${Date.now()}`);
         const config = await browser.storage.local.get();
         assert.deepStrictEqual(config, {
             "config-version":   4,

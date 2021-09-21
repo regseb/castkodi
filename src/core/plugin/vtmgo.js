@@ -12,7 +12,7 @@ import * as labeller from "../labeller/vtmgo.js";
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog/";
+const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog";
 
 /**
  * Génère l'URL d'un épisode dans l'extension VTM GO.
@@ -22,7 +22,7 @@ const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog/";
  *                            <em>fichier</em>.
  */
 export const generateEpisodeUrl = async function (episodeId) {
-    return PLUGIN_URL + "episodes/" + episodeId;
+    return `${PLUGIN_URL}/episodes/${episodeId}`;
 };
 
 /**
@@ -33,7 +33,7 @@ export const generateEpisodeUrl = async function (episodeId) {
  *                            <em>fichier</em>.
  */
 export const generateMovieUrl = async function (movieId) {
-    return PLUGIN_URL + "movies/" + movieId;
+    return `${PLUGIN_URL}/movies/${movieId}`;
 };
 
 /**
@@ -44,7 +44,7 @@ export const generateMovieUrl = async function (movieId) {
  *                            <em>fichier</em>.
  */
 export const generateChannelUrl = async function (channelId) {
-    return PLUGIN_URL + "channels/" + channelId;
+    return `${PLUGIN_URL}/channels/${channelId}`;
 };
 
 /**

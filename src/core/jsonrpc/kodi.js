@@ -63,7 +63,7 @@ export const Kodi = class {
             // essayer avec l'adresse IP (en y ajoutant le protocol, le port et
             // le chemin).
             try {
-                url = new URL("ws://" + address + ":9090/jsonrpc");
+                url = new URL(`ws://${address}:9090/jsonrpc`);
             } catch {
                 throw new PebkacError("badAddress", address);
             }

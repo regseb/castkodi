@@ -22,7 +22,7 @@ const PLUGIN_URL = "plugin://plugin.video.twitch/?mode=play";
  *                            <em>fichier</em>.
  */
 export const generateLiveUrl = async function (channelName) {
-    return PLUGIN_URL + "&channel_name=" + channelName;
+    return `${PLUGIN_URL}&channel_name=${channelName}`;
 };
 
 /**
@@ -33,7 +33,7 @@ export const generateLiveUrl = async function (channelName) {
  *                            <em>fichier</em>.
  */
 export const generateVideoUrl = async function (videoId) {
-    return PLUGIN_URL + "&video_id=" + videoId;
+    return `${PLUGIN_URL}&video_id=${videoId}`;
 };
 
 /**
@@ -44,7 +44,7 @@ export const generateVideoUrl = async function (videoId) {
  *                            <em>fichier</em>.
  */
 export const generateClipUrl = async function (clipId) {
-    return PLUGIN_URL + "&slug=" + clipId;
+    return `${PLUGIN_URL}&slug=${clipId}`;
 };
 
 /**

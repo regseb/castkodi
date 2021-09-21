@@ -24,8 +24,8 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
  *                            <em>fichier</em>.
  */
 export const generateVideoUrl = async function (videoId, incognito) {
-    return PLUGIN_URL + "?video_id=" + videoId +
-                        "&incognito=" + incognito.toString();
+    return `${PLUGIN_URL}?video_id=${videoId}` +
+                        `&incognito=${incognito.toString()}`;
 };
 
 /**
@@ -39,9 +39,9 @@ export const generateVideoUrl = async function (videoId, incognito) {
  */
 export const generatePlaylistUrl = async function (playlistId, incognito) {
     const config = await browser.storage.local.get(["youtube-order"]);
-    return PLUGIN_URL + "?playlist_id=" + playlistId +
-                        "&order=" + config["youtube-order"] +
-                        "&play=1&incognito=" + incognito.toString();
+    return `${PLUGIN_URL}?playlist_id=${playlistId}` +
+                        `&order=${config["youtube-order"]}` +
+                        `&play=1&incognito=${incognito.toString()}`;
 };
 
 /**

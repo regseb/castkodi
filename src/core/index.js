@@ -58,7 +58,6 @@ export const cast = async function (action, urls) {
                                 : new PebkacError("noLinks");
     }
 
-
     const file = await extract(new URL(url), {
         depth:     false,
         incognito: browser.extension.inIncognitoContext,
@@ -77,7 +76,7 @@ export const cast = async function (action, urls) {
     } else if ("add" === action) {
         await kodi.playlist.add(file);
     } else {
-        throw new Error(action + " is not supported");
+        throw new Error(`${action} is not supported`);
     }
 
     if (!browser.extension.inIncognitoContext) {

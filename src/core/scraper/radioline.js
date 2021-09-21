@@ -10,7 +10,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @type {string}
  */
-const API_URL = "https://www.radioline.co/Pillow/";
+const API_URL = "https://www.radioline.co/Pillow";
 
 /**
  * Extrait les informations nécessaire pour lire une musique sur Kodi.
@@ -26,7 +26,7 @@ const action = async function ({ hash }) {
     }
 
     const key = hash.slice(1).replaceAll("-", "_");
-    const response = await fetch(API_URL + key + "/play");
+    const response = await fetch(`${API_URL}/${key}/play`);
     const json = await response.json();
     return "error" === json.body.type ? null
                                       : json.body.content.streams[0].url;
