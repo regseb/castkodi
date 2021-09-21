@@ -3,6 +3,10 @@
  */
 
 /**
+ * @typedef {import("./kodi.js").Kodi} Kodi
+ */
+
+/**
  * Le client JSON-RPC pour contacter l'espace de nom <em>GUI</em> de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
@@ -12,7 +16,7 @@ export const GUI = class {
     /**
      * Crée un client JSON-RPC pour l'espace de nom <em>GUI/em>.
      *
-     * @param {import("./kodi.js").Kodi} kodi Le client pour contacter Kodi.
+     * @param {Kodi} kodi Le client pour contacter Kodi.
      */
     constructor(kodi) {
 
@@ -20,7 +24,7 @@ export const GUI = class {
          * Le client pour contacter Kodi.
          *
          * @private
-         * @type {import("./kodi.js").Kodi}
+         * @type {Kodi}
          */
         this._kodi = kodi;
     }

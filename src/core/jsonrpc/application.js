@@ -4,6 +4,13 @@
 
 import { NotificationListener } from "./notificationlistener.js";
 
+/* eslint-disable max-len */
+/**
+ * @typedef {import("./kodi.js").Kodi} Kodi
+ * @typedef {import("../../tools/notificationevent.js").NotificationEvent} NotificationEvent
+ */
+/* eslint-enable max-len */
+
 /**
  * Le client JSON-RPC pour contacter l'espace de nom <em>Application</em> de
  * Kodi.
@@ -15,7 +22,7 @@ export const Application = class {
     /**
      * Crée un client JSON-RPC pour l'espace de nom <em>Application</em>.
      *
-     * @param {import("./kodi.js").Kodi} kodi Le client pour contacter Kodi.
+     * @param {Kodi} kodi Le client pour contacter Kodi.
      */
     constructor(kodi) {
 
@@ -23,7 +30,7 @@ export const Application = class {
          * Le client pour contacter Kodi.
          *
          * @private
-         * @type {import("./kodi.js").Kodi}
+         * @type {Kodi}
          */
         this._kodi = kodi;
 
@@ -79,10 +86,7 @@ export const Application = class {
      * Appelle les auditeurs d'une notification liée à l'espace de nom
      * <em>Application</em>.
      *
-     * @param {Object} notification             La notification reçu de Kodi.
-     * @param {string} notification.method      La méthode de la notification.
-     * @param {Object} notification.params      Les paramètres de la méthode.
-     * @param {any}    notification.params.data Les données des paramètres.
+     * @param {NotificationEvent} notification La notification reçu de Kodi.
      */
     handleNotification({ method, params: { data } }) {
         // Garder seulement les notifications sur l'application et si des
