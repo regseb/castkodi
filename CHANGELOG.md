@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/regseb/castkodi/compare/v5.16.0...v6.0.0) (2021-09-27)
+
+
+### Features
+
+* Fournir une version pour Chromium. ([f468199](https://github.com/regseb/castkodi/commit/f4681995eb72917ebad1bbda36bcbfa73b3c0df8))
+
 ## [5.16.0](https://github.com/regseb/castkodi/compare/v5.15.0...v5.16.0) (2021-09-18)
 
 

@@ -1,6 +1,6 @@
 {
     "name": "castkodi",
-    "version": "5.16.0",
+    "version": "6.0.0",
     "description": "WebExtension pour diffuser des vidéos / musiques sur Kodi.",
     "keywords": [
         "cast",
