@@ -2,8 +2,24 @@
  * @module
  */
 
+/**
+ * La liste des contextes par défaut pour chaque navigateur. Sous Chrome, les
+ * contextes <code>bookmark</code> et <code>tab</code> n'existent pas. Et dans
+ * Firefox le contexte <code>bookmark</code> n'est pas activé par défaut car il
+ * nécessite la permission <code>bookmarks</code>. https://crbug.com/825443
+ *
+ * @constant {object<string, string[]>}
+ */
+const DEFAULT_MENU_CONTEXTS = {
+    Chrome:  ["audio", "frame", "link", "page", "selection", "video"],
+    Firefox: ["audio", "frame", "link", "page", "selection", "tab", "video"],
+};
+
 browser.storage.local.get().then(async (current) => {
     // Vider la configuration pour enlever les éventuelles propriétés obsolètes.
+    // Et aussi pour forcer l'appel à l'écouteur browser.storage.onChanged sous
+    // Chromium même si la méthode browser.storage.local.set() ne modifie pas la
+    // configuration.
     await browser.storage.local.clear();
 
     if ("config-version" in current) {
@@ -47,6 +63,8 @@ browser.storage.local.get().then(async (current) => {
 
         await browser.storage.local.set(config);
     } else {
+        const { name } = await browser.runtime.getBrowserInfo();
+
         await browser.storage.local.set({
             "config-version":   4,
             "server-mode":      "single",
@@ -54,9 +72,7 @@ browser.storage.local.get().then(async (current) => {
             "server-active":    0,
             "general-history":  false,
             "menu-actions":     ["send", "insert", "add"],
-            "menu-contexts":    [
-                "audio", "frame", "link", "page", "selection", "tab", "video",
-            ],
+            "menu-contexts":    DEFAULT_MENU_CONTEXTS[name],
             "youtube-playlist": "playlist",
             "youtube-order":    "",
         });

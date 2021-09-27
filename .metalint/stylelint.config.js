@@ -96,7 +96,8 @@ export default {
         "selector-attribute-name-disallowed-list": null,
         "selector-attribute-operator-allowed-list": null,
         "selector-attribute-operator-disallowed-list": null,
-        "selector-class-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+        "selector-class-pattern": "^([a-z][0-9a-z]*(-[0-9a-z]+)*" +
+                                                            "|Chrome|Firefox)$",
         "selector-combinator-allowed-list": null,
         "selector-combinator-disallowed-list": null,
         "selector-disallowed-list": null,

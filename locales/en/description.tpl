@@ -26,4 +26,4 @@ To cast videos / music, three items can be added on context menu of link / page 
 
 In Kodi, you must <em>Allow remote control from applications on other systems</em>. This option is on <em>Settings</em> / <em>Services</em> / <em>Control</em>.
 
-Then you must configure Cast Kodi <em>Options</em> by copying <em>IP address</em> of the server hosting Kodi; this information is displayed on Kodi's <em>Settings</em> / <em>System information</em> / <em>Summary</em> page.
+Then you must configure Cast&nbsp;Kodi <em>Options</em> by copying <em>IP address</em> of the server hosting Kodi; this information is displayed on Kodi's <em>Settings</em> / <em>System information</em> / <em>Summary</em> page.

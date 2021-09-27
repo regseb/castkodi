@@ -15,6 +15,9 @@ const data = {
         data:      new Set(),
         listeners: [],
     },
+    runtime: {
+        browserInfo: { name: "" },
+    },
     storage:     {
         local: {
             data:      {},
@@ -36,9 +39,11 @@ export const browser = {
                               : Promise.reject(new Error("Bookmark not found"));
         },
     },
+
     extension: {
         inIncognitoContext: false,
     },
+
     history: {
         addUrl: (details) => {
             data.histories.push(details);
@@ -50,6 +55,7 @@ export const browser = {
             return data.histories.filter((h) => h.url.includes(text));
         },
     },
+
     i18n: {
         getMessage: (key, ...substitutions) => {
             return Object.keys(I18NS[key]?.placeholders ?? {})
@@ -91,6 +97,13 @@ export const browser = {
             addListener: (listener) => {
                 data.permissions.listeners.push(listener);
             },
+        },
+    },
+
+    runtime: {
+        getBrowserInfo:  () => Promise.resolve(data.runtime.browserInfo),
+        _setBrowserInfo: (browserInfo) => {
+            data.runtime.browserInfo = browserInfo;
         },
     },
 

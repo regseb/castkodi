@@ -26,4 +26,4 @@ Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans
 
 Dans Kodi, il faut <em>Autoriser le contrôle à distance par des programmes sur d'autres systèmes</em>. Ce réglage se fait dans la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em>.
 
-Vous devez ensuite configurer les <em>Préférences</em> de Cast Kodi en copiant l'<em>Adresse IP</em> du serveur hébergeant Kodi&nbsp;; cette information est disponible dans la page <em>Paramètres</em> / <em>Infos sur le système</em> / <em>Résumé</em>.
+Vous devez ensuite configurer les <em>Préférences</em> de Cast&nbsp;Kodi en copiant l'<em>Adresse IP</em> du serveur hébergeant Kodi&nbsp;; cette information est disponible dans la page <em>Paramètres</em> / <em>Infos sur le système</em> / <em>Résumé</em>.

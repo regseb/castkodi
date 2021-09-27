@@ -10,12 +10,18 @@
     "version": "5.16.0",
     "description": "__MSG_manifest_description__",
     "icons": {
-        "48": "img/icon.svg",
-        "96": "img/icon.svg"
+        "16": "img/icon16.png",
+        "48": "img/icon48.png",
+        "96": "img/icon96.png",
+        "128": "img/icon128.png"
     },
     "browser_action": {
-        "browser_style": false,
-        "default_icon": "img/icon.svg",
+        "default_icon": {
+            "16": "img/icon16.png",
+            "24": "img/icon24.png",
+            "32": "img/icon32.png",
+            "64": "img/icon64.png"
+        },
         "default_title": "Cast Kodi",
         "default_popup": "popup/index.html"
     },
@@ -32,6 +38,7 @@
     },
     "default_locale": "en",
     "homepage_url": "https://github.com/regseb/castkodi",
+    "minimum_chrome_version": "93",
     "optional_permissions": [
         "bookmarks",
         "history"

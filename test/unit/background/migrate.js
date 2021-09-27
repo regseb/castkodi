@@ -1,7 +1,31 @@
 import assert from "node:assert";
 
 describe("background/migrate.js", function () {
-    it("should create config", async function () {
+    it("should create config in Chrome", async function () {
+        browser.runtime._setBrowserInfo({ name: "Chrome" });
+        browser.storage.local.set({ foo: "bar" });
+
+        await import(`../../../src/background/migrate.js?${Date.now()}`);
+        const config = await browser.storage.local.get();
+        assert.deepStrictEqual(config, {
+            "config-version":   4,
+            "server-mode":      "single",
+            "server-list":      [{ address: "", name: "" }],
+            "server-active":    0,
+            "general-history":  false,
+            "menu-actions":     ["send", "insert", "add"],
+            "menu-contexts":    [
+                "audio", "frame", "link", "page", "selection", "video",
+            ],
+            "youtube-playlist": "playlist",
+            "youtube-order":    "",
+        });
+
+        browser.storage.local.clear();
+    });
+
+    it("should create config in Firefox", async function () {
+        browser.runtime._setBrowserInfo({ name: "Firefox" });
         browser.storage.local.set({ foo: "bar" });
 
         await import(`../../../src/background/migrate.js?${Date.now()}`);

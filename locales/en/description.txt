@@ -1,0 +1,8 @@
+Cast Kodi also analyzes the pages for videos, music or external platforms integrations. For example, if a page displays a YouTube video, this video will be sent to Kodi.
+
+To cast videos / music, three items can be added on context menu of link / page / selection of videos or audio: Play now to Kodi, Play next to Kodi and Queue item to Kodi. A remote (accessible with toolbar button) is also present to cast current tab to Kodi and to: pause, go to next element, adjust the volume, ...
+
+
+In Kodi, you must Allow remote control from applications on other systems. This option is on Settings / Services / Control.
+
+Then you must configure Cast Kodi Options by copying IP address of the server hosting Kodi; this information is displayed on Kodi's Settings / System information / Summary page.

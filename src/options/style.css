@@ -2,11 +2,16 @@ body {
     /* Déplacer la marge supérieure dans le rembourrage pour contourner le
        problème de la barre de défilement dans Firefox. */
     margin-top: 0;
+    min-width: 500px;
     padding-top: 8px;
 }
 
 sup {
     cursor: help;
+}
+
+label[data-supported-browser] {
+    display: none;
 }
 
 input[type="text"] {

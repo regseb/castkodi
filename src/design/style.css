@@ -140,19 +140,39 @@ input[type="radio"]:checked:active:not(:disabled) {
 }
 
 input[type="range"] {
+    -webkit-appearance: none;
     background-color: transparent;
     border: 0;
     margin: 0;
-    padding: 5px 0;
 }
 input[type="range"]:not([orient="vertical"]) {
     height: 32px;
+    padding: 5px 0;
 }
-input[type="range"][orient="vertical"] {
-    width: 16px;
+.Firefox input[type="range"][orient="vertical"] {
+    padding: 0 5px;
+    width: 32px;
+}
+.Chrome input[type="range"][orient="vertical"] {
+    height: 32px;
+    /* Les sliders verticaux ne peuvent pas être stylisés dans Chromium, il faut
+       donc les faire pivoter manuellement pour ensuite pouvoir les styliser.
+       https://crbug.com/341071 */
+    transform: rotate(270deg);
 }
 input[type="range"]:focus:not(:disabled) {
     outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    background-color: var(--range-thumb-background-color);
+    border: 0;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 2px rgba(0 0 0 / 65%));
+    height: 12px;
+    /* Remonter le curseur pour qu'il soit au centre. */
+    margin-top: -3px;
+    width: 12px;
 }
 input[type="range"]::-moz-range-thumb {
     background-color: var(--range-thumb-background-color);
@@ -161,23 +181,38 @@ input[type="range"]::-moz-range-thumb {
     height: 12px;
     width: 12px;
 }
+input[type="range"]:hover:not(:disabled)::-webkit-slider-thumb {
+    /* Remplacer outline par bow-shadow car Chromium n'applique pas le
+       border-radius sur le outline. https://crbug.com/81556 */
+    box-shadow: 0 0 0 6px var(--button-hover-background-color);
+}
 input[type="range"]:hover:not(:disabled)::-moz-range-thumb {
     outline: 6px solid var(--button-hover-background-color);
 }
 input[type="range"]::-moz-range-progress {
     background-color: var(--range-progress-background-color);
     border-radius: 2.5px;
-    height: 5px;
 }
 input[type="range"].primary::-moz-range-progress {
     background-color: var(--range-primary-progress-background-color);
+}
+input[type="range"]::-webkit-slider-runnable-track {
+    background-color: var(--range-track-background-color);
+    border-radius: 2.5px;
 }
 input[type="range"]::-moz-range-track {
     background-color: var(--range-track-background-color);
     border-radius: 2.5px;
 }
+input[type="range"]:hover:not(:disabled)::-webkit-slider-runnable-track {
+    background-color: var(--range-hover-track-background-color);
+}
 input[type="range"]:hover:not(:disabled)::-moz-range-track {
     background-color: var(--range-hover-track-background-color);
+}
+input[type="range"]:not([orient="vertical"])::-webkit-slider-runnable-track,
+input[type="range"][orient="vertical"]::-webkit-slider-runnable-track {
+    height: 5px;
 }
 input[type="range"]:not([orient="vertical"])::-moz-range-progress,
 input[type="range"]:not([orient="vertical"])::-moz-range-track {

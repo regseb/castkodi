@@ -110,7 +110,8 @@
         <label data-i18n-textcontent="menu-contexts-audio">
           <input name="audio" type="checkbox" /> {}
         </label>
-        <label data-i18n-textcontent="menu-contexts-bookmark">
+        <label data-i18n-textcontent="menu-contexts-bookmark"
+               data-supported-browser="Firefox">
           <input name="bookmark" type="checkbox" data-permissions="bookmarks" />
           {}
         </label>
@@ -126,7 +127,8 @@
         <label data-i18n-textcontent="menu-contexts-selection">
           <input name="selection" type="checkbox" /> {}
         </label>
-        <label data-i18n-textcontent="menu-contexts-tab">
+        <label data-i18n-textcontent="menu-contexts-tab"
+               data-supported-browser="Firefox">
           <input name="tab" type="checkbox" /> {}
         </label>
         <label data-i18n-textcontent="menu-contexts-video">
@@ -168,6 +170,7 @@
     </form>
 
     <script src="/polyfill/script.js" type="module"></script>
+    <script src="/core/css.js" type="module"></script>
     <script src="/core/i18n.js" type="module"></script>
     <script src="script.js" type="module"></script>
   </body>

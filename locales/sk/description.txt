@@ -1,0 +1,8 @@
+Cast Kodi tiež analyzuje stránky a hľadá v nich odkazy na videá a hudby z externých platforiem. Ak napríklad stránka obsahuje YouTube video, toto video bude poslané do Kodi.
+
+Pre poslanie videa/hudby môžete do kontextovej ponuky odkazu / stránky / výberu pridať nasledovné 3 položky: Prehrať teraz v Kodi, Prehrať neskôr v Kodi a Pridať do poradia v Kodi. Prítomné je aj diaľkové ovládanie (dostupné na lište s nástrojmi), ktoré vám umožní odoslať aktuálnu kartu do Kodi a pozastaviť video, prejsť na ďalšiu položku, upraviť hlasitosť, ...
+
+
+V Kodi musíte Povoliť diaľkové ovládanie aplikáciam na iných systémoch. Túto možnosť nájdete v Nastavenia / Servery / Ovládanie.
+
+Potom musíte v nastaveniach zadať IP adresu servera, na ktorom beží Kodi. Túto informáciu nájdete v Kodi - sekcia Nastavenia / Systémové informácie / Súhrn.

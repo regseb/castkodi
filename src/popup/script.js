@@ -453,9 +453,20 @@ const donate = async function () {
 };
 
 const rate = async function () {
-    await browser.tabs.create({
-        url: "https://addons.mozilla.org/addon/castkodi/",
-    });
+    let url;
+    const { name } = await browser.runtime.getBrowserInfo();
+    switch (name) {
+        case "Chrome":
+            url = "https://chrome.google.com/webstore/detail/cast-kodi" +
+                                    "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
+            break;
+        case "Firefox":
+            url = "https://addons.mozilla.org/addon/castkodi/";
+            break;
+        default:
+            throw new Error("unknown browser");
+    }
+    await browser.tabs.create({ url });
     close();
 };
 

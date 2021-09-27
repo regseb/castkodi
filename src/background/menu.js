@@ -98,6 +98,9 @@ const handleChange = async function (changes) {
         for (const action of actions) {
             const key = `menus_second${capitalize(action)}`;
             browser.contextMenus.create({
+                // Passer les contextes aux enfants car dans Chromium ils ne
+                // sont pas hérités du parent.
+                contexts,
                 id:       action,
                 parentId: "parent",
                 title:    browser.i18n.getMessage(key),

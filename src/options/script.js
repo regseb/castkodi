@@ -236,6 +236,14 @@ browser.storage.local.get().then((config) => {
     }
 });
 
+// Activer les contextes disponibles seulement dans certains navigateurs.
+browser.runtime.getBrowserInfo().then(({ name }) => {
+    for (const label of document.querySelectorAll("label" +
+                                        `[data-supported-browser="${name}"]`)) {
+        label.style.display = "block";
+    }
+});
+
 // Écouter les actions dans le formulaire.
 for (const input of document.querySelectorAll("[name]")) {
     input.addEventListener("input", save);
