@@ -3,19 +3,19 @@
  */
 
 /**
- * Enlève les balises de mise en forme.
+ * Enlève les balises utilisées par Kodi pour mettre en forme des textes.
  *
  * @param {string} text Le texte qui sera nettoyé.
- * @returns {string} Le textenettoyé.
+ * @returns {string} Le texte nettoyé.
  */
 export const strip = function (text) {
-    return text.replaceAll(/\[B\](.*?)\[\/B\]/gu, "$1")
-               .replaceAll(/\[I\](.*?)\[\/I\]/gu, "$1")
-               .replaceAll(/\[LIGHT\](.*?)\[\/LIGHT\]/gu, "$1")
-               .replaceAll(/\[COLOR [^\]]+\](.*?)\[\/COLOR\]/gu, "$1")
-               .replaceAll(/\[UPPERCASE\](.*?)\[\/UPPERCASE\]/gu, "$1")
-               .replaceAll(/\[LOWERCASE\](.*?)\[\/LOWERCASE\]/gu, "$1")
-               .replaceAll(/\[CAPITALIZE\](.*?)\[\/CAPITALIZE\]/gu, "$1")
+    return text.replaceAll(/\[B\](?<t>.*?)\[\/B\]/gu, "$<t>")
+               .replaceAll(/\[I\](?<t>.*?)\[\/I\]/gu, "$<t>")
+               .replaceAll(/\[LIGHT\](?<t>.*?)\[\/LIGHT\]/gu, "$<t>")
+               .replaceAll(/\[COLOR [^\]]+\](?<t>.*?)\[\/COLOR\]/gu, "$<t>")
+               .replaceAll(/\[UPPERCASE\](?<t>.*?)\[\/UPPERCASE\]/gu, "$<t>")
+               .replaceAll(/\[LOWERCASE\](?<t>.*?)\[\/LOWERCASE\]/gu, "$<t>")
+               .replaceAll(/\[CAPITALIZE\](?<t>.*?)\[\/CAPITALIZE\]/gu, "$<t>")
                .replaceAll("[CR]", " ")
                .trim();
 };

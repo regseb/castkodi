@@ -5,6 +5,7 @@ export default {
         "!/jsdocs/",
         "!/node_modules/",
         "!/src/polyfill/lib/",
+        "!*.swp",
         "**",
     ],
     checkers: [
