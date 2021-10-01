@@ -1,22 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { compile, matchPattern, sanitize }
-                                      from "../../../src/tools/matchpattern.js";
+import { compile, matchPattern }
+                              from "../../../../src/core/tools/matchpattern.js";
 
 describe("tools/matchpattern.js", function () {
-    describe("sanitize()", function () {
-        it("should sanitize", function () {
-            const sanitized = sanitize("foo[.*+?^${}()|[]\\bar");
-            assert.strictEqual(sanitized, "foo\\[\\.\\*\\+\\?\\^\\$\\{" +
-                                          "\\}\\(\\)\\|\\[\\]\\\\bar");
-        });
-
-        it("should sanitize empty string", function () {
-            const sanitized = sanitize("");
-            assert.strictEqual(sanitized, "");
-        });
-    });
-
     describe("compile()", function () {
         it("should compile magnet pattern", function () {
             const regexp = compile("magnet:?*");

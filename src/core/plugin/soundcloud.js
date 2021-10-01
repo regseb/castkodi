@@ -4,8 +4,8 @@
  */
 /* eslint-disable require-await */
 
-import { matchPattern } from "../../tools/matchpattern.js";
 import * as labeller from "../labeller/soundcloud.js";
+import { matchPattern } from "../tools/matchpattern.js";
 
 /**
  * L'URL de l'extension pour lire des musiques issues de SoundCloud.

@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { cacheable } from "../../../src/tools/cacheable.js";
+import { cacheable } from "../../../../src/core/tools/cacheable.js";
 
 describe("tools/cacheable.js", function () {
     describe("cacheable()", function () {

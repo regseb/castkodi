@@ -3,9 +3,9 @@
  */
 /* eslint-disable require-await */
 
-import { matchPattern } from "../../tools/matchpattern.js";
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
+import { matchPattern } from "../tools/matchpattern.js";
 
 /**
  * La liste des types pouvant contenir des URLs de son ou de vidéo.

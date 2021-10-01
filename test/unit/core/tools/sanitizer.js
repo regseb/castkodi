@@ -1,7 +1,20 @@
 import assert from "node:assert";
-import { strip } from "../../../src/core/sanitizer.js";
+import { quote, strip } from "../../../../src/core/tools/sanitizer.js";
 
 describe("core/sanitizer.js", function () {
+    describe("quote()", function () {
+        it("should quote", function () {
+            const quoted = quote("foo[.*+?^${}()|[]\\bar");
+            assert.strictEqual(quoted, "foo\\[\\.\\*\\+\\?\\^\\$\\{\\}\\(\\)" +
+                                                            "\\|\\[\\]\\\\bar");
+        });
+
+        it("should sanitize empty string", function () {
+            const quoted = quote("");
+            assert.strictEqual(quoted, "");
+        });
+    });
+
     describe("strip()", function () {
         it("should strip [B] tag", function () {
             const text = "Normal [B]bold[/B]";

@@ -3,8 +3,8 @@
  */
 /* eslint-disable require-await */
 
-import { cacheable } from "../../tools/cacheable.js";
-import { matchPattern } from "../../tools/matchpattern.js";
+import { cacheable } from "../tools/cacheable.js";
+import { matchPattern } from "../tools/matchpattern.js";
 /* eslint-disable import/no-cycle */
 import { extract as audioExtract } from "./audio.js";
 import { extract as iframeExtract } from "./iframe.js";

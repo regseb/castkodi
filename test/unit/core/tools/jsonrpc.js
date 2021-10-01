@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import mockSocket from "mock-socket";
 import sinon from "sinon";
-import { JSONRPC } from "../../../src/tools/jsonrpc.js";
+import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
 
 const Server = mockSocket.Server;
 

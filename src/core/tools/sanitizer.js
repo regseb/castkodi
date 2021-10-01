@@ -3,6 +3,18 @@
  */
 
 /**
+ * Protège les caractères spéciaux d'une chaine de caractères pour les
+ * expressions rationnelles.
+ *
+ * @param {string} pattern La chaine de caractères.
+ * @returns {string} La chaine de caractères avec les caractères spéciaux
+ *                   protégés.
+ */
+export const quote = function (pattern) {
+    return pattern.replace(/[$()*+.?[\\\]^{|}]/gu, "\\$&");
+};
+
+/**
  * Enlève les balises utilisées par Kodi pour mettre en forme des textes.
  *
  * @param {string} text Le texte qui sera nettoyé.

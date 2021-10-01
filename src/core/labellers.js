@@ -9,7 +9,7 @@ import * as twitch from "./plugin/twitch.js";
 import * as vimeo from "./plugin/vimeo.js";
 import * as vtmgo from "./plugin/vtmgo.js";
 import * as youtube from "./plugin/youtube.js";
-import { strip } from "./sanitizer.js";
+import { strip } from "./tools/sanitizer.js";
 
 /**
  * La liste des fonctions des extensions de Kodi retournant le label d'une URL.

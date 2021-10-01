@@ -1,8 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { NotificationEvent } from "../../../../src/tools/notificationevent.js";
-import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { Input } from "../../../../src/core/jsonrpc/input.js";
+import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
+import { NotificationEvent }
+                         from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/input.js", function () {
     describe("back()", function () {

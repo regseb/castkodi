@@ -3,7 +3,7 @@
  */
 
 import { cast } from "../core/index.js";
-import { notify } from "../core/notify.js";
+import { notify } from "../core/tools/notify.js";
 
 /**
  * Met en majuscule la première lettre d'un texte.

@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { GUI } from "../../../../src/core/jsonrpc/gui.js";
+import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 
 describe("core/jsonrpc/gui.js", function () {
     describe("setFullscreen()", function () {

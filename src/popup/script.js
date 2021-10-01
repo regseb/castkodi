@@ -4,8 +4,8 @@
 
 import { cast, kodi } from "../core/index.js";
 import { complete } from "../core/labellers.js";
-import { notify } from "../core/notify.js";
-import { ping } from "../tools/ping.js";
+import { notify } from "../core/tools/notify.js";
+import { ping } from "../core/tools/ping.js";
 
 /**
  * La position de l'élément courant dans la liste de lecture ; ou

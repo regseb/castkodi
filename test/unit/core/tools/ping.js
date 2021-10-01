@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { ping } from "../../../src/tools/ping.js";
+import { ping } from "../../../../src/core/tools/ping.js";
 
 describe("tools/ping.js", function () {
     describe("ping()", function () {

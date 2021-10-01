@@ -2,8 +2,8 @@
  * @module
  */
 
-import { JSONRPC } from "../../tools/jsonrpc.js";
-import { PebkacError } from "../pebkac.js";
+import { JSONRPC } from "../tools/jsonrpc.js";
+import { PebkacError } from "../tools/pebkac.js";
 import { Application } from "./application.js";
 import { GUI } from "./gui.js";
 import { Input } from "./input.js";

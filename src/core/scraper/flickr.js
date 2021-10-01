@@ -3,7 +3,7 @@
  */
 /* eslint-disable require-await */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchPattern } from "../tools/matchpattern.js";
 
 /**
  * L'expression rationnelle pour extraire la clé de l'API de Flickr.

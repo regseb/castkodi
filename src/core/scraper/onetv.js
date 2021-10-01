@@ -3,7 +3,7 @@
  */
 /* eslint-disable require-await */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchPattern } from "../tools/matchpattern.js";
 
 /**
  * L'URL de l'API de Первый канал (1tv.ru).

@@ -3,8 +3,8 @@
  */
 /* eslint-disable require-await */
 
-import { matchPattern } from "../../tools/matchpattern.js";
 import * as plugin from "../plugin/soundcloud.js";
+import { matchPattern } from "../tools/matchpattern.js";
 
 /**
  * Extrait les informations nécessaire pour lire une musique sur Kodi.

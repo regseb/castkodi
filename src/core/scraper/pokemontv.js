@@ -3,7 +3,7 @@
  */
 /* eslint-disable require-await */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchPattern } from "../tools/matchpattern.js";
 
 /**
  * Les codes des régions pour l'API en fonction des langues dans l'URL.

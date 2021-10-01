@@ -3,8 +3,8 @@
  */
 
 import { Kodi } from "./jsonrpc/kodi.js";
-import { PebkacError } from "./pebkac.js";
 import { extract } from "./scrapers.js";
+import { PebkacError } from "./tools/pebkac.js";
 
 /**
  * Le client JSON-RPC pour contacter Kodi.

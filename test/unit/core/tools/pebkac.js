@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { PebkacError } from "../../../src/core/pebkac.js";
+import { PebkacError } from "../../../../src/core/tools/pebkac.js";
 
 describe("core/pebkac.js", function () {
     describe("constructor()", function () {

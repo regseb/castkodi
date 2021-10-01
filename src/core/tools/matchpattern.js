@@ -2,16 +2,7 @@
  * @module
  */
 
-/**
- * Protège les caractères spéciaux pour les expressions rationnelles.
- *
- * @param {string} pattern Une chaine de caractères.
- * @returns {string} La chaine de caractères avec les caractères spéciaux
- *                   protégés.
- */
-export const sanitize = function (pattern) {
-    return pattern.replace(/[$()*+.?[\\\]^{|}]/gu, "\\$&");
-};
+import { quote } from "./sanitizer.js";
 
 /**
  * Convertis un modèle de correspondance en expression rationnelle.
@@ -21,7 +12,7 @@ export const sanitize = function (pattern) {
  */
 export const compile = function (pattern) {
     if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
-        return new RegExp("^" + sanitize(pattern).replaceAll("\\*", ".*") + "$",
+        return new RegExp("^" + quote(pattern).replaceAll("\\*", ".*") + "$",
                           "iu");
     }
 
@@ -29,10 +20,10 @@ export const compile = function (pattern) {
     const { scheme, host, path } = RE.exec(pattern).groups;
     return new RegExp("^" +
         ("*" === scheme ? "https?"
-                        : sanitize(scheme)) + "://" +
+                        : quote(scheme)) + "://" +
         ("*" === host ? "[^/]+"
-                      : sanitize(host).replace("\\*", "[^./]+")) +
-        "/" + sanitize(path).replaceAll("\\*", ".*") + "$", "iu");
+                      : quote(host).replace("\\*", "[^./]+")) +
+        "/" + quote(path).replaceAll("\\*", ".*") + "$", "iu");
 };
 
 /**

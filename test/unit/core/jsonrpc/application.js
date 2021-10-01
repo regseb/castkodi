@@ -1,8 +1,9 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { NotificationEvent } from "../../../../src/tools/notificationevent.js";
-import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
+import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
+import { NotificationEvent }
+                         from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/application.js", function () {
     describe("getProperties()", function () {

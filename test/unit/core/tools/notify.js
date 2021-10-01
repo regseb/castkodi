@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { notify } from "../../../src/core/notify.js";
-import { PebkacError } from "../../../src/core/pebkac.js";
+import { notify } from "../../../../src/core/tools/notify.js";
+import { PebkacError } from "../../../../src/core/tools/pebkac.js";
 
 describe("core/notify.js", function () {
     describe("constructor()", function () {

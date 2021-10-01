@@ -6,8 +6,9 @@ import { Input } from "../../../../src/core/jsonrpc/input.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { Player } from "../../../../src/core/jsonrpc/player.js";
 import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
-import { JSONRPC } from "../../../../src/tools/jsonrpc.js";
-import { NotificationEvent } from "../../../../src/tools/notificationevent.js";
+import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
+import { NotificationEvent }
+                         from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/kodi.js", function () {
     describe("check()", function () {

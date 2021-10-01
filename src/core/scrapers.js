@@ -2,7 +2,6 @@
  * @module
  */
 
-import { cacheable } from "../tools/cacheable.js";
 import * as acestream from "./scraper/acestream.js";
 import * as allocine from "./scraper/allocine.js";
 import * as aparat from "./scraper/aparat.js";
@@ -69,6 +68,7 @@ import * as vrtnu from "./scraper/vrtnu.js";
 import * as vtmgo from "./scraper/vtmgo.js";
 import * as youtube from "./scraper/youtube.js";
 import * as zdf from "./scraper/zdf.js";
+import { cacheable } from "./tools/cacheable.js";
 
 /**
  * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
