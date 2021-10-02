@@ -87,6 +87,76 @@ describe("core/scrapers.js", function () {
             stub.restore();
         });
 
+        it("should return media URL from dynamic DOM", async function () {
+            browser.tabs.create({ _id: 1, url: "http://foo.fr/bar.html" });
+
+            const stubFetch = sinon.stub(globalThis, "fetch")
+                                   .resolves(new Response(
+                "<html></html>",
+                { headers: { "Content-Type": "text/html;charset=utf-8" } },
+            ));
+            const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
+                                           .resolves(["http://foo.fr/baz.mp4"]);
+
+            const url = new URL("http://foo.fr/bar.html");
+            const options = { depth: false, incognito: false };
+
+            const file = await extract(url, options);
+            assert.strictEqual(file, "http://foo.fr/baz.mp4");
+
+            assert.strictEqual(stubFetch.callCount, 1);
+            assert.strictEqual(stubFetch.firstCall.args.length, 2);
+            assert.deepStrictEqual(stubFetch.firstCall.args[0], url);
+            assert.strictEqual(typeof stubFetch.firstCall.args[1], "object");
+            assert.strictEqual(stubExecuteScript.callCount, 1);
+            assert.deepStrictEqual(stubExecuteScript.firstCall.args, [
+                1, { allFrames: true, file: "/script/extractor.js" },
+            ]);
+
+            stubFetch.restore();
+            stubExecuteScript.restore();
+
+            browser.tabs.remove(1);
+        });
+
+        it("should return media URL from second dynamic DOM",
+                                                             async function () {
+            browser.tabs.create({ _id: 1, url: "http://foo.fr/bar.html" });
+            browser.tabs.create({ _id: 2, url: "http://foo.fr/bar.html" });
+
+            const stubFetch = sinon.stub(globalThis, "fetch")
+                                   .resolves(new Response(
+                "<html></html>",
+                { headers: { "Content-Type": "text/html;charset=utf-8" } },
+            ));
+            const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
+                .onFirstCall().resolves([undefined])
+                .onSecondCall().resolves([undefined, "http://foo.fr/baz.mp4"]);
+
+            const url = new URL("http://foo.fr/bar.html");
+            const options = { depth: false, incognito: false };
+
+            const file = await extract(url, options);
+            assert.strictEqual(file, "http://foo.fr/baz.mp4");
+
+            assert.strictEqual(stubFetch.callCount, 1);
+            assert.strictEqual(stubFetch.firstCall.args.length, 2);
+            assert.deepStrictEqual(stubFetch.firstCall.args[0], url);
+            assert.strictEqual(typeof stubFetch.firstCall.args[1], "object");
+            assert.strictEqual(stubExecuteScript.callCount, 2);
+            assert.deepStrictEqual(stubExecuteScript.firstCall.args, [
+                1, { allFrames: true, file: "/script/extractor.js" },
+            ]);
+            assert.deepStrictEqual(stubExecuteScript.secondCall.args, [
+                2, { allFrames: true, file: "/script/extractor.js" },
+            ]);
+
+            stubFetch.restore();
+            stubExecuteScript.restore();
+
+            browser.tabs.remove(1);
+        });
+
         it("should support uppercase URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 "<html></html>",

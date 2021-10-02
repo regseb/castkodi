@@ -6,10 +6,9 @@
 import { cacheable } from "../tools/cacheable.js";
 import { matchPattern } from "../tools/matchpattern.js";
 /* eslint-disable import/no-cycle */
-import { extract as audioExtract } from "./audio.js";
 import { extract as iframeExtract } from "./iframe.js";
 import { extract as ldjsonExtract } from "./ldjson.js";
-import { extract as videoExtract } from "./video.js";
+import { extract as mediaExtract } from "./media.js";
 /* eslint-enable import/no-cycle */
 
 /**
@@ -17,9 +16,7 @@ import { extract as videoExtract } from "./video.js";
  *
  * @type {Function[]}
  */
-const GENERIC_EXTRACTS = [
-    videoExtract, audioExtract, ldjsonExtract, iframeExtract,
-];
+const GENERIC_EXTRACTS = [mediaExtract, ldjsonExtract, iframeExtract];
 
 /**
  * Fouiller dans les éléments <code>noscript</code> de la page.

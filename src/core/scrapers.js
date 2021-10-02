@@ -9,7 +9,6 @@ import * as applepodcasts from "./scraper/applepodcasts.js";
 import * as ardmediathek from "./scraper/ardmediathek.js";
 import * as arte from "./scraper/arte.js";
 import * as arteradio from "./scraper/arteradio.js";
-import * as audio from "./scraper/audio.js";
 import * as bigo from "./scraper/bigo.js";
 import * as blogtalkradio from "./scraper/blogtalkradio.js";
 import * as devtube from "./scraper/devtube.js";
@@ -32,6 +31,7 @@ import * as ldjson from "./scraper/ldjson.js";
 import * as lemonde from "./scraper/lemonde.js";
 // eslint-disable-next-line import/no-cycle
 import * as lepoint from "./scraper/lepoint.js";
+import * as media from "./scraper/media.js";
 import * as megaphone from "./scraper/megaphone.js";
 import * as melty from "./scraper/melty.js";
 import * as mixcloud from "./scraper/mixcloud.js";
@@ -57,7 +57,6 @@ import * as torrent from "./scraper/torrent.js";
 import * as twitch from "./scraper/twitch.js";
 import * as ultimedia from "./scraper/ultimedia.js";
 import * as veoh from "./scraper/veoh.js";
-import * as video from "./scraper/video.js";
 import * as videopress from "./scraper/videopress.js";
 import * as videoshub from "./scraper/videoshub.js";
 import * as vidlox from "./scraper/vidlox.js";
@@ -130,8 +129,7 @@ const SCRAPERS = [
     youtube,
     zdf,
     // Utiliser les scrapers génériques en dernier recours.
-    video,
-    audio,
+    media,
     ldjson,
     opengraph,
     iframe,
@@ -180,6 +178,28 @@ export const extract = async function (url, options) {
             return file;
         }
     }
-    return options.depth ? null
-                         : url.href;
+
+    // Si on analyse une sous-page : arrêter maintenant sans faire croire qu'une
+    // URL a été trouvée (en ne retournant pas l'URL d'entrée).
+    if (options.depth) {
+        return null;
+    }
+
+    // Si l'URL analysée est ouverte dans un onglet : chercher une vidéo ou une
+    // musique dans son code source (qui a pu être modifié par du JavaScript).
+    const tabs = await browser.tabs.query({ url: url.href });
+    for (const tab of tabs) {
+        const files = await browser.tabs.executeScript(tab.id, {
+            allFrames: true,
+            file:      "/script/extractor.js",
+        });
+        const file = files.find((f) => undefined !== f);
+        if (undefined !== file) {
+            return file;
+        }
+    }
+
+    // Si aucune URL a été trouvée durant l'analyse, retourner l'URL de la page
+    // car c'est peut-être un lien direct vers une vidéo ou une musique.
+    return url.href;
 };

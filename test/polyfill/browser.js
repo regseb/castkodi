@@ -24,6 +24,7 @@ const data = {
             listeners: [],
         },
     },
+    tabs: [],
 };
 
 /**
@@ -139,6 +140,28 @@ export const browser = {
             addListener: (listener) => {
                 data.storage.local.listeners.push(listener);
             },
+        },
+    },
+
+    tabs: {
+        create: (createProperties) => {
+            const tab = {
+                id:  createProperties._id,
+                url: createProperties.url,
+            };
+            data.tabs.push(tab);
+            return Promise.resolve(tab);
+        },
+        executeScript: () => {
+            return Promise.reject(new Error("no polyfill for this function"));
+        },
+        query: (queryObj) => {
+            return Promise.resolve(data.tabs.filter((t) => queryObj.url ===
+                                                                        t.url));
+        },
+        remove: (tabId) => {
+            data.tabs.splice(data.tabs.findIndex((t) => tabId === t.id));
+            return Promise.resolve();
         },
     },
 };
