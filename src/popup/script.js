@@ -1014,6 +1014,11 @@ globalThis.addEventListener("keyup", (event) => {
     }
 });
 globalThis.addEventListener("wheel", (event) => {
+    // Garder le comportement classique de la molette dans une zone de texte.
+    const textarea = event.target.closest("textarea");
+    if (null !== textarea) {
+        return;
+    }
     // Garder le comportement classique de la molette pour la liste de lecture
     // lorsque la barre défilement est présent.
     const section = event.target.closest("#playlist-items");
