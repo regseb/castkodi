@@ -11,22 +11,20 @@ describe("core/scraper/kcaastreaming.js", function () {
         });
 
         it("should return audio URL", async function () {
-            const url = new URL("http://live.kcaastreaming.com/");
+            const url = new URL("https://live.kcaastreaming.com/");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
                         <div id="show">
-                          <a href="///foo.com/bar.mp3">
-                            Foo
-                          </a>
+                          <a href="///foo.com/bar.mp3">Baz</a>
                         </div>
                       </body>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "http://foo.com/bar.mp3");
+            assert.strictEqual(file, "https://foo.com/bar.mp3");
         });
     });
 });

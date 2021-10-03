@@ -19,4 +19,4 @@ const action = async function ({ href }, content) {
     const doc = await content.html();
     return new URL(doc.querySelector("#show a").href, href).href;
 };
-export const extract = matchPattern(action, "http://live.kcaastreaming.com/");
+export const extract = matchPattern(action, "*://live.kcaastreaming.com/");
