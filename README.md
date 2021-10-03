@@ -17,9 +17,9 @@ de diffuser des vidéos et des musiques sur **Kodi** :
 - liens directs : *avi*, *mkv*, *mp3*, *flac*… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace Stream, Apple Podcasts,
   Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion, DevTube, Facebook,
-  Flickr, Instagram, ItemFix, Jamendo, LBRY, Megaphone, Mixcloud, Odysee,
-  Overcast, PeerTube, Pippa, podCloud, Pokémon TV, Radio, Radioline, Steam,
-  Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously ;
+  Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast,
+  PeerTube, Pippa, podCloud, Pokémon TV, Radio, Radioline, Steam, Streamable,
+  TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously ;
   - Allemagne : ARD Mediathek, Arte, ZDF ;
   - Belgique : GoPlay, VRT NU, VTM GO ;
   - États-Unis : KCAA Radio ;

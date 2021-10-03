@@ -24,7 +24,6 @@ import * as goplay from "./scraper/goplay.js";
 import * as iframe from "./scraper/iframe.js";
 import * as jv from "./scraper/jv.js";
 import * as kcaastreaming from "./scraper/kcaastreaming.js";
-import * as lbry from "./scraper/lbry.js";
 // eslint-disable-next-line import/no-cycle
 import * as ldjson from "./scraper/ldjson.js";
 // eslint-disable-next-line import/no-cycle
@@ -96,7 +95,6 @@ const SCRAPERS = [
     goplay,
     jv,
     kcaastreaming,
-    lbry,
     lemonde,
     lepoint,
     megaphone,
