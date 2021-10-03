@@ -20,8 +20,6 @@ describe("background/migrate.js", function () {
             "youtube-playlist": "playlist",
             "youtube-order":    "",
         });
-
-        browser.storage.local.clear();
     });
 
     it("should create config in Firefox", async function () {
@@ -43,8 +41,6 @@ describe("background/migrate.js", function () {
             "youtube-playlist": "playlist",
             "youtube-order":    "",
         });
-
-        browser.storage.local.clear();
     });
 
     it("should upgrade from version '1'", async function () {
@@ -79,8 +75,6 @@ describe("background/migrate.js", function () {
             "youtube-playlist": "video",
             "youtube-order":    "",
         });
-
-        browser.storage.local.clear();
     });
 
     it("should upgrade from version '2'", async function () {
@@ -114,15 +108,13 @@ describe("background/migrate.js", function () {
             "youtube-playlist": "playlist",
             "youtube-order":    "",
         });
-
-        browser.storage.local.clear();
     });
 
     it("should upgrade from version '3'", async function () {
         browser.storage.local.set({
             "config-version":   3,
             "server-mode":      "single",
-            "server-list":      [{ host: "foo", name: "" }],
+            "server-list":      [{ address: "foo", name: "" }],
             "server-active":    0,
             "general-history":  true,
             "menu-actions":     [],
@@ -135,7 +127,7 @@ describe("background/migrate.js", function () {
         assert.deepStrictEqual(config, {
             "config-version":   4,
             "server-mode":      "single",
-            "server-list":      [{ host: "foo", name: "" }],
+            "server-list":      [{ address: "foo", name: "" }],
             "server-active":    0,
             "general-history":  true,
             "menu-actions":     [],
@@ -143,8 +135,6 @@ describe("background/migrate.js", function () {
             "youtube-playlist": "playlist",
             "youtube-order":    "",
         });
-
-        browser.storage.local.clear();
     });
 
     it("should do nothing from version '4'", async function () {
@@ -179,7 +169,5 @@ describe("background/migrate.js", function () {
             "youtube-playlist": "video",
             "youtube-order":    "default",
         });
-
-        browser.storage.local.clear();
     });
 });

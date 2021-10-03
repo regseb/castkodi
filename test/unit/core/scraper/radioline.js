@@ -33,8 +33,6 @@ describe("core/scraper/radioline.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.radioline.co/Pillow/bar_baz/play",
             ]);
-
-            stub.restore();
         });
 
         it("should return audio URL", async function () {
@@ -43,23 +41,21 @@ describe("core/scraper/radioline.js", function () {
                     body: {
                         type:    "single",
                         content: {
-                            streams: [{ url: "https://qux.com/quux.mp4" }],
+                            streams: [{ url: "https://foo.com/bar.mp4" }],
                         },
                     },
                 }),
             ));
 
-            const url = new URL("http://www.radioline.co/foo#bar/baz");
+            const url = new URL("http://www.radioline.co/baz#qux/quux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://qux.com/quux.mp4");
+            assert.strictEqual(file, "https://foo.com/bar.mp4");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://www.radioline.co/Pillow/bar/baz/play",
+                "https://www.radioline.co/Pillow/qux/quux/play",
             ]);
-
-            stub.restore();
         });
     });
 });

@@ -1,6 +1,10 @@
 import nodeFetch from "node-fetch";
 
 /**
+ * @typedef {import("node-fetch").Response} Response
+ */
+
+/**
  * L'agent utilisateur par défaut.
  *
  * @type {string}

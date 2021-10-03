@@ -6,8 +6,8 @@ describe("core/plugin/ardmediathek.js", function () {
         it("should return URL with video URL", async function () {
             const label = await plugin.generateUrl("foo");
             assert.strictEqual(label,
-                "plugin://plugin.video.ardmediathek_de/?client=ard" +
-                                                     "&mode=libArdPlay&id=foo");
+                "plugin://plugin.video.ardmediathek_de/" +
+                                          "?client=ard&mode=libArdPlay&id=foo");
         });
     });
 });

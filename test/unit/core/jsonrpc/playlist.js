@@ -21,8 +21,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.Add",
                 { playlistid: 1, item: { file } },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -40,8 +38,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.Clear",
                 { playlistid: 1 },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -64,8 +60,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.GetItems",
                 { playlistid: 1, properties: ["file", "title"] },
             ]);
-
-            stub.restore();
         });
 
         it("should return an empty array when no items", async function () {
@@ -81,8 +75,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.GetItems",
                 { playlistid: 1, properties: ["file", "title"] },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -105,8 +97,6 @@ describe("core/jsonrpc/playlist.js", function () {
                     limits:     { start: 42, end: 43 },
                 },
             ]);
-
-            stub.restore();
         });
 
         it("should return null when no item", async function () {
@@ -127,8 +117,6 @@ describe("core/jsonrpc/playlist.js", function () {
                     limits:     { start: 42, end: 43 },
                 },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -148,8 +136,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.Insert",
                 { playlistid: 1, position, item: { file } },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -168,8 +154,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.Remove",
                 { playlistid: 1, position },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -189,8 +173,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.Swap",
                 { playlistid: 1, position1, position2 },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -214,8 +196,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.Swap",
                 { playlistid: 1, position1: 1, position2: 0 },
             ]);
-
-            stub.restore();
         });
 
         it("should move after", async function () {
@@ -241,8 +221,6 @@ describe("core/jsonrpc/playlist.js", function () {
                 "Playlist.Swap",
                 { playlistid: 1, position1: 3, position2: 4 },
             ]);
-
-            stub.restore();
         });
 
         it("should not move", async function () {
@@ -254,8 +232,6 @@ describe("core/jsonrpc/playlist.js", function () {
             assert.strictEqual(result, "OK");
 
             assert.strictEqual(stub.callCount, 0);
-
-            stub.restore();
         });
     });
 
@@ -283,8 +259,6 @@ describe("core/jsonrpc/playlist.js", function () {
             assert.strictEqual(fakeAdd.callCount, 0);
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 0);
-
-            stub.restore();
         });
 
         it("should ignore others playlists", async function () {
@@ -309,8 +283,6 @@ describe("core/jsonrpc/playlist.js", function () {
             assert.strictEqual(fakeAdd.callCount, 0);
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 0);
-
-            stub.restore();
         });
 
         it("should ignore when no listener", async function () {
@@ -326,8 +298,6 @@ describe("core/jsonrpc/playlist.js", function () {
             ));
 
             assert.strictEqual(stub.callCount, 0);
-
-            stub.restore();
         });
 
         it("should handle 'OnAdd'", async function () {
@@ -367,8 +337,6 @@ describe("core/jsonrpc/playlist.js", function () {
             }]);
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 0);
-
-            stub.restore();
         });
 
         it("should handle 'OnClear'", async function () {
@@ -394,8 +362,6 @@ describe("core/jsonrpc/playlist.js", function () {
             assert.strictEqual(fakeClear.callCount, 1);
             assert.deepStrictEqual(fakeClear.firstCall.args, [undefined]);
             assert.strictEqual(fakeRemove.callCount, 0);
-
-            stub.restore();
         });
 
         it("should handle 'OnRemove'", async function () {
@@ -421,8 +387,6 @@ describe("core/jsonrpc/playlist.js", function () {
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 1);
             assert.deepStrictEqual(fakeRemove.firstCall.args, [2]);
-
-            stub.restore();
         });
 
         it("should ignore others notifications", async function () {
@@ -448,8 +412,6 @@ describe("core/jsonrpc/playlist.js", function () {
             assert.strictEqual(fakeAdd.callCount, 0);
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 0);
-
-            stub.restore();
         });
     });
 });

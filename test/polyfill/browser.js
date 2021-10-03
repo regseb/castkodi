@@ -9,7 +9,7 @@ const I18NS = JSON.parse(
 );
 
 const data = {
-    bookmarks:   {},
+    bookmarks:   new Map(),
     histories:   [],
     permissions: {
         data:      new Set(),
@@ -18,7 +18,7 @@ const data = {
     runtime: {
         browserInfo: { name: "" },
     },
-    storage:     {
+    storage: {
         local: {
             data:      {},
             listeners: [],
@@ -33,10 +33,25 @@ const data = {
  * @type {browser}
  */
 export const browser = {
+    _clear: () => {
+        data.bookmarks.clear();
+        data.histories.length = 0;
+        data.permissions.data.clear();
+        data.permissions.listeners.length = 0;
+        data.runtime.browserInfo = { name: "" };
+        Object.keys(data.storage.local.data).forEach((property) => {
+            delete data.storage.local.data[property];
+        });
+        data.storage.local.listeners.length = 0;
+        data.tabs.length = 0;
+
+        browser.extension.inIncognitoContext = false;
+    },
+
     bookmarks: {
         get: (id) => {
-            return id in data.bookmarks
-                              ? Promise.resolve([data.bookmarks[id]])
+            return data.bookmarks.has(id)
+                              ? Promise.resolve([data.bookmarks.get(id)])
                               : Promise.reject(new Error("Bookmark not found"));
         },
     },

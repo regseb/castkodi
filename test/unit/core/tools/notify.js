@@ -17,8 +17,6 @@ describe("core/notify.js", function () {
                 title:   "Unknown error",
                 message: "foo",
             }]);
-
-            stub.restore();
         });
 
         it("should accept PebkacError", function () {
@@ -33,8 +31,6 @@ describe("core/notify.js", function () {
                 title:   "Unsupported link",
                 message: "Link foo is invalid.",
             }]);
-
-            stub.restore();
         });
     });
 });

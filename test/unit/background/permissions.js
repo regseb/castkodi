@@ -1,6 +1,5 @@
 import assert from "node:assert";
 // eslint-disable-next-line import/no-unassigned-import
-import "../../../src/background/permissions.js";
 
 describe("background/permissions.js", function () {
     describe("handleRemove()", function () {
@@ -9,6 +8,9 @@ describe("background/permissions.js", function () {
                 permissions: ["foo", "history"],
             });
             browser.storage.local.set({ "general-history": true });
+
+            await import("../../../src/background/permissions.js?" +
+                                                                    Date.now());
 
             await browser.permissions.remove({ permissions: ["foo"] });
             let config = await browser.storage.local.get(["general-history"]);
@@ -25,8 +27,6 @@ describe("background/permissions.js", function () {
             await browser.permissions.remove({ permissions: ["history"] });
             config = await browser.storage.local.get(["general-history"]);
             assert.strictEqual(config["general-history"], false);
-
-            browser.storage.local.clear();
         });
 
         it("should handle bookmarks", async function () {
@@ -34,6 +34,9 @@ describe("background/permissions.js", function () {
                 permissions: ["foo", "bookmarks"],
             });
             browser.storage.local.set({ "menu-contexts": ["bar", "bookmark"] });
+
+            await import("../../../src/background/permissions.js?" +
+                                                                    Date.now());
 
             await browser.permissions.remove({ permissions: ["foo"] });
             let config = await browser.storage.local.get(["menu-contexts"]);
@@ -52,8 +55,6 @@ describe("background/permissions.js", function () {
             await browser.permissions.remove({ permissions: ["bookmarks"] });
             config = await browser.storage.local.get(["menu-contexts"]);
             assert.deepStrictEqual(config["menu-contexts"], ["bar"]);
-
-            browser.storage.local.clear();
         });
     });
 });

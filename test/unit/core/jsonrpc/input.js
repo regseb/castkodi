@@ -17,8 +17,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.Back"]);
-
-            stub.restore();
         });
     });
 
@@ -33,8 +31,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.ContextMenu"]);
-
-            stub.restore();
         });
     });
 
@@ -49,8 +45,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.Down"]);
-
-            stub.restore();
         });
     });
 
@@ -65,8 +59,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.Home"]);
-
-            stub.restore();
         });
     });
 
@@ -81,8 +73,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.Info"]);
-
-            stub.restore();
         });
     });
 
@@ -97,8 +87,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.Left"]);
-
-            stub.restore();
         });
     });
 
@@ -113,8 +101,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.Right"]);
-
-            stub.restore();
         });
     });
 
@@ -129,8 +115,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.Select"]);
-
-            stub.restore();
         });
     });
 
@@ -148,8 +132,6 @@ describe("core/jsonrpc/input.js", function () {
                 "Input.SendText",
                 { text: "foo", done: false },
             ]);
-
-            stub.restore();
         });
 
         it("should send request and finish", async function () {
@@ -165,8 +147,6 @@ describe("core/jsonrpc/input.js", function () {
                 "Input.SendText",
                 { text: "foo", done: true },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -181,8 +161,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.ShowOSD"]);
-
-            stub.restore();
         });
     });
 
@@ -199,8 +177,6 @@ describe("core/jsonrpc/input.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "Input.ShowPlayerProcessInfo",
             ]);
-
-            stub.restore();
         });
     });
 
@@ -215,8 +191,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["Input.Up"]);
-
-            stub.restore();
         });
     });
 
@@ -235,8 +209,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
-
-            stub.restore();
         });
 
         it("should ignore when no listener", function () {
@@ -250,8 +222,6 @@ describe("core/jsonrpc/input.js", function () {
             }));
 
             assert.strictEqual(stub.callCount, 0);
-
-            stub.restore();
         });
 
         it("should handle 'OnInputRequested'", function () {
@@ -269,8 +239,6 @@ describe("core/jsonrpc/input.js", function () {
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{ foo: "bar" }]);
-
-            stub.restore();
         });
 
         it("should ignore others notifications", function () {
@@ -287,8 +255,6 @@ describe("core/jsonrpc/input.js", function () {
 
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
-
-            stub.restore();
         });
     });
 });

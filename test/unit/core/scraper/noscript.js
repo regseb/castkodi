@@ -68,7 +68,7 @@ describe("core/scraper/noscript.js", function () {
                           <a href="http://baz.org/">link</a>
                         </noscript>
                         <noscript>
-                          <audio src="https://qux.org/quxx.mp3" />
+                          <audio src="https://qux.org/quux.mp3" />
                         </noscript>
                       </body>
                     </html>`, "text/html")),
@@ -76,7 +76,7 @@ describe("core/scraper/noscript.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://qux.org/quxx.mp3");
+            assert.strictEqual(file, "https://qux.org/quux.mp3");
         });
     });
 });

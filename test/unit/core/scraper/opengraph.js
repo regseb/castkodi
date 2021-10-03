@@ -106,7 +106,7 @@ describe("core/scraper/opengraph.js", function () {
                       <head>
                         <meta property="og:video:type" content="text/html" />
                         <meta property="og:video"
-                              content="https://www.youtube.com/embed/foo" />
+                              content="https://www.twitch.tv/foo" />
                       </head>
                     </html>`, "text/html")),
             };
@@ -114,8 +114,7 @@ describe("core/scraper/opengraph.js", function () {
 
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/?video_id=foo" +
-                                                   "&incognito=true");
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
     });
 

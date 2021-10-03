@@ -51,8 +51,6 @@ describe("core/scraper/jv.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 new URL("https://qux.fr/quux.htm"),
             ]);
-
-            stub.restore();
         });
     });
 });

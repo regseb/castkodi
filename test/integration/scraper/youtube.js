@@ -3,15 +3,11 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: YouTube", function () {
     it("should return URL when it's not a video", async function () {
-        browser.storage.local.set({ "youtube-playlist": "playlist" });
-
         const url = new URL("https://www.youtube.com/watch?x=123456");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file, url.href);
-
-        browser.storage.local.clear();
     });
 
     it("should return playlist id from video in playlist", async function () {
@@ -78,15 +74,11 @@ describe("Scraper: YouTube", function () {
 
     it("should return URL when it's not a video from mobile",
                                                              async function () {
-        browser.storage.local.set({ "youtube-playlist": "video" });
-
         const url = new URL("https://m.youtube.com/watch?a=dQw4w9WgXcQ");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file, url.href);
-
-        browser.storage.local.clear();
     });
 
     it("should return video id from mobile", async function () {
@@ -104,15 +96,11 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return URL when it's not a video from music", async function () {
-        browser.storage.local.set({ "youtube-playlist": "video" });
-
         const url = new URL("https://music.youtube.com/watch?m=abcdef");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file, url.href);
-
-        browser.storage.local.clear();
     });
 
     it("should return video id from music", async function () {

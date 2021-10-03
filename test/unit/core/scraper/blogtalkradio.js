@@ -30,13 +30,13 @@ describe("core/scraper/blogtalkradio.js", function () {
                     <html>
                       <head>
                         <meta property="twitter:player:stream"
-                              content="https://foo.com/bar.mp3" />
+                              content="https://bar.com/baz.mp3" />
                       </head>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp3");
+            assert.strictEqual(file, "https://bar.com/baz.mp3");
         });
     });
 });

@@ -8,22 +8,20 @@ describe("core/labeller/dumpert.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <meta property="og:title" content="bar" />
+                     <meta property="og:title" content="foo" />
                    </head>
                  </html>`,
             ));
 
-            const videoUrl = new URL("http://foo.com/");
+            const videoUrl = new URL("http://bar.com/");
 
             const label = await labeller.extract(videoUrl);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("http://foo.com/"),
+                new URL("http://bar.com/"),
             ]);
-
-            stub.restore();
         });
     });
 });

@@ -48,8 +48,6 @@ describe("core/scraper/pokemontv.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.pokemon.com/api/pokemontv/v2/channels/fr",
             ]);
-
-            stub.restore();
         });
 
         it("should return british video URL", async function () {
@@ -75,8 +73,6 @@ describe("core/scraper/pokemontv.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.pokemon.com/api/pokemontv/v2/channels/uk",
             ]);
-
-            stub.restore();
         });
 
         it("should return null when id not found", async function () {
@@ -102,8 +98,6 @@ describe("core/scraper/pokemontv.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.pokemon.com/api/pokemontv/v2/channels/us",
             ]);
-
-            stub.restore();
         });
     });
 });

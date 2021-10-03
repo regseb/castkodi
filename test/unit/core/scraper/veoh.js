@@ -25,8 +25,6 @@ describe("core/scraper/veoh.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.veoh.com/watch/getVideo/foo",
             ]);
-
-            stub.restore();
         });
 
         it("should return null when there isn't video", async function () {
@@ -43,8 +41,6 @@ describe("core/scraper/veoh.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.veoh.com/watch/getVideo/foo",
             ]);
-
-            stub.restore();
         });
 
         it("should return video URL", async function () {
@@ -55,17 +51,15 @@ describe("core/scraper/veoh.js", function () {
                 }),
             ));
 
-            const url = new URL("https://www.veoh.com/watch/foo");
+            const url = new URL("https://www.veoh.com/watch/baz");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file, "https://foo.com/bar.mp4");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://www.veoh.com/watch/getVideo/foo",
+                "https://www.veoh.com/watch/getVideo/baz",
             ]);
-
-            stub.restore();
         });
     });
 });

@@ -26,8 +26,8 @@ describe("core/scraper/ardmediathek.js", function () {
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.ardmediathek_de/?client=ard" +
-                                                     "&mode=libArdPlay&id=qux");
+                "plugin://plugin.video.ardmediathek_de/" +
+                                          "?client=ard&mode=libArdPlay&id=qux");
         });
     });
 });

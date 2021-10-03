@@ -28,15 +28,15 @@ describe("core/scraper/francetv.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").callsFake((url) => {
-                const json = url.toString()
-                                .startsWith("https://player.webservices.")
-                                       ? { video: { token: "https://bar.fr/" } }
-                                       : { url: "https://baz.fr/qux.mpd" };
-                return Promise.resolve(new Response(JSON.stringify(json)));
-            });
+            const stub = sinon.stub(globalThis, "fetch")
+                .onFirstCall().resolves(new Response(JSON.stringify({
+                    video: { token: "https://foo.fr/" },
+                })))
+                .onSecondCall().resolves(new Response(JSON.stringify({
+                    url: "https://bar.fr/baz.mpd",
+                })));
 
-            const url = new URL("https://www.france.tv/foo");
+            const url = new URL("https://www.france.tv/qux");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -52,16 +52,14 @@ describe("core/scraper/francetv.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://baz.fr/qux.mpd");
+            assert.strictEqual(file, "https://bar.fr/baz.mpd");
 
             assert.strictEqual(stub.callCount, 2);
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://player.webservices.francetelevisions.fr/v1/videos" +
-                "/123-abc?device_type=desktop&browser=firefox",
+                                 "/123-abc?device_type=desktop&browser=firefox",
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, ["https://bar.fr/"]);
-
-            stub.restore();
+            assert.deepStrictEqual(stub.secondCall.args, ["https://foo.fr/"]);
         });
     });
 });

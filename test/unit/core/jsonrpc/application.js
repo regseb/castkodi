@@ -24,8 +24,6 @@ describe("core/jsonrpc/application.js", function () {
                 "Application.GetProperties",
                 { properties },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -43,24 +41,15 @@ describe("core/jsonrpc/application.js", function () {
                 "Application.SetMute",
                 { mute: "toggle" },
             ]);
-
-            stub.restore();
         });
     });
 
     describe("setVolume()", function () {
         it("should send request with number", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").callsFake((method) => {
-                switch (method) {
-                    case "Application.SetMute":
-                        return Promise.resolve(false);
-                    case "Application.SetVolume":
-                        return Promise.resolve(42);
-                    default:
-                        return Promise.reject(method);
-                }
-            });
+            const stub = sinon.stub(kodi, "send")
+                .onFirstCall().resolves(false)
+                .onSecondCall().resolves(42);
 
             const application = new Application(kodi);
             const volume = 42;
@@ -76,22 +65,13 @@ describe("core/jsonrpc/application.js", function () {
                 "Application.SetVolume",
                 { volume },
             ]);
-
-            stub.restore();
         });
 
         it("should send request with string", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").callsFake((method) => {
-                switch (method) {
-                    case "Application.SetMute":
-                        return Promise.resolve(false);
-                    case "Application.SetVolume":
-                        return Promise.resolve(43);
-                    default:
-                        return Promise.reject(method);
-                }
-            });
+            const stub = sinon.stub(kodi, "send")
+                .onFirstCall().resolves(false)
+                .onSecondCall().resolves(43);
 
             const application = new Application(kodi);
             const volume = "increment";
@@ -107,8 +87,6 @@ describe("core/jsonrpc/application.js", function () {
                 "Application.SetVolume",
                 { volume },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -127,8 +105,6 @@ describe("core/jsonrpc/application.js", function () {
 
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
-
-            stub.restore();
         });
 
         it("should ignore when no listener", function () {
@@ -145,8 +121,6 @@ describe("core/jsonrpc/application.js", function () {
             ));
 
             assert.strictEqual(stub.callCount, 0);
-
-            stub.restore();
         });
 
         it("should handle 'OnVolumeChanged'", function () {
@@ -167,8 +141,6 @@ describe("core/jsonrpc/application.js", function () {
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{ foo: "bar" }]);
-
-            stub.restore();
         });
 
         it("should ignore others notifications", function () {
@@ -188,8 +160,6 @@ describe("core/jsonrpc/application.js", function () {
 
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
-
-            stub.restore();
         });
     });
 });

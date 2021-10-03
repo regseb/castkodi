@@ -49,8 +49,8 @@ describe("core/scraper/iframe.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <iframe src="https://www.youtube.com/embed/baz"
-                                                                      ></iframe>
+                        <iframe src="https://www.dailymotion.com/embed/video` +
+                                                                `/baz"></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -58,18 +58,18 @@ describe("core/scraper/iframe.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/?video_id=baz" +
-                                                   "&incognito=true");
+                "plugin://plugin.video.dailymotion_com/" +
+                                                     "?mode=playVideo&url=baz");
         });
 
         it("should return URL from second iframe", async function () {
-            const url = new URL("https://www.youtube.com/index.html");
+            const url = new URL("https://www.dailymotion.com/index.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
                         <iframe src="http://exemple.com/data.zip"></iframe>
-                        <iframe src="/embed/foo"></iframe>
+                        <iframe src="/embed/video/foo"></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -77,8 +77,8 @@ describe("core/scraper/iframe.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/?video_id=foo" +
-                                                            "&incognito=false");
+                "plugin://plugin.video.dailymotion_com/" +
+                                                     "?mode=playVideo&url=foo");
         });
     });
 });

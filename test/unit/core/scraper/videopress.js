@@ -13,38 +13,34 @@ describe("core/scraper/videopress.js", function () {
 
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ original: "https://bar.com/baz.avi" }),
+                JSON.stringify({ original: "https://foo.com/bar.avi" }),
             ));
 
-            const url = new URL("https://videopress.com/v/foo");
+            const url = new URL("https://videopress.com/v/baz");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://bar.com/baz.avi");
+            assert.strictEqual(file, "https://foo.com/bar.avi");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://public-api.wordpress.com/rest/v1.1/videos/foo",
+                "https://public-api.wordpress.com/rest/v1.1/videos/baz",
             ]);
-
-            stub.restore();
         });
 
         it("should return video URL from embed", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ original: "https://qux.com/quux.avi" }),
+                JSON.stringify({ original: "https://foo.com/bar.avi" }),
             ));
 
-            const url = new URL("https://videopress.com/embed/foo?bar=baz");
+            const url = new URL("https://videopress.com/embed/baz?qux=quux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://qux.com/quux.avi");
+            assert.strictEqual(file, "https://foo.com/bar.avi");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://public-api.wordpress.com/rest/v1.1/videos/foo",
+                "https://public-api.wordpress.com/rest/v1.1/videos/baz",
             ]);
-
-            stub.restore();
         });
 
         it("should return null when video not found", async function () {
@@ -62,8 +58,6 @@ describe("core/scraper/videopress.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://public-api.wordpress.com/rest/v1.1/videos/foo",
             ]);
-
-            stub.restore();
         });
     });
 });

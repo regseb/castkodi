@@ -33,8 +33,6 @@ describe("core/scraper/bigo.js", function () {
                 "https://www.bigo.tv/studio/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);
-
-            stub.restore();
         });
 
         it("should return video URL", async function () {
@@ -53,8 +51,6 @@ describe("core/scraper/bigo.js", function () {
                 "https://www.bigo.tv/studio/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);
-
-            stub.restore();
         });
 
         it("should return video URL from other language", async function () {
@@ -73,8 +69,6 @@ describe("core/scraper/bigo.js", function () {
                 "https://www.bigo.tv/studio/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);
-
-            stub.restore();
         });
     });
 });

@@ -10,7 +10,7 @@ describe("core/index.js", function () {
                 "",
                 " ",
                 "www.foo.",
-                "moz-extension://0123456789abdcef/index.html",
+                "moz-extension://bar/index.html",
             ];
 
             const url = mux(urls);
@@ -25,37 +25,27 @@ describe("core/index.js", function () {
         });
 
         it("should return URL with protocol HTTP", function () {
-            const urls = ["www.baz.fr/"];
+            const urls = ["www.foo.fr/"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "http://www.baz.fr/");
+            assert.strictEqual(url, "http://www.foo.fr/");
         });
 
         it("should return magnet URL", function () {
             const urls = [
-                "magnet:?xt=urn:btih:88594AAACBDE40EF3E2510C47374EC0AA396C08E" +
-                                    "&dn=bbb_sunflower_1080p_30fps_normal.mp4" +
-                  "&tr=udp%3a%2f%2ftracker.openbittorrent.com%3a80%2fannounce" +
-                        "&tr=udp%3a%2f%2ftracker.publicbt.com%3a80%2fannounce" +
-                       "&ws=http%3a%2f%2fdistribution.bbb3d.renderfarming.net" +
-                        "%2fvideo%2fmp4%2fbbb_sunflower_1080p_30fps_normal.mp4",
+                "magnet:?xt=urn:sha1:0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33",
             ];
 
             const url = mux(urls);
             assert.strictEqual(url,
-                "magnet:?xt=urn:btih:88594AAACBDE40EF3E2510C47374EC0AA396C08E" +
-                                    "&dn=bbb_sunflower_1080p_30fps_normal.mp4" +
-                  "&tr=udp%3a%2f%2ftracker.openbittorrent.com%3a80%2fannounce" +
-                        "&tr=udp%3a%2f%2ftracker.publicbt.com%3a80%2fannounce" +
-                       "&ws=http%3a%2f%2fdistribution.bbb3d.renderfarming.net" +
-                       "%2fvideo%2fmp4%2fbbb_sunflower_1080p_30fps_normal.mp4");
+                "magnet:?xt=urn:sha1:0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33");
         });
 
         it("should get acestream URL", function () {
-            const urls = ["acestream://0123456789abcdef"];
+            const urls = ["acestream://foo"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "acestream://0123456789abcdef");
+            assert.strictEqual(url, "acestream://foo");
         });
 
         it("should get plugin URL", function () {
@@ -104,11 +94,6 @@ describe("core/index.js", function () {
             ]);
             assert.strictEqual(stubOpen.callCount, 1);
             assert.deepStrictEqual(stubOpen.firstCall.args, []);
-
-            stubClear.restore();
-            stubAdd.restore();
-            stubOpen.restore();
-            browser.extension.inIncognitoContext = false;
         });
 
         it("should insert url", async function () {
@@ -130,10 +115,6 @@ describe("core/index.js", function () {
                 "http://foo.com/bar",
                 43,
             ]);
-
-            stubGetProperty.restore();
-            stubInsert.restore();
-            browser.extension.inIncognitoContext = false;
         });
 
         it("should add url", async function () {
@@ -146,9 +127,6 @@ describe("core/index.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
-
-            stub.restore();
-            browser.extension.inIncognitoContext = false;
         });
 
         it("should reject invalid action", async function () {
@@ -169,9 +147,8 @@ describe("core/index.js", function () {
             const histories = browser.history.search({ text: "" });
             assert.strictEqual(histories.length, 0);
 
-            stub.restore();
-            browser.storage.local.clear();
-            browser.extension.inIncognitoContext = false;
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("should add in history", async function () {

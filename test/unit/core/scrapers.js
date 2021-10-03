@@ -20,8 +20,6 @@ describe("core/scrapers.js", function () {
             assert.strictEqual(stub.firstCall.args.length, 2);
             assert.deepStrictEqual(stub.firstCall.args[0], url);
             assert.strictEqual(typeof stub.firstCall.args[1], "object");
-
-            stub.restore();
         });
 
         it("should return null when it's not supported and depther",
@@ -41,8 +39,6 @@ describe("core/scrapers.js", function () {
             assert.strictEqual(stub.firstCall.args.length, 2);
             assert.deepStrictEqual(stub.firstCall.args[0], url);
             assert.strictEqual(typeof stub.firstCall.args[1], "object");
-
-            stub.restore();
         });
 
         it("should return media URL", async function () {
@@ -65,8 +61,6 @@ describe("core/scrapers.js", function () {
             assert.strictEqual(stub.firstCall.args.length, 2);
             assert.deepStrictEqual(stub.firstCall.args[0], url);
             assert.strictEqual(typeof stub.firstCall.args[1], "object");
-
-            stub.restore();
         });
 
         it("should support URL", async function () {
@@ -74,7 +68,7 @@ describe("core/scrapers.js", function () {
                 "",
             ));
 
-            const url = new URL("http://www.dailymotion.com/video/x17qw0a");
+            const url = new URL("http://www.dailymotion.com/video/foo");
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
@@ -83,8 +77,6 @@ describe("core/scrapers.js", function () {
                       `"${file}"?.startsWith(...)`);
 
             assert.strictEqual(stub.callCount, 0);
-
-            stub.restore();
         });
 
         it("should return media URL from dynamic DOM", async function () {
@@ -112,11 +104,6 @@ describe("core/scrapers.js", function () {
             assert.deepStrictEqual(stubExecuteScript.firstCall.args, [
                 1, { allFrames: true, file: "/script/extractor.js" },
             ]);
-
-            stubFetch.restore();
-            stubExecuteScript.restore();
-
-            browser.tabs.remove(1);
         });
 
         it("should return media URL from second dynamic DOM",
@@ -150,11 +137,6 @@ describe("core/scrapers.js", function () {
             assert.deepStrictEqual(stubExecuteScript.secondCall.args, [
                 2, { allFrames: true, file: "/script/extractor.js" },
             ]);
-
-            stubFetch.restore();
-            stubExecuteScript.restore();
-
-            browser.tabs.remove(1);
         });
 
         it("should support uppercase URL", async function () {
@@ -163,7 +145,7 @@ describe("core/scrapers.js", function () {
                 { headers: { "Content-Type": "application/xhtml+xml" } },
             ));
 
-            const url = new URL("HTTPS://PLAYER.VIMEO.COM/VIDEO/12345");
+            const url = new URL("HTTPS://PLAYER.VIMEO.COM/VIDEO/foo");
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
@@ -171,8 +153,6 @@ describe("core/scrapers.js", function () {
                       `"${file}"?.startsWith(...)`);
 
             assert.strictEqual(stub.callCount, 0);
-
-            stub.restore();
         });
     });
 });

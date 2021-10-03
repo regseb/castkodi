@@ -11,35 +11,34 @@ describe("core/scraper/dailymotion.js", function () {
         });
 
         it("should return video id", async function () {
-            const url = new URL("https://www.dailymotion.com/video/x17qw0a");
+            const url = new URL("https://www.dailymotion.com/video/foo");
 
             const file = await scraper.extractVideo(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/" +
-                                                 "?mode=playVideo&url=x17qw0a");
+                                                     "?mode=playVideo&url=foo");
         });
     });
 
     describe("extractMinify()", function () {
         it("should return tiny video id", async function () {
-            const url = new URL("http://dai.ly/x5riqme");
+            const url = new URL("http://dai.ly/foo");
 
             const file = await scraper.extractMinify(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/" +
-                                                 "?mode=playVideo&url=x5riqme");
+                                                     "?mode=playVideo&url=foo");
         });
     });
 
     describe("extractEmbed()", function () {
         it("should return embed video id", async function () {
-            const url = new URL("https://www.dailymotion.com/embed/video" +
-                                                                    "/a12bc3d");
+            const url = new URL("https://www.dailymotion.com/embed/video/foo");
 
             const file = await scraper.extractEmbed(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.dailymotion_com/" +
-                                                 "?mode=playVideo&url=a12bc3d");
+                                                     "?mode=playVideo&url=foo");
         });
     });
 });

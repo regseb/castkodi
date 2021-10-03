@@ -111,8 +111,6 @@ describe("core/labellers.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=foo",
             ]);
-
-            stub.restore();
         });
 
         it("should support local file", async function () {
@@ -137,7 +135,7 @@ describe("core/labellers.js", function () {
         it("should strip tags in label",  async function () {
             const item = {
                 file:     "/foo.mkv",
-                label:    "[B][UPPERCASE]Label[/UPPERCASE][/B] !",
+                label:    "[B][UPPERCASE]Bar[/UPPERCASE][/B] !",
                 position: 0,
                 title:    "",
                 type:     "",
@@ -146,7 +144,7 @@ describe("core/labellers.js", function () {
             const result = await complete(item);
             assert.deepStrictEqual(result, {
                 file:     "/foo.mkv",
-                label:    "Label !",
+                label:    "Bar !",
                 position: 0,
                 title:    "",
                 type:     "",

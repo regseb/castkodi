@@ -8,22 +8,20 @@ describe("core/labeller/soundcloud.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <meta property="og:title" content="bar" />
+                     <meta property="og:title" content="foo" />
                    </head>
                  </html>`,
             ));
 
-            const audioUrl = new URL("http://foo.com/");
+            const audioUrl = new URL("http://bar.com/");
 
             const label = await labeller.extract(audioUrl);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("http://foo.com/"),
+                new URL("http://bar.com/"),
             ]);
-
-            stub.restore();
         });
 
         it("should return null when it's not audio page", async function () {
@@ -42,8 +40,6 @@ describe("core/labeller/soundcloud.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 new URL("http://foo.com/"),
             ]);
-
-            stub.restore();
         });
     });
 });

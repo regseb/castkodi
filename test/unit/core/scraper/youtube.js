@@ -21,8 +21,6 @@ describe("core/scraper/youtube.js", function () {
 
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
-
-            browser.storage.local.clear();
         });
 
         it("should return playlist id", async function () {
@@ -117,8 +115,6 @@ describe("core/scraper/youtube.js", function () {
 
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
-
-            browser.storage.local.clear();
         });
 
         it("should return video id from mobile", async function () {
@@ -146,8 +142,6 @@ describe("core/scraper/youtube.js", function () {
 
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
-
-            browser.storage.local.clear();
         });
 
         it("should return video id from music", async function () {
@@ -207,8 +201,6 @@ describe("core/scraper/youtube.js", function () {
 
             const file = await scraper.extractPlaylist(url, content, options);
             assert.strictEqual(file, null);
-
-            browser.storage.local.clear();
         });
 
         it("should return playlist id", async function () {
@@ -253,8 +245,6 @@ describe("core/scraper/youtube.js", function () {
 
             const file = await scraper.extractPlaylist(url, content, options);
             assert.strictEqual(file, null);
-
-            browser.storage.local.clear();
         });
 
         it("should return playlist id from mobile", async function () {

@@ -25,66 +25,58 @@ describe("core/scraper/peertube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://foo.com/api/v1/videos/bar",
             ]);
-
-            stub.restore();
         });
 
         it("should return video URL from watch page", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({
-                    files: [{ fileUrl: "http://baz.io/qux.avi" }],
+                    files: [{ fileUrl: "http://foo.io/bar.avi" }],
                 }),
             ));
 
-            const url = new URL("https://foo.com/videos/watch/bar");
+            const url = new URL("https://baz.com/videos/watch/qux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "http://baz.io/qux.avi");
+            assert.strictEqual(file, "http://foo.io/bar.avi");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://foo.com/api/v1/videos/bar",
+                "https://baz.com/api/v1/videos/qux",
             ]);
-
-            stub.restore();
         });
 
         it("should return video URL from embed page", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({
-                    files: [{ fileUrl: "http://baz.fr/qux.avi" }],
+                    files: [{ fileUrl: "http://foo.fr/bar.avi" }],
                 }),
             ));
 
-            const url = new URL("https://foo.com/videos/embed/bar");
+            const url = new URL("https://baz.com/videos/embed/qux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "http://baz.fr/qux.avi");
+            assert.strictEqual(file, "http://foo.fr/bar.avi");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://foo.com/api/v1/videos/bar",
+                "https://baz.com/api/v1/videos/qux",
             ]);
-
-            stub.restore();
         });
 
         it("should return null when it's not a PeerTube website",
                                                              async function () {
             const stub = sinon.stub(globalThis, "fetch")
-                              .rejects(new Error("baz"));
+                              .rejects(new Error("foo"));
 
-            const url = new URL("https://foo.com/videos/embed/bar");
+            const url = new URL("https://bar.com/videos/embed/baz");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file, null);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://foo.com/api/v1/videos/bar",
+                "https://bar.com/api/v1/videos/baz",
             ]);
-
-            stub.restore();
         });
     });
 });

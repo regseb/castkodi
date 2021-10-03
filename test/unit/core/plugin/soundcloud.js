@@ -27,23 +27,21 @@ describe("core/plugin/soundcloud.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <meta property="og:title" content="bar" />
+                     <meta property="og:title" content="foo" />
                    </head>
                  </html>`,
             ));
 
             const url = new URL("plugin://plugin.audio.soundcloud/play/" +
-                                                "?url=http%3A%2F%2Ffoo.com%2F");
+                                                "?url=http%3A%2F%2Fbar.com%2F");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("http://foo.com/"),
+                new URL("http://bar.com/"),
             ]);
-
-            stub.restore();
         });
 
         it("should return null when it's not audio page", async function () {
@@ -63,8 +61,6 @@ describe("core/plugin/soundcloud.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 new URL("http://foo.com/"),
             ]);
-
-            stub.restore();
         });
     });
 });

@@ -15,8 +15,6 @@ describe("tools/ping.js", function () {
                 method:  "HEAD",
                 headers: { Authorization: "" },
             }]);
-
-            stub.restore();
         });
 
         it("should return false", async function () {
@@ -30,8 +28,6 @@ describe("tools/ping.js", function () {
                 method:  "HEAD",
                 headers: { Authorization: "" },
             }]);
-
-            stub.restore();
         });
     });
 });

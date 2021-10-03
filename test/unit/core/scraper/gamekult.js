@@ -36,8 +36,8 @@ describe("core/scraper/gamekult.js", function () {
 
             const file = await scraper.extract(url, content);
             assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                                    "&url=bar");
+                "plugin://plugin.video.dailymotion_com/" +
+                                                     "?mode=playVideo&url=bar");
         });
     });
 });

@@ -148,8 +148,8 @@ describe("core/scraper/ldjson.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                                    "&url=baz");
+                "plugin://plugin.video.dailymotion_com/" +
+                                                     "?mode=playVideo&url=baz");
         });
 
         it("should ignore embedUrl in depther", async function () {

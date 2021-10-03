@@ -11,12 +11,12 @@ describe("core/scraper/acestream.js", function () {
         });
 
         it("should return video URL", async function () {
-            const url = new URL("acestream://0123456789abcdef");
+            const url = new URL("acestream://foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://program.plexus/?mode=1&name=" +
-                                     "&url=acestream%3A%2F%2F0123456789abcdef");
+                "plugin://program.plexus/" +
+                                     "?mode=1&name=&url=acestream%3A%2F%2Ffoo");
         });
     });
 });

@@ -8,22 +8,20 @@ describe("core/labeller/twitch.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <title>bar - Twitch</title>
+                     <title>foo - Twitch</title>
                    </head>
                  </html>`,
             ));
 
-            const channelName = "foo";
+            const channelName = "bar";
 
             const label = await labeller.extractLive(channelName);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/foo",
+                "https://m.twitch.tv/bar",
             ]);
-
-            stub.restore();
         });
     });
 
@@ -32,22 +30,20 @@ describe("core/labeller/twitch.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <title>bar - baz sur Twitch</title>
+                     <title>foo - bar sur Twitch</title>
                    </head>
                  </html>`,
             ));
 
-            const videoId = "foo";
+            const videoId = "baz";
 
             const label = await labeller.extractVideo(videoId);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/videos/foo",
+                "https://m.twitch.tv/videos/baz",
             ]);
-
-            stub.restore();
         });
     });
 

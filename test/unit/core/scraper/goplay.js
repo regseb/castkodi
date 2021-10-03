@@ -48,8 +48,6 @@ describe("core/scraper/goplay.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.goplay.be/api/video/qux",
             ]);
-
-            stub.restore();
         });
     });
 });

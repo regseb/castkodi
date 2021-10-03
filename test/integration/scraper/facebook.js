@@ -24,7 +24,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
@@ -35,7 +35,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
@@ -46,7 +46,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
@@ -57,7 +57,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
@@ -86,7 +86,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
@@ -96,7 +96,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 });

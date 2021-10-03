@@ -18,8 +18,6 @@ describe("core/jsonrpc/gui.js", function () {
                 "GUI.SetFullscreen",
                 { fullscreen: "toggle" },
             ]);
-
-            stub.restore();
         });
     });
 });

@@ -20,12 +20,12 @@ describe("core/scraper/torrent.js", function () {
         });
 
         it("should return video URL from magnet", async function () {
-            const url = new URL("magnet:?foo=bar:baz&qux=quxx");
+            const url = new URL("magnet:?foo=bar:baz&qux=quux");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
                 "plugin://plugin.video.elementum/play" +
-                               "?uri=magnet%3A%3Ffoo%3Dbar%3Abaz%26qux%3Dquxx");
+                               "?uri=magnet%3A%3Ffoo%3Dbar%3Abaz%26qux%3Dquux");
         });
     });
 });

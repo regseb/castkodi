@@ -83,8 +83,6 @@ describe("core/plugin/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=foo",
             ]);
-
-            stub.restore();
         });
 
         it("should return unavailable label", async function () {
@@ -104,8 +102,6 @@ describe("core/plugin/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=foo",
             ]);
-
-            stub.restore();
         });
 
         it("should return playlist label", async function () {
@@ -127,8 +123,6 @@ describe("core/plugin/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.youtube.com/playlist?list=foo",
             ]);
-
-            stub.restore();
         });
 
         it("should return mix label", async function () {
@@ -150,8 +144,6 @@ describe("core/plugin/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.youtube.com/playlist?list=foo",
             ]);
-
-            stub.restore();
         });
     });
 });

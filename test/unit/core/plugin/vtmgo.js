@@ -55,8 +55,6 @@ describe("core/plugin/vtmgo.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/ebar",
             ]);
-
-            stub.restore();
         });
     });
 
@@ -88,8 +86,6 @@ describe("core/plugin/vtmgo.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/mbar",
             ]);
-
-            stub.restore();
         });
 
         it("should return null when there isn't title", async function () {
@@ -111,8 +107,6 @@ describe("core/plugin/vtmgo.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/mbar",
             ]);
-
-            stub.restore();
         });
     });
 
@@ -144,8 +138,6 @@ describe("core/plugin/vtmgo.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/live-kijken/vtm",
             ]);
-
-            stub.restore();
         });
 
         it("should return null when there isn't link", async function () {
@@ -165,8 +157,6 @@ describe("core/plugin/vtmgo.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/live-kijken/vtm",
             ]);
-
-            stub.restore();
         });
     });
 });

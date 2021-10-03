@@ -37,16 +37,16 @@ const compare = function (messages1, messages2) {
 
 describe("_locales", function () {
     it("should have same messages", async function () {
-        const fr = JSON.parse(await fs.readFile("src/_locales/fr/messages.json",
-                                                "utf8"));
         const en = JSON.parse(await fs.readFile("src/_locales/en/messages.json",
+                                                "utf8"));
+        const fr = JSON.parse(await fs.readFile("src/_locales/fr/messages.json",
                                                 "utf8"));
         const sk = JSON.parse(await fs.readFile("src/_locales/sk/messages.json",
                                                 "utf8"));
 
-        compare(fr, en);
         compare(en, fr);
-        compare(sk, en);
+        compare(fr, en);
         compare(en, sk);
+        compare(sk, en);
     });
 });

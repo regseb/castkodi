@@ -70,8 +70,8 @@ describe("core/scraper/ultimedia.js", function () {
                         <script>
                             DtkPlayer.init({
                                 "mp4":{
-                                    "mp4_1080":"https://foo.com/bar_1080.mp4",
-                                    "mp4_720":"https://foo.com/bar_720.mp4"
+                                    "mp4_1080":"https://bar.com/baz_1080.mp4",
+                                    "mp4_720":"https://bar.com/baz_720.mp4"
                                 }
                             });
                         </script>
@@ -80,7 +80,7 @@ describe("core/scraper/ultimedia.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar_1080.mp4");
+            assert.strictEqual(file, "https://bar.com/baz_1080.mp4");
         });
     });
 });

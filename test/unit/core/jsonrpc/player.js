@@ -10,22 +10,7 @@ describe("core/jsonrpc/player.js", function () {
         it("should return properties when no player is active",
                                                              async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").callsFake((method) => {
-                switch (method) {
-                    case "Player.GetActivePlayers":
-                        return Promise.resolve([]);
-                    case "Player.GetProperties":
-                        return Promise.resolve({
-                            foo:       "bar",
-                            baz:       42,
-                            qux:       true,
-                            time:      { hours: 1, minutes: 2, seconds: 3 },
-                            totaltime: { hours: 0, minutes: 0, seconds: 0 },
-                        });
-                    default:
-                        return Promise.reject(new Error(method));
-                }
-            });
+            const stub = sinon.stub(kodi, "send").resolves([]);
 
             const player = new Player(kodi);
             const properties = ["foo", "baz", "quz", "time", "totaltime"];
@@ -43,29 +28,20 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "Player.GetActivePlayers",
             ]);
-
-            stub.restore();
         });
 
         it("should return properties when video player is active",
                                                              async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").callsFake((method) => {
-                switch (method) {
-                    case "Player.GetActivePlayers":
-                        return Promise.resolve([{ playerid: 1 }]);
-                    case "Player.GetProperties":
-                        return Promise.resolve({
-                            foo:       "bar",
-                            baz:       42,
-                            qux:       true,
-                            time:      { hours: 1, minutes: 2, seconds: 3 },
-                            totaltime: { hours: 0, minutes: 0, seconds: 0 },
-                        });
-                    default:
-                        return Promise.reject(new Error(method));
-                }
-            });
+            const stub = sinon.stub(kodi, "send")
+                .onFirstCall().resolves([{ playerid: 1 }])
+                .onSecondCall().resolves({
+                    foo:       "bar",
+                    baz:       42,
+                    qux:       true,
+                    time:      { hours: 1, minutes: 2, seconds: 3 },
+                    totaltime: { hours: 0, minutes: 0, seconds: 0 },
+                });
 
             const player = new Player(kodi);
             const properties = ["foo", "baz", "quz", "time", "totaltime"];
@@ -89,8 +65,6 @@ describe("core/jsonrpc/player.js", function () {
                     properties: ["foo", "baz", "quz", "time", "totaltime"],
                 },
             ]);
-
-            stub.restore();
         });
 
         it("should return default properties when an other player is active",
@@ -114,24 +88,15 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "Player.GetActivePlayers",
             ]);
-
-            stub.restore();
         });
     });
 
     describe("getProperty()", function () {
         it("should return lambda property", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").callsFake((method) => {
-                switch (method) {
-                    case "Player.GetActivePlayers":
-                        return Promise.resolve([{ playerid: 1 }]);
-                    case "Player.GetProperties":
-                        return Promise.resolve({ foo: "bar" });
-                    default:
-                        return Promise.reject(new Error(method));
-                }
-            });
+            const stub = sinon.stub(kodi, "send")
+                .onFirstCall().resolves([{ playerid: 1 }])
+                .onSecondCall().resolves({ foo: "bar" });
 
             const player = new Player(kodi);
             const property = "foo";
@@ -146,8 +111,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.GetProperties",
                 { playerid: 1, properties: [property] },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -165,8 +128,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.GoTo",
                 { playerid: 1, to: "next" },
             ]);
-
-            stub.restore();
         });
 
         it("should send request with 'previous'", async function () {
@@ -182,8 +143,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.GoTo",
                 { playerid: 1, to: "previous" },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -202,8 +161,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.Open",
                 { item: { playlistid: 1, position } },
             ]);
-
-            stub.restore();
         });
 
         it("should send request without parameter", async function () {
@@ -219,8 +176,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.Open",
                 { item: { playlistid: 1, position: 0 } },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -238,8 +193,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.PlayPause",
                 { playerid: 1 },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -270,8 +223,6 @@ describe("core/jsonrpc/player.js", function () {
                     },
                 },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -289,8 +240,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.SetRepeat",
                 { playerid: 1, repeat: "cycle" },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -308,8 +257,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.SetShuffle",
                 { playerid: 1, shuffle: "toggle" },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -328,8 +275,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.SetSpeed",
                 { playerid: 1, speed },
             ]);
-
-            stub.restore();
         });
 
         it("should decrement speed", async function () {
@@ -346,8 +291,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.SetSpeed",
                 { playerid: 1, speed },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -365,8 +308,6 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.Stop",
                 { playerid: 1 },
             ]);
-
-            stub.restore();
         });
     });
 
@@ -388,8 +329,6 @@ describe("core/jsonrpc/player.js", function () {
 
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
-
-            stub.restore();
         });
 
         it("should ignore others players", async function () {
@@ -409,8 +348,6 @@ describe("core/jsonrpc/player.js", function () {
 
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
-
-            stub.restore();
         });
 
         it("should ignore when no listener", async function () {
@@ -427,28 +364,19 @@ describe("core/jsonrpc/player.js", function () {
             ));
 
             assert.strictEqual(stub.callCount, 0);
-
-            stub.restore();
         });
 
         it("should handle 'OnAVStart'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").callsFake((method) => {
-                switch (method) {
-                    case "Player.GetActivePlayers":
-                        return Promise.resolve([{ playerid: 1 }]);
-                    case "Player.GetProperties":
-                        return Promise.resolve({
-                            position:  42,
-                            repeat:    false,
-                            shuffled:  true,
-                            time:      { hours: 1, minutes: 2, seconds: 3 },
-                            totaltime: { hours: 3, minutes: 2, seconds: 1 },
-                        });
-                    default:
-                        return Promise.reject(new Error(method));
-                }
-            });
+            const stub = sinon.stub(kodi, "send")
+                .onFirstCall().resolves([{ playerid: 1 }])
+                .onSecondCall().resolves({
+                    position:  42,
+                    repeat:    false,
+                    shuffled:  true,
+                    time:      { hours: 1, minutes: 2, seconds: 3 },
+                    totaltime: { hours: 3, minutes: 2, seconds: 1 },
+                });
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -487,8 +415,6 @@ describe("core/jsonrpc/player.js", function () {
                 time:      3723,
                 totaltime: 10_921,
             }]);
-
-            stub.restore();
         });
 
         it("should handle 'OnPause'", async function () {
@@ -511,8 +437,6 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepStrictEqual(fake.firstCall.args, [{
                 speed: 0,
             }]);
-
-            stub.restore();
         });
 
         it("should handle 'OnPropertyChanged'", async function () {
@@ -540,8 +464,6 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepStrictEqual(fake.firstCall.args, [{
                 foo: "bar",
             }]);
-
-            stub.restore();
         });
 
         it("should handle 'OnResume'", async function () {
@@ -564,8 +486,6 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepStrictEqual(fake.firstCall.args, [{
                 speed: -2,
             }]);
-
-            stub.restore();
         });
 
         it("should handle 'OnSeek'", async function () {
@@ -595,8 +515,6 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepStrictEqual(fake.firstCall.args, [{
                 time: 3723,
             }]);
-
-            stub.restore();
         });
 
         it("should handle 'OnSpeedChanged'", async function () {
@@ -619,8 +537,6 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepStrictEqual(fake.firstCall.args, [{
                 speed: 32,
             }]);
-
-            stub.restore();
         });
 
         it("should handle 'OnStop'", async function () {
@@ -646,8 +562,6 @@ describe("core/jsonrpc/player.js", function () {
                 time:      0,
                 totaltime: 0,
             }]);
-
-            stub.restore();
         });
 
         it("should ignore others notifications", async function () {
@@ -667,8 +581,6 @@ describe("core/jsonrpc/player.js", function () {
 
             assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
-
-            stub.restore();
         });
     });
 });

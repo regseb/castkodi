@@ -8,22 +8,20 @@ describe("core/labeller/youtube.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <meta property="og:title" content="bar" />
+                     <meta property="og:title" content="foo" />
                    </head>
                  </html>`,
             ));
 
-            const videoId = "foo";
+            const videoId = "bar";
 
             const label = await labeller.extractVideo(videoId);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://www.youtube.com/watch?v=foo",
+                "https://www.youtube.com/watch?v=bar",
             ]);
-
-            stub.restore();
         });
 
         it("should return unavailable label", async function () {
@@ -42,8 +40,6 @@ describe("core/labeller/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=foo",
             ]);
-
-            stub.restore();
         });
     });
 
@@ -52,22 +48,20 @@ describe("core/labeller/youtube.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <meta property="og:title" content="bar" />
+                     <meta property="og:title" content="foo" />
                    </head>
                  </html>`,
             ));
 
-            const playlistId = "foo";
+            const playlistId = "bar";
 
             const label = await labeller.extractPlaylist(playlistId);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://www.youtube.com/playlist?list=foo",
+                "https://www.youtube.com/playlist?list=bar",
             ]);
-
-            stub.restore();
         });
 
         it("should return mix label", async function () {
@@ -88,8 +82,6 @@ describe("core/labeller/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://www.youtube.com/playlist?list=foo",
             ]);
-
-            stub.restore();
         });
     });
 });

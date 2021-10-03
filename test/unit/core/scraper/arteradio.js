@@ -17,7 +17,7 @@ describe("core/scraper/arteradio.js", function () {
                     <html>
                       <body>
                         <article class="cover">
-                          <button data-sound-href="foo.mp3"></button>
+                          <button data-sound-href="bar.mp3"></button>
                         </article>
                       </body>
                     </html>`, "text/html")),
@@ -25,8 +25,8 @@ describe("core/scraper/arteradio.js", function () {
 
             const file = await scraper.extract(url, content);
             assert.strictEqual(file,
-                "https://download.www.arte.tv/permanent" +
-                                 "/arteradio/sites/default/files/sons/foo.mp3");
+                "https://download.www.arte.tv/permanent/arteradio/sites" +
+                                                 "/default/files/sons/bar.mp3");
         });
     });
 });

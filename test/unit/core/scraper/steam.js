@@ -31,13 +31,13 @@ describe("core/scraper/steam.js", function () {
                     <html>
                       <body>
                         <div class="highlight_movie"
-                             data-mp4-hd-source="https://foo.com/bar.mp4"></div>
+                             data-mp4-hd-source="https://bar.com/baz.mp4"></div>
                       </body>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extractGame(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp4");
+            assert.strictEqual(file, "https://bar.com/baz.mp4");
         });
     });
 
@@ -56,31 +56,27 @@ describe("core/scraper/steam.js", function () {
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
-                "?steamid=foo",
+                                                                 "?steamid=foo",
             ]);
-
-            stub.restore();
         });
 
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 // eslint-disable-next-line camelcase
-                JSON.stringify({ hls_url: "https://bar.com/baz.mp4" }),
+                JSON.stringify({ hls_url: "https://foo.com/bar.mp4" }),
             ));
 
             const url = new URL("https://steamcommunity.com/broadcast/watch" +
-                                                                        "/foo");
+                                                                        "/baz");
 
             const file = await scraper.extractBroadcast(url);
-            assert.strictEqual(file, "https://bar.com/baz.mp4");
+            assert.strictEqual(file, "https://foo.com/bar.mp4");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
-                "?steamid=foo",
+                                                                 "?steamid=baz",
             ]);
-
-            stub.restore();
         });
     });
 });

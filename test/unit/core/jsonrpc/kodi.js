@@ -42,8 +42,6 @@ describe("core/jsonrpc/kodi.js", function () {
                 "JSONRPC.Version",
                 undefined,
             ]);
-
-            stub.restore();
         });
 
         it("should return promise fulfilled", async function () {
@@ -66,8 +64,6 @@ describe("core/jsonrpc/kodi.js", function () {
                 "JSONRPC.Version",
                 undefined,
             ]);
-
-            stub.restore();
         });
     });
 
@@ -91,8 +87,6 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
-
-            stub.restore();
         });
     });
 
@@ -152,8 +146,6 @@ describe("core/jsonrpc/kodi.js", function () {
             ]);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, []);
-
-            stub.restore();
         });
     });
 
@@ -195,8 +187,6 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
-
-            stub.restore();
         });
 
         it("should return error when receive Kodi's error", async function () {
@@ -218,8 +208,6 @@ describe("core/jsonrpc/kodi.js", function () {
             ]);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, ["Foo", undefined]);
-
-            stub.restore();
         });
 
         it("should send request", async function () {
@@ -242,8 +230,6 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.strictEqual(fake.callCount, 2);
             assert.deepStrictEqual(fake.firstCall.args, ["Bar.Baz", undefined]);
             assert.deepStrictEqual(fake.secondCall.args, ["Qux.Quux", 42]);
-
-            stub.restore();
         });
 
         it("should send request from configuration", async function () {
@@ -279,9 +265,6 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.strictEqual(fake.callCount, 2);
             assert.deepStrictEqual(fake.firstCall.args, ["Foo.Bar", undefined]);
             assert.deepStrictEqual(fake.secondCall.args, ["Baz.Qux", true]);
-
-            browser.storage.local.clear();
-            stub.restore();
         });
 
         it("should listen close event", async function () {
@@ -308,8 +291,6 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepStrictEqual(stub.secondCall.args, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-
-            stub.restore();
         });
 
         it("should listen notification event", async function () {
@@ -331,6 +312,10 @@ describe("core/jsonrpc/kodi.js", function () {
                 params: { data: "Quux" },
             }));
 
+            assert.strictEqual(stubJSONRPC.callCount, 1);
+            assert.deepStrictEqual(stubJSONRPC.firstCall.args, [
+                new URL("ws://foo:9090/jsonrpc"),
+            ]);
             assert.strictEqual(stubApplication.callCount, 1);
             assert.strictEqual(stubApplication.firstCall.args.length, 1);
             assert.strictEqual(stubApplication.firstCall.args[0].type,
@@ -339,9 +324,6 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepStrictEqual(stubApplication.firstCall.args[0].params, {
                 data: "Quux",
             });
-
-            stubJSONRPC.restore();
-            stubApplication.restore();
         });
     });
 });

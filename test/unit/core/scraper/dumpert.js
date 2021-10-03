@@ -11,27 +11,23 @@ describe("core/scraper/dumpert.js", function () {
         });
 
         it("should return video URL", async function () {
-            const url = new URL("https://www.dumpert.nl/mediabase/7248279" +
-                                                "/47066e59/wheelie_in_ny.html");
+            const url = new URL("https://www.dumpert.nl/mediabase/foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.dumpert/?action=play" +
-                                "&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
-                                           "%2Fmediabase%2F7248279%2F47066e59" +
-                                                       "%2Fwheelie_in_ny.html");
+                "plugin://plugin.video.dumpert/" +
+                    "?action=play&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
+                                                          "%2Fmediabase%2Ffoo");
         });
 
         it("should return video URL when protocol is HTTP", async function () {
-            const url = new URL("http://www.dumpert.nl/mediabase/7248279" +
-                                                "/47066e59/wheelie_in_ny.html");
+            const url = new URL("http://www.dumpert.nl/mediabase/foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.dumpert/?action=play" +
-                                 "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
-                                           "%2Fmediabase%2F7248279%2F47066e59" +
-                                                       "%2Fwheelie_in_ny.html");
+                "plugin://plugin.video.dumpert/" +
+                     "?action=play&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
+                                                          "%2Fmediabase%2Ffoo");
         });
     });
 });

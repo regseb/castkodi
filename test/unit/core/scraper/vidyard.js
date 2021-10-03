@@ -34,8 +34,6 @@ describe("core/scraper/vidyard.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://play.vidyard.com/player/baz.json",
             ]);
-
-            stub.restore();
         });
 
         it("should return video URL from pathname with extension",
@@ -62,8 +60,6 @@ describe("core/scraper/vidyard.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://play.vidyard.com/player/baz.json",
             ]);
-
-            stub.restore();
         });
     });
 });

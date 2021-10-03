@@ -26,7 +26,7 @@ describe("core/scraper/ouestfrance.js", function () {
                     <html>
                       <body>
                         <iframe data-ofiframe-src="https://www.youtube.com` +
-                                                          `/embed/foo"></iframe>
+                                                          `/embed/bar"></iframe>
                       </body>
                     </html>`, "text/html")),
             };

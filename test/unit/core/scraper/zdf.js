@@ -32,7 +32,7 @@ describe("core/scraper/zdf.js", function () {
                             qualities: [{
                                 audio: {
                                     tracks: [{
-                                        uri: "https://quux.de/corge.webm",
+                                        uri: "https://foo.de/bar.webm",
                                     }],
                                 },
                             }],
@@ -41,30 +41,28 @@ describe("core/scraper/zdf.js", function () {
                 }),
             ));
 
-            const url = new URL("https://www.zdf.de/foo");
+            const url = new URL("https://www.zdf.de/baz");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
                         <button class="download-btn"
                                 data-dialog="${JSON.stringify({
-                            contentUrl: "http://bar.de/{playerId}/baz.json",
-                            apiToken:   "qux",
+                            contentUrl: "http://qux.de/{playerId}/quux.json",
+                            apiToken:   "corge",
                         }).replaceAll(`"`, "&quot;")}"></button>
                       </body>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://quux.de/corge.webm");
+            assert.strictEqual(file, "https://foo.de/bar.webm");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "http://bar.de/ngplayer_2_4/baz.json",
-                { headers: new Headers({ "Api-Auth": "Bearer qux" }) },
+                "http://qux.de/ngplayer_2_4/quux.json",
+                { headers: new Headers({ "Api-Auth": "Bearer corge" }) },
             ]);
-
-            stub.restore();
         });
     });
 });

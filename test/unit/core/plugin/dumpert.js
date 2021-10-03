@@ -8,8 +8,8 @@ describe("core/plugin/dumpert.js", function () {
             const label = await plugin.generateUrl(new URL("http://foo.com" +
                                                                   "/bar.html"));
             assert.strictEqual(label,
-                "plugin://plugin.video.dumpert/?action=play" +
-                             "&video_page_url=http%3A%2F%2Ffoo.com%2Fbar.html");
+                "plugin://plugin.video.dumpert/" +
+                 "?action=play&video_page_url=http%3A%2F%2Ffoo.com%2Fbar.html");
         });
     });
 
@@ -26,23 +26,21 @@ describe("core/plugin/dumpert.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <meta property="og:title" content="bar" />
+                     <meta property="og:title" content="foo" />
                    </head>
                  </html>`,
             ));
 
             const url = new URL("plugin://plugin.video.dumpert/" +
-                                     "?video_page_url=http%3A%2F%2Ffoo.com%2F");
+                                     "?video_page_url=http%3A%2F%2Fbar.com%2F");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("http://foo.com/"),
+                new URL("http://bar.com/"),
             ]);
-
-            stub.restore();
         });
     });
 });

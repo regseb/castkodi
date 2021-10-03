@@ -19,7 +19,7 @@ describe("core/scraper/lemonde.js", function () {
                       <body>
                         <video>
                           <source type="video/youtube"
-                                  src=="https://www.youtube.com/embed/bar" />
+                                  src="https://www.youtube.com/embed/bar" />
                         </video>
                       </body>
                     </html>`, "text/html")),
@@ -30,7 +30,7 @@ describe("core/scraper/lemonde.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return null when there isn't youtube / dailymotion",
+        it("should return null when there isn't youtube / dailymotion / tiktok",
                                                              async function () {
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
@@ -116,8 +116,6 @@ describe("core/scraper/lemonde.js", function () {
             assert.deepStrictEqual(stub.firstCall.args[0],
                                    new URL("https://www.tiktok.com/qux"));
             assert.strictEqual(typeof stub.firstCall.args[1], "object");
-
-            stub.restore();
         });
     });
 });

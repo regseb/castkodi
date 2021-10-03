@@ -39,45 +39,41 @@ describe("core/plugin/twitch.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <title>bar - Twitch</title>
+                     <title>foo - Twitch</title>
                    </head>
                  </html>`,
             ));
 
             const url = new URL("plugin://plugin.video.twitch/" +
-                                                           "?channel_name=foo");
+                                                           "?channel_name=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/foo",
+                "https://m.twitch.tv/bar",
             ]);
-
-            stub.restore();
         });
 
         it("should return video label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head>
-                     <title>bar - baz sur Twitch</title>
+                     <title>foo - bar sur Twitch</title>
                    </head>
                  </html>`,
             ));
 
-            const url = new URL("plugin://plugin.video.twitch/?video_id=foo");
+            const url = new URL("plugin://plugin.video.twitch/?video_id=baz");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "bar");
+            assert.strictEqual(label, "foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/videos/foo",
+                "https://m.twitch.tv/videos/baz",
             ]);
-
-            stub.restore();
         });
 
         it("should return clip label", async function () {

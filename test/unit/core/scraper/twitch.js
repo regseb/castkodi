@@ -53,11 +53,11 @@ describe("core/scraper/twitch.js", function () {
         });
 
         it("should return video id", async function () {
-            const url = new URL("https://player.twitch.tv/?video=12345");
+            const url = new URL("https://player.twitch.tv/?video=foo");
 
             const file = await scraper.extractEmbed(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
+                "plugin://plugin.video.twitch/?mode=play&video_id=foo");
         });
     });
 
@@ -70,35 +70,35 @@ describe("core/scraper/twitch.js", function () {
         });
 
         it("should return video id", async function () {
-            const url = new URL("https://www.twitch.tv/videos/12345");
+            const url = new URL("https://www.twitch.tv/videos/foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
+                "plugin://plugin.video.twitch/?mode=play&video_id=foo");
         });
 
         it("should return video id when protocol is HTTP", async function () {
-            const url = new URL("http://www.twitch.tv/videos/12345");
+            const url = new URL("http://www.twitch.tv/videos/foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
+                "plugin://plugin.video.twitch/?mode=play&video_id=foo");
         });
 
         it("should return video id from 'go'", async function () {
-            const url = new URL("https://go.twitch.tv/videos/12345");
+            const url = new URL("https://go.twitch.tv/videos/foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
+                "plugin://plugin.video.twitch/?mode=play&video_id=foo");
         });
 
         it("should return video id from mobile version", async function () {
-            const url = new URL("https://m.twitch.tv/videos/12345");
+            const url = new URL("https://m.twitch.tv/videos/foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=12345");
+                "plugin://plugin.video.twitch/?mode=play&video_id=foo");
         });
 
         it("should return clip name", async function () {

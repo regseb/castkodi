@@ -1,6 +1,6 @@
 import assert from "node:assert";
-import { extract } from "../../../src/core/scrapers.js";
 import { complete } from "../../../src/core/labellers.js";
+import { extract } from "../../../src/core/scrapers.js";
 
 describe("Labeller: SoundCloud", function () {
     it("should return audio label", async function () {

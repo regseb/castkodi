@@ -5,7 +5,7 @@ describe("core/scraper/applepodcasts.js", function () {
     describe("extract()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://podcasts.apple.com/us/artist" +
-                                                      "/arte-radio/1251092473");
+                                                             "/arte-radio/foo");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file, null);
@@ -26,17 +26,17 @@ describe("core/scraper/applepodcasts.js", function () {
 
         it("should return audio URL", async function () {
             const url = new URL("https://podcasts.apple.com/fr/podcast/foo" +
-                                                                      "/id123");
+                                                                      "/idbar");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
                         <script id="shoebox-ember-data-store">
                             {
-                                "123456789": {
+                                "baz": {
                                     "data": {
                                         "attributes": {
-                                            "assetUrl": "https://foo.fr/bar.mp3"
+                                            "assetUrl": "http://qux.fr/quux.mp3"
                                         }
                                     }
                                 }
@@ -47,7 +47,7 @@ describe("core/scraper/applepodcasts.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.fr/bar.mp3");
+            assert.strictEqual(file, "http://qux.fr/quux.mp3");
         });
     });
 });

@@ -45,8 +45,6 @@ describe("core/plugin/vimeo.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://vimeo.com/bar",
             ]);
-
-            stub.restore();
         });
 
         it("should return video label from unlisted", async function () {
@@ -68,8 +66,6 @@ describe("core/plugin/vimeo.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://vimeo.com/bar/baz",
             ]);
-
-            stub.restore();
         });
     });
 });
