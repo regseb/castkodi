@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/regseb/castkodi/compare/v6.0.0...v6.1.0) (2021-10-09)
+
+
+### Features
+
+* Gérer le plugin Tubed. ([d8374cd](https://github.com/regseb/castkodi/commit/d8374cd9665427b55935d6151e300c05219a5e12))
+* Rechercher des vidéos / musiques dans le DOM de l'onglet. ([cb38128](https://github.com/regseb/castkodi/commit/cb381284446ba1a496e65847c05ba5db30114733))
+
+
+### Bug Fixes
+
+* Centrer le curseur des pistes (range). ([3ca1975](https://github.com/regseb/castkodi/commit/3ca197515632c3ec29a22a70222c6575f0c0c833))
+* Enlever LBRY (remplacé à odysee.com). ([f322b57](https://github.com/regseb/castkodi/commit/f322b57f0240e78f3f10ebe1f87ec0030a9c3fb9))
+* Gérer la version HTTPS de KCAA Radio. ([5a52f65](https://github.com/regseb/castkodi/commit/5a52f65e700d1afeee6d4864bac9b5eab14afd2b))
+* Ne pas modifier le volume en scrollant dans les zones de texte. ([9b8e756](https://github.com/regseb/castkodi/commit/9b8e7569ce2fd5ebef7b2b8fee6cba6f98623acb))
+
 ## [6.0.0](https://github.com/regseb/castkodi/compare/v5.16.0...v6.0.0) (2021-09-27)
 
 
