@@ -1,5 +1,7 @@
 import assert from "node:assert";
+import sinon from "sinon";
 import { config } from "../config.js";
+import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Le Monde", function () {
@@ -14,14 +16,19 @@ describe("Scraper: Le Monde", function () {
     });
 
     it("should return video id [lemonde-youtube]", async function () {
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL("https://www.lemonde.fr/blog/unmondedejeux/2021" +
                              "/02/02/la-selection-officielle-de-las-dor-2021/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/?video_id=dI-xlzU-r1c" +
-                                               "&incognito=false");
+            "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=dI-xlzU-r1c&incognito=false");
+
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id [lemonde-dailymotion]", async function () {
@@ -32,8 +39,8 @@ describe("Scraper: Le Monde", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                  "&url=k3tyb33F0pcZR2wDd27");
+            "plugin://plugin.video.dailymotion_com/" +
+                                     "?mode=playVideo&url=k3tyb33F0pcZR2wDd27");
     });
 
     it("should return video url [lemonde-tiktok]", async function () {

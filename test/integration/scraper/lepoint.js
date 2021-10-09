@@ -1,4 +1,6 @@
 import assert from "node:assert";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Le Point", function () {
@@ -29,6 +31,8 @@ describe("Scraper: Le Point", function () {
     });
 
     it("should return video URL [iframe-youtube]", async function () {
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL("https://www.lepoint.fr/pop-culture" +
                          "/tout-ce-qu-il-faut-savoir-sur-le-prochain-oss-117-" +
                                                 "-20-02-2020-2363643_2920.php");
@@ -38,5 +42,8 @@ describe("Scraper: Le Point", function () {
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
                                        "?video_id=SE6jppsjo9E&incognito=false");
+
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 });

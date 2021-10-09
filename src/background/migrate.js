@@ -74,7 +74,7 @@ browser.storage.local.get().then(async (current) => {
             "menu-actions":     ["send", "insert", "add"],
             "menu-contexts":    DEFAULT_MENU_CONTEXTS[name],
             "youtube-playlist": "playlist",
-            "youtube-order":    "",
+            "youtube-order":    "default",
         });
     }
 });

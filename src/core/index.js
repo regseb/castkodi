@@ -2,16 +2,9 @@
  * @module
  */
 
-import { Kodi } from "./jsonrpc/kodi.js";
+import { kodi } from "./kodi.js";
 import { extract } from "./scrapers.js";
 import { PebkacError } from "./tools/pebkac.js";
-
-/**
- * Le client JSON-RPC pour contacter Kodi.
- *
- * @type {Kodi}
- */
-export const kodi = new Kodi();
 
 /**
  * Récupère le lien à analyser parmi les données récupérées.
@@ -46,9 +39,11 @@ export const mux = function (urls) {
 /**
  * Diffuse un média sur Kodi.
  *
- * @param {string}   action L'action à effectuer (<code>"send"</code>,
- *                          <code>"insert"</code> ou <code>"add"</code>).
- * @param {string[]} urls   La liste des éventuelles URLs.
+ * @param {string}               action L'action à effectuer
+ *                                      (<code>"send"</code>,
+ *                                      <code>"insert"</code> ou
+ *                                      <code>"add"</code>).
+ * @param {(string|undefined)[]} urls   La liste des éventuelles URLs.
  * @returns {Promise<void>} Une promesse tenue vide.
  */
 export const cast = async function (action, urls) {
@@ -86,19 +81,3 @@ export const cast = async function (action, urls) {
         }
     }
 };
-
-/**
- * Ferme la connexion avec Kodi pour forcer la reconnexion avec la nouvelle
- * configuration.
- *
- * @param {browser.storage.StorageChange} changes Les paramètres modifiés dans
- *                                                la configuration.
- */
-const handleChange = function (changes) {
-    // Garder seulement les changements liés au serveur.
-    if (Object.keys(changes).some((k) => k.startsWith("server-"))) {
-        kodi.close();
-    }
-};
-
-browser.storage.onChanged.addListener(handleChange);

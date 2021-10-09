@@ -4,15 +4,23 @@
  */
 /* eslint-disable require-await */
 
+import { kodi } from "../kodi.js";
 import * as labeller from "../labeller/youtube.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * L'URL de l'extension pour lire des vidéos issues de YouTube.
+ * L'URL de l'extension <em>YouTube</em> pour lire des vidéos issues de YouTube.
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
+const YOUTUBE_PLUGIN_URL = "plugin://plugin.video.youtube/play/";
+
+/**
+ * L'URL de l'extension <em>Tubed</em> pour lire des vidéos issues de YouTube.
+ *
+ * @type {string}
+ */
+const TUBED_PLUGIN_URL = "plugin://plugin.video.tubed/?mode=play";
 
 /**
  * Génère l'URL d'une vidéo dans l'extension YouTube.
@@ -24,8 +32,17 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
  *                            <em>fichier</em>.
  */
 export const generateVideoUrl = async function (videoId, incognito) {
-    return `${PLUGIN_URL}?video_id=${videoId}` +
-                        `&incognito=${incognito.toString()}`;
+    const addons = await kodi.addons.getAddons("video");
+    // Si les deux extensions YouTube et Tubed sont présentes ou si aucune est
+    // présente : envoyer les vidéos à YouTube ; sinon envoyer à l'extension
+    // présente.
+    if (addons.includes("plugin.video.tubed") &&
+            !addons.includes("plugin.video.youtube")) {
+        return `${TUBED_PLUGIN_URL}&video_id=${videoId}`;
+    }
+
+    return `${YOUTUBE_PLUGIN_URL}?video_id=${videoId}` +
+                                `&incognito=${incognito.toString()}`;
 };
 
 /**
@@ -38,14 +55,23 @@ export const generateVideoUrl = async function (videoId, incognito) {
  *                            <em>fichier</em>.
  */
 export const generatePlaylistUrl = async function (playlistId, incognito) {
+    const addons = await kodi.addons.getAddons("video");
+    // Si les deux extensions YouTube et Tubed sont présentes ou si aucune est
+    // présente : envoyer les vidéos à YouTube ; sinon envoyer à l'extension
+    // présente.
+    if (addons.includes("plugin.video.tubed") &&
+            !addons.includes("plugin.video.youtube")) {
+        return `${TUBED_PLUGIN_URL}&playlist_id=${playlistId}`;
+    }
+
     const config = await browser.storage.local.get(["youtube-order"]);
-    return `${PLUGIN_URL}?playlist_id=${playlistId}` +
-                        `&order=${config["youtube-order"]}` +
-                        `&play=1&incognito=${incognito.toString()}`;
+    return `${YOUTUBE_PLUGIN_URL}?playlist_id=${playlistId}` +
+                                `&order=${config["youtube-order"]}` +
+                                `&play=1&incognito=${incognito.toString()}`;
 };
 
 /**
- * Extrait le titre d'une vidéo ou d'une liste de lecture YouTube.
+ * Extrait le titre d'une vidéo ou d'une playlist YouTube.
  *
  * @param {URL} url L'URL utilisant le plugin de YouTube.
  * @returns {Promise<?string>} Une promesse contenant le titre ou
@@ -61,4 +87,5 @@ const action = async function ({ searchParams }) {
     return null;
 };
 export const extract = matchPattern(action,
-    "plugin://plugin.video.youtube/play/*");
+    "plugin://plugin.video.youtube/play/*",
+    "plugin://plugin.video.tubed/*");

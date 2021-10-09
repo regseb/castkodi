@@ -4,6 +4,7 @@
 
 import { JSONRPC } from "../tools/jsonrpc.js";
 import { PebkacError } from "../tools/pebkac.js";
+import { Addons } from "./addons.js";
 import { Application } from "./application.js";
 import { GUI } from "./gui.js";
 import { Input } from "./input.js";
@@ -113,6 +114,15 @@ export const Kodi = class {
         this._jsonrpc = null;
 
         /**
+         * Le client JSON-RPC pour contacter l'espace de nom <em>Addons</em> de
+         * Kodi.
+         *
+         * @private
+         * @type {Addons}
+         */
+        this._addons = new Addons(this);
+
+        /**
          * Le client JSON-RPC pour contacter l'espace de nom
          * <em>Application</em> de Kodi.
          *
@@ -167,6 +177,17 @@ export const Kodi = class {
      */
     get url() {
         return this._url;
+    }
+
+    /**
+     * Retourne le client JSON-RPC pour contacter l'espace de nom
+     * <em>Addons</em> de Kodi.
+     *
+     * @returns {Addons} Le client JSON-RPC pour contacter l'espace de nom
+     *                   <em>Addons</em> de Kodi.
+     */
+    get addons() {
+        return this._addons;
     }
 
     /**
@@ -263,8 +284,8 @@ export const Kodi = class {
                     this._jsonrpc = null;
                 });
                 this._jsonrpc.addEventListener("notification", (event) => {
-                    this._input.handleNotification(event);
                     this._application.handleNotification(event);
+                    this._input.handleNotification(event);
                     this._player.handleNotification(event);
                     this._playlist.handleNotification(event);
                 });

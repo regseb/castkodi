@@ -1,4 +1,6 @@
 import assert from "node:assert";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/lepoint.js";
 
 describe("core/scraper/lepoint.js", function () {
@@ -42,6 +44,8 @@ describe("core/scraper/lepoint.js", function () {
         });
 
         it("should return video URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.lepoint.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -56,8 +60,11 @@ describe("core/scraper/lepoint.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/?video_id=baz" +
-                                                            "&incognito=false");
+                "plugin://plugin.video.youtube/play/" +
+                                               "?video_id=baz&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

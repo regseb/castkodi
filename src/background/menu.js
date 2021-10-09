@@ -20,7 +20,8 @@ const capitalize = function (text) {
  *
  * @param {browser.contextMenus.OnClickData} info Les informations fournies par
  *                                                le menu contextuel.
- * @returns {Promise<string[]>} Une promesse contenant les liens récupérés.
+ * @returns {Promise<(string|undefined)[]>} Une promesse contenant les liens
+ *                                          récupérés.
  */
 const aggregate = async function (info) {
     if ("bookmarkId" in info) {

@@ -1,10 +1,13 @@
 import assert from "node:assert";
-import { extract } from "../../../src/core/scrapers.js";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/kodi.js";
 import { complete } from "../../../src/core/labellers.js";
+import { extract } from "../../../src/core/scrapers.js";
 
 describe("Labeller: YouTube", function () {
     it("should return video label", async function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         const options = { depth: false, incognito: false };
@@ -26,7 +29,8 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        browser.storage.local.clear();
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video title", async function () {
@@ -52,6 +56,9 @@ describe("Labeller: YouTube", function () {
 
     it("should return unavailable label", async function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([
+            "plugin.video.tubed",
+        ]);
 
         const url = new URL("https://www.youtube.com/watch?v=v_cwYv4K2vo");
         const options = { depth: false, incognito: false };
@@ -72,11 +79,15 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        browser.storage.local.clear();
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return playlist label", async function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([
+            "plugin.video.youtube",
+        ]);
 
         const url = new URL("https://www.youtube.com/playlist" +
                                                     "?list=PL6B3937A5D230E335");
@@ -98,11 +109,15 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        browser.storage.local.clear();
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return mix label", async function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([
+            "plugin.video.tubed", "plugin.video.youtube",
+        ]);
 
         const url = new URL("https://www.youtube.com/watch" +
                                            "?v=Yrm_kb1d-Xc&list=RDYrm_kb1d-Xc");
@@ -124,11 +139,13 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        browser.storage.local.clear();
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return mix label from YouTube Music", async function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://music.youtube.com/watch" +
                                            "?v=9bZkp7q19f0&list=RD9bZkp7q19f0");
@@ -150,6 +167,7 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        browser.storage.local.clear();
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 });

@@ -1,4 +1,6 @@
 import assert from "node:assert";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/stargr.js";
 
 describe("core/scraper/stargr.js", function () {
@@ -51,6 +53,8 @@ describe("core/scraper/stargr.js", function () {
         });
 
         it("should return video YouTube id", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.star.gr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -75,8 +79,11 @@ describe("core/scraper/stargr.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/?video_id=bar" +
-                                                   "&incognito=false");
+                "plugin://plugin.video.youtube/play/" +
+                                               "?video_id=bar&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

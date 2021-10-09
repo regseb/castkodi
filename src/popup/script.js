@@ -2,7 +2,8 @@
  * @module
  */
 
-import { cast, kodi } from "../core/index.js";
+import { cast } from "../core/index.js";
+import { kodi } from "../core/kodi.js";
 import { complete } from "../core/labellers.js";
 import { notify } from "../core/tools/notify.js";
 import { ping } from "../core/tools/ping.js";

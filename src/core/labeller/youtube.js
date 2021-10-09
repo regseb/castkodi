@@ -7,8 +7,8 @@
  * Extrait le titre d'une vidéo YouTube.
  *
  * @param {string} videoId L'identifiant de la vidéo YouTube.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string>} Une promesse contenant le titre ou le texte pour
+ *                            les vidéos non-disponibles.
  */
 export const extractVideo = async function (videoId) {
     const response = await fetch(`https://www.youtube.com/watch?v=${videoId}`);
@@ -19,11 +19,11 @@ export const extractVideo = async function (videoId) {
 };
 
 /**
- * Extrait le titre d'une liste de lecture YouTube.
+ * Extrait le titre d'une playlist YouTube.
  *
  * @param {string} playlistId L'identifiant de la playlist YouTube.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string>} Une promesse contenant le titre ou le texte par
+ *                            défaut pour les playlists sans titre.
  */
 export const extractPlaylist = async function (playlistId) {
     const response = await fetch("https://www.youtube.com/playlist" +

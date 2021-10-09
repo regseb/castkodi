@@ -1,4 +1,6 @@
 import assert from "node:assert";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/youtube.js";
 
 describe("core/scraper/youtube.js", function () {
@@ -28,6 +30,7 @@ describe("core/scraper/youtube.js", function () {
                 "youtube-playlist": "playlist",
                 "youtube-order":    "",
             });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.youtube.com/watch?v=foo&list=bar");
             const content = undefined;
@@ -38,29 +41,13 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                               "?playlist_id=bar&order=&play=1&incognito=false");
 
-            browser.storage.local.clear();
-        });
-
-        it("should return playlist id with default order", async function () {
-            browser.storage.local.set({
-                "youtube-playlist": "playlist",
-                "youtube-order":    "default",
-            });
-
-            const url = new URL("https://www.youtube.com/watch?v=foo&list=bar");
-            const content = undefined;
-            const options = { incognito: false };
-
-            const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/" +
-                       "?playlist_id=bar&order=default&play=1&incognito=false");
-
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id", async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.youtube.com/watch?v=foo&list=bar");
             const content = undefined;
@@ -71,12 +58,14 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
 
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id even with playlist option",
                                                              async function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
             const content = undefined;
@@ -87,11 +76,13 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
 
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id when protocol is HTTP", async function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("http://www.youtube.com/watch?v=foo");
             const content = undefined;
@@ -102,7 +93,8 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
 
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return null when it's not a video from mobile",
@@ -119,6 +111,7 @@ describe("core/scraper/youtube.js", function () {
 
         it("should return video id from mobile", async function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://m.youtube.com/watch?v=foo");
             const content = undefined;
@@ -129,7 +122,8 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
 
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return null when it's not a video from music",
@@ -146,9 +140,10 @@ describe("core/scraper/youtube.js", function () {
 
         it("should return video id from music", async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            const url = new URL("https://music.youtube.com/watch?v=foo" +
-                                                               "&list=bar");
+            const url = new URL("https://music.youtube.com/watch" +
+                                                             "?v=foo&list=bar");
             const content = undefined;
             const options = { incognito: true };
 
@@ -157,11 +152,13 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
 
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id from invidio.us", async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://invidio.us/watch?v=foo");
             const content = undefined;
@@ -172,11 +169,13 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
 
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id from hooktube", async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://hooktube.com/watch?v=foo");
             const content = undefined;
@@ -187,7 +186,8 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
 
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -205,6 +205,7 @@ describe("core/scraper/youtube.js", function () {
 
         it("should return playlist id", async function () {
             browser.storage.local.set({ "youtube-order": "" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.youtube.com/playlist?list=foo");
             const content = undefined;
@@ -215,22 +216,8 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                               "?playlist_id=foo&order=&play=1&incognito=false");
 
-            browser.storage.local.clear();
-        });
-
-        it("should return playlist id with shuffle order", async function () {
-            browser.storage.local.set({ "youtube-order": "shuffle" });
-
-            const url = new URL("https://www.youtube.com/playlist?list=foo");
-            const content = undefined;
-            const options = { incognito: false };
-
-            const file = await scraper.extractPlaylist(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/" +
-                       "?playlist_id=foo&order=shuffle&play=1&incognito=false");
-
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return null when it's not a playlist from mobile",
@@ -238,8 +225,7 @@ describe("core/scraper/youtube.js", function () {
             browser.storage.local.set({ "youtube-order": "reverse" });
 
             const url = new URL("https://m.youtube.com/playlist" +
-                                                            "?video=foo" +
-                                                            "&incognito=false");
+                                                  "?video=foo&incognito=false");
             const content = undefined;
             const options = { incognito: false };
 
@@ -249,6 +235,7 @@ describe("core/scraper/youtube.js", function () {
 
         it("should return playlist id from mobile", async function () {
             browser.storage.local.set({ "youtube-order": "reverse" });
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://m.youtube.com/playlist?list=foo");
             const content = undefined;
@@ -259,12 +246,15 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/" +
                         "?playlist_id=foo&order=reverse&play=1&incognito=true");
 
-            browser.storage.local.clear();
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
     });
 
     describe("extractEmbed()", function () {
         it("should return video id", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.youtube.com/embed/foo");
             const content = undefined;
             const options = { incognito: false };
@@ -273,9 +263,14 @@ describe("core/scraper/youtube.js", function () {
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id without cookie", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.youtube-nocookie.com/embed/foo");
             const content = undefined;
             const options = { incognito: true };
@@ -284,9 +279,14 @@ describe("core/scraper/youtube.js", function () {
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id form invidio.us", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://invidio.us/embed/foo");
             const content = undefined;
             const options = { incognito: false };
@@ -295,9 +295,14 @@ describe("core/scraper/youtube.js", function () {
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id from hooktube", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://hooktube.com/embed/foo");
             const content = undefined;
             const options = { incognito: true };
@@ -306,11 +311,16 @@ describe("core/scraper/youtube.js", function () {
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
     });
 
     describe("extractMinify()", function () {
         it("should return video id", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://youtu.be/foo");
             const content = undefined;
             const options = { incognito: false };
@@ -319,6 +329,9 @@ describe("core/scraper/youtube.js", function () {
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

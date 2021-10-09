@@ -1,4 +1,6 @@
 import assert from "node:assert";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/theguardian.js";
 
 describe("core/scraper/theguardian.js", function () {
@@ -26,13 +28,15 @@ describe("core/scraper/theguardian.js", function () {
         });
 
         it("should return video URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.theguardian.com/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
                         <div class="youtube-media-atom__iframe"
-                             data-asset-id="foo" />
+                             data-asset-id="bar" />
                       </body>
                     </html>`, "text/html")),
             };
@@ -41,17 +45,22 @@ describe("core/scraper/theguardian.js", function () {
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
-                                               "?video_id=foo&incognito=false");
+                                               "?video_id=bar&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video URL in incognito mode", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.theguardian.com/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
                         <div class="youtube-media-atom__iframe"
-                             data-asset-id="foo" />
+                             data-asset-id="bar" />
                       </body>
                     </html>`, "text/html")),
             };
@@ -60,7 +69,10 @@ describe("core/scraper/theguardian.js", function () {
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
-                                                "?video_id=foo&incognito=true");
+                                                "?video_id=bar&incognito=true");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -93,13 +105,13 @@ describe("core/scraper/theguardian.js", function () {
                     <html>
                       <body>
                         <figure id="audio-component-container"
-                                data-source="https://foo.com/bar.mp3" />
+                                data-source="https://bar.com/baz.mp3" />
                       </body>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extractAudio(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp3");
+            assert.strictEqual(file, "https://bar.com/baz.mp3");
         });
     });
 });

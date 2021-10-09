@@ -1,4 +1,6 @@
 import assert from "node:assert";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: StarGR", function () {
@@ -44,7 +46,9 @@ describe("Scraper: StarGR", function () {
                                "/protocol/https/flavorParamId/0/manifest.m3u8");
     });
 
-    it("should return video id [stargr-youtube]", async function () {
+    it("should return video id", async function () {
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL("https://www.star.gr/tv/psychagogia" +
                              "/ston-kosmo-tou/ston-kosmo-tou-2042019-tiflida/");
         const options = { depth: false, incognito: false };
@@ -52,5 +56,8 @@ describe("Scraper: StarGR", function () {
         const file = await extract(url, options);
         assert.strictEqual(file, "plugin://plugin.video.youtube/play/" +
                                        "?video_id=p9DYioRLAXE&incognito=false");
+
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 });

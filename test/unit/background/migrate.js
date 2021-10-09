@@ -18,7 +18,7 @@ describe("background/migrate.js", function () {
                 "audio", "frame", "link", "page", "selection", "video",
             ],
             "youtube-playlist": "playlist",
-            "youtube-order":    "",
+            "youtube-order":    "default",
         });
     });
 
@@ -39,7 +39,7 @@ describe("background/migrate.js", function () {
                 "audio", "frame", "link", "page", "selection", "tab", "video",
             ],
             "youtube-playlist": "playlist",
-            "youtube-order":    "",
+            "youtube-order":    "default",
         });
     });
 

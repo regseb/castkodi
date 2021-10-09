@@ -1,4 +1,6 @@
 import assert from "node:assert";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: The Guardian", function () {
@@ -12,7 +14,9 @@ describe("Scraper: The Guardian", function () {
         assert.strictEqual(file, url.href);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL [theguardian-youtube]", async function () {
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL("https://www.theguardian.com/football/2020/mar/01" +
                                           "/liverpool-in-danger-of-going-easy" +
                                              "-osey-with-title-in-their-grasp");
@@ -22,6 +26,9 @@ describe("Scraper: The Guardian", function () {
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
                                        "?video_id=hIw0r4o-enM&incognito=false");
+
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return audio URL", async function () {

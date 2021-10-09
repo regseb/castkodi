@@ -1,6 +1,7 @@
 import assert from "node:assert";
 import sinon from "sinon";
-import { cast, kodi, mux } from "../../../src/core/index.js";
+import { cast, mux } from "../../../src/core/index.js";
+import { kodi } from "../../../src/core/kodi.js";
 
 describe("core/index.js", function () {
     describe("mux()", function () {
@@ -159,26 +160,8 @@ describe("core/index.js", function () {
             const histories = browser.history.search({ text: "" });
             assert.deepStrictEqual(histories, [{ url: "http://foo.com/bar" }]);
 
-            stub.restore();
-            browser.storage.local.clear();
-            browser.history.deleteAll();
-        });
-    });
-
-    describe("handleChange()", function () {
-        it("should close connexion with kodi", function () {
-            browser.storage.local.set({ "server-active": 0 });
-            const stub = sinon.stub(kodi, "close");
-
-            // Modifier la configuration pour que l'auditeur handleChange() soit
-            // appelé.
-            browser.storage.local.set({ "server-active": 1 });
-
             assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, []);
-
-            browser.storage.local.clear();
-            stub.restore();
+            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
         });
     });
 });

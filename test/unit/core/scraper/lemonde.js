@@ -1,5 +1,6 @@
 import assert from "node:assert";
 import sinon from "sinon";
+import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/lemonde.js";
 
 describe("core/scraper/lemonde.js", function () {
@@ -46,6 +47,8 @@ describe("core/scraper/lemonde.js", function () {
         });
 
         it("should return URL from youtube", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -53,7 +56,7 @@ describe("core/scraper/lemonde.js", function () {
                       <body>
                         <video>
                           <source type="video/youtube"
-                                  src="https://www.youtube.com/embed/bar" />
+                                  src="https://youtu.be/bar" />
                         </video>
                       </body>
                     </html>`, "text/html")),
@@ -62,8 +65,11 @@ describe("core/scraper/lemonde.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/?video_id=bar" +
-                                                   "&incognito=true");
+                "plugin://plugin.video.youtube/play/" +
+                                                "?video_id=bar&incognito=true");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return URL from dailymotion", async function () {
@@ -80,8 +86,8 @@ describe("core/scraper/lemonde.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                      "&url=bar");
+                "plugin://plugin.video.dailymotion_com/" +
+                                                     "?mode=playVideo&url=bar");
         });
 
         it("should return URL from tiktok", async function () {
