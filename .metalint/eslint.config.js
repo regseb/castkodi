@@ -531,6 +531,7 @@ export default {
         "regexp/prefer-regexp-test": 2,
         "regexp/require-unicode-regexp": 2,
         "regexp/sort-alternatives": 2,
+        "regexp/use-ignore-case": 2,
 
         "regexp/hexadecimal-escape": 0,
         "regexp/letter-case": [2, {
@@ -545,8 +546,10 @@ export default {
         "regexp/prefer-lookaround": 2,
         "regexp/prefer-named-backreference": 2,
         "regexp/prefer-named-capture-group": 2,
+        "regexp/prefer-named-replacement": 2,
         "regexp/prefer-plus-quantifier": 2,
         "regexp/prefer-question-quantifier": 2,
+        "regexp/prefer-result-array-groups": 2,
         "regexp/prefer-star-quantifier": 2,
         "regexp/prefer-unicode-codepoint-escapes": 2,
         "regexp/prefer-w": 2,

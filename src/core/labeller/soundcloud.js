@@ -4,7 +4,7 @@
 /* eslint-disable require-await */
 
 /**
- * Extrait le titre d'un son SoundCloud.
+ * Extrait le titre d'une musique SoundCloud.
  *
  * @param {URL} audioUrl L'URL de la musique SoundCloud.
  * @returns {Promise<?string>} Une promesse contenant le titre ou
