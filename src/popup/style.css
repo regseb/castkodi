@@ -214,6 +214,8 @@ input[type="checkbox"]:checked ~ img:last-of-type {
 #playlist-items li {
     display: flex;
     height: 32px;
+    /* Ne pas sélectionner un mot durant un double-clic (pour lancer la
+       lecture du média). */
     user-select: none;
 }
 #playlist-items li:hover {
