@@ -43,9 +43,10 @@ export const Addons = class {
     async getAddons(content) {
         const results = await this._kodi.send("Addons.GetAddons", {
             content,
-            properties: ["enabled"],
+            enabled: true,
         });
-        return results.addons.filter((a) => a.enabled)
-                             .map((a) => a.addonid);
+        // Gérer le cas où la propriété "addons" n'est pas présente (quand aucun
+        // addon est retourné).
+        return results.addons?.map((a) => a.addonid) ?? [];
     }
 };

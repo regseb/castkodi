@@ -9,21 +9,37 @@ describe("core/jsonrpc/addons.js", function () {
             const kodi = new Kodi();
             const stub = sinon.stub(kodi, "send").resolves({
                 addons: [
-                    { addonid: "foo", type: "bar", enabled: true },
-                    { addonid: "baz", type: "bar", enabled: false },
-                    { addonid: "qux", type: "bar", enabled: true },
+                    { addonid: "foo", type: "bar" },
+                    { addonid: "baz", type: "bar" },
                 ],
-                limits: { end: 3, start: 0, total: 3 },
+                limits: { end: 2, start: 0, total: 2 },
             });
 
             const addons = new Addons(kodi);
             const result = await addons.getAddons("bar");
-            assert.deepStrictEqual(result, ["foo", "qux"]);
+            assert.deepStrictEqual(result, ["foo", "baz"]);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
                 "Addons.GetAddons",
-                { content: "bar", properties: ["enabled"] },
+                { content: "bar", enabled: true },
+            ]);
+        });
+
+        it("should return no addon", async function () {
+            const kodi = new Kodi();
+            const stub = sinon.stub(kodi, "send").resolves({
+                limits: { end: 0, start: 0, total: 0 },
+            });
+
+            const addons = new Addons(kodi);
+            const result = await addons.getAddons("foo");
+            assert.deepStrictEqual(result, []);
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "Addons.GetAddons",
+                { content: "foo", enabled: true },
             ]);
         });
     });
