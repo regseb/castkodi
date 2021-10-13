@@ -13,9 +13,10 @@
         "vimeo",
         "soundcloud"
     ],
-    "homepage": "https://addons.mozilla.org/addon/castkodi/",
+    "homepage": "https://github.com/regseb/castkodi#readme",
     "bugs": {
-        "url": "https://github.com/regseb/castkodi/issues"
+        "url": "https://github.com/regseb/castkodi/issues",
+        "email": "regseb@gmail.com"
     },
     "license": "MIT",
     "author": "Sébastien Règne <regseb@gmail.com> (https://github.com/regseb)",
@@ -84,5 +85,6 @@
     },
     "engines": {
         "node": ">=16.0.0"
-    }
+    },
+    "private": true
 }
