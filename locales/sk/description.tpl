@@ -1,3 +1,7 @@
+<!-- Désactiver la première phrase car la description du manifeste est affichée
+     dans la page du Chrome Web Store. Et désactiver la liste des sites Internet
+     gérés car les listes ne sont pas autorisées dans le Chrome Web Store. -->
+<!-- disable chrome -->
 Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</strong>:
 <ul>
   <li>
@@ -19,6 +23,7 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
     </ul>
   </li>
 </ul>
+<!-- enable chrome -->
 Cast&nbsp;Kodi tiež analyzuje stránky a hľadá v nich odkazy na videá a hudby z externých platforiem. Ak napríklad stránka obsahuje YouTube video, toto video bude poslané do Kodi.
 
 Pre poslanie videa/hudby môžete do kontextovej ponuky odkazu / stránky / výberu pridať nasledovné 3 položky: <em>Prehrať teraz v Kodi</em>, <em>Prehrať neskôr v Kodi</em> a <em>Pridať do poradia v Kodi</em>. Prítomné je aj diaľkové ovládanie (dostupné na lište s nástrojmi), ktoré vám umožní odoslať aktuálnu kartu do Kodi a pozastaviť video, prejsť na ďalšiu položku, upraviť hlasitosť, ...

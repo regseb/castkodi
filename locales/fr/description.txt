@@ -1,8 +1,0 @@
-Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou des intégrations de plateformes externes. Par exemple, si une page affiche une vidéo YouTube, cette vidéo sera envoyée à Kodi.
-
-Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le menu contextuel des liens / pages / sélections de vidéos ou de musiques : Lire maintenant avec Kodi, Lire ensuite avec Kodi et Place en file d'attente de Kodi. Une télécommande (accessible depuis un bouton de la barre d'outils) est aussi présente pour diffuser l'onglet courant sur Kodi et pour : mettre en pause, passer au prochain élément, régler le volume…
-
-
-Dans Kodi, il faut Autoriser le contrôle à distance par des programmes sur d'autres systèmes. Ce réglage se fait dans la page Paramètres / Services / Contrôle.
-
-Vous devez ensuite configurer les Préférences de Cast Kodi en copiant l'Adresse IP du serveur hébergeant Kodi ; cette information est disponible dans la page Paramètres / Infos sur le système / Résumé.

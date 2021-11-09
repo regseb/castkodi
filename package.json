@@ -35,7 +35,7 @@
         "jsdocs": "typedoc --tsconfig tsconfig_typedoc.json --out jsdocs/ src/",
         "start:chromium": "web-ext run -t chromium -s src/",
         "start:firefox": "web-ext run -t firefox-desktop -s src/",
-        "build": "web-ext build -s src/ -a build/ -o",
+        "build": "node .script/build.js",
         "release": "standard-version",
         "clean": "node .script/clean.js"
     },
