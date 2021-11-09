@@ -17,15 +17,15 @@ describe("Scraper: The Guardian", function () {
     it("should return video URL [theguardian-youtube]", async function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-        const url = new URL("https://www.theguardian.com/football/2020/mar/01" +
-                                          "/liverpool-in-danger-of-going-easy" +
-                                             "-osey-with-title-in-their-grasp");
+        const url = new URL("https://www.theguardian.com/sport/video/2021/oct" +
+                                           "/18/dont-let-it-drop-peru-win-the" +
+                                         "-first-ever-balloon-world-cup-video");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file,
             "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=hIw0r4o-enM&incognito=false");
+                                       "?video_id=Iiigz06_lvM&incognito=false");
 
         assert.strictEqual(stub.callCount, 1);
         assert.deepStrictEqual(stub.firstCall.args, ["video"]);
