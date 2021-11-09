@@ -7,7 +7,7 @@ describe("Scraper: Ultimedia", function () {
         // Désactiver les tests d'Ultimedia en dehors de la France car les pages
         // sont en "maintenance" dans les autres pays.
         if (null !== config.country && "fr" !== config.country) {
-            // eslint-disable-next-line no-invalid-this, @babel/no-invalid-this
+            // eslint-disable-next-line no-invalid-this
             this.skip();
         }
     });

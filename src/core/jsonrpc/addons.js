@@ -14,19 +14,19 @@
 export const Addons = class {
 
     /**
+     * Le client pour contacter Kodi.
+     *
+     * @type {Kodi}
+     */
+    #kodi;
+
+    /**
      * Crée un client JSON-RPC pour l'espace de nom <em>Addons</em>.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
     constructor(kodi) {
-
-        /**
-         * Le client pour contacter Kodi.
-         *
-         * @private
-         * @type {Kodi}
-         */
-        this._kodi = kodi;
+        this.#kodi = kodi;
     }
 
     /**
@@ -41,7 +41,7 @@ export const Addons = class {
      *                              addons.
      */
     async getAddons(content) {
-        const results = await this._kodi.send("Addons.GetAddons", {
+        const results = await this.#kodi.send("Addons.GetAddons", {
             content,
             enabled: true,
         });

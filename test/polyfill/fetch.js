@@ -5,12 +5,12 @@ import nodeFetch from "node-fetch";
  */
 
 /**
- * L'agent utilisateur par défaut.
+ * L'agent utilisateur de Chromium sous Ubuntu.
  *
  * @type {string}
  */
-const USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:92.0)" +
-                                                 " Gecko/20100101 Firefox/92.0";
+const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" +
+                        "(KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36";
 
 /**
  * Cherche une ressource.
@@ -22,6 +22,8 @@ const USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:92.0)" +
 export const fetch = function (input, init = {}) {
     const headers = init.headers ?? {};
     headers["Accept-Language"] = "*";
+    // Remplacer l'agent utilisateur "node-fetch" par la valeur d'un vrai
+    // navigateur ; pour ne pas être bloqué par des sites.
     headers["User-Agent"] = USER_AGENT;
     return nodeFetch(input, { ...init, headers });
 };

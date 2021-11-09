@@ -8,18 +8,11 @@
 export const NotificationListener = class {
 
     /**
-     * Initialise un gestionnaire.
+     * Les auditeurs dans le gestionnaire.
+     *
+     * @type {Function[]}
      */
-    constructor() {
-
-        /**
-         * Les auditeurs dans le gestionnaire.
-         *
-         * @private
-         * @type {Function[]}
-         */
-        this._listeners = [];
-    }
+    #listeners = [];
 
     /**
      * Retourne le nombre d'auditeurs.
@@ -27,7 +20,7 @@ export const NotificationListener = class {
      * @returns {number} Le nombre d'auditeurs.
      */
     get length() {
-        return this._listeners.length;
+        return this.#listeners.length;
     }
 
     /**
@@ -36,7 +29,7 @@ export const NotificationListener = class {
      * @param {Function} listener La fonction appelée lors d'une notification.
      */
     addListener(listener) {
-        this._listeners.push(listener);
+        this.#listeners.push(listener);
     }
 
     /**
@@ -45,6 +38,6 @@ export const NotificationListener = class {
      * @param {any} data Les données de la notification.
      */
     dispatch(data) {
-        this._listeners.map((l) => l(data));
+        this.#listeners.map((l) => l(data));
     }
 };

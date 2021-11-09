@@ -123,8 +123,9 @@ const save = async function () {
             browser.storage.local.set({ [key]: inputs[0].checked });
         } else {
             browser.storage.local.set({
-                [key]: [...inputs].filter((i) => i.checked)
-                                  .map((i) => i.name),
+                [key]: Array.from(inputs)
+                            .filter((i) => i.checked)
+                            .map((i) => i.name),
             });
         }
     } else {
@@ -206,43 +207,41 @@ const add = function (server) {
 };
 
 // Remplir les champs du formulaire.
-browser.storage.local.get().then((config) => {
-    for (const [key, value] of Object.entries(config)) {
-        if ("server-list" === key) {
-            value.forEach(add);
-        } else if ("server-mode" === key) {
-            for (const input of document
+const config = await browser.storage.local.get();
+for (const [key, value] of Object.entries(config)) {
+    if ("server-list" === key) {
+        value.forEach(add);
+    } else if ("server-mode" === key) {
+        for (const input of document
                                .querySelectorAll(`input[name="server-mode"]`)) {
-                const tab = input.closest("details");
-                if (value === input.value) {
-                    input.checked = true;
-                    tab.open = true;
-                } else {
-                    input.checked = false;
-                    tab.open = false;
-                }
-            }
-        } else if (Array.isArray(value)) {
-            for (const input of document.querySelectorAll(`#${key} input`)) {
-                input.checked = value.includes(input.name);
-            }
-        } else if ("boolean" === typeof value) {
-            document.querySelector(`#${key} input`).checked = value;
-        } else if ("string" === typeof value) {
-            for (const input of document.querySelectorAll(`#${key} input`)) {
-                input.checked = value === input.value;
+            const tab = input.closest("details");
+            if (value === input.value) {
+                input.checked = true;
+                tab.open = true;
+            } else {
+                input.checked = false;
+                tab.open = false;
             }
         }
+    } else if (Array.isArray(value)) {
+        for (const input of document.querySelectorAll(`#${key} input`)) {
+            input.checked = value.includes(input.name);
+        }
+    } else if ("boolean" === typeof value) {
+        document.querySelector(`#${key} input`).checked = value;
+    } else if ("string" === typeof value) {
+        for (const input of document.querySelectorAll(`#${key} input`)) {
+            input.checked = value === input.value;
+        }
     }
-});
+}
 
 // Activer les contextes disponibles seulement dans certains navigateurs.
-browser.runtime.getBrowserInfo().then(({ name }) => {
-    for (const label of document.querySelectorAll("label" +
-                                        `[data-supported-browser="${name}"]`)) {
-        label.style.display = "block";
-    }
-});
+const info = await browser.runtime.getBrowserInfo();
+for (const label of document.querySelectorAll("label" +
+                                   `[data-supported-browser="${info.name}"]`)) {
+    label.style.display = "block";
+}
 
 // Écouter les actions dans le formulaire.
 for (const input of document.querySelectorAll("[name]")) {

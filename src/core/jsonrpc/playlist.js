@@ -19,43 +19,43 @@ import { NotificationListener } from "./notificationlistener.js";
 export const Playlist = class {
 
     /**
+     * Le client pour contacter Kodi.
+     *
+     * @type {Kodi}
+     */
+    #kodi;
+
+    /**
+     * Le gestionnaire des auditeurs pour les notifications d'ajout d'un média
+     * dans la liste de lecture.
+     *
+     * @type {NotificationListener}
+     */
+    onAdd = new NotificationListener();
+
+    /**
+     * Le gestionnaire des auditeurs pour les notifications de vidage de la
+     * liste de lecture.
+     *
+     * @type {NotificationListener}
+     */
+    onClear = new NotificationListener();
+
+    /**
+     * Le gestionnaire des auditeurs pour les notifications d'enlèvement d'un
+     * média de la liste de lecture.
+     *
+     * @type {NotificationListener}
+     */
+    onRemove = new NotificationListener();
+
+    /**
      * Crée un client JSON-RPC pour l'espace de nom <em>Playlist</em>.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
     constructor(kodi) {
-
-        /**
-         * Le client pour contacter Kodi.
-         *
-         * @private
-         * @type {Kodi}
-         */
-        this._kodi = kodi;
-
-        /**
-         * Le gestionnaire des auditeurs pour les notifications d'ajout d'un
-         * média dans la liste de lecture.
-         *
-         * @type {NotificationListener}
-         */
-        this.onAdd = new NotificationListener();
-
-        /**
-         * Le gestionnaire des auditeurs pour les notifications de vidage de la
-         * liste de lecture.
-         *
-         * @type {NotificationListener}
-         */
-        this.onClear = new NotificationListener();
-
-        /**
-         * Le gestionnaire des auditeurs pour les notifications d'enlèvement
-         * d'un média de la liste de lecture.
-         *
-         * @type {NotificationListener}
-         */
-        this.onRemove = new NotificationListener();
+        this.#kodi = kodi;
     }
 
     /**
@@ -65,7 +65,7 @@ export const Playlist = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     add(file) {
-        return this._kodi.send("Playlist.Add", {
+        return this.#kodi.send("Playlist.Add", {
             playlistid: 1,
             item:       { file },
         });
@@ -79,7 +79,7 @@ export const Playlist = class {
     clear() {
         // Attention ! Le vidage de la liste de lecture interrompt la continuité
         // de lecture. https://github.com/xbmc/xbmc/issues/15958
-        return this._kodi.send("Playlist.Clear", { playlistid: 1 });
+        return this.#kodi.send("Playlist.Clear", { playlistid: 1 });
     }
 
     /**
@@ -89,7 +89,7 @@ export const Playlist = class {
      *                              liste de lecture.
      */
     async getItems() {
-        const results = await this._kodi.send("Playlist.GetItems", {
+        const results = await this.#kodi.send("Playlist.GetItems", {
             playlistid: 1,
             properties: ["file", "title"],
         });
@@ -104,7 +104,7 @@ export const Playlist = class {
      *                             de lecture ou <code>null</code>.
      */
     async getItem(position) {
-        const results = await this._kodi.send("Playlist.GetItems", {
+        const results = await this.#kodi.send("Playlist.GetItems", {
             playlistid: 1,
             properties: ["file", "title"],
             limits:     { start: position, end: position + 1 },
@@ -120,7 +120,7 @@ export const Playlist = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     insert(file, position) {
-        return this._kodi.send("Playlist.Insert", {
+        return this.#kodi.send("Playlist.Insert", {
             playlistid: 1,
             position,
             item:       { file },
@@ -134,7 +134,7 @@ export const Playlist = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     remove(position) {
-        return this._kodi.send("Playlist.Remove", { playlistid: 1, position });
+        return this.#kodi.send("Playlist.Remove", { playlistid: 1, position });
     }
 
     /**
@@ -146,7 +146,7 @@ export const Playlist = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     swap(position1, position2) {
-        return this._kodi.send("Playlist.Swap", {
+        return this.#kodi.send("Playlist.Swap", {
             playlistid: 1,
             position1,
             position2,

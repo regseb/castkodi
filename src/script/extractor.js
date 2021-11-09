@@ -14,7 +14,6 @@
 
     // Retourner l'éventuelle source d'une vidéo ou d'une musique, qui sera
     // récupérée par le code ayant appelé browser.tabs.executeScript().
-    // eslint-disable-next-line max-len
-    // eslint-disable-next-line no-unused-expressions, @babel/no-unused-expressions
+    // eslint-disable-next-line no-unused-expressions
     media?.src;
 }

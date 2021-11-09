@@ -4,8 +4,12 @@ export default {
     },
 
     rules: {
+        // Plugin eslint-plugin-import.
+        // Module systems.
         "import/no-nodejs-modules": 0,
 
+        // Plugin eslint-plugin-node.
+        // Possible Errors.
         "node/handle-callback-err": 2,
         "node/no-callback-literal": 2,
         "node/no-exports-assign": 2,
@@ -27,8 +31,10 @@ export default {
         "node/process-exit-as-throw": 2,
         "node/shebang": 2,
 
+        // Best Practices.
         "node/no-deprecated-api": 2,
 
+        // Stylistic Issues.
         "node/callback-return": 2,
         "node/exports-style": 2,
         "node/file-extension-in-import": 2,

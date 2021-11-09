@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cast Kodi</title>
-    <link href="/polyfill/style.css" rel="stylesheet" />
-    <link href="/design/color-light.css" rel="stylesheet" />
-    <link href="/design/style.css" rel="stylesheet" />
-    <link href="style.css" rel="stylesheet" />
-    <link href="/img/icon.svg" rel="shortcut icon" />
+    <link href="/polyfill/style.css" rel="stylesheet">
+    <link href="/design/color-light.css" rel="stylesheet">
+    <link href="/design/style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link href="/img/icon.svg" rel="shortcut icon">
   </head>
   <body>
     <h3 data-i18n-textcontent="server-title"></h3>
@@ -17,24 +17,23 @@
       <details>
         <summary>
           <label data-i18n-textcontent="server-mode-single">
-            <input name="server-mode" type="radio" value="single" /> {}
+            <input name="server-mode" type="radio" value="single"> {}
           </label>
         </summary>
         <div>
           <label data-i18n-textcontent="server-address"
                  data-i18n-title="server-address">
             {}
-            <sup><img src="/design/icon/help-black.svg"
-                      alt="help-black" /></sup>
+            <sup><img src="/design/icon/help-black.svg" alt="help-black"></sup>
             <input name="address_0" type="text" required autocomplete="off"
-                   spellcheck="false" data-i18n-placeholder="server-address" />
+                   spellcheck="false" data-i18n-placeholder="server-address">
           </label>
         </div>
       </details>
       <details>
         <summary>
           <label data-i18n-textcontent="server-mode-multi">
-            <input name="server-mode" type="radio" value="multi" /> {}
+            <input name="server-mode" type="radio" value="multi"> {}
           </label>
         </summary>
         <table>
@@ -44,7 +43,7 @@
                   data-i18n-title="server-address">
                 {}
                 <sup><img src="/design/icon/help-black.svg"
-                          alt="help-black" /></sup>
+                          alt="help-black"></sup>
               </th>
               <th data-i18n-textcontent="server-names"></th>
               <th></th>
@@ -59,16 +58,15 @@
           <tr>
             <td>
               <input name="address_" type="text" required autocomplete="off"
-                     spellcheck="false"
-                     data-i18n-placeholder="server-address" />
+                     spellcheck="false" data-i18n-placeholder="server-address">
             </td>
             <td>
               <input name="name_" type="text" required autocomplete="off"
-                     spellcheck="false" data-i18n-placeholder="server-name" />
+                     spellcheck="false" data-i18n-placeholder="server-name">
             </td>
             <td>
               <button class="ghost" data-i18n-title="server-remove">
-                <img src="/design/icon/remove-black.svg" alt="remove-black" />
+                <img src="/design/icon/remove-black.svg" alt="remove-black">
               </button>
             </td>
           </tr>
@@ -80,7 +78,7 @@
     <form id="general-history">
       <div>
         <label data-i18n-textcontent="general-history-input">
-          <input name="history" type="checkbox" data-permissions="history" /> {}
+          <input name="history" type="checkbox" data-permissions="history"> {}
         </label>
       </div>
     </form>
@@ -90,17 +88,17 @@
       <p data-i18n-textcontent="menu-actions-description"></p>
       <div>
         <label data-i18n-textcontent="menu-actions-send">
-          <input name="send" type="checkbox" /> {}
+          <input name="send" type="checkbox"> {}
         </label>
       </div>
       <div>
         <label data-i18n-textcontent="menu-actions-insert">
-          <input name="insert" type="checkbox" /> {}
+          <input name="insert" type="checkbox"> {}
         </label>
       </div>
       <div>
         <label data-i18n-textcontent="menu-actions-add">
-          <input name="add" type="checkbox" /> {}
+          <input name="add" type="checkbox"> {}
         </label>
       </div>
     </form>
@@ -108,31 +106,31 @@
       <p data-i18n-textcontent="menu-contexts-description"></p>
       <div>
         <label data-i18n-textcontent="menu-contexts-audio">
-          <input name="audio" type="checkbox" /> {}
+          <input name="audio" type="checkbox"> {}
         </label>
         <label data-i18n-textcontent="menu-contexts-bookmark"
                data-supported-browser="Firefox">
-          <input name="bookmark" type="checkbox" data-permissions="bookmarks" />
+          <input name="bookmark" type="checkbox" data-permissions="bookmarks">
           {}
         </label>
         <label data-i18n-textcontent="menu-contexts-frame">
-          <input name="frame" type="checkbox" /> {}
+          <input name="frame" type="checkbox"> {}
         </label>
         <label data-i18n-textcontent="menu-contexts-link">
-          <input name="link" type="checkbox" /> {}
+          <input name="link" type="checkbox"> {}
         </label>
         <label data-i18n-textcontent="menu-contexts-page">
-          <input name="page" type="checkbox" /> {}
+          <input name="page" type="checkbox"> {}
         </label>
         <label data-i18n-textcontent="menu-contexts-selection">
-          <input name="selection" type="checkbox" /> {}
+          <input name="selection" type="checkbox"> {}
         </label>
         <label data-i18n-textcontent="menu-contexts-tab"
                data-supported-browser="Firefox">
-          <input name="tab" type="checkbox" /> {}
+          <input name="tab" type="checkbox"> {}
         </label>
         <label data-i18n-textcontent="menu-contexts-video">
-          <input name="video" type="checkbox" /> {}
+          <input name="video" type="checkbox"> {}
         </label>
       </div>
     </form>
@@ -142,12 +140,12 @@
       <p data-i18n-textcontent="youtube-playlist-description"></p>
       <div>
         <label data-i18n-textcontent="youtube-playlist-playlist">
-          <input name="youtube-playlist" type="radio" value="playlist" /> {}
+          <input name="youtube-playlist" type="radio" value="playlist"> {}
         </label>
       </div>
       <div>
         <label data-i18n-textcontent="youtube-playlist-video">
-          <input name="youtube-playlist" type="radio" value="video" /> {}
+          <input name="youtube-playlist" type="radio" value="video"> {}
         </label>
       </div>
     </form>
@@ -155,16 +153,16 @@
       <p data-i18n-textcontent="youtube-order-description"></p>
       <div>
         <label data-i18n-textcontent="youtube-order-ask">
-          <input name="youtube-order" type="radio" value="" /> {}
+          <input name="youtube-order" type="radio" value=""> {}
         </label>
         <label data-i18n-textcontent="youtube-order-default">
-          <input name="youtube-order" type="radio" value="default" /> {}
+          <input name="youtube-order" type="radio" value="default"> {}
         </label>
         <label data-i18n-textcontent="youtube-order-reverse">
-          <input name="youtube-order" type="radio" value="reverse" /> {}
+          <input name="youtube-order" type="radio" value="reverse"> {}
         </label>
         <label data-i18n-textcontent="youtube-order-shuffle">
-          <input name="youtube-order" type="radio" value="shuffle" /> {}
+          <input name="youtube-order" type="radio" value="shuffle"> {}
         </label>
       </div>
     </form>

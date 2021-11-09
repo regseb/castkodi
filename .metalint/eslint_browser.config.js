@@ -1,5 +1,5 @@
 export default {
     env: {
-        webextensions: true,
+        browser: true,
     },
 };

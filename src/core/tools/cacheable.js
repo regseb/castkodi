@@ -22,7 +22,7 @@ export const cacheable = function (func) {
      *
      * @type {any}
      */
-    let value = undefined;
+    let value;
 
     /**
      * Enrobe la fonction avec le cache.

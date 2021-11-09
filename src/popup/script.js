@@ -142,37 +142,49 @@ const change = async function (event) {
     document.location.reload();
 };
 
-const previous = function () {
+const previous = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#previous").disabled) {
         return;
     }
 
-    kodi.player.goTo("previous").catch(splash);
+    try {
+        await kodi.player.goTo("previous");
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const rewind = function () {
+const rewind = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#rewind").disabled) {
         return;
     }
 
-    kodi.player.setSpeed("decrement").catch(splash);
+    try {
+        await kodi.player.setSpeed("decrement");
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const stop = function () {
+const stop = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#stop").disabled) {
         return;
     }
 
-    kodi.player.stop().catch(splash);
+    try {
+        await kodi.player.stop();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const playPause = function () {
+const playPause = async function () {
     const play = document.querySelector("#play");
     if ("open" === play.dataset.action) {
         // Annuler l'action (venant d'un raccourci clavier) si le bouton est
@@ -181,7 +193,11 @@ const playPause = function () {
             return;
         }
 
-        kodi.player.open().catch(splash);
+        try {
+            await kodi.player.open();
+        } catch (err) {
+            splash(err);
+        }
     } else {
         // Annuler l'action (venant d'un raccourci clavier) si le bouton est
         // désactivé.
@@ -189,163 +205,227 @@ const playPause = function () {
             return;
         }
 
-        kodi.player.playPause().catch(splash);
+        try {
+            await kodi.player.playPause();
+        } catch (err) {
+            splash(err);
+        }
     }
 };
 
-const forward = function () {
+const forward = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#forward").disabled) {
         return;
     }
 
-    kodi.player.setSpeed("increment").catch(splash);
+    try {
+        await kodi.player.setSpeed("increment");
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const next = function () {
+const next = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#next").disabled) {
         return;
     }
 
-    kodi.player.goTo("next").catch(splash);
+    try {
+        await kodi.player.goTo("next");
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const setMute = function () {
+const setMute = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#mute input").disabled) {
         return;
     }
 
-    kodi.application.setMute().catch(splash);
+    try {
+        await kodi.application.setMute();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const setVolume = function (diff) {
+const setVolume = async function (diff) {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#volume").disabled) {
         return;
     }
 
-    if ("increment" === diff || "decrement" === diff) {
-        kodi.application.setVolume(diff).catch(splash);
-    } else {
-        const input = document.querySelector("#volume");
-        kodi.application.setVolume(input.valueAsNumber).catch(splash);
+    try {
+        if ("increment" === diff || "decrement" === diff) {
+            await kodi.application.setVolume(diff);
+        } else {
+            const input = document.querySelector("#volume");
+            await kodi.application.setVolume(input.valueAsNumber);
+        }
+    } catch (err) {
+        splash(err);
     }
 };
 
-const contextMenu = function () {
+const contextMenu = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#contextmenu").disabled) {
         return;
     }
 
-    kodi.input.contextMenu().catch(splash);
+    try {
+        await kodi.input.contextMenu();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const up = function () {
+const up = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#up").disabled) {
         return;
     }
 
-    kodi.input.up().catch(splash);
+    try {
+        await kodi.input.up();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const info = function () {
+const info = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#info").disabled) {
         return;
     }
 
-    kodi.input.info().catch(splash);
+    try {
+        await kodi.input.info();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const left = function () {
+const left = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#left").disabled) {
         return;
     }
 
-    kodi.input.left().catch(splash);
+    try {
+        await kodi.input.left();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const select = function () {
+const select = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#select").disabled) {
         return;
     }
 
-    kodi.input.select().catch(splash);
+    try {
+        await kodi.input.select();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const right = function () {
+const right = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#right").disabled) {
         return;
     }
 
-    kodi.input.right().catch(splash);
+    try {
+        await kodi.input.right();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const back = function () {
+const back = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#back").disabled) {
         return;
     }
 
-    kodi.input.back().catch(splash);
+    try {
+        await kodi.input.back();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const down = function () {
+const down = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#down").disabled) {
         return;
     }
 
-    kodi.input.down().catch(splash);
+    try {
+        await kodi.input.down();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const showOSD = function () {
+const showOSD = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#osd").disabled) {
         return;
     }
 
-    kodi.input.showOSD().catch(splash);
+    try {
+        await kodi.input.showOSD();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const home = function () {
+const home = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#home").disabled) {
         return;
     }
 
-    kodi.input.home().catch(splash);
+    try {
+        await kodi.input.home();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const setFullscreen = function () {
+const setFullscreen = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#fullscreen").disabled) {
         return;
     }
 
-    kodi.gui.setFullscreen().catch(splash);
+    try {
+        await kodi.gui.setFullscreen();
+    } catch (err) {
+        splash(err);
+    }
 };
 
 const openSendText = function () {
@@ -376,65 +456,93 @@ const closeDialog = function (event) {
     }
 };
 
-const sendText = function (event) {
+const sendText = async function (event) {
     const dialog = event.target;
     if ("send" === dialog.returnValue) {
         const text = dialog.querySelector(`input[name="text"]`).value;
         const done = dialog.querySelector(`input[name="done"]`).checked;
-        kodi.input.sendText(text, done).catch(splash);
+        try {
+            await kodi.input.sendText(text, done);
+        } catch (err) {
+            splash(err);
+        }
     }
 };
 
-const showPlayerProcessInfo = function () {
+const showPlayerProcessInfo = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#playerprocessinfo").disabled) {
         return;
     }
 
-    kodi.input.showPlayerProcessInfo().catch(splash);
+    try {
+        await kodi.input.showPlayerProcessInfo();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const repeat = function () {
+const repeat = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector(`[name="repeat"]`).disabled) {
         return;
     }
 
-    kodi.player.setRepeat().catch(splash);
+    try {
+        await kodi.player.setRepeat();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const shuffle = function () {
+const shuffle = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#shuffle input").disabled) {
         return;
     }
 
-    kodi.player.setShuffle().catch(splash);
+    try {
+        await kodi.player.setShuffle();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const clear = function () {
+const clear = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#clear").disabled) {
         return;
     }
 
-    kodi.playlist.clear().catch(splash);
+    try {
+        await kodi.playlist.clear();
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const play = function (event) {
+const play = async function (event) {
     const li = event.target.closest("li");
-    const index = [...li.parentNode.children].indexOf(li);
-    kodi.player.open(index).catch(splash);
+    const index = Array.from(li.parentNode.children).indexOf(li);
+    try {
+        await kodi.player.open(index);
+    } catch (err) {
+        splash(err);
+    }
 };
 
-const remove = function (event) {
+const remove = async function (event) {
     const li = event.target.closest("li");
-    const index = [...li.parentNode.children].indexOf(li);
-    kodi.playlist.remove(index).catch(splash);
+    const index = Array.from(li.parentNode.children).indexOf(li);
+    try {
+        await kodi.playlist.remove(index);
+    } catch (err) {
+        splash(err);
+    }
 };
 
 const web = async function () {
@@ -531,7 +639,7 @@ const handleDragLeave = function () {
  * @this {HTMLLIElement}
  * @param {DragEvent} event L'évènement du glissement.
  */
-const handleDrop = function (event) {
+const handleDrop = async function (event) {
     event.stopPropagation();
 
     if (dragItem !== this) {
@@ -546,7 +654,11 @@ const handleDrop = function (event) {
             this.after(dragItem);
         }
         dragItem.scrollIntoView();
-        kodi.playlist.move(source, destination).catch(splash);
+        try {
+            await kodi.playlist.move(source, destination);
+        } catch (err) {
+            splash(err);
+        }
     }
     this.classList.remove("drop-before", "drop-after");
     return false;
@@ -825,10 +937,14 @@ const move = function () {
     handleTimeChanged(time.valueAsNumber);
 };
 
-const seek = function () {
+const seek = async function () {
     interval = setInterval(passing, 1000);
     const time = document.querySelector("#time");
-    kodi.player.seek(time.valueAsNumber).catch(splash);
+    try {
+        await kodi.player.seek(time.valueAsNumber);
+    } catch (err) {
+        splash(err);
+    }
 };
 
 const load = async function () {
@@ -1033,25 +1149,23 @@ globalThis.addEventListener("wheel", (event) => {
 
 interval = setInterval(passing, 1000);
 
-browser.storage.local.get().then((config) => {
-    if ("multi" === config["server-mode"]) {
-        for (const input of document.querySelectorAll("select")) {
-            for (const [index, server] of config["server-list"].entries()) {
-                const name = (/^\s*$/u).test(server.name)
+const config = await browser.storage.local.get();
+if ("multi" === config["server-mode"]) {
+    for (const input of document.querySelectorAll("select")) {
+        for (const [index, server] of config["server-list"].entries()) {
+            const name = (/^\s*$/u).test(server.name)
                                ? browser.i18n.getMessage("menus_noName",
                                                          (index + 1).toString())
                                : server.name;
-                input[index] = new Option(name,
-                                          index,
-                                          index === config["server-active"],
-                                          index === config["server-active"]);
-            }
+            input[index] = new Option(name,
+                                      index,
+                                      index === config["server-active"],
+                                      index === config["server-active"]);
         }
-        document.querySelector("#server").style.visibility = "visible";
-        document.querySelector("#splash li:last-child").style.display =
-                                                                    "list-item";
     }
-});
+    document.querySelector("#server").style.visibility = "visible";
+    document.querySelector("#splash li:last-child").style.display = "list-item";
+}
 
 kodi.application.onPropertyChanged.addListener(handlePropertyChanged);
 kodi.input.onInputRequested.addListener(handleInputRequested);
@@ -1059,4 +1173,4 @@ kodi.player.onPropertyChanged.addListener(handlePropertyChanged);
 kodi.playlist.onAdd.addListener(async (i) => handleAdd(await complete(i)));
 kodi.playlist.onClear.addListener(handleClear);
 kodi.playlist.onRemove.addListener(handleRemove);
-load();
+await load();

@@ -11,13 +11,10 @@ const copy = async function (src, dest) {
             await copy(path.join(src, filename), path.join(dest, filename));
         }
     } else {
-        try {
-            // Supprimer le fichier de destination s'il existe.
-            await fs.access(dest);
-            await fs.rm(dest);
-        } catch {
-            // Ne rien faire si le fichier de destination n'existe pas.
-        }
+        // Supprimer le fichier de destination s'il existe car la fonction
+        // link() échoue si la destination existe déjà.
+        // https://github.com/nodejs/node/issues/40521
+        await fs.rm(dest, { force: true });
         await fs.link(src, dest);
     }
 };

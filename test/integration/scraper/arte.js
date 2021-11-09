@@ -6,7 +6,7 @@ describe("Scraper: Arte", function () {
     before(function () {
         if (null !== config.country && "de" !== config.country &&
                 "fr" !== config.country) {
-            // eslint-disable-next-line no-invalid-this, @babel/no-invalid-this
+            // eslint-disable-next-line no-invalid-this
             this.skip();
         }
     });

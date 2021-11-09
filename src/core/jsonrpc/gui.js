@@ -14,19 +14,19 @@
 export const GUI = class {
 
     /**
+     * Le client pour contacter Kodi.
+     *
+     * @type {Kodi}
+     */
+    #kodi;
+
+    /**
      * Crée un client JSON-RPC pour l'espace de nom <em>GUI/em>.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
     constructor(kodi) {
-
-        /**
-         * Le client pour contacter Kodi.
-         *
-         * @private
-         * @type {Kodi}
-         */
-        this._kodi = kodi;
+        this.#kodi = kodi;
     }
 
     /**
@@ -36,6 +36,6 @@ export const GUI = class {
      *                             plein écran.
      */
     setFullscreen() {
-        return this._kodi.send("GUI.SetFullscreen", { fullscreen: "toggle" });
+        return this.#kodi.send("GUI.SetFullscreen", { fullscreen: "toggle" });
     }
 };

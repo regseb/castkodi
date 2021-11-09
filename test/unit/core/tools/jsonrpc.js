@@ -173,7 +173,7 @@ describe("tools/jsonrpc.js", function () {
             assert.strictEqual(fake.firstCall.args[0].type, "close");
         });
 
-        it("should dispatch notification event", function () {
+        it("should dispatch notification event", async function () {
             const server = new Server("ws://localhost/");
             server.on("connection", (socket) => {
                 // Décaler l'envoi de la notification pour laisser le temps au
@@ -185,19 +185,17 @@ describe("tools/jsonrpc.js", function () {
                 })), 0);
             });
 
-            return JSONRPC.open(new URL("ws://localhost/")).then((jsonrpc) => {
-                return new Promise((resolve) => {
-                    jsonrpc.addEventListener("notification", (notification) => {
-                        assert.strictEqual(notification.type, "notification");
-                        assert.strictEqual(notification.method, "foo");
-                        assert.deepStrictEqual(notification.params, {
-                            bar: "baz",
-                        });
+            const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
+            const notification = await new Promise((resolve) => {
+                jsonrpc.addEventListener("notification", resolve);
+            });
 
-                        server.close();
-                        resolve(null);
-                    });
-                });
+            server.close();
+
+            assert.strictEqual(notification.type, "notification");
+            assert.strictEqual(notification.method, "foo");
+            assert.deepStrictEqual(notification.params, {
+                bar: "baz",
             });
         });
     });

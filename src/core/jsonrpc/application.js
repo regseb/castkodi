@@ -20,27 +20,27 @@ import { NotificationListener } from "./notificationlistener.js";
 export const Application = class {
 
     /**
+     * Le client pour contacter Kodi.
+     *
+     * @type {Kodi}
+     */
+    #kodi;
+
+    /**
+     * Le gestionnaire des auditeurs pour les notifications de changement de
+     * propriétés de l'application.
+     *
+     * @type {NotificationListener}
+     */
+    onPropertyChanged = new NotificationListener();
+
+    /**
      * Crée un client JSON-RPC pour l'espace de nom <em>Application</em>.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
     constructor(kodi) {
-
-        /**
-         * Le client pour contacter Kodi.
-         *
-         * @private
-         * @type {Kodi}
-         */
-        this._kodi = kodi;
-
-        /**
-         * Le gestionnaire des auditeurs pour les notifications de changement
-         * de propriétés de l'application.
-         *
-         * @type {NotificationListener}
-         */
-        this.onPropertyChanged = new NotificationListener();
+        this.#kodi = kodi;
     }
 
     /**
@@ -51,7 +51,7 @@ export const Application = class {
      *                            propriétés.
      */
     getProperties(properties) {
-        return this._kodi.send("Application.GetProperties", { properties });
+        return this.#kodi.send("Application.GetProperties", { properties });
     }
 
     /**
@@ -60,7 +60,7 @@ export const Application = class {
      * @returns {Promise<boolean>} Une promesse contenant le nouvel état du son.
      */
     setMute() {
-        return this._kodi.send("Application.SetMute", { mute: "toggle" });
+        return this.#kodi.send("Application.SetMute", { mute: "toggle" });
     }
 
     /**
@@ -76,8 +76,8 @@ export const Application = class {
      */
     async setVolume(volume) {
         const results = await Promise.all([
-            this._kodi.send("Application.SetMute", { mute: false }),
-            this._kodi.send("Application.SetVolume", { volume }),
+            this.#kodi.send("Application.SetMute", { mute: false }),
+            this.#kodi.send("Application.SetVolume", { volume }),
         ]);
         return results[1];
     }

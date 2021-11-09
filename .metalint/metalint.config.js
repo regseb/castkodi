@@ -15,7 +15,11 @@ export default {
         }, {
             patterns: "/src/**/*.js",
             linters: {
-                eslint: ["eslint.config.js", "eslint_webext.config.js"],
+                eslint: [
+                    "eslint.config.js",
+                    "eslint_browser.config.js",
+                    "eslint_webext.config.js",
+                ],
             },
         }, {
             patterns: "/test/**/*.js",
@@ -42,7 +46,10 @@ export default {
         }, {
             patterns: "*.tpl",
             linters: {
-                htmlhint: ["htmlhint.config.js", { "doctype-first": false }],
+                htmlhint: [
+                    "htmlhint.config.js",
+                    "htmlhint_tpl.config.js",
+                ],
             },
         }, {
             patterns: "*.css",
@@ -62,9 +69,6 @@ export default {
         }, {
             patterns: "*.yml",
             linters: { "yaml-lint": null },
-        }, {
-            patterns: "/package.json",
-            linters: "david",
         },
     ],
 };

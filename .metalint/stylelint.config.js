@@ -7,13 +7,16 @@ export default {
         "font-family-no-duplicate-names": true,
         "font-family-no-missing-generic-family-keyword": true,
 
-        "function-calc-no-invalid": true,
+        "named-grid-areas-no-invalid": true,
+
         "function-calc-no-unspaced-operator": true,
         "function-linear-gradient-no-nonstandard-direction": true,
 
         "string-no-newline": true,
 
         "unit-no-unknown": true,
+
+        "custom-property-no-missing-var-function": true,
 
         "property-no-unknown": true,
 
@@ -48,6 +51,7 @@ export default {
         "hue-degree-notation": "angle",
 
         "color-function-notation": "modern",
+        "color-hex-alpha": null,
         "color-named": "always-where-possible",
         "color-no-hex": null,
 

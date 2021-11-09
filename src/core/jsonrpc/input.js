@@ -19,27 +19,27 @@ import { NotificationListener } from "./notificationlistener.js";
 export const Input = class {
 
     /**
+     * Le client pour contacter Kodi.
+     *
+     * @type {Kodi}
+     */
+    #kodi;
+
+    /**
+     * Le gestionnaire des auditeurs pour les notifications de demande de
+     * saisie.
+     *
+     * @type {NotificationListener}
+     */
+    onInputRequested = new NotificationListener();
+
+    /**
      * Crée un client JSON-RPC pour l'espace de nom <em>Input</em>.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
     constructor(kodi) {
-
-        /**
-         * Le client pour contacter Kodi.
-         *
-         * @private
-         * @type {Kodi}
-         */
-        this._kodi = kodi;
-
-        /**
-         * Le gestionnaire des auditeurs pour les notifications de demande de
-         * saisie.
-         *
-         * @type {NotificationListener}
-         */
-        this.onInputRequested = new NotificationListener();
+        this.#kodi = kodi;
     }
 
     /**
@@ -48,7 +48,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     back() {
-        return this._kodi.send("Input.Back");
+        return this.#kodi.send("Input.Back");
     }
 
     /**
@@ -57,7 +57,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     contextMenu() {
-        return this._kodi.send("Input.ContextMenu");
+        return this.#kodi.send("Input.ContextMenu");
     }
 
     /**
@@ -66,7 +66,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     down() {
-        return this._kodi.send("Input.Down");
+        return this.#kodi.send("Input.Down");
     }
 
     /**
@@ -75,7 +75,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     home() {
-        return this._kodi.send("Input.Home");
+        return this.#kodi.send("Input.Home");
     }
 
     /**
@@ -84,7 +84,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     info() {
-        return this._kodi.send("Input.Info");
+        return this.#kodi.send("Input.Info");
     }
 
     /**
@@ -93,7 +93,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     left() {
-        return this._kodi.send("Input.Left");
+        return this.#kodi.send("Input.Left");
     }
 
     /**
@@ -102,7 +102,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     right() {
-        return this._kodi.send("Input.Right");
+        return this.#kodi.send("Input.Right");
     }
 
     /**
@@ -111,7 +111,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     select() {
-        return this._kodi.send("Input.Select");
+        return this.#kodi.send("Input.Select");
     }
 
     /**
@@ -123,7 +123,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     sendText(text, done) {
-        return this._kodi.send("Input.SendText", { text, done });
+        return this.#kodi.send("Input.SendText", { text, done });
     }
 
     /**
@@ -133,7 +133,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     showOSD() {
-        return this._kodi.send("Input.ShowOSD");
+        return this.#kodi.send("Input.ShowOSD");
     }
 
     /**
@@ -142,7 +142,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     showPlayerProcessInfo() {
-        return this._kodi.send("Input.ShowPlayerProcessInfo");
+        return this.#kodi.send("Input.ShowPlayerProcessInfo");
     }
 
     /**
@@ -151,7 +151,7 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
     up() {
-        return this._kodi.send("Input.Up");
+        return this.#kodi.send("Input.Up");
     }
 
     /**

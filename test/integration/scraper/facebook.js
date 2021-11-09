@@ -5,7 +5,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Facebook", function () {
     before(function () {
         if (null !== config.country && "fr" !== config.country) {
-            // eslint-disable-next-line no-invalid-this, @babel/no-invalid-this
+            // eslint-disable-next-line no-invalid-this
             this.skip();
         }
     });

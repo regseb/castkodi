@@ -1,11 +1,19 @@
 import fs from "node:fs/promises";
-import path from "node:path";
 
-const DIRNAME = path.dirname(new URL(import.meta.url).pathname);
+/**
+ * Résous un chemin relatif à partir du module.
+ *
+ * @param {string} specifier Le chemin relatif vers un fichier.
+ * @returns {Promise<string>} Une promesse contenant le chemin absolu vers le
+ *                            fichier.
+ * @see https://nodejs.org/docs/latest/api/esm.html#importmeta
+ */
+const resolve = function (specifier) {
+    return Promise.resolve(new URL(specifier, import.meta.url).pathname);
+};
 
 const I18NS = JSON.parse(
-    await fs.readFile(path.join(DIRNAME, "../../locales/en/messages.json"),
-                      "utf8"),
+    await fs.readFile(await resolve("../../locales/en/messages.json"), "utf8"),
 );
 
 const data = {
