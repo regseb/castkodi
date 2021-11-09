@@ -29,7 +29,7 @@
         "lint:types": "tsc",
         "test": "npm run test:unit && npm run test:integration",
         "test:unit": "c8 mocha test/unit/",
-        "test:integration": "mocha test/integration/",
+        "test:integration": "mocha -t 0 test/integration/",
         "coverage:html": "c8 report --reporter html",
         "coverage:lcov": "c8 report --reporter lcovonly",
         "jsdocs": "typedoc --tsconfig tsconfig_typedoc.json --out jsdocs/ src/",

@@ -1,5 +1,4 @@
 {
     "recursive": true,
-    "require": ["test/polyfill.js", "test/hooks.js"],
-    "timeout": 0
+    "require": ["test/polyfill.js", "test/hooks.js"]
 }
