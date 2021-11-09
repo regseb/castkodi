@@ -14,7 +14,7 @@
 Cast Kodi est une extension pour les navigateurs Chrome et Firefox. Elle permet
 de diffuser des vidéos et des musiques sur **Kodi** :
 
-- liens directs : *avi*, *mkv*, *mp3*, *flac*… et torrent / magnet ;
+- liens directs : _avi_, _mkv_, _mp3_, _flac_… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace Stream, Apple Podcasts,
   Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion, DevTube, Facebook,
   Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast,
@@ -38,25 +38,25 @@ des intégrations de plateformes externes. Par exemple, si une page affiche une
 vidéo YouTube, cette vidéo sera envoyée à Kodi.
 
 Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le
-menu contextuel des liens / pages / sélections de vidéos ou de musiques : *Lire
-maintenant avec Kodi*, *Lire ensuite avec Kodi* et *Place en file d'attente de
-Kodi*. Une télécommande (accessible depuis un bouton de la barre d'outils) est
+menu contextuel des liens / pages / sélections de vidéos ou de musiques : _Lire
+maintenant avec Kodi_, _Lire ensuite avec Kodi_ et _Place en file d'attente de
+Kodi_. Une télécommande (accessible depuis un bouton de la barre d'outils) est
 aussi présente pour diffuser l'onglet courant sur Kodi et pour : mettre en
 pause, passer au prochain élément, régler le volume, consulter la liste de
 lecture…
 
 ## Installation
 
-L'extension est disponible sur **[Chrome Web Store][link-chrome_add-on]** et
-**[Firefox Browser Add-ons][link-firefox_add-on]**.
+L'extension est disponible sur [**Chrome Web Store**][link-chrome_add-on] et
+[**Firefox Browser Add-ons**][link-firefox_add-on].
 
-Dans Kodi, il faut *Autoriser le contrôle à distance par des programmes sur
-d'autres systèmes*. Ce réglage se fait dans la page *Paramètres* / *Services* /
-*Contrôle*.
+Dans Kodi, il faut _Autoriser le contrôle à distance par des programmes sur
+d'autres systèmes_. Ce réglage se fait dans la page _Paramètres_ / _Services_ /
+_Contrôle_.
 
-Vous devez ensuite configurer les *Préférences* de Cast Kodi en copiant
-l'*Adresse* IP du serveur hébergeant Kodi ; cette information est disponible
-dans la page *Paramètres* / *Infos sur le système* / *Résumé*.
+Vous devez ensuite configurer les _Préférences_ de Cast Kodi en copiant
+l'_Adresse_ IP du serveur hébergeant Kodi ; cette information est disponible
+dans la page _Paramètres_ / _Infos sur le système_ / _Résumé_.
 
 [img-chrome_add-on]:https://img.shields.io/chrome-web-store/v/gojlijimdlgjlliggedhakpefimkedmb?label=add-on&logo=googlechrome&logoColor=white
 [img-firefox_add-on]:https://img.shields.io/amo/v/castkodi.svg?label=add-on&logo=firefox-browser&logoColor=white

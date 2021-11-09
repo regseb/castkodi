@@ -945,8 +945,7 @@ document.querySelector("#dialogsendtext").addEventListener("click",
 document.querySelector("#configure").addEventListener("click", preferences);
 
 // Attention ! La popup n'a pas automatiquement le focus quand elle est ouverte
-// dans le menu prolongeant la barre d'outils.
-// https://bugzilla.mozilla.org/show_bug.cgi?id=1623875
+// dans le menu prolongeant la barre d'outils. https://bugzil.la/1623875
 globalThis.addEventListener("keydown", (event) => {
     // Ignorer les entrées avec une touche de modification.
     if (event.altKey || event.ctrlKey || event.metaKey) {

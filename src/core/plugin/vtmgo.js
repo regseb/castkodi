@@ -56,7 +56,7 @@ export const generateChannelUrl = async function (channelId) {
  */
 const actionEpisode = async function ({ pathname }) {
     // Enlever le nom de domaine car un bogue dans Firefox le déplace dans le
-    // chemin. https://bugzilla.mozilla.org/show_bug.cgi?id=1374505
+    // chemin. https://bugzil.la/1374505
     const episodeId = pathname.replace("//plugin.video.vtm.go", "").slice(23);
     return labeller.extractEpisode(episodeId);
 };
@@ -72,7 +72,7 @@ export const extractEpisode = matchPattern(actionEpisode,
  */
 const actionMovie = async function ({ pathname }) {
     // Enlever le nom de domaine car un bogue dans Firefox le déplace dans le
-    // chemin. https://bugzilla.mozilla.org/show_bug.cgi?id=1374505
+    // chemin. https://bugzil.la/1374505
     const movieId = pathname.replace("//plugin.video.vtm.go", "").slice(21);
     return labeller.extractMovie(movieId);
 };
@@ -88,7 +88,7 @@ export const extractMovie = matchPattern(actionMovie,
  */
 const actionChannel = async function ({ pathname }) {
     // Enlever le nom de domaine car un bogue dans Firefox le déplace dans le
-    // chemin. https://bugzilla.mozilla.org/show_bug.cgi?id=1374505
+    // chemin. https://bugzil.la/1374505
     const channelId = pathname.replace("//plugin.video.vtm.go", "").slice(23);
     return labeller.extractChannel(channelId);
 };

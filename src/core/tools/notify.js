@@ -13,8 +13,7 @@ import { PebkacError } from "./pebkac.js";
  */
 export const notify = function (err) {
     // Ne pas ajouter un bouton vers la configuration car cette fonctionnalité
-    // n'est pas encore implémentée dans Firefox.
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1190681
+    // n'est pas encore implémentée dans Firefox. https://bugzil.la/1190681
     // L'icône n'est pas affichée dans Chromium sous Linux.
     // https://crbug.com/1164769
     return browser.notifications.create({
