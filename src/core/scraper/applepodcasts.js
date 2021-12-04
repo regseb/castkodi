@@ -17,10 +17,12 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    const script = doc.querySelector("#shoebox-ember-data-store");
-    return null === script
-           ? null
-           : Object.values(JSON.parse(script.text))[0].data.attributes.assetUrl;
+    const script = doc.querySelector("#shoebox-media-api-cache-amp-podcasts");
+    if (null === script) {
+        return null;
+    }
+    const json = JSON.parse(Object.values(JSON.parse(script.text))[0]);
+    return json.d[0].attributes.assetUrl;
 };
 export const extract = matchPattern(action,
     "https://podcasts.apple.com/*/podcast/*/id*");

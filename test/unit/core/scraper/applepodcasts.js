@@ -31,15 +31,15 @@ describe("core/scraper/applepodcasts.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script id="shoebox-ember-data-store">
+                        <script id="shoebox-media-api-cache-amp-podcasts">
                             {
-                                "baz": {
-                                    "data": {
-                                        "attributes": {
-                                            "assetUrl": "http://qux.fr/quux.mp3"
-                                        }
-                                    }
-                                }
+                                "baz": "${JSON.stringify({
+                                    d: [{
+                                        attributes: {
+                                            assetUrl: "http://qux.fr/quux.mp3",
+                                        },
+                                    }],
+                                }).replaceAll(`"`, `\\"`)}"
                             }
                         </script>
                       </body>
