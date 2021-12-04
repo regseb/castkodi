@@ -83,6 +83,35 @@ describe("Labeller: YouTube", function () {
         assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
 
+    it("should return unavailable label for private video", async function () {
+        browser.storage.local.set({ "youtube-playlist": "video" });
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([
+            "plugin.video.tubed",
+        ]);
+
+        const url = new URL("https://www.youtube.com/watch?v=4fVLxS3BMpQ");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        const item = await complete({
+            file,
+            label:    "",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
+        assert.deepStrictEqual(item, {
+            file,
+            label:    "(Video unavailable)",
+            position: 0,
+            title:    "",
+            type:     "unknown",
+        });
+
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+    });
+
     it("should return playlist label", async function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([
