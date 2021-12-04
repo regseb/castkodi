@@ -11,10 +11,46 @@ describe("core/scraper/vidyard.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL from vyContext", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({
                     payload: {
+                        vyContext: {
+                            chapterAttributes: [{
+                                // eslint-disable-next-line camelcase
+                                video_files: [{
+                                    profile: "full_hd",
+                                    url:     "https://foo.com/bar.mp4",
+                                }, {
+                                    profile: "stream_master",
+                                    url:     "https://baz.com/qux.m3u8",
+                                }],
+                            }],
+                        },
+                    },
+                }),
+            ));
+
+            const url = new URL("https://play.vidyard.com/quux");
+
+            const file = await scraper.extract(url);
+            assert.strictEqual(file,
+                "https://baz.com/qux.m3u8|Referer=https://play.vidyard.com/");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://play.vidyard.com/player/quux.json",
+            ]);
+        });
+
+        it("should return video URL from chapters", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                JSON.stringify({
+                    payload: {
+                        vyContext: {
+                            // eslint-disable-next-line camelcase
+                            chapterAttributes: [{ video_files: [] }],
+                        },
                         chapters: [{
                             sources: {
                                 hls: [{ url: "http://foo.com/bar.hls" }],

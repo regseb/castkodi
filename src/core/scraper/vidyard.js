@@ -17,8 +17,17 @@ const action = async function ({ pathname }) {
     const id = pathname.slice(1)
                        .replace(/\.html$/u, "");
     const response = await fetch(`https://play.vidyard.com/player/${id}.json`);
-    const json = await response.json();
-    return json.payload.chapters[0].sources.hls[0].url +
+    const { payload } = await response.json();
+
+    if ("vyContext" in payload) {
+        for (const file of payload.vyContext.chapterAttributes[0].video_files) {
+            if ("stream_master" === file.profile) {
+                return file.url + "|Referer=https://play.vidyard.com/";
+            }
+        }
+    }
+
+    return payload.chapters[0].sources.hls[0].url +
                                            "|Referer=https://play.vidyard.com/";
 };
 export const extract = matchPattern(action, "*://play.vidyard.com/*");

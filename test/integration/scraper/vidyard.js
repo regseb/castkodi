@@ -21,8 +21,7 @@ describe("Scraper: Vidyard", function () {
 
         const file = await extract(url, options);
         assert.ok(file?.startsWith("https://cdn.vidyard.com/hls-videos" +
-                                                     "/ZoUHbEeXnQtGWB_F_LOogQ" +
-                                                    "/stream_1080_master.m3u8"),
+                                  "/ZoUHbEeXnQtGWB_F_LOogQ/stream_master.m3u8"),
                   `"${file}"?.startsWith(...)`);
     });
 });
