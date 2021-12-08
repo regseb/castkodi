@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.2](https://github.com/regseb/castkodi/compare/v6.1.1...v6.1.2) (2021-12-08)
+
+
+### Bug Fixes
+
+* Actualiser le scraper pour Apple Podcasts. ([1073229](https://github.com/regseb/castkodi/commit/107322978bd4e2cd393df5b72c7d885638f6a2fa))
+* Actualiser le scraper pour Vidyard. ([a394625](https://github.com/regseb/castkodi/commit/a394625daa4117447d262f80c62917666103a869))
+
 ### [6.1.1](https://github.com/regseb/castkodi/compare/v6.1.0...v6.1.1) (2021-10-13)
 
 
