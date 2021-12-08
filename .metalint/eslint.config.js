@@ -373,7 +373,7 @@ export default {
 
         // Helpful warnings.
         "import/export": 2,
-        "import/no-named-as-default": 2,
+        "import/no-named-as-default": 0,
         "import/no-named-as-default-member": 0,
         "import/no-deprecated": 2,
         "import/no-extraneous-dependencies": 2,
@@ -572,6 +572,7 @@ export default {
         "unicorn/no-array-method-this-argument": 2,
         "unicorn/no-array-push-push": 2,
         "unicorn/no-array-reduce": 0,
+        "unicorn/no-await-expression-member": 2,
         "unicorn/no-console-spaces": 2,
         "unicorn/no-document-cookie": 2,
         "unicorn/no-empty-file": 2,
@@ -611,13 +612,14 @@ export default {
         // Attendre que la méthode .at() soit implémentée pour activer cette
         // règle. https://github.com/tc39/proposal-relative-indexing-method
         "unicorn/prefer-at": 0,
+        "unicorn/prefer-code-point": 2,
         "unicorn/prefer-date-now": 2,
         "unicorn/prefer-default-parameters": 2,
         "unicorn/prefer-dom-node-append": 2,
         "unicorn/prefer-dom-node-dataset": 2,
         "unicorn/prefer-dom-node-remove": 2,
         "unicorn/prefer-dom-node-text-content": 2,
-        "unicorn/prefer-export-from": 2,
+        "unicorn/prefer-export-from": [2, { ignoreUsedVariables: true }],
         "unicorn/prefer-includes": 2,
         "unicorn/prefer-keyboard-event-key": 2,
         "unicorn/prefer-math-trunc": 2,
