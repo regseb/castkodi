@@ -31,7 +31,8 @@ de diffuser des vidéos et des musiques sur **Kodi** :
   - Islande : Útvarp Saga ;
   - Pays-Bas : Dumpert ;
   - Royaume-Uni : Daily Mail, The Guardian ;
-  - Russie : Первый канал.
+  - Russie : Первый канал ;
+  - Suisse : Play SRF.
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une

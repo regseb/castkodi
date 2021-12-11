@@ -19,6 +19,7 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
       <li>Nemecko: ARD&nbsp;Mediathek, Arte, ZDF;</li>
       <li>Rusko: Первый&nbsp;канал;</li>
       <li>Spojené kráľovstvo: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
+      <li>Švajčiarsko: Play&nbsp;SRF;</li>
       <li>USA: KCAA&nbsp;Radio.</li>
     </ul>
   </li>

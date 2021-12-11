@@ -19,7 +19,8 @@ Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur <strong>Kodi</
       <li>Islande&nbsp;: Útvarp&nbsp;Saga&nbsp;;</li>
       <li>Pays-Bas&nbsp;: Dumpert&nbsp;;</li>
       <li>Royaume-Uni&nbsp;: Daily&nbsp;Mail, The&nbsp;Guardian&nbsp;;</li>
-      <li>Russie&nbsp;: Первый&nbsp;канал.</li>
+      <li>Russie&nbsp;: Первый&nbsp;канал&nbsp;;</li>
+      <li>Suisse&nbsp;: Play&nbsp;SRF.</li>
     </ul>
   </li>
 </ul>
