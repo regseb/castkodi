@@ -68,7 +68,7 @@ dans la page _Paramètres_ / _Infos sur le système_ / _Résumé_.
 
 [link-chrome_add-on]:https://chrome.google.com/webstore/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
 [link-firefox_add-on]:https://addons.mozilla.org/addon/castkodi/
-[link-build]:https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amaster
+[link-build]:https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain
 [link-coverage]:https://coveralls.io/github/regseb/castkodi
 [link-chrome_rating]:https://chrome.google.com/webstore/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb/reviews
 [link-firefox_rating]:https://addons.mozilla.org/addon/castkodi/reviews/
