@@ -25,9 +25,9 @@ describe("Scraper: TikTok", function () {
 
         const file = await extract(url, options);
         assert.ok(file?.includes("&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0" +
-                                    "&policy=3&qs=0&rc=ampvbHJwdnV4bjMzOjczM0" +
-                                    "ApPDM7OGU0aWU3NzM8aTY1PGc0azNhbmpja2NfLS" +
-                                     "0zMTZzczI1LzQyMF8yYV81X141LS06Yw%3D%3D&"),
+                                       "&qs=0&rc=ampvbHJwdnV4bjMzOjczM0ApPDM7" +
+                                       "OGU0aWU3NzM8aTY1PGc0azNhbmpja2NfLS0zM" +
+                                        "TZzczI1LzQyMF8yYV81X141LS06Yw%3D%3D&"),
                   `"${file}"?.includes(...)`);
     });
 
@@ -38,9 +38,9 @@ describe("Scraper: TikTok", function () {
 
         const file = await extract(url, options);
         assert.ok(file?.includes("&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0" +
-                                    "&policy=3&qs=0&rc=ampvbHJwdnV4bjMzOjczM0" +
-                                    "ApPDM7OGU0aWU3NzM8aTY1PGc0azNhbmpja2NfLS" +
-                                     "0zMTZzczI1LzQyMF8yYV81X141LS06Yw%3D%3D&"),
+                                       "&qs=0&rc=ampvbHJwdnV4bjMzOjczM0ApPDM7" +
+                                       "OGU0aWU3NzM8aTY1PGc0azNhbmpja2NfLS0zM" +
+                                        "TZzczI1LzQyMF8yYV81X141LS06Yw%3D%3D&"),
                   `"${file}"?.endsWith(...)`);
     });
 });
