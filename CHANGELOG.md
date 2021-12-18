@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.2.0](https://github.com/regseb/castkodi/compare/v6.1.2...v6.2.0) (2021-12-18)
+
+
+### Features
+
+* Ajouter un scraper pour Play SRF. ([4e9b8de](https://github.com/regseb/castkodi/commit/4e9b8de9e34b73820484f9f02248a0c9be737265))
+
+
+### Bug Fixes
+
+* Actualiser la page des préférences quand les permissions changent. ([72ced0f](https://github.com/regseb/castkodi/commit/72ced0f12b625d5622ab5cd7338d08e485440e39))
+
 ### [6.1.2](https://github.com/regseb/castkodi/compare/v6.1.1...v6.1.2) (2021-12-08)
 
 
