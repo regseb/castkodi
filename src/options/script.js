@@ -206,35 +206,55 @@ const add = function (server) {
     return false;
 };
 
-// Remplir les champs du formulaire.
-const config = await browser.storage.local.get();
-for (const [key, value] of Object.entries(config)) {
-    if ("server-list" === key) {
-        value.forEach(add);
-    } else if ("server-mode" === key) {
-        for (const input of document
+/**
+ * Remplit les champs du formulaire avec la configuration.
+ *
+ * @param {Object} config La configuration.
+ */
+const load = function (config) {
+    for (const [key, value] of Object.entries(config)) {
+        if ("server-list" === key) {
+            value.forEach(add);
+        } else if ("server-mode" === key) {
+            for (const input of document
                                .querySelectorAll(`input[name="server-mode"]`)) {
-            const tab = input.closest("details");
-            if (value === input.value) {
-                input.checked = true;
-                tab.open = true;
-            } else {
-                input.checked = false;
-                tab.open = false;
+                const tab = input.closest("details");
+                if (value === input.value) {
+                    input.checked = true;
+                    tab.open = true;
+                } else {
+                    input.checked = false;
+                    tab.open = false;
+                }
+            }
+        } else if (Array.isArray(value)) {
+            for (const input of document.querySelectorAll(`#${key} input`)) {
+                input.checked = value.includes(input.name);
+            }
+        } else if ("boolean" === typeof value) {
+            document.querySelector(`#${key} input`).checked = value;
+        } else if ("string" === typeof value) {
+            for (const input of document.querySelectorAll(`#${key} input`)) {
+                input.checked = value === input.value;
             }
         }
-    } else if (Array.isArray(value)) {
-        for (const input of document.querySelectorAll(`#${key} input`)) {
-            input.checked = value.includes(input.name);
-        }
-    } else if ("boolean" === typeof value) {
-        document.querySelector(`#${key} input`).checked = value;
-    } else if ("string" === typeof value) {
-        for (const input of document.querySelectorAll(`#${key} input`)) {
-            input.checked = value === input.value;
-        }
     }
-}
+};
+
+/**
+ * Actualise les champs du formulaire quand la configuration change.
+ *
+ * @param {browser.storage.StorageChange} changes Les paramètres modifiés dans
+ *                                                la configuration.
+ */
+const handleChange = function (changes) {
+    load(Object.fromEntries(Object.entries(changes)
+                                  .filter(([, v]) => "newValue" in v)
+                                  .map(([k, v]) => [k, v.newValue])));
+};
+
+// Remplir les champs du formulaire avec la configuration.
+load(await browser.storage.local.get());
 
 // Activer les contextes disponibles seulement dans certains navigateurs.
 const info = await browser.runtime.getBrowserInfo();
@@ -248,3 +268,7 @@ for (const input of document.querySelectorAll("[name]")) {
     input.addEventListener("input", save);
 }
 document.querySelector("button").addEventListener("click", add);
+
+// Surveiller des changements dans la configuration (qui peuvent arriver si
+// l'utilisateur enlève une permission optionnelle).
+browser.storage.onChanged.addListener(handleChange);

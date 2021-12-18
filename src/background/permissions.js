@@ -3,7 +3,8 @@
  */
 
 /**
- * Actualise la configuration suite la suppression de permissions optionnelles.
+ * Actualise la configuration suite à la suppression de permissions
+ * optionnelles.
  *
  * @param {browser.permissions.Permissions} changes Les changements sur les
  *                                                  permissions.
