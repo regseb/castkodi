@@ -1,10 +1,12 @@
 export default {
     plugins: [
+        "eslint-comments",
         "import",
         "jsdoc",
         "mocha",
         "node",
         "no-unsanitized",
+        "promise",
         "regexp",
         "unicorn",
     ],
@@ -258,6 +260,7 @@ export default {
         // Désactiver cette règle et préférer regexp/prefer-named-capture-group.
         "prefer-named-capture-group": 0,
         "prefer-numeric-literals": 2,
+        "prefer-object-has-own": 2,
         "prefer-object-spread": 2,
         "prefer-promise-reject-errors": 2,
         "prefer-regex-literals": 2,
@@ -353,6 +356,26 @@ export default {
         "wrap-iife": 2,
         "wrap-regex": 2,
         "yield-star-spacing": 2,
+
+        // Plugin eslint-plugin-eslint-comments.
+        // Best Practices.
+        "eslint-comments/disable-enable-pair": [2, { allowWholeFile: true }],
+        "eslint-comments/no-aggregating-enable": 2,
+        "eslint-comments/no-duplicate-disable": 2,
+        "eslint-comments/no-unlimited-disable": 2,
+        "eslint-comments/no-unused-disable": 2,
+        "eslint-comments/no-unused-enable": 2,
+
+        // Stylistic Issues.
+        "eslint-comments/no-restricted-disable": 2,
+        "eslint-comments/no-use": [2, {
+            allow: [
+                "eslint-disable",
+                "eslint-disable-next-line",
+                "eslint-enable",
+            ],
+        }],
+        "eslint-comments/require-description": 0,
 
         // Plugin eslint-plugin-import.
         // Static analysis.
@@ -469,6 +492,22 @@ export default {
         // Plugin eslint-plugin-no-unsanitized.
         "no-unsanitized/method": 2,
         "no-unsanitized/property": 2,
+
+        // Plugin eslint-plugin-promise.
+        "promise/catch-or-return": 0,
+        "promise/no-return-wrap": 2,
+        "promise/param-names": 2,
+        "promise/always-return": 0,
+        "promise/no-native": 0,
+        "promise/no-nesting": 2,
+        "promise/no-promise-in-callback": 2,
+        "promise/no-callback-in-promise": 2,
+        "promise/avoid-new": 0,
+        "promise/no-new-statics": 2,
+        "promise/no-return-in-finally": 2,
+        "promise/valid-params": 2,
+        "promise/prefer-await-to-then": 2,
+        "promise/prefer-await-to-callbacks": 0,
 
         // Plugin eslint-plugin-regexp.
         // Possible Errors.

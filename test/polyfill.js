@@ -1,5 +1,3 @@
-/* eslint-disable no-extend-native */
-
 import { JSDOM } from "jsdom";
 import { Headers, Response } from "node-fetch";
 import { browser } from "./polyfill/browser.js";

@@ -1,7 +1,6 @@
 /**
  * @module
  */
-/* eslint-disable require-await */
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";

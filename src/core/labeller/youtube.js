@@ -1,7 +1,6 @@
 /**
  * @module
  */
-/* eslint-disable require-await */
 
 /**
  * Extrait le titre d'une vidéo YouTube.

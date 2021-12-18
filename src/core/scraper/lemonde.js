@@ -1,7 +1,6 @@
 /**
  * @module
  */
-/* eslint-disable require-await */
 
 import * as plugin from "../plugin/dailymotion.js";
 // eslint-disable-next-line import/no-cycle

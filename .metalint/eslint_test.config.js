@@ -18,6 +18,7 @@ export default {
         "mocha/handle-done-callback": 2,
         "mocha/max-top-level-suites": 2,
         "mocha/no-async-describe": 2,
+        "mocha/no-empty-description": 2,
         "mocha/no-exclusive-tests": 2,
         "mocha/no-exports": 2,
         "mocha/no-global-tests": 2,

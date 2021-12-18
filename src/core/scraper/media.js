@@ -1,7 +1,6 @@
 /**
  * @module
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../tools/matchpattern.js";
 

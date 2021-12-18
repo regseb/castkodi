@@ -1,7 +1,6 @@
 /**
  * @module
  */
-/* eslint-disable require-await */
 
 import { cacheable } from "../tools/cacheable.js";
 import { matchPattern } from "../tools/matchpattern.js";

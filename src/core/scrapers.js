@@ -48,7 +48,6 @@ import * as radio from "./scraper/radio.js";
 import * as radioline from "./scraper/radioline.js";
 import * as soundcloud from "./scraper/soundcloud.js";
 import * as srf from "./scraper/srf.js";
-// eslint-disable-next-line import/no-cycle
 import * as stargr from "./scraper/stargr.js";
 import * as steam from "./scraper/steam.js";
 import * as tiktok from "./scraper/tiktok.js";

@@ -1,5 +1,4 @@
 import assert from "node:assert";
-// eslint-disable-next-line import/no-unassigned-import
 
 describe("background/permissions.js", function () {
     describe("handleRemove()", function () {

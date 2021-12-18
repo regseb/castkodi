@@ -1,7 +1,6 @@
 /**
  * @module
  */
-/* eslint-disable require-await */
 
 import * as plugin from "../plugin/youtube.js";
 import { matchPattern } from "../tools/matchpattern.js";
