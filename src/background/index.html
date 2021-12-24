@@ -5,11 +5,8 @@
     <title>Cast Kodi</title>
   </head>
   <body>
-    <script src="/polyfill/script.js" type="module"></script>
-    <!-- Charger le menu avec l'écouteur browser.storage.onChanged avant que la
-         configuration soit modifiée dans la migration. -->
-    <script src="menu.js" type="module"></script>
-    <script src="migrate.js" type="module"></script>
-    <script src="permissions.js" type="module"></script>
+    <!-- Utiliser une page HTML pour pouvoir charger un fichier JavaScript en
+         précisant que c'est un module. https://bugzil.la/1394303#c18 -->
+    <script src="worker.js" type="module"></script>
   </body>
 </html>
