@@ -87,9 +87,19 @@ td * {
     width: 100%;
 }
 
+#menu-actions div {
+    display: flex;
+    flex-direction: column;
+}
+
 #menu-contexts div {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+}
+
+#youtube-playlist div {
+    display: flex;
+    flex-direction: column;
 }
 
 #youtube-order div {
