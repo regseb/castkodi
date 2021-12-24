@@ -16,7 +16,7 @@ describe("core/scraper/peertube.js", function () {
                 JSON.stringify({}),
             ));
 
-            const url = new URL("https://foo.com/videos/watch/bar");
+            const url = new URL("https://foo.com/w/bar");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file, null);
@@ -24,6 +24,26 @@ describe("core/scraper/peertube.js", function () {
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
                 "https://foo.com/api/v1/videos/bar",
+            ]);
+        });
+
+        it("should return video URL", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                JSON.stringify({
+                    streamingPlaylists: [{
+                        playlistUrl: "http://foo.fr/bar.avi",
+                    }],
+                }),
+            ));
+
+            const url = new URL("https://baz.com/w/qux");
+
+            const file = await scraper.extract(url);
+            assert.strictEqual(file, "http://foo.fr/bar.avi");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://baz.com/api/v1/videos/qux",
             ]);
         });
 
@@ -68,7 +88,7 @@ describe("core/scraper/peertube.js", function () {
             const stub = sinon.stub(globalThis, "fetch")
                               .rejects(new Error("foo"));
 
-            const url = new URL("https://bar.com/videos/embed/baz");
+            const url = new URL("https://bar.com/w/baz");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file, null);
