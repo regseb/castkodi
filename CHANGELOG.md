@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.2.1](https://github.com/regseb/castkodi/compare/v6.2.0...v6.2.1) (2021-12-30)
+
+
+### Bug Fixes
+
+* Corriger la configuration des serveurs. ([36723e9](https://github.com/regseb/castkodi/commit/36723e90f4cb5443caf9a69a76a6e233dc340fbe))
+
 ## [6.2.0](https://github.com/regseb/castkodi/compare/v6.1.2...v6.2.0) (2021-12-18)
 
 
