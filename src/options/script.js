@@ -250,6 +250,9 @@ const load = function (config) {
 const handleChange = function (changes) {
     load(Object.fromEntries(Object.entries(changes)
                                   .filter(([, v]) => "newValue" in v)
+                                  // Ne pas actualiser la liste des serveurs car
+                                  // cela provoque un bogue.
+                                  .filter(([k]) => "server-list" !== k)
                                   .map(([k, v]) => [k, v.newValue])));
 };
 
@@ -267,7 +270,7 @@ for (const label of document.querySelectorAll("label" +
 for (const input of document.querySelectorAll("[name]")) {
     input.addEventListener("input", save);
 }
-document.querySelector("button").addEventListener("click", add);
+document.querySelector("#server-add").addEventListener("click", add);
 
 // Surveiller des changements dans la configuration (qui peuvent arriver si
 // l'utilisateur enlève une permission optionnelle).
