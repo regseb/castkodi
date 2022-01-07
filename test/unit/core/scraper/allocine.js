@@ -23,7 +23,7 @@ describe("core/scraper/allocine.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return video URL", async function () {
+        it("should return high video URL", async function () {
             const url = new URL("https://www.allocine.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -31,7 +31,12 @@ describe("core/scraper/allocine.js", function () {
                       <body>
                         <figure data-model="${JSON.stringify({
                             videos: [{
-                                sources: { sd: "/bar.avi", hd: "/baz.mp4" },
+                                sources: {
+                                    high:     "https://bar.com/baz.mkv",
+                                    low:      "https://bar.com/qux.wmv",
+                                    medium:   "https://bar.com/quux.avi",
+                                    standard: "https://bar.com/corge.mp4",
+                                },
                             }],
                         }).replaceAll(`"`, "&quot;")}"></figure>
                       </body>
@@ -39,7 +44,88 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://www.allocine.fr/baz.mp4");
+            assert.strictEqual(file, "https://bar.com/baz.mkv");
+        });
+
+        it("should return standard video URL", async function () {
+            const url = new URL("https://www.allocine.fr/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <figure data-model="${JSON.stringify({
+                            videos: [{
+                                sources: {
+                                    low:      "https://bar.com/baz.wmv",
+                                    medium:   "https://bar.com/qux.avi",
+                                    standard: "https://bar.com/quux.mp4",
+                                },
+                            }],
+                        }).replaceAll(`"`, "&quot;")}"></figure>
+                      </body>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extract(url, content);
+            assert.strictEqual(file, "https://bar.com/quux.mp4");
+        });
+
+        it("should return medium video URL", async function () {
+            const url = new URL("https://www.allocine.fr/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <figure data-model="${JSON.stringify({
+                            videos: [{
+                                sources: {
+                                    low:    "https://bar.com/baz.wmv",
+                                    medium: "https://bar.com/qux.avi",
+                                },
+                            }],
+                        }).replaceAll(`"`, "&quot;")}"></figure>
+                      </body>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extract(url, content);
+            assert.strictEqual(file, "https://bar.com/qux.avi");
+        });
+
+        it("should return low video URL", async function () {
+            const url = new URL("https://www.allocine.fr/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <figure data-model="${JSON.stringify({
+                            videos: [{
+                                sources: { low: "https://bar.com/baz.wmv" },
+                            }],
+                        }).replaceAll(`"`, "&quot;")}"></figure>
+                      </body>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extract(url, content);
+            assert.strictEqual(file, "https://bar.com/baz.wmv");
+        });
+
+        it("should return null when there isn't video", async function () {
+            const url = new URL("https://www.allocine.fr/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <figure data-model="${JSON.stringify({
+                            videos: [{ sources: {} }],
+                        }).replaceAll(`"`, "&quot;")}"></figure>
+                      </body>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extract(url, content);
+            assert.strictEqual(file, null);
         });
     });
 });

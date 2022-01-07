@@ -17,7 +17,7 @@ describe("Scraper: AlloCiné", function () {
         const file = await extract(url, options);
         assert.strictEqual(file,
             "https://fr.vid.web.acsta.net/nmedia/33/18/02/23/15" +
-                                                        "/19577157_sd_013.mp4");
+                                                        "/19577157_hd_013.mp4");
     });
 
     it("should return video URL when protocol is HTTP", async function () {
@@ -38,7 +38,7 @@ describe("Scraper: AlloCiné", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "http://fr.vid.web.acsta.net/nmedia/33/19/11/22/16" +
+            "https://fr.vid.web.acsta.net/nmedia/33/19/11/22/16" +
                                                        "//19586672_hd_013.mp4");
     });
 });
