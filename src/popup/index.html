@@ -157,6 +157,11 @@
           <img src="/design/icon/sendtext-white.svg" alt="sendtext-white">
         </button>
 
+        <button class="ghost" id="opensubtitle" disabled autocomplete="off"
+                data-i18n-title>
+          <img src="/design/icon/subtitle-white.svg" alt="subtitle-white">
+        </button>
+
         <button class="ghost" id="playerprocessinfo" disabled autocomplete="off"
                 data-i18n-title>
           <img src="/design/icon/playerprocessinfo-white.svg"
@@ -258,9 +263,25 @@
           </label>
         </p>
         <menu>
-          <button id="cancel" value="cancel" data-i18n-textcontent></button>
-          <button class="primary" id="sendtext" value="send"
-                  data-i18n-textcontent></button>
+          <button value="cancel" data-i18n-textcontent="cancel"></button>
+          <button class="primary" value="sendtext"
+                  data-i18n-textcontent="sendtext"></button>
+        </menu>
+      </form>
+    </dialog>
+
+    <dialog id="dialogsubtitle">
+      <form method="dialog">
+        <p>
+          <label>
+            <textarea name="subtitle" autocomplete="off" spellcheck="false"
+                      data-i18n-placeholder="subtitle"></textarea>
+          </label>
+        </p>
+        <menu>
+          <button value="cancel" data-i18n-textcontent="cancel"></button>
+          <button class="primary" value="addsubtitle"
+                  data-i18n-textcontent="addsubtitle"></button>
         </menu>
       </form>
     </dialog>

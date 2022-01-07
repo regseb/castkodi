@@ -1,1 +1,1 @@
-Pošlite do Kodi videá a hudbu z viac ako 50 serverov (YouTube, Twitch, Vimeo, SoundCloud, torrenty, ...) pomocou kontextovej ponuky a diaľkového ovládania.
+Pošlite do Kodi videá a hudbu z viac ako 50 serverov (YouTube, Twitch, Vimeo, SoundCloud, torrenty, …) pomocou kontextovej ponuky a diaľkového ovládania.

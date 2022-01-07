@@ -72,6 +72,19 @@ input[type="checkbox"]:checked ~ img:last-of-type {
     display: inline-block;
 }
 
+#dialogsubtitle {
+    width: calc(100% - 36px);
+}
+#dialogsubtitle p:first-child {
+    margin-top: 0;
+}
+#dialogsubtitle textarea {
+    /* Afficher quatre ligne dans la zone de texte. */
+    height: 90px;
+    resize: vertical;
+    width: 100%;
+}
+
 #cast {
     border-bottom: 1px solid var(--input-border-color);
     display: flex;
@@ -134,6 +147,7 @@ input[type="checkbox"]:checked ~ img:last-of-type {
 }
 .Chrome #sound {
     align-items: end;
+    width: 48px;
 }
 .Chrome #volume {
     margin: 32px -16px 32px 0;
@@ -161,11 +175,9 @@ input[type="checkbox"]:checked ~ img:last-of-type {
 }
 
 #various {
-    display: flex;
-    flex-direction: column;
-}
-#playerprocessinfo {
-    display: none;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, auto);
 }
 
 #playlist-actions {

@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "Cast videos and music from more than 50 sites (YouTube, Twitch, Vimeo, SoundCloud, torrent, ...) to Kodi."
+        "message": "Cast videos and music from more than 50 sites (YouTube, Twitch, Vimeo, SoundCloud, torrent, …) to Kodi."
     },
 
     "menus_firstParent": {
@@ -104,28 +104,28 @@
         "message": "Queue item to Kodi [Q]"
     },
     "popup_paste_title": {
-        "message": "Paste link [V]"
+        "message": "Paste link… [V]"
     },
     "popup_server_title": {
         "message": "Change server"
     },
     "popup_preferences_title": {
-        "message": "Configure"
+        "message": "Configure…"
     },
     "popup_web_title": {
-        "message": "Go to Kodi web interface"
+        "message": "Go to Kodi web interface…"
     },
     "popup_feedback_title": {
-        "message": "Report a bug / Request a feature"
+        "message": "Report a bug… / Request a feature…"
     },
     "popup_loading_title": {
-        "message": "Connecting..."
+        "message": "Connecting…"
     },
     "popup_donate_title": {
-        "message": "Support"
+        "message": "Support…"
     },
     "popup_rate_title": {
-        "message": "Rate your experience"
+        "message": "Rate your experience…"
     },
     "popup_previous_title": {
         "message": "Go to previous [PageUp]"
@@ -202,7 +202,10 @@
         "message": "Toogle fullscreen [Tab]"
     },
     "popup_opensendtext_title": {
-        "message": "Send text"
+        "message": "Send text…"
+    },
+    "popup_opensubtitle_title": {
+        "message": "Send subtitle… [T]"
     },
     "popup_playerprocessinfo_title": {
         "message": "Show player process information [O]"
@@ -216,16 +219,22 @@
     "popup_removeItem_title": {
         "message": "Remove"
     },
+    "popup_cancel_textcontent": {
+        "message": "Cancel"
+    },
     "popup_text_placeholder": {
         "message": "Text to send"
     },
     "popup_done_textcontent": {
         "message": "Finish after send"
     },
-    "popup_cancel_textcontent": {
-        "message": "Cancel"
-    },
     "popup_sendtext_textcontent": {
+        "message": "Send"
+    },
+    "popup_subtitle_placeholder": {
+        "message": "Subtitle link"
+    },
+    "popup_addsubtitle_textcontent": {
         "message": "Send"
     },
     "popup_configure_textcontent": {
@@ -266,7 +275,7 @@
         "message": "192.168.0.1"
     },
     "options_serverName_placeholder": {
-        "message": "Main, Bedroom, ..."
+        "message": "Main, Bedroom, …"
     },
     "options_serverName_error": {
         "message": "Name is missing."

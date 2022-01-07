@@ -104,28 +104,28 @@
         "message": "Placer en file d'attente de Kodi [Q]"
     },
     "popup_paste_title": {
-        "message": "Coller un lien [V]"
+        "message": "Coller un lien… [V]"
     },
     "popup_server_title": {
         "message": "Changer de serveur"
     },
     "popup_preferences_title": {
-        "message": "Configurer"
+        "message": "Configurer…"
     },
     "popup_web_title": {
-        "message": "Aller sur l'interface Web de Kodi"
+        "message": "Aller sur l'interface Web de Kodi…"
     },
     "popup_feedback_title": {
-        "message": "Rapporter un bogue / Proposer une amélioration"
+        "message": "Rapporter un bogue… / Proposer une amélioration…"
     },
     "popup_loading_title": {
         "message": "Connexion en cours…"
     },
     "popup_donate_title": {
-        "message": "Soutenir"
+        "message": "Soutenir…"
     },
     "popup_rate_title": {
-        "message": "Évaluer votre expérience"
+        "message": "Évaluer votre expérience…"
     },
     "popup_previous_title": {
         "message": "Revenir au précédent [Pg.Préc]"
@@ -202,7 +202,10 @@
         "message": "Basculer en plein écran [Tab]"
     },
     "popup_opensendtext_title": {
-        "message": "Envoyer du texte"
+        "message": "Envoyer du texte…"
+    },
+    "popup_opensubtitle_title": {
+        "message": "Envoyer des sous-titres… [T]"
     },
     "popup_playerprocessinfo_title": {
         "message": "Afficher les informations sur le processus de lecture [O]"
@@ -216,16 +219,22 @@
     "popup_removeItem_title": {
         "message": "Retirer"
     },
+    "popup_cancel_textcontent": {
+        "message": "Annuler"
+    },
     "popup_text_placeholder": {
         "message": "Texte à envoyer"
     },
     "popup_done_textcontent": {
         "message": "Terminer après l'envoi"
     },
-    "popup_cancel_textcontent": {
-        "message": "Annuler"
-    },
     "popup_sendtext_textcontent": {
+        "message": "Envoyer"
+    },
+    "popup_subtitle_placeholder": {
+        "message": "Lien des sous-titres"
+    },
+    "popup_addsubtitle_textcontent": {
         "message": "Envoyer"
     },
     "popup_configure_textcontent": {
