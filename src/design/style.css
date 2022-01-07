@@ -37,6 +37,7 @@ input[type="text"] {
     padding: 0 8px;
 }
 textarea {
+    min-height: 36px;
     padding: 8px;
 }
 input[type="date"]:invalid,
@@ -64,7 +65,7 @@ input[type="password"]::placeholder,
 input[type="number"]::placeholder,
 input[type="text"]::placeholder,
 textarea::placeholder {
-    color: var(--input-border-color);
+    color: var(--input-placeholder-color);
 }
 input[type="date"]:disabled,
 input[type="password"]:disabled,
@@ -314,12 +315,11 @@ dialog::backdrop, dialog + .backdrop {
 }
 dialog menu {
     display: flex;
-    margin-bottom: 0;
+    gap: 8px;
+    margin: 0;
     padding-left: 0;
 }
 dialog menu button {
     flex: 1 1 0;
-}
-dialog menu button:not(:last-child) {
-    margin-right: 8px;
+    min-width: auto;
 }

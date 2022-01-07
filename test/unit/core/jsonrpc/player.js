@@ -6,6 +6,23 @@ import { NotificationEvent }
                          from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/player.js", function () {
+    describe("addSubtitle()", function () {
+        it("should send request", async function () {
+            const kodi = new Kodi();
+            const stub = sinon.stub(kodi, "send").resolves("OK");
+
+            const player = new Player(kodi);
+            const result = await player.addSubtitle("foo");
+            assert.strictEqual(result, "OK");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "Player.AddSubtitle",
+                { playerid: 1, subtitle: "foo" },
+            ]);
+        });
+    });
+
     describe("getProperties()", function () {
         it("should return properties when no player is active",
                                                              async function () {

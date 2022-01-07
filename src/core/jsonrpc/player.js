@@ -75,6 +75,16 @@ export const Player = class {
     }
 
     /**
+     * Ajoute des sous-titres.
+     *
+     * @param {string} subtitle Le lien des sous-titres.
+     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     */
+    addSubtitle(subtitle) {
+        return this.#kodi.send("Player.AddSubtitle", { playerid: 1, subtitle });
+    }
+
+    /**
      * Récupère des propriétés de l'espace de nom <em>Player</em> de Kodi.
      *
      * @param {string[]} properties Les noms des propriétés demandées.
@@ -209,20 +219,6 @@ export const Player = class {
             speed,
         });
         return result.speed;
-    }
-
-    /**
-     * Add subtitle to player
-     *
-     * @param {string} subtitle URL to subtitle file
-     *
-     * @returns {Promise.<string>} Une promesse contenant <code>"OK"</code>.
-     */
-    addSubtitle(subtitle) {
-        return this.#kodi.send("Player.AddSubtitle", {
-            playerid: 1,
-            subtitle:  subtitle,
-        });
     }
 
     /**

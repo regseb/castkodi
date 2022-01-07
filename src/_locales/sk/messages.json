@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "Pošlite do Kodi videá a hudbu z viac ako 50 serverov (YouTube, Twitch, Vimeo, SoundCloud, torrent, ...)."
+        "message": "Pošlite do Kodi videá a hudbu z viac ako 50 serverov (YouTube, Twitch, Vimeo, SoundCloud, torrent, …)."
     },
 
     "menus_firstParent": {
@@ -15,9 +15,6 @@
     "menus_firstAdd": {
         "message": "Pridať do poradia v Kodi"
     },
-    "menus_firstSubtile": {
-        "message": "Add subtitle to Kodi"
-    },
     "menus_secondSend": {
         "message": "Prehrať teraz"
     },
@@ -26,9 +23,6 @@
     },
     "menus_secondAdd": {
         "message": "Do poradia"
-    },
-    "menus_secondSubtitle": {
-        "message": "Add subtitle"
     },
     "menus_noName": {
         "message": "(bez názvu $INDEX$)",
@@ -110,28 +104,28 @@
         "message": "Pridať do poradia v Kodi [Q]"
     },
     "popup_paste_title": {
-        "message": "Prilepiť odkaz [V]"
+        "message": "Prilepiť odkaz… [V]"
     },
     "popup_server_title": {
         "message": "Zmeniť server"
     },
     "popup_preferences_title": {
-        "message": "Nastaviť"
+        "message": "Nastaviť…"
     },
     "popup_web_title": {
-        "message": "Prejdite na webové rozhranie Kodi"
+        "message": "Prejdite na webové rozhranie Kodi…"
     },
     "popup_feedback_title": {
-        "message": "Nahlásiť chybyu / Požiadať o novú funkciu"
+        "message": "Nahlásiť chybyu… / Požiadať o novú funkciu…"
     },
     "popup_loading_title": {
-        "message": "Pripájam sa..."
+        "message": "Pripájam sa…"
     },
     "popup_donate_title": {
-        "message": "Podpora"
+        "message": "Podpora…"
     },
     "popup_rate_title": {
-        "message": "Ohodnoťte vašu skúsenosť"
+        "message": "Ohodnoťte vašu skúsenosť…"
     },
     "popup_previous_title": {
         "message": "Prejsť na predchádzajúce [PageUp]"
@@ -208,10 +202,10 @@
         "message": "Vypnúť/zapnúť celú obrazovku [Tab]"
     },
     "popup_opensendtext_title": {
-        "message": "Poslať text"
+        "message": "Poslať text…"
     },
-    "popup_openaddsubtitle_title": {
-        "message": "Add Subtitle link"
+    "popup_opensubtitle_title": {
+        "message": "Poslať titulky… [T]"
     },
     "popup_playerprocessinfo_title": {
         "message": "Zobraziť informácie o prehrávaní [O]"
@@ -225,16 +219,22 @@
     "popup_removeItem_title": {
         "message": "Odstrániť"
     },
+    "popup_cancel_textcontent": {
+        "message": "Zrušiť"
+    },
     "popup_text_placeholder": {
         "message": "Text na odoslanie"
     },
     "popup_done_textcontent": {
         "message": "Skončiť po odoslaní"
     },
-    "popup_cancel_textcontent": {
-        "message": "Zrušiť"
-    },
     "popup_sendtext_textcontent": {
+        "message": "Odoslať"
+    },
+    "popup_subtitle_placeholder": {
+        "message": "Odkaz na titulky"
+    },
+    "popup_addsubtitle_textcontent": {
         "message": "Odoslať"
     },
     "popup_configure_textcontent": {
@@ -275,7 +275,7 @@
         "message": "192.168.0.1"
     },
     "options_serverName_placeholder": {
-        "message": "Hlavný, Spálňa, ..."
+        "message": "Hlavný, Spálňa, …"
     },
     "options_serverName_error": {
         "message": "Chýba meno."
@@ -309,9 +309,7 @@
     "options_menuActionsAdd_textcontent": {
         "message": "Do poradia"
     },
-    "options_menuActionsSubtitle_textcontent": {
-        "message": "Add Subtitle"
-    },
+
     "options_menuContextsDescription_textcontent": {
         "message": "Vyberte položky, ku ktorým bude pridaná kontextová ponuka:"
     },

@@ -5,7 +5,7 @@
 Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music to <strong>Kodi</strong>:
 <ul>
   <li>
-    direct links: <em>avi</em>, <em>mkv</em>, <em>mp3</em>, <em>flac</em>, ... and torrent / magnet;
+    direct links: <em>avi</em>, <em>mkv</em>, <em>mp3</em>, <em>flac</em>, … and torrent / magnet;
   </li>
   <li>
     YouTube, Twitch, Vimeo, SoundCloud as well as Ace&nbsp;Stream, Apple&nbsp;Podcasts, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Pippa, podCloud, Pokémon&nbsp;TV, Radio, Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously;
@@ -27,7 +27,7 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
 <!-- enable chrome -->
 Cast&nbsp;Kodi also analyzes the pages for videos, music or external platforms integrations. For example, if a page displays a YouTube video, this video will be sent to Kodi.
 
-To cast videos / music, three items can be added on context menu of link / page / selection of videos or audio: <em>Play now to Kodi</em>, <em>Play next to Kodi</em> and <em>Queue item to Kodi</em>. A remote (accessible with toolbar button) is also present to cast current tab to Kodi and to: pause, go to next element, adjust the volume, ...
+To cast videos / music, three items can be added on context menu of link / page / selection of videos or audio: <em>Play now to Kodi</em>, <em>Play next to Kodi</em> and <em>Queue item to Kodi</em>. A remote (accessible with toolbar button) is also present to cast current tab to Kodi and to: pause, go to next element, adjust the volume, …
 
 
 In Kodi, you must <em>Allow remote control from applications on other systems</em>. This option is on <em>Settings</em> / <em>Services</em> / <em>Control</em>.

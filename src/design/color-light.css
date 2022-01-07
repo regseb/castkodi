@@ -17,6 +17,7 @@
     --input-border-color: rgba(21 20 26 / 41%);
     --input-focus-border-color: rgb(0 97 224);
     --input-invalid-border-color: rgb(215 0 34);
+    --input-placeholder-color: rgba(21 20 26 / 41%);
 
     --checkboxradio-background-color: rgba(207 207 216 / 33%);
     --checkboxradio-hover-background-color: rgba(207 207 216 / 66%);

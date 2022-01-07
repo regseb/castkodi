@@ -72,17 +72,16 @@ input[type="checkbox"]:checked ~ img:last-of-type {
     display: inline-block;
 }
 
-#dialogaddsubtitle {
+#dialogsubtitle {
     width: calc(100% - 36px);
 }
-#dialogaddsubtitle p:first-child {
+#dialogsubtitle p:first-child {
     margin-top: 0;
 }
-#dialogaddsubtitle input[name="text"] {
+#dialogsubtitle textarea {
+    height: 64px;
+    resize: vertical;
     width: 100%;
-}
-#dialogaddsubtitle input[name="done"] {
-    display: inline-block;
 }
 
 #cast {
@@ -147,6 +146,7 @@ input[type="checkbox"]:checked ~ img:last-of-type {
 }
 .Chrome #sound {
     align-items: end;
+    width: 48px;
 }
 .Chrome #volume {
     margin: 32px -16px 32px 0;
@@ -174,11 +174,9 @@ input[type="checkbox"]:checked ~ img:last-of-type {
 }
 
 #various {
-    display: flex;
-    flex-direction: column;
-}
-#playerprocessinfo {
-    display: none;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, auto);
 }
 
 #playlist-actions {

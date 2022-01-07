@@ -75,7 +75,7 @@ browser.storage.local.get().then(async (current) => {
             "server-list":      [{ address: "", name: "" }],
             "server-active":    0,
             "general-history":  false,
-            "menu-actions":     ["send", "insert", "add", "subtitle"],
+            "menu-actions":     ["send", "insert", "add"],
             "menu-contexts":    DEFAULT_MENU_CONTEXTS[name],
             "youtube-playlist": "playlist",
             "youtube-order":    "default",

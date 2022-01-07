@@ -15,9 +15,6 @@
     "menus_firstAdd": {
         "message": "Placer en file d'attente de Kodi"
     },
-    "menus_firstSubtile": {
-        "message": "Add subtitle to Kodi"
-    },
     "menus_secondSend": {
         "message": "Lire maintenant"
     },
@@ -26,9 +23,6 @@
     },
     "menus_secondAdd": {
         "message": "Placer en file d'attente"
-    },
-    "menus_secondSubtitle": {
-        "message": "Add subtitle"
     },
     "menus_noName": {
         "message": "(sans nom $INDEX$)",
@@ -110,31 +104,28 @@
         "message": "Placer en file d'attente de Kodi [Q]"
     },
     "popup_paste_title": {
-        "message": "Coller un lien [V]"
-    },
-    "popup_subtitle_title": {
-        "message": "Paste Subtitle link [S]"
+        "message": "Coller un lien… [V]"
     },
     "popup_server_title": {
         "message": "Changer de serveur"
     },
     "popup_preferences_title": {
-        "message": "Configurer"
+        "message": "Configurer…"
     },
     "popup_web_title": {
-        "message": "Aller sur l'interface Web de Kodi"
+        "message": "Aller sur l'interface Web de Kodi…"
     },
     "popup_feedback_title": {
-        "message": "Rapporter un bogue / Proposer une amélioration"
+        "message": "Rapporter un bogue… / Proposer une amélioration…"
     },
     "popup_loading_title": {
         "message": "Connexion en cours…"
     },
     "popup_donate_title": {
-        "message": "Soutenir"
+        "message": "Soutenir…"
     },
     "popup_rate_title": {
-        "message": "Évaluer votre expérience"
+        "message": "Évaluer votre expérience…"
     },
     "popup_previous_title": {
         "message": "Revenir au précédent [Pg.Préc]"
@@ -211,10 +202,10 @@
         "message": "Basculer en plein écran [Tab]"
     },
     "popup_opensendtext_title": {
-        "message": "Envoyer du texte"
+        "message": "Envoyer du texte…"
     },
-    "popup_openaddsubtitle_title": {
-        "message": "Add Subtitle link"
+    "popup_opensubtitle_title": {
+        "message": "Envoyer des sous-titres… [T]"
     },
     "popup_playerprocessinfo_title": {
         "message": "Afficher les informations sur le processus de lecture [O]"
@@ -228,20 +219,23 @@
     "popup_removeItem_title": {
         "message": "Retirer"
     },
+    "popup_cancel_textcontent": {
+        "message": "Annuler"
+    },
     "popup_text_placeholder": {
         "message": "Texte à envoyer"
     },
     "popup_done_textcontent": {
         "message": "Terminer après l'envoi"
     },
-    "popup_cancel_textcontent": {
-        "message": "Annuler"
-    },
     "popup_sendtext_textcontent": {
         "message": "Envoyer"
     },
+    "popup_subtitle_placeholder": {
+        "message": "Lien des sous-titres"
+    },
     "popup_addsubtitle_textcontent": {
-        "message": "Add"
+        "message": "Envoyer"
     },
     "popup_configure_textcontent": {
         "message": "Configurer"
@@ -315,9 +309,7 @@
     "options_menuActionsAdd_textcontent": {
         "message": "Placer en file d'attente"
     },
-    "options_menuActionsSubtitle_textcontent": {
-        "message": "Add Subtitle"
-    },
+
     "options_menuContextsDescription_textcontent": {
         "message": "Indiquez les éléments où le menu contextuel est ajouté :"
     },

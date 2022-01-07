@@ -46,7 +46,7 @@ const aggregate = async function (info) {
  */
 const handleClick = async function (info) {
     if ("send" === info.menuItemId || "insert" === info.menuItemId ||
-            "add" === info.menuItemId || "subtitle" === info.menuItemId) {
+            "add" === info.menuItemId) {
         try {
             const urls = await aggregate(info);
             await cast(info.menuItemId, urls);

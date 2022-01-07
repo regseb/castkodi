@@ -157,8 +157,8 @@
           <img src="/design/icon/sendtext-white.svg" alt="sendtext-white">
         </button>
 
-        <button class="ghost" id="openaddsubtitle" disabled autocomplete="off"
-              data-i18n-title>
+        <button class="ghost" id="opensubtitle" disabled autocomplete="off"
+                data-i18n-title>
           <img src="/design/icon/subtitle-white.svg" alt="subtitle-white">
         </button>
 
@@ -263,32 +263,25 @@
           </label>
         </p>
         <menu>
-          <button id="cancel" value="cancel" data-i18n-textcontent></button>
-          <button class="primary" id="sendtext" value="send"
-                  data-i18n-textcontent></button>
+          <button value="cancel" data-i18n-textcontent="cancel"></button>
+          <button class="primary" value="sendtext"
+                  data-i18n-textcontent="sendtext"></button>
         </menu>
       </form>
     </dialog>
 
-    <dialog id="dialogaddsubtitle">
+    <dialog id="dialogsubtitle">
       <form method="dialog">
         <p>
           <label>
-            <!-- Ne pas mettre de type car celui-ci sera spécifié lors de
-                 l'ouverture de la boite de dialogue selon la donnée à
-                 renseigner dans Kodi. -->
-            <input name="text" autocomplete="off" data-i18n-placeholder="text">
-          </label>
-        </p>
-        <p>
-          <label data-i18n-textcontent="done">
-            <input name="done" type="checkbox" checked autocomplete="off"> {}
+            <textarea name="subtitle" autocomplete="off" spellcheck="false"
+                      data-i18n-placeholder="subtitle"></textarea>
           </label>
         </p>
         <menu>
-          <button id="cancel" value="cancel" data-i18n-textcontent></button>
-          <button class="primary" id="addsubtitle" value="send"
-                  data-i18n-textcontent></button>
+          <button value="cancel" data-i18n-textcontent="cancel"></button>
+          <button class="primary" value="addsubtitle"
+                  data-i18n-textcontent="addsubtitle"></button>
         </menu>
       </form>
     </dialog>
