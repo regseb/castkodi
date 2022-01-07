@@ -93,10 +93,15 @@ describe("core/scraper/lemonde.js", function () {
         it("should return URL from tiktok", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
-                   <head>
-                     <meta property="og:video:secure_url"
-                           content="https://foo.com/bar.mp4" />
-                   </head>
+                   <body>
+                     <script id="sigi-persisted-data">` +
+                                        `window['SIGI_STATE']=${JSON.stringify({
+                         AppContext: {},
+                         ItemModule: [{
+                             video: { playAddr: "https://foo.com/bar.mp4" },
+                         }],
+                     })};window['SIGI_RETRY']={}</script>
+                   </body>
                  </html>`,
                 { headers: { "Content-Type": "text/html" } },
             ));
@@ -114,8 +119,7 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "https://foo.com/bar.mp4|Referer=https://www.tiktok.com/");
+            assert.strictEqual(file, "https://foo.com/bar.mp4");
 
             assert.strictEqual(stub.callCount, 1);
             assert.strictEqual(stub.firstCall.args.length, 2);

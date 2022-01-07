@@ -16,8 +16,15 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    const meta = doc.querySelector(`meta[property="og:video:secure_url"]`);
-    return null === meta ? null
-                         : `${meta.content}|Referer=https://www.tiktok.com/`;
+    const script = doc.querySelector("script#sigi-persisted-data");
+    if (null === script) {
+        return null;
+    }
+
+    const json = JSON.parse(script.text.slice(21,
+                                              script.text.indexOf(";window")));
+    return "ItemModule" in json
+                              ? Object.values(json.ItemModule)[0].video.playAddr
+                              : null;
 };
 export const extract = matchPattern(action, "*://www.tiktok.com/*");

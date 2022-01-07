@@ -10,14 +10,30 @@ describe("core/scraper/tiktok.js", function () {
             assert.strictEqual(file, null);
         });
 
+        it("should return null when there isn't data", async function () {
+            const url = new URL("https://www.tiktok.com/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body></body>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extract(url, content);
+            assert.strictEqual(file, null);
+        });
+
         it("should return null when it's not a video", async function () {
             const url = new URL("https://www.tiktok.com/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
-                      <head>
-                        <meta property="og:title" content="bar" />
-                      </head>
+                      <body>
+                        <script id="sigi-persisted-data">` +
+                                        `window['SIGI_STATE']=${JSON.stringify({
+                            AppContext: {},
+                        })};window['SIGI_RETRY']={}</script>
+                      </body>
                     </html>`, "text/html")),
             };
 
@@ -30,16 +46,20 @@ describe("core/scraper/tiktok.js", function () {
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
-                      <head>
-                        <meta property="og:video:secure_url"
-                              content="https://bar.com/baz.mp4" />
-                      </head>
+                      <body>
+                        <script id="sigi-persisted-data">` +
+                                        `window['SIGI_STATE']=${JSON.stringify({
+                            AppContext: {},
+                            ItemModule: [{
+                                video: { playAddr: "https://bar.com/baz.mp4" },
+                            }],
+                        })};window['SIGI_RETRY']={}</script>
+                      </body>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file,
-                "https://bar.com/baz.mp4|Referer=https://www.tiktok.com/");
+            assert.strictEqual(file, "https://bar.com/baz.mp4");
         });
     });
 });

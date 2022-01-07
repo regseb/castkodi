@@ -18,6 +18,15 @@ describe("Scraper: TikTok", function () {
         assert.strictEqual(file, url.href);
     });
 
+    it("should return URL when it's not a video (and there isn't data)",
+                                                             async function () {
+        const url = new URL("https://www.tiktok.com/upload");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file, url.href);
+    });
+
     it("should return video URL", async function () {
         const url = new URL("https://www.tiktok.com/@the90guy/video" +
                                          "/6710341586984635654?langCountry=fr");
