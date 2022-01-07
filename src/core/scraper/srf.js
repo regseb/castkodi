@@ -1,6 +1,7 @@
 /**
  * @module
  */
+/* eslint-disable require-await */
 
 import { matchPattern } from "../tools/matchpattern.js";
 
@@ -13,20 +14,45 @@ const API_URL = "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition" +
                                                                       "/byUrn/";
 
 /**
+ * Appelle l'API de Play SRF pour en récupérer l'URL de la vidéo.
+ *
+ * @param {string} urn L'URN (Uniform Resource Name) d'une vidéo de Play SRF.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
+ */
+const getVideoUrl = async function (urn) {
+    const response = await fetch(API_URL + urn);
+    const json = await response.json();
+    return json.chapterList?.[0].resourceList[0].analyticsMetadata.media_url ??
+                                                                           null;
+};
+
+/**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo de Play SRF.
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ searchParams }) {
+const actionVideo = async function ({ searchParams }) {
     if (!searchParams.has("urn")) {
         return null;
     }
 
-    const response = await fetch(API_URL + searchParams.get("urn"));
-    const json = await response.json();
-    return json.chapterList?.[0].resourceList[0].analyticsMetadata.media_url ??
-                                                                           null;
+    return getVideoUrl(searchParams.get("urn"));
 };
-export const extract = matchPattern(action, "*://www.srf.ch/play/tv/*");
+export const extractVideo = matchPattern(actionVideo,
+    "*://www.srf.ch/play/tv/*/video/*");
+
+/**
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ *
+ * @param {URL} url L'URL d'une page de redirection vers une vidéo de Play SRF.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
+ */
+const actionRedirect = async function ({ pathname }) {
+    return getVideoUrl("urn:srf:video:" + pathname.slice(25));
+};
+export const extractRedirect = matchPattern(actionRedirect,
+    "*://www.srf.ch/play/tv/redirect/detail/*");

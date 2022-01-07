@@ -31,4 +31,15 @@ describe("Scraper: Play SRF", function () {
                                 new URL(file).pathname.endsWith("/master.m3u8"),
                   `new URL("${file}").pathname.endsWith(...) from ${url}`);
     });
+
+    it("should return video URL from redirect", async function () {
+        const url = new URL("https://www.srf.ch/play/tv/redirect/detail" +
+                                       "/074231f3-96d9-4ee5-8baa-c029e774caeb");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.ok(null !== file &&
+                                new URL(file).pathname.endsWith("/master.m3u8"),
+                  `new URL("${file}").pathname.endsWith(...) from ${url}`);
+    });
 });
