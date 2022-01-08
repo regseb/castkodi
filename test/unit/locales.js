@@ -2,51 +2,56 @@ import assert from "node:assert";
 import fs from "node:fs/promises";
 
 /**
- * Compare deux lots de messages dans deux langues différentes.
+ * Récupère la liste des messages d'une langue.
  *
- * @param {Object} messages1 Les messages dans une langue.
- * @param {Object} messages2 Les messages dans une autre langue.
+ * @param {string} lang La langue des messages.
+ * @returns {Promise<Object[][]>} Une promesse contenant la liste des messages.
  */
-const compare = function (messages1, messages2) {
-    for (const [name, message] of Object.entries(messages1)) {
-        if (!("message" in message)) {
-            assert.fail(name);
-        }
-        if (!(name in messages2)) {
-            assert.fail(name);
-        }
-        if ("placeholders" in message) {
-            if (!("placeholders" in messages2[name])) {
-                assert.fail(name);
-            }
-            for (const [key, placeholder] of
-                                         Object.entries(message.placeholders)) {
-                if (!message.message.includes("$" + key.toUpperCase() + "$")) {
-                    assert.fail(`${message}.${key}`);
-                }
-                if (!("content" in placeholder)) {
-                    assert.fail(`${message}.${key}`);
-                }
-                if (!(key in messages2[name].placeholders)) {
-                    assert.fail(`${message}.${key}`);
-                }
+const read = async function (lang) {
+    return Object.entries(JSON.parse(await fs.readFile(
+        `src/_locales/${lang}/messages.json`,
+        "utf8",
+    )));
+};
+
+/**
+ * Compare deux listes des messages dans deux langues différentes.
+ *
+ * @param {string} lang1 La première langue des messages.
+ * @param {string} lang2 La deuxième langue des messages.
+ */
+const compare = async function (lang1, lang2) {
+    const messages1 = await read(lang1);
+    const messages2 = await read(lang2);
+
+    assert.strictEqual(messages1.length, messages2.length);
+    // eslint-disable-next-line unicorn/no-for-loop
+    for (let i = 0; i < messages1.length; ++i) {
+        const [name1, value1] = messages1[i];
+        const [name2, value2] = messages2[i];
+        assert.strictEqual(name1, name2);
+
+        assert.ok("message" in value1);
+        assert.ok("message" in value2);
+        assert.deepStrictEqual(value1.placeholders, value2.placeholders);
+
+        if ("placeholders" in value1) {
+            for (const key of Object.keys(value1.placeholders)) {
+                assert.ok(value1.message.includes(`$${key.toUpperCase()}$`),
+                          `${name1} / ${key}`);
+                assert.ok(value2.message.includes(`$${key.toUpperCase()}$`),
+                          `${name1} / ${key}`);
             }
         }
     }
 };
 
 describe("_locales", function () {
-    it("should have same messages", async function () {
-        const en = JSON.parse(await fs.readFile("src/_locales/en/messages.json",
-                                                "utf8"));
-        const fr = JSON.parse(await fs.readFile("src/_locales/fr/messages.json",
-                                                "utf8"));
-        const sk = JSON.parse(await fs.readFile("src/_locales/sk/messages.json",
-                                                "utf8"));
+    it("english and french should have same messages", async function () {
+        await compare("en", "fr");
+    });
 
-        compare(en, fr);
-        compare(fr, en);
-        compare(en, sk);
-        compare(sk, en);
+    it("english and slovak should have same messages", async function () {
+        await compare("en", "sk");
     });
 });

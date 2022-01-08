@@ -109,24 +109,6 @@
     "popup_server_title": {
         "message": "Zmeniť server"
     },
-    "popup_preferences_title": {
-        "message": "Nastaviť…"
-    },
-    "popup_web_title": {
-        "message": "Prejdite na webové rozhranie Kodi…"
-    },
-    "popup_feedback_title": {
-        "message": "Nahlásiť chybyu… / Požiadať o novú funkciu…"
-    },
-    "popup_loading_title": {
-        "message": "Pripájam sa…"
-    },
-    "popup_donate_title": {
-        "message": "Podpora…"
-    },
-    "popup_rate_title": {
-        "message": "Ohodnoťte vašu skúsenosť…"
-    },
     "popup_previous_title": {
         "message": "Prejsť na predchádzajúce [PageUp]"
     },
@@ -158,15 +140,6 @@
     },
     "popup_mute_title": {
         "message": "Stíšiť / Obnoviť hlasitosť [F8]"
-    },
-    "popup_repeat_title": {
-        "message": "Opakovať"
-    },
-    "popup_shuffle_title": {
-        "message": "Náhodne"
-    },
-    "popup_clear_title": {
-        "message": "Vyčistiť"
     },
     "popup_contextmenu_title": {
         "message": "Otvoriť kontextovú ponuku [C]"
@@ -213,6 +186,15 @@
     "popup_openquit_title": {
         "message": "Možnosti napájania [S]"
     },
+    "popup_repeat_title": {
+        "message": "Opakovať"
+    },
+    "popup_shuffle_title": {
+        "message": "Náhodne"
+    },
+    "popup_clear_title": {
+        "message": "Vyčistiť"
+    },
     "popup_empty_textcontent": {
         "message": "Playlist prázdny"
     },
@@ -221,6 +203,24 @@
     },
     "popup_removeItem_title": {
         "message": "Odstrániť"
+    },
+    "popup_loading_title": {
+        "message": "Pripájam sa…"
+    },
+    "popup_web_title": {
+        "message": "Prejdite na webové rozhranie Kodi…"
+    },
+    "popup_feedback_title": {
+        "message": "Nahlásiť chybyu… / Požiadať o novú funkciu…"
+    },
+    "popup_donate_title": {
+        "message": "Podpora…"
+    },
+    "popup_rate_title": {
+        "message": "Ohodnoťte vašu skúsenosť…"
+    },
+    "popup_preferences_title": {
+        "message": "Nastaviť…"
     },
     "popup_cancel_textcontent": {
         "message": "Zrušiť"

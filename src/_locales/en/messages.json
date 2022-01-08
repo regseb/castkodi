@@ -109,24 +109,6 @@
     "popup_server_title": {
         "message": "Change server"
     },
-    "popup_preferences_title": {
-        "message": "Configure…"
-    },
-    "popup_web_title": {
-        "message": "Go to Kodi web interface…"
-    },
-    "popup_feedback_title": {
-        "message": "Report a bug… / Request a feature…"
-    },
-    "popup_loading_title": {
-        "message": "Connecting…"
-    },
-    "popup_donate_title": {
-        "message": "Support…"
-    },
-    "popup_rate_title": {
-        "message": "Rate your experience…"
-    },
     "popup_previous_title": {
         "message": "Go to previous [PageUp]"
     },
@@ -158,15 +140,6 @@
     },
     "popup_mute_title": {
         "message": "Mute / Unmute [F8]"
-    },
-    "popup_repeat_title": {
-        "message": "Repeat"
-    },
-    "popup_shuffle_title": {
-        "message": "Shuffle"
-    },
-    "popup_clear_title": {
-        "message": "Clear"
     },
     "popup_contextmenu_title": {
         "message": "Open context menu [C]"
@@ -213,6 +186,15 @@
     "popup_openquit_title": {
         "message": "Power Options [S]"
     },
+    "popup_repeat_title": {
+        "message": "Repeat"
+    },
+    "popup_shuffle_title": {
+        "message": "Shuffle"
+    },
+    "popup_clear_title": {
+        "message": "Clear"
+    },
     "popup_empty_textcontent": {
         "message": "Playlist empty"
     },
@@ -221,6 +203,24 @@
     },
     "popup_removeItem_title": {
         "message": "Remove"
+    },
+    "popup_loading_title": {
+        "message": "Connecting…"
+    },
+    "popup_web_title": {
+        "message": "Go to Kodi web interface…"
+    },
+    "popup_feedback_title": {
+        "message": "Report a bug… / Request a feature…"
+    },
+    "popup_donate_title": {
+        "message": "Support…"
+    },
+    "popup_rate_title": {
+        "message": "Rate your experience…"
+    },
+    "popup_preferences_title": {
+        "message": "Configure…"
     },
     "popup_cancel_textcontent": {
         "message": "Cancel"

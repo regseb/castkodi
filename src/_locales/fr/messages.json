@@ -109,24 +109,6 @@
     "popup_server_title": {
         "message": "Changer de serveur"
     },
-    "popup_preferences_title": {
-        "message": "Configurer…"
-    },
-    "popup_web_title": {
-        "message": "Aller sur l'interface Web de Kodi…"
-    },
-    "popup_feedback_title": {
-        "message": "Rapporter un bogue… / Proposer une amélioration…"
-    },
-    "popup_loading_title": {
-        "message": "Connexion en cours…"
-    },
-    "popup_donate_title": {
-        "message": "Soutenir…"
-    },
-    "popup_rate_title": {
-        "message": "Évaluer votre expérience…"
-    },
     "popup_previous_title": {
         "message": "Revenir au précédent [Pg.Préc]"
     },
@@ -158,15 +140,6 @@
     },
     "popup_mute_title": {
         "message": "Activer / Désactiver le son [F8]"
-    },
-    "popup_repeat_title": {
-        "message": "Répéter"
-    },
-    "popup_shuffle_title": {
-        "message": "Mélanger"
-    },
-    "popup_clear_title": {
-        "message": "Effacer"
     },
     "popup_contextmenu_title": {
         "message": "Ouvrir le menu contextuel [C]"
@@ -213,6 +186,15 @@
     "popup_openquit_title": {
         "message": "Options d'alimentation [S]"
     },
+    "popup_repeat_title": {
+        "message": "Répéter"
+    },
+    "popup_shuffle_title": {
+        "message": "Mélanger"
+    },
+    "popup_clear_title": {
+        "message": "Effacer"
+    },
     "popup_empty_textcontent": {
         "message": "Liste de lecture vide"
     },
@@ -221,6 +203,24 @@
     },
     "popup_removeItem_title": {
         "message": "Retirer"
+    },
+    "popup_loading_title": {
+        "message": "Connexion en cours…"
+    },
+    "popup_web_title": {
+        "message": "Aller sur l'interface Web de Kodi…"
+    },
+    "popup_feedback_title": {
+        "message": "Rapporter un bogue… / Proposer une amélioration…"
+    },
+    "popup_donate_title": {
+        "message": "Soutenir…"
+    },
+    "popup_rate_title": {
+        "message": "Évaluer votre expérience…"
+    },
+    "popup_preferences_title": {
+        "message": "Configurer…"
     },
     "popup_cancel_textcontent": {
         "message": "Annuler"
