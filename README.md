@@ -11,8 +11,8 @@
 
 ## Description
 
-Cast Kodi est une extension pour les navigateurs Chrome et Firefox. Elle permet
-de diffuser des vidéos et des musiques sur **Kodi** :
+Cast Kodi est une extension pour les navigateurs Chromium (Chrome, Edge, Opera)
+et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
 
 - liens directs : _avi_, _mkv_, _mp3_, _flac_… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace Stream, Apple Podcasts,
@@ -20,19 +20,19 @@ de diffuser des vidéos et des musiques sur **Kodi** :
   Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast,
   PeerTube, Pippa, podCloud, Pokémon TV, Radio, Radioline, Steam, Streamable,
   TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously ;
-  - Allemagne : ARD Mediathek, Arte, ZDF ;
-  - Belgique : GoPlay, VRT NU, VTM GO ;
-  - États-Unis : KCAA Radio ;
-  - France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
+  - 🇩🇪 Allemagne : ARD Mediathek, Arte, ZDF ;
+  - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
+  - 🇺🇸 États-Unis : KCAA Radio ;
+  - 🇫🇷 France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
     Sciences, Gamekult, JV, Konbini, Le Monde, Le Point, L'Internaute, Melty,
     Ouest-France ;
-  - Grèce : StarGR ;
-  - Iran : آپارات ;
-  - Islande : Útvarp Saga ;
-  - Pays-Bas : Dumpert ;
-  - Royaume-Uni : Daily Mail, The Guardian ;
-  - Russie : Первый канал ;
-  - Suisse : Play SRF.
+  - 🇬🇷 Grèce : StarGR ;
+  - 🇮🇷 Iran : آپارات ;
+  - 🇮🇸 Islande : Útvarp Saga ;
+  - 🇳🇱 Pays-Bas : Dumpert ;
+  - 🇬🇧 Royaume-Uni : Daily Mail, The Guardian ;
+  - 🇷🇺 Russie : Первый канал ;
+  - 🇨🇭 Suisse : Play SRF.
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou
 des intégrations de plateformes externes. Par exemple, si une page affiche une
@@ -48,8 +48,9 @@ lecture…
 
 ## Installation
 
-L'extension est disponible sur [**Chrome Web Store**][link-chrome_add-on] et
-[**Firefox Browser Add-ons**][link-firefox_add-on].
+L'extension est disponible sur [**Chrome Web Store**][link-chrome_add-on] (pour
+Chromium, Chrome, Edge et Opera) ainsi que sur [**Firefox Browser
+Add-ons**][link-firefox_add-on].
 
 Dans Kodi, il faut _Autoriser le contrôle à distance par des programmes sur
 d'autres systèmes_. Ce réglage se fait dans la page _Paramètres_ / _Services_ /

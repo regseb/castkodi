@@ -10,17 +10,17 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
   <li>
     YouTube, Twitch, Vimeo, SoundCloud as well as Ace&nbsp;Stream, Apple&nbsp;Podcasts, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Pippa, podCloud, Pokémon&nbsp;TV, Radio, Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously;
     <ul>
-      <li>Belgium: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
-      <li>France: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
-      <li>Germany: ARD&nbsp;Mediathek, Arte, ZDF;</li>
-      <li>Greece: StarGR;</li>
-      <li>Iceland: Útvarp&nbsp;Saga;</li>
-      <li>Iran: آپارات;</li>
-      <li>Netherlands: Dumpert;</li>
-      <li>Russia: Первый&nbsp;канал;</li>
-      <li>Switzerland: Play SRF;</li>
-      <li>United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
-      <li>USA: KCAA&nbsp;Radio.</li>
+      <li>🇧🇪&nbsp;Belgium: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
+      <li>🇫🇷&nbsp;France: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
+      <li>🇩🇪&nbsp;Germany: ARD&nbsp;Mediathek, Arte, ZDF;</li>
+      <li>🇬🇷&nbsp;Greece: StarGR;</li>
+      <li>🇮🇸&nbsp;Iceland: Útvarp&nbsp;Saga;</li>
+      <li>🇮🇷&nbsp;Iran: آپارات;</li>
+      <li>🇳🇱&nbsp;Netherlands: Dumpert;</li>
+      <li>🇷🇺&nbsp;Russia: Первый&nbsp;канал;</li>
+      <li>🇨🇭&nbsp;Switzerland: Play SRF;</li>
+      <li>🇬🇧&nbsp;United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
+      <li>🇺🇸&nbsp;USA: KCAA&nbsp;Radio.</li>
     </ul>
   </li>
 </ul>

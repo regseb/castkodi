@@ -10,17 +10,17 @@ Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur <strong>Kodi</
   <li>
     YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace&nbsp;Stream, Apple&nbsp;Podcasts, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Pippa, podCloud, Pokémon&nbsp;TV, Radio, Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously&nbsp;;
     <ul>
-      <li>Allemagne&nbsp;: ARD&nbsp;Mediathek, Arte, ZDF&nbsp;;</li>
-      <li>Belgique&nbsp;: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO&nbsp;;</li>
-      <li>États-Unis&nbsp;: KCAA&nbsp;Radio&nbsp;;</li>
-      <li>France&nbsp;: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France&nbsp;;</li>
-      <li>Grèce&nbsp;: StarGR&nbsp;;</li>
-      <li>Iran&nbsp;: آپارات&nbsp;;</li>
-      <li>Islande&nbsp;: Útvarp&nbsp;Saga&nbsp;;</li>
-      <li>Pays-Bas&nbsp;: Dumpert&nbsp;;</li>
-      <li>Royaume-Uni&nbsp;: Daily&nbsp;Mail, The&nbsp;Guardian&nbsp;;</li>
-      <li>Russie&nbsp;: Первый&nbsp;канал&nbsp;;</li>
-      <li>Suisse&nbsp;: Play&nbsp;SRF.</li>
+      <li>🇩🇪&nbsp;Allemagne&nbsp;: ARD&nbsp;Mediathek, Arte, ZDF&nbsp;;</li>
+      <li>🇧🇪&nbsp;Belgique&nbsp;: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO&nbsp;;</li>
+      <li>🇺🇸&nbsp;États-Unis&nbsp;: KCAA&nbsp;Radio&nbsp;;</li>
+      <li>🇫🇷&nbsp;France&nbsp;: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France&nbsp;;</li>
+      <li>🇬🇷&nbsp;Grèce&nbsp;: StarGR&nbsp;;</li>
+      <li>🇮🇷&nbsp;Iran&nbsp;: آپارات&nbsp;;</li>
+      <li>🇮🇸&nbsp;Islande&nbsp;: Útvarp&nbsp;Saga&nbsp;;</li>
+      <li>🇳🇱&nbsp;Pays-Bas&nbsp;: Dumpert&nbsp;;</li>
+      <li>🇬🇧&nbsp;Royaume-Uni&nbsp;: Daily&nbsp;Mail, The&nbsp;Guardian&nbsp;;</li>
+      <li>🇷🇺&nbsp;Russie&nbsp;: Первый&nbsp;канал&nbsp;;</li>
+      <li>🇨🇭&nbsp;Suisse&nbsp;: Play&nbsp;SRF.</li>
     </ul>
   </li>
 </ul>
