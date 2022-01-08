@@ -42,4 +42,6 @@ export default {
     "code-block-style": { style: "fenced" },
     "single-trailing-newline": true,
     "code-fence-style": { style: "backtick" },
+    "emphasis-style": { style: "underscore" },
+    "strong-style": { style: "asterisk" },
 };

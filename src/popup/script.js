@@ -66,7 +66,7 @@ const closeDialog = function (event) {
 
 const mux = async function () {
     if (document.querySelector("#paste input").checked) {
-        return Promise.resolve(document.querySelector("textarea").value);
+        return document.querySelector("textarea").value;
     }
 
     const queryInfo = { active: true, currentWindow: true };
@@ -1230,7 +1230,7 @@ globalThis.addEventListener("wheel", (event) => {
         return;
     }
     // Garder le comportement classique de la molette pour la liste de lecture
-    // lorsque la barre défilement est présent.
+    // lorsque la barre défilement est présente.
     const section = event.target.closest("#playlist-items");
     if (0 === event.deltaY ||
             null !== section && section.scrollHeight > section.clientHeight) {

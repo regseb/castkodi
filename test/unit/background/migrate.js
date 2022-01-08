@@ -2,6 +2,7 @@ import assert from "node:assert";
 
 describe("background/migrate.js", function () {
     it("should create config in Chrome", async function () {
+        // eslint-disable-next-line no-underscore-dangle
         browser.runtime._setBrowserInfo({ name: "Chrome" });
         browser.storage.local.set({ foo: "bar" });
 
@@ -23,6 +24,7 @@ describe("background/migrate.js", function () {
     });
 
     it("should create config in Firefox", async function () {
+        // eslint-disable-next-line no-underscore-dangle
         browser.runtime._setBrowserInfo({ name: "Firefox" });
         browser.storage.local.set({ foo: "bar" });
 

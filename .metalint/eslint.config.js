@@ -230,10 +230,7 @@ export default {
         "no-throw-literal": 2,
         "no-undef-init": 2,
         "no-undefined": 0,
-        // Autoriser les underscores pour pouvoir indiquer qu'une propriété est
-        // privée (en attendant l'implémentation des propriétés privées avec #).
-        // https://bugzilla.mozilla.org/show_bug.cgi?id=1562054
-        "no-underscore-dangle": 0,
+        "no-underscore-dangle": 2,
         "no-unneeded-ternary": 2,
         "no-unused-expressions": 2,
         "no-unused-labels": 2,
@@ -628,6 +625,7 @@ export default {
         "unicorn/no-object-as-default-parameter": 2,
         "unicorn/no-process-exit": 2,
         "unicorn/no-static-only-class": 2,
+        "unicorn/no-thenable": 2,
         "unicorn/no-this-assignment": 2,
         "unicorn/no-unreadable-array-destructuring": 2,
         // Désactiver la règle car il y a des faux-positifs avec les petites
@@ -637,6 +635,7 @@ export default {
         "unicorn/no-unused-properties": 2,
         "unicorn/no-useless-fallback-in-spread": 2,
         "unicorn/no-useless-length-check": 2,
+        "unicorn/no-useless-promise-resolve-reject": 2,
         "unicorn/no-useless-spread": 2,
         "unicorn/no-useless-undefined": 0,
         "unicorn/no-zero-fractions": 2,
@@ -648,9 +647,7 @@ export default {
         "unicorn/prefer-array-flat-map": 2,
         "unicorn/prefer-array-index-of": 2,
         "unicorn/prefer-array-some": 2,
-        // Attendre que la méthode .at() soit implémentée pour activer cette
-        // règle. https://github.com/tc39/proposal-relative-indexing-method
-        "unicorn/prefer-at": 0,
+        "unicorn/prefer-at": 2,
         "unicorn/prefer-code-point": 2,
         "unicorn/prefer-date-now": 2,
         "unicorn/prefer-default-parameters": 2,
@@ -660,6 +657,7 @@ export default {
         "unicorn/prefer-dom-node-text-content": 2,
         "unicorn/prefer-export-from": [2, { ignoreUsedVariables: true }],
         "unicorn/prefer-includes": 2,
+        "unicorn/prefer-json-parse-buffer": 0,
         "unicorn/prefer-keyboard-event-key": 2,
         "unicorn/prefer-math-trunc": 2,
         "unicorn/prefer-modern-dom-apis": 2,
@@ -668,7 +666,6 @@ export default {
         "unicorn/prefer-node-protocol": 2,
         "unicorn/prefer-number-properties": 2,
         "unicorn/prefer-object-from-entries": 2,
-        "unicorn/prefer-object-has-own": 2,
         "unicorn/prefer-optional-catch-binding": 2,
         "unicorn/prefer-prototype-methods": 2,
         "unicorn/prefer-query-selector": 2,
@@ -685,6 +682,7 @@ export default {
         "unicorn/prefer-top-level-await": 2,
         "unicorn/prefer-type-error": 2,
         "unicorn/prevent-abbreviations": 0,
+        "unicorn/relative-url-style": 2,
         "unicron/require-array-join-separator": 0,
         "unicorn/require-number-to-fixed-digits-argument": 0,
         // Désactiver cette règles car il y a des faux-positifs avec la méthode

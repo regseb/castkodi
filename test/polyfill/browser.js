@@ -17,7 +17,6 @@ const I18NS = JSON.parse(
 );
 
 const data = {
-    bookmarks:   new Map(),
     histories:   [],
     permissions: {
         data:      new Set(),
@@ -42,7 +41,6 @@ const data = {
  */
 export const browser = {
     _clear: () => {
-        data.bookmarks.clear();
         data.histories.length = 0;
         data.permissions.data.clear();
         data.permissions.listeners.length = 0;
@@ -54,14 +52,6 @@ export const browser = {
         data.tabs.length = 0;
 
         browser.extension.inIncognitoContext = false;
-    },
-
-    bookmarks: {
-        get: (id) => {
-            return data.bookmarks.has(id)
-                              ? Promise.resolve([data.bookmarks.get(id)])
-                              : Promise.reject(new Error("Bookmark not found"));
-        },
     },
 
     extension: {
@@ -169,6 +159,7 @@ export const browser = {
     tabs: {
         create: (createProperties) => {
             const tab = {
+                // eslint-disable-next-line no-underscore-dangle
                 id:  createProperties._id,
                 url: createProperties.url,
             };
