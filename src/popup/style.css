@@ -85,6 +85,13 @@ input[type="checkbox"]:checked ~ img:last-of-type {
     width: 100%;
 }
 
+#dialogquit {
+    width: calc(100% - 36px);
+}
+#dialogquit menu {
+    flex-direction: column;
+}
+
 #cast {
     border-bottom: 1px solid var(--input-border-color);
     display: flex;

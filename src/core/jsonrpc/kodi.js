@@ -10,6 +10,7 @@ import { GUI } from "./gui.js";
 import { Input } from "./input.js";
 import { Player } from "./player.js";
 import { Playlist } from "./playlist.js";
+import { System } from "./system.js";
 
 /**
  * La version minimale de l'API JSON-RPC de Kodi nécessaire.
@@ -148,6 +149,14 @@ export const Kodi = class {
     #playlist = new Playlist(this);
 
     /**
+     * Le client JSON-RPC pour contacter l'espace de nom <em>System</em> de
+     * Kodi.
+     *
+     * @type {System}
+     */
+    #system = new System(this);
+
+    /**
      * Crée un client JSON-RPC pour contacter Kodi.
      *
      * @param {?string} [address] L'adresse IP ou l'adresse complète du service
@@ -233,6 +242,17 @@ export const Kodi = class {
      */
     get playlist() {
         return this.#playlist;
+    }
+
+    /**
+     * Retourne le client JSON-RPC pour contacter l'espace de nom
+     * <em>System</em> de Kodi.
+     *
+     * @returns {System} Le client JSON-RPC pour contacter l'espace de nom
+     *                   <em>System</em> de Kodi.
+     */
+    get system() {
+        return this.#system;
     }
 
     /**

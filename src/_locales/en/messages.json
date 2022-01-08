@@ -210,6 +210,9 @@
     "popup_playerprocessinfo_title": {
         "message": "Show player process information [O]"
     },
+    "popup_openquit_title": {
+        "message": "Power Options [S]"
+    },
     "popup_empty_textcontent": {
         "message": "Playlist empty"
     },
@@ -236,6 +239,18 @@
     },
     "popup_addsubtitle_textcontent": {
         "message": "Send"
+    },
+    "popup_shutdown_textcontent": {
+        "message": "Power off system"
+    },
+    "popup_suspend_textcontent": {
+        "message": "Suspend"
+    },
+    "popup_hibernate_textcontent": {
+        "message": "Hibernate"
+    },
+    "popup_reboot_textcontent": {
+        "message": "Reboot"
     },
     "popup_configure_textcontent": {
         "message": "Configure"

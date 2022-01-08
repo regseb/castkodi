@@ -210,6 +210,9 @@
     "popup_playerprocessinfo_title": {
         "message": "Zobraziť informácie o prehrávaní [O]"
     },
+    "popup_openquit_title": {
+        "message": "Možnosti napájania [S]"
+    },
     "popup_empty_textcontent": {
         "message": "Playlist prázdny"
     },
@@ -236,6 +239,18 @@
     },
     "popup_addsubtitle_textcontent": {
         "message": "Odoslať"
+    },
+    "popup_shutdown_textcontent": {
+        "message": "Vypnúť systém"
+    },
+    "popup_suspend_textcontent": {
+        "message": "Úsporný režim"
+    },
+    "popup_hibernate_textcontent": {
+        "message": "Dlhodobý spánok"
+    },
+    "popup_reboot_textcontent": {
+        "message": "Reštartovať"
     },
     "popup_configure_textcontent": {
         "message": "Nastaviť"

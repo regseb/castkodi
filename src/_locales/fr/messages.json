@@ -210,6 +210,9 @@
     "popup_playerprocessinfo_title": {
         "message": "Afficher les informations sur le processus de lecture [O]"
     },
+    "popup_openquit_title": {
+        "message": "Options d'alimentation [S]"
+    },
     "popup_empty_textcontent": {
         "message": "Liste de lecture vide"
     },
@@ -236,6 +239,18 @@
     },
     "popup_addsubtitle_textcontent": {
         "message": "Envoyer"
+    },
+    "popup_shutdown_textcontent": {
+        "message": "Éteindre le système"
+    },
+    "popup_suspend_textcontent": {
+        "message": "Suspendre"
+    },
+    "popup_hibernate_textcontent": {
+        "message": "Mettre en veille"
+    },
+    "popup_reboot_textcontent": {
+        "message": "Redémarrer"
     },
     "popup_configure_textcontent": {
         "message": "Configurer"

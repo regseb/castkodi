@@ -167,6 +167,11 @@
           <img src="/design/icon/playerprocessinfo-white.svg"
                alt="playerprocessinfo-white">
         </button>
+
+        <button class="ghost" id="openquit" disabled autocomplete="off"
+                data-i18n-title>
+          <img src="/design/icon/quit-white.svg" alt="quit-white">
+        </button>
       </section>
     </div>
 
@@ -282,6 +287,22 @@
           <button value="cancel" data-i18n-textcontent="cancel"></button>
           <button class="primary" value="addsubtitle"
                   data-i18n-textcontent="addsubtitle"></button>
+        </menu>
+      </form>
+    </dialog>
+
+    <dialog id="dialogquit">
+      <form method="dialog">
+        <menu>
+          <button class="primary" value="shutdown"
+                  data-i18n-textcontent="shutdown"></button>
+          <button class="primary" value="suspend"
+                  data-i18n-textcontent="suspend"></button>
+          <button class="primary" value="hibernate"
+                  data-i18n-textcontent="hibernate"></button>
+          <button class="primary" value="reboot"
+                  data-i18n-textcontent="reboot"></button>
+          <button value="cancel" data-i18n-textcontent="cancel"></button>
         </menu>
       </form>
     </dialog>

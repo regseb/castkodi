@@ -510,6 +510,47 @@ const showPlayerProcessInfo = async function () {
     }
 };
 
+const openQuit = function () {
+    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
+    // désactivé.
+    if (document.querySelector("#openquit").disabled) {
+        return;
+    }
+
+    const dialog = document.querySelector("#dialogquit");
+    if (!dialog.open) {
+        dialog.showModal();
+    }
+};
+
+const quit = async function (event) {
+    const dialog = event.target;
+    try {
+        switch (dialog.returnValue) {
+            case "shutdown":
+                await kodi.system.shutdown();
+                close();
+                break;
+            case "suspend":
+                await kodi.system.suspend();
+                close();
+                break;
+            case "hibernate":
+                await kodi.system.hibernate();
+                close();
+                break;
+            case "reboot":
+                await kodi.system.reboot();
+                close();
+                break;
+            default:
+                // Ne rien faire avec le bouton Annuler.
+        }
+    } catch (err) {
+        splash(err);
+    }
+};
+
 const repeat = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
@@ -1011,6 +1052,7 @@ const load = async function () {
         document.querySelector("#fullscreen").disabled = false;
         document.querySelector("#opensendtext").disabled = false;
         document.querySelector("#playerprocessinfo").disabled = false;
+        document.querySelector("#openquit").disabled = false;
 
         document.querySelector("#clear").disabled = false;
 
@@ -1027,6 +1069,16 @@ const load = async function () {
             document.querySelector("#web").dataset.url = url;
             document.querySelector("#web").style.display = "flex";
         }
+
+        const cans = await kodi.system.getProperties([
+            "canhibernate", "canreboot", "canshutdown", "cansuspend",
+        ]);
+        Object.entries(cans).filter(([_, v]) => !v)
+                            .map(([k]) => k.slice(3))
+                            .forEach((key) => {
+            document.querySelector(`#dialogquit button[value="${key}"]`)
+                    .remove();
+        });
     } catch (err) {
         splash(err);
     }
@@ -1073,6 +1125,7 @@ document.querySelector("#playerprocessinfo").addEventListener(
     "click",
     showPlayerProcessInfo,
 );
+document.querySelector("#openquit").addEventListener("click", openQuit);
 
 for (const input of document.querySelectorAll("#repeat input")) {
     input.addEventListener("click", repeat);
@@ -1093,6 +1146,9 @@ document.querySelector("#dialogsubtitle").addEventListener("close",
                                                            addSubtitle);
 document.querySelector("#dialogsubtitle").addEventListener("click",
                                                            closeDialog);
+
+document.querySelector("#dialogquit").addEventListener("close", quit);
+document.querySelector("#dialogquit").addEventListener("click", closeDialog);
 
 document.querySelector("#configure").addEventListener("click", preferences);
 
@@ -1155,6 +1211,7 @@ globalThis.addEventListener("keydown", (event) => {
         case "Tab":         setFullscreen();         break;
         case "t": case "T": openSubtitle();          break;
         case "o": case "O": showPlayerProcessInfo(); break;
+        case "s": case "S": openQuit();              break;
         // Appliquer le traitement par défaut pour les autres entrées.
         default: return;
     }
