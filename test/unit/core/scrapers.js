@@ -117,7 +117,7 @@ describe("core/scrapers.js", function () {
                 { headers: { "Content-Type": "text/html;charset=utf-8" } },
             ));
             const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
-                .onFirstCall().resolves([undefined])
+                .onFirstCall().resolves([undefined, null])
                 .onSecondCall().resolves([undefined, "http://foo.fr/baz.mp4"]);
 
             const url = new URL("http://foo.fr/bar.html");

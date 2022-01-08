@@ -192,7 +192,8 @@ export const extract = async function (url, options) {
             allFrames: true,
             file:      "/script/extractor.js",
         });
-        const file = files.find((f) => undefined !== f);
+        // Tester aussi avec null car c'est une valeur retournée par Chromium.
+        const file = files.find((f) => undefined !== f && null !== f);
         if (undefined !== file) {
             return file;
         }
