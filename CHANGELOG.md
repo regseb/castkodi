@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.3.0](https://github.com/regseb/castkodi/compare/v6.2.1...v6.3.0) (2022-01-08)
+
+
+### Features
+
+* Ajouter un bouton pour arrêter Kodi. ([2ab5a0b](https://github.com/regseb/castkodi/commit/2ab5a0b079d53ce5b9f7d47cc98fd64c6a378d0d))
+* Gérer les URLs de redirection de Play SRF. ([1b74099](https://github.com/regseb/castkodi/commit/1b7409919a125ee71fdf360c97049062810500d7))
+* Support AddSubtitle json-rpc API. ([#72](https://github.com/regseb/castkodi/issues/72)) ([ff6c06c](https://github.com/regseb/castkodi/commit/ff6c06c24ffdbfb2e68dadee74dc24b30599675d))
+
+
+### Bug Fixes
+
+* Corriger l'analyse d'un onglet sous Chromium. ([d22e0c5](https://github.com/regseb/castkodi/commit/d22e0c58487ef0fffdb3ea4b60a68739a5161c97))
+* Corriger le scraper d'AlloCiné. ([0b20705](https://github.com/regseb/castkodi/commit/0b207052db4cfe6c25c0b78613fb3e08334c2b12))
+* Corriger le scraper de Aparat. ([e0333b1](https://github.com/regseb/castkodi/commit/e0333b1168913b257d2f8a6c7f8842347352650c))
+* Corriger le scraper de TikTok. ([06e7911](https://github.com/regseb/castkodi/commit/06e7911d3daaa81abad3f1208fe2e1d0065b1182))
+* Gérer les nouvelles URLs de PeerTube. ([251074d](https://github.com/regseb/castkodi/commit/251074d78674445d936e3d1556bffc83bf8d8843))
+
 ### [6.2.1](https://github.com/regseb/castkodi/compare/v6.2.0...v6.2.1) (2021-12-30)
 
 
