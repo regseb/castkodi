@@ -24,7 +24,7 @@ const action = async function (_url, content) {
     const { contentUrl, apiToken } = JSON.parse(button.dataset.dialog);
     const url = contentUrl.replace("{playerId}", "ngplayer_2_4");
     const response = await fetch(url, {
-        headers: new Headers({ "Api-Auth": `Bearer ${apiToken}` }),
+        headers: { "Api-Auth": `Bearer ${apiToken}` },
     });
     const json = await response.json();
     return json.priorityList[0].formitaeten[0].qualities[0].audio.tracks[0].uri;

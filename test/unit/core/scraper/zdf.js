@@ -61,7 +61,7 @@ describe("core/scraper/zdf.js", function () {
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
                 "http://qux.de/ngplayer_2_4/quux.json",
-                { headers: new Headers({ "Api-Auth": "Bearer corge" }) },
+                { headers: { "Api-Auth": "Bearer corge" } },
             ]);
         });
     });
