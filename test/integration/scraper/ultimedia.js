@@ -33,7 +33,7 @@ describe("Scraper: Ultimedia", function () {
 
     it("should return video URL when protocol is HTTP", async function () {
         const url = new URL("http://www.ultimedia.com/default/index" +
-                                                     "/videogeneric/id/8lflp5");
+                                                     "/videogeneric/id/83vr0l");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
