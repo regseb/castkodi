@@ -127,5 +127,24 @@ describe("core/scraper/allocine.js", function () {
             const file = await scraper.extract(url, content);
             assert.strictEqual(file, null);
         });
+
+        it("should return video URL with protocol", async function () {
+            const url = new URL("https://www.allocine.fr/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <figure data-model="${JSON.stringify({
+                            videos: [{
+                                sources: { high: "//bar.com/baz.mkv" },
+                            }],
+                        }).replaceAll(`"`, "&quot;")}"></figure>
+                      </body>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extract(url, content);
+            assert.strictEqual(file, "https://bar.com/baz.mkv");
+        });
     });
 });

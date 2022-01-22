@@ -41,4 +41,16 @@ describe("Scraper: AlloCiné", function () {
             "https://fr.vid.web.acsta.net/nmedia/33/19/11/22/16" +
                                                        "//19586672_hd_013.mp4");
     });
+
+    it("should return video URL from video URL without protocol",
+                                                             async function () {
+        const url = new URL("https://www.allocine.fr/article" +
+                                    "/fichearticle_gen_carticle=18706016.html");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file,
+            "https://fr.vid.web.acsta.net/nmedia/33/19/10/22/06" +
+                                                       "//19586244_hd_013.mp4");
+    });
 });
