@@ -144,6 +144,7 @@ input[type="range"] {
     -webkit-appearance: none;
     background-color: transparent;
     border: 0;
+    cursor: pointer;
     margin: 0;
 }
 input[type="range"]:not([orient="vertical"]) {
@@ -183,7 +184,7 @@ input[type="range"]::-moz-range-thumb {
     width: 12px;
 }
 input[type="range"]:hover:not(:disabled)::-webkit-slider-thumb {
-    /* Remplacer outline par bow-shadow car Chromium n'applique pas le
+    /* Remplacer outline par box-shadow car Chromium n'applique pas le
        border-radius sur le outline. https://crbug.com/81556 */
     box-shadow: 0 0 0 6px var(--button-hover-background-color);
 }
