@@ -186,16 +186,28 @@ export const extract = async function (url, options) {
 
     // Si l'URL analysée est ouverte dans un onglet : chercher une vidéo ou une
     // musique dans son code source (qui a pu être modifié par du JavaScript).
-    const tabs = await browser.tabs.query({ url: url.href });
-    for (const tab of tabs) {
-        const files = await browser.tabs.executeScript(tab.id, {
-            allFrames: true,
-            file:      "/script/extractor.js",
-        });
-        // Tester aussi avec null car c'est une valeur retournée par Chromium.
-        const file = files.find((f) => undefined !== f && null !== f);
-        if (undefined !== file) {
-            return file;
+    try {
+        const tabs = await browser.tabs.query({ url: url.href });
+        for (const tab of tabs) {
+            const files = await browser.tabs.executeScript(tab.id, {
+                allFrames: true,
+                file:      "/script/extractor.js",
+            });
+            // Tester aussi avec null car c'est une valeur retournée par
+            // Chromium.
+            const file = files.find((f) => undefined !== f && null !== f);
+            if (undefined !== file) {
+                return file;
+            }
+        }
+    } catch (err) {
+        // Ignorer les erreurs remontées quand le script de contenu est exécuté
+        // sur un domaine bloqué (par exemple dans le Chrome Web Store ou le
+        // Firefox Browser Add-ons).
+        if ("The extensions gallery cannot be scripted." !== err.message &&
+                "Missing host permission for the tab, and any iframes" !==
+                                                                  err.message) {
+            throw err;
         }
     }
 
