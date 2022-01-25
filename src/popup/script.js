@@ -1239,7 +1239,7 @@ globalThis.addEventListener("wheel", (event) => {
 
     setVolume(0 < event.deltaY ? "increment" : "decrement");
     event.preventDefault();
-});
+}, { passive: false });
 
 interval = setInterval(passing, 1000);
 
