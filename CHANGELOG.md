@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.3.1](https://github.com/regseb/castkodi/compare/v6.3.0...v6.3.1) (2022-01-25)
+
+
+### Bug Fixes
+
+* Afficher le bon curseur sur les sliders. ([2b4a7d1](https://github.com/regseb/castkodi/commit/2b4a7d1be29e58125fa17478cf9fc8ecf4eba2af))
+* Corriger le scraper de AlloCiné. ([83ae5b7](https://github.com/regseb/castkodi/commit/83ae5b7108fabb6916df9c433fb85aca01b83f96))
+* Désactiver le défilement quand le volume est changé. ([4d735f4](https://github.com/regseb/castkodi/commit/4d735f47c9b01ecc2dcb0cdd59de9f82fae4a6e5))
+* Gérer les domaines bloqués pour le script de contenu. ([c936ca6](https://github.com/regseb/castkodi/commit/c936ca60d56b9fdc1b57c567ea07a9c9a22a1bf8))
+
 ## [6.3.0](https://github.com/regseb/castkodi/compare/v6.2.1...v6.3.0) (2022-01-08)
 
 
