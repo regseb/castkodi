@@ -19,6 +19,7 @@ describe("Scraper: Melty", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://media.melty.fr/article-4052018-desktop/video.mp4");
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=k6ogQps3cfOar4x7ZXf");
     });
 });

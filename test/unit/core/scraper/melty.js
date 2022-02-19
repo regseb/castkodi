@@ -10,47 +10,37 @@ describe("core/scraper/melty.js", function () {
             assert.strictEqual(file, null);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return null when it's depth", async function () {
             const url = new URL("https://www.melty.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script></script>
-                        <script>window.__INITIAL_STATE__={
-                            "articles": {
-                                "items": []
-                            }
-                        };(function(){}());
-                        </script>
+                        <meta itemprop="contentUrl"
+                              content="http://www.dailymotion.com/embed/video` +
+                                                                       `/bar" />
                       </body>
                     </html>`, "text/html")),
             };
+            const options = { depth: true };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
-        it("should return null when it's external video", async function () {
+        it("should return null when there isn't video", async function () {
             const url = new URL("https://www.melty.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
-                      <body>
-                        <script></script>
-                        <script>window.__INITIAL_STATE__={
-                            "articles": {
-                                "items": [{
-                                    "video": { "kind": "External" }
-                                }]
-                            }
-                        };(function(){}());
-                        </script>
-                      </body>
+                      <head>
+                        <meta name="description" content="bar" />
+                      </head>
                     </html>`, "text/html")),
             };
+            const options = { depth: false };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, content, options);
             assert.strictEqual(file, null);
         });
 
@@ -60,24 +50,18 @@ describe("core/scraper/melty.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script></script>
-                        <script>window.__INITIAL_STATE__={
-                            "articles": {
-                                "items": [{
-                                    "video": {
-                                        "URL": "http://bar.com/baz.mp4",
-                                        "kind": "Video"
-                                    }
-                                }]
-                            }
-                        };(function(){}());
-                        </script>
+                        <meta itemprop="contentUrl"
+                              content="http://www.dailymotion.com/embed/video` +
+                                                                       `/bar" />
                       </body>
                     </html>`, "text/html")),
             };
+            const options = { depth: false };
 
-            const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "http://bar.com/baz.mp4");
+            const file = await scraper.extract(url, content, options);
+            assert.strictEqual(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=bar");
         });
     });
 });

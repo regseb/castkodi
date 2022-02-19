@@ -2,31 +2,37 @@
  * @module
  */
 
+// eslint-disable-next-line import/no-cycle
+import { extract as metaExtract } from "../scrapers.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une vidéo de Melty.
- * @param {Object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML.
+ * @param {URL}      url               L'URL d'un article de Melty.
+ * @param {Object}   content           Le contenu de l'URL.
+ * @param {Function} content.html      La fonction retournant la promesse
+ *                                     contenant le document HTML ou
+ *                                     <code>null</code>.
+ * @param {Object}   options           Les options de l'extraction.
+ * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ *                                     en profondeur.
+ * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function (_url, content) {
-    const doc = await content.html();
-    for (const script of doc.querySelectorAll("script:not([src])")) {
-        if (!script.text.startsWith("window.__INITIAL_STATE__=")) {
-            continue;
-        }
+const action = async function (url, content, options) {
+    if (options.depth) {
+        return null;
+    }
 
-        const state = JSON.parse(script.text.slice(25,
-                                 script.text.indexOf(";(function()")));
-        for (const item of state.articles.items) {
-            if ("Video" === item.video?.kind) {
-                return item.video.URL.replace("{device}", "desktop");
-            }
+    const doc = await content.html();
+    for (const meta of doc.querySelectorAll(`meta[itemprop="contentUrl"]`)) {
+        const file = await metaExtract(new URL(meta.content, url),
+                                       { ...options, depth: true });
+        if (null !== file) {
+            return file;
         }
     }
     return null;
