@@ -76,7 +76,7 @@ describe("core/scrapers.js", function () {
                                                            ".dailymotion_com/"),
                       `"${file}"?.startsWith(...)`);
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(stub.callCount, 1);
         });
 
         it("should return media URL from dynamic DOM", async function () {
@@ -228,7 +228,7 @@ describe("core/scrapers.js", function () {
             assert.ok(file?.startsWith("plugin://plugin.video.vimeo/"),
                       `"${file}"?.startsWith(...)`);
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(stub.callCount, 1);
         });
     });
 });
