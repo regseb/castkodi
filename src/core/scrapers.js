@@ -14,6 +14,8 @@ import * as blogtalkradio from "./scraper/blogtalkradio.js";
 import * as devtube from "./scraper/devtube.js";
 import * as dumpert from "./scraper/dumpert.js";
 import * as dailymotion from "./scraper/dailymotion.js";
+// eslint-disable-next-line import/no-cycle
+import * as embed from "./scraper/embed.js";
 import * as flickr from "./scraper/flickr.js";
 import * as francetv from "./scraper/francetv.js";
 // eslint-disable-next-line import/no-cycle
@@ -134,6 +136,7 @@ const SCRAPERS = [
     ldjson,
     opengraph,
     iframe,
+    embed,
     noscript,
 ].flatMap((s) => Object.values(s));
 

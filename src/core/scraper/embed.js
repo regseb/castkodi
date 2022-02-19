@@ -1,0 +1,50 @@
+/**
+ * @module
+ */
+
+// eslint-disable-next-line import/no-cycle
+import { extract as metaExtract } from "../scrapers.js";
+import { matchPattern } from "../tools/matchpattern.js";
+
+/**
+ * Fouille les éléments <code>embed</code> de la page.
+ *
+ * @param {URL}      url               L'URL d'une page quelconque.
+ * @param {Object}   content           Le contenu de l'URL.
+ * @param {Function} content.html      La fonction retournant la promesse
+ *                                     contenant le document HTML ou
+ *                                     <code>null</code>.
+ * @param {Object}   options           Les options de l'extraction.
+ * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ *                                     en profondeur.
+ * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
+ * @see https://developer.mozilla.org/fr/docs/Web/HTML/Element/embed
+ */
+const action = async function (url, content, options) {
+    const doc = await content.html();
+    if (null === doc) {
+        return null;
+    }
+
+    for (const embed of doc.querySelectorAll("embed[src]")) {
+        if (embed.type.startsWith("video/") ||
+                embed.type.startsWith("audio/")) {
+            return new URL(embed.getAttribute("src"), url).href;
+        }
+
+        if (!options.depth) {
+            const file = await metaExtract(
+                new URL(embed.getAttribute("src"), url),
+                { ...options, depth: true },
+            );
+            if (null !== file) {
+                return file;
+            }
+        }
+    }
+    return null;
+};
+export const extract = matchPattern(action, "*://*/*");
