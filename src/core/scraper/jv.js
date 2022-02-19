@@ -14,15 +14,18 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ href }, content) {
+const action = async function (url, content) {
     const doc = await content.html();
-    const div = doc.querySelector("div[data-srcset-video]");
+    const div = doc.querySelector("div[data-src-video]");
     if (null === div) {
         return null;
     }
 
-    const response = await fetch(new URL(div.dataset.srcsetVideo, href));
+    const response = await fetch(new URL(div.dataset.srcVideo, url));
     const json = await response.json();
-    return json.sources[0].file;
+    return json.sources.map((source) => ({
+        resolution: Number.parseInt(source.label, 10),
+        file:       source.file,
+    })).sort((s1, s2) => s2.resolution - s1.resolution).shift().file;
 };
 export const extract = matchPattern(action, "*://www.jeuxvideo.com/*");

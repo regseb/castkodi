@@ -18,31 +18,29 @@ describe("Scraper: JV", function () {
         assert.strictEqual(file, url.href);
     });
 
-    it("should return video URL from videos-editors page [ldjson]",
-                                                         async function () {
+    it("should return video URL from videos-editors page", async function () {
         const url = new URL("http://www.jeuxvideo.com/videos-editeurs/0000" +
                                "/00007335/half-life-2-pc-trailer-00004956.htm");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://video.jeuxvideo.com/videos_editeurs/0000" +
-                                                           "/00004956-low.mp4");
+            "https://videohd.jeuxvideo.com/videos_editeurs/0000" +
+                                                          "/00004956-high.mp4");
     });
 
-    it("should return video URL from extracts-videos page [ldjson]",
-                                                         async function () {
+    it("should return video URL from extracts-videos page", async function () {
         const url = new URL("http://www.jeuxvideo.com/extraits-videos-jeux" +
                        "/0002/00023827/portal-2-pc-meet-wheatley-00008311.htm");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://video.jeuxvideo.com/extraits/201104" +
-                                               "/portal_2_pc-00008311-low.mp4");
+            "https://videohd.jeuxvideo.com/extraits/201104" +
+                                              "/portal_2_pc-00008311-high.mp4");
     });
 
-    it("should return video URL [ldjson]", async function () {
+    it("should return video URL", async function () {
         const url = new URL("http://www.jeuxvideo.com/videos/461728" +
                 "/superhot-notre-avis-en-deux-minutes-sur-ce-fps-original.htm");
         const options = { depth: false, incognito: false };

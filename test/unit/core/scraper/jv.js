@@ -28,8 +28,16 @@ describe("core/scraper/jv.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({
                     sources: [
-                        { file: "https://foo.com/bar.mp4" },
-                        { file: "https://foo.com/bar.avi" },
+                        {
+                            label: "272p",
+                            file:  "https://foo.com/bar.avi",
+                        }, {
+                            label: "1080p60",
+                            file:  "https://foo.com/bar.mp4",
+                        }, {
+                            label: "2160p (4K)",
+                            file:  "https://foo.com/bar.mkv",
+                        },
                     ],
                 }),
             ));
@@ -39,13 +47,13 @@ describe("core/scraper/jv.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <div data-srcset-video="https://qux.fr/quux.htm"></div>
+                        <div data-src-video="https://qux.fr/quux.htm"></div>
                       </body>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp4");
+            assert.strictEqual(file, "https://foo.com/bar.mkv");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
