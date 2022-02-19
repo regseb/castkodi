@@ -23,7 +23,7 @@ describe("Scraper: Ultimedia", function () {
 
     it("should return video URL", async function () {
         const url = new URL("https://www.ultimedia.com/default/index" +
-                                                     "/videogeneric/id/s35rl0");
+                                                     "/videogeneric/id/mvlx0f");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
