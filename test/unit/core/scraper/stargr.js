@@ -4,32 +4,103 @@ import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/stargr.js";
 
 describe("core/scraper/stargr.js", function () {
-    describe("extract()", function () {
+    describe("extractTv()", function () {
         it("should return null when it's a unsupported URL", async function () {
             const url = new URL("https://disney.fr/disney-plus-star");
 
-            const file = await scraper.extract(url);
+            const file = await scraper.extractTv(url);
             assert.strictEqual(file, null);
         });
 
         it("should return null when it's not a video", async function () {
-            const url = new URL("https://www.star.gr/foo");
+            const url = new URL("https://www.star.gr/tv/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
+                        <div></div>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { incognito: false };
+
+            const file = await scraper.extractTv(url, content, options);
+            assert.strictEqual(file, null);
+        });
+
+        it("should return video URL", async function () {
+            const url = new URL("https://www.star.gr/tv/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <div data-plugin-bitmovinv4="${JSON.stringify({
+                            BitMovin: {
+                                ConfigUrl: "https://baz.gr/manifest.m3u8",
+                            },
+                        }).replaceAll(`"`, "&quot;")}"></div>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { incognito: false };
+
+            const file = await scraper.extractTv(url, content, options);
+            assert.strictEqual(file, "https://baz.gr/manifest.m3u8");
+        });
+    });
+
+    describe("extractVideo()", function () {
+        it("should return null when it's a unsupported URL", async function () {
+            const url = new URL("https://disney.fr/disney-plus-star");
+
+            const file = await scraper.extractVideo(url);
+            assert.strictEqual(file, null);
+        });
+
+        it("should return null when it's not a video", async function () {
+            const url = new URL("https://www.star.gr/video/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <iframe></iframe>
                         <script></script>
                       </body>
                     </html>`, "text/html")),
             };
             const options = { incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, null);
         });
 
+        it("should return video YouTube id", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+            const url = new URL("https://www.star.gr/video/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <iframe id="yt-player"
+                                style=""src="https://www.youtube.com/embed/bar"
+                                                                      ></iframe>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { incognito: false };
+
+            const file = await scraper.extractVideo(url, content, options);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/" +
+                                               "?video_id=bar&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        });
+
         it("should return video URL", async function () {
-            const url = new URL("https://www.star.gr/foo");
+            const url = new URL("https://www.star.gr/video/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -48,42 +119,8 @@ describe("core/scraper/stargr.js", function () {
             };
             const options = { incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, "https://baz.gr/qux/quux/manifest.m3u8");
-        });
-
-        it("should return video YouTube id", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
-
-            const url = new URL("https://www.star.gr/foo");
-            const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <script>
-                            // ...
-                            player = new YT.Player('revideoplayer', {
-                                height: '100%',
-                                width: '100%',
-                                videoId: 'bar',
-                                events: {
-                                    'onStateChange': onPlayerStateChange
-                                }
-                            });
-                            // ...
-                        </script>
-                      </body>
-                    </html>`, "text/html")),
-            };
-            const options = { incognito: false };
-
-            const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/" +
-                                               "?video_id=bar&incognito=false");
-
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

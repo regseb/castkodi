@@ -2,7 +2,8 @@
  * @module
  */
 
-import * as plugin from "../plugin/youtube.js";
+// eslint-disable-next-line import/no-cycle
+import { extract as metaExtract } from "../scrapers.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
@@ -13,11 +14,26 @@ import { matchPattern } from "../tools/matchpattern.js";
 const URL_REGEXP = /url: '(?<url>https:\/\/.*\/manifest.m3u8)'/u;
 
 /**
- * L'expression rationnelle pour extraire l'identifiant de la vidéo YouTube.
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @type {RegExp}
+ * @param {URL}      _url              L'URL d'une vidéo de StarGR.
+ * @param {Object}   content           Le contenu de l'URL.
+ * @param {Function} content.html      La fonction retournant la promesse
+ *                                     contenant le document HTML.
+ * @returns {Promise<?string>} Une promesse contenant le lien du
+ *                             <em>fichier</em> ou <code>null</code>.
  */
-const YOUTUBE_REGEXP = /videoId: '(?<videoId>.*)'/u;
+const actionTv = async function (_url, content) {
+    const doc = await content.html();
+    const div = doc.querySelector("div[data-plugin-bitmovinv4]");
+    if (null === div) {
+        return null;
+    }
+
+    const json = JSON.parse(div.dataset.pluginBitmovinv4);
+    return json.BitMovin.ConfigUrl;
+};
+export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -32,19 +48,26 @@ const YOUTUBE_REGEXP = /videoId: '(?<videoId>.*)'/u;
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function (_url, content, { incognito }) {
+const actionVideo = async function (_url, content, options) {
     const doc = await content.html();
+
+    // Ne pas utiliser le scraper iframe car il est exécuté trop tard.
+    // La page contient des microdonnées sur la vidéo, mais c'est l'URL de
+    // l'image qui est renseignée dans le champ de l'URL de la vidéo. Le scraper
+    // iframe étant exécuté après celui sur le ldjson, il faut gérer l'iframe
+    // avant le scraper ldjson.
+    const iframe = doc.querySelector("iframe#yt-player");
+    if (null !== iframe) {
+        return metaExtract(new URL(iframe.src), { ...options, depth: true });
+    }
+
     for (const script of doc.querySelectorAll("script:not([src])")) {
-        let result = URL_REGEXP.exec(script.text);
+        const result = URL_REGEXP.exec(script.text);
         if (null !== result) {
             return result.groups.url;
-        }
-
-        result = YOUTUBE_REGEXP.exec(script.text);
-        if (null !== result) {
-            return plugin.generateVideoUrl(result.groups.videoId, incognito);
         }
     }
     return null;
 };
-export const extract = matchPattern(action, "*://www.star.gr/*");
+export const extractVideo = matchPattern(actionVideo,
+    "*://www.star.gr/video/*");

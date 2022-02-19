@@ -12,25 +12,16 @@ describe("Scraper: StarGR", function () {
         assert.strictEqual(file, url.href);
     });
 
-    it("should return video URL", async function () {
-        const url = new URL("https://www.star.gr/video/lifestyle/viral/549561" +
-                                    "/ayto-einai-to-pshlotero-kastro-apo-ammo");
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp/0" +
-                           "/playManifest/entryId/1_dy97qz9k/format/applehttp" +
-                               "/protocol/https/flavorParamId/0/manifest.m3u8");
-    });
-
     it("should return video URL from StarTV", async function () {
-        const url = new URL("https://www.star.gr/tv/enimerosi" +
-                   "/kedriko-deltio-eidiseon/kedriko-deltio-eidiseon-3132021/");
+        const url = new URL("https://www.star.gr/tv/psychagogia" +
+                                                     "/dancing-with-the-stars" +
+                                   "/dwts-o-edouard-stergiou-gia-ti-summetohi" +
+                                            "-tou-sto-dancing-with-the-stars/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp" +
-                         "/0/playManifest/entryId/1_uscdf5as/format/applehttp" +
+                         "/0/playManifest/entryId/1_dodsq0jt/format/applehttp" +
                                "/protocol/https/flavorParamId/0/manifest.m3u8");
     });
 
@@ -46,16 +37,27 @@ describe("Scraper: StarGR", function () {
                                "/protocol/https/flavorParamId/0/manifest.m3u8");
     });
 
+    it("should return video URL", async function () {
+        const url = new URL("https://www.star.gr/video/lifestyle/viral/527838" +
+                               "/to-megalytero-festibal-pagoy-einai-sthn-kina");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp/0" +
+                           "/playManifest/entryId/1_ppyp3x8c/format/applehttp" +
+                               "/protocol/https/flavorParamId/0/manifest.m3u8");
+    });
+
     it("should return video id", async function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-        const url = new URL("https://www.star.gr/tv/psychagogia" +
-                             "/ston-kosmo-tou/ston-kosmo-tou-2042019-tiflida/");
+        const url = new URL("https://www.star.gr/video/lifestyle/viral/165501" +
+                                 "/teleio_papagaloi_chorevoun_se_rap_rythmous");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file, "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=p9DYioRLAXE&incognito=false");
+                                       "?video_id=c-AgydAVh5k&incognito=false");
 
         assert.strictEqual(stub.callCount, 1);
         assert.deepStrictEqual(stub.firstCall.args, ["video"]);
