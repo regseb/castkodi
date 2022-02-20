@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.4.0](https://github.com/regseb/castkodi/compare/v6.3.1...v6.4.0) (2022-02-20)
+
+
+### Features
+
+* Gérer les balises embed. ([3848121](https://github.com/regseb/castkodi/commit/38481212fb657717d9f8af41e8edfdc7c43cae9e))
+* Gérer les intégrations du lecteur Dailymotion. ([cb959e4](https://github.com/regseb/castkodi/commit/cb959e4a6b9e409f4e317f3e70668287fada8ef5))
+
+
+### Bug Fixes
+
+* Corriger le scraper JV. ([051574c](https://github.com/regseb/castkodi/commit/051574c6365a1bfcff2983e5cc56638ab1820dd2))
+* Corriger le scraper Melty. ([d252813](https://github.com/regseb/castkodi/commit/d2528130025224c15c873ee4fcb9faa6e9dcc9ef))
+* Corriger le scraper StarGR. ([b054bae](https://github.com/regseb/castkodi/commit/b054bae4b2b1a02bd7794c34db6e0823519a91a1))
+
 ### [6.3.1](https://github.com/regseb/castkodi/compare/v6.3.0...v6.3.1) (2022-01-25)
 
 
