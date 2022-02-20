@@ -40,7 +40,7 @@ vidéo YouTube, cette vidéo sera envoyée à Kodi.
 
 Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le
 menu contextuel des liens / pages / sélections de vidéos ou de musiques : _Lire
-maintenant avec Kodi_, _Lire ensuite avec Kodi_ et _Place en file d'attente de
+maintenant avec Kodi_, _Lire ensuite avec Kodi_ et _Placer en file d'attente de
 Kodi_. Une télécommande (accessible depuis un bouton de la barre d'outils) est
 aussi présente pour diffuser l'onglet courant sur Kodi et pour : mettre en
 pause, passer au prochain élément, régler le volume, consulter la liste de

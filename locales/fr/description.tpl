@@ -27,7 +27,7 @@ Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur <strong>Kodi</
 <!-- enable chrome -->
 Cast&nbsp;Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou des intégrations de plateformes externes. Par exemple, si une page affiche une vidéo YouTube, cette vidéo sera envoyée à Kodi.
 
-Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le menu contextuel des liens / pages / sélections de vidéos ou de musiques&nbsp;: <em>Lire maintenant avec Kodi</em>, <em>Lire ensuite avec Kodi</em> et <em>Place en file d'attente de Kodi</em>. Une télécommande (accessible depuis un bouton de la barre d'outils) est aussi présente pour diffuser l'onglet courant sur Kodi et pour&nbsp;: mettre en pause, passer au prochain élément, régler le volume…
+Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le menu contextuel des liens / pages / sélections de vidéos ou de musiques&nbsp;: <em>Lire maintenant avec Kodi</em>, <em>Lire ensuite avec Kodi</em> et <em>Placer en file d'attente de Kodi</em>. Une télécommande (accessible depuis un bouton de la barre d'outils) est aussi présente pour diffuser l'onglet courant sur Kodi et pour&nbsp;: mettre en pause, passer au prochain élément, régler le volume…
 
 
 Dans Kodi, il faut <em>Autoriser le contrôle à distance par des programmes sur d'autres systèmes</em>. Ce réglage se fait dans la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em>.
