@@ -22,7 +22,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ href }, content, options) {
+const action = async function (url, content, options) {
     if (options.depth) {
         return null;
     }
@@ -32,10 +32,8 @@ const action = async function ({ href }, content, options) {
     }
 
     for (const iframe of doc.querySelectorAll("iframe[src]")) {
-        const file = await metaExtract(
-            new URL(iframe.getAttribute("src"), href),
-            { ...options, depth: true },
-        );
+        const file = await metaExtract(new URL(iframe.getAttribute("src"), url),
+                                      { ...options, depth: true });
         if (null !== file) {
             return file;
         }

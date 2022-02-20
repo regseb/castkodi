@@ -12,13 +12,12 @@ export default {
     ],
 
     parserOptions: {
-        ecmaVersion: "latest",
         sourceType: "module",
     },
 
     env: {
         "shared-node-browser": true,
-        es2021: true,
+        es2022: true,
     },
 
     rules: {
@@ -483,6 +482,7 @@ export default {
         "jsdoc/require-throws": 2,
         "jsdoc/require-yields": 2,
         "jsdoc/require-yields-check": 2,
+        "jsdoc/sort-tags": 2,
         "jsdoc/tag-lines": 2,
         "jsdoc/valid-types": 2,
 
@@ -683,7 +683,7 @@ export default {
         "unicorn/prefer-type-error": 2,
         "unicorn/prevent-abbreviations": 0,
         "unicorn/relative-url-style": 2,
-        "unicron/require-array-join-separator": 0,
+        "unicorn/require-array-join-separator": 0,
         "unicorn/require-number-to-fixed-digits-argument": 0,
         // Désactiver cette règles car il y a des faux-positifs avec la méthode
         // port.postMessage() des WebExtensions.
@@ -691,6 +691,7 @@ export default {
         "unicorn/require-post-message-target-origin": 0,
         "unicorn/sring-content": 0,
         "unicorn/template-indent": 2,
+        "unicorn/text-encoding-identifier-case": 2,
         "unicorn/throw-new-error": 2,
     },
 

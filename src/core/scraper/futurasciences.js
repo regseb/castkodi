@@ -21,22 +21,22 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ href }, content, options) {
+const action = async function (url, content, options) {
     const doc = await content.html();
     if (null === doc) {
         return null;
     }
 
-    const urls = [];
+    const srcs = [];
     for (const iframe of doc.querySelectorAll("iframe[data-src]")) {
-        urls.push(iframe.dataset.src);
+        srcs.push(iframe.dataset.src);
     }
     for (const div of doc.querySelectorAll("div.vsly-player[data-iframe]")) {
-        urls.push(div.dataset.iframe);
+        srcs.push(div.dataset.iframe);
     }
 
-    for (const url of urls) {
-        const file = await metaExtract(new URL(url, href),
+    for (const src of srcs) {
+        const file = await metaExtract(new URL(src, url),
                                        { ...options, depth: true });
         if (null !== file) {
             return file;

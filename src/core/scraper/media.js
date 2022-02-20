@@ -23,7 +23,7 @@ const SELECTORS = ["video source", "video", "audio source", "audio"];
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ href }, content) {
+const action = async function (url, content) {
     const doc = await content.html();
     if (null === doc) {
         return null;
@@ -35,6 +35,6 @@ const action = async function ({ href }, content) {
                            .flatMap((l) => Array.from(l))
                            .shift();
     return undefined === media ? null
-                               : new URL(media.getAttribute("src"), href).href;
+                               : new URL(media.getAttribute("src"), url).href;
 };
 export const extract = matchPattern(action, "*://*/*");

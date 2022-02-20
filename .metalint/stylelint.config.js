@@ -16,6 +16,7 @@ export default {
         // Function.
         "function-calc-no-unspaced-operator": true,
         "function-linear-gradient-no-nonstandard-direction": true,
+        "function-no-unknown": true,
 
         // String.
         "string-no-newline": true,

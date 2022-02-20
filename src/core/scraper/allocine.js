@@ -14,7 +14,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ href }, content) {
+const action = async function (url, content) {
     const doc = await content.html();
     const figure = doc.querySelector("figure[data-model]");
     if (null === figure) {
@@ -29,7 +29,7 @@ const action = async function ({ href }, content) {
                    sources.low ??
                    null;
     return null === source ? null
-                           : new URL(source, href).href;
+                           : new URL(source, url).href;
 };
 export const extract = matchPattern(action,
     "*://www.allocine.fr/*",

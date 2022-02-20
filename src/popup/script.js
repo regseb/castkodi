@@ -33,7 +33,7 @@ let interval = null;
 /**
  * L'élément de la liste de lecture en cours de déplacement.
  *
- * @type {HTMLLIElement}
+ * @type {?HTMLLIElement}
  */
 let dragItem = null;
 
@@ -655,8 +655,8 @@ const preferences = async function () {
 /**
  * Gère le début d'un glissement d'un élément.
  *
- * @this {HTMLLIElement}
  * @param {DragEvent} event L'évènement du glissement.
+ * @this {HTMLLIElement}
  */
 const handleDragStart = function (event) {
     // eslint-disable-next-line no-param-reassign
@@ -670,8 +670,8 @@ const handleDragStart = function (event) {
 /**
  * Gère le déplacement d'un glissement sur un élement déposable.
  *
- * @this {HTMLLIElement}
  * @param {DragEvent} event L'évènement du glissement.
+ * @this {HTMLLIElement}
  */
 const handleDragOver = function (event) {
     event.preventDefault();
@@ -704,8 +704,8 @@ const handleDragLeave = function () {
 /**
  * Gère le dépôt d'un élément de glissement.
  *
- * @this {HTMLLIElement}
  * @param {DragEvent} event L'évènement du glissement.
+ * @this {HTMLLIElement}
  */
 const handleDrop = async function (event) {
     event.stopPropagation();

@@ -50,7 +50,7 @@ const walk = function (root) {
  * @returns {Promise<?string>} Une promesse contenant le lien du
  *                             <em>fichier</em> ou <code>null</code>.
  */
-const action = async function ({ href }, content, options) {
+const action = async function (url, content, options) {
     const doc = await content.html();
     if (null === doc) {
         return null;
@@ -68,7 +68,7 @@ const action = async function ({ href }, content, options) {
                 }
                 if ("embedUrl" in property && !options.depth) {
                     const file = await metaExtract(
-                        new URL(property.embedUrl, href),
+                        new URL(property.embedUrl, url),
                         { ...options, depth: true },
                     );
                     if (null !== file) {
