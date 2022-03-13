@@ -25,12 +25,12 @@ const URL_REGEXP = /url: '(?<url>https:\/\/.*\/manifest.m3u8)'/u;
  */
 const actionTv = async function (_url, content) {
     const doc = await content.html();
-    const div = doc.querySelector("div[data-plugin-bitmovinv4]");
+    const div = doc.querySelector("div[data-plugin-bitmovinv5]");
     if (null === div) {
         return null;
     }
 
-    const json = JSON.parse(div.dataset.pluginBitmovinv4);
+    const json = JSON.parse(div.dataset.pluginBitmovinv5);
     return json.BitMovin.ConfigUrl;
 };
 export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");

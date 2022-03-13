@@ -34,7 +34,7 @@ describe("core/scraper/stargr.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <div data-plugin-bitmovinv4="${JSON.stringify({
+                        <div data-plugin-bitmovinv5="${JSON.stringify({
                             BitMovin: {
                                 ConfigUrl: "https://baz.gr/manifest.m3u8",
                             },
