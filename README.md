@@ -27,11 +27,10 @@ et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
     Sciences, Gamekult, JV, Konbini, Le Monde, Le Point, L'Internaute, Melty,
     Ouest-France ;
   - 🇬🇷 Grèce : StarGR ;
-  - 🇮🇷 Iran : آپارات ;
+  - 🇮🇷 Iran : آپارات<!-- Aparat --> ;
   - 🇮🇸 Islande : Útvarp Saga ;
   - 🇳🇱 Pays-Bas : Dumpert ;
   - 🇬🇧 Royaume-Uni : Daily Mail, The Guardian ;
-  - 🇷🇺 Russie : Первый канал ;
   - 🇨🇭 Suisse : Play SRF.
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou

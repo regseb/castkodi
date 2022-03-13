@@ -15,9 +15,8 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
       <li>🇩🇪&nbsp;Germany: ARD&nbsp;Mediathek, Arte, ZDF;</li>
       <li>🇬🇷&nbsp;Greece: StarGR;</li>
       <li>🇮🇸&nbsp;Iceland: Útvarp&nbsp;Saga;</li>
-      <li>🇮🇷&nbsp;Iran: آپارات;</li>
+      <li>🇮🇷&nbsp;Iran: آپارات<!-- Aparat -->;</li>
       <li>🇳🇱&nbsp;Netherlands: Dumpert;</li>
-      <li>🇷🇺&nbsp;Russia: Первый&nbsp;канал;</li>
       <li>🇨🇭&nbsp;Switzerland: Play SRF;</li>
       <li>🇬🇧&nbsp;United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
       <li>🇺🇸&nbsp;USA: KCAA&nbsp;Radio.</li>

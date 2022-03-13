@@ -14,10 +14,9 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
       <li>🇫🇷&nbsp;Francúzsko:  20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
       <li>🇬🇷&nbsp;Grécko: StarGR;</li>
       <li>🇳🇱&nbsp;Holandsko: Dumpert;</li>
-      <li>🇮🇷&nbsp;Irán: آپارات;</li>
+      <li>🇮🇷&nbsp;Irán: آپارات<!-- Aparat -->;</li>
       <li>🇮🇸&nbsp;Island: Útvarp&nbsp;Saga;</li>
       <li>🇩🇪&nbsp;Nemecko: ARD&nbsp;Mediathek, Arte, ZDF;</li>
-      <li>🇷🇺&nbsp;Rusko: Первый&nbsp;канал;</li>
       <li>🇬🇧&nbsp;Spojené kráľovstvo: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
       <li>🇨🇭&nbsp;Švajčiarsko: Play&nbsp;SRF;</li>
       <li>🇺🇸&nbsp;USA: KCAA&nbsp;Radio.</li>

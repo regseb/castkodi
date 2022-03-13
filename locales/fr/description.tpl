@@ -15,11 +15,10 @@ Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur <strong>Kodi</
       <li>🇺🇸&nbsp;États-Unis&nbsp;: KCAA&nbsp;Radio&nbsp;;</li>
       <li>🇫🇷&nbsp;France&nbsp;: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France&nbsp;;</li>
       <li>🇬🇷&nbsp;Grèce&nbsp;: StarGR&nbsp;;</li>
-      <li>🇮🇷&nbsp;Iran&nbsp;: آپارات&nbsp;;</li>
+      <li>🇮🇷&nbsp;Iran&nbsp;: آپارات<!-- Aparat -->&nbsp;;</li>
       <li>🇮🇸&nbsp;Islande&nbsp;: Útvarp&nbsp;Saga&nbsp;;</li>
       <li>🇳🇱&nbsp;Pays-Bas&nbsp;: Dumpert&nbsp;;</li>
       <li>🇬🇧&nbsp;Royaume-Uni&nbsp;: Daily&nbsp;Mail, The&nbsp;Guardian&nbsp;;</li>
-      <li>🇷🇺&nbsp;Russie&nbsp;: Первый&nbsp;канал&nbsp;;</li>
       <li>🇨🇭&nbsp;Suisse&nbsp;: Play&nbsp;SRF.</li>
     </ul>
   </li>
