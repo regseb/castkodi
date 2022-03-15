@@ -1,11 +1,9 @@
 # Cast Kodi
 
-[![chrome add-on][img-chrome_add-on]][link-chrome_add-on]
-[![firefox add-on][img-firefox_add-on]][link-firefox_add-on]
+[![chrome][img-chrome]][link-chrome]
+[![firefox][img-firefox]][link-firefox]
 [![build][img-build]][link-build]
 [![coverage][img-coverage]][link-coverage]
-[![chrome rating][img-chrome_rating]][link-chrome_rating]
-[![firefox rating][img-firefox_rating]][link-firefox_rating]
 
 > WebExtension pour diffuser des vidéos et des musiques sur Kodi.
 
@@ -47,9 +45,9 @@ lecture…
 
 ## Installation
 
-L'extension est disponible sur [**Chrome Web Store**][link-chrome_add-on] (pour
+L'extension est disponible sur [**Chrome Web Store**][link-chrome] (pour
 Chromium, Chrome, Edge et Opera) ainsi que sur [**Firefox Browser
-Add-ons**][link-firefox_add-on].
+Add-ons**][link-firefox].
 
 Dans Kodi, il faut _Autoriser le contrôle à distance par des programmes sur
 d'autres systèmes_. Ce réglage se fait dans la page _Paramètres_ / _Services_ /
@@ -59,16 +57,29 @@ Vous devez ensuite configurer les _Préférences_ de Cast Kodi en copiant
 l'_Adresse_ IP du serveur hébergeant Kodi ; cette information est disponible
 dans la page _Paramètres_ / _Infos sur le système_ / _Résumé_.
 
-[img-chrome_add-on]:https://img.shields.io/chrome-web-store/v/gojlijimdlgjlliggedhakpefimkedmb?label=add-on&logo=googlechrome&logoColor=white
-[img-firefox_add-on]:https://img.shields.io/amo/v/castkodi.svg?label=add-on&logo=firefox-browser&logoColor=white
-[img-build]:https://img.shields.io/github/workflow/status/regseb/castkodi/CI
-[img-coverage]:https://img.shields.io/coveralls/github/regseb/castkodi
-[img-chrome_rating]:https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=rating&logo=googlechrome&logoColor=white
-[img-firefox_rating]:https://img.shields.io/amo/stars/castkodi.svg?label=rating&logo=firefox-browser&logoColor=white
+## Contribuer
 
-[link-chrome_add-on]:https://chrome.google.com/webstore/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
-[link-firefox_add-on]:https://addons.mozilla.org/addon/castkodi/
+[Node.js et
+npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) sont
+nécessaire pour contribuer au projet. Après avoir [forké et
+cloné](https://docs.github.com/en/get-started/quickstart/fork-a-repo) Cast Kodi,
+exécutez `npm install` pour installer les dépendances. Et voici d'autres
+commandes utiles :
+
+- `npm run lint` : faire une analyse statique des fichiers ;
+- `npm test` : lancer les tests (avec [Mocha](https://mochajs.org/)) ;
+- `npm run start:chromium` : déployer l'extension dans Chromium ;
+- `npm run start:firefox` : déployer l'extension dans Firefox.
+
+Pour les traductions dans différentes langues, elles se font au moyen de
+[Weblate](https://hosted.weblate.org/engage/castkodi/).
+
+[img-chrome]:https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=chrome&logo=googlechrome&logoColor=white
+[img-firefox]:https://img.shields.io/amo/stars/castkodi.svg?label=firefox&logo=firefox-browser&logoColor=white
+[img-build]:https://img.shields.io/github/workflow/status/regseb/castkodi/CI?logo=github&logoColor=white
+[img-coverage]:https://img.shields.io/coveralls/github/regseb/castkodi?logo=coveralls&logoColor=white
+
+[link-chrome]:https://chrome.google.com/webstore/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
+[link-firefox]:https://addons.mozilla.org/addon/castkodi/
 [link-build]:https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain
 [link-coverage]:https://coveralls.io/github/regseb/castkodi
-[link-chrome_rating]:https://chrome.google.com/webstore/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb/reviews
-[link-firefox_rating]:https://addons.mozilla.org/addon/castkodi/reviews/
