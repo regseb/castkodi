@@ -18,6 +18,13 @@ describe("core/scraper/bigo.js", function () {
             assert.strictEqual(file, null);
         });
 
+        it("should return null when pathname is invalid", async function () {
+            const url = new URL("https://www.bigo.tv/foo/123");
+
+            const file = await scraper.extract(url);
+            assert.strictEqual(file, null);
+        });
+
         it("should return null when it's not a video", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({ data: [] }),

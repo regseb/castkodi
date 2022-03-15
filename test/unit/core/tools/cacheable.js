@@ -7,6 +7,10 @@ describe("tools/cacheable.js", function () {
         it("should call one times", function () {
             const fake = sinon.fake.returns("foo");
             const cached = cacheable(fake);
+            assert.deepStrictEqual(
+                Object.getOwnPropertyDescriptor(cached, "name"),
+                Object.getOwnPropertyDescriptor(fake, "name"),
+            );
 
             assert.strictEqual(cached(), "foo");
             assert.strictEqual(cached(), "foo");

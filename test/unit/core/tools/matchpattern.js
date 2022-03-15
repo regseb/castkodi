@@ -47,6 +47,11 @@ describe("tools/matchpattern.js", function () {
             const fake = sinon.fake.resolves("foo");
 
             const wrapped = matchPattern(fake, "*://bar.com/");
+            assert.deepStrictEqual(
+                Object.getOwnPropertyDescriptor(wrapped, "name"),
+                Object.getOwnPropertyDescriptor(fake, "name"),
+            );
+
             let result = await wrapped(new URL("http://bar.com/"));
             assert.strictEqual(result, "foo");
             result = await wrapped(new URL("http://baz.org/"));

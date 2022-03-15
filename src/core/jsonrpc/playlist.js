@@ -180,11 +180,10 @@ export const Playlist = class {
      * @param {NotificationEvent} notification La notification reçu de Kodi.
      */
     async handleNotification({ method, params: { data } }) {
-        // Garder seulement les notifications de la liste de lecture des vidéos
-        // et si des auditeurs sont présents.
-        if (!method.startsWith("Playlist.") || 1 !== data.playlistid ||
-                0 === this.onAdd.length + this.onClear.length +
-                      this.onRemove.length) {
+        // Analyser les notifications seulement si des auditeurs sont présents
+        // et si elles viennent de la liste de lecture des vidéos.
+        if (0 === this.onAdd.length + this.onClear.length +
+                  this.onRemove.length || 1 !== data.playlistid) {
             return;
         }
         switch (method) {

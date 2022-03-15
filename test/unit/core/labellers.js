@@ -92,7 +92,7 @@ describe("core/labellers.js", function () {
 
             const item = {
                 file:     "plugin://plugin.video.youtube/play/?video_id=foo",
-                label:    "bar",
+                label:    "baz",
                 position: 0,
                 title:    "",
                 type:     "",

@@ -2,6 +2,15 @@ import assert from "node:assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Framatube", function () {
+    it("should return URL when UUID is invalid [peertube]", async function () {
+        const url = new URL("https://framatube.org/w" +
+                                       "/123e4567-e89b-12d3-a456-426614174000");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file, url.href);
+    });
+
     it("should return video embed URL [peertube]", async function () {
         const url = new URL("https://framatube.org/w" +
                                        "/0900bd2e-7306-4c39-b48b-2d0cd611742e");

@@ -237,11 +237,10 @@ export const Player = class {
      * @param {NotificationEvent} notification La notification reçu de Kodi.
      */
     async handleNotification({ method, params: { data } }) {
-        // Garder seulement les notifications du lecteur de vidéo et si des
-        // auditeurs sont présents.
-        if (!method.startsWith("Player.") ||
-                "player" in data && 1 !== data.player.playerid ||
-                0 === this.onPropertyChanged.length) {
+        // Analyser les notifications seulement si des auditeurs sont présents
+        // et si elles viennent du lecteur de vidéo.
+        if (0 === this.onPropertyChanged.length ||
+                "player" in data && 1 !== data.player.playerid) {
             return;
         }
         switch (method) {

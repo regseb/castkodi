@@ -32,6 +32,7 @@ describe("core/scraper/peertube.js", function () {
                 JSON.stringify({
                     streamingPlaylists: [{
                         playlistUrl: "http://foo.fr/bar.avi",
+                        files:       [],
                     }],
                 }),
             ));
@@ -50,7 +51,8 @@ describe("core/scraper/peertube.js", function () {
         it("should return video URL from watch page", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({
-                    files: [{ fileUrl: "http://foo.io/bar.avi" }],
+                    streamingPlaylists: [],
+                    files:              [{ fileUrl: "http://foo.io/bar.avi" }],
                 }),
             ));
 
@@ -68,7 +70,8 @@ describe("core/scraper/peertube.js", function () {
         it("should return video URL from embed page", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({
-                    files: [{ fileUrl: "http://foo.fr/bar.avi" }],
+                    streamingPlaylists: [],
+                    files:              [{ fileUrl: "http://foo.fr/bar.avi" }],
                 }),
             ));
 
