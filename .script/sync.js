@@ -19,10 +19,5 @@ const copy = async function (src, dest) {
     }
 };
 
-await copy("node_modules/dialog-polyfill/dist/dialog-polyfill.css",
-           "src/polyfill/lib/dialog-polyfill.css");
-await copy("node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js",
-           "src/polyfill/lib/dialog-polyfill-esm.js");
-
 await copy("node_modules/webextension-polyfill/dist/browser-polyfill.js",
            "src/polyfill/lib/browser-polyfill.js");

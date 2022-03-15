@@ -311,7 +311,7 @@ dialog {
     box-sizing: border-box;
     padding: 16px;
 }
-dialog::backdrop, dialog + .backdrop {
+dialog::backdrop {
     background-color: rgba(0 0 0 / 50%);
 }
 dialog menu {

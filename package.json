@@ -40,7 +40,6 @@
         "clean": "node .script/clean.js"
     },
     "dependencies": {
-        "dialog-polyfill": "0.5.6",
         "webextension-polyfill": "0.8.0"
     },
     "devDependencies": {
