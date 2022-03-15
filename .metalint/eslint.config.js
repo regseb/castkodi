@@ -160,9 +160,6 @@ export default {
         "no-implicit-globals": 2,
         "no-implied-eval": 2,
         "no-inline-comments": 2,
-        // Attention avec cette règle car il y a des faux-positifs avec
-        // l'utilisation de this dans les champs de classe.
-        // https://github.com/eslint/eslint/issues/15016
         "no-invalid-this": 2,
         "no-iterator": 2,
         "no-label-var": 2,
@@ -217,7 +214,6 @@ export default {
             "JSXAttribute",
             "JSXSpreadAttribute",
             "JSXText",
-            "ExportAllDeclaration",
         ],
         "no-return-assign": 2,
         "no-return-await": 2,
@@ -689,7 +685,7 @@ export default {
         // port.postMessage() des WebExtensions.
         // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1396
         "unicorn/require-post-message-target-origin": 0,
-        "unicorn/sring-content": 0,
+        "unicorn/string-content": 0,
         "unicorn/template-indent": 2,
         "unicorn/text-encoding-identifier-case": 2,
         "unicorn/throw-new-error": 2,
