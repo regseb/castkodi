@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.4.1](https://github.com/regseb/castkodi/compare/v6.4.0...v6.4.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* Enlever le scraper 1tv.ru. ([e21a49c](https://github.com/regseb/castkodi/commit/e21a49c7b48977c9f497144f68599e6c183fb1d5))
+* Gérer la V5 de StarGR. ([9b18087](https://github.com/regseb/castkodi/commit/9b1808787f317db6620bf7cba86439ce3d2730a4))
+
 ## [6.4.0](https://github.com/regseb/castkodi/compare/v6.3.1...v6.4.0) (2022-02-20)
 
 
