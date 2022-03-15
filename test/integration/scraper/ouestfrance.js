@@ -1,7 +1,17 @@
 import assert from "node:assert";
+import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Ouest-France", function () {
+    before(function () {
+        // Désactiver les tests de Ouest-France en dehors de la France car le
+        // site utilise Ultimedia qui fonctionne seulement en France.
+        if (null !== config.country && "fr" !== config.country) {
+            // eslint-disable-next-line no-invalid-this
+            this.skip();
+        }
+    });
+
     it("should return URL when it's not a video", async function () {
         const url = new URL("https://www.ouest-france.fr/festivals" +
                     "/festival-dangouleme/bd-grand-prix-d-angouleme-catherine" +
@@ -12,7 +22,7 @@ describe("Scraper: Ouest-France", function () {
         assert.strictEqual(file, url.href);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL [ouestfrance-ultimedia]", async function () {
         const url = new URL("https://www.ouest-france.fr/culture/cinema" +
                       "/festival-cannes/festival-de-cannes-spike-lee-cineaste" +
                           "-phare-de-la-cause-noire-president-du-jury-6688060");
@@ -24,7 +34,8 @@ describe("Scraper: Ouest-France", function () {
                   `"${file}"?.endsWith(...)`);
     });
 
-    it("should return video URL when two iframe in page", async function () {
+    it("should return video URL when two iframe in page" +
+                                 " [ouestfrance-ultimedia]", async function () {
         const url = new URL("https://www.ouest-france.fr/sante/virus" +
             "/coronavirus/coronavirus-en-france-le-nombre-de-cas-detectes" +
             "-augmente-plus-que-le-nombre-de-tests-effectues-6930380");
