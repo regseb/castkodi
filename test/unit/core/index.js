@@ -7,7 +7,6 @@ describe("core/index.js", function () {
     describe("mux()", function () {
         it("should ignore invalid input", function () {
             const urls = [
-                undefined,
                 "",
                 " ",
                 "www.foo.",

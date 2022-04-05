@@ -20,8 +20,7 @@ const capitalize = function (text) {
  *
  * @param {browser.contextMenus.OnClickData} info Les informations fournies par
  *                                                le menu contextuel.
- * @returns {Promise<(string|undefined)[]>} Une promesse contenant les liens
- *                                          récupérés.
+ * @returns {Promise<string[]>} Une promesse contenant les liens récupérés.
  */
 const aggregate = async function (info) {
     if ("bookmarkId" in info) {
@@ -29,13 +28,18 @@ const aggregate = async function (info) {
         return bookmarks.map((b) => b?.url ?? b.title);
     }
 
+    const config = await browser.storage.local.get(["menu-contexts"]);
+    const contexts = config["menu-contexts"];
     return [
-        info.selectionText,
-        info.linkUrl,
-        info.srcUrl,
-        info.frameUrl,
-        info.pageUrl,
-    ];
+        contexts.includes("selection") ? info.selectionText : undefined,
+        contexts.includes("link") ? info.linkUrl : undefined,
+        "audio" === info.mediaType && contexts.includes("audio") ? info.srcUrl
+                                                                 : undefined,
+        "video" === info.mediaType && contexts.includes("video") ? info.srcUrl
+                                                                 : undefined,
+        contexts.includes("frame") ? info.frameUrl : undefined,
+        contexts.includes("page") ? info.pageUrl : undefined,
+    ].filter((u) => undefined !== u);
 };
 
 /**
