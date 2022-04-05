@@ -10,7 +10,7 @@ Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur <strong>Kodi</
   <li>
     YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace&nbsp;Stream, Apple&nbsp;Podcasts, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Pippa, podCloud, Pokémon&nbsp;TV, Radio, Radioline, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously&nbsp;;
     <ul>
-      <li>🇩🇪&nbsp;Allemagne&nbsp;: ARD&nbsp;Mediathek, Arte, ZDF&nbsp;;</li>
+      <li>🇩🇪&nbsp;Allemagne&nbsp;: ARD&nbsp;Mediathek, Arte, DMAX, ZDF&nbsp;;</li>
       <li>🇧🇪&nbsp;Belgique&nbsp;: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO&nbsp;;</li>
       <li>🇺🇸&nbsp;États-Unis&nbsp;: KCAA&nbsp;Radio&nbsp;;</li>
       <li>🇫🇷&nbsp;France&nbsp;: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France&nbsp;;</li>

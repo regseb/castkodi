@@ -14,6 +14,7 @@ import * as blogtalkradio from "./scraper/blogtalkradio.js";
 import * as devtube from "./scraper/devtube.js";
 import * as dumpert from "./scraper/dumpert.js";
 import * as dailymotion from "./scraper/dailymotion.js";
+import * as dmax from "./scraper/dmax.js";
 // eslint-disable-next-line import/no-cycle
 import * as embed from "./scraper/embed.js";
 import * as flickr from "./scraper/flickr.js";
@@ -91,6 +92,7 @@ const SCRAPERS = [
     devtube,
     dumpert,
     dailymotion,
+    dmax,
     flickr,
     francetv,
     futurasciences,

@@ -18,7 +18,7 @@ et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
   Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast,
   PeerTube, Pippa, podCloud, Pokémon TV, Radio, Radioline, Steam, Streamable,
   TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously ;
-  - 🇩🇪 Allemagne : ARD Mediathek, Arte, ZDF ;
+  - 🇩🇪 Allemagne : ARD Mediathek, Arte, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
   - 🇺🇸 États-Unis : KCAA Radio ;
   - 🇫🇷 France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
