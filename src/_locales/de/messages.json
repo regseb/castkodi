@@ -1,1 +1,11 @@
-{}
+{
+    "menus_firstParent": {
+        "message": "Caste an Kodi"
+    },
+    "menus_secondSend": {
+        "message": "Jetzt abspielen"
+    },
+    "menus_secondInsert": {
+        "message": "Danach abspielen"
+    }
+}
