@@ -5,5 +5,6 @@ export default {
 
         // Plugin eslint-plugin-unicorn.
         "unicorn/filename-case": 0,
+        "unicorn/no-null": 0,
     },
 };

@@ -1,19 +1,25 @@
 import fs from "node:fs/promises";
 
-/**
- * Résous un chemin relatif à partir du module.
- *
- * @param {string} specifier Le chemin relatif vers un fichier.
- * @returns {Promise<string>} Une promesse contenant le chemin absolu vers le
- *                            fichier.
- * @see https://nodejs.org/docs/latest/api/esm.html#importmeta
- */
-const resolve = function (specifier) {
-    return Promise.resolve(new URL(specifier, import.meta.url).pathname);
-};
+if (undefined === import.meta.resolve) {
+
+    /**
+     * Résous un chemin relatif à partir du module.
+     *
+     * @param {string} specifier Le chemin relatif vers un fichier.
+     * @returns {Promise<string>} Une promesse contenant le chemin absolu vers
+     *                            le fichier.
+     * @see https://nodejs.org/docs/latest/api/esm.html#importmeta
+     */
+    import.meta.resolve = (specifier) => {
+        return Promise.resolve(new URL(specifier, import.meta.url).pathname);
+    };
+}
 
 const I18NS = JSON.parse(
-    await fs.readFile(await resolve("../../locales/en/messages.json"), "utf8"),
+    await fs.readFile(
+        await import.meta.resolve("../../locales/en/messages.json"),
+        "utf8",
+    ),
 );
 
 const data = {
