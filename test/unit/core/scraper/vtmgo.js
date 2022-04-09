@@ -3,11 +3,12 @@ import * as scraper from "../../../../src/core/scraper/vtmgo.js";
 
 describe("core/scraper/vtmgo.js", function () {
     describe("extractEpisode()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://foo.be");
 
             const file = await scraper.extractEpisode(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video UUID", async function () {
@@ -28,11 +29,12 @@ describe("core/scraper/vtmgo.js", function () {
     });
 
     describe("extractMovie()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://foo.be");
 
             const file = await scraper.extractMovie(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video UUID", async function () {
@@ -53,11 +55,12 @@ describe("core/scraper/vtmgo.js", function () {
     });
 
     describe("extractMoviePage()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://foo.be");
 
             const file = await scraper.extractMoviePage(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video UUID", async function () {
@@ -78,14 +81,16 @@ describe("core/scraper/vtmgo.js", function () {
     });
 
     describe("extractChannel()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://foo.be");
 
             const file = await scraper.extractChannel(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't player", async function () {
+        it("should return undefined when there isn't player",
+                                                             async function () {
             const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -95,7 +100,7 @@ describe("core/scraper/vtmgo.js", function () {
             };
 
             const file = await scraper.extractChannel(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video UUID", async function () {

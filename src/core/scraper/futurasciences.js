@@ -18,13 +18,14 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const action = async function (url, content, options) {
     const doc = await content.html();
-    if (null === doc) {
-        return null;
+    if (undefined === doc) {
+        return undefined;
     }
 
     const srcs = [];
@@ -38,10 +39,10 @@ const action = async function (url, content, options) {
     for (const src of srcs) {
         const file = await metaExtract(new URL(src, url),
                                        { ...options, depth: true });
-        if (null !== file) {
+        if (undefined !== file) {
             return file;
         }
     }
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action, "*://www.futura-sciences.com/*");

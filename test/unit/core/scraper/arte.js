@@ -4,14 +4,16 @@ import * as scraper from "../../../../src/core/scraper/arte.js";
 
 describe("core/scraper/arte.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.arte.tv/fr/guide/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when video is unavailable", async function () {
+        it("should return undefined when video is unavailable",
+                                                             async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({
                     videoJsonPlayer: { VSR: { 0: { id: "foo_2" } } },
@@ -21,7 +23,7 @@ describe("core/scraper/arte.js", function () {
             const url = new URL("https://www.arte.tv/de/videos/bar/baz");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

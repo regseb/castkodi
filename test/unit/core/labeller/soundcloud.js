@@ -24,7 +24,8 @@ describe("core/labeller/soundcloud.js", function () {
             ]);
         });
 
-        it("should return null when it's not audio page", async function () {
+        it("should return undefined when it's not audio page",
+                                                             async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head></head>
@@ -34,7 +35,7 @@ describe("core/labeller/soundcloud.js", function () {
             const audioUrl = new URL("http://foo.com/");
 
             const label = await labeller.extract(audioUrl);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

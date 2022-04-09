@@ -5,16 +5,17 @@ import * as scraper from "../../../../src/core/scraper/youtube.js";
 
 describe("core/scraper/youtube.js", function () {
     describe("extractVideo()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.youtube.com/feed/trending");
             const content = undefined;
             const options = { incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             browser.storage.local.set({ "youtube-playlist": "playlist" });
 
             const url = new URL("https://www.youtube.com/watch?x=foo");
@@ -22,7 +23,7 @@ describe("core/scraper/youtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return playlist id", async function () {
@@ -97,7 +98,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return null when it's not a video from mobile",
+        it("should return undefined when it's not a video from mobile",
                                                              async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
 
@@ -106,7 +107,7 @@ describe("core/scraper/youtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video id from mobile", async function () {
@@ -126,7 +127,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return null when it's not a video from music",
+        it("should return undefined when it's not a video from music",
                                                              async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
 
@@ -135,7 +136,7 @@ describe("core/scraper/youtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video id from music", async function () {
@@ -192,7 +193,8 @@ describe("core/scraper/youtube.js", function () {
     });
 
     describe("extractPlaylist()", function () {
-        it("should return null when it's not a playlist", async function () {
+        it("should return undefined when it's not a playlist",
+                                                             async function () {
             browser.storage.local.set({ "youtube-order": "" });
 
             const url = new URL("https://www.youtube.com/playlist?v=foo");
@@ -200,7 +202,7 @@ describe("core/scraper/youtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractPlaylist(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return playlist id", async function () {
@@ -220,7 +222,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return null when it's not a playlist from mobile",
+        it("should return undefined when it's not a playlist from mobile",
                                                              async function () {
             browser.storage.local.set({ "youtube-order": "reverse" });
 
@@ -230,7 +232,7 @@ describe("core/scraper/youtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractPlaylist(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return playlist id from mobile", async function () {

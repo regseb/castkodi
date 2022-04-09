@@ -29,12 +29,12 @@ export const generateUrl = async function (videoId) {
  * Extrait le titre d'une vidéo Dailymotion.
  *
  * @param {URL} url L'URL utilisant le plugin de Dailymotion.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const action = async function ({ searchParams }) {
     return searchParams.has("url") ? labeller.extract(searchParams.get("url"))
-                                   : null;
+                                   : undefined;
 };
 export const extract = matchPattern(action,
     "plugin://plugin.video.dailymotion_com/*");

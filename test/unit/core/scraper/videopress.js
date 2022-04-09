@@ -4,11 +4,12 @@ import * as scraper from "../../../../src/core/scraper/videopress.js";
 
 describe("core/scraper/videopress.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://videopress.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -43,7 +44,7 @@ describe("core/scraper/videopress.js", function () {
             ]);
         });
 
-        it("should return null when video not found", async function () {
+        it("should return undefined when video not found", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 "",
                 { status: 404 },
@@ -52,7 +53,7 @@ describe("core/scraper/videopress.js", function () {
             const url = new URL("https://videopress.com/v/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

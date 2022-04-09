@@ -4,14 +4,15 @@ import * as scraper from "../../../../src/core/scraper/dmax.js";
 
 describe("core/scraper/dmax.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://dmax.de/tv-programm/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             const url = new URL("https://dmax.de/sendungen/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -21,10 +22,11 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when request is geoblocking", async function () {
+        it("should return undefined when request is geoblocking",
+                                                             async function () {
             const stub = sinon.stub(globalThis, "fetch")
                 .onFirstCall().resolves(new Response(JSON.stringify({
                     data: { attributes: { token: "foo" } },
@@ -43,7 +45,7 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 3);
             assert.deepStrictEqual(stub.firstCall.args, [
@@ -75,7 +77,7 @@ describe("core/scraper/dmax.js", function () {
             ]);
         });
 
-        it("should return null when no HLS video", async function () {
+        it("should return undefined when no HLS video", async function () {
             const stub = sinon.stub(globalThis, "fetch")
                 .onFirstCall().resolves(new Response(JSON.stringify({
                     data: { attributes: { token: "foo" } },
@@ -96,7 +98,7 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 3);
             assert.deepStrictEqual(stub.firstCall.args, [

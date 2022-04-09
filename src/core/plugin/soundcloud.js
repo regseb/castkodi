@@ -29,15 +29,15 @@ export const generateUrl = async function ({ href }) {
  * Extrait le titre d'un son SoundCloud.
  *
  * @param {URL} url L'URL utilisant le plugin de SoundCloud.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const action = async function ({ searchParams }) {
     if (searchParams.has("url")) {
         const href = decodeURIComponent(searchParams.get("url"));
         return labeller.extract(new URL(href));
     }
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action,
     "plugin://plugin.audio.soundcloud/play/*");

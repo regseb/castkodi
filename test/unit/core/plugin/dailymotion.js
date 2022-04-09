@@ -13,13 +13,13 @@ describe("core/plugin/dailymotion.js", function () {
     });
 
     describe("extract()", function () {
-        it("should return null when there isn't 'url' parameter",
+        it("should return undefined when there isn't 'url' parameter",
                                                              async function () {
             const url = new URL("plugin://plugin.video.dailymotion_com/" +
                                                                     "?foo=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
         });
 
         it("should return video label", async function () {

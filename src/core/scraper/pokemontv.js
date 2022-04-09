@@ -37,13 +37,14 @@ const API_URL = "https://www.pokemon.com/api/pokemontv/v2/channels/";
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Pokémon TV.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const action = async function ({ pathname, hash }) {
     const searchParams = new URLSearchParams(hash.slice(hash.indexOf("?")));
     if (!searchParams.has("id")) {
-        return null;
+        return undefined;
     }
     const id = searchParams.get("id");
 
@@ -57,7 +58,7 @@ const action = async function ({ pathname, hash }) {
         }
     }
 
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action,
     "*://watch.pokemon.com/*/#/player?*");

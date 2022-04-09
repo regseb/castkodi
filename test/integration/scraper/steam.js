@@ -51,7 +51,7 @@ describe("Scraper: Steam", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(null !== file &&
+        assert.ok(undefined !== file &&
                                 new URL(file).pathname.endsWith("/master.m3u8"),
                   `new URL("${file}").pathname.endsWith(...) from ${url}`);
     });

@@ -37,16 +37,18 @@ export const matchPattern = function (func, ...patterns) {
     const regexes = patterns.map(compile);
 
     /**
-     * Enrobe la fonction avec le filtre.
+     * Enrobe la fonction avec un filtre.
      *
      * @param {URL}   url    L'URL qui sera filtrée.
      * @param {any[]} others Les autres paramètres.
-     * @returns {Promise<?string>} Une promesse contenant le lien du
-     *                             <em>fichier</em> ou <code>null</code>.
+     * @returns {Promise<any|undefined>} Une promesse contenant le retour de la
+     *                                   fonction ; ou <code>undefined</code> si
+     *                                   l'URL ne respecte pas un des modèles de
+     *                                   correspondance.
      */
     const wrapped = (url, ...others) => {
         return regexes.some((r) => r.test(url.href)) ? func(url, ...others)
-                                                     : Promise.resolve(null);
+                                                     : Promise.resolve();
     };
     Object.defineProperty(wrapped, "name", {
         value:        func.name,

@@ -3,15 +3,16 @@ import * as scraper from "../../../../src/core/scraper/applepodcasts.js";
 
 describe("core/scraper/applepodcasts.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://podcasts.apple.com/us/artist" +
                                                              "/arte-radio/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not an audio", async function () {
+        it("should return undefined when it's not an audio", async function () {
             const url = new URL("https://podcasts.apple.com/us/podcast/foo/id");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -21,7 +22,7 @@ describe("core/scraper/applepodcasts.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return audio URL", async function () {

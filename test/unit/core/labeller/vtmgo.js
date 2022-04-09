@@ -46,7 +46,7 @@ describe("core/labeller/vtmgo.js", function () {
             ]);
         });
 
-        it("should return null when there isn't title", async function () {
+        it("should return undefined when there isn't title", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <body>
@@ -58,7 +58,7 @@ describe("core/labeller/vtmgo.js", function () {
             const movieId = "bar";
 
             const label = await labeller.extractMovie(movieId);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
@@ -88,7 +88,7 @@ describe("core/labeller/vtmgo.js", function () {
             ]);
         });
 
-        it("should return null when there isn't link", async function () {
+        it("should return undefined when there isn't link", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <body></body>
@@ -98,7 +98,7 @@ describe("core/labeller/vtmgo.js", function () {
             const channelId = "bar";
 
             const label = await labeller.extractChannel(channelId);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

@@ -51,21 +51,22 @@ export const extractEmbed = matchPattern(actionEmbed,
  *                                éventuellement un lecteur Dailymotion.
  * @param {Object}   content      Le contenu de l'URL.
  * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML ou <code>null</code>.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ *                                le document HTML ou <code>undefined</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  * @see https://developers.dailymotion.com/player/#player-embed-script
  */
 const actionPlayerScript = async function (_url, content) {
     const doc = await content.html();
-    if (null === doc) {
-        return null;
+    if (undefined === doc) {
+        return undefined;
     }
 
     const script = doc.querySelector(`script[src^="https://geo.dailymotion` +
                                                   `.com/player/"][data-video]`);
     if (null === script) {
-        return null;
+        return undefined;
     }
     return plugin.generateUrl(script.dataset.video);
 };
@@ -75,14 +76,15 @@ export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'un lecteur Dailymotion avec sa vidéo.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  * @see https://developers.dailymotion.com/player/#player-iframe-embed
  */
 const actionPlayerIframe = async function ({ searchParams }) {
     return searchParams.has("video")
                                  ? plugin.generateUrl(searchParams.get("video"))
-                                 : null;
+                                 : undefined;
 };
 export const extractPlayerIframe = matchPattern(actionPlayerIframe,
     "*://geo.dailymotion.com/player/*");

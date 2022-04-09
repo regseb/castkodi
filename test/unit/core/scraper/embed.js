@@ -3,16 +3,17 @@ import * as scraper from "../../../../src/core/scraper/embed.js";
 
 describe("core/scraper/embed.js", function () {
     describe("extract()", function () {
-        it("should return null when it's not a HTML page", async function () {
+        it("should return undefined when it's not a HTML page",
+                                                             async function () {
             const url = new URL("https://foo.com/bar.zip");
-            const content = { html: () => Promise.resolve(null) };
+            const content = { html: () => Promise.resolve(undefined) };
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't embed", async function () {
+        it("should return undefined when there isn't embed", async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -23,7 +24,7 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return URL from video embed", async function () {
@@ -75,7 +76,7 @@ describe("core/scraper/embed.js", function () {
                 "plugin://plugin.video.vimeo/play/?video_id=baz");
         });
 
-        it("should return null when it's depth", async function () {
+        it("should return undefined when it's depth", async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -88,7 +89,7 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: true, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return URL from second embed", async function () {

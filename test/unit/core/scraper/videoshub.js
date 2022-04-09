@@ -3,23 +3,26 @@ import * as scraper from "../../../../src/core/scraper/videoshub.js";
 
 describe("core/scraper/videoshub.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://videoshub.com/");
             const content = undefined;
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it isn't a HTML page", async function () {
+        it("should return undefined when it isn't a HTML page",
+                                                             async function () {
             const url = new URL("https://videoshub.com/videos/");
-            const content = { html: () => Promise.resolve(null) };
+            const content = { html: () => Promise.resolve(undefined) };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it isn't a video page", async function () {
+        it("should return undefined when it isn't a video page",
+                                                             async function () {
             const url = new URL("https://videoshub.com/videos/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -31,8 +34,9 @@ describe("core/scraper/videoshub.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
+
         it("should return video URL", async function () {
             const url = new URL("https://videoshub.com/videos/foo");
             const content = {

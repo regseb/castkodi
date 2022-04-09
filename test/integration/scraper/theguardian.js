@@ -4,7 +4,7 @@ import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: The Guardian", function () {
-    it("should return null when it's not a video / audio", async function () {
+    it("should return URL when it's not a video / audio", async function () {
         const url = new URL("https://www.theguardian.com/technology/2019/nov" +
                                      "/17/firefox-mozilla-fights-back-against" +
                                       "-google-chrome-dominance-privacy-fears");

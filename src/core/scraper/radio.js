@@ -18,8 +18,9 @@ const URL_REGEXP = /^ *station: *(?<station>\{.+\}),$/mu;
  * @param {Object}   content      Le contenu de l'URL.
  * @param {Function} content.html La fonction retournant la promesse contenant
  *                                le document HTML.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const action = async function (_url, content) {
     const doc = await content.html();
@@ -29,7 +30,7 @@ const action = async function (_url, content) {
             return JSON.parse(result.groups.station).streams[0].url;
         }
     }
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action,
     "*://*.radio.net/s/*",

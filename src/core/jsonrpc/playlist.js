@@ -100,8 +100,9 @@ export const Playlist = class {
      * Récupère un élément de la liste de lecture.
      *
      * @param {number} position La position de l'élément.
-     * @returns {Promise<?Object>} Une promesse contenant l'élement de la liste
-     *                             de lecture ou <code>null</code>.
+     * @returns {Promise<Object|undefined>} Une promesse contenant l'élement de
+     *                                      la liste de lecture ou
+     *                                      <code>undefined</code>.
      */
     async getItem(position) {
         const results = await this.#kodi.send("Playlist.GetItems", {
@@ -109,7 +110,7 @@ export const Playlist = class {
             properties: ["file", "title"],
             limits:     { start: position, end: position + 1 },
         });
-        return results.items?.[0] ?? null;
+        return results.items?.[0];
     }
 
     /**

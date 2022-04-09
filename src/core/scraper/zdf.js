@@ -11,14 +11,15 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {Object}   content      Le contenu de l'URL.
  * @param {Function} content.html La fonction retournant la promesse contenant
  *                                le document HTML.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const action = async function (_url, content) {
     const doc = await content.html();
     const button = doc.querySelector("button.download-btn[data-dialog]");
     if (null === button) {
-        return null;
+        return undefined;
     }
 
     const { contentUrl, apiToken } = JSON.parse(button.dataset.dialog);

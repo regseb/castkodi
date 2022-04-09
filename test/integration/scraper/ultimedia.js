@@ -6,7 +6,7 @@ describe("Scraper: Ultimedia", function () {
     before(function () {
         // Désactiver les tests d'Ultimedia en dehors de la France car les pages
         // sont en "maintenance" dans les autres pays.
-        if (null !== config.country && "fr" !== config.country) {
+        if (undefined !== config.country && "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this
             this.skip();
         }
@@ -27,7 +27,7 @@ describe("Scraper: Ultimedia", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(undefined !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
@@ -37,7 +37,7 @@ describe("Scraper: Ultimedia", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(undefined !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
@@ -47,7 +47,7 @@ describe("Scraper: Ultimedia", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(undefined !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 });

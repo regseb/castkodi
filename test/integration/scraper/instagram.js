@@ -6,7 +6,7 @@ describe("Scraper: Instagram", function () {
     before(function () {
         // Désactiver les tests d'Instagram en dehors de la France car pour les
         // autres pays, il faut être connecté pour consulter les publications.
-        if (null !== config.country && "fr" !== config.country) {
+        if (undefined !== config.country && "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this
             this.skip();
         }
@@ -25,7 +25,7 @@ describe("Scraper: Instagram", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(undefined !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 
@@ -35,7 +35,7 @@ describe("Scraper: Instagram", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(null !== file && new URL(file).pathname.endsWith(".mp4"),
+        assert.ok(undefined !== file && new URL(file).pathname.endsWith(".mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 });

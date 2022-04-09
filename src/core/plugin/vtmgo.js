@@ -51,8 +51,8 @@ export const generateChannelUrl = async function (channelId) {
  * Extrait le titre d'un épisode VTM GO.
  *
  * @param {URL} url L'URL utilisant le plugin de VTM GO.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const actionEpisode = async function ({ pathname }) {
     // Enlever le nom de domaine car un bogue dans Firefox le déplace dans le
@@ -67,8 +67,8 @@ export const extractEpisode = matchPattern(actionEpisode,
  * Extrait le titre d'un film VTM GO.
  *
  * @param {URL} url L'URL utilisant le plugin de VTM GO.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const actionMovie = async function ({ pathname }) {
     // Enlever le nom de domaine car un bogue dans Firefox le déplace dans le
@@ -83,8 +83,8 @@ export const extractMovie = matchPattern(actionMovie,
  * Extrait le titre d'une chaine VTM GO.
  *
  * @param {URL} url L'URL utilisant le plugin de VTM GO.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const actionChannel = async function ({ pathname }) {
     // Enlever le nom de domaine car un bogue dans Firefox le déplace dans le

@@ -4,11 +4,12 @@ import * as scraper from "../../../../src/core/scraper/vidyard.js";
 
 describe("core/scraper/vidyard.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.vidyard.com/video-hosting/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL from vyContext", async function () {

@@ -5,14 +5,15 @@ import * as scraper from "../../../../src/core/scraper/lepoint.js";
 
 describe("core/scraper/lepoint.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://moncompte.lepoint.fr/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             const url = new URL("https://www.lepoint.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -23,10 +24,10 @@ describe("core/scraper/lepoint.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's depther", async function () {
+        it("should return undefined when it's depther", async function () {
             const url = new URL("https://www.lepoint.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -40,7 +41,7 @@ describe("core/scraper/lepoint.js", function () {
             const options = { depth: true, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL", async function () {

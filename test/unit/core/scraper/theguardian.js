@@ -5,15 +5,16 @@ import * as scraper from "../../../../src/core/scraper/theguardian.js";
 
 describe("core/scraper/theguardian.js", function () {
     describe("extractVideo()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://support.theguardian.com/eu" +
                                                                  "/contribute");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             const url = new URL("https://www.theguardian.com/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -24,7 +25,7 @@ describe("core/scraper/theguardian.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -77,15 +78,16 @@ describe("core/scraper/theguardian.js", function () {
     });
 
     describe("extractAudio()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://support.theguardian.com/eu" +
                                                                  "/contribute");
 
             const file = await scraper.extractAudio(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not an audio", async function () {
+        it("should return undefined when it's not an audio", async function () {
             const url = new URL("https://www.theguardian.com/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -95,7 +97,7 @@ describe("core/scraper/theguardian.js", function () {
             };
 
             const file = await scraper.extractAudio(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return audio URL", async function () {

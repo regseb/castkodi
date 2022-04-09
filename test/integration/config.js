@@ -1,3 +1,3 @@
 export const config = {
-    country: process.env.COUNTRY ?? null,
+    country: process.env.COUNTRY,
 };

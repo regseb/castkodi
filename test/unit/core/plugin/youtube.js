@@ -156,21 +156,21 @@ describe("core/plugin/youtube.js", function () {
     });
 
     describe("extract()", function () {
-        it("should return null when there isn't parameter from YouTube",
+        it("should return undefined when there isn't parameter from YouTube",
                                                              async function () {
             const url = new URL("plugin://plugin.video.youtube/play/");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
         });
 
-        it("should return null when there isn't parameter from Tubed",
+        it("should return undefined when there isn't parameter from Tubed",
                                                              async function () {
             const url = new URL("plugin://plugin.video.tubed/" +
                                                           "?mode=play&foo=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
         });
 
         it("should return video label", async function () {

@@ -50,7 +50,7 @@ export const complete = async function (item) {
                                                   : item.file);
     for (const plugin of PLUGINS) {
         const label = await plugin(url);
-        if (null !== label) {
+        if (undefined !== label) {
             return { ...item, label };
         }
     }

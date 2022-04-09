@@ -99,14 +99,14 @@ describe("core/jsonrpc/playlist.js", function () {
             ]);
         });
 
-        it("should return null when no item", async function () {
+        it("should return undefined when no item", async function () {
             const kodi = new Kodi();
             const stub = sinon.stub(kodi, "send").resolves({});
 
             const playlist = new Playlist(kodi);
             const position = 42;
             const result = await playlist.getItem(position);
-            assert.strictEqual(result, null);
+            assert.strictEqual(result, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

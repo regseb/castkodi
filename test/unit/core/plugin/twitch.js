@@ -28,11 +28,12 @@ describe("core/plugin/twitch.js", function () {
     });
 
     describe("extract()", function () {
-        it("should return null when there isn't parameter", async function () {
+        it("should return undefined when there isn't parameter",
+                                                             async function () {
             const url = new URL("plugin://plugin.video.twitch/");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
         });
 
         it("should return live label", async function () {

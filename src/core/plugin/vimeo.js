@@ -32,12 +32,12 @@ export const generateUrl = async function (videoId, hash) {
  * Extrait le titre d'une vidéo Vimeo.
  *
  * @param {URL} url Une URL utilisant le plugin de Vimeo.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const action = async function ({ searchParams }) {
     if (!searchParams.has("video_id")) {
-        return null;
+        return undefined;
     }
 
     const [videoId, hash] = searchParams.get("video_id").split(":");

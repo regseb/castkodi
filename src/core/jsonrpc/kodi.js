@@ -80,27 +80,27 @@ export const Kodi = class {
 
     /**
      * L'adresse IP ou l'adresse complète du service de Kodi ; ou
-     * <code>null</code> pour récupérer l'adresse dans la configuration.
+     * <code>undefined</code> pour récupérer l'adresse dans la configuration.
      *
-     * @type {?string}
+     * @type {string|undefined}
      */
     #address;
 
     /**
-     * L'URL du service de Kodi ; ou <code>null</code> si l'URL n'a pas encore
-     * été déterminée.
+     * L'URL du service de Kodi ; ou <code>undefined</code> si l'URL n'a pas
+     * encore été déterminée.
      *
-     * @type {?URL}
+     * @type {URL|undefined}
      */
-    #url = null;
+    #url;
 
     /**
-     * Le client connecté au service de Kodi ; ou <code>null</code> si le n'est
-     * pas connecté.
+     * Le client connecté au service de Kodi ; ou <code>undefined</code> si le
+     * n'est pas connecté.
      *
-     * @type {?JSONRPC}
+     * @type {JSONRPC|undefined}
      */
-    #jsonrpc = null;
+    #jsonrpc;
 
     /**
      * Le client JSON-RPC pour contacter l'espace de nom <em>Addons</em> de
@@ -159,20 +159,21 @@ export const Kodi = class {
     /**
      * Crée un client JSON-RPC pour contacter Kodi.
      *
-     * @param {?string} [address] L'adresse IP ou l'adresse complète du service
-     *                            de Kodi ; ou <code>null</code> pour récupérer
-     *                            l'adresse dans la configuration.
+     * @param {string} [address] L'adresse IP ou l'adresse complète du service
+     *                           de Kodi ; ou si elle n'est pas fournie :
+     *                           récupérer l'adresse dans la configuration.
      */
-    constructor(address = null) {
+    constructor(address) {
         this.#address = address;
     }
 
     /**
-     * Retourne l'URL du service de Kodi ; ou <code>null</code> si l'URL n'a pas
-     * encore été déterminée.
+     * Retourne l'URL du service de Kodi ; ou <code>undefined</code> si l'URL
+     * n'a pas encore été déterminée.
      *
-     * @returns {?URL} L'URL du service de Kodi ; ou <code>null</code> si l'URL
-     *                 n'a pas encore été déterminée.
+     * @returns {URL|undefined} L'URL du service de Kodi ; ou
+     *                          <code>undefined</code> si l'URL n'a pas encore
+     *                          été déterminée.
      */
     get url() {
         return this.#url;
@@ -259,9 +260,9 @@ export const Kodi = class {
      * Ferme la connexion.
      */
     close() {
-        if (null !== this.#jsonrpc) {
+        if (undefined !== this.#jsonrpc) {
             this.#jsonrpc.close();
-            this.#jsonrpc = null;
+            this.#jsonrpc = undefined;
         }
     }
 
@@ -273,10 +274,10 @@ export const Kodi = class {
      * @returns {Promise<any>} Une promesse contenant le résultat de Kodi.
      */
     async send(method, params) {
-        if (null === this.#jsonrpc) {
+        if (undefined === this.#jsonrpc) {
             let address;
             // S'il faut récupérer l'adresse dans la configuration.
-            if (null === this.#address) {
+            if (undefined === this.#address) {
                 const config = await browser.storage.local.get([
                     "server-list",
                     "server-active",
@@ -291,7 +292,7 @@ export const Kodi = class {
             try {
                 this.#jsonrpc = await JSONRPC.open(this.#url);
                 this.#jsonrpc.addEventListener("close", () => {
-                    this.#jsonrpc = null;
+                    this.#jsonrpc = undefined;
                 });
                 this.#jsonrpc.addEventListener("notification", (event) => {
                     this.#application.handleNotification(event);

@@ -3,11 +3,12 @@ import * as scraper from "../../../../src/core/scraper/soundcloud.js";
 
 describe("core/scraper/soundcloud.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://developers.soundcloud.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return audio url", async function () {

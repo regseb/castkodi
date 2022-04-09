@@ -15,13 +15,14 @@ const API_URL = "https://www.veoh.com/watch/getVideo/";
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Veoh.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const action = async function ({ pathname }) {
     const response = await fetch(API_URL + pathname.slice(7));
     const json = await response.json();
     return json.success && "" !== json.video.src.HQ ? json.video.src.HQ
-                                                    : null;
+                                                    : undefined;
 };
 export const extract = matchPattern(action, "*://www.veoh.com/watch/*");

@@ -17,26 +17,27 @@ const API_URL = "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition" +
  * Appelle l'API de Play SRF pour en récupérer l'URL de la vidéo.
  *
  * @param {string} urn L'URN (Uniform Resource Name) d'une vidéo de Play SRF.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const getVideoUrl = async function (urn) {
     const response = await fetch(API_URL + urn);
     const json = await response.json();
-    return json.chapterList?.[0].resourceList[0].analyticsMetadata.media_url ??
-                                                                           null;
+    return json.chapterList?.[0].resourceList[0].analyticsMetadata.media_url;
 };
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo de Play SRF.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionVideo = async function ({ searchParams }) {
     if (!searchParams.has("urn")) {
-        return null;
+        return undefined;
     }
 
     return getVideoUrl(searchParams.get("urn"));
@@ -48,8 +49,9 @@ export const extractVideo = matchPattern(actionVideo,
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une page de redirection vers une vidéo de Play SRF.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionRedirect = async function ({ pathname }) {
     return getVideoUrl("urn:srf:video:" + pathname.slice(25));

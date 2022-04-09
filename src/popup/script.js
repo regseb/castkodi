@@ -26,16 +26,16 @@ let speed = 0;
 /**
  * L'identifiant de l'intervalle faisant avancer la barre de progression.
  *
- * @type {?Timeout}
+ * @type {Timeout|undefined}
  */
-let interval = null;
+let interval;
 
 /**
  * L'élément de la liste de lecture en cours de déplacement.
  *
- * @type {?HTMLLIElement}
+ * @type {HTMLLIElement|undefined}
  */
-let dragItem = null;
+let dragItem;
 
 const splash = function (err) {
     const article = document.querySelector("#splash");

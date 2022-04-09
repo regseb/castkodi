@@ -20,7 +20,8 @@ describe("Scraper: Bigo Live", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(null !== file && new URL(file).pathname.endsWith(".m3u8"),
+        assert.ok(undefined !== file &&
+                                       new URL(file).pathname.endsWith(".m3u8"),
                   `new URL("${file}").pathname.endsWith(...) from ${url}`);
     });
 
@@ -35,7 +36,8 @@ describe("Scraper: Bigo Live", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(null !== file && new URL(file).pathname.endsWith(".m3u8"),
+        assert.ok(undefined !== file &&
+                                       new URL(file).pathname.endsWith(".m3u8"),
                   `new URL("${file}").pathname.endsWith(...) from ${url}`);
     });
 

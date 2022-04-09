@@ -3,15 +3,16 @@ import * as scraper from "../../../../src/core/scraper/media.js";
 
 describe("core/scraper/media.js", function () {
     describe("extract()", function () {
-        it("should return null when it's not a HTML page", async function () {
+        it("should return undefined when it's not a HTML page",
+                                                             async function () {
             const url = new URL("https://foo.com");
-            const content = { html: () => Promise.resolve(null) };
+            const content = { html: () => Promise.resolve(undefined) };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't video or audio",
+        it("should return undefined when there isn't video or audio",
                                                              async function () {
             const url = new URL("https://foo.com");
             const content = {
@@ -22,10 +23,10 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when src is invalid", async function () {
+        it("should return undefined when src is invalid", async function () {
             const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -50,7 +51,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL", async function () {

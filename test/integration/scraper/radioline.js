@@ -2,7 +2,7 @@ import assert from "node:assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Radioline", function () {
-    it("should return null when it's not an audio", async function () {
+    it("should return URL when it's not an audio", async function () {
         const url = new URL("https://fr-fr.radioline.co/qui-sommes-nous");
         const options = { depth: false, incognito: false };
 

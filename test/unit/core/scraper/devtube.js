@@ -5,13 +5,14 @@ import * as scraper from "../../../../src/core/scraper/devtube.js";
 
 describe("core/scraper/devtube.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://dev.tube/@codingandrey");
             const content = undefined;
             const options = { incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video id with YouTube", async function () {

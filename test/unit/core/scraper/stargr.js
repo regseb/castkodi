@@ -5,14 +5,15 @@ import * as scraper from "../../../../src/core/scraper/stargr.js";
 
 describe("core/scraper/stargr.js", function () {
     describe("extractTv()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://disney.fr/disney-plus-star");
 
             const file = await scraper.extractTv(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             const url = new URL("https://www.star.gr/tv/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -25,7 +26,7 @@ describe("core/scraper/stargr.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractTv(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -50,14 +51,15 @@ describe("core/scraper/stargr.js", function () {
     });
 
     describe("extractVideo()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://disney.fr/disney-plus-star");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             const url = new URL("https://www.star.gr/video/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -71,7 +73,7 @@ describe("core/scraper/stargr.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video YouTube id", async function () {

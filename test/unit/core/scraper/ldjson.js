@@ -3,16 +3,18 @@ import * as scraper from "../../../../src/core/scraper/ldjson.js";
 
 describe("core/scraper/ldjson.js", function () {
     describe("extract()", function () {
-        it("should return null when it's not a HTML page", async function () {
+        it("should return undefined when it's not a HTML page",
+                                                             async function () {
             const url = new URL("https://foo.com");
-            const content = { html: () => Promise.resolve(null) };
+            const content = { html: () => Promise.resolve(undefined) };
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there is not microdata", async function () {
+        it("should return undefined when there is not microdata",
+                                                             async function () {
             const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -23,10 +25,10 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when JSON is invalid", async function () {
+        it("should return undefined when JSON is invalid", async function () {
             const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -39,10 +41,10 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't type", async function () {
+        it("should return undefined when there isn't type", async function () {
             const url = new URL("http://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -59,10 +61,11 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't content", async function () {
+        it("should return undefined when there isn't content",
+                                                             async function () {
             const url = new URL("http://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -78,7 +81,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return contentUrl", async function () {
@@ -170,7 +173,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
     });
 });

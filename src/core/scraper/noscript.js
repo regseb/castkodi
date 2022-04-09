@@ -24,19 +24,20 @@ const GENERIC_EXTRACTS = [mediaExtract, ldjsonExtract, iframeExtract];
  * @param {Object}   content           Le contenu de l'URL.
  * @param {Function} content.html      La fonction retournant la promesse
  *                                     contenant le document HTML ou
- *                                     <code>null</code>.
+ *                                     <code>undefined</code>.
  * @param {Object}   options           Les options de l'extraction.
  * @param {boolean}  options.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const action = async function (url, content, options) {
     const doc = await content.html();
-    if (null === doc) {
-        return null;
+    if (undefined === doc) {
+        return undefined;
     }
 
     for (const noscript of doc.querySelectorAll("noscript")) {
@@ -50,11 +51,11 @@ const action = async function (url, content, options) {
         };
         for (const genericExtract of GENERIC_EXTRACTS) {
             const file = await genericExtract(url, subcontent, options);
-            if (null !== file) {
+            if (undefined !== file) {
                 return file;
             }
         }
     }
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action, "*://*/*");

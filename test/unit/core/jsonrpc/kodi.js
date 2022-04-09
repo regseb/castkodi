@@ -69,9 +69,9 @@ describe("core/jsonrpc/kodi.js", function () {
     });
 
     describe("get url()", function () {
-        it("should return null when url isn't built", function () {
+        it("should return undefined when url isn't built", function () {
             const kodi = new Kodi("localhost");
-            assert.strictEqual(kodi.url, null);
+            assert.strictEqual(kodi.url, undefined);
         });
 
         it("should return URL when url is built", async function () {

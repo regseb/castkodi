@@ -10,14 +10,15 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Extrait les informations nécessaire pour lire un clip sur Kodi.
  *
  * @param {URL} url L'URL d'un clip Twitch.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionClip = async function ({ pathname, searchParams }) {
     if (pathname.startsWith("/embed")) {
         return searchParams.has("clip")
                               ? plugin.generateClipUrl(searchParams.get("clip"))
-                              : null;
+                              : undefined;
     }
     return plugin.generateClipUrl(pathname.slice(1));
 };
@@ -28,8 +29,9 @@ export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
  * intégré sur Kodi.
  *
  * @param {URL} url L'URL d'un <em>live</em> ou d'une vidéo intégré.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionEmbed = async function ({ searchParams }) {
     if (searchParams.has("channel")) {
@@ -38,7 +40,7 @@ const actionEmbed = async function ({ searchParams }) {
     if (searchParams.has("video")) {
         return plugin.generateVideoUrl(searchParams.get("video"));
     }
-    return null;
+    return undefined;
 };
 export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
 

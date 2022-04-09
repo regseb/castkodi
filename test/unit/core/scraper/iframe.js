@@ -3,16 +3,17 @@ import * as scraper from "../../../../src/core/scraper/iframe.js";
 
 describe("core/scraper/iframe.js", function () {
     describe("extract()", function () {
-        it("should return null when it's not a HTML page", async function () {
+        it("should return undefined when it's not a HTML page",
+                                                             async function () {
             const url = new URL("https://foo.com/bar.zip");
-            const content = { html: () => Promise.resolve(null) };
+            const content = { html: () => Promise.resolve(undefined) };
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's depth", async function () {
+        it("should return undefined when it's depth", async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -26,10 +27,11 @@ describe("core/scraper/iframe.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't iframe", async function () {
+        it("should return undefined when there isn't iframe",
+                                                             async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -40,7 +42,7 @@ describe("core/scraper/iframe.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return URL from iframe", async function () {

@@ -19,12 +19,13 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const action = async function (_url, content, options) {
     if (options.depth) {
-        return null;
+        return undefined;
     }
 
     const doc = await content.html();
@@ -45,6 +46,6 @@ const action = async function (_url, content, options) {
                            { ...options, depth: true });
     }
 
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action, "*://www.lemonde.fr/*");

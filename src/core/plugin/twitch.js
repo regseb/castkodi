@@ -51,8 +51,8 @@ export const generateClipUrl = async function (clipId) {
  * Extrait le titre d'un <em>live</em>, d'une vidéo, ou d'un clip Twitch.
  *
  * @param {URL} url L'URL utilisant le plugin de Twitch.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const action = async function ({ searchParams }) {
     if (searchParams.has("channel_name")) {
@@ -64,6 +64,6 @@ const action = async function ({ searchParams }) {
     if (searchParams.has("slug")) {
         return labeller.extractClip(searchParams.get("slug"));
     }
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action, "plugin://plugin.video.twitch/*");

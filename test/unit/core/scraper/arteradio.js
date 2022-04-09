@@ -3,11 +3,12 @@ import * as scraper from "../../../../src/core/scraper/arteradio.js";
 
 describe("core/scraper/arteradio.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.arteradio.com/content/au_hasard");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return audio URL", async function () {

@@ -4,21 +4,22 @@ import * as scraper from "../../../../src/core/scraper/srf.js";
 
 describe("core/scraper/srf.js", function () {
     describe("extractVideo()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.srf.ch/foo");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't urn", async function () {
+        it("should return undefined when there isn't urn", async function () {
             const url = new URL("https://www.srf.ch/play/tv/foo/video/bar");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when urn is invalid", async function () {
+        it("should return undefined when urn is invalid", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({ status: "foo" }),
             ));
@@ -27,7 +28,7 @@ describe("core/scraper/srf.js", function () {
                                                                     "?urn=qux");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
@@ -65,14 +66,15 @@ describe("core/scraper/srf.js", function () {
     });
 
     describe("extractRedirect()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.srf.ch/play/tv/redirect/foo");
 
             const file = await scraper.extractRedirect(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when urn is invalid", async function () {
+        it("should return undefined when urn is invalid", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({ status: "foo" }),
             ));
@@ -81,7 +83,7 @@ describe("core/scraper/srf.js", function () {
                                                                         "/bar");
 
             const file = await scraper.extractRedirect(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

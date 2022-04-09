@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Arte", function () {
     before(function () {
-        if (null !== config.country && "de" !== config.country &&
+        if (undefined !== config.country && "de" !== config.country &&
                 "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this
             this.skip();

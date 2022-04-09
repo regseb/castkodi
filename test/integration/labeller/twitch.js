@@ -24,8 +24,8 @@ describe("Labeller: Twitch", function () {
             type:     "unknown",
         });
         assert.strictEqual(item.file, file);
-        assert.notStrictEqual(item.label, null, `from ${url}`);
-        assert.notStrictEqual(item.label, "",   `from ${url}`);
+        assert.strictEqual(typeof item.label, "string", `from ${url}`);
+        assert.notStrictEqual(item.label, "", `from ${url}`);
         assert.strictEqual(item.position, 0);
         assert.strictEqual(item.title, "");
         assert.strictEqual(item.type, "unknown");
@@ -75,7 +75,7 @@ describe("Labeller: Twitch", function () {
             type:     "unknown",
         });
         assert.strictEqual(item.file, file);
-        assert.notStrictEqual(item.label, null, `from ${url}`);
+        assert.strictEqual(typeof item.label, "string", `from ${url}`);
         assert.notStrictEqual(item.label, "",   `from ${url}`);
         assert.strictEqual(item.position, 0);
         assert.strictEqual(item.title, "");

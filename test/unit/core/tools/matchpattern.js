@@ -55,7 +55,7 @@ describe("tools/matchpattern.js", function () {
             let result = await wrapped(new URL("http://bar.com/"));
             assert.strictEqual(result, "foo");
             result = await wrapped(new URL("http://baz.org/"));
-            assert.strictEqual(result, null);
+            assert.strictEqual(result, undefined);
 
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [
@@ -74,7 +74,7 @@ describe("tools/matchpattern.js", function () {
             result = await wrapped(new URL("http://baz.io/"));
             assert.strictEqual(result, "foo");
             result = await wrapped(new URL("http://qux.org/"));
-            assert.strictEqual(result, null);
+            assert.strictEqual(result, undefined);
 
             assert.strictEqual(fake.callCount, 2);
             assert.deepStrictEqual(fake.firstCall.args, [
@@ -94,7 +94,7 @@ describe("tools/matchpattern.js", function () {
             result = await wrapped(new URL("http://bar.com/"), "baz", "qux");
             assert.strictEqual(result, "foo");
             result = await wrapped(new URL("http://quux.org/"), "corge");
-            assert.strictEqual(result, null);
+            assert.strictEqual(result, undefined);
 
             assert.strictEqual(fake.callCount, 2);
             assert.deepStrictEqual(fake.firstCall.args, [

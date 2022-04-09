@@ -3,11 +3,11 @@ import * as scraper from "../../../../src/core/scraper/twitch.js";
 
 describe("core/scraper/twitch.js", function () {
     describe("extractClip()", function () {
-        it("should return null when it's not a clip", async function () {
+        it("should return undefined when it's not a clip", async function () {
             const url = new URL("https://clips.twitch.tv/embed?noclip=foo");
 
             const file = await scraper.extractClip(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return embed clip name", async function () {
@@ -36,12 +36,12 @@ describe("core/scraper/twitch.js", function () {
     });
 
     describe("extractEmbed()", function () {
-        it("should return null when it's not channel or video",
+        it("should return undefined when it's not channel or video",
                                                              async function () {
             const url = new URL("https://player.twitch.tv/?other=foo");
 
             const file = await scraper.extractEmbed(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return channel name", async function () {
@@ -62,11 +62,12 @@ describe("core/scraper/twitch.js", function () {
     });
 
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://app.twitch.tv/download");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video id", async function () {

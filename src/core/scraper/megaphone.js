@@ -22,13 +22,14 @@ export const extractPlayer = matchPattern(actionPlayer,
  * Extrait les informations nécessaire pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son (d'une liste de lecture) de Megaphone.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionPlaylist = async function ({ searchParams }) {
     return searchParams.has("e")
                        ? `https://dcs.megaphone.fm/${searchParams.get("e")}.mp3`
-                       : null;
+                       : undefined;
 };
 export const extractPlaylist = matchPattern(actionPlaylist,
     "*://playlist.megaphone.fm/*");

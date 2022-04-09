@@ -22,7 +22,7 @@ describe("core/scrapers.js", function () {
             assert.strictEqual(typeof stub.firstCall.args[1], "object");
         });
 
-        it("should return null when it's not supported and depther",
+        it("should return undefined when it's not supported and depther",
                                                              async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 "",
@@ -33,7 +33,7 @@ describe("core/scrapers.js", function () {
             const options = { depth: true, incognito: false };
 
             const file = await extract(url, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.strictEqual(stub.firstCall.args.length, 2);
@@ -111,6 +111,9 @@ describe("core/scrapers.js", function () {
             const stubFetch = sinon.stub(globalThis, "fetch")
                                    .resolves(new Response(""));
             const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
+                // Tester aussi avec null car c'est une valeur retournée par
+                // Chromium.
+                // eslint-disable-next-line unicorn/no-null
                 .onFirstCall().resolves([undefined, null])
                 .onSecondCall().resolves([undefined, "http://foo.fr/baz.mp4"]);
 

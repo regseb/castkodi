@@ -29,14 +29,14 @@ export const generateUrl = async function ({ href }) {
  * Extrait le titre d'une vidéo Dumpert.
  *
  * @param {URL} url L'URL utilisant le plugin de Dumpert.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const action = async function ({ searchParams }) {
     if (searchParams.has("video_page_url")) {
         const href = decodeURIComponent(searchParams.get("video_page_url"));
         return labeller.extract(new URL(href));
     }
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action, "plugin://plugin.video.dumpert/*");

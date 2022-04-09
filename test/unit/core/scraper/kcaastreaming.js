@@ -3,11 +3,12 @@ import * as scraper from "../../../../src/core/scraper/kcaastreaming.js";
 
 describe("core/scraper/kcaastreaming.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("http://www.kcaaradio.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return audio URL", async function () {

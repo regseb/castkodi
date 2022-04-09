@@ -3,23 +3,26 @@ import * as scraper from "../../../../src/core/scraper/futurasciences.js";
 
 describe("core/scraper/futurasciences.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://cdn.futura-sciences.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a HTML page", async function () {
+        it("should return undefined when it's not a HTML page",
+                                                             async function () {
             const url = new URL("https://www.futura-sciences.com/favicon.png");
-            const content = { html: () => Promise.resolve(null) };
+            const content = { html: () => Promise.resolve(undefined) };
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't iframe", async function () {
+        it("should return undefined when there isn't iframe",
+                                                             async function () {
             const url = new URL("https://www.futura-sciences.com/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -30,7 +33,7 @@ describe("core/scraper/futurasciences.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return URL from iframe", async function () {

@@ -4,14 +4,15 @@ import * as scraper from "../../../../src/core/scraper/steam.js";
 
 describe("core/scraper/steam.js", function () {
     describe("extractGame()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://store.steampowered.com/stats/");
 
             const file = await scraper.extractGame(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             const url = new URL("https://store.steampowered.com/app/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -21,7 +22,7 @@ describe("core/scraper/steam.js", function () {
             };
 
             const file = await scraper.extractGame(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -42,7 +43,7 @@ describe("core/scraper/steam.js", function () {
     });
 
     describe("extractBroadcast()", function () {
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({}),
             ));
@@ -51,7 +52,7 @@ describe("core/scraper/steam.js", function () {
                                                                         "/foo");
 
             const file = await scraper.extractBroadcast(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

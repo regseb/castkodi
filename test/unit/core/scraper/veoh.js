@@ -4,14 +4,16 @@ import * as scraper from "../../../../src/core/scraper/veoh.js";
 
 describe("core/scraper/veoh.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.veoh.com/list-c/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when page doesn't exist", async function () {
+        it("should return undefined when page doesn't exist",
+                                                             async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({ success: false }),
             ));
@@ -19,7 +21,7 @@ describe("core/scraper/veoh.js", function () {
             const url = new URL("https://www.veoh.com/watch/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
@@ -27,7 +29,7 @@ describe("core/scraper/veoh.js", function () {
             ]);
         });
 
-        it("should return null when there isn't video", async function () {
+        it("should return undefined when there isn't video", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({ success: true, video: { src: { HQ: "" } } }),
             ));
@@ -35,7 +37,7 @@ describe("core/scraper/veoh.js", function () {
             const url = new URL("https://www.veoh.com/watch/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

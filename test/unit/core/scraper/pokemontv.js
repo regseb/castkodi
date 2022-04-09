@@ -4,19 +4,21 @@ import * as scraper from "../../../../src/core/scraper/pokemontv.js";
 
 describe("core/scraper/pokemontv.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://watch.pokemon.com/fr-fr/#/season" +
                                             "?id=la-serie-pokemon-les-voyages");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when video is unavailable", async function () {
+        it("should return undefined when video is unavailable",
+                                                             async function () {
             const url = new URL("https://watch.pokemon.com/fr-fr/#/player?");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return french video URL", async function () {
@@ -75,7 +77,7 @@ describe("core/scraper/pokemontv.js", function () {
             ]);
         });
 
-        it("should return null when id not found", async function () {
+        it("should return undefined when id not found", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify([
                     {
@@ -92,7 +94,7 @@ describe("core/scraper/pokemontv.js", function () {
                                                                      "?id=bar");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

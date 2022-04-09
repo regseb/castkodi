@@ -3,11 +3,12 @@ import * as scraper from "../../../../src/core/scraper/vimeo.js";
 
 describe("core/scraper/vimeo.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://vimeo.com/channels");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video id", async function () {

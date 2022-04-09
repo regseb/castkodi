@@ -18,13 +18,14 @@ const URL_REGEXP = /hls\.loadSource\('(?<url>[^']+)'\)/u;
  * @param {Object}   content      Le contenu de l'URL.
  * @param {Function} content.html La fonction retournant la promesse contenant
  *                                le document HTML.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    if (null === doc) {
-        return null;
+    if (undefined === doc) {
+        return undefined;
     }
 
     for (const script of doc.querySelectorAll("script:not([src])")) {
@@ -33,6 +34,6 @@ const action = async function (_url, content) {
             return result.groups.url;
         }
     }
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action, "*://videoshub.com/videos/**");

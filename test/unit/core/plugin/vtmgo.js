@@ -28,12 +28,12 @@ describe("core/plugin/vtmgo.js", function () {
     });
 
     describe("extractEpisode()", function () {
-        it("should return null when type is unknown", async function () {
+        it("should return undefined when type is unknown", async function () {
             const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
                                                                         "/foo");
 
             const label = await plugin.extractEpisode(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
         });
 
         it("should return episode label", async function () {
@@ -59,12 +59,12 @@ describe("core/plugin/vtmgo.js", function () {
     });
 
     describe("extractMovie()", function () {
-        it("should return null when type is unknown", async function () {
+        it("should return undefined when type is unknown", async function () {
             const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
                                                                         "/foo");
 
             const label = await plugin.extractMovie(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
         });
 
         it("should return movie label", async function () {
@@ -88,7 +88,7 @@ describe("core/plugin/vtmgo.js", function () {
             ]);
         });
 
-        it("should return null when there isn't title", async function () {
+        it("should return undefined when there isn't title", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <body>
@@ -101,7 +101,7 @@ describe("core/plugin/vtmgo.js", function () {
                                                                  "/movies/bar");
 
             const label = await plugin.extractMovie(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
@@ -111,12 +111,12 @@ describe("core/plugin/vtmgo.js", function () {
     });
 
     describe("extractChannel()", function () {
-        it("should return null when type is unknown", async function () {
+        it("should return undefined when type is unknown", async function () {
             const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
                                                                         "/foo");
 
             const label = await plugin.extractChannel(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
         });
 
         it("should return channel label", async function () {
@@ -140,7 +140,7 @@ describe("core/plugin/vtmgo.js", function () {
             ]);
         });
 
-        it("should return null when there isn't link", async function () {
+        it("should return undefined when there isn't link", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <body></body>
@@ -151,7 +151,7 @@ describe("core/plugin/vtmgo.js", function () {
                                                                "/channels/bar");
 
             const label = await plugin.extractChannel(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

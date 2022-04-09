@@ -58,13 +58,14 @@ export const extractMoviePage = matchPattern(actionMoviePage,
  * @param {Object}   content      Le contenu de l'URL.
  * @param {Function} content.html La fonction retournant la promesse contenant
  *                                le document HTML.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionChannel = async function (_url, content) {
     const doc = await content.html();
     const div = doc.querySelector("div.fjs-player[data-id]");
-    return null === div ? null
+    return null === div ? undefined
                         : plugin.generateChannelUrl(div.dataset.id);
 };
 export const extractChannel = matchPattern(actionChannel,

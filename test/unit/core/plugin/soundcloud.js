@@ -14,13 +14,13 @@ describe("core/plugin/soundcloud.js", function () {
     });
 
     describe("extract()", function () {
-        it("should return null when there isn't 'url' parameter",
+        it("should return undefined when there isn't 'url' parameter",
                                                              async function () {
             const url = new URL("plugin://plugin.audio.soundcloud/play/" +
                                                                     "?foo=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
         });
 
         it("should return audio label", async function () {
@@ -44,7 +44,8 @@ describe("core/plugin/soundcloud.js", function () {
             ]);
         });
 
-        it("should return null when it's not audio page", async function () {
+        it("should return undefined when it's not audio page",
+                                                             async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <head></head>
@@ -55,7 +56,7 @@ describe("core/plugin/soundcloud.js", function () {
                                                 "?url=http%3A%2F%2Ffoo.com%2F");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, null);
+            assert.strictEqual(label, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

@@ -3,14 +3,15 @@ import * as scraper from "../../../../src/core/scraper/melty.js";
 
 describe("core/scraper/melty.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.melty.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's depth", async function () {
+        it("should return undefined when it's depth", async function () {
             const url = new URL("https://www.melty.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -25,10 +26,10 @@ describe("core/scraper/melty.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't video", async function () {
+        it("should return undefined when there isn't video", async function () {
             const url = new URL("https://www.melty.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -41,7 +42,7 @@ describe("core/scraper/melty.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return URL", async function () {

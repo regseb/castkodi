@@ -20,14 +20,15 @@ const URL_REGEXP = /url: '(?<url>https:\/\/.*\/manifest.m3u8)'/u;
  * @param {Object}   content           Le contenu de l'URL.
  * @param {Function} content.html      La fonction retournant la promesse
  *                                     contenant le document HTML.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionTv = async function (_url, content) {
     const doc = await content.html();
     const div = doc.querySelector("div[data-plugin-bitmovinv5]");
     if (null === div) {
-        return null;
+        return undefined;
     }
 
     const json = JSON.parse(div.dataset.pluginBitmovinv5);
@@ -45,8 +46,9 @@ export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");
  * @param {Object}   options           Les options de l'extraction.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionVideo = async function (_url, content, options) {
     const doc = await content.html();
@@ -67,7 +69,7 @@ const actionVideo = async function (_url, content, options) {
             return result.groups.url;
         }
     }
-    return null;
+    return undefined;
 };
 export const extractVideo = matchPattern(actionVideo,
     "*://www.star.gr/video/*");

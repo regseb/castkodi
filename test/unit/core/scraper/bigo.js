@@ -4,28 +4,30 @@ import * as scraper from "../../../../src/core/scraper/bigo.js";
 
 describe("core/scraper/bigo.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.bigo.sg/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not an id", async function () {
+        it("should return undefined when it's not an id", async function () {
             const url = new URL("https://www.bigo.tv/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when pathname is invalid", async function () {
+        it("should return undefined when pathname is invalid",
+                                                             async function () {
             const url = new URL("https://www.bigo.tv/foo/123");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a video", async function () {
+        it("should return undefined when it's not a video", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({ data: [] }),
             ));
@@ -33,7 +35,7 @@ describe("core/scraper/bigo.js", function () {
             const url = new URL("https://www.bigo.tv/123");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

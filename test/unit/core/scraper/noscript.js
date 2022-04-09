@@ -3,16 +3,18 @@ import * as scraper from "../../../../src/core/scraper/noscript.js";
 
 describe("core/scraper/noscript.js", function () {
     describe("extract()", function () {
-        it("should return null when it's not a HTML page", async function () {
+        it("should return undefined when it's not a HTML page",
+                                                             async function () {
             const url = new URL("https://foo.com/bar.zip");
-            const content = { html: () => Promise.resolve(null) };
+            const content = { html: () => Promise.resolve(undefined) };
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't noscript", async function () {
+        it("should return undefined when there isn't noscript",
+                                                             async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -23,10 +25,10 @@ describe("core/scraper/noscript.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when noscript is empty", async function () {
+        it("should return undefined when noscript is empty", async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -37,7 +39,7 @@ describe("core/scraper/noscript.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return URL from video in noscript", async function () {

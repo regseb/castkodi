@@ -3,15 +3,16 @@ import * as scraper from "../../../../src/core/scraper/ultimedia.js";
 
 describe("core/scraper/ultimedia.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.ultimedia.com/default" +
                                                            "/presentation/cgu");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when no script", async function () {
+        it("should return undefined when no script", async function () {
             const url = new URL("https://www.ultimedia.com/deliver/generic" +
                                                                  "/iframe/foo");
             const content = {
@@ -22,10 +23,10 @@ describe("core/scraper/ultimedia.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when no inline script", async function () {
+        it("should return undefined when no inline script", async function () {
             const url = new URL("https://www.ultimedia.com/deliver/generic" +
                                                                  "/iframe/foo");
             const content = {
@@ -39,10 +40,10 @@ describe("core/scraper/ultimedia.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when no station", async function () {
+        it("should return undefined when no station", async function () {
             const url = new URL("https://www.ultimedia.com/deliver/generic" +
                                                                  "/iframe/foo");
             const content = {
@@ -57,7 +58,7 @@ describe("core/scraper/ultimedia.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL", async function () {

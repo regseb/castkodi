@@ -3,23 +3,25 @@ import * as scraper from "../../../../src/core/scraper/ouestfrance.js";
 
 describe("core/scraper/ouestfrance.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://www.sud-france.fr/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not a HTML page", async function () {
+        it("should return undefined when it's not a HTML page",
+                                                             async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
-            const content = { html: () => Promise.resolve(null) };
+            const content = { html: () => Promise.resolve(undefined) };
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's depth", async function () {
+        it("should return undefined when it's depth", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -33,10 +35,10 @@ describe("core/scraper/ouestfrance.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when no iframe", async function () {
+        it("should return undefined when no iframe", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -47,10 +49,10 @@ describe("core/scraper/ouestfrance.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null with iframe no video", async function () {
+        it("should return undefined with iframe no video", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -63,7 +65,7 @@ describe("core/scraper/ouestfrance.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return video URL", async function () {

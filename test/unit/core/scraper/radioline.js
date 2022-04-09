@@ -4,21 +4,22 @@ import * as scraper from "../../../../src/core/scraper/radioline.js";
 
 describe("core/scraper/radioline.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("http://twitter.com/RadiolineFrance");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not an audio", async function () {
+        it("should return undefined when it's not an audio", async function () {
             const url = new URL("https://fr-fr.radioline.co/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's not an audio with hash",
+        it("should return undefined when it's not an audio with hash",
                                                              async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({ body: { type: "error" } }),
@@ -27,7 +28,7 @@ describe("core/scraper/radioline.js", function () {
             const url = new URL("http://www.radioline.co/foo#bar-baz");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [

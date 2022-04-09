@@ -44,7 +44,7 @@ describe("Scraper: Le Monde", function () {
     });
 
     it("should return video url [lemonde-tiktok]", async function () {
-        if (null !== config.country && "us" === config.country) {
+        if (undefined !== config.country && "us" === config.country) {
             // eslint-disable-next-line no-invalid-this
             this.skip();
         }

@@ -74,8 +74,8 @@ export const generatePlaylistUrl = async function (playlistId, incognito) {
  * Extrait le titre d'une vidéo ou d'une playlist YouTube.
  *
  * @param {URL} url L'URL utilisant le plugin de YouTube.
- * @returns {Promise<?string>} Une promesse contenant le titre ou
- *                             <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
  */
 const action = async function ({ searchParams }) {
     if (searchParams.has("video_id")) {
@@ -84,7 +84,7 @@ const action = async function ({ searchParams }) {
     if (searchParams.has("playlist_id")) {
         return labeller.extractPlaylist(searchParams.get("playlist_id"));
     }
-    return null;
+    return undefined;
 };
 export const extract = matchPattern(action,
     "plugin://plugin.video.youtube/play/*",

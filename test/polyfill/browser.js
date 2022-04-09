@@ -123,8 +123,8 @@ export const browser = {
 
     storage: {
         local: {
-            get:   (properties = null) => {
-                if (null === properties) {
+            get:   (properties) => {
+                if (undefined === properties) {
                     return Promise.resolve(data.storage.local.data);
                 }
                 return Promise.resolve(Object.fromEntries(

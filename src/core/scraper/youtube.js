@@ -15,8 +15,9 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {Object}  options           Les options de l'extraction.
  * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionVideo = async function ({ searchParams }, _content, { incognito }) {
     const config = await browser.storage.local.get(["youtube-playlist"]);
@@ -29,7 +30,7 @@ const actionVideo = async function ({ searchParams }, _content, { incognito }) {
         return plugin.generateVideoUrl(searchParams.get("v"), incognito);
     }
 
-    return null;
+    return undefined;
 };
 export const extractVideo = matchPattern(actionVideo,
     "*://*.youtube.com/watch*",
@@ -44,15 +45,16 @@ export const extractVideo = matchPattern(actionVideo,
  * @param {Object}  options           Les options de l'extraction.
  * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 const actionPlaylist = async function ({ searchParams },
                                        _content,
                                        { incognito }) {
     return searchParams.has("list")
                ? plugin.generatePlaylistUrl(searchParams.get("list"), incognito)
-               : null;
+               : undefined;
 };
 export const extractPlaylist = matchPattern(actionPlaylist,
     "*://*.youtube.com/playlist*");

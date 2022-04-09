@@ -74,7 +74,7 @@ import { cacheable } from "./tools/cacheable.js";
 
 /**
  * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
- * <code>null</code>).
+ * <code>undefined</code>).
  *
  * @type {Function[]}
  */
@@ -149,8 +149,9 @@ const SCRAPERS = [
  *                                    profondeur.
  * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
- * @returns {Promise<?string>} Une promesse contenant le lien du
- *                             <em>fichier</em> ou <code>null</code>.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      <em>fichier</em> ou
+ *                                      <code>undefined</code>.
  */
 export const extract = async function (url, options) {
     const content = {
@@ -172,13 +173,13 @@ export const extract = async function (url, options) {
             } catch {
                 // Ignorer le cas où l'URL n'est pas accessible.
             }
-            return null;
+            return undefined;
         }),
     };
 
     for (const scraper of SCRAPERS) {
         const file = await scraper(url, content, options);
-        if (null !== file) {
+        if (undefined !== file) {
             return file;
         }
     }
@@ -186,7 +187,7 @@ export const extract = async function (url, options) {
     // Si on analyse une sous-page : arrêter maintenant sans faire croire qu'une
     // URL a été trouvée (en ne retournant pas l'URL d'entrée).
     if (options.depth) {
-        return null;
+        return undefined;
     }
 
     // Si l'URL analysée est ouverte dans un onglet : chercher une vidéo ou une

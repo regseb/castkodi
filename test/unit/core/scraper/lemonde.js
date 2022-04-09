@@ -5,14 +5,15 @@ import * as scraper from "../../../../src/core/scraper/lemonde.js";
 
 describe("core/scraper/lemonde.js", function () {
     describe("extract()", function () {
-        it("should return null when it's a unsupported URL", async function () {
+        it("should return undefined when it's a unsupported URL",
+                                                             async function () {
             const url = new URL("https://journal.lemonde.fr/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when it's depth", async function () {
+        it("should return undefined when it's depth", async function () {
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
@@ -28,10 +29,11 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
-        it("should return null when there isn't youtube / dailymotion / tiktok",
+        it("should return undefined when there isn't youtube / dailymotion" +
+                                                                    " / tiktok",
                                                              async function () {
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
@@ -43,7 +45,7 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, null);
+            assert.strictEqual(file, undefined);
         });
 
         it("should return URL from youtube", async function () {

@@ -2,7 +2,7 @@ import assert from "node:assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Blog Talk Radio", function () {
-    it("should return null when it's not an audio", async function () {
+    it("should return URL when it's not an audio", async function () {
         const url = new URL("https://www.blogtalkradio.com/technology");
         const options = { depth: false, incognito: false };
 
