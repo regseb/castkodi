@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.5.0](https://github.com/regseb/castkodi/compare/v6.4.1...v6.5.0) (2022-04-09)
+
+
+### Features
+
+* Ajouter le support de DMAX. ([#78](https://github.com/regseb/castkodi/issues/78)) ([d19271b](https://github.com/regseb/castkodi/commit/d19271b24a3006bcfea0e4699d341f68d4ef4765))
+
+
+### Bug Fixes
+
+* Corriger l'agrégation des liens. ([#79](https://github.com/regseb/castkodi/issues/79)) ([0db2e51](https://github.com/regseb/castkodi/commit/0db2e516e00281e18ef13aed73fc5939a86a7f08))
+
 ### [6.4.1](https://github.com/regseb/castkodi/compare/v6.4.0...v6.4.1) (2022-03-15)
 
 
