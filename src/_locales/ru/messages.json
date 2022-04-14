@@ -1,1 +1,10 @@
-{}
+{
+    "notifications_badAddress_message": {
+        "message": "Адрес веб-сервера Kodi $ADDRESS$ недействителен.",
+        "placeholders": {
+            "address": {
+                "content": "$1"
+            }
+        }
+    }
+}
