@@ -11,40 +11,15 @@ describe("core/scraper/radio.js", function () {
             assert.strictEqual(file, undefined);
         });
 
-        it("should return undefined when no script", async function () {
-            const url = new URL("https://www.radio.net/s/foo");
-            const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body></body>
-                    </html>`, "text/html")),
-            };
-
-            const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
-        });
-
-        it("should return undefined when no inline script", async function () {
-            const url = new URL("https://www.radio.net/s/foo");
-            const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <script src="https://www.radio.net/script.js"></script>
-                      </body>
-                    </html>`, "text/html")),
-            };
-
-            const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
-        });
-
         it("should return undefined when no station", async function () {
             const url = new URL("https://www.radio.net/s/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
+                        <script id="__NEXT_DATA__">${JSON.stringify({
+                            props: { pageProps: { data: {} } },
+                        })}</script>
                         <script>
                           var require = {
                               'components/station/stationService': {}
@@ -64,24 +39,27 @@ describe("core/scraper/radio.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script>
-                          var require = {
-                              'components/station/stationService': {
-                                  station: ${JSON.stringify({
-                                      streams: [{
-                                          url: "https://bar.io/baz.mp3",
-                                      }],
-                                  })},
-                                  nowPlayingPollingInterval: 60000
-                              }
-                          };
-                        </script>
+                        <script id="__NEXT_DATA__">${JSON.stringify({
+                            props: {
+                                pageProps: {
+                                    data: {
+                                        broadcast: {
+                                            streams: [{
+                                                url: "https://bar.net/baz.mp3",
+                                            }, {
+                                                url: "https://qux.net/quux.mp3",
+                                            }],
+                                        },
+                                    },
+                                },
+                            },
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.io/baz.mp3");
+            assert.strictEqual(file, "https://bar.net/baz.mp3");
         });
     });
 });

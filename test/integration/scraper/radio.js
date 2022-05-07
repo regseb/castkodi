@@ -3,7 +3,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Radio", function () {
     it("should return URL when it's not an audio", async function () {
-        const url = new URL("https://www.radio.net/s/notfound");
+        const url = new URL("https://www.radio.net/country-selector");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
