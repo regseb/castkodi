@@ -9,7 +9,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *
  * @type {string}
  */
-const API_URL = "https://api.arte.tv/api/player/v1/config";
+const API_URL = "https://api.arte.tv/api/player/v2/config";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -24,12 +24,6 @@ const action = async function ({ pathname }) {
     const response = await fetch(`${API_URL}/${lang}/${id}`);
     const json = await response.json();
 
-    const files = Object.values(json.videoJsonPlayer.VSR)
-                        // Garder les vidéos dans la langue courante.
-                        .filter((f) => f.id.endsWith("_1"));
-    return 0 === files.length
-                         ? undefined
-                         : files.reduce((b, f) => (b.height < f.height ? f : b))
-                                .url;
+    return json.data.attributes.streams[0]?.url;
 };
 export const extract = matchPattern(action, "*://www.arte.tv/*/videos/*/*");

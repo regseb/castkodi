@@ -15,51 +15,39 @@ describe("core/scraper/arte.js", function () {
         it("should return undefined when video is unavailable",
                                                              async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
-                    videoJsonPlayer: { VSR: { 0: { id: "foo_2" } } },
-                }),
+                JSON.stringify({ data: { attributes: { streams: [] } } }),
             ));
 
-            const url = new URL("https://www.arte.tv/de/videos/bar/baz");
+            const url = new URL("https://www.arte.tv/de/videos/foo/bar");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file, undefined);
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://api.arte.tv/api/player/v1/config/de/bar",
+                "https://api.arte.tv/api/player/v2/config/de/foo",
             ]);
         });
 
-        it("should return french video URL", async function () {
+        it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({
-                    videoJsonPlayer: {
-                        VSR: {
-                            0: { id: "foo_1", height: 100 },
-                            1: { id: "foo_2" },
-                            2: {
-                                id:     "foo_1",
-                                height: 400,
-                                url:    "https://bar.tv/baz.mp4",
-                            },
-                            3: {
-                                id:     "foo_1",
-                                height: 200,
-                            },
+                    data: {
+                        attributes: {
+                            streams: [{ url: "https://foo.tv/bar.mp4" }],
                         },
                     },
                 }),
             ));
 
-            const url = new URL("https://www.arte.tv/fr/videos/qux/quux");
+            const url = new URL("https://www.arte.tv/fr/videos/baz/qux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://bar.tv/baz.mp4");
+            assert.strictEqual(file, "https://foo.tv/bar.mp4");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://api.arte.tv/api/player/v1/config/fr/qux",
+                "https://api.arte.tv/api/player/v2/config/fr/baz",
             ]);
         });
     });

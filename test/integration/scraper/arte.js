@@ -34,7 +34,7 @@ describe("Scraper: Arte", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.endsWith(".mp4") || file?.endsWith("/master.m3u8"),
+        assert.ok(file?.endsWith(".mp4") || file?.endsWith(".m3u8"),
                   `"${file}"?.endsWith(...) from ${url}`);
     });
 
@@ -52,7 +52,7 @@ describe("Scraper: Arte", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.endsWith(".mp4") || file?.endsWith("/master.m3u8"),
+        assert.ok(file?.endsWith(".mp4") || file?.endsWith(".m3u8"),
                   `"${file}"?.endsWith(...) from ${url}`);
     });
 });
