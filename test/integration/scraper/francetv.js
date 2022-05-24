@@ -19,7 +19,7 @@ describe("Scraper: France tv", function () {
 
         const file = await extract(url, options);
         assert.ok(undefined !== file &&
-                                new URL(file).pathname.endsWith("/master.m3u8"),
+                               new URL(file).pathname.endsWith("/manifest.mpd"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 });
