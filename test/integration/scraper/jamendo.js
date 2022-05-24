@@ -16,8 +16,8 @@ describe("Scraper: Jamendo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.startsWith("https://mp3l.jamendo.com/?trackid=3431" +
-                                                                "&format=mp31"),
+        assert.ok(file?.startsWith("https://prod-1.storage.jamendo.com/" +
+                                                   "?trackid=3431&format=mp31"),
                   `"${file}"?.startsWith(...)`);
     });
 
@@ -28,8 +28,8 @@ describe("Scraper: Jamendo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.startsWith("https://mp3l.jamendo.com/?trackid=33454" +
-                                                                "&format=mp31"),
+        assert.ok(file?.startsWith("https://prod-1.storage.jamendo.com/" +
+                                                  "?trackid=33454&format=mp31"),
                   `"${file}"?.startsWith(...)`);
     });
 });
