@@ -55,10 +55,7 @@ describe("Scraper: Le Monde", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.includes("&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0" +
-                                       "&qs=0&rc=MzZqZ201ZzxleDMzNjczM0ApOzln" +
-                                        "ZTY5ZWQ5Nzw5ZWQ1Z2dfLmhqb2twazJfLS0t" +
-                                        "MTRzc2NjYC41MTYzXi1iYTMwMTM6Yw%3D%3D"),
-                  `"${file}"?.includes(...)`);
+        const searchParams = new URL(file).searchParams;
+        assert.strictEqual(searchParams.get("mime_type"), "video_mp4");
     });
 });

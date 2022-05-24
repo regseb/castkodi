@@ -30,10 +30,9 @@ describe("core/scraper/tiktok.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script id="sigi-persisted-data">` +
-                                        `window['SIGI_STATE']=${JSON.stringify({
+                        <script id="SIGI_STATE">${JSON.stringify({
                             AppContext: {},
-                        })};window['SIGI_RETRY']={}</script>
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };
@@ -48,13 +47,12 @@ describe("core/scraper/tiktok.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script id="sigi-persisted-data">` +
-                                        `window['SIGI_STATE']=${JSON.stringify({
+                        <script id="SIGI_STATE">${JSON.stringify({
                             AppContext: {},
                             ItemModule: [{
                                 video: { playAddr: "https://bar.com/baz.mp4" },
                             }],
-                        })};window['SIGI_RETRY']={}</script>
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };

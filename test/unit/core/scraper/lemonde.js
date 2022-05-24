@@ -175,13 +175,12 @@ describe("core/scraper/lemonde.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 `<html>
                    <body>
-                     <script id="sigi-persisted-data">` +
-                                        `window['SIGI_STATE']=${JSON.stringify({
+                     <script id="SIGI_STATE">${JSON.stringify({
                          AppContext: {},
                          ItemModule: [{
                              video: { playAddr: "https://foo.com/bar.mp4" },
                          }],
-                     })};window['SIGI_RETRY']={}</script>
+                     })}</script>
                    </body>
                  </html>`,
                 { headers: { "Content-Type": "text/html" } },

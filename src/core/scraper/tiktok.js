@@ -17,13 +17,12 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    const script = doc.querySelector("script#sigi-persisted-data");
+    const script = doc.querySelector("script#SIGI_STATE");
     if (null === script) {
         return undefined;
     }
 
-    const json = JSON.parse(script.text.slice(21,
-                                              script.text.indexOf(";window")));
+    const json = JSON.parse(script.text);
     return "ItemModule" in json
                               ? Object.values(json.ItemModule)[0].video.playAddr
                               : undefined;
