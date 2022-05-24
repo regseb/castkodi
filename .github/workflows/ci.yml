@@ -12,7 +12,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 16
+        node-version: 18
 
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -31,7 +31,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 16
+        node-version: 18
 
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -54,7 +54,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 16
+        node-version: 18
 
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -83,9 +83,9 @@ jobs:
         persist-credentials: false
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
+      uses: github/codeql-action/init@v2
       with:
         languages: 'javascript'
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2

@@ -33,6 +33,9 @@ export default {
         // Keyframe declaration.
         "keyframe-declaration-no-important": true,
 
+        // Keyframe block.
+        "keyframe-block-no-duplicate-selectors": true,
+
         // Declaration block.
         "declaration-block-no-duplicate-custom-properties": true,
         "declaration-block-no-duplicate-properties": true,
@@ -156,6 +159,7 @@ export default {
         "selector-nested-pattern": null,
         "selector-no-qualifying-type": null,
         "selector-no-vendor-prefix": true,
+        "selector-not-notation": "complex",
         "selector-pseudo-class-allowed-list": null,
         "selector-pseudo-class-disallowed-list": null,
         "selector-pseudo-element-allowed-list": null,

@@ -32,6 +32,7 @@ export default {
         "no-compare-neg-zero": 2,
         "no-cond-assign": 2,
         "no-const-assign": 2,
+        "no-constant-binary-expression": 2,
         "no-constant-condition": 2,
         "no-constructor-return": 2,
         "no-control-regex": 2,
