@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.6.0](https://github.com/regseb/castkodi/compare/v6.5.0...v6.6.0) (2022-05-24)
+
+
+### Features
+
+* Ajouter le support de Reddit. ([634bf86](https://github.com/regseb/castkodi/commit/634bf860984a68d801852c0bc771618f4b68d3cb))
+
+
+### Bug Fixes
+
+* Actualiser le scraper d'Arte. ([3bde8d8](https://github.com/regseb/castkodi/commit/3bde8d89a1bf848d4c228126465a6231e77be98c))
+* Actualiser le scraper de Radio. ([e69e0df](https://github.com/regseb/castkodi/commit/e69e0df09cd7e6e5c50229be23509723856cb327))
+* Actualiser le scraper de TikTok. ([3958e78](https://github.com/regseb/castkodi/commit/3958e78305e51328faf2db533676d05faf733e00))
+
 ## [6.5.0](https://github.com/regseb/castkodi/compare/v6.4.1...v6.5.0) (2022-04-09)
 
 
