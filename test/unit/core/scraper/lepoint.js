@@ -44,6 +44,23 @@ describe("core/scraper/lepoint.js", function () {
             assert.strictEqual(file, undefined);
         });
 
+        it("should return undefined when sub-page doesn't have media",
+                                                             async function () {
+            const url = new URL("https://www.lepoint.fr/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <div data-video-src="http://bar.com/"></div>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false, incognito: false };
+
+            const file = await scraper.extract(url, content, options);
+            assert.strictEqual(file, undefined);
+        });
+
         it("should return video URL", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 

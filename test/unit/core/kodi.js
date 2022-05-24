@@ -17,5 +17,19 @@ describe("core/kodi.js", function () {
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, []);
         });
+
+        it("should ignore changes other than servers", async function () {
+            // Charger le module pour que celui-ci est l'auditeur.
+            const { kodi } = await import("../../../src/core/kodi.js?" +
+                                                                    Date.now());
+            browser.storage.local.set({ "general-history": false });
+            const spy = sinon.stub(kodi, "close");
+
+            // Modifier la configuration pour que l'auditeur handleChange() soit
+            // appelé.
+            browser.storage.local.set({ "general-history": true });
+
+            assert.strictEqual(spy.callCount, 0);
+        });
     });
 });

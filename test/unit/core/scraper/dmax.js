@@ -77,6 +77,37 @@ describe("core/scraper/dmax.js", function () {
             ]);
         });
 
+        it("should return undefined when no assetid and no showid",
+                                                             async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                JSON.stringify({ data: { attributes: { token: "foo" } } }),
+            ));
+
+            const url = new URL("https://dmax.de/sendungen/bar");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <hyoga-player />
+                      </body>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extract(url, content);
+            assert.strictEqual(file, undefined);
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://eu1-prod.disco-api.com/token?realm=dmaxde",
+                {
+                    headers: {
+                        "x-device-info": "STONEJS/1 (Unknown/Unknown;" +
+                                                   " Unknown/Unknown; Unknown)",
+                    },
+                },
+            ]);
+        });
+
         it("should return undefined when no HLS video", async function () {
             const stub = sinon.stub(globalThis, "fetch")
                 .onFirstCall().resolves(new Response(JSON.stringify({
@@ -84,15 +115,22 @@ describe("core/scraper/dmax.js", function () {
                 }))).onSecondCall().resolves(new Response(JSON.stringify({
                     data: [{ id: "bar" }],
                 }))).onThirdCall().resolves(new Response(JSON.stringify({
-                    data: { attributes: { streaming: [{ type: "baz" }] } },
+                    data: {
+                        attributes: {
+                            streaming: [{
+                                type: "baz",
+                                url:  "http://qux.com",
+                            }],
+                        },
+                    },
                 })));
 
-            const url = new URL("https://dmax.de/sendungen/qux");
+            const url = new URL("https://dmax.de/sendungen/quux");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <hyoga-player showid="quux" />
+                        <hyoga-player showid="corge" />
                       </body>
                     </html>`, "text/html")),
             };
@@ -112,7 +150,7 @@ describe("core/scraper/dmax.js", function () {
             ]);
             assert.deepStrictEqual(stub.secondCall.args, [
                 "https://eu1-prod.disco-api.com/content/videos/" +
-                                                        "?filter[show.id]=quux",
+                                                       "?filter[show.id]=corge",
                 { headers: { authorization: "Bearer foo" } },
             ]);
             assert.deepStrictEqual(stub.thirdCall.args, [

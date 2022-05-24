@@ -21,16 +21,20 @@ export const mux = function (urls) {
         return (/^[-a-z]+:/iu).test(url) ? url
                                          : url.replace(/^\/*/u, "http://");
     }).find((url) => {
+        // Vérifier que l'URL est valide.
         try {
-            return Boolean(new URL(url)) && (
-                   (/^https?:\/\/[^/]+\/.*$/iu).test(url) ||
-                   (/^magnet:.*$/iu).test(url) ||
-                   (/^acestream:.*$/iu).test(url) ||
-                   (/^plugin:.*$/iu).test(url));
+            // eslint-disable-next-line no-new
+            new URL(url);
         } catch {
             // Indiquer que la construction de l'URL a échouée.
             return false;
         }
+
+        // Vérifier que l'URL utilise un schéma géré.
+        return (/^https?:\/\//iu).test(url) ||
+               (/^magnet:/iu).test(url) ||
+               (/^acestream:/iu).test(url) ||
+               (/^plugin:/iu).test(url);
     });
 };
 

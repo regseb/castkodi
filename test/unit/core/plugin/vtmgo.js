@@ -56,6 +56,32 @@ describe("core/plugin/vtmgo.js", function () {
                 "https://vtm.be/vtmgo/afspelen/ebar",
             ]);
         });
+
+        it("should return episode label in Firefox", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                `<html>
+                   <body>
+                     <h1 class="player__title">foo</h1>
+                   </body>
+                 </html>`,
+            ));
+
+            // Simuler un mauvais découpage d'une URL par Firefox.
+            // https://bugzil.la/1374505
+            const url = {
+                href:     "plugin://plugin.video.vtm.go/play/catalog/episodes" +
+                                                                         "/bar",
+                pathname: "//plugin.video.vtm.go/play/catalog/episodes/bar",
+            };
+
+            const label = await plugin.extractEpisode(url);
+            assert.strictEqual(label, "foo");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://vtm.be/vtmgo/afspelen/ebar",
+            ]);
+        });
     });
 
     describe("extractMovie()", function () {
@@ -78,6 +104,32 @@ describe("core/plugin/vtmgo.js", function () {
 
             const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
                                                                  "/movies/bar");
+
+            const label = await plugin.extractMovie(url);
+            assert.strictEqual(label, "foo");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://vtm.be/vtmgo/afspelen/mbar",
+            ]);
+        });
+
+        it("should return movie label in Firefox", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                `<html>
+                   <body>
+                     <h1 class="player__title">foo</h1>
+                   </body>
+                 </html>`,
+            ));
+
+            // Simuler un mauvais découpage d'une URL par Firefox.
+            // https://bugzil.la/1374505
+            const url = {
+                href:     "plugin://plugin.video.vtm.go/play/catalog/movies" +
+                                                                         "/bar",
+                pathname: "//plugin.video.vtm.go/play/catalog/movies/bar",
+            };
 
             const label = await plugin.extractMovie(url);
             assert.strictEqual(label, "foo");
@@ -130,6 +182,32 @@ describe("core/plugin/vtmgo.js", function () {
 
             const url = new URL("plugin://plugin.video.vtm.go/play/catalog" +
                                                                "/channels/bar");
+
+            const label = await plugin.extractChannel(url);
+            assert.strictEqual(label, "baz");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "https://vtm.be/vtmgo/live-kijken/vtm",
+            ]);
+        });
+
+        it("should return channel label in Firefox", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+                `<html>
+                   <body>
+                     <a data-gtm="foo/bar/baz">qux</a>
+                   </body>
+                 </html>`,
+            ));
+
+            // Simuler un mauvais découpage d'une URL par Firefox.
+            // https://bugzil.la/1374505
+            const url = {
+                href:     "plugin://plugin.video.vtm.go/play/catalog/channels" +
+                                                                         "/bar",
+                pathname: "//plugin.video.vtm.go/play/catalog/channels/bar",
+            };
 
             const label = await plugin.extractChannel(url);
             assert.strictEqual(label, "baz");

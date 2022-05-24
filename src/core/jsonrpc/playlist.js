@@ -157,7 +157,7 @@ export const Playlist = class {
     /**
      * Déplace un élément dans la liste de lecture.
      *
-     * @param {number} position La position de l'élément qui sera déplacé.
+     * @param {number} position    La position de l'élément qui sera déplacé.
      * @param {number} destination La future position de l'élément.
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */
@@ -183,8 +183,8 @@ export const Playlist = class {
     async handleNotification({ method, params: { data } }) {
         // Analyser les notifications seulement si des auditeurs sont présents
         // et si elles viennent de la liste de lecture des vidéos.
-        if (0 === this.onAdd.length + this.onClear.length +
-                  this.onRemove.length || 1 !== data.playlistid) {
+        if (0 === this.onAdd.length && 0 === this.onClear.length &&
+                  0 === this.onRemove.length || 1 !== data.playlistid) {
             return;
         }
         switch (method) {

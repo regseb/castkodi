@@ -50,11 +50,11 @@ describe("core/scraper/ldjson.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script type="application/ld+json">{
-                            "@context":   "http://schema.org/",
-                            "@type":      "ImageObject",
-                            "contentUrl": "https://bar.com/baz.png"
-                        }</script>
+                        <script type="application/ld+json">${JSON.stringify({
+                            "@context": "http://schema.org/",
+                            "@type":    "ImageObject",
+                            contentUrl: "https://bar.com/baz.png",
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };
@@ -71,10 +71,10 @@ describe("core/scraper/ldjson.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script type="application/ld+json">{
+                        <script type="application/ld+json">${JSON.stringify({
                             "@context": "http://schema.org/",
-                            "@type":    "MusicVideoObject"
-                        }</script>
+                            "@type":    "MusicVideoObject",
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };
@@ -90,11 +90,11 @@ describe("core/scraper/ldjson.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script type="application/ld+json">{
-                            "@context":   "http://schema.org/",
-                            "@type":      "VideoObject",
-                            "contentUrl": "https://bar.com/baz.mkv"
-                        }</script>
+                        <script type="application/ld+json">${JSON.stringify({
+                            "@context": "http://schema.org/",
+                            "@type":    "VideoObject",
+                            contentUrl: "https://bar.com/baz.mkv",
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };
@@ -110,21 +110,23 @@ describe("core/scraper/ldjson.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script type="application/ld+json">{
+                        <script type="application/ld+json">${JSON.stringify({
                             "@context": "https://schema.org",
                             "@type":    "RadioEpisode",
-                            "audio":    {
-                                "@type":      "AudioObject",
-                                "contentUrl": "https://bar.com/baz.flac"
-                            }
-                        }</script>
+                            // eslint-disable-next-line unicorn/no-null
+                            bar:        null,
+                            audio:      {
+                                "@type":    "AudioObject",
+                                contentUrl: "https://baz.com/qux.flac",
+                            },
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://bar.com/baz.flac");
+            assert.strictEqual(file, "https://baz.com/qux.flac");
         });
 
         it("should return embedUrl", async function () {
@@ -133,17 +135,17 @@ describe("core/scraper/ldjson.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script type="application/ld+json">{
-                            "@context":"http://schema.org/",
-                            "@type":"VideoObject",
-                            "embedUrl":"https://unknowntube.org/embed/bar"
-                        }</script>
-                        <script type="application/ld+json">{
-                            "@context":"http://schema.org/",
-                            "@type":"VideoObject",
-                            "embedUrl":"https://www.dailymotion.com/embed` +
-                                                                    `/video/baz"
-                        }</script>
+                        <script type="application/ld+json">${JSON.stringify({
+                            "@context": "http://schema.org/",
+                            "@type":    "VideoObject",
+                            embedUrl:   "https://unknowntube.org/embed/bar",
+                        })}</script>
+                        <script type="application/ld+json">${JSON.stringify({
+                            "@context": "http://schema.org/",
+                            "@type":    "VideoObject",
+                            embedUrl:   "https://www.dailymotion.com/embed" +
+                                                                   "/video/baz",
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };
@@ -161,12 +163,12 @@ describe("core/scraper/ldjson.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script type="application/ld+json">{
-                            "@context":"http://schema.org/",
-                            "@type":"VideoObject",
-                            "embedUrl":"https://www.dailymotion.com/embed` +
-                                                                    `/video/baz"
-                        }</script>
+                        <script type="application/ld+json">${JSON.stringify({
+                            "@context": "http://schema.org/",
+                            "@type":    "VideoObject",
+                            embedUrl:   "https://www.dailymotion.com/embed" +
+                                                                   "/video/baz",
+                        })}</script>
                       </body>
                     </html>`, "text/html")),
             };

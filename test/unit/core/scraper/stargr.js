@@ -70,7 +70,51 @@ describe("core/scraper/stargr.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { incognito: false };
+            const options = { depth: false, incognito: false };
+
+            const file = await scraper.extractVideo(url, content, options);
+            assert.strictEqual(file, undefined);
+        });
+
+        it("should return undefined when it's depth", async function () {
+            const spy = sinon.spy(kodi.addons, "getAddons");
+
+            const url = new URL("https://www.star.gr/video/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <!-- Coller le "style" et la "src" car c'est le cas dans
+                             les pages de StarGR. -->
+                        <iframe id="yt-player"
+                                style=""src="https://www.youtube.com/embed/bar"
+                                                                      ></iframe>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: true, incognito: false };
+
+            const file = await scraper.extractVideo(url, content, options);
+            assert.strictEqual(file, undefined);
+
+            assert.strictEqual(spy.callCount, 0);
+        });
+
+        it("should return undefined when sub-page doesn't have media",
+                                                             async function () {
+            const url = new URL("https://www.star.gr/video/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <!-- Coller le "style" et la "src" car c'est le cas dans
+                             les pages de StarGR. -->
+                        <iframe id="yt-player"
+                                style=""src="https://www.youtube.com/"></iframe>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, undefined);
@@ -84,13 +128,15 @@ describe("core/scraper/stargr.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
+                        <!-- Coller le "style" et la "src" car c'est le cas dans
+                             les pages de StarGR. -->
                         <iframe id="yt-player"
                                 style=""src="https://www.youtube.com/embed/bar"
                                                                       ></iframe>
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { incognito: false };
+            const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file,
@@ -119,7 +165,7 @@ describe("core/scraper/stargr.js", function () {
                       </body>
                     </html>`, "text/html")),
             };
-            const options = { incognito: false };
+            const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, "https://baz.gr/qux/quux/manifest.m3u8");

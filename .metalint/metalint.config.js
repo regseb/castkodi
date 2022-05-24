@@ -1,10 +1,10 @@
 export default {
     patterns: [
         "!/.git/",
-        "!/coverage/",
         "!/jsdocs/",
         "!/node_modules/",
         "!/src/polyfill/lib/",
+        "!/.stryker-tmp/",
         "!*.swp",
         "**",
     ],
@@ -36,7 +36,7 @@ export default {
                 eslint: ["eslint.config.js", "eslint_node.config.js"],
             },
         }, {
-            patterns: "/.metalint/**/*.js",
+            patterns: ["/.metalint/**/*.js", "/.stryker.conf.js"],
             linters: {
                 eslint: ["eslint.config.js", "eslint_config.config.js"],
             },

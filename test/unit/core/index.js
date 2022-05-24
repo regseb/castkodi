@@ -9,8 +9,14 @@ describe("core/index.js", function () {
             const urls = [
                 "",
                 " ",
-                "www.foo.",
-                "moz-extension://bar/index.html",
+                // Tester une URL invalide, mais avec un préfixe valide.
+                "http://:/",
+                // Tester des URLs valides, mais avec des préfixes invalide.
+                "prefix-http://bar.com/",
+                "prefix-magnet://baz",
+                "prefix-acestream://qux",
+                "prefix-plugin://plugin.video.quux/",
+                "moz-extension://corge/index.html",
             ];
 
             const url = mux(urls);
@@ -24,11 +30,20 @@ describe("core/index.js", function () {
             assert.strictEqual(url, "https://www.foo.bar/");
         });
 
-        it("should return URL with protocol HTTP", function () {
-            const urls = ["www.foo.fr/"];
+        it("should add protocol HTTP", function () {
+            const urls = ["www.foo.fr"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "http://www.foo.fr/");
+            assert.strictEqual(url, "http://www.foo.fr");
+        });
+
+        it("should return URL with port", function () {
+            // Ajouter un tiret bas pour ne pas interpréter les deux-points
+            // comme le séparateur entre le schéma et le nom de domaine.
+            const urls = ["_foo:80"];
+
+            const url = mux(urls);
+            assert.strictEqual(url, "http://_foo:80");
         });
 
         it("should return magnet URL", function () {
@@ -58,17 +73,17 @@ describe("core/index.js", function () {
 
     describe("cast()", function () {
         it("should reject invalid url", async function () {
-            await assert.rejects(() => cast("send", ["foo"]), {
+            await assert.rejects(() => cast("send", ["foo://bar"]), {
                 name:    "PebkacError",
                 type:    "noLink",
-                message: "Link foo is invalid.",
+                message: "Link foo://bar is invalid.",
             });
             const histories = browser.history.search({ text: "" });
             assert.strictEqual(histories.length, 0);
         });
 
         it("should reject invalid urls", async function () {
-            await assert.rejects(() => cast("send", ["foo", "bar"]), {
+            await assert.rejects(() => cast("send", ["foo://bar", "baz:"]), {
                 name: "PebkacError",
                 type: "noLinks",
             });
@@ -138,6 +153,30 @@ describe("core/index.js", function () {
             assert.strictEqual(histories.length, 0);
         });
 
+        it("should add in history", async function () {
+            browser.storage.local.set({ "general-history": true });
+            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+
+            await cast("add", ["http://foo.com/bar"]);
+            const histories = browser.history.search({ text: "" });
+            assert.deepStrictEqual(histories, [{ url: "http://foo.com/bar" }]);
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+        });
+
+        it("shouldn't add in history", async function () {
+            browser.storage.local.set({ "general-history": false });
+            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+
+            await cast("add", ["http://foo.com/bar"]);
+            const histories = browser.history.search({ text: "" });
+            assert.strictEqual(histories.length, 0);
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+        });
+
         it("shouldn't add in history in incognito", async function () {
             browser.extension.inIncognitoContext = true;
             browser.storage.local.set({ "general-history": true });
@@ -151,16 +190,25 @@ describe("core/index.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
         });
 
-        it("should add in history", async function () {
-            browser.storage.local.set({ "general-history": true });
-            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+        it("should pass incognito on scrapers", async function () {
+            browser.extension.inIncognitoContext = true;
+            browser.storage.local.set({ "general-history": false });
+            const stubAddons = sinon.stub(kodi.addons, "getAddons")
+                                    .resolves([]);
+            const stubPlaylist = sinon.stub(kodi.playlist, "add")
+                                      .resolves("OK");
 
-            await cast("add", ["http://foo.com/bar"]);
+            await cast("add", ["http://youtu.be/foo"]);
             const histories = browser.history.search({ text: "" });
-            assert.deepStrictEqual(histories, [{ url: "http://foo.com/bar" }]);
+            assert.strictEqual(histories.length, 0);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.strictEqual(stubAddons.callCount, 1);
+            assert.deepStrictEqual(stubAddons.firstCall.args, ["video"]);
+            assert.strictEqual(stubPlaylist.callCount, 1);
+            assert.deepStrictEqual(stubPlaylist.firstCall.args, [
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                   "&incognito=true",
+            ]);
         });
     });
 });

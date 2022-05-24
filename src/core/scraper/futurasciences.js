@@ -23,18 +23,20 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                      <code>undefined</code>.
  */
 const action = async function (url, content, options) {
+    if (options.depth) {
+        return undefined;
+    }
     const doc = await content.html();
     if (undefined === doc) {
         return undefined;
     }
 
-    const srcs = [];
-    for (const iframe of doc.querySelectorAll("iframe[data-src]")) {
-        srcs.push(iframe.dataset.src);
-    }
-    for (const div of doc.querySelectorAll("div.vsly-player[data-iframe]")) {
-        srcs.push(div.dataset.iframe);
-    }
+    const srcs = [
+        ...Array.from(doc.querySelectorAll("iframe[data-src]"))
+                .map((i) => i.dataset.src),
+        ...Array.from(doc.querySelectorAll("div.vsly-player[data-iframe]"))
+                .map((d) => d.dataset.iframe),
+    ];
 
     for (const src of srcs) {
         const file = await metaExtract(new URL(src, url),

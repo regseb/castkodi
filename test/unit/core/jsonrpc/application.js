@@ -92,43 +92,36 @@ describe("core/jsonrpc/application.js", function () {
 
     describe("handleNotification()", function () {
         it("should ignore others namespaces", function () {
-            const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
             const fake = sinon.fake();
 
-            const application = new Application(kodi);
+            const application = new Application(new Kodi());
             application.onPropertyChanged.addListener(fake);
             application.handleNotification(new NotificationEvent(
                 "notification",
                 { method: "Other.OnVolumeChanged",  params: { data: "foo" } },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
         });
 
         it("should ignore when no listener", function () {
-            const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
-
-            const application = new Application(kodi);
+            const application = new Application(new Kodi());
+            const spy = sinon.spy(application.onPropertyChanged, "dispatch");
             application.handleNotification(new NotificationEvent(
                 "notification",
                 {
                     method: "Application.OnVolumeChanged",
-                    params: { data: "foo" },
+                    params: { data: { foo: "bar" } },
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
         });
 
         it("should handle 'OnVolumeChanged'", function () {
-            const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
             const fake = sinon.fake();
 
-            const application = new Application(kodi);
+            const application = new Application(new Kodi());
             application.onPropertyChanged.addListener(fake);
             application.handleNotification(new NotificationEvent(
                 "notification",
@@ -138,17 +131,14 @@ describe("core/jsonrpc/application.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{ foo: "bar" }]);
         });
 
         it("should ignore others notifications", function () {
-            const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
             const fake = sinon.fake();
 
-            const application = new Application(kodi);
+            const application = new Application(new Kodi());
             application.onPropertyChanged.addListener(fake);
             application.handleNotification(new NotificationEvent(
                 "notification",
@@ -158,7 +148,6 @@ describe("core/jsonrpc/application.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
         });
     });

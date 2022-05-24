@@ -225,20 +225,20 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should not move", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves("OK");
+            const spy = sinon.spy(kodi, "send");
 
             const playlist = new Playlist(kodi);
             const result = await playlist.move(42, 42);
             assert.strictEqual(result, "OK");
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
         });
     });
 
     describe("handleNotification()", function () {
         it("should ignore others namespaces", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fakeAdd = sinon.fake();
             const fakeClear = sinon.fake();
             const fakeRemove = sinon.fake();
@@ -255,7 +255,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fakeAdd.callCount, 0);
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 0);
@@ -263,7 +263,7 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should ignore others playlists", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fakeAdd = sinon.fake();
             const fakeClear = sinon.fake();
             const fakeRemove = sinon.fake();
@@ -279,28 +279,85 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fakeAdd.callCount, 0);
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 0);
         });
 
-        it("should ignore when no listener", async function () {
-            const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
-
-            const playlist = new Playlist(kodi);
+        it("should ignore when no listener on add", async function () {
+            const playlist = new Playlist(new Kodi());
+            const spy = sinon.spy(playlist.onAdd, "dispatch");
             await playlist.handleNotification(new NotificationEvent(
                 "notification", {
                     method: "Playlist.OnAdd",
-                    params: { data: "foo" },
+                    params: { data: { playlistid: 1 } },
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
+        });
+
+        it("should ignore when no listener on clear", async function () {
+            const playlist = new Playlist(new Kodi());
+            const spy = sinon.spy(playlist.onClear, "dispatch");
+            await playlist.handleNotification(new NotificationEvent(
+                "notification", {
+                    method: "Playlist.OnClear",
+                    params: { data: { playlistid: 1 } },
+                },
+            ));
+
+            assert.strictEqual(spy.callCount, 0);
+        });
+
+        it("should ignore when no listener on remove", async function () {
+            const playlist = new Playlist(new Kodi());
+            const spy = sinon.spy(playlist.onRemove, "dispatch");
+            await playlist.handleNotification(new NotificationEvent(
+                "notification", {
+                    method: "Playlist.OnRemove",
+                    params: { data: { playlistid: 1 } },
+                },
+            ));
+
+            assert.strictEqual(spy.callCount, 0);
         });
 
         it("should handle 'OnAdd'", async function () {
+            const kodi = new Kodi();
+            const stub = sinon.stub(kodi, "send").resolves({
+                items: [{ foo: "bar" }],
+            });
+            const fake = sinon.fake();
+
+            const playlist = new Playlist(kodi);
+            playlist.onAdd.addListener(fake);
+            await playlist.handleNotification(new NotificationEvent(
+                "notification",
+                {
+                    method: "Playlist.OnAdd",
+                    params: { data: { playlistid: 1, position: 2 } },
+                },
+            ));
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, [
+                "Playlist.GetItems",
+                {
+                    playlistid: 1,
+                    properties: ["file", "title"],
+                    limits:     { start: 2, end: 3 },
+                },
+            ]);
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [{
+                foo:      "bar",
+                position: 2,
+            }]);
+        });
+
+        it("should only handle 'OnAdd'", async function () {
             const kodi = new Kodi();
             const stub = sinon.stub(kodi, "send").resolves({
                 items: [{ foo: "bar" }],
@@ -341,7 +398,26 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should handle 'OnClear'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
+            const fake = sinon.fake();
+
+            const playlist = new Playlist(kodi);
+            playlist.onClear.addListener(fake);
+            await playlist.handleNotification(new NotificationEvent(
+                "notification", {
+                    method: "Playlist.OnClear",
+                    params: { data: { playlistid: 1 } },
+                },
+            ));
+
+            assert.strictEqual(spy.callCount, 0);
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [undefined]);
+        });
+
+        it("should only handle 'OnClear'", async function () {
+            const kodi = new Kodi();
+            const spy = sinon.spy(kodi, "send");
             const fakeAdd = sinon.fake();
             const fakeClear = sinon.fake();
             const fakeRemove = sinon.fake();
@@ -357,7 +433,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fakeAdd.callCount, 0);
             assert.strictEqual(fakeClear.callCount, 1);
             assert.deepStrictEqual(fakeClear.firstCall.args, [undefined]);
@@ -366,7 +442,26 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should handle 'OnRemove'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
+            const fake = sinon.fake();
+
+            const playlist = new Playlist(kodi);
+            playlist.onRemove.addListener(fake);
+            await playlist.handleNotification(new NotificationEvent(
+                "notification", {
+                    method: "Playlist.OnRemove",
+                    params: { data: { playlistid: 1, position: 2 } },
+                },
+            ));
+
+            assert.strictEqual(spy.callCount, 0);
+            assert.strictEqual(fake.callCount, 1);
+            assert.deepStrictEqual(fake.firstCall.args, [2]);
+        });
+
+        it("should only handle 'OnRemove'", async function () {
+            const kodi = new Kodi();
+            const spy = sinon.spy(kodi, "send");
             const fakeAdd = sinon.fake();
             const fakeClear = sinon.fake();
             const fakeRemove = sinon.fake();
@@ -382,7 +477,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fakeAdd.callCount, 0);
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 1);
@@ -391,7 +486,7 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should ignore others notifications", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fakeAdd = sinon.fake();
             const fakeClear = sinon.fake();
             const fakeRemove = sinon.fake();
@@ -408,7 +503,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fakeAdd.callCount, 0);
             assert.strictEqual(fakeClear.callCount, 0);
             assert.strictEqual(fakeRemove.callCount, 0);

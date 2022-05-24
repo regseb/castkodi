@@ -52,6 +52,8 @@ describe("core/scraper/melty.js", function () {
                     <html>
                       <body>
                         <meta itemprop="contentUrl"
+                              content="http://foo.com/bar.html" />
+                        <meta itemprop="contentUrl"
                               content="http://www.dailymotion.com/embed/video` +
                                                                        `/bar" />
                       </body>

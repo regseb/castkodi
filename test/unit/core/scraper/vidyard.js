@@ -87,7 +87,9 @@ describe("core/scraper/vidyard.js", function () {
                 }),
             ));
 
-            const url = new URL("https://play.vidyard.com/baz.html?");
+            // Ajouter deux fois l'extension ".html" pour vérifier que c'est
+            // seulement la dernière qui est enlevée.
+            const url = new URL("https://play.vidyard.com/baz.html.qux.html?");
 
             const file = await scraper.extract(url);
             assert.strictEqual(file,
@@ -95,7 +97,7 @@ describe("core/scraper/vidyard.js", function () {
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://play.vidyard.com/player/baz.json",
+                "https://play.vidyard.com/player/baz.html.qux.json",
             ]);
         });
     });

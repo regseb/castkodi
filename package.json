@@ -28,10 +28,9 @@
         "lint": "metalint",
         "lint:types": "tsc --project .tsconfig_lint.json",
         "test": "npm run test:unit && npm run test:integration",
-        "test:unit": "c8 mocha test/unit/",
-        "test:integration": "mocha -t 0 test/integration/",
-        "coverage:html": "c8 report --reporter html",
-        "coverage:lcov": "c8 report --reporter lcovonly",
+        "test:unit": "mocha --config test/unit/mocharc.json",
+        "test:integration": "mocha --config test/integration/mocharc.json",
+        "test:coverage": "stryker run",
         "jsdocs": "typedoc --tsconfig .tsconfig_jsdocs.json --out jsdocs/ src/",
         "start:chromium": "web-ext run -t chromium -s src/",
         "start:firefox": "web-ext run -t firefox-desktop -s src/",
@@ -43,6 +42,8 @@
         "webextension-polyfill": "0.9.0"
     },
     "devDependencies": {
+        "@stryker-mutator/core": "6.0.2",
+        "@stryker-mutator/mocha-runner": "6.0.2",
         "@types/firefox-webext-browser": "94.0.1",
         "@types/jsdom": "16.2.14",
         "@types/mocha": "9.1.0",

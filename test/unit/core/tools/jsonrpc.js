@@ -37,6 +37,9 @@ describe("tools/jsonrpc.js", function () {
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
             jsonrpc.close();
+            // Il n'est pas possible de vérifier que le serveur a bien reçu la
+            // demande de fermeture car il y a un bogue dans mock-socket.
+            // https://github.com/thoov/mock-socket/issues/298
 
             server.close();
         });

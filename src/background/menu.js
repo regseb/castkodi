@@ -114,6 +114,7 @@ const handleChange = async function (changes) {
 
         if ("multi" === mode) {
             browser.contextMenus.create({
+                id:       "separator",
                 parentId: "parent",
                 type:     "separator",
             });

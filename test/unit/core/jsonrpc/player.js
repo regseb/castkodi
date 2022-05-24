@@ -331,7 +331,7 @@ describe("core/jsonrpc/player.js", function () {
     describe("handleNotification()", function () {
         it("should ignore others namespaces", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -344,13 +344,13 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
         });
 
         it("should ignore others players", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -363,15 +363,13 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
         });
 
         it("should ignore when no listener", async function () {
-            const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
-
-            const player = new Player(kodi);
+            const player = new Player(new Kodi());
+            const spy = sinon.spy(player.onPropertyChanged, "dispatch");
             await player.handleNotification(new NotificationEvent(
                 "notification",
                 {
@@ -380,7 +378,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
         });
 
         it("should handle 'OnAVStart'", async function () {
@@ -436,7 +434,7 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should handle 'OnPause'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -449,7 +447,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{
                 speed: 0,
@@ -458,7 +456,7 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should handle 'OnPropertyChanged'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -476,7 +474,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{
                 foo: "bar",
@@ -485,7 +483,7 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should handle 'OnResume'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -498,7 +496,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{
                 speed: -2,
@@ -507,7 +505,7 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should handle 'OnSeek'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -527,7 +525,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{
                 time: 3723,
@@ -536,7 +534,7 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should handle 'OnSpeedChanged'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -549,7 +547,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{
                 speed: 32,
@@ -558,7 +556,7 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should handle 'OnStop'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -571,7 +569,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 1);
             assert.deepStrictEqual(fake.firstCall.args, [{
                 position:  -1,
@@ -583,7 +581,7 @@ describe("core/jsonrpc/player.js", function () {
 
         it("should ignore others notifications", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send");
+            const spy = sinon.spy(kodi, "send");
             const fake = sinon.fake();
 
             const player = new Player(kodi);
@@ -596,7 +594,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 0);
+            assert.strictEqual(spy.callCount, 0);
             assert.strictEqual(fake.callCount, 0);
         });
     });

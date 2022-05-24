@@ -64,18 +64,10 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run unit tests
-      run: npm run test:unit
-
-    - name: Generate coverage report
-      run: npm run coverage:lcov
-      if: always()
-
-    - name: Send coverage to Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-      if: always()
+    - name: Run mutation tests and send coverage
+      run: npm run test:coverage
+      env:
+        STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
   analyze:
     runs-on: ubuntu-latest

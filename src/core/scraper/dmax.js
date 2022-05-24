@@ -56,6 +56,8 @@ const action = async function (_url, content) {
         });
         const subjson = await subresponse.json();
         videoId = subjson.data[0].id;
+    } else {
+        return undefined;
     }
 
 

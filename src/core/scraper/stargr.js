@@ -44,6 +44,8 @@ export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");
  * @param {Function} content.html      La fonction retournant la promesse
  *                                     contenant le document HTML.
  * @param {Object}   options           Les options de l'extraction.
+ * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ *                                     en profondeur.
  * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
@@ -59,7 +61,7 @@ const actionVideo = async function (_url, content, options) {
     // iframe étant exécuté après celui sur le ldjson, il faut gérer l'iframe
     // avant le scraper ldjson.
     const iframe = doc.querySelector("iframe#yt-player");
-    if (null !== iframe) {
+    if (null !== iframe && !options.depth) {
         return metaExtract(new URL(iframe.src), { ...options, depth: true });
     }
 

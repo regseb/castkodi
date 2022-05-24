@@ -1,4 +1,5 @@
 import assert from "node:assert";
+import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/opengraph.js";
 
 describe("core/scraper/opengraph.js", function () {
@@ -13,13 +14,15 @@ describe("core/scraper/opengraph.js", function () {
             assert.strictEqual(file, undefined);
         });
 
-        it("should return undefined when there isn't Open Graph",
+        it("should return undefined when there isn't Open Graph type",
                                                              async function () {
             const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
-                      <head></head>
+                      <head>
+                        <meta property="og:video" content="http://bar.com/" />
+                      </head>
                     </html>`, "text/html")),
             };
             const options = { depth: false };
@@ -83,6 +86,28 @@ describe("core/scraper/opengraph.js", function () {
             assert.strictEqual(file, "http://bar.com/baz.mkv");
         });
 
+        it("should return undefined when content is unknown",
+                                                             async function () {
+            const spy = sinon.stub(globalThis, "fetch");
+
+            const url = new URL("https://foo.com");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head>
+                        <meta property="og:video:type" content="bar/baz" />
+                        <meta property="og:video" content="http://qux.com/" />
+                      </head>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false };
+
+            const file = await scraper.extractVideo(url, content, options);
+            assert.strictEqual(file, undefined);
+
+            assert.strictEqual(spy.callCount, 0);
+        });
+
         it("should return undefined when it's depther", async function () {
             const url = new URL("https://foo.com");
             const content = {
@@ -96,6 +121,25 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: true };
+
+            const file = await scraper.extractVideo(url, content, options);
+            assert.strictEqual(file, undefined);
+        });
+
+        it("should return undefined when sub-page doesn't have media",
+                                                             async function () {
+            const url = new URL("https://foo.com");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head>
+                        <meta property="og:video:type" content="text/html" />
+                        <meta property="og:video"
+                              content="http://bar.com/baz.html" />
+                      </head>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
             assert.strictEqual(file, undefined);
@@ -132,13 +176,15 @@ describe("core/scraper/opengraph.js", function () {
             assert.strictEqual(file, undefined);
         });
 
-        it("should return undefined when there isn't Open Graph",
+        it("should return undefined when there isn't Open Graph type",
                                                              async function () {
             const url = new URL("https://foo.com");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
-                      <head></head>
+                      <head>
+                        <meta property="og:audio" content="http://bar.com/" />
+                      </head>
                     </html>`, "text/html")),
             };
             const options = { depth: false };
@@ -202,6 +248,28 @@ describe("core/scraper/opengraph.js", function () {
             assert.strictEqual(file, "http://bar.com/baz.wav");
         });
 
+        it("should return undefined when content is unknown",
+                                                             async function () {
+            const spy = sinon.stub(globalThis, "fetch");
+
+            const url = new URL("https://foo.com");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head>
+                        <meta property="og:audio:type" content="bar/baz" />
+                        <meta property="og:audio" content="http://qux.com/" />
+                      </head>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false };
+
+            const file = await scraper.extractAudio(url, content, options);
+            assert.strictEqual(file, undefined);
+
+            assert.strictEqual(spy.callCount, 0);
+        });
+
         it("should return undefined when it's depther", async function () {
             const url = new URL("https://foo.com");
             const content = {
@@ -215,6 +283,25 @@ describe("core/scraper/opengraph.js", function () {
                     </html>`, "text/html")),
             };
             const options = { depth: true };
+
+            const file = await scraper.extractAudio(url, content, options);
+            assert.strictEqual(file, undefined);
+        });
+
+        it("should return undefined when sub-page doesn't have media",
+                                                             async function () {
+            const url = new URL("https://foo.com");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head>
+                        <meta property="og:audio:type" content="text/html" />
+                        <meta property="og:audio"
+                              content="http://bar.com/baz.html" />
+                      </head>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
             assert.strictEqual(file, undefined);

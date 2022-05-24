@@ -16,7 +16,7 @@ export const compile = function (pattern) {
                           "iu");
     }
 
-    const RE = /^(?<scheme>.+?):\/\/(?<host>\*|(?:\*\.)?[^*/]+)?\/(?<path>.*)/u;
+    const RE = /^(?<scheme>.+?):\/\/(?<host>\*|(?:\*\.)?[^*/]+)\/(?<path>.*)/u;
     const { scheme, host, path } = RE.exec(pattern).groups;
     return new RegExp("^" +
         ("*" === scheme ? "https?"

@@ -13,11 +13,12 @@
         "**/*"
     ],
     "exclude": [
+        "build/",
         ".git/",
-        "coverage/",
         "jsdocs/",
         "node_modules/",
         "src/polyfill/lib/",
+        ".stryker-tmp/",
         "**/*.swp"
     ]
 }

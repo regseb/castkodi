@@ -11,6 +11,22 @@ describe("core/scraper/futurasciences.js", function () {
             assert.strictEqual(file, undefined);
         });
 
+        it("should return undefined when it's depth", async function () {
+            const url = new URL("https://www.futura-sciences.com/foo");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <iframe data-src="//dai.ly/bar"></iframe>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: true, incognito: false };
+
+            const file = await scraper.extract(url, content, options);
+            assert.strictEqual(file, undefined);
+        });
+
         it("should return undefined when it's not a HTML page",
                                                              async function () {
             const url = new URL("https://www.futura-sciences.com/favicon.png");

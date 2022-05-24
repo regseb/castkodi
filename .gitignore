@@ -1,4 +1,4 @@
 /build/
-/coverage/
 /jsdocs/
 /node_modules/
+/.stryker-tmp/

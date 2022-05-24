@@ -16,8 +16,8 @@ describe("core/scraper/dailymotion.js", function () {
 
             const file = await scraper.extractVideo(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=foo");
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=foo");
         });
     });
 
@@ -27,8 +27,8 @@ describe("core/scraper/dailymotion.js", function () {
 
             const file = await scraper.extractMinify(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=foo");
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=foo");
         });
     });
 
@@ -38,8 +38,8 @@ describe("core/scraper/dailymotion.js", function () {
 
             const file = await scraper.extractEmbed(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=foo");
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=foo");
         });
     });
 
@@ -73,16 +73,18 @@ describe("core/scraper/dailymotion.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <head>
-                        <script src="https://geo.dailymotion.com/player/bar.js"
-                                data-video="baz"></script>
+                        <script src="https://geo.dailymotion.com/bar.js">
+                                                                       </script>
+                        <script src="https://geo.dailymotion.com/player/baz.js"
+                                data-video="qux"></script>
                       </head>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extractPlayerScript(url, content);
             assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=baz");
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=qux");
         });
     });
 
@@ -109,8 +111,8 @@ describe("core/scraper/dailymotion.js", function () {
 
             const file = await scraper.extractPlayerIframe(url);
             assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=bar");
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=bar");
         });
     });
 });

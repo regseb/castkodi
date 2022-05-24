@@ -24,14 +24,10 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                      <code>undefined</code>.
  */
 const action = async function (_url, content, options) {
-    if (options.depth) {
-        return undefined;
-    }
-
     const doc = await content.html();
 
     const source = doc.querySelector(`video source[type="video/youtube"]`);
-    if (null !== source) {
+    if (null !== source && !options.depth) {
         return metaExtract(new URL(source.src), { ...options, depth: true });
     }
 
@@ -41,7 +37,7 @@ const action = async function (_url, content, options) {
     }
 
     const blockquote = doc.querySelector("blockquote.tiktok-embed");
-    if (null !== blockquote) {
+    if (null !== blockquote && !options.depth) {
         return metaExtract(new URL(blockquote.cite),
                            { ...options, depth: true });
     }

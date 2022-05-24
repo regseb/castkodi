@@ -27,6 +27,13 @@ describe("core/scraper/bigo.js", function () {
             assert.strictEqual(file, undefined);
         });
 
+        it("should return undefined when id is invalid", async function () {
+            const url = new URL("https://www.bigo.tv/123foo");
+
+            const file = await scraper.extract(url);
+            assert.strictEqual(file, undefined);
+        });
+
         it("should return undefined when it's not a video", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
                 JSON.stringify({ data: [] }),

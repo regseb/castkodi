@@ -36,7 +36,7 @@ const actionBroadcast = async function ({ pathname }) {
     const response = await fetch("https://steamcommunity.com/broadcast" +
                                              `/getbroadcastmpd/?steamid=${id}`);
     const json = await response.json();
-    return json?.hls_url;
+    return json.hls_url;
 };
 export const extractBroadcast = matchPattern(actionBroadcast,
     "*://steamcommunity.com/broadcast/watch/*");
