@@ -8,6 +8,7 @@ import { NotificationEvent } from "./notificationevent.js";
  * Le client pour se connecter à un serveur JSON-RPC.
  *
  * @see https://www.jsonrpc.org/
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
  */
 export const JSONRPC = class extends EventTarget {
 
@@ -63,9 +64,16 @@ export const JSONRPC = class extends EventTarget {
 
     /**
      * Ferme la connexion.
+     *
+     * @param {number} [code]   L'éventuel code de statut qui explique pourquoi
+     *                          la connexion est fermée ; <code>1005</code> par
+     *                          défaut.
+     * @param {string} [reason] L'éventual raison (compréhensible par un humain)
+     *                          de la fermeture.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/close
      */
-    close() {
-        this.#ws.close();
+    close(code, reason) {
+        this.#ws.close(code, reason);
     }
 
     /**

@@ -34,12 +34,57 @@ describe("tools/jsonrpc.js", function () {
     describe("close()", function () {
         it("should close connection", async function () {
             const server = new Server("ws://localhost/");
+            const promise = new Promise((resolve) => {
+                server.on("connection", (socket) => {
+                    socket.on("close", resolve);
+                });
+            });
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
             jsonrpc.close();
-            // Il n'est pas possible de vérifier que le serveur a bien reçu la
-            // demande de fermeture car il y a un bogue dans mock-socket.
-            // https://github.com/thoov/mock-socket/issues/298
+
+            const event = await promise;
+            assert.strictEqual(event.code, 1005);
+            assert.strictEqual(event.reason, "");
+            assert.strictEqual(event.wasClean, true);
+
+            server.close();
+        });
+
+        it("should close connection with code", async function () {
+            const server = new Server("ws://localhost/");
+            const promise = new Promise((resolve) => {
+                server.on("connection", (socket) => {
+                    socket.on("close", resolve);
+                });
+            });
+
+            const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
+            jsonrpc.close(1000);
+
+            const event = await promise;
+            assert.strictEqual(event.code, 1000);
+            assert.strictEqual(event.reason, "");
+            assert.strictEqual(event.wasClean, true);
+
+            server.close();
+        });
+
+        it("should close connection with code and reason", async function () {
+            const server = new Server("ws://localhost/");
+            const promise = new Promise((resolve) => {
+                server.on("connection", (socket) => {
+                    socket.on("close", resolve);
+                });
+            });
+
+            const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
+            jsonrpc.close(4242, "foo");
+
+            const event = await promise;
+            assert.strictEqual(event.code, 4242);
+            assert.strictEqual(event.reason, "foo");
+            assert.strictEqual(event.wasClean, false);
 
             server.close();
         });
