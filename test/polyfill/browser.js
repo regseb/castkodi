@@ -23,8 +23,13 @@ const I18NS = JSON.parse(
 );
 
 const data = {
-    histories:   [],
-    permissions: {
+    bookmarks: {
+        data: [],
+        id:   0,
+    },
+    contextMenus: [],
+    histories:    [],
+    permissions:  {
         data:      new Set(),
         listeners: [],
     },
@@ -46,7 +51,10 @@ const data = {
  * @type {browser}
  */
 export const browser = {
-    _clear: () => {
+    _clear() {
+        data.bookmarks.data.length = 0;
+        data.bookmarks.index = 0;
+        data.contextMenus.length = 0;
         data.histories.length = 0;
         data.permissions.data.clear();
         data.permissions.listeners.length = 0;
@@ -60,24 +68,59 @@ export const browser = {
         browser.extension.inIncognitoContext = false;
     },
 
+    bookmarks: {
+        create(options) {
+            const bookmark = {
+                id: (++data.bookmarks.index).toString(),
+                ...options,
+            };
+            data.bookmarks.data.push(bookmark);
+            return bookmark;
+        },
+        get(id) {
+            return data.bookmarks.data.filter((b) => id === b.id);
+        },
+    },
+
+    contextMenus: {
+        _getAll() {
+            return data.contextMenus;
+        },
+        create(item) {
+            if ("parentId" in item) {
+                const parent = data.contextMenus.find((i) => i.id ===
+                                                                 item.parentId);
+                parent.children = [
+                    ...parent.children ?? [],
+                    item,
+                ];
+            } else {
+                data.contextMenus.push(item);
+            }
+        },
+        removeAll() {
+            data.contextMenus.length = 0;
+        },
+    },
+
     extension: {
         inIncognitoContext: false,
     },
 
     history: {
-        addUrl: (details) => {
+        addUrl(details) {
             data.histories.push(details);
         },
-        deleteAll: () => {
+        deleteAll() {
             data.histories.length = 0;
         },
-        search: ({ text }) => {
+        search({ text }) {
             return data.histories.filter((h) => h.url.includes(text));
         },
     },
 
     i18n: {
-        getMessage: (key, ...substitutions) => {
+        getMessage(key, ...substitutions) {
             return Object.keys(I18NS[key]?.placeholders ?? {})
                          .reduce((message, placeholder, index) => {
                 return message.replace("$" + placeholder.toUpperCase() + "$",
@@ -87,13 +130,13 @@ export const browser = {
     },
 
     notifications: {
-        create: (_id, _options) => {
+        create(_id, _options) {
             throw new Error("no polyfill for this function");
         },
     },
 
     permissions: {
-        remove: ({ permissions }) => {
+        remove({ permissions }) {
             const changes = { permissions: [] };
             for (const permission of permissions) {
                 const deleted = data.permissions.data.delete(permission);
@@ -107,29 +150,32 @@ export const browser = {
             }
             return Promise.resolve(false);
         },
-        request: ({ permissions }) => {
+        request({ permissions }) {
             for (const permission of permissions) {
                 data.permissions.data.add(permission);
             }
             return Promise.resolve(true);
         },
         onRemoved: {
-            addListener: (listener) => {
+            addListener(listener) {
                 data.permissions.listeners.push(listener);
             },
         },
     },
 
     runtime: {
-        getBrowserInfo:  () => Promise.resolve(data.runtime.browserInfo),
-        _setBrowserInfo: (browserInfo) => {
+        getBrowserInfo() {
+            return Promise.resolve(data.runtime.browserInfo);
+        },
+
+        _setBrowserInfo(browserInfo) {
             data.runtime.browserInfo = browserInfo;
         },
     },
 
     storage: {
         local: {
-            get:   (properties) => {
+            get(properties) {
                 if (undefined === properties) {
                     return Promise.resolve(data.storage.local.data);
                 }
@@ -138,7 +184,7 @@ export const browser = {
                           .filter(([k]) => properties.includes(k)),
                 ));
             },
-            set:   (values) => {
+            set(values) {
                 const changes = Object.fromEntries(Object.entries(values)
                     .map(([key, value]) => {
                         // eslint-disable-next-line unicorn/no-keyword-prefix
@@ -151,19 +197,19 @@ export const browser = {
                 data.storage.local.listeners.forEach((l) => l(changes));
                 Object.assign(data.storage.local.data, values);
             },
-            clear: () => {
+            clear() {
                 data.storage.local.data = {};
             },
         },
         onChanged: {
-            addListener: (listener) => {
+            addListener(listener) {
                 data.storage.local.listeners.push(listener);
             },
         },
     },
 
     tabs: {
-        create: (createProperties) => {
+        create(createProperties) {
             const tab = {
                 // eslint-disable-next-line no-underscore-dangle
                 id:  createProperties._id,
@@ -172,14 +218,14 @@ export const browser = {
             data.tabs.push(tab);
             return Promise.resolve(tab);
         },
-        executeScript: () => {
+        executeScript() {
             return Promise.reject(new Error("no polyfill for this function"));
         },
-        query: (queryObj) => {
+        query(queryObj) {
             return Promise.resolve(data.tabs.filter((t) => queryObj.url ===
                                                                         t.url));
         },
-        remove: (tabId) => {
+        remove(tabId) {
             data.tabs.splice(data.tabs.findIndex((t) => tabId === t.id));
             return Promise.resolve();
         },
