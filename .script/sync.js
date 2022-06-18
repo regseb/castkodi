@@ -1,6 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+/**
+ * Copie un fichier / répertoire.
+ *
+ * @param {string} src  Le fichier / répertoire qui sera copié.
+ * @param {string} dest Le fichier / répertoire où la copie sera faite.
+ */
 const copy = async function (src, dest) {
     await fs.mkdir(path.dirname(dest), { recursive: true });
     const stats = await fs.lstat(src);

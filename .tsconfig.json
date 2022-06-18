@@ -10,7 +10,10 @@
         "target": "ESNext"
     },
     "include": [
-        "**/*"
+        "**/*",
+        "**/.*",
+        "**/.*/**/*",
+        "**/.*/**/.*"
     ],
     "exclude": [
         "build/",
@@ -18,7 +21,6 @@
         "jsdocs/",
         "node_modules/",
         "src/polyfill/lib/",
-        ".stryker-tmp/",
-        "**/*.swp"
+        ".stryker-tmp/"
     ]
 }
