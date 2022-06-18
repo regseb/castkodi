@@ -8,7 +8,7 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
     direct links: <em>avi</em>, <em>mkv</em>, <em>mp3</em>, <em>flac</em>, … and torrent / magnet;
   </li>
   <li>
-    YouTube, Twitch, Vimeo, SoundCloud as well as Ace&nbsp;Stream, Apple&nbsp;Podcasts, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Pippa, podCloud, Pokémon&nbsp;TV, Radio, Radioline, Reddit, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously;
+    YouTube, Twitch, Vimeo, SoundCloud as well as Ace&nbsp;Stream, Apple&nbsp;Podcasts, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Pippa, podCloud, Pokémon&nbsp;TV, Radio, Radioline, Reddit, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard, Viously;
     <ul>
       <li>🇧🇪&nbsp;Belgium: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
       <li>🇫🇷&nbsp;France: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
