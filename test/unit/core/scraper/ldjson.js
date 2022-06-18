@@ -129,6 +129,28 @@ describe("core/scraper/ldjson.js", function () {
             assert.strictEqual(file, "https://baz.com/qux.flac");
         });
 
+        it("should return contentUrl in children array", async function () {
+            const url = new URL("https://foo.com");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <body>
+                        <script type="application/ld+json">${JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@graph":   [{
+                                "@type":    "AudioObject",
+                                contentUrl: "https://bar.io/baz.mp3",
+                            }],
+                        })}</script>
+                      </body>
+                    </html>`, "text/html")),
+            };
+            const options = { depth: false };
+
+            const file = await scraper.extract(url, content, options);
+            assert.strictEqual(file, "https://bar.io/baz.mp3");
+        });
+
         it("should return embedUrl", async function () {
             const url = new URL("http://foo.com");
             const content = {

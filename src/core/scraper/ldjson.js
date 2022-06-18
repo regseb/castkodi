@@ -23,15 +23,13 @@ const SELECTOR = `script[type="application/ld+json"]`;
 /**
  * Extrait récursivement les propriétés de type objet d'un objet JSON.
  *
- * @param {Object} root Un objet JSON.
+ * @param {any} root Un élément du JSON.
  * @returns {Object[]} La liste des objets extraits.
  */
 const walk = function (root) {
-    return [root, ...Object.values(root)
-                           .filter((p) => null !== p &&
-                                          "object" === typeof p &&
-                                          !Array.isArray(p))
-                           .flatMap(walk)];
+    return null !== root && "object" === typeof root
+                                  ? [root, ...Object.values(root).flatMap(walk)]
+                                  : [];
 };
 
 /**
