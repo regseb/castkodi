@@ -8,9 +8,8 @@ describe("Scraper: Vidyard", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.startsWith("https://cdn.vidyard.com/hls-videos" +
-                                                     "/ANNZVaQ7Jr4FJFpv36A-IQ" +
-                             "/stream_1080_master_5qy4ZVxI2e0H7xlLNz8XCA.m3u8"),
+        assert.ok(file?.startsWith("https://cdn.vidyard.com/media/hls" +
+                             "/ANNZVaQ7Jr4FJFpv36A-IQ/full_hd.mp4/index.m3u8?"),
                   `"${file}"?.startsWith(...)`);
     });
 
