@@ -17,7 +17,7 @@ describe("Scraper: Odysee", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://odysee.com/$/stream/Mediacenter-KODI" +
-                                   "/95a3a486dcb31771ea4b43a1a2baed1e5bf3949f");
+            "https://player.odycdn.com/api/v3/streams/free/Mediacenter-KODI" +
+                        "/95a3a486dcb31771ea4b43a1a2baed1e5bf3949f/784919.mp4");
     });
 });
