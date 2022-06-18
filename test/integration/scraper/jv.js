@@ -25,8 +25,8 @@ describe("Scraper: JV", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://videohd.jeuxvideo.com/videos_editeurs/0000" +
-                                                          "/00004956-high.mp4");
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=x89cq08");
     });
 
     it("should return video URL from extracts-videos page", async function () {
@@ -36,8 +36,8 @@ describe("Scraper: JV", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://videohd.jeuxvideo.com/extraits/201104" +
-                                              "/portal_2_pc-00008311-high.mp4");
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=x89i98o");
     });
 
     it("should return video URL", async function () {
@@ -47,8 +47,8 @@ describe("Scraper: JV", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://video1080.jeuxvideo.com/news/v/t" +
-                                     "/vtsuperhot-259342-1457111085-1080p.mp4");
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=x89lx2g");
     });
 
     it("should return video URL from news", async function () {
@@ -59,8 +59,7 @@ describe("Scraper: JV", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://video.jeuxvideo.com/videos_editeurs/d/o" +
-                           "/doom-eternal-the-ancient-gods-part-ii-montre-son" +
-                                 "-nouvel-ennemi-1335993-1615994365-2160p.mp4");
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=x89nrvo");
     });
 });

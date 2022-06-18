@@ -2,6 +2,7 @@
  * @module
  */
 
+import * as plugin from "../plugin/dailymotion.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
@@ -24,9 +25,6 @@ const action = async function (url, content) {
 
     const response = await fetch(new URL(div.dataset.srcVideo, url));
     const json = await response.json();
-    return json.sources.map((source) => ({
-        resolution: Number.parseInt(source.label, 10),
-        file:       source.file,
-    })).sort((s1, s2) => s2.resolution - s1.resolution).shift().file;
+    return plugin.generateUrl(json.options.video);
 };
 export const extract = matchPattern(action, "*://www.jeuxvideo.com/*");

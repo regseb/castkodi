@@ -27,38 +27,27 @@ describe("core/scraper/jv.js", function () {
 
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
-                    sources: [
-                        {
-                            label: "272p",
-                            file:  "https://foo.com/bar.avi",
-                        }, {
-                            label: "1080p60",
-                            file:  "https://foo.com/bar.mp4",
-                        }, {
-                            label: "2160p (4K)",
-                            file:  "https://foo.com/bar.mkv",
-                        },
-                    ],
-                }),
+                JSON.stringify({ options: { video: "foo" } }),
             ));
 
-            const url = new URL("https://www.jeuxvideo.com/baz");
+            const url = new URL("https://www.jeuxvideo.com/bar");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <div data-src-video="https://qux.fr/quux.htm"></div>
+                        <div data-src-video="/baz/qux.php"></div>
                       </body>
                     </html>`, "text/html")),
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mkv");
+            assert.strictEqual(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=foo");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("https://qux.fr/quux.htm"),
+                new URL("https://www.jeuxvideo.com/baz/qux.php"),
             ]);
         });
     });
