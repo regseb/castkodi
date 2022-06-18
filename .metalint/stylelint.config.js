@@ -95,6 +95,9 @@ export default {
         "function-url-scheme-allowed-list": null,
         "function-url-scheme-disallowed-list": null,
 
+        // Imports
+        "import-notation": "string",
+
         // Keyframes.
         "keyframes-name-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
 
