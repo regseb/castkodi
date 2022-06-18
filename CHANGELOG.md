@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.7.0](https://github.com/regseb/castkodi/compare/v6.6.0...v6.7.0) (2022-06-18)
+
+
+### Features
+
+* Ajouter le support de Mastodon. ([c930cf5](https://github.com/regseb/castkodi/commit/c930cf5f86bbbc9105b6dbd96f8f4b9217147403))
+* Réduire la marge entre les boutons d'une ligne de la liste de lecture. ([8d15f72](https://github.com/regseb/castkodi/commit/8d15f72fc7d7db595e6b805341f4b7044d9a163c))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de Le Point. ([1b11e6a](https://github.com/regseb/castkodi/commit/1b11e6aa6a8d4f8cec441aa5bfe120313b564850))
+* Chercher les liens dans les tableaux des ld+json. ([fb25472](https://github.com/regseb/castkodi/commit/fb25472334b7fb918912b872c19ca3cc7253206a))
+* Corriger le scraper de JV (via Dailymotion). ([d833465](https://github.com/regseb/castkodi/commit/d83346533523d112ace3c17cbe3da80b6f412b83))
+
 ## [6.6.0](https://github.com/regseb/castkodi/compare/v6.5.0...v6.6.0) (2022-05-24)
 
 
