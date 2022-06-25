@@ -2,6 +2,7 @@
  * @module
  */
 
+import * as acast from "./scraper/acast.js";
 import * as acestream from "./scraper/acestream.js";
 import * as allocine from "./scraper/allocine.js";
 import * as aparat from "./scraper/aparat.js";
@@ -81,6 +82,7 @@ import { cacheable } from "./tools/cacheable.js";
  */
 const SCRAPERS = [
     // Lister les scrapers (triés par ordre alphabétique).
+    acast,
     acestream,
     allocine,
     aparat,

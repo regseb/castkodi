@@ -34,16 +34,4 @@ describe("Scraper: Pippa", function () {
                                           "/5bb36892b799143c5a063e7f/episodes" +
                                                "/5dd4250950a8cbb62f4b21ad.mp3");
     });
-
-    it("should return audio URL from acast [opengraph]", async function () {
-        const url = new URL("https://shows.acast.com/cdanslair/episodes" +
-                            "/chine-le-virus-qui-inquiete-le-monde-22-01-2020");
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://open.acast.com/public/streams" +
-                                          "/5bb36892b799143c5a063e7f/episodes" +
-                                               "/5e288874bd860fd53f96625f.mp3");
-    });
 });
