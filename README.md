@@ -20,9 +20,9 @@ et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Ace Stream, Apple Podcasts,
   Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion, DevTube, Facebook,
   Flickr, Instagram, ItemFix, Jamendo, Mastodon, Megaphone, Mixcloud, Odysee,
-  Overcast, PeerTube, Pippa, podCloud, Pokémon TV, Radio, Radioline, Reddit,
-  Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress, VideosHub, Vidyard,
-  Viously ;
+  Overcast, PeerTube, Pippa, Podcast Addict, podCloud, Pokémon TV, Radio,
+  Radioline, Reddit, Steam, Streamable, TikTok, Ultimedia, Veoh, VideoPress,
+  VideosHub, Vidyard, Viously ;
   - 🇩🇪 Allemagne : ARD Mediathek, Arte, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
   - 🇺🇸 États-Unis : KCAA Radio ;
