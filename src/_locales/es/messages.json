@@ -6,7 +6,7 @@
         "message": "La dirección del servidor web de Kodi falta en las opciones."
     },
     "notifications_notSupported_title": {
-        "message": "Versión de Kodi no soportada……‘’”‐–’———’‘‘"
+        "message": "Versión de Kodi no soportada"
     },
     "notifications_noLinks_title": {
         "message": "Enlace no soportado"
@@ -46,13 +46,13 @@
         "message": "Añadir elemento a la cola en Kodi [Q]"
     },
     "popup_forward_title": {
-        "message": "Adelantar [F]"
+        "message": "Avanzar [F]"
     },
     "popup_mute_title": {
         "message": "Silenciar / Dejar de silenciar [F8]"
     },
     "popup_volume_title": {
-        "message": "$VALUE$% [-/+]",
+        "message": "$VALUE$ % [-/+]",
         "placeholders": {
             "value": {
                 "content": "$1"
@@ -209,7 +209,7 @@
         "message": "Configurar un servidor"
     },
     "options_serverAddress_textcontent": {
-        "message": "Direción:"
+        "message": "Dirección:"
     },
     "options_serverAddress_title": {
         "message": "Dirección IP o dirección completa (por ejemplo: 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
@@ -224,7 +224,7 @@
         "message": "Nombre"
     },
     "options_serverIntro_textcontent": {
-        "message": "Para transmitir videos/música a Kodi, debes permitir control remoto desde aplicaciones en otros equipos. Esta opción está en la página Ajustes / Servicios / Control en Kodi. Luego rellene abajo con la dirección de Kodi. Esta dirección IP está disponible en la página Ajustes / Información del sistema / Resumen."
+        "message": "Para transmitir videos/música a Kodi, debes Permitir control remoto desde aplicaciones en otros equipos. Esta opción está en la página Ajustes / Servicios / Control en Kodi. Luego rellene abajo con la dirección de Kodi. Esta dirección IP está disponible en la página Ajustes / Información del sistema / Resumen."
     },
     "options_serverAdd_textcontent": {
         "message": "Añadir servidor"
@@ -338,10 +338,10 @@
         "message": "Inverso"
     },
     "labeller_youtube_unavailable": {
-        "message": "(Video no disponible)"
+        "message": "(El vídeo no está disponible)"
     },
     "options_youtubeOrderDefault_textcontent": {
-        "message": "Predeterminado"
+        "message": "Por defecto"
     },
     "popup_pause_title": {
         "message": "Pausar [Espacio]"
@@ -360,5 +360,16 @@
     },
     "popup_osd_title": {
         "message": "Mostrar OSD [M]"
+    },
+    "notifications_notFound_message": {
+        "message": "La dirección del servidor web de Kodi $ADDRESS$ no es válida o el control remoto de Kodi no está activado.",
+        "placeholders": {
+            "address": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifications_notFound_title": {
+        "message": "Kodi no se encontró"
     }
 }
