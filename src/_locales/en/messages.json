@@ -63,7 +63,7 @@
         }
     },
     "notifications_notSupported_title": {
-        "message": "Kodi version not supported……‘’”‐–’———’‘‘"
+        "message": "Kodi version not supported"
     },
     "notifications_notSupported_message": {
         "message": "Kodi version 19 (Matrix) is required."
