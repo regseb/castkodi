@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.8.0](https://github.com/regseb/castkodi/compare/v6.7.0...v6.8.0) (2022-07-14)
+
+
+### Features
+
+* Ajouter le support de Acast. ([6f70ad2](https://github.com/regseb/castkodi/commit/6f70ad2a249fcd03563644c3966e5e1085834870))
+* Ajouter le support de Podcast Addict. ([692bec4](https://github.com/regseb/castkodi/commit/692bec413e8559dd7ccf0c3972521b84b4ae5ce6))
+* Traduire en espagnol. ([bdc17e5](https://github.com/regseb/castkodi/commit/bdc17e516e46ceb0c6ff6bff8de725ce502b9035))
+
 ## [6.7.0](https://github.com/regseb/castkodi/compare/v6.6.0...v6.7.0) (2022-06-18)
 
 
