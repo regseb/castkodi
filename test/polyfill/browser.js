@@ -195,7 +195,10 @@ export const browser = {
                         return [key, change];
                     }));
                 data.storage.local.listeners.forEach((l) => l(changes));
-                Object.assign(data.storage.local.data, values);
+                data.storage.local.data = Object.fromEntries(Object.entries({
+                    ...data.storage.local.data,
+                    ...values,
+                }).sort(([k1], [k2]) => k1.localeCompare(k2)));
             },
             clear() {
                 data.storage.local.data = {};
