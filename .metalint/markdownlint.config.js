@@ -44,4 +44,7 @@ export default {
     "code-fence-style": { style: "backtick" },
     "emphasis-style": { style: "underscore" },
     "strong-style": { style: "asterisk" },
+    "link-fragments": true,
+    "reference-links-images": true,
+    "link-image-reference-definitions": true,
 };
