@@ -19,8 +19,8 @@ describe("Scraper: Vidyard", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.startsWith("https://cdn.vidyard.com/hls-videos" +
-                            "/ZoUHbEeXnQtGWB_F_LOogQ/stream_1080_master.m3u8?"),
+        assert.ok(file?.startsWith("https://cdn.vidyard.com/media/hls" +
+                             "/ZoUHbEeXnQtGWB_F_LOogQ/full_hd.mp4/index.m3u8?"),
                   `"${file}"?.startsWith(...)`);
     });
 });
