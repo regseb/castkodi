@@ -47,6 +47,10 @@ const compare = async function (lang1, lang2) {
 };
 
 describe("_locales", function () {
+    it("english and spanish should have same messages", async function () {
+        await compare("en", "es");
+    });
+
     it("english and french should have same messages", async function () {
         await compare("en", "fr");
     });

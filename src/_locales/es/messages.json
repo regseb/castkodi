@@ -1,30 +1,30 @@
 {
     "manifest_description": {
-        "message": "Diffuser des vidéos et des musiques depuis plus de 50 sites (YouTube, Twitch, Vimeo, SoundCloud, torrents…) sur Kodi."
+        "message": "Transmite videos y música desde más de 50 sitios (YouTube, Twitch, Vimeo, SoundCloud, torrent, ...) a Kodi."
     },
     "menus_firstParent": {
-        "message": "Diffuser sur Kodi"
+        "message": "Transmitir a Kodi"
     },
     "menus_firstSend": {
-        "message": "Lire maintenant avec Kodi"
+        "message": "Reproducir ahora en Kodi"
     },
     "menus_firstInsert": {
-        "message": "Lire ensuite avec Kodi"
+        "message": "Reproducir siguiente en Kodi"
     },
     "menus_firstAdd": {
-        "message": "Placer en file d'attente de Kodi"
+        "message": "Añadir elemento a la cola en Kodi"
     },
     "menus_secondSend": {
-        "message": "Lire maintenant"
+        "message": "Reproducir ahora"
     },
     "menus_secondInsert": {
-        "message": "Lire ensuite"
+        "message": "Reproducir siguiente"
     },
     "menus_secondAdd": {
-        "message": "Placer en file d'attente"
+        "message": "Añadir elemento a la cola"
     },
     "menus_noName": {
-        "message": "(sans nom $INDEX$)",
+        "message": "(sin nombre $INDEX$)",
         "placeholders": {
             "index": {
                 "content": "$1"
@@ -32,19 +32,19 @@
         }
     },
     "notifications_unknown_title": {
-        "message": "Erreur inconnue"
+        "message": "Error desconocido"
     },
     "notifications_unconfigured_title": {
-        "message": "Aucune adresse"
+        "message": "Sin dirección"
     },
     "notifications_unconfigured_message": {
-        "message": "L'adresse du serveur Web de Kodi n'est pas renseignée."
+        "message": "La dirección del servidor web de Kodi falta en las opciones."
     },
     "notifications_badAddress_title": {
-        "message": "Adresse invalide"
+        "message": "Dirección inválida"
     },
     "notifications_badAddress_message": {
-        "message": "L'adresse du serveur Web de Kodi $ADDRESS$ est invalide.",
+        "message": "La dirección del servidor web de Kodi $ADDRESS$ es inválida.",
         "placeholders": {
             "address": {
                 "content": "$1"
@@ -52,10 +52,10 @@
         }
     },
     "notifications_notFound_title": {
-        "message": "Kodi non trouvé"
+        "message": "Kodi no se encontró"
     },
     "notifications_notFound_message": {
-        "message": "L'adresse du serveur Web de Kodi $ADDRESS$ est invalide ; ou le contrôle à distance n'est pas activé dans Kodi.",
+        "message": "La dirección del servidor web de Kodi $ADDRESS$ no es válida o el control remoto de Kodi no está activado.",
         "placeholders": {
             "address": {
                 "content": "$1"
@@ -63,16 +63,16 @@
         }
     },
     "notifications_notSupported_title": {
-        "message": "Version de Kodi non supportée"
+        "message": "Versión de Kodi no soportada"
     },
     "notifications_notSupported_message": {
-        "message": "La version 19 (Matrix) de Kodi est nécessaire."
+        "message": "Se requiere la versión 19 (Matrix) de Kodi."
     },
     "notifications_noLink_title": {
-        "message": "Lien invalide"
+        "message": "Enlace no soportado"
     },
     "notifications_noLink_message": {
-        "message": "Le lien $URL$ est invalide.",
+        "message": "El enlace $URL$ es inválido.",
         "placeholders": {
             "url": {
                 "content": "$1"
@@ -80,46 +80,46 @@
         }
     },
     "notifications_noLinks_title": {
-        "message": "Lien invalide"
+        "message": "Enlace no soportado"
     },
     "notifications_noLinks_message": {
-        "message": "Le texte n'est pas un lien valide."
+        "message": "El texto no es un enlace válido."
     },
     "popup_send_title": {
-        "message": "Lire maintenant avec Kodi [P]"
+        "message": "Reproducir ahora en Kodi [P]"
     },
     "popup_insert_title": {
-        "message": "Lire ensuite avec Kodi [N]"
+        "message": "Reproducir siguiente en Kodi [N]"
     },
     "popup_add_title": {
-        "message": "Placer en file d'attente de Kodi [Q]"
+        "message": "Añadir elemento a la cola en Kodi [Q]"
     },
     "popup_paste_title": {
-        "message": "Coller un lien… [V]"
+        "message": "Pegar enlace... [V]"
     },
     "popup_server_title": {
-        "message": "Changer de serveur"
+        "message": "Cambiar servidor"
     },
     "popup_previous_title": {
-        "message": "Revenir au précédent [Pg.Préc]"
+        "message": "Ir al anterior [RePág]"
     },
     "popup_rewind_title": {
-        "message": "Retour rapide [R]"
+        "message": "Retroceder [R]"
     },
     "popup_stop_title": {
-        "message": "Arrêter [X]"
+        "message": "Detener [X]"
     },
     "popup_pause_title": {
-        "message": "Mettre sur pause [Space]"
+        "message": "Pausar [Espacio]"
     },
     "popup_play_title": {
-        "message": "Lire [Espace]"
+        "message": "Reproducir [Espacio]"
     },
     "popup_forward_title": {
-        "message": "Avancer rapidement [F]"
+        "message": "Avanzar [F]"
     },
     "popup_next_title": {
-        "message": "Passer au suivant [Pg.Suiv]"
+        "message": "Ir al siguiente [AvPág]"
     },
     "popup_volume_title": {
         "message": "$VALUE$ % [-/+]",
@@ -130,244 +130,244 @@
         }
     },
     "popup_mute_title": {
-        "message": "Activer / Désactiver le son [F8]"
+        "message": "Silenciar / Dejar de silenciar [F8]"
     },
     "popup_contextmenu_title": {
-        "message": "Ouvrir le menu contextuel [C]"
+        "message": "Abrir menú contextual [C]"
     },
     "popup_up_title": {
-        "message": "Monter [Flèche du haut]"
+        "message": "Arriba [Flecha Arriba]"
     },
     "popup_info_title": {
-        "message": "Afficher les informations [I]"
+        "message": "Mostrar información [I]"
     },
     "popup_left_title": {
-        "message": "Aller à gauche [Flèche de gauche]"
+        "message": "Izquierda [Flecha Izquierda]"
     },
     "popup_select_title": {
-        "message": "Sélectionner [Entrée]"
+        "message": "Seleccionar [Intro]"
     },
     "popup_right_title": {
-        "message": "Aller à droite [Flèche de droite]"
+        "message": "Derecha [Flecha Derecha]"
     },
     "popup_back_title": {
-        "message": "Revenir en arrière [Retour arrière]"
+        "message": "Atrás [Retroceso]"
     },
     "popup_down_title": {
-        "message": "Descendre [Flèche du bas]"
+        "message": "Abajo [Flecha Abajo]"
     },
     "popup_osd_title": {
-        "message": "Afficher le menu à l'écran [M]"
+        "message": "Mostrar OSD [M]"
     },
     "popup_home_title": {
-        "message": "Aller à la page d'accueil"
+        "message": "Ir a inicio"
     },
     "popup_fullscreen_title": {
-        "message": "Basculer en plein écran [Tab]"
+        "message": "Alternar pantalla completa [Tab]"
     },
     "popup_opensendtext_title": {
-        "message": "Envoyer du texte…"
+        "message": "Enviar texto…"
     },
     "popup_opensubtitle_title": {
-        "message": "Envoyer des sous-titres… [T]"
+        "message": "Enviar subtítulos... [T]"
     },
     "popup_playerprocessinfo_title": {
-        "message": "Afficher les informations sur le processus de lecture [O]"
+        "message": "Mostrar información del proceso del reproductor [O]"
     },
     "popup_openquit_title": {
-        "message": "Options d'alimentation [S]"
+        "message": "Opciones de Energía [S]"
     },
     "popup_repeat_title": {
-        "message": "Répéter"
+        "message": "Repetir"
     },
     "popup_shuffle_title": {
-        "message": "Mélanger"
+        "message": "Mezclar"
     },
     "popup_clear_title": {
-        "message": "Effacer"
+        "message": "Vaciar"
     },
     "popup_empty_textcontent": {
-        "message": "Liste de lecture vide"
+        "message": "Lista de reproducción vacía"
     },
     "popup_playItem_title": {
-        "message": "Lire"
+        "message": "Reproducir"
     },
     "popup_removeItem_title": {
-        "message": "Retirer"
+        "message": "Eliminar"
     },
     "popup_loading_title": {
-        "message": "Connexion en cours…"
+        "message": "Conectando…"
     },
     "popup_web_title": {
-        "message": "Aller sur l'interface Web de Kodi…"
+        "message": "Ir a la interfaz web de Kodi…"
     },
     "popup_feedback_title": {
-        "message": "Rapporter un bogue… / Proposer une amélioration…"
+        "message": "Informar de un error... / Solicitar una función…"
     },
     "popup_donate_title": {
-        "message": "Soutenir…"
+        "message": "Soporte…"
     },
     "popup_rate_title": {
-        "message": "Évaluer votre expérience…"
+        "message": "Valora tu experiencia…"
     },
     "popup_preferences_title": {
-        "message": "Configurer…"
+        "message": "Configurar…"
     },
     "popup_cancel_textcontent": {
-        "message": "Annuler"
+        "message": "Cancelar"
     },
     "popup_text_placeholder": {
-        "message": "Texte à envoyer"
+        "message": "Texto a enviar"
     },
     "popup_done_textcontent": {
-        "message": "Terminer après l'envoi"
+        "message": "Terminar luego de enviar"
     },
     "popup_sendtext_textcontent": {
-        "message": "Envoyer"
+        "message": "Enviar"
     },
     "popup_subtitle_placeholder": {
-        "message": "Lien des sous-titres"
+        "message": "Enlace de subtítulos"
     },
     "popup_addsubtitle_textcontent": {
-        "message": "Envoyer"
+        "message": "Enviar"
     },
     "popup_shutdown_textcontent": {
-        "message": "Éteindre le système"
+        "message": "Apagar el sistema"
     },
     "popup_suspend_textcontent": {
-        "message": "Suspendre"
+        "message": "Suspender"
     },
     "popup_hibernate_textcontent": {
-        "message": "Mettre en veille"
+        "message": "Hibernar"
     },
     "popup_reboot_textcontent": {
-        "message": "Redémarrer"
+        "message": "Reiniciar"
     },
     "popup_configure_textcontent": {
-        "message": "Configurer"
+        "message": "Configurar"
     },
     "popup_text_textcontent": {
-        "message": "Changer de serveur :"
+        "message": "Cambiar servidor:"
     },
     "options_serverTitle_textcontent": {
-        "message": "Connexion"
+        "message": "Conexión"
     },
     "options_serverIntro_textcontent": {
-        "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez Autoriser le contrôle à distance par des programmes sur d'autres systèmes. Ce règlage se fait dans Kodi à la page Paramètres / Services / Contrôle. Puis renseignez l'adresse de Kodi ci-dessous. Cette adresse IP est disponible dans la page Paramètres / Infos sur le système / Résumé."
+        "message": "Para transmitir videos/música a Kodi, debes Permitir control remoto desde aplicaciones en otros equipos. Esta opción está en la página Ajustes / Servicios / Control en Kodi. Luego rellene abajo con la dirección de Kodi. Esta dirección IP está disponible en la página Ajustes / Información del sistema / Resumen."
     },
     "options_serverModeSingle_textcontent": {
-        "message": "Configurer un seul serveur"
+        "message": "Configurar un servidor"
     },
     "options_serverAddress_textcontent": {
-        "message": "Adresse :"
+        "message": "Dirección:"
     },
     "options_serverAddress_title": {
-        "message": "Adresse IP ou adresse complète (par exemple : 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
+        "message": "Dirección IP o dirección completa (por ejemplo: 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
     },
     "options_serverModeMulti_textcontent": {
-        "message": "Configurer plusieurs serveurs"
+        "message": "Configurar varios servidores"
     },
     "options_serverAddresses_textcontent": {
-        "message": "Adresse"
+        "message": "Dirección"
     },
     "options_serverNames_textcontent": {
-        "message": "Nom"
+        "message": "Nombre"
     },
     "options_serverAdd_textcontent": {
-        "message": "Ajouter un serveur"
+        "message": "Añadir servidor"
     },
     "options_serverAddress_placeholder": {
         "message": "192.168.0.1"
     },
     "options_serverName_placeholder": {
-        "message": "Salon, Chambre…"
+        "message": "Principal, Dormitorio, …"
     },
     "options_serverName_error": {
-        "message": "Le nom du serveur n'est pas renseigné."
+        "message": "Falta el nombre."
     },
     "options_serverRemove_title": {
-        "message": "Supprimer le server"
+        "message": "Eliminar servidor"
     },
     "options_serverRemove_alt": {
-        "message": "Supprimer"
+        "message": "Eliminar"
     },
     "options_generalTitle_textcontent": {
-        "message": "Général"
+        "message": "General"
     },
     "options_generalHistoryInput_textcontent": {
-        "message": "Ajouter les liens diffusés sur Kodi dans l'historique du navigateur"
+        "message": "Añadir enlaces transmitidos al historial del navegador"
     },
     "options_menuTitle_textcontent": {
-        "message": "Menu contextuel"
+        "message": "Menú contextual"
     },
     "options_menuActionsDescription_textcontent": {
-        "message": "Sélectionnez les options ajoutées dans le menu contextuel :"
+        "message": "Elegir elementos añadidos al menú contextual:"
     },
     "options_menuActionsSend_textcontent": {
-        "message": "Lire maintenant"
+        "message": "Reproducir ahora"
     },
     "options_menuActionsInsert_textcontent": {
-        "message": "Lire ensuite"
+        "message": "Reproducir siguiente"
     },
     "options_menuActionsAdd_textcontent": {
-        "message": "Placer en file d'attente"
+        "message": "Añadir elemento a la cola"
     },
     "options_menuContextsDescription_textcontent": {
-        "message": "Indiquez les éléments où le menu contextuel est ajouté :"
+        "message": "Especifica los elementos en los que se añade el menú contextual:"
     },
     "options_menuContextsAudio_textcontent": {
         "message": "Audio"
     },
     "options_menuContextsBookmark_textcontent": {
-        "message": "Marque-page"
+        "message": "Marcador"
     },
     "options_menuContextsFrame_textcontent": {
         "message": "IFrame"
     },
     "options_menuContextsLink_textcontent": {
-        "message": "Lien"
+        "message": "Enlace"
     },
     "options_menuContextsPage_textcontent": {
-        "message": "Page"
+        "message": "Página"
     },
     "options_menuContextsSelection_textcontent": {
-        "message": "Sélection"
+        "message": "Selección"
     },
     "options_menuContextsTab_textcontent": {
-        "message": "Onglet"
+        "message": "Pestaña"
     },
     "options_menuContextsVideo_textcontent": {
-        "message": "Vidéo"
+        "message": "Video"
     },
     "options_youtubeTitle_textcontent": {
         "message": "YouTube"
     },
     "options_youtubePlaylistDescription_textcontent": {
-        "message": "Pour les liens vers une vidéo dans une playlist :"
+        "message": "Para enlaces de un video en una lista de reproducción:"
     },
     "options_youtubePlaylistPlaylist_textcontent": {
-        "message": "Diffuser toutes les vidéos de la playlist"
+        "message": "Transmitir todos los videos de la lista de reproducción"
     },
     "options_youtubePlaylistVideo_textcontent": {
-        "message": "Diffuser seulement la vidéo"
+        "message": "Transmitir solo el video"
     },
     "options_youtubeOrderDescription_textcontent": {
-        "message": "Sélectionnez l'ordre des playlists :"
+        "message": "Seleccionar el orden de las listas de reproducción:"
     },
     "options_youtubeOrderAsk_textcontent": {
-        "message": "Demander"
+        "message": "Preguntar"
     },
     "options_youtubeOrderDefault_textcontent": {
-        "message": "Défaut"
+        "message": "Por defecto"
     },
     "options_youtubeOrderReverse_textcontent": {
-        "message": "Inverser"
+        "message": "Inverso"
     },
     "options_youtubeOrderShuffle_textcontent": {
-        "message": "Aléatoire"
+        "message": "Mezclar"
     },
     "labeller_youtube_unavailable": {
-        "message": "(Vidéo non disponible)"
+        "message": "(El vídeo no está disponible)"
     },
     "labeller_youtube_mix": {
         "message": "Mix"

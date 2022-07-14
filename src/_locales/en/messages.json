@@ -2,7 +2,6 @@
     "manifest_description": {
         "message": "Cast videos and music from more than 50 sites (YouTube, Twitch, Vimeo, SoundCloud, torrent, …) to Kodi."
     },
-
     "menus_firstParent": {
         "message": "Cast to Kodi"
     },
@@ -32,18 +31,15 @@
             }
         }
     },
-
     "notifications_unknown_title": {
         "message": "Unknown error"
     },
-
     "notifications_unconfigured_title": {
         "message": "No address"
     },
     "notifications_unconfigured_message": {
         "message": "Address of Kodi Web server is missing in options."
     },
-
     "notifications_badAddress_title": {
         "message": "Address invalid"
     },
@@ -55,7 +51,6 @@
             }
         }
     },
-
     "notifications_notFound_title": {
         "message": "Kodi not found"
     },
@@ -67,14 +62,12 @@
             }
         }
     },
-
     "notifications_notSupported_title": {
         "message": "Kodi version not supported"
     },
     "notifications_notSupported_message": {
         "message": "Kodi version 19 (Matrix) is required."
     },
-
     "notifications_noLink_title": {
         "message": "Unsupported link"
     },
@@ -86,14 +79,12 @@
             }
         }
     },
-
     "notifications_noLinks_title": {
         "message": "Unsupported link"
     },
     "notifications_noLinks_message": {
         "message": "Text isn't a valid link."
     },
-
     "popup_send_title": {
         "message": "Play now to Kodi [P]"
     },
@@ -258,7 +249,6 @@
     "popup_text_textcontent": {
         "message": "Change server:"
     },
-
     "options_serverTitle_textcontent": {
         "message": "Connection"
     },
@@ -301,14 +291,12 @@
     "options_serverRemove_alt": {
         "message": "Remove"
     },
-
     "options_generalTitle_textcontent": {
         "message": "General"
     },
     "options_generalHistoryInput_textcontent": {
         "message": "Add casted links in browser history"
     },
-
     "options_menuTitle_textcontent": {
         "message": "Context menu"
     },
@@ -324,7 +312,6 @@
     "options_menuActionsAdd_textcontent": {
         "message": "Queue item"
     },
-
     "options_menuContextsDescription_textcontent": {
         "message": "Specify the items where the context menu is added:"
     },
@@ -352,7 +339,6 @@
     "options_menuContextsVideo_textcontent": {
         "message": "Video"
     },
-
     "options_youtubeTitle_textcontent": {
         "message": "YouTube"
     },
@@ -380,7 +366,6 @@
     "options_youtubeOrderShuffle_textcontent": {
         "message": "Shuffle"
     },
-
     "labeller_youtube_unavailable": {
         "message": "(Video unavailable)"
     },
