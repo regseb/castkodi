@@ -25,7 +25,7 @@ describe("Scraper: L'Internaute", function () {
             "https://media.ccmbg.com/vc/8654741851/960911/mp4/1647588853");
     });
 
-    it("should return video URL [iframe-youtube]", async function () {
+    it("should return video URL [template-iframe-youtube]", async function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.linternaute.fr/cinema/pratique" +

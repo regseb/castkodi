@@ -57,6 +57,8 @@ import * as srf from "./scraper/srf.js";
 // eslint-disable-next-line import/no-cycle
 import * as stargr from "./scraper/stargr.js";
 import * as steam from "./scraper/steam.js";
+// eslint-disable-next-line import/no-cycle
+import * as template from "./scraper/template.js";
 import * as tiktok from "./scraper/tiktok.js";
 import * as theguardian from "./scraper/theguardian.js";
 import * as torrent from "./scraper/torrent.js";
@@ -143,7 +145,9 @@ const SCRAPERS = [
     opengraph,
     iframe,
     embed,
+    // Chercher récursivement dans les éléments inertes.
     noscript,
+    template,
 ].flatMap((s) => Object.values(s));
 
 /**
