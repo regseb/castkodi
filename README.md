@@ -18,11 +18,11 @@ et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
 
 - liens directs : _avi_, _mkv_, _mp3_, _flac_… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Acast, Ace Stream, Apple
-  Podcasts, Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion, DevTube,
-  Facebook, Flickr, Instagram, ItemFix, Jamendo, Mastodon, Megaphone, Mixcloud,
-  Odysee, Overcast, PeerTube, Pippa, Podcast Addict, podCloud, Pokémon TV,
-  Radio, Radioline, Reddit, Steam, Streamable, TikTok, Ultimedia, Veoh,
-  VideoPress, VideosHub, Vidyard, Viously ;
+  Podcasts, Ausha, Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion,
+  DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Mastodon, Megaphone,
+  Mixcloud, Odysee, Overcast, PeerTube, Pippa, Podcast Addict, podCloud,
+  Pokémon TV, Radio, Radioline, Reddit, Steam, Streamable, TikTok, Ultimedia,
+  Veoh, VideoPress, VideosHub, Vidyard, Viously ;
   - 🇩🇪 Allemagne : ARD Mediathek, Arte, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
   - 🇺🇸 États-Unis : KCAA Radio ;
