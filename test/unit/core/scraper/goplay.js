@@ -27,7 +27,9 @@ describe("core/scraper/goplay.js", function () {
 
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ path: "http://foo.be/bar.mp4" }),
+                JSON.stringify({
+                    manifestUrls: { hls: "http://foo.be/bar.m3u8" },
+                }),
             ));
 
             const url = new URL("https://www.goplay.be/video/baz");
@@ -43,11 +45,11 @@ describe("core/scraper/goplay.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "http://foo.be/bar.mp4");
+            assert.strictEqual(file, "http://foo.be/bar.m3u8");
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, [
-                "https://www.goplay.be/api/video/qux",
+                "https://api.goplay.be/web/v1/videos/short-form/qux",
             ]);
         });
     });

@@ -9,7 +9,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *
  * @type {string}
  */
-const API_URL = "https://www.goplay.be/api/video/";
+const API_URL = "https://api.goplay.be/web/v1/videos/short-form/";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -32,6 +32,6 @@ const action = async function (_url, content) {
     const { id } = JSON.parse(div.dataset.video);
     const response = await fetch(API_URL + id);
     const json = await response.json();
-    return json.path;
+    return json.manifestUrls.hls;
 };
 export const extract = matchPattern(action, "*://www.goplay.be/video/*");
