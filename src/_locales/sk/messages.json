@@ -297,6 +297,9 @@
     "options_generalHistoryInput_textcontent": {
         "message": "Pridať odoslané odkazy do histórie prehliadača"
     },
+    "options_generalClipboardInput_textcontent": {
+        "message": "Predvyplňte vstupné pole vo vyskakovacom okne obsahom schránky"
+    },
     "options_menuTitle_textcontent": {
         "message": "Kontextová ponuka"
     },

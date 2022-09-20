@@ -122,7 +122,7 @@ const add = async function () {
     }
 };
 
-const paste = function (event) {
+const paste = async function (event) {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#paste input").disabled) {
@@ -139,7 +139,19 @@ const paste = function (event) {
         for (const section of document.querySelectorAll("section:not(#cast)")) {
             section.style.visibility = "hidden";
         }
-        document.querySelector("textarea").focus();
+
+        const textarea = document.querySelector("textarea");
+        // Pré-remplir le champ (avec la valeur du presse-papier) seulement si
+        // le champ est vide.
+        if ("" === textarea.value) {
+            const config = await browser.storage.local.get([
+                "general-clipboard",
+            ]);
+            if (config["general-clipboard"]) {
+                textarea.value = await navigator.clipboard.readText();
+            }
+        }
+        textarea.focus();
     } else {
         for (const section of document.querySelectorAll("section:not(#cast)")) {
             section.style.visibility = "visible";
@@ -1088,8 +1100,8 @@ const load = async function () {
 document.querySelector("#send").addEventListener("click", send);
 document.querySelector("#insert").addEventListener("click", insert);
 document.querySelector("#add").addEventListener("click", add);
-document.querySelector("#paste").addEventListener("change", paste);
-for (const input of document.querySelectorAll("select")) {
+document.querySelector("#paste input").addEventListener("change", paste);
+for (const input of document.querySelectorAll("#server select")) {
     input.addEventListener("change", change);
 }
 
@@ -1130,7 +1142,7 @@ document.querySelector("#openquit").addEventListener("click", openQuit);
 for (const input of document.querySelectorAll("#repeat input")) {
     input.addEventListener("click", repeat);
 }
-document.querySelector("#shuffle").addEventListener("change", shuffle);
+document.querySelector("#shuffle input").addEventListener("change", shuffle);
 document.querySelector("#clear").addEventListener("click", clear);
 
 document.querySelector("#web").addEventListener("click", web);

@@ -41,6 +41,7 @@
     "minimum_chrome_version": "103",
     "optional_permissions": [
         "bookmarks",
+        "clipboardRead",
         "history"
     ],
     "options_ui": {

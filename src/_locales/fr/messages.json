@@ -297,6 +297,9 @@
     "options_generalHistoryInput_textcontent": {
         "message": "Ajouter les liens diffusés sur Kodi dans l'historique du navigateur"
     },
+    "options_generalClipboardInput_textcontent": {
+        "message": "Pré-remplir le champ de saisie dans la popup avec le contenu du presse-papier"
+    },
     "options_menuTitle_textcontent": {
         "message": "Menu contextuel"
     },
