@@ -11,16 +11,16 @@ describe("Scraper: Veoh", function () {
         assert.strictEqual(file, url.href);
     });
 
-    it("should return URL when page doesn't exist", async function () {
-        const url = new URL("https://www.veoh.com/watch/A1b2C3");
+    it("should return URL when there isn't video", async function () {
+        const url = new URL("https://www.veoh.com/watch/v52936940QEbxjapF");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file, url.href);
     });
 
-    it("should return URL when there isn't video", async function () {
-        const url = new URL("https://www.veoh.com/watch/v52936940QEbxjapF");
+    it("should return URL when page doesn't exist", async function () {
+        const url = new URL("https://www.veoh.com/watch/A1b2C3");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

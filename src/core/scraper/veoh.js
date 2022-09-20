@@ -21,8 +21,11 @@ const API_URL = "https://www.veoh.com/watch/getVideo/";
  */
 const action = async function ({ pathname }) {
     const response = await fetch(API_URL + pathname.slice(7));
+    if ("https://www.veoh.com/exception" === response.url) {
+        return undefined;
+    }
+
     const json = await response.json();
-    return json.success && "" !== json.video.src.HQ ? json.video.src.HQ
-                                                    : undefined;
+    return json.video?.src.HQ;
 };
 export const extract = matchPattern(action, "*://www.veoh.com/watch/*");
