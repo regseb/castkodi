@@ -24,13 +24,13 @@ describe("Scraper: Gamekult", function () {
     });
 
     it("should return video URL without 'www'", async function () {
-        const url = new URL("https://gamekult.com/jeux/dead-cells-3050326015" +
-                                               "/video-3052201259.html#player");
+        const url = new URL("https://www.gamekult.com/jeux" +
+                           "/tekken-7-3050301183/video-3052640103.html#player");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                                "&url=x6o6sws");
+                                                                "&url=x8cx6c1");
     });
 });

@@ -15,7 +15,8 @@ describe("Scraper: Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://icecast.radiofrance.fr/fip-hifi.aac");
+        assert.strictEqual(file,
+            "https://icecast.radiofrance.fr/fip-midfi.mp3");
     });
 
     it("should return audio URL when protocol is HTTP", async function () {
@@ -24,7 +25,7 @@ describe("Scraper: Radio", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://icecast.radiofrance.fr/franceinter-midfi.mp3");
+            "https://icecast.radiofrance.fr/franceinter-hifi.aac");
     });
 
     it("should return audio URL when URL has subdomain", async function () {
@@ -42,6 +43,6 @@ describe("Scraper: Radio", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://direct.franceinfo.fr/live/franceinfo-midfi.mp3");
+            "https://icecast.radiofrance.fr/franceinfo-midfi.mp3");
     });
 });

@@ -22,7 +22,7 @@ describe("Scraper: L'Internaute", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://media.ccmbg.com/vc/8654741851/960911/mp4/1647588853");
+            "https://media.ccmbg.com/vc/1647588853/8654741851/960911.mp4");
     });
 
     it("should return video URL [template-iframe-youtube]", async function () {

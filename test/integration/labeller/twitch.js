@@ -33,7 +33,7 @@ describe("Labeller: Twitch", function () {
 
     it("should return default label when channel is offline",
                                                              async function () {
-        const url = new URL("https://www.twitch.tv/supersynock");
+        const url = new URL("https://www.twitch.tv/nolife");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -46,7 +46,7 @@ describe("Labeller: Twitch", function () {
         });
         assert.deepStrictEqual(item, {
             file,
-            label:    "SuperSynock",
+            label:    "Nolife",
             position: 0,
             title:    "",
             type:     "unknown",

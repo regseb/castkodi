@@ -55,7 +55,9 @@ describe("Scraper: Le Monde", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        const searchParams = new URL(file).searchParams;
-        assert.strictEqual(searchParams.get("mime_type"), "video_mp4");
+        assert.ok(undefined !== file &&
+                  "video_mp4" === new URL(file).searchParams.get("mime_type"),
+                  `"..." === new URL("${file}").searchParams` +
+                                                          `.get("mime_types")`);
     });
 });

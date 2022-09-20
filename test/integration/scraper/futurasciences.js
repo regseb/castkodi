@@ -28,7 +28,7 @@ describe("Scraper: Futura Sciences", function () {
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://v.kolplay.com/doDeMzbVkpr/index.m3u8");
+            "https://v.kolplay.com/XLJomogr83J/index.m3u8");
     });
 
     it("should return video URL from vsly-player", async function () {

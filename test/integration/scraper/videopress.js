@@ -2,15 +2,15 @@ import assert from "node:assert";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: VideoPress", function () {
-    it("should return URL when there isn't id", async function () {
-        const url = new URL("https://videopress.com/v/");
+    it("should return URL when it's not a video", async function () {
+        const url = new URL("https://videopress.com/v/foo");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file, url.href);
     });
 
-    it("should return URL when it's not a video", async function () {
+    it("should return URL when it's not a video embed", async function () {
         const url = new URL("https://videopress.com/embed/foo");
         const options = { depth: false, incognito: false };
 
