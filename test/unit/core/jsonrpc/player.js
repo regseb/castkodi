@@ -339,27 +339,11 @@ describe("core/jsonrpc/player.js", function () {
             await player.handleNotification(new NotificationEvent(
                 "notification",
                 {
-                    method: "Other.OnAVStart",
-                    params: { data: { player: { playerid: 1 } } },
-                },
-            ));
-
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 0);
-        });
-
-        it("should ignore others players", async function () {
-            const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fake = sinon.fake();
-
-            const player = new Player(kodi);
-            player.onPropertyChanged.addListener(fake);
-            await player.handleNotification(new NotificationEvent(
-                "notification",
-                {
-                    method: "Player.OnAVStart",
-                    params: { data: { player: { playerid: 2 } } },
+                    // Utiliser un espace de 6 caractères pour avoir la même
+                    // longueur que le mot "Player".
+                    method: "123456.OnAVStart",
+                    // eslint-disable-next-line unicorn/no-null
+                    params: { data: null },
                 },
             ));
 
@@ -379,6 +363,25 @@ describe("core/jsonrpc/player.js", function () {
             ));
 
             assert.strictEqual(spy.callCount, 0);
+        });
+
+        it("should ignore others players", async function () {
+            const kodi = new Kodi();
+            const spy = sinon.spy(kodi, "send");
+            const fake = sinon.fake();
+
+            const player = new Player(kodi);
+            player.onPropertyChanged.addListener(fake);
+            await player.handleNotification(new NotificationEvent(
+                "notification",
+                {
+                    method: "Player.OnAVStart",
+                    params: { data: { player: { playerid: 2 } } },
+                },
+            ));
+
+            assert.strictEqual(spy.callCount, 0);
+            assert.strictEqual(fake.callCount, 0);
         });
 
         it("should handle 'OnAVStart'", async function () {

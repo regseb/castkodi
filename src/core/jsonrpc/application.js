@@ -89,12 +89,14 @@ export const Application = class {
      * @param {NotificationEvent} notification La notification reçu de Kodi.
      */
     handleNotification({ method, params: { data } }) {
-        // Analyser les notifications seulement si des auditeurs sont présents.
-        if (0 === this.onPropertyChanged.length) {
+        // Analyser seulement les notifications venant de l'espace Application
+        // et si des auditeurs sont présents.
+        if (!method.startsWith("Application.") ||
+                0 === this.onPropertyChanged.length) {
             return;
         }
-        switch (method) {
-            case "Application.OnVolumeChanged":
+        switch (method.slice(12)) {
+            case "OnVolumeChanged":
                 this.onPropertyChanged.dispatch(data);
                 break;
             default:

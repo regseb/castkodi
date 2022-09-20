@@ -161,12 +161,14 @@ export const Input = class {
      * @param {NotificationEvent} notification La notification reçu de Kodi.
      */
     handleNotification({ method, params: { data } }) {
-        // Analyser les notifications seulement si des auditeurs sont présents.
-        if (0 === this.onInputRequested.length) {
+        // Analyser seulement les notifications venant de l'espace Input et si
+        // des auditeurs sont présents.
+        if (!method.startsWith("Input.") ||
+                0 === this.onInputRequested.length) {
             return;
         }
-        switch (method) {
-            case "Input.OnInputRequested":
+        switch (method.slice(6)) {
+            case "OnInputRequested":
                 this.onInputRequested.dispatch(data);
                 break;
             default:

@@ -237,14 +237,15 @@ export const Player = class {
      * @param {NotificationEvent} notification La notification reçu de Kodi.
      */
     async handleNotification({ method, params: { data } }) {
-        // Analyser les notifications seulement si des auditeurs sont présents
-        // et si elles viennent du lecteur de vidéo.
-        if (0 === this.onPropertyChanged.length ||
+        // Analyser seulement les notifications venant de l'espace Player, si
+        // des auditeurs sont présents et si elles viennent du lecteur de vidéo.
+        if (!method.startsWith("Player.") ||
+                0 === this.onPropertyChanged.length ||
                 "player" in data && 1 !== data.player.playerid) {
             return;
         }
-        switch (method) {
-            case "Player.OnAVStart":
+        switch (method.slice(7)) {
+            case "OnAVStart":
                 this.onPropertyChanged.dispatch({
                     ...await this.getProperties([
                         "position", "repeat", "shuffled", "time", "totaltime",
@@ -252,24 +253,24 @@ export const Player = class {
                     speed: data.player.speed,
                 });
                 break;
-            case "Player.OnPause":
+            case "OnPause":
                 this.onPropertyChanged.dispatch({ speed: data.player.speed });
                 break;
-            case "Player.OnPropertyChanged":
+            case "OnPropertyChanged":
                 this.onPropertyChanged.dispatch(data.property);
                 break;
-            case "Player.OnResume":
+            case "OnResume":
                 this.onPropertyChanged.dispatch({ speed: data.player.speed });
                 break;
-            case "Player.OnSeek":
+            case "OnSeek":
                 this.onPropertyChanged.dispatch({
                     time: toTimestamp(data.player.time),
                 });
                 break;
-            case "Player.OnSpeedChanged":
+            case "OnSpeedChanged":
                 this.onPropertyChanged.dispatch({ speed: data.player.speed });
                 break;
-            case "Player.OnStop":
+            case "OnStop":
                 this.onPropertyChanged.dispatch({
                     position:  -1,
                     speed:     0,

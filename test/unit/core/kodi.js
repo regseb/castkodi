@@ -12,7 +12,10 @@ describe("core/kodi.js", function () {
 
             // Modifier la configuration pour que l'auditeur handleChange() soit
             // appelé.
-            browser.storage.local.set({ "server-active": 1 });
+            browser.storage.local.set({
+                "server-active":   1,
+                "general-history": false,
+            });
 
             assert.strictEqual(stub.callCount, 1);
             assert.deepStrictEqual(stub.firstCall.args, []);

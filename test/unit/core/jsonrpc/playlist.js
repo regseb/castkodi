@@ -250,32 +250,11 @@ describe("core/jsonrpc/playlist.js", function () {
             await playlist.handleNotification(new NotificationEvent(
                 "notification",
                 {
-                    method: "Other.OnAdd",
-                    params: { data: { playlistid: 1 } },
-                },
-            ));
-
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fakeAdd.callCount, 0);
-            assert.strictEqual(fakeClear.callCount, 0);
-            assert.strictEqual(fakeRemove.callCount, 0);
-        });
-
-        it("should ignore others playlists", async function () {
-            const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fakeAdd = sinon.fake();
-            const fakeClear = sinon.fake();
-            const fakeRemove = sinon.fake();
-
-            const playlist = new Playlist(kodi);
-            playlist.onAdd.addListener(fakeAdd);
-            playlist.onClear.addListener(fakeClear);
-            playlist.onRemove.addListener(fakeRemove);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
-                    method: "Playlist.OnAdd",
-                    params: { data: { playlistid: 2 } },
+                    // Utiliser un espace de 9 caractères pour avoir la même
+                    // longueur que le mot "Playlist".
+                    method: "123456789.OnAdd",
+                    // eslint-disable-next-line unicorn/no-null
+                    params: { data: null },
                 },
             ));
 
@@ -322,6 +301,30 @@ describe("core/jsonrpc/playlist.js", function () {
             ));
 
             assert.strictEqual(spy.callCount, 0);
+        });
+
+        it("should ignore others playlists", async function () {
+            const kodi = new Kodi();
+            const spy = sinon.spy(kodi, "send");
+            const fakeAdd = sinon.fake();
+            const fakeClear = sinon.fake();
+            const fakeRemove = sinon.fake();
+
+            const playlist = new Playlist(kodi);
+            playlist.onAdd.addListener(fakeAdd);
+            playlist.onClear.addListener(fakeClear);
+            playlist.onRemove.addListener(fakeRemove);
+            await playlist.handleNotification(new NotificationEvent(
+                "notification", {
+                    method: "Playlist.OnAdd",
+                    params: { data: { playlistid: 2 } },
+                },
+            ));
+
+            assert.strictEqual(spy.callCount, 0);
+            assert.strictEqual(fakeAdd.callCount, 0);
+            assert.strictEqual(fakeClear.callCount, 0);
+            assert.strictEqual(fakeRemove.callCount, 0);
         });
 
         it("should handle 'OnAdd'", async function () {

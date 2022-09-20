@@ -12,10 +12,15 @@ browser.runtime.onStartup.addListener(async () => {
 });
 
 browser.runtime.onInstalled.addListener(async ({ reason }) => {
-    if (browser.runtime.OnInstalledReason.INSTALL === reason) {
-        await storage.initialize();
-    } else if (browser.runtime.OnInstalledReason.UPDATE === reason) {
-        await storage.migrate();
+    switch (reason) {
+        case browser.runtime.OnInstalledReason.INSTALL:
+            await storage.initialize();
+            break;
+        case browser.runtime.OnInstalledReason.UPDATE:
+            await storage.migrate();
+            break;
+        default:
+            // Ne rien faire.
     }
 });
 

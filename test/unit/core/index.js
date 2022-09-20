@@ -37,6 +37,13 @@ describe("core/index.js", function () {
             assert.strictEqual(url, "http://www.foo.fr");
         });
 
+        it("should trim space", function () {
+            const urls = ["\thttp://www.foo.fr \n"];
+
+            const url = mux(urls);
+            assert.strictEqual(url, "http://www.foo.fr");
+        });
+
         it("should return URL with port", function () {
             // Ajouter un tiret bas pour ne pas interpréter les deux-points
             // comme le séparateur entre le schéma et le nom de domaine.

@@ -201,8 +201,11 @@ describe("core/jsonrpc/input.js", function () {
             const input = new Input(new Kodi());
             input.onInputRequested.addListener(fake);
             input.handleNotification(new NotificationEvent("notification", {
-                method: "Other.OnInputRequested",
-                params: { data: "foo" },
+                // Utiliser un espace de 5 caractères pour avoir la même
+                // longueur que le mot "Input".
+                method: "12345.OnInputRequested",
+                // eslint-disable-next-line unicorn/no-null
+                params: { data: null },
             }));
 
             assert.strictEqual(fake.callCount, 0);

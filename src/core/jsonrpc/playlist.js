@@ -181,23 +181,25 @@ export const Playlist = class {
      * @param {NotificationEvent} notification La notification reçu de Kodi.
      */
     async handleNotification({ method, params: { data } }) {
-        // Analyser les notifications seulement si des auditeurs sont présents
-        // et si elles viennent de la liste de lecture des vidéos.
-        if (0 === this.onAdd.length && 0 === this.onClear.length &&
-                  0 === this.onRemove.length || 1 !== data.playlistid) {
+        // Analyser seulement les notifications venant de l'espace Playlist, si
+        // des auditeurs sont présents et si elles viennent de la liste de
+        // lecture des vidéos.
+        if (!method.startsWith("Playlist.") ||
+                0 === this.onAdd.length && 0 === this.onClear.length &&
+                0 === this.onRemove.length || 1 !== data.playlistid) {
             return;
         }
-        switch (method) {
-            case "Playlist.OnAdd":
+        switch (method.slice(9)) {
+            case "OnAdd":
                 this.onAdd.dispatch({
                     ...await this.getItem(data.position),
                     position: data.position,
                 });
                 break;
-            case "Playlist.OnClear":
+            case "OnClear":
                 this.onClear.dispatch(undefined);
                 break;
-            case "Playlist.OnRemove":
+            case "OnRemove":
                 this.onRemove.dispatch(data.position);
                 break;
             default:

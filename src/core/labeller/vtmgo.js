@@ -54,6 +54,5 @@ export const extractChannel = async function (channelId) {
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
     const a = doc.querySelector(`a[data-gtm*="/${channelId}/"]`);
-    return null === a ? undefined
-                      : a.dataset.gtm.slice(a.dataset.gtm.lastIndexOf("/") + 1);
+    return a?.dataset.gtm.slice(a.dataset.gtm.lastIndexOf("/") + 1);
 };

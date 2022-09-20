@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                      <code>undefined</code>.
  */
 const actionClip = async function ({ pathname, searchParams }) {
-    if (pathname.startsWith("/embed")) {
+    if ("/embed" === pathname) {
         return searchParams.has("clip")
                               ? plugin.generateClipUrl(searchParams.get("clip"))
                               : undefined;
