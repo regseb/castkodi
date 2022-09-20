@@ -31,6 +31,4 @@ const action = async function (url, content) {
     return undefined === source ? undefined
                                 : new URL(source, url).href;
 };
-export const extract = matchPattern(action,
-    "*://www.allocine.fr/*",
-    "*://rss.allocine.fr/*");
+export const extract = matchPattern(action, "*://www.allocine.fr/*");

@@ -31,17 +31,6 @@ describe("Scraper: AlloCiné", function () {
                                                         "/19131078_sd_013.mp4");
     });
 
-    it("should return video URL from RSS", async function () {
-        const url = new URL("http://rss.allocine.fr/~r/ac/actualites/cine/~3" +
-                        "/JT3DmCdQCdQ/fichearticle_gen_carticle=18685966.html");
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://fr.vid.web.acsta.net/nmedia/33/19/11/22/16" +
-                                                       "//19586672_hd_013.mp4");
-    });
-
     it("should return video URL from video URL without protocol",
                                                              async function () {
         const url = new URL("https://www.allocine.fr/article" +
