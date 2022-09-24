@@ -9,7 +9,7 @@
 
     <radialGradient id="radial">
       <stop offset="0%"   stop-color="#09b4e8" />
-      <stop offset="100%" stop-color="black" />
+      <stop offset="100%" stop-color="#0a84ff" stop-opacity="0.5" />
     </radialGradient>
 
     <mask id="line">
@@ -42,6 +42,7 @@
     </mask>
   </defs>
 
+  <rect width="100%" height="100%" fill="black" />
   <rect width="100%" height="100%" fill="url(#radial)" />
 
   <g mask="url(#line)" transform="translate(360 180)">
