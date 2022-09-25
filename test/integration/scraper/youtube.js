@@ -231,4 +231,35 @@ describe("Scraper: YouTube", function () {
         assert.strictEqual(stub.callCount, 1);
         assert.deepStrictEqual(stub.firstCall.args, ["video"]);
     });
+
+    it("should return video id from short", async function () {
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+        const url = new URL("https://www.youtube.com/shorts/Oq98KDthqyk");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file,
+            "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=Oq98KDthqyk&incognito=false");
+
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+    });
+
+    it("should return video id from short shared", async function () {
+        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+        const url = new URL("https://youtube.com/shorts/rP34nI3E3bc" +
+                                                              "?feature=share");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file,
+            "plugin://plugin.video.youtube/play/" +
+                                       "?video_id=rP34nI3E3bc&incognito=false");
+
+        assert.strictEqual(stub.callCount, 1);
+        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+    });
 });

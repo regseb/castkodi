@@ -95,3 +95,21 @@ const actionMinify = async function ({ pathname }, _content, { incognito }) {
     return plugin.generateVideoUrl(pathname.slice(1), incognito);
 };
 export const extractMinify = matchPattern(actionMinify, "*://youtu.be/*");
+
+/**
+ * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ *
+ * @param {URL}     url               L'URL d'un <em>short</em> YouTube.
+ * @param {Object}  _content          Le contenu de l'URL.
+ * @param {Object}  options           Les options de l'extraction.
+ * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
+ *                                    en navigation privée.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
+ */
+const actionShort = async function ({ pathname }, _content, { incognito }) {
+    return plugin.generateVideoUrl(pathname.slice(8), incognito);
+};
+export const extractShort = matchPattern(actionShort,
+    "*://*.youtube.com/shorts/*",
+    "*://youtube.com/shorts/*");

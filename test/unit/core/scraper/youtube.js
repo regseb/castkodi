@@ -286,7 +286,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepStrictEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video id form invidio.us", async function () {
+        it("should return video id from invidio.us", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://invidio.us/embed/foo");
@@ -328,6 +328,40 @@ describe("core/scraper/youtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractMinify(url, content, options);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/" +
+                                               "?video_id=foo&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        });
+    });
+
+    describe("extractShort()", function () {
+        it("should return video id", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+            const url = new URL("https://www.youtube.com/shorts/foo");
+            const content = undefined;
+            const options = { incognito: false };
+
+            const file = await scraper.extractShort(url, content, options);
+            assert.strictEqual(file,
+                "plugin://plugin.video.youtube/play/" +
+                                               "?video_id=foo&incognito=false");
+
+            assert.strictEqual(stub.callCount, 1);
+            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return video id from URL without 'www'", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+            const url = new URL("https://youtube.com/shorts/foo");
+            const content = undefined;
+            const options = { incognito: false };
+
+            const file = await scraper.extractShort(url, content, options);
             assert.strictEqual(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=foo&incognito=false");
