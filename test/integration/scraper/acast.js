@@ -3,20 +3,32 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Acast", function () {
     it("should return audio URL [opengraph]", async function () {
-        const url = new URL("https://shows.acast.com/cdanslair/episodes" +
-                            "/chine-le-virus-qui-inquiete-le-monde-22-01-2020");
+        const url = new URL("https://play.acast.com/s/c-dans-lair" +
+                                       "/8caa8723-c9fd-4104-97f9-5da3d44f2d0b");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.strictEqual(file,
-            "https://open.acast.com/public/streams" +
-                                          "/5bb36892b799143c5a063e7f/episodes" +
-                                               "/5e288874bd860fd53f96625f.mp3");
+            "https://francetv.proxycast.org/2969354392962084864" +
+                                   "/8caa8723-c9fd-4104-97f9-5da3d44f2d0b.mp3" +
+                                                  "?u=VePZcdrLSG&_=1661879526");
+    });
+
+    it("should return audio URL from share [opengraph]", async function () {
+        const url = new URL("https://play.acast.com/s" +
+                                                   "/5d84d37cf721f89940031fb4" +
+                                                   "/63282b9b00922400136f2602");
+        const options = { depth: false, incognito: false };
+
+        const file = await extract(url, options);
+        assert.strictEqual(file,
+            "https://sphinx.acast.com/p/open/s/5d84d37cf721f89940031fb4/e" +
+                                         "/63282b9b00922400136f2602/media.mp3");
     });
 
     it("should return audio URL from embed", async function () {
         const url = new URL("https://embed.acast.com/5b7ac427c6a58e726f576cff" +
-                                        "/626c0242162abf00141b401b?logo=false");
+                                           "/626c0242162abf00141b401b?seek=42");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
