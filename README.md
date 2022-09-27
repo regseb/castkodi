@@ -25,7 +25,7 @@ et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
   VideoPress, VideosHub, Vidyard, Viously ;
   - 🇩🇪 Allemagne : ARD Mediathek, Arte, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
-  - 🇺🇸 États-Unis : KCAA Radio ;
+  - 🇺🇸 États-Unis : Bally Sports, KCAA Radio ;
   - 🇫🇷 France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
     Sciences, Gamekult, JV, Konbini, Le Monde, Le Point, L'Internaute, Melty,
     Ouest-France ;

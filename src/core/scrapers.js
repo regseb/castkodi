@@ -11,6 +11,7 @@ import * as ardmediathek from "./scraper/ardmediathek.js";
 import * as arte from "./scraper/arte.js";
 import * as arteradio from "./scraper/arteradio.js";
 import * as ausha from "./scraper/ausha.js";
+import * as ballysports from "./scraper/ballysports.js";
 import * as bigo from "./scraper/bigo.js";
 import * as blogtalkradio from "./scraper/blogtalkradio.js";
 import * as devtube from "./scraper/devtube.js";
@@ -95,6 +96,7 @@ const SCRAPERS = [
     arte,
     arteradio,
     ausha,
+    ballysports,
     bigo,
     blogtalkradio,
     devtube,

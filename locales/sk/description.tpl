@@ -19,7 +19,7 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
       <li>🇩🇪&nbsp;Nemecko: ARD&nbsp;Mediathek, Arte, DMAX, ZDF;</li>
       <li>🇬🇧&nbsp;Spojené kráľovstvo: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
       <li>🇨🇭&nbsp;Švajčiarsko: Play&nbsp;SRF;</li>
-      <li>🇺🇸&nbsp;USA: KCAA&nbsp;Radio.</li>
+      <li>🇺🇸&nbsp;USA: Bally&nbsp;Sports, KCAA&nbsp;Radio.</li>
     </ul>
   </li>
 </ul>
