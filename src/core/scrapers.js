@@ -66,6 +66,7 @@ import * as theguardian from "./scraper/theguardian.js";
 import * as torrent from "./scraper/torrent.js";
 import * as twitch from "./scraper/twitch.js";
 import * as ultimedia from "./scraper/ultimedia.js";
+import * as uqload from "./scraper/uqload.js";
 import * as veoh from "./scraper/veoh.js";
 import * as videopress from "./scraper/videopress.js";
 import * as videoshub from "./scraper/videoshub.js";
@@ -132,6 +133,7 @@ const SCRAPERS = [
     torrent,
     twitch,
     ultimedia,
+    uqload,
     veoh,
     videopress,
     videoshub,
