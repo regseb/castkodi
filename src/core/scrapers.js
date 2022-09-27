@@ -52,6 +52,7 @@ import * as pokemontv from "./scraper/pokemontv.js";
 import * as radio from "./scraper/radio.js";
 import * as radioline from "./scraper/radioline.js";
 import * as reddit from "./scraper/reddit.js";
+import * as rumble from "./scraper/rumble.js";
 import * as soundcloud from "./scraper/soundcloud.js";
 import * as srf from "./scraper/srf.js";
 // eslint-disable-next-line import/no-cycle
@@ -119,6 +120,7 @@ const SCRAPERS = [
     radio,
     radioline,
     reddit,
+    rumble,
     soundcloud,
     srf,
     stargr,
