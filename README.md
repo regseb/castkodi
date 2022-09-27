@@ -2,7 +2,7 @@
 
 <!-- Utiliser du HTML pour faire flotter l'image à droite. -->
 <!-- markdownlint-disable-next-line no-inline-html-->
-<img src="src/img/icon.svg" align="right" alt="Logo de Cast Kodi">
+<img src="src/img/icon.svg" align="right" alt="">
 
 [![chrome][img-chrome]][link-chrome]
 [![firefox][img-firefox]][link-firefox]
@@ -68,7 +68,7 @@ dans la page _Paramètres_ / _Infos sur le système_ / _Résumé_.
 npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) sont
 nécessaire pour contribuer au projet. Après avoir [forké et
 cloné](https://docs.github.com/en/get-started/quickstart/fork-a-repo) Cast Kodi,
-exécutez `npm install` pour télécharger les dépendances. Voici d'autres
+exécutez `npm ci` pour télécharger les dépendances. Voici d'autres
 commandes utiles :
 
 - `npm run lint` : faire une analyse statique des fichiers ;

@@ -159,7 +159,7 @@ describe("core/scraper/twitch.js", function () {
                 "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
 
-        it("should return channel name form 'go'", async function () {
+        it("should return channel name from 'go'", async function () {
             const url = new URL("https://go.twitch.tv/foo");
 
             const file = await scraper.extract(url);

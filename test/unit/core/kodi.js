@@ -4,7 +4,7 @@ import sinon from "sinon";
 describe("core/kodi.js", function () {
     describe("handleChange()", function () {
         it("should close connexion with kodi", async function () {
-            // Charger le module pour que celui-ci est l'auditeur.
+            // Charger le module pour que celui-ci ait l'auditeur.
             const { kodi } = await import("../../../src/core/kodi.js?" +
                                                                     Date.now());
             browser.storage.local.set({ "server-active": 0 });
@@ -22,7 +22,7 @@ describe("core/kodi.js", function () {
         });
 
         it("should ignore changes other than servers", async function () {
-            // Charger le module pour que celui-ci est l'auditeur.
+            // Charger le module pour que celui-ci ait l'auditeur.
             const { kodi } = await import("../../../src/core/kodi.js?" +
                                                                     Date.now());
             browser.storage.local.set({ "general-history": false });

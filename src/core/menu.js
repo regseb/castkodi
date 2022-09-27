@@ -8,7 +8,7 @@ import { cast } from "./index.js";
 /**
  * Met en majuscule la première lettre d'un texte.
  *
- * @param {string} text Le texte avec modifié.
+ * @param {string} text Le texte à modifier.
  * @returns {string} Le texte avec sa première lettre en majuscule.
  */
 const capitalize = function (text) {

@@ -48,7 +48,7 @@ export const generateClipUrl = async function (clipId) {
 };
 
 /**
- * Extrait le titre d'un <em>live</em>, d'une vidéo, ou d'un clip Twitch.
+ * Extrait le titre d'un <em>live</em>, d'une vidéo ou d'un clip Twitch.
  *
  * @param {URL} url L'URL utilisant le plugin de Twitch.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou

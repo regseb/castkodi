@@ -11,7 +11,7 @@
 const PLUGIN_URL = "plugin://plugin.video.elementum/play?uri=";
 
 /**
- * Génère l'URL d'un torrent ou un magnet dans l'extension Elementum.
+ * Génère l'URL d'un torrent ou d'un magnet dans l'extension Elementum.
  *
  * @param {URL} url L'URL du torrent ou du magnet.
  * @returns {Promise<string>} Une promesse contenant le lien du

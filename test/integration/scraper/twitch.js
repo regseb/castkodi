@@ -168,7 +168,7 @@ describe("Scraper: Twitch", function () {
             "plugin://plugin.video.twitch/?mode=play&channel_name=nolife");
     });
 
-    it("should return channel name form 'go'", async function () {
+    it("should return channel name from 'go'", async function () {
         const url = new URL("https://go.twitch.tv/nolife");
         const options = { depth: false, incognito: false };
 

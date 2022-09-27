@@ -86,7 +86,8 @@ export const Application = class {
      * Appelle les auditeurs d'une notification liée à l'espace de nom
      * <em>Application</em>.
      *
-     * @param {NotificationEvent} notification La notification reçu de Kodi.
+     * @param {NotificationEvent} notification L'évènement de la notification
+     *                                         reçu de Kodi.
      */
     handleNotification({ method, params: { data } }) {
         // Analyser seulement les notifications venant de l'espace Application

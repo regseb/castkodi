@@ -12,7 +12,7 @@ describe("Scraper: Ultimedia", function () {
         }
     });
 
-    it("should return URL when it's not an audio", async function () {
+    it("should return URL when it's not a video", async function () {
         const url = new URL("https://www.ultimedia.com/default/presentation" +
                                                                         "/cgu");
         const options = { depth: false, incognito: false };

@@ -32,8 +32,8 @@ export const Kodi = class {
      * @param {string} address L'adresse IP ou l'adresse complète du service de
      *                         Kodi.
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code> si
-     *                            Kodi est accessible et a une version
-     *                            supportée ;
+     *                            Kodi est accessible et a une version gérée ;
+     *                            sinon une promesse rompue.
      */
     static async check(address) {
         const kodi = new Kodi(address);
@@ -62,7 +62,7 @@ export const Kodi = class {
             url = new URL(address);
         } catch {
             // Si la connexion avec l'adresse complète n'a pas fonctionnée :
-            // essayer avec l'adresse IP (en y ajoutant le protocol, le port et
+            // essayer avec l'adresse IP (en y ajoutant le protocole, le port et
             // le chemin).
             try {
                 url = new URL(`ws://${address}:9090/jsonrpc`);
@@ -96,7 +96,7 @@ export const Kodi = class {
 
     /**
      * Le client connecté au service de Kodi ; ou <code>undefined</code> si le
-     * n'est pas connecté.
+     * client n'est pas connecté.
      *
      * @type {JSONRPC|undefined}
      */

@@ -158,7 +158,8 @@ export const Input = class {
      * Appelle les auditeurs d'une notification liée à l'espace de nom
      * <em>Input</em>.
      *
-     * @param {NotificationEvent} notification La notification reçu de Kodi.
+     * @param {NotificationEvent} notification L'évènement d'une notification
+     *                                         reçu de Kodi.
      */
     handleNotification({ method, params: { data } }) {
         // Analyser seulement les notifications venant de l'espace Input et si
