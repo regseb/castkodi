@@ -161,7 +161,12 @@ describe("core/menu.js", function () {
         it("should return bookmark url", async function () {
             const { id } = browser.bookmarks.create({ url: "http://foo.com/" });
 
-            const urls = await menu.aggregate({ bookmarkId: id });
+            const urls = await menu.aggregate({
+                menuItemId: "send",
+                modifiers:  [],
+                editable:   false,
+                bookmarkId: id,
+            });
             assert.deepStrictEqual(urls, ["http://foo.com/"]);
         });
 
@@ -171,14 +176,25 @@ describe("core/menu.js", function () {
                 title: "foo",
             });
 
-            const urls = await menu.aggregate({ bookmarkId: id });
+            const urls = await menu.aggregate({
+                menuItemId: "send",
+                modifiers:  [],
+                editable:   false,
+                bookmarkId: id,
+            });
             assert.deepStrictEqual(urls, ["foo"]);
         });
 
         it("should ignore URLs (with audio)", async function () {
             await browser.storage.local.set({ "menu-contexts": ["video"] });
 
+            // @ts-ignore: Désactiver la vérification de TypeScript car la
+            // déclaration du type OnClickData (argument de aggregate) n'est pas
+            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             const urls = await menu.aggregate({
+                menuItemId:    "send",
+                modifiers:     [],
+                editable:      false,
                 mediaType:     "audio",
                 selectionText: "foo",
                 linkUrl:       "bar",
@@ -192,7 +208,13 @@ describe("core/menu.js", function () {
         it("should ignore URLs (with video)", async function () {
             await browser.storage.local.set({ "menu-contexts": ["audio"] });
 
+            // @ts-ignore: Désactiver la vérification de TypeScript car la
+            // déclaration du type OnClickData (argument de aggregate) n'est pas
+            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             const urls = await menu.aggregate({
+                menuItemId:    "send",
+                modifiers:     [],
+                editable:      false,
                 mediaType:     "video",
                 selectionText: "foo",
                 linkUrl:       "bar",
@@ -210,7 +232,13 @@ describe("core/menu.js", function () {
                 ],
             });
 
+            // @ts-ignore: Désactiver la vérification de TypeScript car la
+            // déclaration du type OnClickData (argument de aggregate) n'est pas
+            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             const urls = await menu.aggregate({
+                menuItemId:    "send",
+                modifiers:     [],
+                editable:      false,
                 mediaType:     "audio",
                 selectionText: "foo",
                 linkUrl:       "bar",
@@ -228,7 +256,13 @@ describe("core/menu.js", function () {
                 ],
             });
 
+            // @ts-ignore: Désactiver la vérification de TypeScript car la
+            // déclaration du type OnClickData (argument de aggregate) n'est pas
+            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             const urls = await menu.aggregate({
+                menuItemId:    "send",
+                modifiers:     [],
+                editable:      false,
                 mediaType:     "video",
                 selectionText: "foo",
                 linkUrl:       "bar",

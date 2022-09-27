@@ -2,6 +2,7 @@ import nodeFetch from "node-fetch";
 
 /**
  * @typedef {import("node-fetch").Response} Response
+ * @typedef {import("node-fetch").RequestInit} RequestInit
  */
 
 /**
@@ -10,13 +11,13 @@ import nodeFetch from "node-fetch";
  * @type {string}
  */
 const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" +
-                   " (KHTML, like Gecko) Chrome/102.0.5005.115 Safari/537.36";
+                   " (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36";
 
 /**
  * Cherche une ressource.
  *
- * @param {string} input  La ressource à collecter.
- * @param {Object} [init] Les paramètres de la requête.
+ * @param {string}      input  La ressource à collecter.
+ * @param {RequestInit} [init] Les paramètres de la requête.
  * @returns {Promise<Response>} Une promesse contenant la réponse.
  */
 export const fetch = function (input, init) {
