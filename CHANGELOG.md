@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.9.0](https://github.com/regseb/castkodi/compare/v6.8.0...v6.9.0) (2022-09-29)
+
+
+### Features
+
+* Ajouter la gestion de Ausha. ([65ba71c](https://github.com/regseb/castkodi/commit/65ba71cb3a3e0dc7f3ec2559d259db7abd479522))
+* Ajouter le support de Rumble. ([79b8252](https://github.com/regseb/castkodi/commit/79b825243caaa29719afa8b72e4058d4d50f8d35))
+* Ajouter le support de Uqload. ([e84e8e1](https://github.com/regseb/castkodi/commit/e84e8e10432488c74f188b8fc1a9aa527370a4c6))
+* Ajouter le support des VOD de Bally Sports. ([22b475e](https://github.com/regseb/castkodi/commit/22b475e8042b4cfc71bc9b9c32ef78afe12d7d6d))
+* Chercher dans les éléments template. ([187060a](https://github.com/regseb/castkodi/commit/187060aab175acb7877c41fabcefab892aaa2d1a))
+* Enlever le flux RSS de AlloCiné. ([d0937c4](https://github.com/regseb/castkodi/commit/d0937c46a7c90d35a4147b77dc61f0e0b164e6d6))
+* Gérer les shorts de YouTube. ([5920f4a](https://github.com/regseb/castkodi/commit/5920f4a49709c2d7074e11c42d26a57ace57e474))
+* Pré-remplir avec le presse-papier. ([fcfb0ea](https://github.com/regseb/castkodi/commit/fcfb0ea74da4a673d8319d4c3801c8320ab2959c))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de GoPlay. ([e60737c](https://github.com/regseb/castkodi/commit/e60737c10413792a9a72a8e9cfcb3fc8bb279dc7))
+* Actualiser le scraper de Le Point. ([8339c9e](https://github.com/regseb/castkodi/commit/8339c9eb05181d46602d517dfcb7041392a88708))
+* Actualiser le scraper de Veoh. ([b3398d5](https://github.com/regseb/castkodi/commit/b3398d58d2f77cddf7e06ec969b744c2bfefa143))
+* Actualiser les scrapers Acast / Pippa. ([3d3a4f9](https://github.com/regseb/castkodi/commit/3d3a4f9fa7b7bfb225b9d1f8314c3cad3b9b6dae))
+* Enlever le support de Radioline. ([af6555b](https://github.com/regseb/castkodi/commit/af6555bc14381c79b04f58ccc2a0d710ded6eb1e))
+
 ## [6.8.0](https://github.com/regseb/castkodi/compare/v6.7.0...v6.8.0) (2022-07-14)
 
 
