@@ -1,8 +1,8 @@
 {
-    "applications": {
+    "browser_specific_settings": {
         "gecko": {
             "id": "castkodi@regseb.github.io",
-            "strict_min_version": "102.0"
+            "strict_min_version": "105.0"
         }
     },
     "manifest_version": 2,
@@ -38,7 +38,7 @@
     },
     "default_locale": "en",
     "homepage_url": "https://github.com/regseb/castkodi",
-    "minimum_chrome_version": "103",
+    "minimum_chrome_version": "105",
     "optional_permissions": [
         "bookmarks",
         "clipboardRead",

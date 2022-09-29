@@ -4,7 +4,7 @@ export default {
         "import",
         "jsdoc",
         "mocha",
-        "node",
+        "n",
         "no-unsanitized",
         "promise",
         "regexp",
@@ -122,6 +122,9 @@ export default {
         "id-length": 0,
         "id-match": 0,
         "init-declarations": 0,
+        "logical-assignment-operators": [2, "always", {
+            enforceForIfStatements: true,
+        }],
         "max-classes-per-file": 2,
         "max-depth": [1, { max: 5 }],
         "max-lines": [1, {

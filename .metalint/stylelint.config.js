@@ -2,7 +2,10 @@ export default {
     plugins: ["stylelint-order"],
 
     rules: {
-        // POSSIBLE ERRORS.
+        // AVOID ERRORS.
+        // Annotation
+        "annotation-no-unknown": true,
+
         // Color.
         "color-no-invalid-hex": true,
 
@@ -97,6 +100,9 @@ export default {
 
         // Imports
         "import-notation": "string",
+
+        // Keyframe selector
+        "keyframe-selector-notation": "keyword",
 
         // Keyframes.
         "keyframes-name-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
