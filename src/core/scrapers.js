@@ -34,7 +34,6 @@ import * as kcaastreaming from "./scraper/kcaastreaming.js";
 import * as ldjson from "./scraper/ldjson.js";
 // eslint-disable-next-line import/no-cycle
 import * as lemonde from "./scraper/lemonde.js";
-// eslint-disable-next-line import/no-cycle
 import * as lepoint from "./scraper/lepoint.js";
 import * as media from "./scraper/media.js";
 import * as megaphone from "./scraper/megaphone.js";
