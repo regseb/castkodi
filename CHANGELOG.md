@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.9.1](https://github.com/regseb/castkodi/compare/v6.9.0...v6.9.1) (2022-10-05)
+
+
+### Bug Fixes
+
+* Corriger le changement de serveur quand il y a une erreur. ([#86](https://github.com/regseb/castkodi/issues/86)) ([05e9ed5](https://github.com/regseb/castkodi/commit/05e9ed55e4a8ee372fecfb770aec60ebbec108f3))
+
 ## [6.9.0](https://github.com/regseb/castkodi/compare/v6.8.0...v6.9.0) (2022-09-29)
 
 
