@@ -625,6 +625,7 @@ export default {
         "unicorn/no-static-only-class": 2,
         "unicorn/no-thenable": 2,
         "unicorn/no-this-assignment": 2,
+        "unicorn/no-unnecessary-await": 2,
         "unicorn/no-unreadable-array-destructuring": 2,
         "unicorn/no-unreadable-iife": 2,
         // Désactiver la règle car il y a des faux-positifs avec les petites
@@ -642,7 +643,7 @@ export default {
         "unicorn/number-literal-case": 2,
         "unicorn/numeric-separators-style": 2,
         "unicorn/prefer-add-event-listener": 2,
-        "unicorn/prefer-array-find": 2,
+        "unicorn/prefer-array-find": [2, { checkFromLast: true }],
         "unicorn/prefer-array-flat": 2,
         "unicorn/prefer-array-flat-map": 2,
         "unicorn/prefer-array-index-of": 2,
@@ -694,6 +695,7 @@ export default {
         // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1396
         "unicorn/require-post-message-target-origin": 0,
         "unicorn/string-content": 0,
+        "unicorn/switch-case-braces": [2, "avoid"],
         "unicorn/template-indent": 2,
         "unicorn/text-encoding-identifier-case": 2,
         "unicorn/throw-new-error": 2,

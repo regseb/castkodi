@@ -1,11 +1,8 @@
-// Mettre le code dans un bloc pour que les variables sont détruites à la fin et
-// qu'il n'y ait pas de problème de re-déclaration de variables constantes si ce
-// script est exécuté plusieurs fois.
+// Mettre le code dans un bloc pour que les variables soient détruites à la fin
+// et qu'il n'y ait pas de problème de re-déclaration de variables constantes si
+// ce script est exécuté plusieurs fois.
 {
-    const SELECTORS = [
-        "video source", "video", "audio source", "audio",
-    ];
-
+    const SELECTORS = ["video source", "video", "audio source", "audio"];
     const media = SELECTORS.map((s) => `${s}[src]:not([src=""])` +
                                                 `:not([src^="blob:"])`)
                            .map((s) => document.querySelectorAll(s))

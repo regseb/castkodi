@@ -17,7 +17,6 @@ export default {
             linters: {
                 eslint: [
                     "eslint.config.js",
-                    "eslint_browser.config.js",
                     "eslint_webext.config.js",
                 ],
             },
