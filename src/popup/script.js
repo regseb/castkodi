@@ -1101,7 +1101,8 @@ document.querySelector("#send").addEventListener("click", send);
 document.querySelector("#insert").addEventListener("click", insert);
 document.querySelector("#add").addEventListener("click", add);
 document.querySelector("#paste input").addEventListener("change", paste);
-for (const input of document.querySelectorAll("#server select")) {
+for (const input of document.querySelectorAll("#server select," +
+                                              " #splash select")) {
     input.addEventListener("change", change);
 }
 
@@ -1257,7 +1258,8 @@ interval = setInterval(passing, 1000);
 
 const config = await browser.storage.local.get();
 if ("multi" === config["server-mode"]) {
-    for (const input of document.querySelectorAll("select")) {
+    for (const input of document.querySelectorAll("#server select," +
+                                                  " #splash select")) {
         for (const [index, server] of config["server-list"].entries()) {
             const name = (/^\s*$/u).test(server.name)
                                ? browser.i18n.getMessage("menus_noName",
