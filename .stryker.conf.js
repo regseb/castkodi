@@ -5,5 +5,5 @@ export default {
     ],
     ignoreStatic: true,
     mochaOptions: { config: "test/unit/mocharc.json" },
-    reporters: ["dots", "clear-text", "dashboard"],
+    reporters: ["dots", "clear-text"],
 };

@@ -65,7 +65,7 @@ jobs:
       run: npm install
 
     - name: Run mutation tests and send coverage
-      run: npm run test:coverage
+      run: npm run test:coverage -- --reporters clear-text,dashboard
       env:
         STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
