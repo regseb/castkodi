@@ -75,6 +75,8 @@ commandes utiles :
 - `npm test` : lancer les tests (avec [Mocha](https://mochajs.org/)) ;
 - `npm run start:chromium` : déployer l'extension dans Chromium ;
 - `npm run start:firefox` : déployer l'extension dans Firefox.
+<!-- Le déploiement ne fonctionne pas avec la version Snap de Firefox.
+     https://github.com/mozilla/web-ext/issues/1696 -->
 
 Pour les traductions dans différentes langues, elles se font au moyen de
 [Weblate](https://hosted.weblate.org/engage/castkodi/).
