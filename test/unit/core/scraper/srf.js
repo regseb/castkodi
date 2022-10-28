@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/srf.js";
 
@@ -9,14 +9,14 @@ describe("core/scraper/srf.js", function () {
             const url = new URL("https://www.srf.ch/foo");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't urn", async function () {
             const url = new URL("https://www.srf.ch/play/tv/foo/video/bar");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when urn is invalid", async function () {
@@ -28,12 +28,12 @@ describe("core/scraper/srf.js", function () {
                                                                     "?urn=qux");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition" +
-                                                                   "/byUrn/qux",
+                    "/byUrn/qux",
             ]);
         });
 
@@ -55,10 +55,10 @@ describe("core/scraper/srf.js", function () {
                                                                    "?urn=quux");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, "http://foo.ch/bar.m3u8");
+            assert.equal(file, "http://foo.ch/bar.m3u8");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition" +
                                                                   "/byUrn/quux",
             ]);
@@ -71,7 +71,7 @@ describe("core/scraper/srf.js", function () {
             const url = new URL("https://www.srf.ch/play/tv/redirect/foo");
 
             const file = await scraper.extractRedirect(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when urn is invalid", async function () {
@@ -83,12 +83,12 @@ describe("core/scraper/srf.js", function () {
                                                                         "/bar");
 
             const file = await scraper.extractRedirect(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition" +
-                                                     "/byUrn/urn:srf:video:bar",
+                    "/byUrn/urn:srf:video:bar",
             ]);
         });
 
@@ -110,12 +110,12 @@ describe("core/scraper/srf.js", function () {
                                                                         "/baz");
 
             const file = await scraper.extractRedirect(url);
-            assert.strictEqual(file, "http://foo.ch/bar.m3u8");
+            assert.equal(file, "http://foo.ch/bar.m3u8");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition" +
-                                                     "/byUrn/urn:srf:video:baz",
+                    "/byUrn/urn:srf:video:baz",
             ]);
         });
     });

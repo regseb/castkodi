@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { complete } from "../../../src/core/labellers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -23,12 +23,12 @@ describe("Labeller: Twitch", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.strictEqual(item.file, file);
-        assert.strictEqual(typeof item.label, "string", `from ${url}`);
-        assert.notStrictEqual(item.label, "", `from ${url}`);
-        assert.strictEqual(item.position, 0);
-        assert.strictEqual(item.title, "");
-        assert.strictEqual(item.type, "unknown");
+        assert.equal(item.file, file);
+        assert.equal(typeof item.label, "string", `from ${url}`);
+        assert.notEqual(item.label, "", `from ${url}`);
+        assert.equal(item.position, 0);
+        assert.equal(item.title, "");
+        assert.equal(item.type, "unknown");
     });
 
     it("should return default label when channel is offline",
@@ -44,7 +44,7 @@ describe("Labeller: Twitch", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Nolife",
             position: 0,
@@ -74,11 +74,11 @@ describe("Labeller: Twitch", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.strictEqual(item.file, file);
-        assert.strictEqual(typeof item.label, "string", `from ${url}`);
-        assert.notStrictEqual(item.label, "",   `from ${url}`);
-        assert.strictEqual(item.position, 0);
-        assert.strictEqual(item.title, "");
-        assert.strictEqual(item.type, "unknown");
+        assert.equal(item.file, file);
+        assert.equal(typeof item.label, "string", `from ${url}`);
+        assert.notEqual(item.label, "",   `from ${url}`);
+        assert.equal(item.position, 0);
+        assert.equal(item.title, "");
+        assert.equal(item.type, "unknown");
     });
 });

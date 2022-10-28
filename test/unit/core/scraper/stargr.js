@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/stargr.js";
@@ -10,7 +10,7 @@ describe("core/scraper/stargr.js", function () {
             const url = new URL("https://disney.fr/disney-plus-star");
 
             const file = await scraper.extractTv(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -26,7 +26,7 @@ describe("core/scraper/stargr.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractTv(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -46,7 +46,7 @@ describe("core/scraper/stargr.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractTv(url, content, options);
-            assert.strictEqual(file, "https://baz.gr/manifest.m3u8");
+            assert.equal(file, "https://baz.gr/manifest.m3u8");
         });
     });
 
@@ -56,7 +56,7 @@ describe("core/scraper/stargr.js", function () {
             const url = new URL("https://disney.fr/disney-plus-star");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -73,7 +73,7 @@ describe("core/scraper/stargr.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth", async function () {
@@ -95,9 +95,9 @@ describe("core/scraper/stargr.js", function () {
             const options = { depth: true, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should return undefined when sub-page doesn't have media",
@@ -117,7 +117,7 @@ describe("core/scraper/stargr.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video YouTube id", async function () {
@@ -139,12 +139,12 @@ describe("core/scraper/stargr.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.youtube/play/" +
                                                "?video_id=bar&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video URL", async function () {
@@ -168,7 +168,7 @@ describe("core/scraper/stargr.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, "https://baz.gr/qux/quux/manifest.m3u8");
+            assert.equal(file, "https://baz.gr/qux/quux/manifest.m3u8");
         });
     });
 });

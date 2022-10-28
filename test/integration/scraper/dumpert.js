@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Dumpert", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Dumpert", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dumpert/?action=play" +
                                 "&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
                                                   "%2Fitem%2F7924631_3a727e30");
@@ -18,7 +18,7 @@ describe("Scraper: Dumpert", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dumpert/?action=play" +
                                  "&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
                                                   "%2Fitem%2F7924631_3a727e30");
@@ -30,7 +30,7 @@ describe("Scraper: Dumpert", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dumpert/?action=play" +
                                 "&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
                                            "%2Fmediabase%2F7248279%2F47066e59" +

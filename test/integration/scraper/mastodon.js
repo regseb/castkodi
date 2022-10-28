@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Mastodon", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Mastodon", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://files.mastodon.social/media_attachments/files/108/469" +
                               "/303/433/550/677/original/811ce06c46f6638f.mp4");
     });

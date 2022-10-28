@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { cacheable } from "../../../../src/core/tools/cacheable.js";
 
@@ -7,15 +7,15 @@ describe("tools/cacheable.js", function () {
         it("should call one times", function () {
             const fake = sinon.fake.returns("foo");
             const cached = cacheable(fake);
-            assert.deepStrictEqual(
+            assert.deepEqual(
                 Object.getOwnPropertyDescriptor(cached, "name"),
                 Object.getOwnPropertyDescriptor(fake, "name"),
             );
 
-            assert.strictEqual(cached(), "foo");
-            assert.strictEqual(cached(), "foo");
+            assert.equal(cached(), "foo");
+            assert.equal(cached(), "foo");
 
-            assert.strictEqual(fake.callCount, 1);
+            assert.equal(fake.callCount, 1);
         });
     });
 });

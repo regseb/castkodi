@@ -41,7 +41,9 @@ export default {
         "n/global-require": 0,
         "n/no-mixed-requires": 2,
         "n/no-process-env": 0,
-        "n/no-restricted-import": 2,
+        // Interdire l'import "node:assert" (et préférer "node:assert/strict").
+        // https://github.com/eslint-community/eslint-plugin-n/issues/59
+        "n/no-restricted-import": [2, ["node:assert"]],
         "n/no-restricted-require": 2,
         "n/no-sync": [2, { allowAtRootLevel: true }],
         "n/prefer-global/buffer": 2,

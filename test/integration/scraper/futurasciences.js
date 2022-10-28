@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Futura Sciences", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Futura Sciences", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return image URL when it's a image", async function () {
@@ -17,7 +17,7 @@ describe("Scraper: Futura Sciences", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL from iframe", async function () {
@@ -27,8 +27,7 @@ describe("Scraper: Futura Sciences", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://v.kolplay.com/XLJomogr83J/index.m3u8");
+        assert.equal(file, "https://v.kolplay.com/XLJomogr83J/index.m3u8");
     });
 
     it("should return video URL from vsly-player", async function () {
@@ -37,7 +36,6 @@ describe("Scraper: Futura Sciences", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://v.kolplay.com/3ZSdTrtt4G5/index.m3u8");
+        assert.equal(file, "https://v.kolplay.com/3ZSdTrtt4G5/index.m3u8");
     });
 });

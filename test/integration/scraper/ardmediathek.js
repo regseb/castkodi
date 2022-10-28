@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: ARD Mediathek", function () {
@@ -9,7 +9,7 @@ describe("Scraper: ARD Mediathek", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
                 "plugin://plugin.video.ardmediathek_de/?client=ard" +
                                                             "&mode=libArdPlay" +
                           "&id=Y3JpZDovL2FydGUudHYvdmlkZW9zLzEwMjIwMy0wMDAtQQ");

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Bally Sports", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Bally Sports", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     // Désactiver ce test car jsdom (avec nwsapi) n'est pas identique à
@@ -18,7 +18,7 @@ describe("Scraper: Bally Sports", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://fr.vid.web.acsta.net/nmedia/33/18/02/23/15" +
                                                         "/19577157_hd_013.mp4");
     });

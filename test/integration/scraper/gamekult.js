@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Gamekult", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Gamekult", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL", async function () {
@@ -18,7 +18,7 @@ describe("Scraper: Gamekult", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                                 "&url=x7aour7");
     });
@@ -29,7 +29,7 @@ describe("Scraper: Gamekult", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                                 "&url=x8cx6c1");
     });

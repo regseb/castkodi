@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/ouestfrance.js";
 
 describe("core/scraper/ouestfrance.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/ouestfrance.js", function () {
             const url = new URL("https://www.sud-france.fr/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a HTML page",
@@ -18,7 +18,7 @@ describe("core/scraper/ouestfrance.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth", async function () {
@@ -35,7 +35,7 @@ describe("core/scraper/ouestfrance.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when no iframe", async function () {
@@ -49,7 +49,7 @@ describe("core/scraper/ouestfrance.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined with iframe no video", async function () {
@@ -65,7 +65,7 @@ describe("core/scraper/ouestfrance.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -83,9 +83,9 @@ describe("core/scraper/ouestfrance.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=baz");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=baz");
         });
     });
 });

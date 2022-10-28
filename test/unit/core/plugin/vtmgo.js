@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as plugin from "../../../../src/core/plugin/vtmgo.js";
 
@@ -6,7 +6,7 @@ describe("core/plugin/vtmgo.js", function () {
     describe("generateEpisodeUrl()", function () {
         it("should return URL with episode id", async function () {
             const label = await plugin.generateEpisodeUrl("foo");
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.vtm.go/play/catalog/episodes/foo");
         });
     });
@@ -14,7 +14,7 @@ describe("core/plugin/vtmgo.js", function () {
     describe("generateMovieUrl()", function () {
         it("should return URL with movie id", async function () {
             const label = await plugin.generateMovieUrl("foo");
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/foo");
         });
     });
@@ -22,7 +22,7 @@ describe("core/plugin/vtmgo.js", function () {
     describe("generateChannelUrl()", function () {
         it("should return URL with channel id", async function () {
             const label = await plugin.generateChannelUrl("foo");
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.vtm.go/play/catalog/channels/foo");
         });
     });
@@ -33,7 +33,7 @@ describe("core/plugin/vtmgo.js", function () {
                                                                         "/foo");
 
             const label = await plugin.extractEpisode(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return episode label", async function () {
@@ -49,10 +49,10 @@ describe("core/plugin/vtmgo.js", function () {
                                                                "/episodes/bar");
 
             const label = await plugin.extractEpisode(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/ebar",
             ]);
         });
@@ -75,10 +75,10 @@ describe("core/plugin/vtmgo.js", function () {
             };
 
             const label = await plugin.extractEpisode(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/ebar",
             ]);
         });
@@ -90,7 +90,7 @@ describe("core/plugin/vtmgo.js", function () {
                                                                         "/foo");
 
             const label = await plugin.extractMovie(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return movie label", async function () {
@@ -106,10 +106,10 @@ describe("core/plugin/vtmgo.js", function () {
                                                                  "/movies/bar");
 
             const label = await plugin.extractMovie(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/mbar",
             ]);
         });
@@ -132,10 +132,10 @@ describe("core/plugin/vtmgo.js", function () {
             };
 
             const label = await plugin.extractMovie(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/mbar",
             ]);
         });
@@ -153,10 +153,10 @@ describe("core/plugin/vtmgo.js", function () {
                                                                  "/movies/bar");
 
             const label = await plugin.extractMovie(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/mbar",
             ]);
         });
@@ -168,7 +168,7 @@ describe("core/plugin/vtmgo.js", function () {
                                                                         "/foo");
 
             const label = await plugin.extractChannel(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return channel label", async function () {
@@ -184,10 +184,10 @@ describe("core/plugin/vtmgo.js", function () {
                                                                "/channels/bar");
 
             const label = await plugin.extractChannel(url);
-            assert.strictEqual(label, "baz");
+            assert.equal(label, "baz");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/live-kijken/vtm",
             ]);
         });
@@ -210,10 +210,10 @@ describe("core/plugin/vtmgo.js", function () {
             };
 
             const label = await plugin.extractChannel(url);
-            assert.strictEqual(label, "baz");
+            assert.equal(label, "baz");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/live-kijken/vtm",
             ]);
         });
@@ -229,10 +229,10 @@ describe("core/plugin/vtmgo.js", function () {
                                                                "/channels/bar");
 
             const label = await plugin.extractChannel(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/live-kijken/vtm",
             ]);
         });

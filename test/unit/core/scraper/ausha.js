@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/ausha.js";
 
 describe("core/scraper/ausha.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/ausha.js", function () {
             const url = new URL("https://www.ausha.co/fr/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not an audio", async function () {
@@ -21,7 +21,7 @@ describe("core/scraper/ausha.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
@@ -36,7 +36,7 @@ describe("core/scraper/ausha.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://audio.ausha.co/baz.mp3");
+            assert.equal(file, "https://audio.ausha.co/baz.mp3");
         });
     });
 });

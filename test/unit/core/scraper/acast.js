@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/acast.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/acast.js", function () {
             const url = new URL("https://play.acast.com/foo/bar");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when id is invalid", async function () {
@@ -20,10 +20,10 @@ describe("core/scraper/acast.js", function () {
             const url = new URL("https://play.acast.com/s/foo/bar");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://feeder.acast.com/api/v1/shows/foo/episodes/bar",
             ]);
         });
@@ -36,10 +36,10 @@ describe("core/scraper/acast.js", function () {
             const url = new URL("https://play.acast.com/s/baz/qux?quux=corge");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://foo.com/bar.mp3");
+            assert.equal(file, "https://foo.com/bar.mp3");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://feeder.acast.com/api/v1/shows/baz/episodes/qux",
             ]);
         });
@@ -52,10 +52,10 @@ describe("core/scraper/acast.js", function () {
             const url = new URL("https://embed.acast.com/baz/qux?quux=corge");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://foo.com/bar.mp3");
+            assert.equal(file, "https://foo.com/bar.mp3");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://feeder.acast.com/api/v1/shows/baz/episodes/qux",
             ]);
         });

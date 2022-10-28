@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/gamekult.js";
 
 describe("core/scraper/gamekult.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/gamekult.js", function () {
             const url = new URL("http://www.gameblog.fr/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -21,7 +21,7 @@ describe("core/scraper/gamekult.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -36,9 +36,9 @@ describe("core/scraper/gamekult.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=bar");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=bar");
         });
     });
 });

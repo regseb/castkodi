@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/tiktok.js";
 
 describe("core/scraper/tiktok.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/tiktok.js", function () {
             const url = new URL("https://www.tictac.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't data", async function () {
@@ -21,7 +21,7 @@ describe("core/scraper/tiktok.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -38,7 +38,7 @@ describe("core/scraper/tiktok.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -58,7 +58,7 @@ describe("core/scraper/tiktok.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.mp4");
+            assert.equal(file, "https://bar.com/baz.mp4");
         });
     });
 });

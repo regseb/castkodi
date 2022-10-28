@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
@@ -14,10 +14,10 @@ describe("core/jsonrpc/playlist.js", function () {
             const playlist = new Playlist(kodi);
             const file = "foo";
             const result = await playlist.add(file);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.Add",
                 { playlistid: 1, item: { file } },
             ]);
@@ -31,10 +31,10 @@ describe("core/jsonrpc/playlist.js", function () {
 
             const playlist = new Playlist(kodi);
             const result = await playlist.clear();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.Clear",
                 { playlistid: 1 },
             ]);
@@ -50,13 +50,13 @@ describe("core/jsonrpc/playlist.js", function () {
 
             const playlist = new Playlist(kodi);
             const result = await playlist.getItems();
-            assert.deepStrictEqual(result, [
+            assert.deepEqual(result, [
                 { foo: "bar", position: 0 },
                 { foo: "baz", position: 1 },
             ]);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.GetItems",
                 { playlistid: 1, properties: ["file", "title"] },
             ]);
@@ -68,10 +68,10 @@ describe("core/jsonrpc/playlist.js", function () {
 
             const playlist = new Playlist(kodi);
             const result = await playlist.getItems();
-            assert.deepStrictEqual(result, []);
+            assert.deepEqual(result, []);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.GetItems",
                 { playlistid: 1, properties: ["file", "title"] },
             ]);
@@ -86,10 +86,10 @@ describe("core/jsonrpc/playlist.js", function () {
             const playlist = new Playlist(kodi);
             const position = 42;
             const result = await playlist.getItem(position);
-            assert.strictEqual(result, "foo");
+            assert.equal(result, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
@@ -106,10 +106,10 @@ describe("core/jsonrpc/playlist.js", function () {
             const playlist = new Playlist(kodi);
             const position = 42;
             const result = await playlist.getItem(position);
-            assert.strictEqual(result, undefined);
+            assert.equal(result, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
@@ -129,10 +129,10 @@ describe("core/jsonrpc/playlist.js", function () {
             const file = "foo";
             const position = 42;
             const result = await playlist.insert(file, position);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.Insert",
                 { playlistid: 1, position, item: { file } },
             ]);
@@ -147,10 +147,10 @@ describe("core/jsonrpc/playlist.js", function () {
             const playlist = new Playlist(kodi);
             const position = 42;
             const result = await playlist.remove(position);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.Remove",
                 { playlistid: 1, position },
             ]);
@@ -166,10 +166,10 @@ describe("core/jsonrpc/playlist.js", function () {
             const position1 = 42;
             const position2 = 24;
             const result = await playlist.swap(position1, position2);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.Swap",
                 { playlistid: 1, position1, position2 },
             ]);
@@ -185,14 +185,14 @@ describe("core/jsonrpc/playlist.js", function () {
             const position = 2;
             const destination = 0;
             const result = await playlist.move(position, destination);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 2, position2: 1 },
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 1, position2: 0 },
             ]);
@@ -206,18 +206,18 @@ describe("core/jsonrpc/playlist.js", function () {
             const position = 1;
             const destination = 5;
             const result = await playlist.move(position, destination);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 3);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 3);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 1, position2: 2 },
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 2, position2: 3 },
             ]);
-            assert.deepStrictEqual(stub.thirdCall.args, [
+            assert.deepEqual(stub.thirdCall.args, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 3, position2: 4 },
             ]);
@@ -229,9 +229,9 @@ describe("core/jsonrpc/playlist.js", function () {
 
             const playlist = new Playlist(kodi);
             const result = await playlist.move(42, 42);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
     });
 
@@ -258,10 +258,10 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fakeAdd.callCount, 0);
-            assert.strictEqual(fakeClear.callCount, 0);
-            assert.strictEqual(fakeRemove.callCount, 0);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fakeAdd.callCount, 0);
+            assert.equal(fakeClear.callCount, 0);
+            assert.equal(fakeRemove.callCount, 0);
         });
 
         it("should ignore when no listener on add", async function () {
@@ -274,7 +274,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should ignore when no listener on clear", async function () {
@@ -287,7 +287,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should ignore when no listener on remove", async function () {
@@ -300,7 +300,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should ignore others playlists", async function () {
@@ -321,10 +321,10 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fakeAdd.callCount, 0);
-            assert.strictEqual(fakeClear.callCount, 0);
-            assert.strictEqual(fakeRemove.callCount, 0);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fakeAdd.callCount, 0);
+            assert.equal(fakeClear.callCount, 0);
+            assert.equal(fakeRemove.callCount, 0);
         });
 
         it("should handle 'OnAdd'", async function () {
@@ -344,8 +344,8 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
@@ -353,8 +353,8 @@ describe("core/jsonrpc/playlist.js", function () {
                     limits:     { start: 2, end: 3 },
                 },
             ]);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{
                 foo:      "bar",
                 position: 2,
             }]);
@@ -381,8 +381,8 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
@@ -390,13 +390,13 @@ describe("core/jsonrpc/playlist.js", function () {
                     limits:     { start: 2, end: 3 },
                 },
             ]);
-            assert.strictEqual(fakeAdd.callCount, 1);
-            assert.deepStrictEqual(fakeAdd.firstCall.args, [{
+            assert.equal(fakeAdd.callCount, 1);
+            assert.deepEqual(fakeAdd.firstCall.args, [{
                 foo:      "bar",
                 position: 2,
             }]);
-            assert.strictEqual(fakeClear.callCount, 0);
-            assert.strictEqual(fakeRemove.callCount, 0);
+            assert.equal(fakeClear.callCount, 0);
+            assert.equal(fakeRemove.callCount, 0);
         });
 
         it("should handle 'OnClear'", async function () {
@@ -413,9 +413,9 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [undefined]);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [undefined]);
         });
 
         it("should only handle 'OnClear'", async function () {
@@ -436,11 +436,11 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fakeAdd.callCount, 0);
-            assert.strictEqual(fakeClear.callCount, 1);
-            assert.deepStrictEqual(fakeClear.firstCall.args, [undefined]);
-            assert.strictEqual(fakeRemove.callCount, 0);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fakeAdd.callCount, 0);
+            assert.equal(fakeClear.callCount, 1);
+            assert.deepEqual(fakeClear.firstCall.args, [undefined]);
+            assert.equal(fakeRemove.callCount, 0);
         });
 
         it("should handle 'OnRemove'", async function () {
@@ -457,9 +457,9 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [2]);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [2]);
         });
 
         it("should only handle 'OnRemove'", async function () {
@@ -480,11 +480,11 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fakeAdd.callCount, 0);
-            assert.strictEqual(fakeClear.callCount, 0);
-            assert.strictEqual(fakeRemove.callCount, 1);
-            assert.deepStrictEqual(fakeRemove.firstCall.args, [2]);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fakeAdd.callCount, 0);
+            assert.equal(fakeClear.callCount, 0);
+            assert.equal(fakeRemove.callCount, 1);
+            assert.deepEqual(fakeRemove.firstCall.args, [2]);
         });
 
         it("should ignore others notifications", async function () {
@@ -506,10 +506,10 @@ describe("core/jsonrpc/playlist.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fakeAdd.callCount, 0);
-            assert.strictEqual(fakeClear.callCount, 0);
-            assert.strictEqual(fakeRemove.callCount, 0);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fakeAdd.callCount, 0);
+            assert.equal(fakeClear.callCount, 0);
+            assert.equal(fakeRemove.callCount, 0);
         });
     });
 });

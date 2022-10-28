@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/francetv.js";
 
@@ -10,7 +10,7 @@ describe("core/scraper/francetv.js", function () {
                                                                "/programme-tv");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -25,7 +25,7 @@ describe("core/scraper/francetv.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -53,14 +53,14 @@ describe("core/scraper/francetv.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.fr/baz.mpd");
+            assert.equal(file, "https://bar.fr/baz.mpd");
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://player.webservices.francetelevisions.fr/v1/videos" +
-                                 "/123-abc?device_type=desktop&browser=firefox",
+                    "/123-abc?device_type=desktop&browser=firefox",
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, ["https://foo.fr/"]);
+            assert.deepEqual(stub.secondCall.args, ["https://foo.fr/"]);
         });
     });
 });

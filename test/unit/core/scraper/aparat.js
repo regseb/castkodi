@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/aparat.js";
 
 describe("core/scraper/aparat.js", function () {
@@ -8,16 +8,16 @@ describe("core/scraper/aparat.js", function () {
             const url = new URL("https://www.aparat.com/result/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
             const url = new URL("https://www.aparat.com/v/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "https://www.aparat.com/video/hls/manifest/videohash/foo/f" +
-                                                                   "/foo.m3u8");
+                    "/foo.m3u8");
         });
     });
 });

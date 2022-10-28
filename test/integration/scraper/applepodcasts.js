@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Apple Podcasts", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Apple Podcasts", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return audio URL", async function () {

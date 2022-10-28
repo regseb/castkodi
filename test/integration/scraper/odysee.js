@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Odysee", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Odysee", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL [opengraph]", async function () {
@@ -16,7 +16,7 @@ describe("Scraper: Odysee", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://player.odycdn.com/api/v3/streams/free/Mediacenter-KODI" +
                         "/95a3a486dcb31771ea4b43a1a2baed1e5bf3949f/784919.mp4");
     });

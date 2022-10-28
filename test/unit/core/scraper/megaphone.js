@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/megaphone.js";
 
 describe("core/scraper/megaphone.js", function () {
@@ -8,14 +8,14 @@ describe("core/scraper/megaphone.js", function () {
             const url = new URL("https://megaphone.fm/");
 
             const file = await scraper.extractPlayer(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio", async function () {
             const url = new URL("https://player.megaphone.fm/foo");
 
             const file = await scraper.extractPlayer(url);
-            assert.strictEqual(file, "https://dcs.megaphone.fm/foo.mp3");
+            assert.equal(file, "https://dcs.megaphone.fm/foo.mp3");
         });
     });
 
@@ -25,21 +25,21 @@ describe("core/scraper/megaphone.js", function () {
             const url = new URL("https://megaphone.fm/");
 
             const file = await scraper.extractPlaylist(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a audio", async function () {
             const url = new URL("https://playlist.megaphone.fm/foo");
 
             const file = await scraper.extractPlaylist(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio", async function () {
             const url = new URL("https://playlist.megaphone.fm/?e=foo");
 
             const file = await scraper.extractPlaylist(url);
-            assert.strictEqual(file, "https://dcs.megaphone.fm/foo.mp3");
+            assert.equal(file, "https://dcs.megaphone.fm/foo.mp3");
         });
     });
 });

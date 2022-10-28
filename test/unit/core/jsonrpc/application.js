@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
@@ -17,10 +17,10 @@ describe("core/jsonrpc/application.js", function () {
             const application = new Application(kodi);
             const properties = ["mute", "volume"];
             const result = await application.getProperties(properties);
-            assert.deepStrictEqual(result, { mute: false, volume: 51 });
+            assert.deepEqual(result, { mute: false, volume: 51 });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Application.GetProperties",
                 { properties },
             ]);
@@ -34,10 +34,10 @@ describe("core/jsonrpc/application.js", function () {
 
             const application = new Application(kodi);
             const result = await application.setMute();
-            assert.strictEqual(result, false);
+            assert.equal(result, false);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Application.SetMute",
                 { mute: "toggle" },
             ]);
@@ -54,14 +54,14 @@ describe("core/jsonrpc/application.js", function () {
             const application = new Application(kodi);
             const volume = 42;
             const result = await application.setVolume(volume);
-            assert.strictEqual(result, volume);
+            assert.equal(result, volume);
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, [
                 "Application.SetMute",
                 { mute: false },
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 "Application.SetVolume",
                 { volume },
             ]);
@@ -76,14 +76,14 @@ describe("core/jsonrpc/application.js", function () {
             const application = new Application(kodi);
             const volume = "increment";
             const result = await application.setVolume(volume);
-            assert.strictEqual(result, 43);
+            assert.equal(result, 43);
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, [
                 "Application.SetMute",
                 { mute: false },
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 "Application.SetVolume",
                 { volume },
             ]);
@@ -107,7 +107,7 @@ describe("core/jsonrpc/application.js", function () {
                 },
             ));
 
-            assert.strictEqual(fake.callCount, 0);
+            assert.equal(fake.callCount, 0);
         });
 
         it("should ignore when no listener", function () {
@@ -121,7 +121,7 @@ describe("core/jsonrpc/application.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should handle 'OnVolumeChanged'", function () {
@@ -137,8 +137,8 @@ describe("core/jsonrpc/application.js", function () {
                 },
             ));
 
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{ foo: "bar" }]);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{ foo: "bar" }]);
         });
 
         it("should ignore others notifications", function () {
@@ -154,7 +154,7 @@ describe("core/jsonrpc/application.js", function () {
                 },
             ));
 
-            assert.strictEqual(fake.callCount, 0);
+            assert.equal(fake.callCount, 0);
         });
     });
 });

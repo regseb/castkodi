@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Megaphone", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Megaphone", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://dcs.megaphone.fm/SLT2646036872.mp3");
+        assert.equal(file, "https://dcs.megaphone.fm/SLT2646036872.mp3");
     });
 
     it("should return video URL when protocol is HTTP ", async function () {
@@ -15,7 +15,7 @@ describe("Scraper: Megaphone", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://dcs.megaphone.fm/SLT5236779375.mp3");
+        assert.equal(file, "https://dcs.megaphone.fm/SLT5236779375.mp3");
     });
 
     it("should return video URL from playlist", async function () {
@@ -23,6 +23,6 @@ describe("Scraper: Megaphone", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://dcs.megaphone.fm/SLT5884670747.mp3");
+        assert.equal(file, "https://dcs.megaphone.fm/SLT5884670747.mp3");
     });
 });

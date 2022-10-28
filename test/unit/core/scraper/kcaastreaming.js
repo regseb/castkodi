@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/kcaastreaming.js";
 
 describe("core/scraper/kcaastreaming.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/kcaastreaming.js", function () {
             const url = new URL("http://www.kcaaradio.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
@@ -25,7 +25,7 @@ describe("core/scraper/kcaastreaming.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp3");
+            assert.equal(file, "https://foo.com/bar.mp3");
         });
     });
 });

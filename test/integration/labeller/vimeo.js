@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { complete } from "../../../src/core/labellers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -15,7 +15,7 @@ describe("Labeller: Vimeo", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Looking For Something",
             position: 0,
@@ -36,7 +36,7 @@ describe("Labeller: Vimeo", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Shaking",
             position: 0,
@@ -56,7 +56,7 @@ describe("Labeller: Vimeo", function () {
             title:    "M83 | Fleur & Manu I DIVISION",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file:     "plugin://plugin.video.vimeo/play/" +
                                         "?uri=%2Fvideos%2F43241044&texttracks=",
             label:    "M83 | Fleur & Manu I DIVISION",

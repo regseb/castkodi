@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Podcast Addict", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Podcast Addict", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return audio URL [media]", async function () {
@@ -18,7 +18,7 @@ describe("Scraper: Podcast Addict", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://sphinx.acast.com/p/open/s/5b7ac427c6a58e726f576cff/e" +
                       "/62b5812411883600129b5886/media.mp3?from=PodcastAddict");
     });

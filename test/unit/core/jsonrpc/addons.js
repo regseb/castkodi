@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Addons } from "../../../../src/core/jsonrpc/addons.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
@@ -17,10 +17,10 @@ describe("core/jsonrpc/addons.js", function () {
 
             const addons = new Addons(kodi);
             const result = await addons.getAddons("bar");
-            assert.deepStrictEqual(result, ["foo", "baz"]);
+            assert.deepEqual(result, ["foo", "baz"]);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Addons.GetAddons",
                 { content: "bar", enabled: true },
             ]);
@@ -34,10 +34,10 @@ describe("core/jsonrpc/addons.js", function () {
 
             const addons = new Addons(kodi);
             const result = await addons.getAddons("foo");
-            assert.deepStrictEqual(result, []);
+            assert.deepEqual(result, []);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Addons.GetAddons",
                 { content: "foo", enabled: true },
             ]);

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/ldjson.js";
 
 describe("core/scraper/ldjson.js", function () {
@@ -10,7 +10,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there is not microdata",
@@ -25,7 +25,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when JSON is invalid", async function () {
@@ -41,7 +41,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't type", async function () {
@@ -61,7 +61,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't content",
@@ -81,7 +81,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return contentUrl", async function () {
@@ -101,7 +101,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://bar.com/baz.mkv");
+            assert.equal(file, "https://bar.com/baz.mkv");
         });
 
         it("should return contentUrl in children object", async function () {
@@ -126,7 +126,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://baz.com/qux.flac");
+            assert.equal(file, "https://baz.com/qux.flac");
         });
 
         it("should return contentUrl in children array", async function () {
@@ -148,7 +148,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://bar.io/baz.mp3");
+            assert.equal(file, "https://bar.io/baz.mp3");
         });
 
         it("should return embedUrl", async function () {
@@ -174,9 +174,9 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=baz");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=baz");
         });
 
         it("should ignore embedUrl in depther", async function () {
@@ -197,7 +197,7 @@ describe("core/scraper/ldjson.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
     });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/youtube.js";
 
@@ -16,10 +16,10 @@ describe("core/labeller/youtube.js", function () {
             const videoId = "bar";
 
             const label = await labeller.extractVideo(videoId);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=bar",
             ]);
         });
@@ -34,10 +34,10 @@ describe("core/labeller/youtube.js", function () {
             const videoId = "foo";
 
             const label = await labeller.extractVideo(videoId);
-            assert.strictEqual(label, "(Video unavailable)");
+            assert.equal(label, "(Video unavailable)");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=foo",
             ]);
         });
@@ -56,10 +56,10 @@ describe("core/labeller/youtube.js", function () {
             const playlistId = "bar";
 
             const label = await labeller.extractPlaylist(playlistId);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/playlist?list=bar",
             ]);
         });
@@ -76,10 +76,10 @@ describe("core/labeller/youtube.js", function () {
             const playlistId = "foo";
 
             const label = await labeller.extractPlaylist(playlistId);
-            assert.strictEqual(label, "Mix");
+            assert.equal(label, "Mix");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/playlist?list=foo",
             ]);
         });

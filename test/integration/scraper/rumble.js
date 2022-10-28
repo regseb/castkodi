@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Rumble", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Rumble", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://sp.rmbl.ws/s8/2/2/5/p/N/25pNf.haa.mp4");
     });
 
@@ -17,7 +17,7 @@ describe("Scraper: Rumble", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://sp.rmbl.ws/s8/2/-/p/1/G/-p1Gf.haa.mp4");
     });
 });

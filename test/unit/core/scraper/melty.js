@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/melty.js";
 
 describe("core/scraper/melty.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/melty.js", function () {
             const url = new URL("https://www.melty.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth", async function () {
@@ -26,7 +26,7 @@ describe("core/scraper/melty.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't video", async function () {
@@ -42,7 +42,7 @@ describe("core/scraper/melty.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return URL", async function () {
@@ -62,7 +62,7 @@ describe("core/scraper/melty.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                       "&url=bar");
         });

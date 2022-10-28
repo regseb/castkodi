@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: VTM GO", function () {
@@ -8,9 +8,9 @@ describe("Scraper: VTM GO", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vtm.go/play/catalog/episodes" +
-                                       "/b126a07d-ee7d-48a5-9bf5-b2eac8ced615");
+                "/b126a07d-ee7d-48a5-9bf5-b2eac8ced615");
     });
 
     it("should return video UUID from movie", async function () {
@@ -19,9 +19,9 @@ describe("Scraper: VTM GO", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vtm.go/play/catalog/movies" +
-                                       "/10d744fc-bf08-4ff0-9c54-f4a014789584");
+                "/10d744fc-bf08-4ff0-9c54-f4a014789584");
     });
 
     it("should return video UUID from movie page", async function () {
@@ -30,8 +30,8 @@ describe("Scraper: VTM GO", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vtm.go/play/catalog/movies" +
-                                       "/5566ccf0-9b9a-4e61-9d2f-3f2f4793ffde");
+                "/5566ccf0-9b9a-4e61-9d2f-3f2f4793ffde");
     });
 });

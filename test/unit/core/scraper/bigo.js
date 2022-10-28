@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/bigo.js";
 
@@ -9,14 +9,14 @@ describe("core/scraper/bigo.js", function () {
             const url = new URL("https://www.bigo.sg/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not an id", async function () {
             const url = new URL("https://www.bigo.tv/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when pathname is invalid",
@@ -24,14 +24,14 @@ describe("core/scraper/bigo.js", function () {
             const url = new URL("https://www.bigo.tv/foo/123");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when id is invalid", async function () {
             const url = new URL("https://www.bigo.tv/123foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -42,10 +42,10 @@ describe("core/scraper/bigo.js", function () {
             const url = new URL("https://www.bigo.tv/123");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.bigo.tv/studio/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);
@@ -60,10 +60,10 @@ describe("core/scraper/bigo.js", function () {
             const url = new URL("http://www.bigo.tv/123");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "http://foo.tv/bar.m3u8");
+            assert.equal(file, "http://foo.tv/bar.m3u8");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.bigo.tv/studio/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);
@@ -78,10 +78,10 @@ describe("core/scraper/bigo.js", function () {
             const url = new URL("http://www.bigo.tv/ab/123");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "http://foo.tv/bar.m3u8");
+            assert.equal(file, "http://foo.tv/bar.m3u8");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.bigo.tv/studio/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);

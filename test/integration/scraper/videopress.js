@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: VideoPress", function () {
@@ -7,7 +7,7 @@ describe("Scraper: VideoPress", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return URL when it's not a video embed", async function () {
@@ -15,7 +15,7 @@ describe("Scraper: VideoPress", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL", async function () {
@@ -23,7 +23,7 @@ describe("Scraper: VideoPress", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://videos.files.wordpress.com/OcobLTqC/img_5786.m4v");
     });
 
@@ -33,8 +33,8 @@ describe("Scraper: VideoPress", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://videos.files.wordpress.com/knHSQ2fb" +
-                                                      "/pexel-stock-video.mp4");
+                "/pexel-stock-video.mp4");
     });
 });

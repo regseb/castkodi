@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/arteradio.js";
 
 describe("core/scraper/arteradio.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/arteradio.js", function () {
             const url = new URL("https://www.arteradio.com/content/au_hasard");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
@@ -25,9 +25,9 @@ describe("core/scraper/arteradio.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "https://download.www.arte.tv/permanent/arteradio/sites" +
-                                                 "/default/files/sons/bar.mp3");
+                    "/default/files/sons/bar.mp3");
         });
     });
 });

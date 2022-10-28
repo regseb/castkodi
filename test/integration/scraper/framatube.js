@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Framatube", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Framatube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video embed URL [peertube]", async function () {
@@ -17,7 +17,7 @@ describe("Scraper: Framatube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://framatube.org/static/webseed" +
                               "/0900bd2e-7306-4c39-b48b-2d0cd611742e-1080.mp4");
     });
@@ -29,7 +29,7 @@ describe("Scraper: Framatube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://peertube.datagueule.tv/static/streaming-playlists/hls" +
                                        "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44" +
                            "/7826a4da-8721-4dfd-8140-53d4cc6bb34e-master.m3u8");

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Daily Mail", function () {
@@ -9,7 +9,7 @@ describe("Scraper: Daily Mail", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://videos.dailymail.co.uk/video/mol/2019/12/12" +
                    "/4423536678317962457/1024x576_MP4_4423536678317962457.mp4");
     });

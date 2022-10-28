@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { ping } from "../../../../src/core/tools/ping.js";
 
@@ -8,10 +8,10 @@ describe("tools/ping.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves();
 
             const ok = await ping("http://foo.com/");
-            assert.strictEqual(ok, true);
+            assert.equal(ok, true);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/", {
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["http://foo.com/", {
                 method:  "HEAD",
                 headers: { Authorization: "" },
             }]);
@@ -21,10 +21,10 @@ describe("tools/ping.js", function () {
             const stub = sinon.stub(globalThis, "fetch").rejects();
 
             const ok = await ping("http://foo.com/");
-            assert.strictEqual(ok, false);
+            assert.equal(ok, false);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/", {
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["http://foo.com/", {
                 method:  "HEAD",
                 headers: { Authorization: "" },
             }]);

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/zdf.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/zdf.js", function () {
             const url = new URL("https://www.zdftext.de/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -22,7 +22,7 @@ describe("core/scraper/zdf.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -57,10 +57,10 @@ describe("core/scraper/zdf.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.de/bar.webm");
+            assert.equal(file, "https://foo.de/bar.webm");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "http://qux.de/ngplayer_2_4/quux.json",
                 { headers: { "Api-Auth": "Bearer corge" } },
             ]);

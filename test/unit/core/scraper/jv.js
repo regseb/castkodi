@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/jv.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/jv.js", function () {
             const url = new URL("https://www.jvlemag.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -22,7 +22,7 @@ describe("core/scraper/jv.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -41,12 +41,12 @@ describe("core/scraper/jv.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                       "&url=foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("https://www.jeuxvideo.com/baz/qux.php"),
             ]);
         });

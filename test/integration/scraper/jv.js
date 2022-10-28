@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -15,7 +15,7 @@ describe("Scraper: JV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL from videos-editors page", async function () {
@@ -24,7 +24,7 @@ describe("Scraper: JV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                   "&url=x89cq08");
     });
@@ -35,7 +35,7 @@ describe("Scraper: JV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                   "&url=x89i98o");
     });
@@ -46,7 +46,7 @@ describe("Scraper: JV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                   "&url=x89lx2g");
     });
@@ -58,7 +58,7 @@ describe("Scraper: JV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                   "&url=x89nrvo");
     });

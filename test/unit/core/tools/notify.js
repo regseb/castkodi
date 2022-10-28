@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { notify } from "../../../../src/core/tools/notify.js";
 import { PebkacError } from "../../../../src/core/tools/pebkac.js";
@@ -10,8 +10,8 @@ describe("core/notify.js", function () {
 
             notify(new Error("foo"));
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [{
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [{
                 type:    "basic",
                 iconUrl: "/img/icon.svg",
                 title:   "Unknown error",
@@ -24,8 +24,8 @@ describe("core/notify.js", function () {
 
             notify(new PebkacError("noLink", "foo"));
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [{
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [{
                 type:    "basic",
                 iconUrl: "/img/icon.svg",
                 title:   "Unsupported link",

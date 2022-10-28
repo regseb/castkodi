@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/acestream.js";
 
 describe("core/scraper/acestream.js", function () {
@@ -8,16 +8,16 @@ describe("core/scraper/acestream.js", function () {
             const url = new URL("http://www.acestream.org/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
             const url = new URL("acestream://foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
-                "plugin://program.plexus/" +
-                                     "?mode=1&name=&url=acestream%3A%2F%2Ffoo");
+            assert.equal(file,
+                "plugin://program.plexus/?mode=1&name=" +
+                                        "&url=acestream%3A%2F%2Ffoo");
         });
     });
 });

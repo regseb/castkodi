@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: VRT NU", function () {
@@ -8,10 +8,10 @@ describe("Scraper: VRT NU", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vrt.nu/play/url" +
-                                  "/https://www.vrt.be/vrtnu/a-z/het-journaal" +
-                               "/2019/het-journaal-het-journaal-13u-20190901/");
+                "/https://www.vrt.be/vrtnu/a-z/het-journaal/2019" +
+                "/het-journaal-het-journaal-13u-20190901/");
     });
 
     it("should return video URL when protocol is HTTP", async function () {
@@ -20,9 +20,9 @@ describe("Scraper: VRT NU", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vrt.nu/play/url" +
-                        "/http://www.vrt.be/vrtnu/a-z/pano/2019/pano-s2019a9/");
+                "/http://www.vrt.be/vrtnu/a-z/pano/2019/pano-s2019a9/");
     });
 
     it("should return video URL without 'www'", async function () {
@@ -31,9 +31,9 @@ describe("Scraper: VRT NU", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vrt.nu/play/url" +
-                     "/https://vrt.be/vrtnu/a-z/koppen/2016/koppen-d20180721/");
+                "/https://vrt.be/vrtnu/a-z/koppen/2016/koppen-d20180721/");
     });
 
     it("should return video URL from 'link' page", async function () {
@@ -41,8 +41,8 @@ describe("Scraper: VRT NU", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vrt.nu/play/url" +
-                                               "/https://vrtnu.page.link/KXWX");
+                "/https://vrtnu.page.link/KXWX");
     });
 });

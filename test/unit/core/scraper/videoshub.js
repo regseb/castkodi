@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/videoshub.js";
 
 describe("core/scraper/videoshub.js", function () {
@@ -9,7 +9,7 @@ describe("core/scraper/videoshub.js", function () {
             const content = undefined;
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it isn't a HTML page",
@@ -18,7 +18,7 @@ describe("core/scraper/videoshub.js", function () {
             const content = { html: () => Promise.resolve(undefined) };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it isn't a video page",
@@ -34,7 +34,7 @@ describe("core/scraper/videoshub.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -53,7 +53,7 @@ describe("core/scraper/videoshub.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.m3u8");
+            assert.equal(file, "https://bar.com/baz.m3u8");
         });
     });
 });

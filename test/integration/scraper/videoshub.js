@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: VideosHub", function () {
@@ -7,7 +7,7 @@ describe("Scraper: VideosHub", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL", async function () {
@@ -15,7 +15,7 @@ describe("Scraper: VideosHub", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://dd5tb0cfadhae.cloudfront.net/11516798_360p.m3u8");
     });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/vimeo.js";
 
 describe("core/scraper/vimeo.js", function () {
@@ -8,14 +8,14 @@ describe("core/scraper/vimeo.js", function () {
             const url = new URL("https://vimeo.com/channels");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video id", async function () {
             const url = new URL("https://player.vimeo.com/video/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.vimeo/play/?video_id=foo");
         });
 
@@ -23,7 +23,7 @@ describe("core/scraper/vimeo.js", function () {
             const url = new URL("https://player.vimeo.com/video/foo?h=bar");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.vimeo/play/?video_id=foo:bar");
         });
     });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/embed.js";
 
 describe("core/scraper/embed.js", function () {
@@ -10,7 +10,7 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't embed", async function () {
@@ -24,7 +24,7 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return URL from video embed", async function () {
@@ -40,7 +40,7 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://foo.com/baz.mp4");
+            assert.equal(file, "https://foo.com/baz.mp4");
         });
 
         it("should return URL from audio embed", async function () {
@@ -56,7 +56,7 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://foo.com/baz.mp3");
+            assert.equal(file, "https://foo.com/baz.mp3");
         });
 
         it("should return URL from other page embed", async function () {
@@ -72,7 +72,7 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.vimeo/play/?video_id=baz");
         });
 
@@ -89,7 +89,7 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: true, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return URL from second embed", async function () {
@@ -106,9 +106,9 @@ describe("core/scraper/embed.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=foo");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=foo");
         });
     });
 });

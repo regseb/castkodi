@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
@@ -9,7 +9,7 @@ describe("Scraper: StarGR", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL from StarTV", async function () {
@@ -20,9 +20,10 @@ describe("Scraper: StarGR", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp" +
-                         "/0/playManifest/entryId/1_dodsq0jt/format/applehttp" +
-                               "/protocol/https/flavorParamId/0/manifest.m3u8");
+        assert.equal(file,
+            "https://cdnapisec.kaltura.com/p/713821/sp/0/playManifest/entryId" +
+                "/1_dodsq0jt/format/applehttp/protocol/https/flavorParamId/0" +
+                "/manifest.m3u8");
     });
 
     it("should return video URL from StarTV when protocol is HTTP",
@@ -32,9 +33,10 @@ describe("Scraper: StarGR", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp/0" +
-                           "/playManifest/entryId/1_p9vdk3nq/format/applehttp" +
-                               "/protocol/https/flavorParamId/0/manifest.m3u8");
+        assert.equal(file,
+            "https://cdnapisec.kaltura.com/p/713821/sp/0/playManifest/entryId" +
+                "/1_p9vdk3nq/format/applehttp/protocol/https/flavorParamId/0" +
+                "/manifest.m3u8");
     });
 
     it("should return video URL", async function () {
@@ -43,9 +45,10 @@ describe("Scraper: StarGR", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://cdnapisec.kaltura.com/p/713821/sp/0" +
-                           "/playManifest/entryId/1_ppyp3x8c/format/applehttp" +
-                               "/protocol/https/flavorParamId/0/manifest.m3u8");
+        assert.equal(file,
+            "https://cdnapisec.kaltura.com/p/713821/sp/0/playManifest/entryId" +
+                "/1_ppyp3x8c/format/applehttp/protocol/https/flavorParamId/0" +
+                "/manifest.m3u8");
     });
 
     it("should return video id", async function () {
@@ -56,10 +59,11 @@ describe("Scraper: StarGR", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=c-AgydAVh5k&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=c-AgydAVh5k" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 });

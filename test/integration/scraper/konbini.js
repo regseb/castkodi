@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Konbini", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Konbini", function () {
         const options = { depth: false, incognito: true };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                   "&url=x81cjw7");
     });

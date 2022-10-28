@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/lemonde.js";
@@ -10,7 +10,7 @@ describe("core/scraper/lemonde.js", function () {
             const url = new URL("https://journal.lemonde.fr/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't youtube / dailymotion" +
@@ -26,7 +26,7 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth with youtube",
@@ -48,9 +48,9 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: true, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should return undefined when youtube sub-page doesn't have media",
@@ -70,7 +70,7 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return URL from youtube", async function () {
@@ -91,12 +91,12 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/" +
-                                                "?video_id=bar&incognito=true");
+            assert.equal(file,
+                "plugin://plugin.video.youtube/play/?video_id=bar" +
+                                                   "&incognito=true");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return URL from dailymotion", async function () {
@@ -112,9 +112,9 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=bar");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=bar");
         });
 
         it("should return undefined when it's depth with tiktok",
@@ -134,9 +134,9 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: true, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should return undefined when tiktok sub-page doesn't have media",
@@ -162,13 +162,13 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args.length, 2);
-            assert.deepStrictEqual(stub.firstCall.args[0],
-                                   new URL("https://www.tiktok.com/baz"));
-            assert.strictEqual(typeof stub.firstCall.args[1], "object");
+            assert.equal(stub.callCount, 1);
+            assert.equal(stub.firstCall.args.length, 2);
+            assert.deepEqual(stub.firstCall.args[0],
+                             new URL("https://www.tiktok.com/baz"));
+            assert.equal(typeof stub.firstCall.args[1], "object");
         });
 
         it("should return URL from tiktok", async function () {
@@ -199,13 +199,13 @@ describe("core/scraper/lemonde.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://foo.com/bar.mp4");
+            assert.equal(file, "https://foo.com/bar.mp4");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args.length, 2);
-            assert.deepStrictEqual(stub.firstCall.args[0],
-                                   new URL("https://www.tiktok.com/qux"));
-            assert.strictEqual(typeof stub.firstCall.args[1], "object");
+            assert.equal(stub.callCount, 1);
+            assert.equal(stub.firstCall.args.length, 2);
+            assert.deepEqual(stub.firstCall.args[0],
+                             new URL("https://www.tiktok.com/qux"));
+            assert.equal(typeof stub.firstCall.args[1], "object");
         });
     });
 });

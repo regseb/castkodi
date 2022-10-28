@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: KCAA Radio", function () {
@@ -7,6 +7,6 @@ describe("Scraper: KCAA Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://stream.kcaastreaming.com/kcaa.mp3");
+        assert.equal(file, "https://stream.kcaastreaming.com/kcaa.mp3");
     });
 });

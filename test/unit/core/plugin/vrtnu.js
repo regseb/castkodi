@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as plugin from "../../../../src/core/plugin/vrtnu.js";
 
 describe("core/plugin/vrtnu.js", function () {
@@ -6,7 +6,7 @@ describe("core/plugin/vrtnu.js", function () {
         it("should return URL with video URL", async function () {
             const label = await plugin.generateUrl(new URL("http://foo.io" +
                                                                   "/bar.html"));
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.vrt.nu/play/url/http://foo.io/bar.html");
         });
     });

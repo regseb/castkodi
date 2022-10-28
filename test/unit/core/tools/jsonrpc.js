@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import mockSocket from "mock-socket";
 import sinon from "sinon";
 import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
@@ -10,11 +10,11 @@ describe("tools/jsonrpc.js", function () {
         it("should return promise fulfilled", async function () {
             const server = new Server("ws://localhost/");
             server.on("connection", (socket) => {
-                assert.strictEqual(socket.url, "ws://localhost/");
+                assert.equal(socket.url, "ws://localhost/");
             });
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
-            assert.strictEqual(typeof jsonrpc, "object");
+            assert.equal(typeof jsonrpc, "object");
 
             server.close();
         });
@@ -44,9 +44,9 @@ describe("tools/jsonrpc.js", function () {
             jsonrpc.close();
 
             const event = await promise;
-            assert.strictEqual(event.code, 1005);
-            assert.strictEqual(event.reason, "");
-            assert.strictEqual(event.wasClean, true);
+            assert.equal(event.code, 1005);
+            assert.equal(event.reason, "");
+            assert.equal(event.wasClean, true);
 
             server.close();
         });
@@ -63,9 +63,9 @@ describe("tools/jsonrpc.js", function () {
             jsonrpc.close(1000);
 
             const event = await promise;
-            assert.strictEqual(event.code, 1000);
-            assert.strictEqual(event.reason, "");
-            assert.strictEqual(event.wasClean, true);
+            assert.equal(event.code, 1000);
+            assert.equal(event.reason, "");
+            assert.equal(event.wasClean, true);
 
             server.close();
         });
@@ -82,9 +82,9 @@ describe("tools/jsonrpc.js", function () {
             jsonrpc.close(4242, "foo");
 
             const event = await promise;
-            assert.strictEqual(event.code, 4242);
-            assert.strictEqual(event.reason, "foo");
-            assert.strictEqual(event.wasClean, false);
+            assert.equal(event.code, 4242);
+            assert.equal(event.reason, "foo");
+            assert.equal(event.wasClean, false);
 
             server.close();
         });
@@ -96,7 +96,7 @@ describe("tools/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
                     const request = JSON.parse(data.toString());
-                    assert.deepStrictEqual(request, {
+                    assert.deepEqual(request, {
                         jsonrpc: "2.0",
                         method:  "foo",
                         params:  { bar: "baz" },
@@ -113,7 +113,7 @@ describe("tools/jsonrpc.js", function () {
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
             const result = await jsonrpc.send("foo", { bar: "baz" });
-            assert.strictEqual(result, "qux");
+            assert.equal(result, "qux");
 
             server.close();
         });
@@ -123,7 +123,7 @@ describe("tools/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
                     const request = JSON.parse(data.toString());
-                    assert.deepStrictEqual(request, {
+                    assert.deepEqual(request, {
                         jsonrpc: "2.0",
                         method:  "foo",
                         id:      1,
@@ -139,7 +139,7 @@ describe("tools/jsonrpc.js", function () {
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
             const result = await jsonrpc.send("foo");
-            assert.deepStrictEqual(result, { bar: "baz" });
+            assert.deepEqual(result, { bar: "baz" });
 
             server.close();
         });
@@ -198,9 +198,9 @@ describe("tools/jsonrpc.js", function () {
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
             let result = await jsonrpc.send("foo");
-            assert.strictEqual(result, "baz");
+            assert.equal(result, "baz");
             result = await jsonrpc.send("bar");
-            assert.deepStrictEqual(result, { qux: "quux" });
+            assert.deepEqual(result, { qux: "quux" });
 
             server.close();
         });
@@ -216,9 +216,9 @@ describe("tools/jsonrpc.js", function () {
 
             server.close();
 
-            assert.strictEqual(fake.callCount, 1);
-            assert.strictEqual(fake.firstCall.args.length, 1);
-            assert.strictEqual(fake.firstCall.args[0].type, "close");
+            assert.equal(fake.callCount, 1);
+            assert.equal(fake.firstCall.args.length, 1);
+            assert.equal(fake.firstCall.args[0].type, "close");
         });
 
         it("should dispatch notification event", async function () {
@@ -240,9 +240,9 @@ describe("tools/jsonrpc.js", function () {
 
             server.close();
 
-            assert.strictEqual(notification.type, "notification");
-            assert.strictEqual(notification.method, "foo");
-            assert.deepStrictEqual(notification.params, {
+            assert.equal(notification.type, "notification");
+            assert.equal(notification.method, "foo");
+            assert.deepEqual(notification.params, {
                 bar: "baz",
             });
         });

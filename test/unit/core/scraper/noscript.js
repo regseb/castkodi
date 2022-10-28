@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/noscript.js";
 
 describe("core/scraper/noscript.js", function () {
@@ -10,7 +10,7 @@ describe("core/scraper/noscript.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't noscript",
@@ -25,7 +25,7 @@ describe("core/scraper/noscript.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when noscript is empty", async function () {
@@ -39,7 +39,7 @@ describe("core/scraper/noscript.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return URL from video in noscript", async function () {
@@ -57,7 +57,7 @@ describe("core/scraper/noscript.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://baz.org/qux.mp4");
+            assert.equal(file, "https://baz.org/qux.mp4");
         });
 
         it("should return URL from second noscript", async function () {
@@ -78,7 +78,7 @@ describe("core/scraper/noscript.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, "https://qux.org/quux.mp3");
+            assert.equal(file, "https://qux.org/quux.mp3");
         });
     });
 });

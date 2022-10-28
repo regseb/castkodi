@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as plugin from "../../../../src/core/plugin/dumpert.js";
 
@@ -7,9 +7,10 @@ describe("core/plugin/dumpert.js", function () {
         it("should return URL with video URL", async function () {
             const label = await plugin.generateUrl(new URL("http://foo.com" +
                                                                   "/bar.html"));
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.dumpert/" +
-                 "?action=play&video_page_url=http%3A%2F%2Ffoo.com%2Fbar.html");
+                    "?action=play" +
+                    "&video_page_url=http%3A%2F%2Ffoo.com%2Fbar.html");
         });
     });
 
@@ -20,7 +21,7 @@ describe("core/plugin/dumpert.js", function () {
             const url = new URL("plugin://plugin.video.dumpert/?foo=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return video label", async function () {
@@ -36,12 +37,10 @@ describe("core/plugin/dumpert.js", function () {
                                      "?video_page_url=http%3A%2F%2Fbar.com%2F");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("http://bar.com/"),
-            ]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [new URL("http://bar.com/")]);
         });
     });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/blogtalkradio.js";
 
 describe("core/scraper/blogtalkradio.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/blogtalkradio.js", function () {
             const url = new URL("https://help.blogtalkradio.com/en/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not an audio", async function () {
@@ -21,7 +21,7 @@ describe("core/scraper/blogtalkradio.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
@@ -37,7 +37,7 @@ describe("core/scraper/blogtalkradio.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.mp3");
+            assert.equal(file, "https://bar.com/baz.mp3");
         });
     });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Input } from "../../../../src/core/jsonrpc/input.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
@@ -13,10 +13,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.back();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.Back"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.Back"]);
         });
     });
 
@@ -27,10 +27,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.contextMenu();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.ContextMenu"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.ContextMenu"]);
         });
     });
 
@@ -41,10 +41,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.down();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.Down"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.Down"]);
         });
     });
 
@@ -55,10 +55,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.home();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.Home"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.Home"]);
         });
     });
 
@@ -69,10 +69,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.info();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.Info"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.Info"]);
         });
     });
 
@@ -83,10 +83,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.left();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.Left"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.Left"]);
         });
     });
 
@@ -97,10 +97,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.right();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.Right"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.Right"]);
         });
     });
 
@@ -111,10 +111,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.select();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.Select"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.Select"]);
         });
     });
 
@@ -125,10 +125,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.sendText("foo", false);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Input.SendText",
                 { text: "foo", done: false },
             ]);
@@ -140,10 +140,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.sendText("foo", true);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Input.SendText",
                 { text: "foo", done: true },
             ]);
@@ -157,10 +157,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.showOSD();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.ShowOSD"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.ShowOSD"]);
         });
     });
 
@@ -171,10 +171,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.showPlayerProcessInfo();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Input.ShowPlayerProcessInfo",
             ]);
         });
@@ -187,10 +187,10 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(kodi);
             const result = await input.up();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["Input.Up"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Input.Up"]);
         });
     });
 
@@ -208,7 +208,7 @@ describe("core/jsonrpc/input.js", function () {
                 params: { data: null },
             }));
 
-            assert.strictEqual(fake.callCount, 0);
+            assert.equal(fake.callCount, 0);
         });
 
         it("should ignore when no listener", function () {
@@ -219,7 +219,7 @@ describe("core/jsonrpc/input.js", function () {
                 params: { data: "foo" },
             }));
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should handle 'OnInputRequested'", function () {
@@ -232,8 +232,8 @@ describe("core/jsonrpc/input.js", function () {
                 params: { data: { foo: "bar" } },
             }));
 
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{ foo: "bar" }]);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{ foo: "bar" }]);
         });
 
         it("should ignore others notifications", function () {
@@ -246,7 +246,7 @@ describe("core/jsonrpc/input.js", function () {
                 params: { data: "foo" },
             }));
 
-            assert.strictEqual(fake.callCount, 0);
+            assert.equal(fake.callCount, 0);
         });
     });
 });

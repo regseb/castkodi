@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/rumble.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/rumble.js", function () {
             const url = new URL("https://help.rumble.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when id is invalid", async function () {
@@ -20,10 +20,10 @@ describe("core/scraper/rumble.js", function () {
             const url = new URL("https://rumble.com/embed/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://rumble.com/embedJS/u3/?request=video&v=foo",
             ]);
         });
@@ -43,10 +43,10 @@ describe("core/scraper/rumble.js", function () {
             const url = new URL("https://rumble.com/embed/baz");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://foo.com/bar_1080.mp4");
+            assert.equal(file, "https://foo.com/bar_1080.mp4");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://rumble.com/embedJS/u3/?request=video&v=baz",
             ]);
         });

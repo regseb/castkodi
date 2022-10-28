@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: magnet", function () {
@@ -13,7 +13,7 @@ describe("Scraper: magnet", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.elementum/play?uri=magnet%3A" +
                "%3Fxt%3Durn%3Abtih%3A88594AAACBDE40EF3E2510C47374EC0AA396C08E" +
                                 "%26dn%3Dbbb_sunflower_1080p_30fps_normal.mp4" +

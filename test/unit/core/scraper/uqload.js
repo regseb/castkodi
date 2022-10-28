@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/uqload.js";
 
 describe("core/scraper/uqload.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/uqload.js", function () {
             const url = new URL("https://uqload.com/faq");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when no script", async function () {
@@ -21,7 +21,7 @@ describe("core/scraper/uqload.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when no inline script", async function () {
@@ -36,7 +36,7 @@ describe("core/scraper/uqload.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when no sources", async function () {
@@ -53,7 +53,7 @@ describe("core/scraper/uqload.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -72,7 +72,7 @@ describe("core/scraper/uqload.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "https://bar.com/baz/v.mp4|Referer=https://uqload.com/");
         });
     });

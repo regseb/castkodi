@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 
 describe("core/kodi.js", function () {
@@ -17,8 +17,8 @@ describe("core/kodi.js", function () {
                 "general-history": false,
             });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, []);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, []);
         });
 
         it("should ignore changes other than servers", async function () {
@@ -32,7 +32,7 @@ describe("core/kodi.js", function () {
             // appelé.
             browser.storage.local.set({ "general-history": true });
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
     });
 });

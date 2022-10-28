@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/steam.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/steam.js", function () {
             const url = new URL("https://store.steampowered.com/stats/");
 
             const file = await scraper.extractGame(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -22,7 +22,7 @@ describe("core/scraper/steam.js", function () {
             };
 
             const file = await scraper.extractGame(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -38,7 +38,7 @@ describe("core/scraper/steam.js", function () {
             };
 
             const file = await scraper.extractGame(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.mp4");
+            assert.equal(file, "https://bar.com/baz.mp4");
         });
     });
 
@@ -52,12 +52,12 @@ describe("core/scraper/steam.js", function () {
                                                                         "/foo");
 
             const file = await scraper.extractBroadcast(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
-                                                                 "?steamid=foo",
+                    "?steamid=foo",
             ]);
         });
 
@@ -71,12 +71,12 @@ describe("core/scraper/steam.js", function () {
                                                                         "/baz");
 
             const file = await scraper.extractBroadcast(url);
-            assert.strictEqual(file, "https://foo.com/bar.mp4");
+            assert.equal(file, "https://foo.com/bar.mp4");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://steamcommunity.com/broadcast/getbroadcastmpd/" +
-                                                                 "?steamid=baz",
+                    "?steamid=baz",
             ]);
         });
     });

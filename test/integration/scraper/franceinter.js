@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: France Inter", function () {
@@ -8,7 +8,7 @@ describe("Scraper: France Inter", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://media.radiofrance-podcast.net/podcast09" +
                                       "/17309-19.07.2019-ITEMA_22112050-0.mp3");
     });

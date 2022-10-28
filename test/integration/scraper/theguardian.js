@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
@@ -11,7 +11,7 @@ describe("Scraper: The Guardian", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL [theguardian-youtube]", async function () {
@@ -23,12 +23,12 @@ describe("Scraper: The Guardian", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=Iiigz06_lvM&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=Iiigz06_lvM" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return audio URL", async function () {
@@ -37,7 +37,7 @@ describe("Scraper: The Guardian", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://audio.guim.co.uk/2020/02/24-70184-200225TIFchina.mp3");
     });
 });

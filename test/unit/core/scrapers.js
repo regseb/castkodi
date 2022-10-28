@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -14,12 +14,12 @@ describe("core/scrapers.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.strictEqual(file, url.href);
+            assert.equal(file, url.href);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args.length, 2);
-            assert.deepStrictEqual(stub.firstCall.args[0], url);
-            assert.strictEqual(typeof stub.firstCall.args[1], "object");
+            assert.equal(stub.callCount, 1);
+            assert.equal(stub.firstCall.args.length, 2);
+            assert.deepEqual(stub.firstCall.args[0], url);
+            assert.equal(typeof stub.firstCall.args[1], "object");
         });
 
         it("should return undefined when it's not supported and depther",
@@ -33,12 +33,12 @@ describe("core/scrapers.js", function () {
             const options = { depth: true, incognito: false };
 
             const file = await extract(url, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args.length, 2);
-            assert.deepStrictEqual(stub.firstCall.args[0], url);
-            assert.strictEqual(typeof stub.firstCall.args[1], "object");
+            assert.equal(stub.callCount, 1);
+            assert.equal(stub.firstCall.args.length, 2);
+            assert.deepEqual(stub.firstCall.args[0], url);
+            assert.equal(typeof stub.firstCall.args[1], "object");
         });
 
         it("should return media URL", async function () {
@@ -55,12 +55,12 @@ describe("core/scrapers.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.strictEqual(file, "https://foo.com/baz.mp4");
+            assert.equal(file, "https://foo.com/baz.mp4");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.strictEqual(stub.firstCall.args.length, 2);
-            assert.deepStrictEqual(stub.firstCall.args[0], url);
-            assert.strictEqual(typeof stub.firstCall.args[1], "object");
+            assert.equal(stub.callCount, 1);
+            assert.equal(stub.firstCall.args.length, 2);
+            assert.deepEqual(stub.firstCall.args[0], url);
+            assert.equal(typeof stub.firstCall.args[1], "object");
         });
 
         it("should support URL", async function () {
@@ -76,7 +76,7 @@ describe("core/scrapers.js", function () {
                                                            ".dailymotion_com/"),
                       `"${file}"?.startsWith(...)`);
 
-            assert.strictEqual(stub.callCount, 1);
+            assert.equal(stub.callCount, 1);
         });
 
         it("should return media URL from dynamic DOM", async function () {
@@ -91,14 +91,14 @@ describe("core/scrapers.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.strictEqual(file, "http://foo.fr/baz.mp4");
+            assert.equal(file, "http://foo.fr/baz.mp4");
 
-            assert.strictEqual(stubFetch.callCount, 1);
-            assert.strictEqual(stubFetch.firstCall.args.length, 2);
-            assert.deepStrictEqual(stubFetch.firstCall.args[0], url);
-            assert.strictEqual(typeof stubFetch.firstCall.args[1], "object");
-            assert.strictEqual(stubExecuteScript.callCount, 1);
-            assert.deepStrictEqual(stubExecuteScript.firstCall.args, [
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubFetch.firstCall.args.length, 2);
+            assert.deepEqual(stubFetch.firstCall.args[0], url);
+            assert.equal(typeof stubFetch.firstCall.args[1], "object");
+            assert.equal(stubExecuteScript.callCount, 1);
+            assert.deepEqual(stubExecuteScript.firstCall.args, [
                 1, { allFrames: true, file: "/script/extractor.js" },
             ]);
         });
@@ -121,17 +121,17 @@ describe("core/scrapers.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.strictEqual(file, "http://foo.fr/baz.mp4");
+            assert.equal(file, "http://foo.fr/baz.mp4");
 
-            assert.strictEqual(stubFetch.callCount, 1);
-            assert.strictEqual(stubFetch.firstCall.args.length, 2);
-            assert.deepStrictEqual(stubFetch.firstCall.args[0], url);
-            assert.strictEqual(typeof stubFetch.firstCall.args[1], "object");
-            assert.strictEqual(stubExecuteScript.callCount, 2);
-            assert.deepStrictEqual(stubExecuteScript.firstCall.args, [
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubFetch.firstCall.args.length, 2);
+            assert.deepEqual(stubFetch.firstCall.args[0], url);
+            assert.equal(typeof stubFetch.firstCall.args[1], "object");
+            assert.equal(stubExecuteScript.callCount, 2);
+            assert.deepEqual(stubExecuteScript.firstCall.args, [
                 1, { allFrames: true, file: "/script/extractor.js" },
             ]);
-            assert.deepStrictEqual(stubExecuteScript.secondCall.args, [
+            assert.deepEqual(stubExecuteScript.secondCall.args, [
                 2, { allFrames: true, file: "/script/extractor.js" },
             ]);
         });
@@ -152,12 +152,12 @@ describe("core/scrapers.js", function () {
                 message: "Baz",
             });
 
-            assert.strictEqual(stubFetch.callCount, 1);
-            assert.strictEqual(stubFetch.firstCall.args.length, 2);
-            assert.deepStrictEqual(stubFetch.firstCall.args[0], url);
-            assert.strictEqual(typeof stubFetch.firstCall.args[1], "object");
-            assert.strictEqual(stubExecuteScript.callCount, 1);
-            assert.deepStrictEqual(stubExecuteScript.firstCall.args, [
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubFetch.firstCall.args.length, 2);
+            assert.deepEqual(stubFetch.firstCall.args[0], url);
+            assert.equal(typeof stubFetch.firstCall.args[1], "object");
+            assert.equal(stubExecuteScript.callCount, 1);
+            assert.deepEqual(stubExecuteScript.firstCall.args, [
                 1, { allFrames: true, file: "/script/extractor.js" },
             ]);
         });
@@ -180,14 +180,14 @@ describe("core/scrapers.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.strictEqual(file, url.href);
+            assert.equal(file, url.href);
 
-            assert.strictEqual(stubFetch.callCount, 1);
-            assert.strictEqual(stubFetch.firstCall.args.length, 2);
-            assert.deepStrictEqual(stubFetch.firstCall.args[0], url);
-            assert.strictEqual(typeof stubFetch.firstCall.args[1], "object");
-            assert.strictEqual(stubExecuteScript.callCount, 1);
-            assert.deepStrictEqual(stubExecuteScript.firstCall.args, [
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubFetch.firstCall.args.length, 2);
+            assert.deepEqual(stubFetch.firstCall.args[0], url);
+            assert.equal(typeof stubFetch.firstCall.args[1], "object");
+            assert.equal(stubExecuteScript.callCount, 1);
+            assert.deepEqual(stubExecuteScript.firstCall.args, [
                 1, { allFrames: true, file: "/script/extractor.js" },
             ]);
         });
@@ -206,14 +206,14 @@ describe("core/scrapers.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.strictEqual(file, url.href);
+            assert.equal(file, url.href);
 
-            assert.strictEqual(stubFetch.callCount, 1);
-            assert.strictEqual(stubFetch.firstCall.args.length, 2);
-            assert.deepStrictEqual(stubFetch.firstCall.args[0], url);
-            assert.strictEqual(typeof stubFetch.firstCall.args[1], "object");
-            assert.strictEqual(stubExecuteScript.callCount, 1);
-            assert.deepStrictEqual(stubExecuteScript.firstCall.args, [
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubFetch.firstCall.args.length, 2);
+            assert.deepEqual(stubFetch.firstCall.args[0], url);
+            assert.equal(typeof stubFetch.firstCall.args[1], "object");
+            assert.equal(stubExecuteScript.callCount, 1);
+            assert.deepEqual(stubExecuteScript.firstCall.args, [
                 1, { allFrames: true, file: "/script/extractor.js" },
             ]);
         });
@@ -231,7 +231,7 @@ describe("core/scrapers.js", function () {
             assert.ok(file?.startsWith("plugin://plugin.video.vimeo/"),
                       `"${file}"?.startsWith(...)`);
 
-            assert.strictEqual(stub.callCount, 1);
+            assert.equal(stub.callCount, 1);
         });
     });
 });

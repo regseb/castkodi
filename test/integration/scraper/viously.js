@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Viously", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Viously", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://v.kolplay.com/doDeMzbVkpr/index.m3u8");
     });
 
@@ -18,8 +18,7 @@ describe("Scraper: Viously", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://v.kolplay.com/doDeMzbVkpr/index.m3u8");
+        assert.equal(file, "https://v.kolplay.com/doDeMzbVkpr/index.m3u8");
     });
 
     it("should return video URL from amp", async function () {
@@ -27,7 +26,6 @@ describe("Scraper: Viously", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "https://v.kolplay.com/3ZSdTrtt4G5/index.m3u8");
+        assert.equal(file, "https://v.kolplay.com/3ZSdTrtt4G5/index.m3u8");
     });
 });

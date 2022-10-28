@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
@@ -12,12 +12,12 @@ describe("Scraper: HookTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.youtube/play/" +
                                        "?video_id=LACbVhgtx9I&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return embed video id [youtube]", async function () {
@@ -27,11 +27,11 @@ describe("Scraper: HookTube", function () {
         const options = { depth: false, incognito: true };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.youtube/play/" +
                                         "?video_id=3lPSQ5KjamI&incognito=true");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 });

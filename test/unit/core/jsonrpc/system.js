@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { System } from "../../../../src/core/jsonrpc/system.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
@@ -15,10 +15,10 @@ describe("core/jsonrpc/system.js", function () {
             const system = new System(kodi);
             const properties = ["foo", "bar"];
             const result = await system.getProperties(properties);
-            assert.deepStrictEqual(result, { foo: true, bar: false });
+            assert.deepEqual(result, { foo: true, bar: false });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "System.GetProperties",
                 { properties },
             ]);
@@ -32,10 +32,10 @@ describe("core/jsonrpc/system.js", function () {
 
             const system = new System(kodi);
             const result = await system.hibernate();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["System.Hibernate"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["System.Hibernate"]);
         });
     });
 
@@ -46,10 +46,10 @@ describe("core/jsonrpc/system.js", function () {
 
             const system = new System(kodi);
             const result = await system.reboot();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["System.Reboot"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["System.Reboot"]);
         });
     });
 
@@ -60,10 +60,10 @@ describe("core/jsonrpc/system.js", function () {
 
             const system = new System(kodi);
             const result = await system.shutdown();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["System.Shutdown"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["System.Shutdown"]);
         });
     });
 
@@ -74,10 +74,10 @@ describe("core/jsonrpc/system.js", function () {
 
             const system = new System(kodi);
             const result = await system.suspend();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["System.Suspend"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["System.Suspend"]);
         });
     });
 });

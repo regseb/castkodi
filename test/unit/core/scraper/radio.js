@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/radio.js";
 
 describe("core/scraper/radio.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/radio.js", function () {
             const url = new URL("https://www.radio.net/top-stations");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when no station", async function () {
@@ -30,7 +30,7 @@ describe("core/scraper/radio.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
@@ -59,7 +59,7 @@ describe("core/scraper/radio.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.net/baz.mp3");
+            assert.equal(file, "https://bar.net/baz.mp3");
         });
     });
 });

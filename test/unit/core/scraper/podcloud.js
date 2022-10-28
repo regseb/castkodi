@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/podcloud.js";
 
 describe("core/scraper/podcloud.js", function () {
@@ -8,14 +8,14 @@ describe("core/scraper/podcloud.js", function () {
             const url = new URL("https://podcloud.fr/podcast/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
             const url = new URL("https://podcloud.fr/podcast/foo/episode/bar");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "https://podcloud.fr/ext/foo/bar/enclosure.mp3");
         });
 
@@ -23,7 +23,7 @@ describe("core/scraper/podcloud.js", function () {
             const url = new URL("http://podcloud.fr/podcast/foo/episode/bar");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "https://podcloud.fr/ext/foo/bar/enclosure.mp3");
         });
     });

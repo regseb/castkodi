@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/iframe.js";
 
 describe("core/scraper/iframe.js", function () {
@@ -10,7 +10,7 @@ describe("core/scraper/iframe.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth", async function () {
@@ -27,7 +27,7 @@ describe("core/scraper/iframe.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't iframe",
@@ -42,7 +42,7 @@ describe("core/scraper/iframe.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return URL from iframe", async function () {
@@ -59,9 +59,9 @@ describe("core/scraper/iframe.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=baz");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=baz");
         });
 
         it("should return URL from second iframe", async function () {
@@ -78,9 +78,9 @@ describe("core/scraper/iframe.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=foo");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=foo");
         });
     });
 });

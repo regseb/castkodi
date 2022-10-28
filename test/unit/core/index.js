@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { cast, mux } from "../../../src/core/index.js";
 import { kodi } from "../../../src/core/kodi.js";
@@ -20,28 +20,28 @@ describe("core/index.js", function () {
             ];
 
             const url = mux(urls);
-            assert.strictEqual(url, undefined);
+            assert.equal(url, undefined);
         });
 
         it("should return URL", function () {
             const urls = ["https://www.foo.bar/"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "https://www.foo.bar/");
+            assert.equal(url, "https://www.foo.bar/");
         });
 
         it("should add protocol HTTP", function () {
             const urls = ["www.foo.fr"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "http://www.foo.fr");
+            assert.equal(url, "http://www.foo.fr");
         });
 
         it("should trim space", function () {
             const urls = ["\thttp://www.foo.fr \n"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "http://www.foo.fr");
+            assert.equal(url, "http://www.foo.fr");
         });
 
         it("should return URL with port", function () {
@@ -50,7 +50,7 @@ describe("core/index.js", function () {
             const urls = ["_foo:80"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "http://_foo:80");
+            assert.equal(url, "http://_foo:80");
         });
 
         it("should return magnet URL", function () {
@@ -59,7 +59,7 @@ describe("core/index.js", function () {
             ];
 
             const url = mux(urls);
-            assert.strictEqual(url,
+            assert.equal(url,
                 "magnet:?xt=urn:sha1:0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33");
         });
 
@@ -67,14 +67,14 @@ describe("core/index.js", function () {
             const urls = ["acestream://foo"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "acestream://foo");
+            assert.equal(url, "acestream://foo");
         });
 
         it("should get plugin URL", function () {
             const urls = ["plugin://plugin.video.foo/bar?baz=qux"];
 
             const url = mux(urls);
-            assert.strictEqual(url, "plugin://plugin.video.foo/bar?baz=qux");
+            assert.equal(url, "plugin://plugin.video.foo/bar?baz=qux");
         });
     });
 
@@ -86,7 +86,7 @@ describe("core/index.js", function () {
                 message: "Link foo://bar is invalid.",
             });
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
         });
 
         it("should reject invalid urls", async function () {
@@ -95,7 +95,7 @@ describe("core/index.js", function () {
                 type: "noLinks",
             });
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
         });
 
         it("should send url", async function () {
@@ -106,16 +106,14 @@ describe("core/index.js", function () {
 
             await cast("send", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
 
-            assert.strictEqual(stubClear.callCount, 1);
-            assert.deepStrictEqual(stubClear.firstCall.args, []);
-            assert.strictEqual(stubAdd.callCount, 1);
-            assert.deepStrictEqual(stubAdd.firstCall.args, [
-                "http://foo.com/bar",
-            ]);
-            assert.strictEqual(stubOpen.callCount, 1);
-            assert.deepStrictEqual(stubOpen.firstCall.args, []);
+            assert.equal(stubClear.callCount, 1);
+            assert.deepEqual(stubClear.firstCall.args, []);
+            assert.equal(stubAdd.callCount, 1);
+            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stubOpen.callCount, 1);
+            assert.deepEqual(stubOpen.firstCall.args, []);
         });
 
         it("should insert url", async function () {
@@ -127,13 +125,13 @@ describe("core/index.js", function () {
 
             await cast("insert", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
 
-            assert.strictEqual(stubGetProperty.callCount, 1);
-            assert.deepStrictEqual(stubGetProperty.firstCall.args,
+            assert.equal(stubGetProperty.callCount, 1);
+            assert.deepEqual(stubGetProperty.firstCall.args,
                                    ["position"]);
-            assert.strictEqual(stubInsert.callCount, 1);
-            assert.deepStrictEqual(stubInsert.firstCall.args, [
+            assert.equal(stubInsert.callCount, 1);
+            assert.deepEqual(stubInsert.firstCall.args, [
                 "http://foo.com/bar",
                 43,
             ]);
@@ -145,10 +143,10 @@ describe("core/index.js", function () {
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("should reject invalid action", async function () {
@@ -157,7 +155,7 @@ describe("core/index.js", function () {
                 message: "foo is not supported",
             });
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
         });
 
         it("should add in history", async function () {
@@ -166,10 +164,10 @@ describe("core/index.js", function () {
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
-            assert.deepStrictEqual(histories, [{ url: "http://foo.com/bar" }]);
+            assert.deepEqual(histories, [{ url: "http://foo.com/bar" }]);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("shouldn't add in history", async function () {
@@ -178,10 +176,10 @@ describe("core/index.js", function () {
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("shouldn't add in history in incognito", async function () {
@@ -191,10 +189,10 @@ describe("core/index.js", function () {
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("should pass incognito on scrapers", async function () {
@@ -207,12 +205,12 @@ describe("core/index.js", function () {
 
             await cast("add", ["http://youtu.be/foo"]);
             const histories = browser.history.search({ text: "" });
-            assert.strictEqual(histories.length, 0);
+            assert.equal(histories.length, 0);
 
-            assert.strictEqual(stubAddons.callCount, 1);
-            assert.deepStrictEqual(stubAddons.firstCall.args, ["video"]);
-            assert.strictEqual(stubPlaylist.callCount, 1);
-            assert.deepStrictEqual(stubPlaylist.firstCall.args, [
+            assert.equal(stubAddons.callCount, 1);
+            assert.deepEqual(stubAddons.firstCall.args, ["video"]);
+            assert.equal(stubPlaylist.callCount, 1);
+            assert.deepEqual(stubPlaylist.firstCall.args, [
                 "plugin://plugin.video.youtube/play/?video_id=foo" +
                                                    "&incognito=true",
             ]);

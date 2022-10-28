@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: GoPlay", function () {
@@ -7,7 +7,7 @@ describe("Scraper: GoPlay", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL", async function () {
@@ -16,7 +16,7 @@ describe("Scraper: GoPlay", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://stream2-vod.cdn1.sbs.prd.telenet-ops.be/non-geo/vier" +
                    "/homepartymetkat/3b576cf4fa1df85b8cc29c90efcdac81a9f97ecf" +
                              "/HOMEPARTYMETKAT_zorg/HOMEPARTYMETKAT_zorg.m3u8");

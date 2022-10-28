@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/flickr.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/flickr.js", function () {
             const url = new URL("https://www.flickr.com/explore");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -22,7 +22,7 @@ describe("core/scraper/flickr.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -48,13 +48,13 @@ describe("core/scraper/flickr.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.net/bar.mp4");
+            assert.equal(file, "https://foo.net/bar.mp4");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://api.flickr.com/services/rest" +
-                              "?method=flickr.video.getStreamInfo&format=json" +
-                            "&nojsoncallback=1&photo_id=6&secret=7&api_key=qux",
+                    "?method=flickr.video.getStreamInfo&format=json" +
+                    "&nojsoncallback=1&photo_id=6&secret=7&api_key=qux",
             ]);
         });
     });

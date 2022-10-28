@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Vimeo", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Vimeo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video id [opengraph-vimeo]", async function () {
@@ -15,7 +15,7 @@ describe("Scraper: Vimeo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vimeo/play/?video_id=228786490:a81341a31d");
     });
 
@@ -25,7 +25,7 @@ describe("Scraper: Vimeo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vimeo/play/?video_id=228786490:a81341a31d");
     });
 
@@ -35,7 +35,7 @@ describe("Scraper: Vimeo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vimeo/play/?video_id=93206523:d496437eee");
     });
 
@@ -45,7 +45,7 @@ describe("Scraper: Vimeo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vimeo/play/?video_id=304887422:34c51f7a09");
     });
 
@@ -54,7 +54,7 @@ describe("Scraper: Vimeo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vimeo/play/?video_id=228786490");
     });
 
@@ -64,7 +64,7 @@ describe("Scraper: Vimeo", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.vimeo/play/?video_id=304887422:34c51f7a09");
     });
 });

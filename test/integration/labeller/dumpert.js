@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { complete } from "../../../src/core/labellers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -15,7 +15,7 @@ describe("Labeller: Dumpert", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Dolfijn is metalhead",
             position: 0,

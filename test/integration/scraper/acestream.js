@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Ace Stream", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Ace Stream", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://program.plexus/?mode=1&name=" +
                                           "&url=acestream%3A%2F%2F94c2fd8fb9b" +
                                                "c8f2fc71a2cbe9d4b866f227a0209");

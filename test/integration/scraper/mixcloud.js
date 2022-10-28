@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Mixcloud", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Mixcloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return audio id", async function () {
@@ -16,7 +16,7 @@ describe("Scraper: Mixcloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.audio.mixcloud/?mode=40" +
                               "&key=%2FLesGar%25C3%25A7onsBienElev%25C3%25A9s" +
                                                                   "%2Fn101%2F");
@@ -28,7 +28,7 @@ describe("Scraper: Mixcloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.audio.mixcloud/?mode=40" +
                               "&key=%2FLesGar%25C3%25A7onsBienElev%25C3%25A9s" +
                                                                   "%2Fn101%2F");

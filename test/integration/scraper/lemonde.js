@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { config } from "../config.js";
 import { kodi } from "../../../src/core/kodi.js";
@@ -12,7 +12,7 @@ describe("Scraper: Le Monde", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video id [lemonde-youtube]", async function () {
@@ -23,12 +23,12 @@ describe("Scraper: Le Monde", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=dI-xlzU-r1c&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=dI-xlzU-r1c" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id [lemonde-dailymotion]", async function () {
@@ -38,9 +38,9 @@ describe("Scraper: Le Monde", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.dailymotion_com/" +
-                                     "?mode=playVideo&url=k3tyb33F0pcZR2wDd27");
+        assert.equal(file,
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=k3tyb33F0pcZR2wDd27");
     });
 
     it("should return video url [lemonde-tiktok]", async function () {
@@ -58,6 +58,6 @@ describe("Scraper: Le Monde", function () {
         assert.ok(undefined !== file &&
                   "video_mp4" === new URL(file).searchParams.get("mime_type"),
                   `"..." === new URL("${file}").searchParams` +
-                                                          `.get("mime_types")`);
+                                              `.get("mime_types")`);
     });
 });

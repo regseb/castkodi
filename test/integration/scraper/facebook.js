@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -15,7 +15,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL [opengraph]", async function () {
@@ -67,7 +67,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return URL when it's not video [opengraph]", async function () {
@@ -76,7 +76,7 @@ describe("Scraper: Facebook", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL from watch page [opengraph]",

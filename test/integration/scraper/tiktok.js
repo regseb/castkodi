@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -15,7 +15,7 @@ describe("Scraper: TikTok", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return URL when it's not a video (and there isn't data)",
@@ -24,7 +24,7 @@ describe("Scraper: TikTok", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL", async function () {

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/futurasciences.js";
 
 describe("core/scraper/futurasciences.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/futurasciences.js", function () {
             const url = new URL("https://cdn.futura-sciences.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth", async function () {
@@ -24,7 +24,7 @@ describe("core/scraper/futurasciences.js", function () {
             const options = { depth: true, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a HTML page",
@@ -34,7 +34,7 @@ describe("core/scraper/futurasciences.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't iframe",
@@ -49,7 +49,7 @@ describe("core/scraper/futurasciences.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return URL from iframe", async function () {
@@ -65,9 +65,9 @@ describe("core/scraper/futurasciences.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=bar");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=bar");
         });
 
         it("should return URL from iframe with data-src", async function () {
@@ -85,9 +85,9 @@ describe("core/scraper/futurasciences.js", function () {
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                    "?mode=playVideo&url=quux");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=quux");
         });
 
         it("should return URL from vsly-player", async function () {
@@ -104,9 +104,9 @@ describe("core/scraper/futurasciences.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=bar");
+            assert.equal(file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=bar");
         });
     });
 });

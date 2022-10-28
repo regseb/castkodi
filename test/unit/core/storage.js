@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as storage from "../../../src/core/storage.js";
 
 describe("core/storage.js", function () {
@@ -9,7 +9,7 @@ describe("core/storage.js", function () {
 
             await storage.initialize();
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "config-version":    5,
                 "server-mode":       "single",
                 "server-list":       [{ address: "", name: "" }],
@@ -31,7 +31,7 @@ describe("core/storage.js", function () {
 
             await storage.initialize();
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "config-version":    5,
                 "server-mode":       "single",
                 "server-list":       [{ address: "", name: "" }],
@@ -76,7 +76,7 @@ describe("core/storage.js", function () {
 
             await storage.migrate();
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "config-version":    5,
                 "server-mode":       "single",
                 "server-list":       [{ address: "foo", name: "" }],
@@ -107,7 +107,7 @@ describe("core/storage.js", function () {
 
             await storage.migrate();
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "config-version":    5,
                 "server-mode":       "multi",
                 "server-list":       [
@@ -138,7 +138,7 @@ describe("core/storage.js", function () {
 
             await storage.migrate();
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "config-version":    5,
                 "server-mode":       "single",
                 "server-list":       [{ address: "foo", name: "" }],
@@ -170,7 +170,7 @@ describe("core/storage.js", function () {
 
             await storage.migrate();
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "config-version":    5,
                 "server-mode":       "multi",
                 "server-list":       [
@@ -206,7 +206,7 @@ describe("core/storage.js", function () {
 
             await storage.migrate();
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "config-version":    5,
                 "server-mode":       "multi",
                 "server-list":       [
@@ -234,7 +234,7 @@ describe("core/storage.js", function () {
 
             await storage.remove([]);
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "general-history":   true,
                 "general-clipboard": true,
                 "menu-contexts":     ["bookmark"],
@@ -251,7 +251,7 @@ describe("core/storage.js", function () {
 
             await storage.remove(["foo"]);
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "general-history":   true,
                 "general-clipboard": true,
                 "menu-contexts":     ["bookmark"],
@@ -268,7 +268,7 @@ describe("core/storage.js", function () {
 
             await storage.remove(["history"]);
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "general-history":   false,
                 "general-clipboard": true,
                 "menu-contexts":     ["bookmark"],
@@ -284,7 +284,7 @@ describe("core/storage.js", function () {
 
             await storage.remove(["clipboardRead"]);
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "general-history":   true,
                 "general-clipboard": false,
                 "menu-contexts":     ["bookmark"],
@@ -300,7 +300,7 @@ describe("core/storage.js", function () {
 
             await storage.remove(["bookmarks"]);
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "general-history":   true,
                 "general-clipboard": true,
                 "menu-contexts":     ["foo"],
@@ -316,7 +316,7 @@ describe("core/storage.js", function () {
 
             await storage.remove(["bookmarks"]);
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, {
+            assert.deepEqual(config, {
                 "general-history":   true,
                 "general-clipboard": true,
                 "menu-contexts":     [],

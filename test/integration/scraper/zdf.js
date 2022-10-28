@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: ZDF", function () {
@@ -7,7 +7,7 @@ describe("Scraper: ZDF", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL", async function () {
@@ -16,8 +16,9 @@ describe("Scraper: ZDF", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://nrodlzdf-a.akamaihd.net/none/zdf/21/04" +
-             "/210427_sendung_37g/4/210427_sendung_37g_a1a2_2128k_p18v15.webm");
+                "/210427_sendung_37g/4" +
+                "/210427_sendung_37g_a1a2_2128k_p18v15.webm");
     });
 });

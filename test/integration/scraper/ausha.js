@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Ausha", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Ausha", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return audio URL", async function () {
@@ -16,6 +16,6 @@ describe("Scraper: Ausha", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, "https://audio.ausha.co/b3RDWTvLDnEK.mp3");
+        assert.equal(file, "https://audio.ausha.co/b3RDWTvLDnEK.mp3");
     });
 });

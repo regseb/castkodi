@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as menu from "../../../src/core/menu.js";
 
 describe("core/menu.js", function () {
@@ -13,7 +13,7 @@ describe("core/menu.js", function () {
             await menu.update();
             // eslint-disable-next-line no-underscore-dangle
             const items = browser.contextMenus._getAll();
-            assert.deepStrictEqual(items, []);
+            assert.deepEqual(items, []);
         });
 
         it("should add one item", async function () {
@@ -26,7 +26,7 @@ describe("core/menu.js", function () {
             await menu.update();
             // eslint-disable-next-line no-underscore-dangle
             const items = browser.contextMenus._getAll();
-            assert.deepStrictEqual(items, [{
+            assert.deepEqual(items, [{
                 contexts: ["frame"],
                 id:       "send",
                 title:    "Play now to Kodi",
@@ -43,7 +43,7 @@ describe("core/menu.js", function () {
             await menu.update();
             // eslint-disable-next-line no-underscore-dangle
             const items = browser.contextMenus._getAll();
-            assert.deepStrictEqual(items, [{
+            assert.deepEqual(items, [{
                 contexts: ["link"],
                 id:       "parent",
                 title:    "Cast to Kodi",
@@ -79,7 +79,7 @@ describe("core/menu.js", function () {
             await menu.update();
             // eslint-disable-next-line no-underscore-dangle
             const items = browser.contextMenus._getAll();
-            assert.deepStrictEqual(items, [{
+            assert.deepEqual(items, [{
                 contexts: ["page"],
                 id:       "parent",
                 title:    "Cast to Kodi",
@@ -123,7 +123,7 @@ describe("core/menu.js", function () {
             await menu.update();
             // eslint-disable-next-line no-underscore-dangle
             const items = browser.contextMenus._getAll();
-            assert.deepStrictEqual(items, [{
+            assert.deepEqual(items, [{
                 contexts: ["selection", "video"],
                 id:       "parent",
                 title:    "Cast to Kodi",
@@ -167,7 +167,7 @@ describe("core/menu.js", function () {
                 editable:   false,
                 bookmarkId: id,
             });
-            assert.deepStrictEqual(urls, ["http://foo.com/"]);
+            assert.deepEqual(urls, ["http://foo.com/"]);
         });
 
         it("should return bookmark title", async function () {
@@ -182,7 +182,7 @@ describe("core/menu.js", function () {
                 editable:   false,
                 bookmarkId: id,
             });
-            assert.deepStrictEqual(urls, ["foo"]);
+            assert.deepEqual(urls, ["foo"]);
         });
 
         it("should ignore URLs (with audio)", async function () {
@@ -202,7 +202,7 @@ describe("core/menu.js", function () {
                 frameUrl:      "qux",
                 pageUrl:       "quux",
             });
-            assert.deepStrictEqual(urls, []);
+            assert.deepEqual(urls, []);
         });
 
         it("should ignore URLs (with video)", async function () {
@@ -222,7 +222,7 @@ describe("core/menu.js", function () {
                 frameUrl:      "qux",
                 pageUrl:       "quux",
             });
-            assert.deepStrictEqual(urls, []);
+            assert.deepEqual(urls, []);
         });
 
         it("should return URLs (with audio)", async function () {
@@ -246,7 +246,7 @@ describe("core/menu.js", function () {
                 frameUrl:      "qux",
                 pageUrl:       "quux",
             });
-            assert.deepStrictEqual(urls, ["foo", "bar", "baz", "qux", "quux"]);
+            assert.deepEqual(urls, ["foo", "bar", "baz", "qux", "quux"]);
         });
 
         it("should return URLs (with video)", async function () {
@@ -270,7 +270,7 @@ describe("core/menu.js", function () {
                 frameUrl:      "qux",
                 pageUrl:       "quux",
             });
-            assert.deepStrictEqual(urls, ["foo", "bar", "baz", "qux", "quux"]);
+            assert.deepEqual(urls, ["foo", "bar", "baz", "qux", "quux"]);
         });
     });
 
@@ -280,7 +280,7 @@ describe("core/menu.js", function () {
 
             await menu.change(1);
             const config = await browser.storage.local.get();
-            assert.deepStrictEqual(config, { "server-active": 1 });
+            assert.deepEqual(config, { "server-active": 1 });
         });
     });
 });

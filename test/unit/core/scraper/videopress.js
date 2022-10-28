@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/videopress.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/videopress.js", function () {
             const url = new URL("https://videopress.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -20,10 +20,10 @@ describe("core/scraper/videopress.js", function () {
             const url = new URL("https://videopress.com/v/baz");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://foo.com/bar.avi");
+            assert.equal(file, "https://foo.com/bar.avi");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://public-api.wordpress.com/rest/v1.1/videos/baz",
             ]);
         });
@@ -36,10 +36,10 @@ describe("core/scraper/videopress.js", function () {
             const url = new URL("https://videopress.com/embed/baz?qux=quux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://foo.com/bar.avi");
+            assert.equal(file, "https://foo.com/bar.avi");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://public-api.wordpress.com/rest/v1.1/videos/baz",
             ]);
         });
@@ -53,10 +53,10 @@ describe("core/scraper/videopress.js", function () {
             const url = new URL("https://videopress.com/v/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://public-api.wordpress.com/rest/v1.1/videos/foo",
             ]);
         });

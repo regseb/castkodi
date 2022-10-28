@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/applepodcasts.js";
 
 describe("core/scraper/applepodcasts.js", function () {
@@ -9,7 +9,7 @@ describe("core/scraper/applepodcasts.js", function () {
                                                              "/arte-radio/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not an audio", async function () {
@@ -22,7 +22,7 @@ describe("core/scraper/applepodcasts.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
@@ -48,7 +48,7 @@ describe("core/scraper/applepodcasts.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "http://qux.fr/quux.mp3");
+            assert.equal(file, "http://qux.fr/quux.mp3");
         });
     });
 });

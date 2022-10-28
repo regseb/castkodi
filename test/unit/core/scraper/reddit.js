@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/reddit.js";
 
 describe("core/scraper/reddit.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/reddit.js", function () {
             const url = new URL("https://www.reddit.com/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -21,7 +21,7 @@ describe("core/scraper/reddit.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -36,7 +36,7 @@ describe("core/scraper/reddit.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.m3u8");
+            assert.equal(file, "https://bar.com/baz.m3u8");
         });
     });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/theguardian.js";
@@ -11,7 +11,7 @@ describe("core/scraper/theguardian.js", function () {
                                                                  "/contribute");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -25,7 +25,7 @@ describe("core/scraper/theguardian.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -44,12 +44,12 @@ describe("core/scraper/theguardian.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/" +
-                                               "?video_id=bar&incognito=false");
+            assert.equal(file,
+                "plugin://plugin.video.youtube/play/?video_id=bar" +
+                                                   "&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video URL in incognito mode", async function () {
@@ -68,12 +68,12 @@ describe("core/scraper/theguardian.js", function () {
             const options = { incognito: true };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file,
-                "plugin://plugin.video.youtube/play/" +
-                                                "?video_id=bar&incognito=true");
+            assert.equal(file,
+                "plugin://plugin.video.youtube/play/?video_id=bar" +
+                                                   "&incognito=true");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -84,7 +84,7 @@ describe("core/scraper/theguardian.js", function () {
                                                                  "/contribute");
 
             const file = await scraper.extractAudio(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not an audio", async function () {
@@ -97,7 +97,7 @@ describe("core/scraper/theguardian.js", function () {
             };
 
             const file = await scraper.extractAudio(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
@@ -113,7 +113,7 @@ describe("core/scraper/theguardian.js", function () {
             };
 
             const file = await scraper.extractAudio(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.mp3");
+            assert.equal(file, "https://bar.com/baz.mp3");
         });
     });
 });

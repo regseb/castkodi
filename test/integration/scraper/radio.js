@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Radio", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return audio URL", async function () {
@@ -15,7 +15,7 @@ describe("Scraper: Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://icecast.radiofrance.fr/fip-midfi.mp3");
     });
 
@@ -24,7 +24,7 @@ describe("Scraper: Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://icecast.radiofrance.fr/franceinter-hifi.aac");
     });
 
@@ -33,7 +33,7 @@ describe("Scraper: Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://antenaone.crossradio.com.br/stream/1/");
     });
 
@@ -42,7 +42,7 @@ describe("Scraper: Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://icecast.radiofrance.fr/franceinfo-midfi.mp3");
     });
 });

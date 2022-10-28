@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/dailymotion.js";
 
@@ -16,10 +16,10 @@ describe("core/labeller/dailymotion.js", function () {
             const videoId = "qux";
 
             const label = await labeller.extract(videoId);
-            assert.strictEqual(label, "foo - bar");
+            assert.equal(label, "foo - bar");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.dailymotion.com/video/qux",
             ]);
         });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../../src/core/kodi.js";
 import * as scraper from "../../../../src/core/scraper/devtube.js";
@@ -12,7 +12,7 @@ describe("core/scraper/devtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video id with YouTube", async function () {
@@ -23,12 +23,12 @@ describe("core/scraper/devtube.js", function () {
             const options = { incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.youtube/play/" +
                                                 "?video_id=foo&incognito=true");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return video id with Tubed", async function () {
@@ -41,11 +41,11 @@ describe("core/scraper/devtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.tubed/?mode=play&video_id=foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

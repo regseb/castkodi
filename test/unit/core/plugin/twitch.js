@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as plugin from "../../../../src/core/plugin/twitch.js";
 
@@ -6,7 +6,7 @@ describe("core/plugin/twitch.js", function () {
     describe("generateLiveUrl()", function () {
         it("should return URL with channel name", async function () {
             const label = await plugin.generateLiveUrl("foo");
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
     });
@@ -14,7 +14,7 @@ describe("core/plugin/twitch.js", function () {
     describe("generateVideoUrl()", function () {
         it("should return URL with video id", async function () {
             const label = await plugin.generateVideoUrl("foo");
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.twitch/?mode=play&video_id=foo");
         });
     });
@@ -22,7 +22,7 @@ describe("core/plugin/twitch.js", function () {
     describe("generateClipUrl()", function () {
         it("should return URL with clip id", async function () {
             const label = await plugin.generateClipUrl("foo");
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.twitch/?mode=play&slug=foo");
         });
     });
@@ -33,7 +33,7 @@ describe("core/plugin/twitch.js", function () {
             const url = new URL("plugin://plugin.video.twitch/");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return live label", async function () {
@@ -49,12 +49,10 @@ describe("core/plugin/twitch.js", function () {
                                                            "?channel_name=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/bar",
-            ]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["https://m.twitch.tv/bar"]);
         });
 
         it("should return video label", async function () {
@@ -69,10 +67,10 @@ describe("core/plugin/twitch.js", function () {
             const url = new URL("plugin://plugin.video.twitch/?video_id=baz");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://m.twitch.tv/videos/baz",
             ]);
         });
@@ -81,7 +79,7 @@ describe("core/plugin/twitch.js", function () {
             const url = new URL("plugin://plugin.video.twitch/?slug=foo");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
         });
     });
 });

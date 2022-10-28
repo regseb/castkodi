@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Pokémon TV", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Pokémon TV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return french video URL", async function () {
@@ -17,7 +17,7 @@ describe("Scraper: Pokémon TV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://s2.content.video.llnw.net/smedia" +
                                         "/4953336d7f544f678a12270b176ea386/Lp" +
                                   "/oOj5FgrXMO5KVDQNYScXLLLcSxAeZuive13gOTsqw" +
@@ -30,7 +30,7 @@ describe("Scraper: Pokémon TV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://s2.content.video.llnw.net/smedia" +
                                         "/4953336d7f544f678a12270b176ea386/9d" +
                                   "/PJNLXod-FofH7EQth_xQW5otkXT6dCxyvcjvJPSrA" +
@@ -43,7 +43,7 @@ describe("Scraper: Pokémon TV", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://s2.content.video.llnw.net/smedia" +
                                         "/4953336d7f544f678a12270b176ea386/gz" +
                                   "/3GZ5vZQYR6AIGfWdxHjDKaWW_2ojqCytoZ20o6OhQ" +

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: AlloCiné", function () {
@@ -7,7 +7,7 @@ describe("Scraper: AlloCiné", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL", async function () {
@@ -15,7 +15,7 @@ describe("Scraper: AlloCiné", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://fr.vid.web.acsta.net/nmedia/33/18/02/23/15" +
                                                         "/19577157_hd_013.mp4");
     });
@@ -26,7 +26,7 @@ describe("Scraper: AlloCiné", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://fr.vid.web.acsta.net/nmedia/s3/33/18/78/52/54" +
                                                         "/19131078_sd_013.mp4");
     });
@@ -38,7 +38,7 @@ describe("Scraper: AlloCiné", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://fr.vid.web.acsta.net/nmedia/33/19/10/22/06" +
                                                        "//19586244_hd_013.mp4");
     });

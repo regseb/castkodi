@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/twitch.js";
 
@@ -16,12 +16,10 @@ describe("core/labeller/twitch.js", function () {
             const channelName = "bar";
 
             const label = await labeller.extractLive(channelName);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/bar",
-            ]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["https://m.twitch.tv/bar"]);
         });
     });
 
@@ -38,10 +36,10 @@ describe("core/labeller/twitch.js", function () {
             const videoId = "baz";
 
             const label = await labeller.extractVideo(videoId);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://m.twitch.tv/videos/baz",
             ]);
         });
@@ -52,7 +50,7 @@ describe("core/labeller/twitch.js", function () {
             const clipId = "foo";
 
             const label = await labeller.extractClip(clipId);
-            assert.strictEqual(label, clipId);
+            assert.equal(label, clipId);
         });
     });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as plugin from "../../../../src/core/plugin/dailymotion.js";
 
@@ -6,9 +6,9 @@ describe("core/plugin/dailymotion.js", function () {
     describe("generateUrl()", function () {
         it("should return URL with video id", async function () {
             const label = await plugin.generateUrl("foo");
-            assert.strictEqual(label,
-                "plugin://plugin.video.dailymotion_com/" +
-                                                     "?mode=playVideo&url=foo");
+            assert.equal(label,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                      "&url=foo");
         });
     });
 
@@ -19,7 +19,7 @@ describe("core/plugin/dailymotion.js", function () {
                                                                     "?foo=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return video label", async function () {
@@ -35,10 +35,10 @@ describe("core/plugin/dailymotion.js", function () {
                                                                     "?url=qux");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "foo - bar");
+            assert.equal(label, "foo - bar");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.dailymotion.com/video/qux",
             ]);
         });

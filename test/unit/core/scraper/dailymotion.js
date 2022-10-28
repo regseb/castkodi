@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/dailymotion.js";
 
 describe("core/scraper/dailymotion.js", function () {
@@ -8,14 +8,14 @@ describe("core/scraper/dailymotion.js", function () {
             const url = new URL("http://www.dailymotion.com/fr/feed");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video id", async function () {
             const url = new URL("https://www.dailymotion.com/video/foo");
 
             const file = await scraper.extractVideo(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                       "&url=foo");
         });
@@ -26,7 +26,7 @@ describe("core/scraper/dailymotion.js", function () {
             const url = new URL("http://dai.ly/foo");
 
             const file = await scraper.extractMinify(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                       "&url=foo");
         });
@@ -37,7 +37,7 @@ describe("core/scraper/dailymotion.js", function () {
             const url = new URL("https://www.dailymotion.com/embed/video/foo");
 
             const file = await scraper.extractEmbed(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                       "&url=foo");
         });
@@ -50,7 +50,7 @@ describe("core/scraper/dailymotion.js", function () {
             const content = { html: () => Promise.resolve(undefined) };
 
             const file = await scraper.extractPlayerScript(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't Dailymotion player",
@@ -64,7 +64,7 @@ describe("core/scraper/dailymotion.js", function () {
             };
 
             const file = await scraper.extractPlayerScript(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video id", async function () {
@@ -82,7 +82,7 @@ describe("core/scraper/dailymotion.js", function () {
             };
 
             const file = await scraper.extractPlayerScript(url, content);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                       "&url=qux");
         });
@@ -94,7 +94,7 @@ describe("core/scraper/dailymotion.js", function () {
             const url = new URL("http://www.dailymotion.com/player/foo");
 
             const file = await scraper.extractPlayerIframe(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't video id",
@@ -102,7 +102,7 @@ describe("core/scraper/dailymotion.js", function () {
             const url = new URL("https://geo.dailymotion.com/player/foo");
 
             const file = await scraper.extractPlayerIframe(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video id", async function () {
@@ -110,7 +110,7 @@ describe("core/scraper/dailymotion.js", function () {
                                                                   "?video=bar");
 
             const file = await scraper.extractPlayerIframe(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
                                                       "&url=bar");
         });

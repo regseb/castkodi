@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/veoh.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/veoh.js", function () {
             const url = new URL("https://www.veoh.com/list-c/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't video", async function () {
@@ -25,10 +25,10 @@ describe("core/scraper/veoh.js", function () {
             const url = new URL("https://www.veoh.com/watch/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.veoh.com/watch/getVideo/foo",
             ]);
         });
@@ -42,10 +42,10 @@ describe("core/scraper/veoh.js", function () {
             const url = new URL("https://www.veoh.com/watch/foo");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.veoh.com/watch/getVideo/foo",
             ]);
         });
@@ -60,10 +60,10 @@ describe("core/scraper/veoh.js", function () {
             const url = new URL("https://www.veoh.com/watch/baz");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "https://foo.com/bar.mp4");
+            assert.equal(file, "https://foo.com/bar.mp4");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.veoh.com/watch/getVideo/baz",
             ]);
         });

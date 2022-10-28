@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Arte Radio", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Arte Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://download.www.arte.tv/permanent/arteradio" +
                            "/sites/default/files/sons/01faismoiouir_hq_fr.mp3");
     });
@@ -19,7 +19,7 @@ describe("Scraper: Arte Radio", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://download.www.arte.tv/permanent/arteradio" +
                            "/sites/default/files/sons/01faismoiouir_hq_fr.mp3");
     });

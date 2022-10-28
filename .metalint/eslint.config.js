@@ -195,7 +195,23 @@ export default {
         "no-restricted-exports": 0,
         "no-restricted-globals": 2,
         "no-restricted-imports": 2,
-        "no-restricted-properties": 2,
+        "no-restricted-properties": [2, {
+            object: "assert",
+            property: "deepStrictEqual",
+            message: "Use assert.deepEqual instead.",
+        }, {
+            object: "assert",
+            property: "notDeepStrictEqual",
+            message: "Use assert.notDeepEqual instead.",
+        }, {
+            object: "assert",
+            property: "notStrictEqual",
+            message: "Use assert.notEqual instead.",
+        }, {
+            object: "assert",
+            property: "strictEqual",
+            message: "Use assert.equal instead.",
+        }],
         "no-restricted-syntax": [
             2,
             "DebuggerStatement",

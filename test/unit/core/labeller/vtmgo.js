@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/vtmgo.js";
 
@@ -16,10 +16,10 @@ describe("core/labeller/vtmgo.js", function () {
             const episodeId = "bar";
 
             const label = await labeller.extractEpisode(episodeId);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/ebar",
             ]);
         });
@@ -38,10 +38,10 @@ describe("core/labeller/vtmgo.js", function () {
             const movieId = "bar";
 
             const label = await labeller.extractMovie(movieId);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/mbar",
             ]);
         });
@@ -58,10 +58,10 @@ describe("core/labeller/vtmgo.js", function () {
             const movieId = "bar";
 
             const label = await labeller.extractMovie(movieId);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/afspelen/mbar",
             ]);
         });
@@ -80,10 +80,10 @@ describe("core/labeller/vtmgo.js", function () {
             const channelId = "bar";
 
             const label = await labeller.extractChannel(channelId);
-            assert.strictEqual(label, "baz");
+            assert.equal(label, "baz");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/live-kijken/vtm",
             ]);
         });
@@ -98,10 +98,10 @@ describe("core/labeller/vtmgo.js", function () {
             const channelId = "bar";
 
             const label = await labeller.extractChannel(channelId);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://vtm.be/vtmgo/live-kijken/vtm",
             ]);
         });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../../src/core/kodi.js";
 import * as plugin from "../../../../src/core/plugin/youtube.js";
@@ -9,12 +9,12 @@ describe("core/plugin/youtube.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const label = await plugin.generateVideoUrl("foo", false);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                                               "?video_id=foo&incognito=false");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                   "&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return YouTube URL when two addons", async function () {
@@ -23,12 +23,12 @@ describe("core/plugin/youtube.js", function () {
             ]);
 
             const label = await plugin.generateVideoUrl("foo", false);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                                               "?video_id=foo&incognito=false");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                   "&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return YouTube URL when one addon", async function () {
@@ -37,24 +37,24 @@ describe("core/plugin/youtube.js", function () {
             ]);
 
             const label = await plugin.generateVideoUrl("foo", false);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                                               "?video_id=foo&incognito=false");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                   "&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return YouTube URL with incognito", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const label = await plugin.generateVideoUrl("foo", true);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                                                "?video_id=foo&incognito=true");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                   "&incognito=true");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return Tubed URL when one addon", async function () {
@@ -63,11 +63,11 @@ describe("core/plugin/youtube.js", function () {
             ]);
 
             const label = await plugin.generateVideoUrl("foo", false);
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.tubed/?mode=play&video_id=foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -77,12 +77,12 @@ describe("core/plugin/youtube.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const label = await plugin.generatePlaylistUrl("foo", false);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                              "?playlist_id=foo&order=&play=1&incognito=false");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?playlist_id=foo&order=" +
+                                                   "&play=1&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return YouTube URL when two addons", async function () {
@@ -92,12 +92,12 @@ describe("core/plugin/youtube.js", function () {
             ]);
 
             const label = await plugin.generatePlaylistUrl("foo", false);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                              "?playlist_id=foo&order=&play=1&incognito=false");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?playlist_id=foo&order=" +
+                                                   "&play=1&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return YouTube URL when one addons", async function () {
@@ -107,12 +107,12 @@ describe("core/plugin/youtube.js", function () {
             ]);
 
             const label = await plugin.generatePlaylistUrl("foo", false);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                              "?playlist_id=foo&order=&play=1&incognito=false");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?playlist_id=foo&order=" +
+                                                   "&play=1&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return YouTube URL with incognito", async function () {
@@ -120,12 +120,12 @@ describe("core/plugin/youtube.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const label = await plugin.generatePlaylistUrl("foo", true);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                               "?playlist_id=foo&order=&play=1&incognito=true");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?playlist_id=foo&order=" +
+                                                   "&play=1&incognito=true");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return YouTube URL with default order", async function () {
@@ -133,12 +133,13 @@ describe("core/plugin/youtube.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const label = await plugin.generatePlaylistUrl("foo", false);
-            assert.strictEqual(label,
-                "plugin://plugin.video.youtube/play/" +
-                       "?playlist_id=foo&order=default&play=1&incognito=false");
+            assert.equal(label,
+                "plugin://plugin.video.youtube/play/?playlist_id=foo" +
+                                                   "&order=default&play=1" +
+                                                   "&incognito=false");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return Tubed URL when one addons", async function () {
@@ -147,11 +148,11 @@ describe("core/plugin/youtube.js", function () {
             ]);
 
             const label = await plugin.generatePlaylistUrl("foo", false);
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.video.tubed/?mode=play&playlist_id=foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -161,7 +162,7 @@ describe("core/plugin/youtube.js", function () {
             const url = new URL("plugin://plugin.video.youtube/play/");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return undefined when there isn't parameter from Tubed",
@@ -170,7 +171,7 @@ describe("core/plugin/youtube.js", function () {
                                                           "?mode=play&foo=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return video label", async function () {
@@ -186,10 +187,10 @@ describe("core/plugin/youtube.js", function () {
                                                                "?video_id=foo");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "bar");
+            assert.equal(label, "bar");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=foo",
             ]);
         });
@@ -205,10 +206,10 @@ describe("core/plugin/youtube.js", function () {
                                                      "?mode=play&video_id=foo");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "(Video unavailable)");
+            assert.equal(label, "(Video unavailable)");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=foo",
             ]);
         });
@@ -226,10 +227,10 @@ describe("core/plugin/youtube.js", function () {
                                                   "?mode=play&playlist_id=foo");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "bar");
+            assert.equal(label, "bar");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/playlist?list=foo",
             ]);
         });
@@ -247,10 +248,10 @@ describe("core/plugin/youtube.js", function () {
                                                             "?playlist_id=foo");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "Mix");
+            assert.equal(label, "Mix");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/playlist?list=foo",
             ]);
         });

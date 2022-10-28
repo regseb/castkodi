@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/ultimedia.js";
 
 describe("core/scraper/ultimedia.js", function () {
@@ -9,7 +9,7 @@ describe("core/scraper/ultimedia.js", function () {
                                                            "/presentation/cgu");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when no script", async function () {
@@ -23,7 +23,7 @@ describe("core/scraper/ultimedia.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when no inline script", async function () {
@@ -40,7 +40,7 @@ describe("core/scraper/ultimedia.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when no station", async function () {
@@ -58,7 +58,7 @@ describe("core/scraper/ultimedia.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -81,7 +81,7 @@ describe("core/scraper/ultimedia.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz_1080.mp4");
+            assert.equal(file, "https://bar.com/baz_1080.mp4");
         });
     });
 });

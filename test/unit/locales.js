@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 
 /**
@@ -24,16 +24,16 @@ const compare = async function (lang1, lang2) {
     const messages1 = await read(lang1);
     const messages2 = await read(lang2);
 
-    assert.strictEqual(messages1.length, messages2.length);
+    assert.equal(messages1.length, messages2.length);
     // eslint-disable-next-line unicorn/no-for-loop
     for (let i = 0; i < messages1.length; ++i) {
         const [name1, value1] = messages1[i];
         const [name2, value2] = messages2[i];
-        assert.strictEqual(name1, name2);
+        assert.equal(name1, name2);
 
         assert.ok("message" in value1);
         assert.ok("message" in value2);
-        assert.deepStrictEqual(value1.placeholders, value2.placeholders);
+        assert.deepEqual(value1.placeholders, value2.placeholders);
 
         if ("placeholders" in value1) {
             for (const key of Object.keys(value1.placeholders)) {

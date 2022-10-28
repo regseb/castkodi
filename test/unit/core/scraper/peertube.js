@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/peertube.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/peertube.js", function () {
             const url = new URL("https://joinpeertube.org/fr/faq/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -20,10 +20,10 @@ describe("core/scraper/peertube.js", function () {
             const url = new URL("https://foo.com/w/bar");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://foo.com/api/v1/videos/bar",
             ]);
         });
@@ -41,10 +41,10 @@ describe("core/scraper/peertube.js", function () {
             const url = new URL("https://baz.com/w/qux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "http://foo.fr/bar.avi");
+            assert.equal(file, "http://foo.fr/bar.avi");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://baz.com/api/v1/videos/qux",
             ]);
         });
@@ -60,10 +60,10 @@ describe("core/scraper/peertube.js", function () {
             const url = new URL("https://baz.com/videos/watch/qux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "http://foo.io/bar.avi");
+            assert.equal(file, "http://foo.io/bar.avi");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://baz.com/api/v1/videos/qux",
             ]);
         });
@@ -79,10 +79,10 @@ describe("core/scraper/peertube.js", function () {
             const url = new URL("https://baz.com/videos/embed/qux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, "http://foo.fr/bar.avi");
+            assert.equal(file, "http://foo.fr/bar.avi");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://baz.com/api/v1/videos/qux",
             ]);
         });
@@ -95,10 +95,10 @@ describe("core/scraper/peertube.js", function () {
             const url = new URL("https://bar.com/w/baz");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://bar.com/api/v1/videos/baz",
             ]);
         });

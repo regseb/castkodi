@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
@@ -13,7 +13,7 @@ describe("Scraper: Le Point", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video URL of Dailymotion", async function () {
@@ -25,7 +25,7 @@ describe("Scraper: Le Point", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/" +
                                                  "?mode=playVideo&url=x7rz0ur");
     });
@@ -40,7 +40,7 @@ describe("Scraper: Le Point", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.dailymotion_com/" +
                                                  "?mode=playVideo&url=x7rz0ur");
     });
@@ -54,11 +54,11 @@ describe("Scraper: Le Point", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.youtube/play/" +
                                        "?video_id=SE6jppsjo9E&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 });

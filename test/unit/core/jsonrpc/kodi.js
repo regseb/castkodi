@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
 import { GUI } from "../../../../src/core/jsonrpc/gui.js";
@@ -34,12 +34,12 @@ describe("core/jsonrpc/kodi.js", function () {
                 type: "notSupported",
             });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://foo.com:9090/jsonrpc"),
             ]);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [
                 "JSONRPC.Version",
                 undefined,
             ]);
@@ -54,14 +54,14 @@ describe("core/jsonrpc/kodi.js", function () {
             });
 
             const result = await Kodi.check("foo.com");
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://foo.com:9090/jsonrpc"),
             ]);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [
                 "JSONRPC.Version",
                 undefined,
             ]);
@@ -71,7 +71,7 @@ describe("core/jsonrpc/kodi.js", function () {
     describe("get url()", function () {
         it("should return undefined when url isn't built", function () {
             const kodi = new Kodi("localhost");
-            assert.strictEqual(kodi.url, undefined);
+            assert.equal(kodi.url, undefined);
         });
 
         it("should return URL when url is built", async function () {
@@ -82,10 +82,10 @@ describe("core/jsonrpc/kodi.js", function () {
 
             const kodi = new Kodi("localhost");
             await kodi.send("foo");
-            assert.strictEqual(kodi.url.href, "ws://localhost:9090/jsonrpc");
+            assert.equal(kodi.url.href, "ws://localhost:9090/jsonrpc");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
         });
@@ -148,12 +148,12 @@ describe("core/jsonrpc/kodi.js", function () {
             // Fermer la connexion une deuxième fois (qui a aucun effet).
             kodi.close();
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, []);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, []);
         });
     });
 
@@ -191,8 +191,8 @@ describe("core/jsonrpc/kodi.js", function () {
                 type: "notFound",
             });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
         });
@@ -210,12 +210,12 @@ describe("core/jsonrpc/kodi.js", function () {
                 message: "FooError",
             });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, ["Foo", undefined]);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, ["Foo", undefined]);
         });
 
         it("should send request", async function () {
@@ -227,17 +227,17 @@ describe("core/jsonrpc/kodi.js", function () {
 
             const kodi = new Kodi("foo");
             let result = await kodi.send("Bar.Baz");
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
             result = await kodi.send("Qux.Quux", 42);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-            assert.strictEqual(fake.callCount, 2);
-            assert.deepStrictEqual(fake.firstCall.args, ["Bar.Baz", undefined]);
-            assert.deepStrictEqual(fake.secondCall.args, ["Qux.Quux", 42]);
+            assert.equal(fake.callCount, 2);
+            assert.deepEqual(fake.firstCall.args, ["Bar.Baz", undefined]);
+            assert.deepEqual(fake.secondCall.args, ["Qux.Quux", 42]);
         });
 
         it("should send request from configuration", async function () {
@@ -257,22 +257,22 @@ describe("core/jsonrpc/kodi.js", function () {
 
             const kodi = new Kodi();
             let result = await kodi.send("Foo.Bar");
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
             kodi.close();
             browser.storage.local.set({ "server-active": 1 });
             result = await kodi.send("Baz.Qux", true);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 new URL("ws://127.0.0.1:9090/jsonrpc"),
             ]);
-            assert.strictEqual(fake.callCount, 2);
-            assert.deepStrictEqual(fake.firstCall.args, ["Foo.Bar", undefined]);
-            assert.deepStrictEqual(fake.secondCall.args, ["Baz.Qux", true]);
+            assert.equal(fake.callCount, 2);
+            assert.deepEqual(fake.firstCall.args, ["Foo.Bar", undefined]);
+            assert.deepEqual(fake.secondCall.args, ["Baz.Qux", true]);
         });
 
         it("should listen close event", async function () {
@@ -287,16 +287,16 @@ describe("core/jsonrpc/kodi.js", function () {
 
             const kodi = new Kodi("foo");
             let result = await kodi.send("Bar.Baz");
-            assert.deepStrictEqual(result, { corge: true });
+            assert.deepEqual(result, { corge: true });
             listeners.close();
             result = await kodi.send("Qux.Quux");
-            assert.deepStrictEqual(result, { corge: true });
+            assert.deepEqual(result, { corge: true });
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
         });
@@ -320,16 +320,16 @@ describe("core/jsonrpc/kodi.js", function () {
                 params: { data: "Quux" },
             }));
 
-            assert.strictEqual(stubJSONRPC.callCount, 1);
-            assert.deepStrictEqual(stubJSONRPC.firstCall.args, [
+            assert.equal(stubJSONRPC.callCount, 1);
+            assert.deepEqual(stubJSONRPC.firstCall.args, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-            assert.strictEqual(stubApplication.callCount, 1);
-            assert.strictEqual(stubApplication.firstCall.args.length, 1);
-            assert.strictEqual(stubApplication.firstCall.args[0].type,
-                               "notification");
-            assert.strictEqual(stubApplication.firstCall.args[0].method, "Qux");
-            assert.deepStrictEqual(stubApplication.firstCall.args[0].params, {
+            assert.equal(stubApplication.callCount, 1);
+            assert.equal(stubApplication.firstCall.args.length, 1);
+            assert.equal(stubApplication.firstCall.args[0].type,
+                         "notification");
+            assert.equal(stubApplication.firstCall.args[0].method, "Qux");
+            assert.deepEqual(stubApplication.firstCall.args[0].params, {
                 data: "Quux",
             });
         });

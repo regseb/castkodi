@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/dumpert.js";
 
@@ -16,12 +16,10 @@ describe("core/labeller/dumpert.js", function () {
             const videoUrl = new URL("http://bar.com/");
 
             const label = await labeller.extract(videoUrl);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("http://bar.com/"),
-            ]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [new URL("http://bar.com/")]);
         });
     });
 });

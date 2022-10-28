@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Blender Video", function () {
@@ -8,7 +8,7 @@ describe("Scraper: Blender Video", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://video.blender.org/static/webseed" +
                                "/bf1f3fb5-b119-4f9f-9930-8e20e892b898-720.mp4");
     });
@@ -19,7 +19,7 @@ describe("Scraper: Blender Video", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "https://video.blender.org/static/webseed" +
                                "/a69d68a5-a0e0-4a80-9d66-49f093c97aaf-804.mp4");
     });

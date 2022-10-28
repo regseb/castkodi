@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/vidyard.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/vidyard.js", function () {
             const url = new URL("https://www.vidyard.com/video-hosting/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL from vyContext", async function () {
@@ -35,11 +35,11 @@ describe("core/scraper/vidyard.js", function () {
             const url = new URL("https://play.vidyard.com/quux");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "https://baz.com/qux.m3u8|Referer=https://play.vidyard.com/");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://play.vidyard.com/player/quux.json",
             ]);
         });
@@ -64,11 +64,11 @@ describe("core/scraper/vidyard.js", function () {
             const url = new URL("https://play.vidyard.com/baz?qux=1");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "http://foo.com/bar.hls|Referer=https://play.vidyard.com/");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://play.vidyard.com/player/baz.json",
             ]);
         });
@@ -92,11 +92,11 @@ describe("core/scraper/vidyard.js", function () {
             const url = new URL("https://play.vidyard.com/baz.html.qux.html?");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "http://foo.com/bar.hls|Referer=https://play.vidyard.com/");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://play.vidyard.com/player/baz.html.qux.json",
             ]);
         });

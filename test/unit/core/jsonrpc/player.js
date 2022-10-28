@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { Player } from "../../../../src/core/jsonrpc/player.js";
@@ -13,10 +13,10 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const result = await player.addSubtitle("foo");
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.AddSubtitle",
                 { playerid: 1, subtitle: "foo" },
             ]);
@@ -32,7 +32,7 @@ describe("core/jsonrpc/player.js", function () {
             const player = new Player(kodi);
             const properties = ["foo", "baz", "quz", "time", "totaltime"];
             const result = await player.getProperties(properties);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 position:  -1,
                 repeat:    "off",
                 shuffled:  false,
@@ -41,10 +41,8 @@ describe("core/jsonrpc/player.js", function () {
                 totaltime: 0,
             });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "Player.GetActivePlayers",
-            ]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Player.GetActivePlayers"]);
         });
 
         it("should return properties when video player is active",
@@ -63,7 +61,7 @@ describe("core/jsonrpc/player.js", function () {
             const player = new Player(kodi);
             const properties = ["foo", "baz", "quz", "time", "totaltime"];
             const result = await player.getProperties(properties);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 foo:       "bar",
                 baz:       42,
                 qux:       true,
@@ -71,11 +69,9 @@ describe("core/jsonrpc/player.js", function () {
                 totaltime: 0,
             });
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "Player.GetActivePlayers",
-            ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, ["Player.GetActivePlayers"]);
+            assert.deepEqual(stub.secondCall.args, [
                 "Player.GetProperties",
                 {
                     playerid:   1,
@@ -92,7 +88,7 @@ describe("core/jsonrpc/player.js", function () {
             const player = new Player(kodi);
             const properties = ["foo"];
             const result = await player.getProperties(properties);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 position:  -1,
                 repeat:    "off",
                 shuffled:  false,
@@ -101,10 +97,8 @@ describe("core/jsonrpc/player.js", function () {
                 totaltime: 0,
             });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "Player.GetActivePlayers",
-            ]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["Player.GetActivePlayers"]);
         });
     });
 
@@ -118,13 +112,11 @@ describe("core/jsonrpc/player.js", function () {
             const player = new Player(kodi);
             const property = "foo";
             const result = await player.getProperty(property);
-            assert.strictEqual(result, "bar");
+            assert.equal(result, "bar");
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "Player.GetActivePlayers",
-            ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, ["Player.GetActivePlayers"]);
+            assert.deepEqual(stub.secondCall.args, [
                 "Player.GetProperties",
                 { playerid: 1, properties: [property] },
             ]);
@@ -138,10 +130,10 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const result = await player.goTo("next");
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.GoTo",
                 { playerid: 1, to: "next" },
             ]);
@@ -153,10 +145,10 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const result = await player.goTo("previous");
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.GoTo",
                 { playerid: 1, to: "previous" },
             ]);
@@ -171,10 +163,10 @@ describe("core/jsonrpc/player.js", function () {
             const player = new Player(kodi);
             const position = 42;
             const result = await player.open(position);
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.Open",
                 { item: { playlistid: 1, position } },
             ]);
@@ -186,10 +178,10 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const result = await player.open();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.Open",
                 { item: { playlistid: 1, position: 0 } },
             ]);
@@ -203,10 +195,10 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const result = await player.playPause();
-            assert.strictEqual(result, 2);
+            assert.equal(result, 2);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.PlayPause",
                 { playerid: 1 },
             ]);
@@ -223,10 +215,10 @@ describe("core/jsonrpc/player.js", function () {
             const player = new Player(kodi);
             const time = 100;
             const result = await player.seek(time);
-            assert.strictEqual(result, 100);
+            assert.equal(result, 100);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.Seek",
                 {
                     playerid: 1,
@@ -250,10 +242,10 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const result = await player.setRepeat();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.SetRepeat",
                 { playerid: 1, repeat: "cycle" },
             ]);
@@ -267,10 +259,10 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const result = await player.setShuffle();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.SetShuffle",
                 { playerid: 1, shuffle: "toggle" },
             ]);
@@ -285,10 +277,10 @@ describe("core/jsonrpc/player.js", function () {
             const player = new Player(kodi);
             const speed = "increment";
             const result = await player.setSpeed(speed);
-            assert.strictEqual(result, 2);
+            assert.equal(result, 2);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.SetSpeed",
                 { playerid: 1, speed },
             ]);
@@ -301,10 +293,10 @@ describe("core/jsonrpc/player.js", function () {
             const player = new Player(kodi);
             const speed = "decrement";
             const result = await player.setSpeed(speed);
-            assert.strictEqual(result, -2);
+            assert.equal(result, -2);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.SetSpeed",
                 { playerid: 1, speed },
             ]);
@@ -318,10 +310,10 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const result = await player.stop();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "Player.Stop",
                 { playerid: 1 },
             ]);
@@ -347,8 +339,8 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 0);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 0);
         });
 
         it("should ignore when no listener", async function () {
@@ -362,7 +354,7 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should ignore others players", async function () {
@@ -380,8 +372,8 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 0);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 0);
         });
 
         it("should handle 'OnAVStart'", async function () {
@@ -407,11 +399,9 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(stub.callCount, 2);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                "Player.GetActivePlayers",
-            ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, ["Player.GetActivePlayers"]);
+            assert.deepEqual(stub.secondCall.args, [
                 "Player.GetProperties",
                 {
                     playerid:   1,
@@ -424,8 +414,8 @@ describe("core/jsonrpc/player.js", function () {
                     ],
                 },
             ]);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{
                 position:  42,
                 repeat:    false,
                 shuffled:  true,
@@ -450,11 +440,9 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{
-                speed: 0,
-            }]);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{ speed: 0 }]);
         });
 
         it("should handle 'OnPropertyChanged'", async function () {
@@ -477,11 +465,9 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{
-                foo: "bar",
-            }]);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{ foo: "bar" }]);
         });
 
         it("should handle 'OnResume'", async function () {
@@ -499,11 +485,9 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{
-                speed: -2,
-            }]);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{ speed: -2 }]);
         });
 
         it("should handle 'OnSeek'", async function () {
@@ -528,11 +512,9 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{
-                time: 3723,
-            }]);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{ time: 3723 }]);
         });
 
         it("should handle 'OnSpeedChanged'", async function () {
@@ -550,11 +532,9 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{
-                speed: 32,
-            }]);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{ speed: 32 }]);
         });
 
         it("should handle 'OnStop'", async function () {
@@ -572,9 +552,9 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 1);
-            assert.deepStrictEqual(fake.firstCall.args, [{
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [{
                 position:  -1,
                 speed:     0,
                 time:      0,
@@ -597,8 +577,8 @@ describe("core/jsonrpc/player.js", function () {
                 },
             ));
 
-            assert.strictEqual(spy.callCount, 0);
-            assert.strictEqual(fake.callCount, 0);
+            assert.equal(spy.callCount, 0);
+            assert.equal(fake.callCount, 0);
         });
     });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/kodi.js";
 import { complete } from "../../../src/core/labellers.js";
@@ -20,7 +20,7 @@ describe("Labeller: YouTube", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Rick Astley - Never Gonna Give You Up (Official Music" +
                                                                       " Video)",
@@ -29,8 +29,8 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video title", async function () {
@@ -44,7 +44,7 @@ describe("Labeller: YouTube", function () {
             title:    "La Marseillaise s’empare de Paris",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file:     "plugin://plugin.video.youtube/play/" +
                                         "?video_id=WBNjyvbqRYY&incognito=false",
             label:    "La Marseillaise s’empare de Paris",
@@ -71,7 +71,7 @@ describe("Labeller: YouTube", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "(Video unavailable)",
             position: 0,
@@ -79,8 +79,8 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return unavailable label for private video", async function () {
@@ -100,7 +100,7 @@ describe("Labeller: YouTube", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "(Video unavailable)",
             position: 0,
@@ -108,8 +108,8 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return playlist label", async function () {
@@ -130,7 +130,7 @@ describe("Labeller: YouTube", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Official Blender Open Movies",
             position: 0,
@@ -138,8 +138,8 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return mix label", async function () {
@@ -160,7 +160,7 @@ describe("Labeller: YouTube", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Mix",
             position: 0,
@@ -168,8 +168,8 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return mix label from YouTube Music", async function () {
@@ -188,7 +188,7 @@ describe("Labeller: YouTube", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Mix",
             position: 0,
@@ -196,7 +196,7 @@ describe("Labeller: YouTube", function () {
             type:     "unknown",
         });
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 });

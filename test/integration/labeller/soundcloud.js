@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { complete } from "../../../src/core/labellers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -15,7 +15,7 @@ describe("Labeller: SoundCloud", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Hear the lightning",
             position: 0,
@@ -36,7 +36,7 @@ describe("Labeller: SoundCloud", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "News & Views",
             position: 0,
@@ -58,7 +58,7 @@ describe("Labeller: SoundCloud", function () {
             title:    "",
             type:     "unknown",
         });
-        assert.deepStrictEqual(item, {
+        assert.deepEqual(item, {
             file,
             label:    "Top 50: Alternative Rock",
             position: 0,

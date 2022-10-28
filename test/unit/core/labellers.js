@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { complete } from "../../../src/core/labellers.js";
 
@@ -14,7 +14,7 @@ describe("core/labellers.js", function () {
             };
 
             const result = await complete(item);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 file:     "https://foo.com/",
                 label:    "baz",
                 position: 0,
@@ -33,7 +33,7 @@ describe("core/labellers.js", function () {
             };
 
             const result = await complete(item);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 file:     "https://foo.com/",
                 label:    "baz",
                 position: 0,
@@ -52,7 +52,7 @@ describe("core/labellers.js", function () {
             };
 
             const result = await complete(item);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 file:     "https://foo.com/",
                 label:    "bar",
                 position: 0,
@@ -72,7 +72,7 @@ describe("core/labellers.js", function () {
             };
 
             const result = await complete(item);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 file:     "https://foo.com/",
                 label:    "https://foo.com/",
                 position: 0,
@@ -99,7 +99,7 @@ describe("core/labellers.js", function () {
             };
 
             const result = await complete(item);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 file:     "plugin://plugin.video.youtube/play/?video_id=foo",
                 label:    "bar",
                 position: 0,
@@ -107,8 +107,8 @@ describe("core/labellers.js", function () {
                 type:     "",
             });
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://www.youtube.com/watch?v=foo",
             ]);
         });
@@ -123,7 +123,7 @@ describe("core/labellers.js", function () {
             };
 
             const result = await complete(item);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 file:     "/foo/bar.mp3",
                 label:    "/foo/bar.mp3",
                 position: 0,
@@ -142,7 +142,7 @@ describe("core/labellers.js", function () {
             };
 
             const result = await complete(item);
-            assert.deepStrictEqual(result, {
+            assert.deepEqual(result, {
                 file:     "/foo.mkv",
                 label:    "Bar !",
                 position: 0,

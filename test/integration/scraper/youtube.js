@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
@@ -9,7 +9,7 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return playlist id from video in playlist", async function () {
@@ -24,13 +24,13 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.youtube/play/" +
-                             "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum" +
-                                       "&order=default&play=1&incognito=false");
+                "?playlist_id=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum" +
+                "&order=default&play=1&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id", async function () {
@@ -42,12 +42,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: true };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                        "?video_id=avt4ZWlVjdY&incognito=true");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=avt4ZWlVjdY" +
+                                               "&incognito=true");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id even with playlist option", async function () {
@@ -58,12 +58,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=sWfAtMQa_yo&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=sWfAtMQa_yo" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id when protocol is HTTP", async function () {
@@ -74,12 +74,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=sWfAtMQa_yo&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=sWfAtMQa_yo" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return URL when it's not a video from mobile",
@@ -88,7 +88,7 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video id from mobile", async function () {
@@ -99,12 +99,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=dQw4w9WgXcQ&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=dQw4w9WgXcQ" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return URL when it's not a video from music", async function () {
@@ -112,7 +112,7 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return video id from music", async function () {
@@ -124,12 +124,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: true };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                        "?video_id=IOqxarVWKRs&incognito=true");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=IOqxarVWKRs" +
+                                               "&incognito=true");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return URL when it's not a playlist", async function () {
@@ -137,7 +137,7 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return playlist id", async function () {
@@ -149,13 +149,13 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.youtube/play/" +
-                             "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9" +
-                                              "&order=&play=1&incognito=false");
+                "?playlist_id=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9&order=" +
+                "&play=1&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return URL when it's not a playlist from mobile",
@@ -165,7 +165,7 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return playlist id from mobile", async function () {
@@ -177,13 +177,13 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.youtube/play/" +
-                                             "?playlist_id=PL3A5849BDE0581B19" +
-                                       "&order=reverse&play=1&incognito=false");
+                "?playlist_id=PL3A5849BDE0581B19&order=reverse&play=1" +
+                "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return embed video id", async function () {
@@ -193,12 +193,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: true };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                        "?video_id=v3gefWEggSc&incognito=true");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=v3gefWEggSc" +
+                                               "&incognito=true");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id without cookie", async function () {
@@ -209,12 +209,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=u9gVaeb9le4&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=u9gVaeb9le4" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id from tiny URL", async function () {
@@ -224,12 +224,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=NSFbekvYOlI&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=NSFbekvYOlI" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id from short", async function () {
@@ -239,12 +239,12 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=Oq98KDthqyk&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=Oq98KDthqyk" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id from short shared", async function () {
@@ -255,11 +255,11 @@ describe("Scraper: YouTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=rP34nI3E3bc&incognito=false");
+        assert.equal(file,
+            "plugin://plugin.video.youtube/play/?video_id=rP34nI3E3bc" +
+                                               "&incognito=false");
 
-        assert.strictEqual(stub.callCount, 1);
-        assert.deepStrictEqual(stub.firstCall.args, ["video"]);
+        assert.equal(stub.callCount, 1);
+        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 });

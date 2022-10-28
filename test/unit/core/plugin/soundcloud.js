@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as plugin from "../../../../src/core/plugin/soundcloud.js";
 
@@ -7,9 +7,9 @@ describe("core/plugin/soundcloud.js", function () {
         it("should return URL with video URL", async function () {
             const label = await plugin.generateUrl(new URL("http://foo.com" +
                                                                   "/bar.html"));
-            assert.strictEqual(label,
+            assert.equal(label,
                 "plugin://plugin.audio.soundcloud/play/" +
-                                        "?url=http%3A%2F%2Ffoo.com%2Fbar.html");
+                    "?url=http%3A%2F%2Ffoo.com%2Fbar.html");
         });
     });
 
@@ -20,7 +20,7 @@ describe("core/plugin/soundcloud.js", function () {
                                                                     "?foo=bar");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
         });
 
         it("should return audio label", async function () {
@@ -36,12 +36,10 @@ describe("core/plugin/soundcloud.js", function () {
                                                 "?url=http%3A%2F%2Fbar.com%2F");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, "foo");
+            assert.equal(label, "foo");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("http://bar.com/"),
-            ]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [new URL("http://bar.com/")]);
         });
 
         it("should return undefined when it's not audio page",
@@ -56,12 +54,10 @@ describe("core/plugin/soundcloud.js", function () {
                                                 "?url=http%3A%2F%2Ffoo.com%2F");
 
             const label = await plugin.extract(url);
-            assert.strictEqual(label, undefined);
+            assert.equal(label, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
-                new URL("http://foo.com/"),
-            ]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [new URL("http://foo.com/")]);
         });
     });
 });

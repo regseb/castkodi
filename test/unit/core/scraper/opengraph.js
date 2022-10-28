@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/opengraph.js";
 
@@ -11,7 +11,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't Open Graph type",
@@ -28,7 +28,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when content is empty", async function () {
@@ -45,7 +45,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when type isn't supported",
@@ -65,7 +65,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -83,7 +83,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, "http://bar.com/baz.mkv");
+            assert.equal(file, "http://bar.com/baz.mkv");
         });
 
         it("should return undefined when content is unknown",
@@ -103,9 +103,9 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should return undefined when it's depther", async function () {
@@ -123,7 +123,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when sub-page doesn't have media",
@@ -142,7 +142,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return plugin URL", async function () {
@@ -160,7 +160,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.video.twitch/?mode=play&channel_name=foo");
         });
     });
@@ -173,7 +173,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't Open Graph type",
@@ -190,7 +190,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when content is empty", async function () {
@@ -207,7 +207,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when type isn't supported",
@@ -227,7 +227,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
@@ -245,7 +245,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file, "http://bar.com/baz.wav");
+            assert.equal(file, "http://bar.com/baz.wav");
         });
 
         it("should return undefined when content is unknown",
@@ -265,9 +265,9 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(spy.callCount, 0);
+            assert.equal(spy.callCount, 0);
         });
 
         it("should return undefined when it's depther", async function () {
@@ -285,7 +285,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: true };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when sub-page doesn't have media",
@@ -304,7 +304,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return plugin URL", async function () {
@@ -322,7 +322,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.strictEqual(file,
+            assert.equal(file,
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F");
         });
     });
@@ -334,7 +334,7 @@ describe("core/scraper/opengraph.js", function () {
             const content = { html: () => Promise.resolve(undefined) };
 
             const file = await scraper.extractYandex(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't Open Graph",
@@ -348,7 +348,7 @@ describe("core/scraper/opengraph.js", function () {
             };
 
             const file = await scraper.extractYandex(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -364,7 +364,7 @@ describe("core/scraper/opengraph.js", function () {
             };
 
             const file = await scraper.extractYandex(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.avi");
+            assert.equal(file, "https://bar.com/baz.avi");
         });
     });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: SoundCloud", function () {
@@ -7,7 +7,7 @@ describe("Scraper: SoundCloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return audio url", async function () {
@@ -16,7 +16,7 @@ describe("Scraper: SoundCloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.audio.soundcloud/play/" +
                                            "?url=https%3A%2F%2Fsoundcloud.com" +
                                "%2Fa-tribe-called-red%2Felectric-pow-wow-drum");
@@ -27,7 +27,7 @@ describe("Scraper: SoundCloud", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.audio.soundcloud/play/" +
                                       "?url=https%3A%2F%2Fmobi.soundcloud.com" +
                                                     "%2Fesa%2Fa-singing-comet");

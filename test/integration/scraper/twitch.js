@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Twitch", function () {
@@ -7,7 +7,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&video_id=164088111");
     });
 
@@ -16,7 +16,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&video_id=164088111");
     });
 
@@ -25,7 +25,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&video_id=164088111");
     });
 
@@ -34,7 +34,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&video_id=164088111");
     });
 
@@ -43,7 +43,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return embed clip name", async function () {
@@ -52,7 +52,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
                                    "&slug=IncredulousAbstemiousFennelImGlitch");
     });
@@ -63,9 +63,9 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                                         "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return clip name when protocol is HTTP", async function () {
@@ -74,9 +74,9 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                                         "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return clip name from channel", async function () {
@@ -86,9 +86,9 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                                         "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return clip name from 'go'", async function () {
@@ -97,9 +97,9 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                                         "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return clip name from mobile version", async function () {
@@ -108,9 +108,9 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                           "&slug=GleamingWildCougarFUNgineer");
+                                         "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return URL when it's not channel or video", async function () {
@@ -118,7 +118,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file, url.href);
+        assert.equal(file, url.href);
     });
 
     it("should return channel name from player", async function () {
@@ -127,7 +127,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=canardpc");
     });
 
@@ -137,7 +137,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&video_id=474384559");
     });
 
@@ -146,7 +146,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=artefr");
     });
 
@@ -155,7 +155,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=nolife");
     });
 
@@ -164,7 +164,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=nolife");
     });
 
@@ -173,7 +173,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=nolife");
     });
 
@@ -182,7 +182,7 @@ describe("Scraper: Twitch", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.strictEqual(file,
+        assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=jvtv");
     });
 });

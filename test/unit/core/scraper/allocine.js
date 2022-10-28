@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/allocine.js";
 
 describe("core/scraper/allocine.js", function () {
@@ -8,7 +8,7 @@ describe("core/scraper/allocine.js", function () {
             const url = new URL("https://secure.allocine.fr/account");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -21,7 +21,7 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return high video URL", async function () {
@@ -45,7 +45,7 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.mkv");
+            assert.equal(file, "https://bar.com/baz.mkv");
         });
 
         it("should return standard video URL", async function () {
@@ -68,7 +68,7 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/quux.mp4");
+            assert.equal(file, "https://bar.com/quux.mp4");
         });
 
         it("should return medium video URL", async function () {
@@ -90,7 +90,7 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/qux.avi");
+            assert.equal(file, "https://bar.com/qux.avi");
         });
 
         it("should return low video URL", async function () {
@@ -109,7 +109,7 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.wmv");
+            assert.equal(file, "https://bar.com/baz.wmv");
         });
 
         it("should return undefined when there isn't video", async function () {
@@ -126,7 +126,7 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL with protocol", async function () {
@@ -145,7 +145,7 @@ describe("core/scraper/allocine.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://bar.com/baz.mkv");
+            assert.equal(file, "https://bar.com/baz.mkv");
         });
     });
 });

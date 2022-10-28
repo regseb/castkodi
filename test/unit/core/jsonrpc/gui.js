@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import { GUI } from "../../../../src/core/jsonrpc/gui.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
@@ -11,10 +11,10 @@ describe("core/jsonrpc/gui.js", function () {
 
             const gui = new GUI(kodi);
             const result = await gui.setFullscreen();
-            assert.strictEqual(result, "OK");
+            assert.equal(result, "OK");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "GUI.SetFullscreen",
                 { fullscreen: "toggle" },
             ]);

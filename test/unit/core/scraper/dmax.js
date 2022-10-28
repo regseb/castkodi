@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/dmax.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/dmax.js", function () {
             const url = new URL("https://dmax.de/tv-programm/");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -22,7 +22,7 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when request is geoblocking",
@@ -45,10 +45,10 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 3);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 3);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://eu1-prod.disco-api.com/token?realm=dmaxde",
                 {
                     headers: {
@@ -57,11 +57,11 @@ describe("core/scraper/dmax.js", function () {
                     },
                 },
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 "https://eu1-prod.disco-api.com/content/videos/qux",
                 { headers: { authorization: "Bearer foo" } },
             ]);
-            assert.deepStrictEqual(stub.thirdCall.args, [
+            assert.deepEqual(stub.thirdCall.args, [
                 "https://eu1-prod.disco-api.com/playback/v3/videoPlaybackInfo",
                 {
                     method: "POST",
@@ -94,10 +94,10 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://eu1-prod.disco-api.com/token?realm=dmaxde",
                 {
                     headers: {
@@ -136,10 +136,10 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
 
-            assert.strictEqual(stub.callCount, 3);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 3);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://eu1-prod.disco-api.com/token?realm=dmaxde",
                 {
                     headers: {
@@ -148,12 +148,12 @@ describe("core/scraper/dmax.js", function () {
                     },
                 },
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 "https://eu1-prod.disco-api.com/content/videos/" +
                                                        "?filter[show.id]=corge",
                 { headers: { authorization: "Bearer foo" } },
             ]);
-            assert.deepStrictEqual(stub.thirdCall.args, [
+            assert.deepEqual(stub.thirdCall.args, [
                 "https://eu1-prod.disco-api.com/playback/v3/videoPlaybackInfo",
                 {
                     method: "POST",
@@ -197,10 +197,10 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://baz.com/qux.m3u8");
+            assert.equal(file, "https://baz.com/qux.m3u8");
 
-            assert.strictEqual(stub.callCount, 3);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 3);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://eu1-prod.disco-api.com/token?realm=dmaxde",
                 {
                     headers: {
@@ -209,11 +209,11 @@ describe("core/scraper/dmax.js", function () {
                     },
                 },
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 "https://eu1-prod.disco-api.com/content/videos/corge",
                 { headers: { authorization: "Bearer foo" } },
             ]);
-            assert.deepStrictEqual(stub.thirdCall.args, [
+            assert.deepEqual(stub.thirdCall.args, [
                 "https://eu1-prod.disco-api.com/playback/v3/videoPlaybackInfo",
                 {
                     method: "POST",
@@ -257,10 +257,10 @@ describe("core/scraper/dmax.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://baz.com/qux.m3u8");
+            assert.equal(file, "https://baz.com/qux.m3u8");
 
-            assert.strictEqual(stub.callCount, 3);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 3);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://eu1-prod.disco-api.com/token?realm=dmaxde",
                 {
                     headers: {
@@ -269,12 +269,12 @@ describe("core/scraper/dmax.js", function () {
                     },
                 },
             ]);
-            assert.deepStrictEqual(stub.secondCall.args, [
+            assert.deepEqual(stub.secondCall.args, [
                 "https://eu1-prod.disco-api.com/content/videos/" +
                                                        "?filter[show.id]=corge",
                 { headers: { authorization: "Bearer foo" } },
             ]);
-            assert.deepStrictEqual(stub.thirdCall.args, [
+            assert.deepEqual(stub.thirdCall.args, [
                 "https://eu1-prod.disco-api.com/playback/v3/videoPlaybackInfo",
                 {
                     method: "POST",

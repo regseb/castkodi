@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/goplay.js";
 
@@ -9,7 +9,7 @@ describe("core/scraper/goplay.js", function () {
             const url = new URL("https://www.goplay.be/profiel");
 
             const file = await scraper.extract(url);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when it's not a video", async function () {
@@ -22,7 +22,7 @@ describe("core/scraper/goplay.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -45,10 +45,10 @@ describe("core/scraper/goplay.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "http://foo.be/bar.m3u8");
+            assert.equal(file, "http://foo.be/bar.m3u8");
 
-            assert.strictEqual(stub.callCount, 1);
-            assert.deepStrictEqual(stub.firstCall.args, [
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
                 "https://api.goplay.be/web/v1/videos/short-form/qux",
             ]);
         });

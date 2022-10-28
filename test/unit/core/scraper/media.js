@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/media.js";
 
 describe("core/scraper/media.js", function () {
@@ -9,7 +9,7 @@ describe("core/scraper/media.js", function () {
             const content = { html: () => Promise.resolve(undefined) };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't video or audio",
@@ -23,7 +23,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return undefined when src is invalid", async function () {
@@ -51,7 +51,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, undefined);
+            assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
@@ -66,7 +66,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp4");
+            assert.equal(file, "https://foo.com/bar.mp4");
         });
 
         it("should return video URL from second video", async function () {
@@ -82,7 +82,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp4");
+            assert.equal(file, "https://foo.com/bar.mp4");
         });
 
         it("should return video URL from first source", async function () {
@@ -100,7 +100,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/baz.mkv");
+            assert.equal(file, "https://foo.com/baz.mkv");
         });
 
         it("should return audio URL", async function () {
@@ -115,7 +115,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/bar.mp3");
+            assert.equal(file, "https://foo.com/bar.mp3");
         });
 
         it("should return audio URL from second audio", async function () {
@@ -131,7 +131,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/baz.flac");
+            assert.equal(file, "https://foo.com/baz.flac");
         });
 
         it("should return audio URL from first source", async function () {
@@ -149,7 +149,7 @@ describe("core/scraper/media.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.strictEqual(file, "https://foo.com/baz.wav");
+            assert.equal(file, "https://foo.com/baz.wav");
         });
     });
 });
