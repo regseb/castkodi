@@ -15,7 +15,7 @@ if (undefined === import.meta.resolve) {
     };
 }
 
-const I18NS = JSON.parse(
+const MESSAGES = JSON.parse(
     await fs.readFile(
         await import.meta.resolve("../../locales/en/messages.json"),
         "utf8",
@@ -124,11 +124,11 @@ export const browser = {
 
     i18n: {
         getMessage(key, ...substitutions) {
-            return Object.keys(I18NS[key]?.placeholders ?? {})
+            return Object.keys(MESSAGES[key]?.placeholders ?? {})
                          .reduce((message, placeholder, index) => {
                 return message.replace("$" + placeholder.toUpperCase() + "$",
                                        substitutions[index]);
-            }, I18NS[key]?.message ?? "");
+            }, MESSAGES[key]?.message ?? "");
         },
     },
 

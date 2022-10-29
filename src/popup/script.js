@@ -4,9 +4,13 @@
 
 import { cast } from "../core/index.js";
 import { kodi } from "../core/kodi.js";
+import { locate } from "../core/l10n.js";
 import { complete } from "../core/labellers.js";
 import { notify } from "../core/tools/notify.js";
 import { ping } from "../core/tools/ping.js";
+
+// Insérer les textes dans la bonnes langues.
+locate(document, "popup");
 
 /**
  * La position de l'élément courant dans la liste de lecture ; ou

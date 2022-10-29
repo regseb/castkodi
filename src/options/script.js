@@ -3,6 +3,10 @@
  */
 
 import { Kodi } from "../core/jsonrpc/kodi.js";
+import { locate } from "../core/l10n.js";
+
+// Insérer les textes dans la bonnes langues.
+locate(document, "options");
 
 /**
  * Demande (ou enlève) une permission optionnelle.
