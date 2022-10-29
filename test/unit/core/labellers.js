@@ -144,7 +144,7 @@ describe("core/labellers.js", function () {
             const result = await complete(item);
             assert.deepEqual(result, {
                 file:     "/foo.mkv",
-                label:    "Bar !",
+                label:    "BAR !",
                 position: 0,
                 title:    "",
                 type:     "",

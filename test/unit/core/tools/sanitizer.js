@@ -17,51 +17,63 @@ describe("core/sanitizer.js", function () {
 
     describe("strip()", function () {
         it("should strip [B] tag", function () {
-            const text = "Normal [B]bold[/B]";
+            const text = "foo [B]bar[/B]";
             const stripped = strip(text);
-            assert.equal(stripped, "Normal bold");
+            assert.equal(stripped, "foo bar");
         });
 
         it("should strip [I] tag", function () {
-            const text = "[I]Italic[/I] normal";
+            const text = "[I]foo[/I] bar";
             const stripped = strip(text);
-            assert.equal(stripped, "Italic normal");
+            assert.equal(stripped, "foo bar");
         });
 
         it("should strip [LIGHT] tag", function () {
-            const text = "[LIGHT]LIGHT[/LIGHT]";
+            const text = "[LIGHT]foo[/LIGHT]";
             const stripped = strip(text);
-            assert.equal(stripped, "LIGHT");
+            assert.equal(stripped, "foo");
         });
 
         it("should strip [COLOR] tag", function () {
-            const text = "Black [COLOR red]red[/COLOR]";
+            const text = "foo [COLOR red]bar[/COLOR]";
             const stripped = strip(text);
-            assert.equal(stripped, "Black red");
+            assert.equal(stripped, "foo bar");
         });
 
         it("should strip [UPPERCASE] tag", function () {
-            const text = "[UPPERCASE]Uppercase[/UPPERCASE] lowercase";
+            const text = "[UPPERCASE]fOoBaR[/UPPERCASE] bAzQuX";
             const stripped = strip(text);
-            assert.equal(stripped, "Uppercase lowercase");
+            assert.equal(stripped, "FOOBAR bAzQuX");
         });
 
         it("should strip [LOWERCASE] tag", function () {
-            const text = "Uppercase [LOWERCASE]lowercase[/LOWERCASE]";
+            const text = "fOoBaR [LOWERCASE]bAzQuX[/LOWERCASE]";
             const stripped = strip(text);
-            assert.equal(stripped, "Uppercase lowercase");
+            assert.equal(stripped, "fOoBaR bazqux");
         });
 
         it("should strip [CAPITALIZE] tag", function () {
-            const text = "[CAPITALIZE]Capitalize[/CAPITALIZE] communize";
+            const text = "[CAPITALIZE]fOoBaR[/CAPITALIZE] bAzQuX";
             const stripped = strip(text);
-            assert.equal(stripped, "Capitalize communize");
+            assert.equal(stripped, "FOoBaR bAzQuX");
         });
 
         it("should strip [CR] tag", function () {
-            const text = "Line one[CR]Line two";
+            const text = "foo[CR]bar";
             const stripped = strip(text);
-            assert.equal(stripped, "Line one Line two");
+            assert.equal(stripped, "foo bar");
+        });
+
+        it("should strip [TABS] tag", function () {
+            const text = "foo[TABS]13[/TABS]bar";
+            const stripped = strip(text);
+            assert.equal(stripped, "foo\t\t\t\t\t\t\t\t\t\t\t\t\tbar");
+        });
+
+        it("should strip two same tags", function () {
+            const text = "[I]foo[/I][I]bar[/I]";
+            const stripped = strip(text);
+            assert.equal(stripped, "foobar");
         });
 
         it("should strip many tags", function () {
