@@ -43,7 +43,8 @@ export const update = async function () {
             const key = `menus_second${capitalize(action)}`;
             browser.contextMenus.create({
                 // Passer les contextes aux enfants car dans Chromium ils ne
-                // sont pas hérités du parent.
+                // sont pas hérités du parent (et sans contexte, l'option n'est
+                // pas affichée).
                 contexts,
                 id:       action,
                 parentId: "parent",
@@ -53,6 +54,10 @@ export const update = async function () {
 
         if ("multi" === mode) {
             browser.contextMenus.create({
+                // Passer les contextes aux enfants car dans Chromium ils ne
+                // sont pas hérités du parent (et sans contexte, l'option n'est
+                // pas affichée).
+                contexts,
                 id:       "separator",
                 parentId: "parent",
                 type:     "separator",
@@ -64,6 +69,10 @@ export const update = async function () {
                                : server.name;
                 browser.contextMenus.create({
                     checked:  config["server-active"] === index,
+                    // Passer les contextes aux enfants car dans Chromium ils ne
+                    // sont pas hérités du parent (et sans contexte, l'option
+                    // n'est pas affichée).
+                    contexts,
                     id:       index.toString(),
                     parentId: "parent",
                     title:    name,

@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/kodi.js";
 import * as menu from "../../../src/core/menu.js";
 
 describe("core/menu.js", function () {
@@ -89,17 +91,20 @@ describe("core/menu.js", function () {
                     parentId: "parent",
                     title:    "Play now",
                 }, {
+                    contexts: ["page"],
                     id:       "separator",
                     parentId: "parent",
                     type:     "separator",
                 }, {
                     checked:  false,
+                    contexts: ["page"],
                     id:       "0",
                     parentId: "parent",
                     title:    "foo",
                     type:     "radio",
                 }, {
                     checked:  true,
+                    contexts: ["page"],
                     id:       "1",
                     parentId: "parent",
                     title:    "(noname 2)",
@@ -143,11 +148,13 @@ describe("core/menu.js", function () {
                     parentId: "parent",
                     title:    "Queue item",
                 }, {
+                    contexts: ["selection", "video"],
                     id:       "separator",
                     parentId: "parent",
                     type:     "separator",
                 }, {
                     checked:  false,
+                    contexts: ["selection", "video"],
                     id:       "0",
                     parentId: "parent",
                     title:    "(noname 1)",
@@ -271,6 +278,55 @@ describe("core/menu.js", function () {
                 pageUrl:       "quux",
             });
             assert.deepEqual(urls, ["foo", "bar", "baz", "qux", "quux"]);
+        });
+    });
+
+    describe("click()", function () {
+        it("should cast link", async function () {
+            await browser.storage.local.set({ "menu-contexts": ["link"] });
+            browser.extension.inIncognitoContext = true;
+            // Comme il n'est pas possible de remplacer un export avec sinon,
+            // remplacer la function appelée par l'export.
+            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+
+            // @ts-ignore: Désactiver la vérification de TypeScript car la
+            // déclaration du type OnClickData (argument de aggregate) n'est pas
+            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
+            await menu.click({
+                menuItemId: "add",
+                modifiers:  [],
+                editable:   false,
+                linkUrl:    "http://foo.com/",
+            });
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["http://foo.com/"]);
+        });
+
+        it("should notify bad link", async function () {
+            await browser.storage.local.set({ "menu-contexts": ["link"] });
+            // Comme il n'est pas possible de remplacer un export avec sinon,
+            // remplacer la function appelée par l'export.
+            const stub = sinon.stub(browser.notifications, "create")
+                              .resolves("foo");
+
+            // @ts-ignore: Désactiver la vérification de TypeScript car la
+            // déclaration du type OnClickData (argument de aggregate) n'est pas
+            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
+            await menu.click({
+                menuItemId: "add",
+                modifiers:  [],
+                editable:   false,
+                linkUrl:    "???",
+            });
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [{
+                type:    "basic",
+                iconUrl: "/img/icon.svg",
+                title:   "Unsupported link",
+                message: "Link ??? is invalid.",
+            }]);
         });
     });
 
