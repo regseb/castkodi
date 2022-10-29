@@ -327,6 +327,47 @@ describe("core/scraper/opengraph.js", function () {
         });
     });
 
+    describe("extractTwitter()", function () {
+        it("should return undefined when it's not a HTML page",
+                                                             async function () {
+            const url = new URL("https://foo.com");
+            const content = { html: () => Promise.resolve(undefined) };
+
+            const file = await scraper.extractTwitter(url, content);
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when there isn't Open Graph",
+                                                             async function () {
+            const url = new URL("https://foo.com");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head></head>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extractTwitter(url, content);
+            assert.equal(file, undefined);
+        });
+
+        it("should return video URL", async function () {
+            const url = new URL("https://foo.com");
+            const content = {
+                html: () => Promise.resolve(new DOMParser().parseFromString(`
+                    <html>
+                      <head>
+                        <meta property="twitter:player:stream"
+                              content="https://bar.com/baz.avi" />
+                      </head>
+                    </html>`, "text/html")),
+            };
+
+            const file = await scraper.extractTwitter(url, content);
+            assert.equal(file, "https://bar.com/baz.avi");
+        });
+    });
+
     describe("extractYandex()", function () {
         it("should return undefined when it's not a HTML page",
                                                              async function () {
