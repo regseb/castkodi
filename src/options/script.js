@@ -172,7 +172,9 @@ const remove = function (event) {
 /**
  * Ajoute un serveur.
  *
- * @param {Object} server Le serveur à ajouter.
+ * @param {Object} server         Le serveur à ajouter.
+ * @param {string} server.address L'adresse du serveur.
+ * @param {string} server.name    Le nom du serveur.
  */
 const add = function (server) {
     const index = document.querySelectorAll("tbody tr").length;

@@ -37,7 +37,7 @@ const plain = function (html) {
                     case "disable chrome": enabled = false; break;
                     case "enable chrome":  enabled = true;  break;
                     default:
-                        // Ignore ce commentaire.
+                        // Ignorer ce commentaire.
                 }
                 return "";
             case "#text":

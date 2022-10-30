@@ -257,7 +257,7 @@ export const browser = {
         },
 
         /**
-         * Simule la suppression d'un onglet.
+         * Simule la fermeture d'un onglet.
          *
          * @param {number} tabId L'identifiant de l'onglet à fermer.
          * @returns {Promise<void>} Une promesse sans argument.

@@ -8,7 +8,7 @@
  * Firefox le contexte <code>bookmark</code> n'est pas activé par défaut car il
  * nécessite la permission <code>bookmarks</code>. https://crbug.com/825443
  *
- * @constant {object<string, string[]>}
+ * @type {Object<string, string[]>}
  */
 const DEFAULT_MENU_CONTEXTS = {
     Chrome:  ["audio", "frame", "link", "page", "selection", "video"],
@@ -92,9 +92,6 @@ export const migrate = async function () {
     }
 
     // Vider la configuration pour enlever les éventuelles propriétés obsolètes.
-    // Et aussi pour forcer l'appel à l'écouteur browser.storage.onChanged sous
-    // Chromium même si la méthode browser.storage.local.set() ne modifie pas la
-    // configuration.
     await browser.storage.local.clear();
     await browser.storage.local.set(config);
 };
