@@ -298,7 +298,7 @@
         "message": "Añadir enlaces transmitidos al historial del navegador"
     },
     "options_generalClipboardInput_textcontent": {
-        "message": "Rellenar el campo de entrada en la ventana emergente con el contenido del portapapeles"
+        "message": "Rellene previamente el campo de entrada en la ventana emergente con el contenido del portapapeles"
     },
     "options_menuTitle_textcontent": {
         "message": "Menú contextual"
