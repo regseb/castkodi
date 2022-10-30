@@ -11,11 +11,11 @@ describe("Scraper: VideosHub", function () {
     });
 
     it("should return video URL", async function () {
-        const url = new URL("https://videoshub.com/videos/25319681");
+        const url = new URL("https://videoshub.com/videos/25310930");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.equal(file,
-            "https://dd5tb0cfadhae.cloudfront.net/11516798_360p.m3u8");
+            "https://dd5tb0cfadhae.cloudfront.net/59665_360p.m3u8");
     });
 });

@@ -30,7 +30,7 @@ describe("Scraper: Arte", function () {
         // liste de vidéos).
         const video = json.data.find((d) => !d.kind.isCollection);
 
-        const url = new URL(video.url);
+        const url = new URL(video.url, "https://www.arte.tv/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -48,7 +48,7 @@ describe("Scraper: Arte", function () {
         // liste de vidéos).
         const video = json.data.find((d) => !d.kind.isCollection);
 
-        const url = new URL(video.url);
+        const url = new URL(video.url, "https://www.arte.tv/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

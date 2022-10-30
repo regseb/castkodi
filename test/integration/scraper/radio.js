@@ -16,7 +16,7 @@ describe("Scraper: Radio", function () {
 
         const file = await extract(url, options);
         assert.equal(file,
-            "https://icecast.radiofrance.fr/fip-midfi.mp3");
+            "https://icecast.radiofrance.fr/fip-hifi.aac");
     });
 
     it("should return audio URL when protocol is HTTP", async function () {
