@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.10.0](https://github.com/regseb/castkodi/compare/v6.9.1...v6.10.0) (2022-10-30)
+
+
+### Features
+
+* Ajouter la gestion de l'Open Graph Twitter. ([7c997c6](https://github.com/regseb/castkodi/commit/7c997c6f8c9fa46e9f2eed85909aeb37a9cb0f27))
+* Ajouter la gestion de Vudeo. ([cedce9c](https://github.com/regseb/castkodi/commit/cedce9c6ec929cee54ba418f79158c1444671c4f))
+
+
+### Bug Fixes
+
+* Modifier la casse lors de l'enlèvement des balises. ([2a92cbc](https://github.com/regseb/castkodi/commit/2a92cbc8fa9249e9d03da0768169b4de4b8e1f14))
+* Permettre de changer de serveur dans le menu sous Chromium. ([54df907](https://github.com/regseb/castkodi/commit/54df907bcdbcb1e2f8f87b7241684b30a479cf44))
+
 ### [6.9.1](https://github.com/regseb/castkodi/compare/v6.9.0...v6.9.1) (2022-10-05)
 
 
