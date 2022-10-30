@@ -170,7 +170,7 @@ export default {
         "no-labels": 2,
         "no-lone-blocks": 2,
         "no-lonely-if": 2,
-        "no-loop-func": 1,
+        "no-loop-func": 2,
         "no-magic-numbers": 0,
         "no-mixed-operators": 0,
         "no-multi-assign": 2,
@@ -193,25 +193,9 @@ export default {
         "no-redeclare": 2,
         "no-regex-spaces": 2,
         "no-restricted-exports": 0,
-        "no-restricted-globals": 2,
-        "no-restricted-imports": 2,
-        "no-restricted-properties": [2, {
-            object: "assert",
-            property: "deepStrictEqual",
-            message: "Use assert.deepEqual instead.",
-        }, {
-            object: "assert",
-            property: "notDeepStrictEqual",
-            message: "Use assert.notDeepEqual instead.",
-        }, {
-            object: "assert",
-            property: "notStrictEqual",
-            message: "Use assert.notEqual instead.",
-        }, {
-            object: "assert",
-            property: "strictEqual",
-            message: "Use assert.equal instead.",
-        }],
+        "no-restricted-globals": 0,
+        "no-restricted-imports": 0,
+        "no-restricted-properties": 0,
         "no-restricted-syntax": [
             2,
             "DebuggerStatement",
@@ -520,6 +504,7 @@ export default {
         "promise/valid-params": 2,
         "promise/prefer-await-to-then": 2,
         "promise/prefer-await-to-callbacks": 0,
+        "promise/no-multiple-resolved": 2,
 
         // Plugin eslint-plugin-regexp.
         // Possible Errors.
@@ -724,6 +709,7 @@ export default {
                 ".<>": "<>",
                 "Array<>": "[]",
                 object: "Object",
+                "object<>": "Object<>",
             },
             tagNamePreference: {
                 virtual: "abstract",

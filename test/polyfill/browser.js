@@ -134,7 +134,8 @@ export const browser = {
 
     notifications: {
         create(_id, _options) {
-            throw new Error("no polyfill for this function");
+            throw new Error("no polyfill for browser.notifications.create" +
+                            " function");
         },
     },
 

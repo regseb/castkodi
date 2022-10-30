@@ -8,7 +8,8 @@ export default {
     "no-hard-tabs": true,
     "no-reversed-links": true,
     "no-multiple-blanks": true,
-    "line-length": true,
+    // eslint-disable-next-line camelcase
+    "line-length": { code_blocks: false, headings: false, stern: true },
     "commonds-show-output": true,
     "no-missing-space-atx": true,
     "no-multiple-space-atx": true,

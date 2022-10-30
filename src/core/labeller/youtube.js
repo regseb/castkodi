@@ -29,8 +29,7 @@ export const extractPlaylist = async function (playlistId) {
                                                          `?list=${playlistId}`);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
-    const label = doc.querySelector(`meta[property="og:title"]`);
-    return "null" === label.content
-                               ? browser.i18n.getMessage("labeller_youtube_mix")
-                               : label.content;
+    const label = doc.querySelector(`meta[property="og:title"]`).content;
+    return "null" === label ? browser.i18n.getMessage("labeller_youtube_mix")
+                            : label;
 };

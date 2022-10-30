@@ -12,6 +12,23 @@ export default {
         "max-lines": 0,
         "max-lines-per-function": 0,
         "max-statements": 0,
+        "no-restricted-properties": [2, {
+            object: "assert",
+            property: "deepStrictEqual",
+            message: "Use assert.deepEqual instead.",
+        }, {
+            object: "assert",
+            property: "notDeepStrictEqual",
+            message: "Use assert.notDeepEqual instead.",
+        }, {
+            object: "assert",
+            property: "notStrictEqual",
+            message: "Use assert.notEqual instead.",
+        }, {
+            object: "assert",
+            property: "strictEqual",
+            message: "Use assert.equal instead.",
+        }],
         "prefer-arrow-callback": 0,
 
         // Plugin eslint-plugin-mocha.
