@@ -78,7 +78,7 @@ commandes utiles :
 <!-- Le déploiement ne fonctionne pas avec la version Snap de Firefox.
      https://github.com/mozilla/web-ext/issues/1696 -->
 
-Pour les traductions dans différentes langues, elles se font au moyen de
+Les traductions dans les différentes langues se font avec
 [Weblate](https://hosted.weblate.org/engage/castkodi/).
 
 [img-chrome]:https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=chrome&logo=googlechrome&logoColor=white
