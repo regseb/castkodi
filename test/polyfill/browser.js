@@ -1,3 +1,7 @@
+/**
+ * @module
+ */
+
 import fs from "node:fs/promises";
 
 if (undefined === import.meta.resolve) {
@@ -52,6 +56,7 @@ const data = {
  * La prothèse pour les APIs des WebExtensions.
  *
  * @type {browser}
+ * @see https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API
  */
 export const browser = {
     _clear() {
@@ -212,60 +217,6 @@ export const browser = {
             addListener(listener) {
                 data.storage.local.listeners.push(listener);
             },
-        },
-    },
-
-    tabs: {
-
-        /**
-         * Simule la création d'un nouvel onglet.
-         *
-         * @param {Object} createProperties     Les propriétés du nouvel onglet.
-         * @param {string} createProperties._id L'identifiant du nouvel onglet.
-         * @param {string} createProperties.url L'adresse du nouvel onglet.
-         * @returns {Promise<Object>} Une promesse contenant le nouvel onglet.
-         */
-        create(createProperties) {
-            const tab = {
-                // eslint-disable-next-line no-underscore-dangle
-                id:  createProperties._id,
-                url: createProperties.url,
-            };
-            data.tabs.push(tab);
-            return Promise.resolve(tab);
-        },
-
-        /**
-         * Ne simule pas l'injection de code dans une page.
-         *
-         * @returns {Promise<void>} Une promesse rejetée.
-         */
-        executeScript() {
-            return Promise.reject(new Error("no polyfill for this function"));
-        },
-
-        /**
-         * Simule l'obtention d'onglets.
-         *
-         * @param {Object} queryObj     Les filtres.
-         * @param {string} queryObj.url Le filtre sur l'adresse des onglets.
-         * @returns {Promise<Object[]>} Une promesse contenant les onglets
-         *                              respectant les filtres.
-         */
-        query(queryObj) {
-            return Promise.resolve(data.tabs.filter((t) => queryObj.url ===
-                                                                        t.url));
-        },
-
-        /**
-         * Simule la fermeture d'un onglet.
-         *
-         * @param {number} tabId L'identifiant de l'onglet à fermer.
-         * @returns {Promise<void>} Une promesse sans argument.
-         */
-        remove(tabId) {
-            data.tabs.splice(data.tabs.findIndex((t) => tabId === t.id));
-            return Promise.resolve();
         },
     },
 };

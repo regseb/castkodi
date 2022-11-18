@@ -199,40 +199,10 @@ export const extract = async function (url, options) {
         }
     }
 
-    // Si on analyse une sous-page : arrêter maintenant sans faire croire qu'une
-    // URL a été trouvée (en ne retournant pas l'URL d'entrée).
-    if (options.depth) {
-        return undefined;
-    }
-
-    // Si l'URL analysée est ouverte dans un onglet : chercher une vidéo ou une
-    // musique dans son code source (qui a pu être modifié par du JavaScript).
-    try {
-        const tabs = await browser.tabs.query({ url: url.href });
-        for (const tab of tabs) {
-            const files = await browser.tabs.executeScript(tab.id, {
-                allFrames: true,
-                file:      "/script/extractor.js",
-            });
-            // Tester aussi avec null car c'est une valeur retournée par
-            // Chromium.
-            const file = files.find((f) => undefined !== f && null !== f);
-            if (undefined !== file) {
-                return file;
-            }
-        }
-    } catch (err) {
-        // Ignorer les erreurs remontées quand le script de contenu est exécuté
-        // sur un domaine bloqué (par exemple dans le Chrome Web Store ou le
-        // Firefox Browser Add-ons).
-        if ("The extensions gallery cannot be scripted." !== err.message &&
-                "Missing host permission for the tab, and any iframes" !==
-                                                                  err.message) {
-            throw err;
-        }
-    }
-
-    // Si aucune URL a été trouvée durant l'analyse, retourner l'URL de la page
-    // car c'est peut-être un lien direct vers une vidéo ou une musique.
-    return url.href;
+    // Si on analyse une sous-page : indiquer que rien n'a été trouvé sans faire
+    // croire qu'une URL a été trouvée (en ne retournant pas l'URL d'entrée).
+    // Sinon retourner l'URL de la page car c'est peut-être un lien direct vers
+    // une vidéo ou une musique.
+    return options.depth ? undefined
+                         : url.href;
 };
