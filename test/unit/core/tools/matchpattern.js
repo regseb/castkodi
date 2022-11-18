@@ -3,7 +3,7 @@ import sinon from "sinon";
 import { compile, matchPattern }
                               from "../../../../src/core/tools/matchpattern.js";
 
-describe("tools/matchpattern.js", function () {
+describe("core/tools/matchpattern.js", function () {
     describe("compile()", function () {
         it("should compile magnet pattern", function () {
             const regexp = compile("magnet:?*");

@@ -5,7 +5,7 @@ import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
 
 const Server = mockSocket.Server;
 
-describe("tools/jsonrpc.js", function () {
+describe("core/tools/jsonrpc.js", function () {
     describe("open()", function () {
         it("should return promise fulfilled", async function () {
             const server = new Server("ws://localhost/");

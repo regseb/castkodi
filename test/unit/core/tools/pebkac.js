@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { PebkacError } from "../../../../src/core/tools/pebkac.js";
 
-describe("core/pebkac.js", function () {
+describe("core/tools/pebkac.js", function () {
     describe("constructor()", function () {
         it("should accept one parameter", function () {
             const err = new PebkacError("unconfigured");

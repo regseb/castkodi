@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import sinon from "sinon";
 import { ping } from "../../../../src/core/tools/ping.js";
 
-describe("tools/ping.js", function () {
+describe("core/tools/ping.js", function () {
     describe("ping()", function () {
         it("should return true", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves();

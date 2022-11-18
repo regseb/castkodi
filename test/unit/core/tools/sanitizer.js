@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { quote, strip } from "../../../../src/core/tools/sanitizer.js";
 
-describe("core/sanitizer.js", function () {
+describe("core/tools/sanitizer.js", function () {
     describe("quote()", function () {
         it("should quote", function () {
             const quoted = quote("foo[.*+?^${}()|[]\\bar");

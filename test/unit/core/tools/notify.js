@@ -3,7 +3,7 @@ import sinon from "sinon";
 import { notify } from "../../../../src/core/tools/notify.js";
 import { PebkacError } from "../../../../src/core/tools/pebkac.js";
 
-describe("core/notify.js", function () {
+describe("core/tools/notify.js", function () {
     describe("constructor()", function () {
         it("should accept Error", function () {
             const stub = sinon.stub(browser.notifications, "create");

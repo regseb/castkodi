@@ -13,7 +13,7 @@ const objectifyAttributes = function (attributes) {
                                    .map((a) => [a.name, a.value]));
 };
 
-describe("l10n.js", function () {
+describe("core/l10n.js", function () {
     describe("locate()", function () {
         it("should do nothing when there isn't data-l10n-*", function () {
             const doc = new DOMParser().parseFromString(`
