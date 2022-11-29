@@ -21,6 +21,6 @@
         "jsdocs/",
         "node_modules/",
         "src/polyfill/lib/",
-        ".stryker-tmp/"
+        ".stryker/"
     ]
 }

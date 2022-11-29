@@ -4,7 +4,7 @@ export default {
         "!/jsdocs/",
         "!/node_modules/",
         "!/src/polyfill/lib/",
-        "!/.stryker-tmp/",
+        "!/.stryker/",
         "!*.swp",
         "**",
     ],
