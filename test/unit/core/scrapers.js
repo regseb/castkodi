@@ -79,143 +79,19 @@ describe("core/scrapers.js", function () {
             assert.equal(stub.callCount, 1);
         });
 
-        it("should return media URL from dynamic DOM", async function () {
-            browser.tabs.create({ _id: 1, url: "http://foo.fr/bar.html" });
+        it("should support URL", async function () {
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(new Response(""));
 
-            const stubFetch = sinon.stub(globalThis, "fetch")
-                                   .resolves(new Response(""));
-            const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
-                                           .resolves(["http://foo.fr/baz.mp4"]);
-
-            const url = new URL("http://foo.fr/bar.html");
+            const url = new URL("http://www.dailymotion.com/video/foo");
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.equal(file, "http://foo.fr/baz.mp4");
+            assert.ok(file?.startsWith("plugin://plugin.video" +
+                                                           ".dailymotion_com/"),
+                      `"${file}"?.startsWith(...)`);
 
-            assert.equal(stubFetch.callCount, 1);
-            assert.equal(stubFetch.firstCall.args.length, 2);
-            assert.deepEqual(stubFetch.firstCall.args[0], url);
-            assert.equal(typeof stubFetch.firstCall.args[1], "object");
-            assert.equal(stubExecuteScript.callCount, 1);
-            assert.deepEqual(stubExecuteScript.firstCall.args, [
-                1, { allFrames: true, file: "/script/extractor.js" },
-            ]);
-        });
-
-        it("should return media URL from second dynamic DOM",
-                                                             async function () {
-            browser.tabs.create({ _id: 1, url: "http://foo.fr/bar.html" });
-            browser.tabs.create({ _id: 2, url: "http://foo.fr/bar.html" });
-
-            const stubFetch = sinon.stub(globalThis, "fetch")
-                                   .resolves(new Response(""));
-            const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
-                // Tester aussi avec null car c'est une valeur retournée par
-                // Chromium.
-                // eslint-disable-next-line unicorn/no-null
-                .onFirstCall().resolves([undefined, null])
-                .onSecondCall().resolves([undefined, "http://foo.fr/baz.mp4"]);
-
-            const url = new URL("http://foo.fr/bar.html");
-            const options = { depth: false, incognito: false };
-
-            const file = await extract(url, options);
-            assert.equal(file, "http://foo.fr/baz.mp4");
-
-            assert.equal(stubFetch.callCount, 1);
-            assert.equal(stubFetch.firstCall.args.length, 2);
-            assert.deepEqual(stubFetch.firstCall.args[0], url);
-            assert.equal(typeof stubFetch.firstCall.args[1], "object");
-            assert.equal(stubExecuteScript.callCount, 2);
-            assert.deepEqual(stubExecuteScript.firstCall.args, [
-                1, { allFrames: true, file: "/script/extractor.js" },
-            ]);
-            assert.deepEqual(stubExecuteScript.secondCall.args, [
-                2, { allFrames: true, file: "/script/extractor.js" },
-            ]);
-        });
-
-        it("should return error from content script", async function () {
-            browser.tabs.create({ _id: 1, url: "http://foo.fr/bar.html" });
-
-            const stubFetch = sinon.stub(globalThis, "fetch")
-                                   .resolves(new Response(""));
-            const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
-                                           .rejects(new Error("Baz"));
-
-            const url = new URL("http://foo.fr/bar.html");
-            const options = { depth: false, incognito: false };
-
-            await assert.rejects(() => extract(url, options), {
-                name:    "Error",
-                message: "Baz",
-            });
-
-            assert.equal(stubFetch.callCount, 1);
-            assert.equal(stubFetch.firstCall.args.length, 2);
-            assert.deepEqual(stubFetch.firstCall.args[0], url);
-            assert.equal(typeof stubFetch.firstCall.args[1], "object");
-            assert.equal(stubExecuteScript.callCount, 1);
-            assert.deepEqual(stubExecuteScript.firstCall.args, [
-                1, { allFrames: true, file: "/script/extractor.js" },
-            ]);
-        });
-
-        it("should ignore error from chrome.google.com/webstore",
-                                                             async function () {
-            browser.tabs.create({
-                _id: 1,
-                url: "https://chrome.google.com/webstore/",
-            });
-
-            const stubFetch = sinon.stub(globalThis, "fetch")
-                                   .resolves(new Response(""));
-            const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
-                                           .rejects(new Error(
-                "The extensions gallery cannot be scripted.",
-            ));
-
-            const url = new URL("https://chrome.google.com/webstore/");
-            const options = { depth: false, incognito: false };
-
-            const file = await extract(url, options);
-            assert.equal(file, url.href);
-
-            assert.equal(stubFetch.callCount, 1);
-            assert.equal(stubFetch.firstCall.args.length, 2);
-            assert.deepEqual(stubFetch.firstCall.args[0], url);
-            assert.equal(typeof stubFetch.firstCall.args[1], "object");
-            assert.equal(stubExecuteScript.callCount, 1);
-            assert.deepEqual(stubExecuteScript.firstCall.args, [
-                1, { allFrames: true, file: "/script/extractor.js" },
-            ]);
-        });
-
-        it("should ignore error from addons.mozilla.org", async function () {
-            browser.tabs.create({ _id: 1, url: "https://addons.mozilla.org/" });
-
-            const stubFetch = sinon.stub(globalThis, "fetch")
-                                   .resolves(new Response(""));
-            const stubExecuteScript = sinon.stub(browser.tabs, "executeScript")
-                                           .rejects(new Error(
-                "Missing host permission for the tab, and any iframes",
-            ));
-
-            const url = new URL("https://addons.mozilla.org/");
-            const options = { depth: false, incognito: false };
-
-            const file = await extract(url, options);
-            assert.equal(file, url.href);
-
-            assert.equal(stubFetch.callCount, 1);
-            assert.equal(stubFetch.firstCall.args.length, 2);
-            assert.deepEqual(stubFetch.firstCall.args[0], url);
-            assert.equal(typeof stubFetch.firstCall.args[1], "object");
-            assert.equal(stubExecuteScript.callCount, 1);
-            assert.deepEqual(stubExecuteScript.firstCall.args, [
-                1, { allFrames: true, file: "/script/extractor.js" },
-            ]);
+            assert.equal(stub.callCount, 1);
         });
 
         it("should support uppercase URL", async function () {

@@ -7,6 +7,7 @@ body {
 }
 
 sup {
+    align-self: start;
     cursor: help;
 }
 
@@ -60,6 +61,15 @@ td * {
     margin: auto;
 }
 
+.error {
+    background-image: url("/design/icon/error-white.svg");
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    display: none;
+    padding: 8px 8px 8px 32px;
+}
+
 #server details {
     background-color: var(--button-background-color);
     border: 1px solid var(--button-active-background-color);
@@ -74,10 +84,6 @@ td * {
 #server summary {
     font-weight: bold;
     list-style: none;
-}
-#server summary > label {
-    display: inline-block;
-    width: 100%;
 }
 #server div, #server table {
     margin-top: 15px;

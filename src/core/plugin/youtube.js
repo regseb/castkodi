@@ -4,7 +4,7 @@
  */
 /* eslint-disable require-await */
 
-import { kodi } from "../kodi.js";
+import { kodi } from "../jsonrpc/kodi.js";
 import * as labeller from "../labeller/youtube.js";
 import { matchPattern } from "../tools/matchpattern.js";
 

@@ -34,6 +34,12 @@
     "notifications_unknown_title": {
         "message": "Erreur inconnue"
     },
+    "notifications_notGranted_title": {
+        "message": "Autorisation non-accordée"
+    },
+    "notifications_notGranted_message": {
+        "message": "L'extension ne peut pas accéder aux sites Internet."
+    },
     "notifications_unconfigured_title": {
         "message": "Aucune adresse"
     },
@@ -248,6 +254,12 @@
     },
     "popup_text_textcontent": {
         "message": "Changer de serveur :"
+    },
+    "options_permissionDescription_textcontent": {
+        "message": "L'accès aux sites Internet n'est pas autorisé. L'extension ne peut pas analyser les pages pour y trouver des vidéos ou de la musique."
+    },
+    "options_permissionButton_textcontent": {
+        "message": "Autoriser l'accès"
     },
     "options_serverTitle_textcontent": {
         "message": "Connexion"

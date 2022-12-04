@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import { kodi } from "../../../../src/core/kodi.js";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as plugin from "../../../../src/core/plugin/youtube.js";
 
 describe("core/plugin/youtube.js", function () {

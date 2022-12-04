@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import { kodi } from "../../../src/core/kodi.js";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import * as menu from "../../../src/core/menu.js";
 
 describe("core/menu.js", function () {
@@ -282,7 +282,33 @@ describe("core/menu.js", function () {
     });
 
     describe("click()", function () {
+        it("should notify not granted", async function () {
+            // Comme il n'est pas possible de remplacer un export avec sinon,
+            // remplacer la function appelée par l'export.
+            const stub = sinon.stub(browser.notifications, "create")
+                              .resolves("foo");
+
+            // @ts-ignore: Désactiver la vérification de TypeScript car la
+            // déclaration du type OnClickData (argument de aggregate) n'est pas
+            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
+            await menu.click({
+                menuItemId: "add",
+                modifiers:  [],
+                editable:   false,
+                linkUrl:    "http://bar.com/",
+            });
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [{
+                type:    "basic",
+                iconUrl: "/img/icon128.png",
+                title:   "Authorization not granted",
+                message: "The extension cannot access websites.",
+            }]);
+        });
+
         it("should cast link", async function () {
+            await browser.permissions.request({ origins: ["<all_urls>"] });
             await browser.storage.local.set({ "menu-contexts": ["link"] });
             browser.extension.inIncognitoContext = true;
             // Comme il n'est pas possible de remplacer un export avec sinon,
@@ -304,6 +330,7 @@ describe("core/menu.js", function () {
         });
 
         it("should notify bad link", async function () {
+            await browser.permissions.request({ origins: ["<all_urls>"] });
             await browser.storage.local.set({ "menu-contexts": ["link"] });
             // Comme il n'est pas possible de remplacer un export avec sinon,
             // remplacer la function appelée par l'export.
@@ -323,7 +350,7 @@ describe("core/menu.js", function () {
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [{
                 type:    "basic",
-                iconUrl: "/img/icon.svg",
+                iconUrl: "/img/icon128.png",
                 title:   "Unsupported link",
                 message: "Link ??? is invalid.",
             }]);

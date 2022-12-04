@@ -13,7 +13,7 @@ describe("core/tools/notify.js", function () {
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [{
                 type:    "basic",
-                iconUrl: "/img/icon.svg",
+                iconUrl: "/img/icon128.png",
                 title:   "Unknown error",
                 message: "foo",
             }]);
@@ -27,7 +27,7 @@ describe("core/tools/notify.js", function () {
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [{
                 type:    "basic",
-                iconUrl: "/img/icon.svg",
+                iconUrl: "/img/icon128.png",
                 title:   "Unsupported link",
                 message: "Link foo is invalid.",
             }]);

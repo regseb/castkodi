@@ -16,12 +16,14 @@ export const notify = function (err) {
     // n'est pas encore implémentée dans Firefox. https://bugzil.la/1190681
     return browser.notifications.create({
         type:    "basic",
+        // Ne pas utiliser un fichier SVG pour l'icône car depuis le Manifest
+        // V3 : Chromium ne le gère plus. https://crbug.com/1353252
         // L'icône n'est pas affichée dans Chromium sous Linux.
         // https://crbug.com/1164769
-        iconUrl: "/img/icon.svg",
+        iconUrl: "/img/icon128.png",
         title:   err instanceof PebkacError
-                       ? err.title
-                       : browser.i18n.getMessage("notifications_unknown_title"),
+            ? err.title
+            : browser.i18n.getMessage("notifications_unknown_title"),
         message: err.message,
     });
 };

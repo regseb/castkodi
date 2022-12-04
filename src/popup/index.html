@@ -181,7 +181,7 @@
                  autocomplete="off">
           <img src="/design/icon/repeat_none-white.svg" alt="repeat_none-white">
         </label>
-        <label class="radio" id="repeat-all" data-i18-title="repeat">
+        <label class="radio" id="repeat-all" data-l10n-title="repeat">
           <input name="repeat" type="radio" value="all" disabled
                  autocomplete="off">
           <img src="/design/icon/repeat_all-blue.svg" alt="repeat_all-blue">
@@ -251,6 +251,16 @@
       </button>
     </section>
 
+    <dialog class="error" id="dialogerror">
+      <h1></h1>
+      <p></p>
+      <menu>
+        <select name="server" autocomplete="off"></select>
+        <button id="configure" autocomplete="off"
+                data-l10n-textcontent></button>
+      </menu>
+    </dialog>
+
     <dialog id="dialogsendtext">
       <form method="dialog">
         <p>
@@ -305,20 +315,6 @@
         </menu>
       </form>
     </dialog>
-
-    <article id="splash">
-      <h1></h1>
-      <p></p>
-      <ul>
-        <li>
-          <button id="configure" autocomplete="off"
-                  data-l10n-textcontent></button>
-        </li>
-        <li data-l10n-textcontent="text">
-          {} <select name="server" autocomplete="off"></select>
-        </li>
-      </ul>
-    </article>
 
     <script src="/polyfill/browser.js" type="module"></script>
     <script src="/core/css.js" type="module"></script>

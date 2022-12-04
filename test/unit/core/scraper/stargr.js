@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import { kodi } from "../../../../src/core/kodi.js";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/stargr.js";
 
 describe("core/scraper/stargr.js", function () {

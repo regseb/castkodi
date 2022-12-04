@@ -14,7 +14,9 @@ p {
 
 
 label {
+    align-items: center;
     color: var(--label-color);
+    display: flex;
 }
 input[type="date"],
 input[type="password"],
@@ -82,7 +84,7 @@ input[type="checkbox"] {
     border: 1px solid var(--input-border-color);
     border-radius: 2px;
     height: 16px;
-    margin: -2px 4px;
+    margin: 3px;
     width: 16px;
 }
 input[type="checkbox"]:hover:not(:disabled),
@@ -115,9 +117,7 @@ input[type="radio"] {
     border: 1px solid var(--input-border-color);
     border-radius: 100%;
     height: 16px;
-    margin-bottom: -2px;
-    margin-left: 4px;
-    margin-right: 4px;
+    margin: 3px;
     width: 16px;
 }
 input[type="radio"]:hover:not(:disabled),
@@ -172,7 +172,7 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 50%;
     filter: drop-shadow(0 0 2px rgba(0 0 0 / 65%));
     height: 12px;
-    /* Remonter le curseur pour qu'il soit au centre. */
+    /* Remonter le curseur pour qu'il soit centré. */
     margin-top: -3.5px;
     width: 12px;
 }
@@ -183,10 +183,9 @@ input[type="range"]::-moz-range-thumb {
     height: 12px;
     width: 12px;
 }
+
 input[type="range"]:hover:not(:disabled)::-webkit-slider-thumb {
-    /* Remplacer outline par box-shadow car Chromium n'applique pas le
-       border-radius sur le outline. https://crbug.com/81556 */
-    box-shadow: 0 0 0 6px var(--button-hover-background-color);
+    outline: 6px solid var(--button-hover-background-color);
 }
 input[type="range"]:hover:not(:disabled)::-moz-range-thumb {
     outline: 6px solid var(--button-hover-background-color);
@@ -278,6 +277,7 @@ button.ghost:active:not(:disabled) {
 }
 
 select {
+    align-items: center;
     appearance: none;
     background-color: var(--button-background-color);
     background-image: url("img/drop.svg");
@@ -288,9 +288,9 @@ select {
     border-radius: 4px;
     color: var(--button-color);
     cursor: pointer;
-    font-size: 11px;
-    height: 24px;
-    padding: 0 28px 0 8px;
+    font-size: 13px;
+    justify-content: center;
+    padding: 8px 28px 8px 8px;
 }
 select:hover:not(:disabled) {
     background-color: var(--button-hover-background-color);
@@ -320,7 +320,24 @@ dialog menu {
     margin: 0;
     padding-left: 0;
 }
-dialog menu button {
+dialog menu button, dialog menu select {
     flex: 1 1 0;
     min-width: auto;
+}
+
+.error {
+    background-color: rgb(215 0 34);
+    color: rgb(251 251 254);
+}
+.error button, .error select {
+    background-color: rgb(91 91 102 / 33%);
+    color: rgb(251 251 254);
+}
+.error button:hover:not(:disabled),
+.error select:hover:not(:disabled) {
+    background-color: rgb(91 91 102 / 66%);
+}
+.error button:active:not(:disabled),
+.error select:active:not(:disabled) {
+    background-color: rgb(91 91 102);
 }

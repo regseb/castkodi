@@ -25,21 +25,23 @@
     "type": "module",
     "scripts": {
         "postinstall": "node .script/sync.js",
-        "lint": "metalint",
+        "lint": "node .script/lint.js",
         "lint:types": "tsc --project .tsconfig_lint.json",
         "test": "npm run test:unit && npm run test:integration",
         "test:unit": "mocha --config test/unit/mocharc.json",
         "test:integration": "mocha --config test/integration/mocharc.json",
         "test:coverage": "stryker run",
         "jsdocs": "typedoc --tsconfig .tsconfig_jsdocs.json --out jsdocs/ src/",
-        "start:chromium": "web-ext run -t chromium -s src/",
-        "start:firefox": "web-ext run -t firefox-desktop -s src/",
+        "switch:chromium": "node .script/switch.js chromium",
+        "switch:firefox": "node .script/switch.js firefox",
+        "start:chromium": "node .script/start.js chromium",
+        "start:firefox": "node .script/start.js firefox",
         "build": "node .script/build.js",
         "release": "standard-version",
         "clean": "node .script/clean.js"
     },
     "dependencies": {
-        "webextension-polyfill": "0.10.0"
+        "linkedom": "0.14.21"
     },
     "devDependencies": {
         "@stryker-mutator/core": "6.2.3",

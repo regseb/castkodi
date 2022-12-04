@@ -34,6 +34,12 @@
     "notifications_unknown_title": {
         "message": "Error desconocido"
     },
+    "notifications_notGranted_title": {
+        "message": "Autorización no otorgada"
+    },
+    "notifications_notGranted_message": {
+        "message": "La extensión no puede acceder a sitios web."
+    },
     "notifications_unconfigured_title": {
         "message": "Sin dirección"
     },
@@ -248,6 +254,12 @@
     },
     "popup_text_textcontent": {
         "message": "Cambiar servidor:"
+    },
+    "options_permissionDescription_textcontent": {
+        "message": "No se permite el acceso a sitios web. La extensión no puede analizar las páginas en busca de videos o música."
+    },
+    "options_permissionButton_textcontent": {
+        "message": "Permitir el acceso"
     },
     "options_serverTitle_textcontent": {
         "message": "Conexión"

@@ -2,8 +2,11 @@
  * @module
  */
 
-// eslint-disable-next-line import/no-unassigned-import
+/* eslint-disable import/no-unassigned-import */
 import "../polyfill/browser.js";
+import "../polyfill/domparser.js";
+/* eslint-enable import/no-unassigned-import */
+import { kodi } from "../core/jsonrpc/kodi.js";
 import * as menu from "../core/menu.js";
 import * as storage from "../core/storage.js";
 
@@ -31,6 +34,12 @@ browser.storage.onChanged.addListener(async (changes) => {
                                                  k.startsWith("server-") &&
                                                  "newValue" in v)) {
         await menu.update();
+    }
+
+    // Garder seulement les changements liés au serveur.
+    if (Object.keys(changes).some(([k, v]) => k.startsWith("server-") &&
+                                              "newValue" in v)) {
+        kodi.close();
     }
 });
 

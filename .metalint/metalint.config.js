@@ -10,8 +10,8 @@ export default {
     ],
     checkers: [
         {
-            patterns: ["/build/*.zip", "/src/"],
-            linters: { "addons-linter": null },
+            patterns: ["/build/**/*.zip", "/src/"],
+            linters: "addons-linter",
         }, {
             patterns: "/src/**/*.js",
             linters: {

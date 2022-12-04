@@ -10,5 +10,10 @@
         { "type": "test",     "hidden": true }
     ],
     "packageFiles": "package.json",
-    "bumpFiles": ["package.json", "package-lock.json", "src/manifest.json"]
+    "bumpFiles": [
+        "package.json",
+        "package-lock.json",
+        { "filename": "src/manifest-chromium.json", "type": "json" },
+        { "filename": "src/manifest-firefox.json",  "type": "json" }
+    ]
 }

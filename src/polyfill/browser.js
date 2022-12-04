@@ -2,8 +2,12 @@
  * @module
  */
 
-// eslint-disable-next-line import/no-unassigned-import
-import "./lib/browser-polyfill.js";
+// Copier la variable "chrome" (qui contient les APIs pour les webextensions)
+// dans la variable "browser" car Chromium fournit seulement "chrome".
+// https://crbug.com/798169
+if (!("browser" in globalThis)) {
+    globalThis.browser = chrome;
+}
 
 // Ajouter une prothèse pour la méthode browser.runtime.getBrowserInfo() qui
 // n'est pas implémentée dans Chromium. https://crbug.com/1047907

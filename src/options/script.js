@@ -4,9 +4,22 @@
 
 import { Kodi } from "../core/jsonrpc/kodi.js";
 import { locate } from "../core/l10n.js";
+import { checkHosts } from "../core/permission.js";
 
 // Insérer les textes dans la bonnes langues.
 locate(document, "options");
+
+/**
+ * Demande l'accès à tous les sites Internet.
+ */
+const request = async function () {
+    const granted = await browser.permissions.request({
+        origins: ["<all_urls>"],
+    });
+    if (granted) {
+        document.querySelector("#permission").style.display = "none";
+    }
+};
 
 /**
  * Demande (ou enlève) une permission optionnelle.
@@ -88,13 +101,13 @@ const save = async function () {
             if ("single" === this.value) {
                 // Modifier la configuration en une fois pour éviter d'appeler
                 // les auditeurs à chaque changement.
-                browser.storage.local.set({
+                await browser.storage.local.set({
                     "server-mode":   "single",
                     "server-active": 0,
                 });
                 tab.nextElementSibling.open = false;
             } else {
-                browser.storage.local.set({ "server-mode": "multi" });
+                await browser.storage.local.set({ "server-mode": "multi" });
                 tab.previousElementSibling.open = false;
             }
         } else {
@@ -115,7 +128,7 @@ const save = async function () {
                     list[index][type] = input.value;
                 }
             }
-            browser.storage.local.set({ "server-list": list });
+            await browser.storage.local.set({ "server-list": list });
             this.form.querySelectorAll(`input[name="${this.name}"]`)
                      .forEach(check);
         }
@@ -124,16 +137,16 @@ const save = async function () {
         this.checked = checked;
         const inputs = this.form.querySelectorAll("input");
         if (1 === inputs.length) {
-            browser.storage.local.set({ [key]: inputs[0].checked });
+            await browser.storage.local.set({ [key]: inputs[0].checked });
         } else {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 [key]: Array.from(inputs)
                             .filter((i) => i.checked)
                             .map((i) => i.name),
             });
         }
     } else {
-        browser.storage.local.set({ [key]: this.value });
+        await browser.storage.local.set({ [key]: this.value });
     }
 };
 
@@ -142,7 +155,7 @@ const save = async function () {
  *
  * @param {MouseEvent} event L'évènement du clic sur le bouton de la ligne.
  */
-const remove = function (event) {
+const remove = async function (event) {
     const tbody = document.querySelector("tbody");
     // Enlever la ligne.
     document.querySelector("table")
@@ -165,8 +178,10 @@ const remove = function (event) {
     }
 
     // Enregistrer la nouvelle configuration.
-    save.bind(tbody.querySelector(`[name="address_0"]`))();
-    return false;
+    await save.apply(tbody.querySelector(`[name="address_0"]`));
+    // Activer le premier serveur car c'est peut-être le serveur actif qui a été
+    // supprimé.
+    await browser.storage.local.set({ "server-active": 0 });
 };
 
 /**
@@ -256,11 +271,21 @@ const load = function (config) {
 const handleChange = function (changes) {
     load(Object.fromEntries(Object.entries(changes)
                                   .filter(([, v]) => "newValue" in v)
+                                  // Ignorer "server-active" car ce paramètre
+                                  // n'est pas affiché dans la page.
+                                  .filter(([k]) => "server-active" !== k)
                                   // Ne pas actualiser la liste des serveurs car
                                   // cela provoque un bogue.
                                   .filter(([k]) => "server-list" !== k)
                                   .map(([k, v]) => [k, v.newValue])));
 };
+
+document.querySelector("#permission button").addEventListener("click", request);
+try {
+    await checkHosts();
+} catch {
+    document.querySelector("#permission").style.display = "block";
+}
 
 // Remplir les champs du formulaire avec la configuration.
 load(await browser.storage.local.get());

@@ -3,6 +3,7 @@
  */
 
 import { notify } from "./tools/notify.js";
+import { checkHosts } from "./permission.js";
 import { cast } from "./index.js";
 
 /**
@@ -118,6 +119,8 @@ export const aggregate = async function (info) {
  */
 export const click = async function (info) {
     try {
+        await checkHosts();
+
         const urls = await aggregate(info);
         await cast(info.menuItemId, urls);
     } catch (err) {

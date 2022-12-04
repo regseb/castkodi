@@ -37,7 +37,10 @@ const data = {
     contextMenus: [],
     histories:    [],
     permissions:  {
-        data:      new Set(),
+        data:      {
+            origins:     new Set(),
+            permissions: new Set(),
+        },
         listeners: [],
     },
     runtime: {
@@ -64,7 +67,8 @@ export const browser = {
         data.bookmarks.index = 0;
         data.contextMenus.length = 0;
         data.histories.length = 0;
-        data.permissions.data.clear();
+        data.permissions.data.origins.clear();
+        data.permissions.data.permissions.clear();
         data.permissions.listeners.length = 0;
         data.runtime.browserInfo = { name: "" };
         Object.keys(data.storage.local.data).forEach((property) => {
@@ -145,23 +149,41 @@ export const browser = {
     },
 
     permissions: {
-        remove({ permissions }) {
-            const changes = { permissions: [] };
+        contains({ origins = [], permissions = [] }) {
+            return Promise.resolve(
+                origins.every((o) => data.permissions.data.origins.has(o)) &&
+                permissions.every((p) => data.permissions.data.permissions
+                                                              .has(p)),
+            );
+        },
+        remove({ origins = [], permissions = [] }) {
+            const changes = { origins: [], permissions: [] };
+            for (const origin of origins) {
+                const deleted = data.permissions.data.origins.delete(origin);
+                if (deleted) {
+                    changes.origins.push(origin);
+                }
+            }
             for (const permission of permissions) {
-                const deleted = data.permissions.data.delete(permission);
+                const deleted = data.permissions.data.permissions
+                                                     .delete(permission);
                 if (deleted) {
                     changes.permissions.push(permission);
                 }
             }
-            if (0 !== changes.permissions.length) {
+            if (0 !== changes.origins.length ||
+                    0 !== changes.permissions.length) {
                 data.permissions.listeners.forEach((l) => l(changes));
                 return Promise.resolve(true);
             }
             return Promise.resolve(false);
         },
-        request({ permissions }) {
+        request({ origins = [], permissions = [] }) {
+            for (const origin of origins) {
+                data.permissions.data.origins.add(origin);
+            }
             for (const permission of permissions) {
-                data.permissions.data.add(permission);
+                data.permissions.data.permissions.add(permission);
             }
             return Promise.resolve(true);
         },

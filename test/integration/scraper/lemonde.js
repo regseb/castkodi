@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { config } from "../config.js";
-import { kodi } from "../../../src/core/kodi.js";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Le Monde", function () {

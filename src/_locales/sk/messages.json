@@ -34,6 +34,12 @@
     "notifications_unknown_title": {
         "message": "Neznáma chyba"
     },
+    "notifications_notGranted_title": {
+        "message": "Autorizácia nebola udelená"
+    },
+    "notifications_notGranted_message": {
+        "message": "Rozšírenie nemá prístup k webovým stránkam."
+    },
     "notifications_unconfigured_title": {
         "message": "Chýba adresa"
     },
@@ -248,6 +254,12 @@
     },
     "popup_text_textcontent": {
         "message": "Zmeniť server:"
+    },
+    "options_permissionDescription_textcontent": {
+        "message": "Prístup na webové stránky nie je povolený. Rozšírenie nedokáže na stránkach analyzovať videá alebo hudbu."
+    },
+    "options_permissionButton_textcontent": {
+        "message": "Povoliť prístup"
     },
     "options_serverTitle_textcontent": {
         "message": "Spojenie"

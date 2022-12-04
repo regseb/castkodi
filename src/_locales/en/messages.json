@@ -34,6 +34,12 @@
     "notifications_unknown_title": {
         "message": "Unknown error"
     },
+    "notifications_notGranted_title": {
+        "message": "Authorization not granted"
+    },
+    "notifications_notGranted_message": {
+        "message": "The extension cannot access websites."
+    },
     "notifications_unconfigured_title": {
         "message": "No address"
     },
@@ -248,6 +254,12 @@
     },
     "popup_text_textcontent": {
         "message": "Change server:"
+    },
+    "options_permissionDescription_textcontent": {
+        "message": "Access to websites is not permitted. The extension cannot analyze the pages for videos or music."
+    },
+    "options_permissionButton_textcontent": {
+        "message": "Allow access"
     },
     "options_serverTitle_textcontent": {
         "message": "Connection"

@@ -1,4 +1,5 @@
 /build/
 /jsdocs/
 /node_modules/
+/src/manifest.json
 /.stryker/

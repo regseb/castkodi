@@ -3,9 +3,10 @@
  */
 
 import { cast } from "../core/index.js";
-import { kodi } from "../core/kodi.js";
+import { kodi } from "../core/jsonrpc/kodi.js";
 import { locate } from "../core/l10n.js";
 import { complete } from "../core/labellers.js";
+import { checkHosts } from "../core/permission.js";
 import { notify } from "../core/tools/notify.js";
 import { ping } from "../core/tools/ping.js";
 
@@ -41,18 +42,21 @@ let interval;
  */
 let dragItem;
 
-const splash = function (err) {
-    const article = document.querySelector("#splash");
-    if ("PebkacError" === err.name) {
-        article.querySelector("h1").textContent = err.title;
-    } else {
-        article.querySelector("h1").textContent =
-                         browser.i18n.getMessage("notifications_unknown_title");
-    }
-    article.querySelector("p").textContent = err.message;
-    article.style.display = "block";
-    for (const section of document.querySelectorAll("section")) {
-        section.style.visibility = "hidden";
+const openError = function (err) {
+    const dialog = document.querySelector("#dialogerror");
+    if (!dialog.open) {
+        // Cacher l'indicateur de chargement (pour éviter de le voir bouger en
+        // arrière plan).
+        document.querySelector("#loading").style.display = "none";
+
+        if ("PebkacError" === err.name) {
+            dialog.querySelector("h1").textContent = err.title;
+        } else {
+            dialog.querySelector("h1").textContent =
+                        browser.i18n.getMessage("notifications_unknown_title");
+        }
+        dialog.querySelector("p").textContent = err.message;
+        dialog.showModal();
     }
 };
 
@@ -73,6 +77,8 @@ const mux = async function () {
         return document.querySelector("textarea").value;
     }
 
+    // La récupération de l'URL de l'onglet courant nécessite la permission
+    // "activeTab".
     const queryInfo = { active: true, currentWindow: true };
     const tabs = await browser.tabs.query(queryInfo);
     return tabs[0].url;
@@ -180,7 +186,7 @@ const previous = async function () {
     try {
         await kodi.player.goTo("previous");
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -194,7 +200,7 @@ const rewind = async function () {
     try {
         await kodi.player.setSpeed("decrement");
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -208,7 +214,7 @@ const stop = async function () {
     try {
         await kodi.player.stop();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -224,7 +230,7 @@ const playPause = async function () {
         try {
             await kodi.player.open();
         } catch (err) {
-            splash(err);
+            openError(err);
         }
     } else {
         // Annuler l'action (venant d'un raccourci clavier) si le bouton est
@@ -236,7 +242,7 @@ const playPause = async function () {
         try {
             await kodi.player.playPause();
         } catch (err) {
-            splash(err);
+            openError(err);
         }
     }
 };
@@ -251,7 +257,7 @@ const forward = async function () {
     try {
         await kodi.player.setSpeed("increment");
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -265,7 +271,7 @@ const next = async function () {
     try {
         await kodi.player.goTo("next");
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -279,7 +285,7 @@ const setMute = async function () {
     try {
         await kodi.application.setMute();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -298,7 +304,7 @@ const setVolume = async function (diff) {
             await kodi.application.setVolume(input.valueAsNumber);
         }
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -312,7 +318,7 @@ const contextMenu = async function () {
     try {
         await kodi.input.contextMenu();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -326,7 +332,7 @@ const up = async function () {
     try {
         await kodi.input.up();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -340,7 +346,7 @@ const info = async function () {
     try {
         await kodi.input.info();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -354,7 +360,7 @@ const left = async function () {
     try {
         await kodi.input.left();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -368,7 +374,7 @@ const select = async function () {
     try {
         await kodi.input.select();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -382,7 +388,7 @@ const right = async function () {
     try {
         await kodi.input.right();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -396,7 +402,7 @@ const back = async function () {
     try {
         await kodi.input.back();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -410,7 +416,7 @@ const down = async function () {
     try {
         await kodi.input.down();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -424,7 +430,7 @@ const showOSD = async function () {
     try {
         await kodi.input.showOSD();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -438,7 +444,7 @@ const home = async function () {
     try {
         await kodi.input.home();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -452,7 +458,7 @@ const setFullscreen = async function () {
     try {
         await kodi.gui.setFullscreen();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -480,7 +486,7 @@ const sendText = async function (event) {
         try {
             await kodi.input.sendText(text.value, done.checked);
         } catch (err) {
-            splash(err);
+            openError(err);
         }
     }
 };
@@ -507,7 +513,7 @@ const addSubtitle = async function (event) {
         try {
             await kodi.player.addSubtitle(subtitle.value);
         } catch (err) {
-            splash(err);
+            openError(err);
         }
     }
 };
@@ -522,7 +528,7 @@ const showPlayerProcessInfo = async function () {
     try {
         await kodi.input.showPlayerProcessInfo();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -563,7 +569,7 @@ const quit = async function (event) {
                 // Ne rien faire avec le bouton Annuler.
         }
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -577,7 +583,7 @@ const repeat = async function () {
     try {
         await kodi.player.setRepeat();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -591,7 +597,7 @@ const shuffle = async function () {
     try {
         await kodi.player.setShuffle();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -605,7 +611,7 @@ const clear = async function () {
     try {
         await kodi.playlist.clear();
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -615,7 +621,7 @@ const play = async function (event) {
     try {
         await kodi.player.open(index);
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -625,7 +631,7 @@ const remove = async function (event) {
     try {
         await kodi.playlist.remove(index);
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -741,7 +747,7 @@ const handleDrop = async function (event) {
         try {
             await kodi.playlist.move(source, destination);
         } catch (err) {
-            splash(err);
+            openError(err);
         }
     }
     this.classList.remove("drop-before", "drop-after");
@@ -1031,7 +1037,7 @@ const seek = async function () {
     try {
         await kodi.player.seek(time.valueAsNumber);
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -1096,7 +1102,7 @@ const load = async function () {
                     .remove();
         });
     } catch (err) {
-        splash(err);
+        openError(err);
     }
 };
 
@@ -1106,7 +1112,7 @@ document.querySelector("#insert").addEventListener("click", insert);
 document.querySelector("#add").addEventListener("click", add);
 document.querySelector("#paste input").addEventListener("change", paste);
 for (const input of document.querySelectorAll("#server select," +
-                                              " #splash select")) {
+                                              " #dialogerror select")) {
     input.addEventListener("change", change);
 }
 
@@ -1156,6 +1162,9 @@ document.querySelector("#donate").addEventListener("click", donate);
 document.querySelector("#rate").addEventListener("click", rate);
 document.querySelector("#preferences").addEventListener("click", preferences);
 
+document.querySelector("#dialogerror").addEventListener("cancel", (event) => {
+    event.preventDefault();
+});
 document.querySelector("#dialogsendtext").addEventListener("close", sendText);
 document.querySelector("#dialogsendtext").addEventListener("click",
                                                            closeDialog);
@@ -1263,7 +1272,7 @@ interval = setInterval(passing, 1000);
 const config = await browser.storage.local.get();
 if ("multi" === config["server-mode"]) {
     for (const input of document.querySelectorAll("#server select," +
-                                                  " #splash select")) {
+                                                  " #dialogerror select")) {
         for (const [index, server] of config["server-list"].entries()) {
             const name = (/^\s*$/u).test(server.name)
                                ? browser.i18n.getMessage("menus_noName",
@@ -1276,7 +1285,8 @@ if ("multi" === config["server-mode"]) {
         }
     }
     document.querySelector("#server").style.visibility = "visible";
-    document.querySelector("#splash li:last-child").style.display = "list-item";
+    document.querySelector("#dialogerror select")
+            .style.display = "inline-block";
 }
 
 kodi.application.onPropertyChanged.addListener(handlePropertyChanged);
@@ -1285,4 +1295,10 @@ kodi.player.onPropertyChanged.addListener(handlePropertyChanged);
 kodi.playlist.onAdd.addListener(async (i) => handleAdd(await complete(i)));
 kodi.playlist.onClear.addListener(handleClear);
 kodi.playlist.onRemove.addListener(handleRemove);
-await load();
+
+try {
+    await checkHosts();
+    await load();
+} catch (err) {
+    openError(err);
+}

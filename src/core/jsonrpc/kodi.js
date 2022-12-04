@@ -13,9 +13,11 @@ import { Playlist } from "./playlist.js";
 import { System } from "./system.js";
 
 /**
- * La version minimale de l'API JSON-RPC de Kodi nécessaire.
+ * La version minimale de l'API JSON-RPC de Kodi nécessaire. Le numéro de
+ * de l'API est différent du numéro de version de Kodi.
  *
  * @type {number}
+ * @see https://kodi.wiki/view/JSON-RPC_API#API_versions
  */
 const KODI_JSONRPC_API_VERSION = 12;
 
@@ -308,3 +310,10 @@ export const Kodi = class {
         return this.#jsonrpc.send(method, params);
     }
 };
+
+/**
+ * Le client JSON-RPC pour contacter Kodi.
+ *
+ * @type {Kodi}
+ */
+export const kodi = new Kodi();

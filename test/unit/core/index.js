@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { cast, mux } from "../../../src/core/index.js";
-import { kodi } from "../../../src/core/kodi.js";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 
 describe("core/index.js", function () {
     describe("mux()", function () {
