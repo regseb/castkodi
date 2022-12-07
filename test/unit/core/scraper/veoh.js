@@ -13,14 +13,9 @@ describe("core/scraper/veoh.js", function () {
         });
 
         it("should return undefined when there isn't video", async function () {
-            const stub = sinon.stub(globalThis, "fetch").callsFake(() => {
-                const response = new Response();
-                Object.defineProperty(response, "url", {
-                    value:        "https://www.veoh.com/exception",
-                    configurable: true,
-                });
-                return Promise.resolve(response);
-            });
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({ video: { src: { HQ: "" } } }),
+            );
 
             const url = new URL("https://www.veoh.com/watch/foo");
 
@@ -35,9 +30,8 @@ describe("core/scraper/veoh.js", function () {
 
         it("should return undefined when page doesn't exist",
                                                              async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({}),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json({}));
 
             const url = new URL("https://www.veoh.com/watch/foo");
 
@@ -51,11 +45,11 @@ describe("core/scraper/veoh.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     video: { src: { HQ: "https://foo.com/bar.mp4" } },
                 }),
-            ));
+            );
 
             const url = new URL("https://www.veoh.com/watch/baz");
 
