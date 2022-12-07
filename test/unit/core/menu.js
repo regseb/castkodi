@@ -5,11 +5,24 @@ import * as menu from "../../../src/core/menu.js";
 
 describe("core/menu.js", function () {
     describe("update()", function () {
-        it("shouldn't add item", async function () {
+        it("shouldn't add item because no action", async function () {
             browser.storage.local.set({
                 "server-mode":   "single",
                 "menu-actions":  [],
                 "menu-contexts": ["audio"],
+            });
+
+            await menu.update();
+            // eslint-disable-next-line no-underscore-dangle
+            const items = browser.contextMenus._getAll();
+            assert.deepEqual(items, []);
+        });
+
+        it("shouldn't add item because no context", async function () {
+            browser.storage.local.set({
+                "server-mode":   "single",
+                "menu-actions":  ["send"],
+                "menu-contexts": [],
             });
 
             await menu.update();

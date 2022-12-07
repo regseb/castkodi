@@ -27,6 +27,10 @@ export const update = async function () {
     const mode     = config["server-mode"];
     const actions  = config["menu-actions"];
     const contexts = config["menu-contexts"];
+    if (0 === actions.length || 0 === contexts.length) {
+        return;
+    }
+
     if (1 === actions.length && "single" === mode) {
         const key = `menus_first${capitalize(actions[0])}`;
         browser.contextMenus.create({
@@ -34,7 +38,7 @@ export const update = async function () {
             id:    actions[0],
             title: browser.i18n.getMessage(key),
         });
-    } else if (2 <= actions.length || "multi" === mode) {
+    } else {
         browser.contextMenus.create({
             contexts,
             id:    "parent",
