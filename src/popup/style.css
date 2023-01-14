@@ -156,11 +156,11 @@ dialog {
     display: flex;
     flex-direction: column;
 }
-.Chrome #sound {
+.Chromium #sound {
     align-items: end;
     width: 48px;
 }
-.Chrome #volume {
+.Chromium #volume {
     margin: 32px -16px 32px 0;
     width: 80px;
 }

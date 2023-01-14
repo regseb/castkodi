@@ -155,7 +155,7 @@ input[type="range"]:not([orient="vertical"]) {
     padding: 0 5px;
     width: 32px;
 }
-.Chrome input[type="range"][orient="vertical"] {
+.Chromium input[type="range"][orient="vertical"] {
     height: 32px;
     /* Les sliders verticaux ne peuvent pas être stylisés dans Chromium, il faut
        donc les faire pivoter manuellement pour ensuite pouvoir les styliser.

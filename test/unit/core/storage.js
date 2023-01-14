@@ -3,9 +3,9 @@ import * as storage from "../../../src/core/storage.js";
 
 describe("core/storage.js", function () {
     describe("initialize()", function () {
-        it("should create config in Chrome", async function () {
+        it("should create config in Chromium", async function () {
             // eslint-disable-next-line no-underscore-dangle
-            browser.runtime._setBrowserInfo({ name: "Chrome" });
+            browser.runtime._setBrowserInfo({ name: "Chromium" });
 
             await storage.initialize();
             const config = await browser.storage.local.get();

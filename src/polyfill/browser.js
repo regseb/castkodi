@@ -2,7 +2,7 @@
  * @module
  */
 
-// Copier la variable "chrome" (qui contient les APIs pour les webextensions)
+// Copier la variable "chrome" (qui contient les APIs pour les WebExtensions)
 // dans la variable "browser" car Chromium fournit seulement "chrome".
 // https://crbug.com/798169
 if (!("browser" in globalThis)) {
@@ -16,7 +16,7 @@ if (!("getBrowserInfo" in browser.runtime)) {
         const { protocol } = new URL(browser.runtime.getURL(""));
         switch (protocol) {
             case "chrome-extension:":
-                return Promise.resolve({ name: "Chrome" });
+                return Promise.resolve({ name: "Chromium" });
             case "moz-extension:":
                 return Promise.resolve({ name: "Firefox" });
             default:

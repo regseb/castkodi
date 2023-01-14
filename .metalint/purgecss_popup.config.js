@@ -1,7 +1,7 @@
 export default {
     content: "/src/popup/*.html",
     safelist: {
-        standard: ["Chrome", "Firefox"],
+        standard: ["Chromium", "Firefox"],
         deep: [/^playlist-items$/u],
     },
 };

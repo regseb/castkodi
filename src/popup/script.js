@@ -655,7 +655,7 @@ const rate = async function () {
     let url;
     const { name } = await browser.runtime.getBrowserInfo();
     switch (name) {
-        case "Chrome":
+        case "Chromium":
             url = "https://chrome.google.com/webstore/detail/cast-kodi" +
                                     "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
             break;
