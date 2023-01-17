@@ -12,7 +12,7 @@
   <body>
     <p class="error" id="permission">
       <span data-l10n-textcontent="permission-description"></span>
-      <button data-l10n-textcontent="permission-button"></button>
+      <button type="button" data-l10n-textcontent="permission-button"></button>
     </p>
 
     <h3 data-l10n-textcontent="server-title"></h3>
@@ -29,8 +29,9 @@
                  data-l10n-title="server-address">
             {}
             <sup><img src="/design/icon/help-black.svg" alt="help-black"></sup>
-            <input name="address_0" type="text" required autocomplete="off"
-                   spellcheck="false" data-l10n-placeholder="server-address">
+            <input name="address_0" type="text" required autocapitalize="off"
+                   autocomplete="off" spellcheck="false"
+                   data-l10n-placeholder="server-address">
           </label>
         </div>
       </details>
@@ -56,20 +57,23 @@
           <tbody></tbody>
         </table>
         <div>
-          <button id="server-add" data-l10n-textcontent></button>
+          <button id="server-add" type="button" data-l10n-textcontent></button>
         </div>
         <template>
           <tr>
             <td>
-              <input name="address_" type="text" required autocomplete="off"
-                     spellcheck="false" data-l10n-placeholder="server-address">
+              <input name="address_" type="text" required autocapitalize="off"
+                     autocomplete="off" spellcheck="false"
+                     data-l10n-placeholder="server-address">
             </td>
             <td>
-              <input name="name_" type="text" required autocomplete="off"
-                     spellcheck="false" data-l10n-placeholder="server-name">
+              <input name="name_" type="text" required autocapitalize="off"
+                     autocomplete="off" spellcheck="false"
+                     data-l10n-placeholder="server-name">
             </td>
             <td>
-              <button class="ghost" data-l10n-title="server-remove">
+              <button class="ghost" type="button"
+                      data-l10n-title="server-remove">
                 <img src="/design/icon/remove-black.svg" alt="remove-black">
               </button>
             </td>

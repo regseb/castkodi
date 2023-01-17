@@ -88,7 +88,7 @@ describe("core/scraper/stargr.js", function () {
                              les pages de StarGR. -->
                         <iframe id="yt-player"
                                 style=""src="https://www.youtube.com/embed/bar"
-                                                                      ></iframe>
+                          ></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -132,7 +132,7 @@ describe("core/scraper/stargr.js", function () {
                              les pages de StarGR. -->
                         <iframe id="yt-player"
                                 style=""src="https://www.youtube.com/embed/bar"
-                                                                      ></iframe>
+                          ></iframe>
                       </body>
                     </html>`, "text/html")),
             };

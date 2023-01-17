@@ -1,3 +1,7 @@
+/**
+ * @module
+ */
+
 export const mochaHooks = {
     beforeAll: () => {
         globalThis.fetch = function () {

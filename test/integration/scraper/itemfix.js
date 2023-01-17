@@ -16,7 +16,8 @@ describe("Scraper: ItemFix", function () {
 
         const file = await extract(url, options);
         assert.ok(file?.startsWith("https://cdn.itemfix.com/2021/May/12" +
-                                 "/ItemFix-dot-com-ITEMFIX_AD2_1620869275.mp4"),
+                                   "/ItemFix-dot-com" +
+                                   "-ITEMFIX_AD2_1620869275.mp4"),
                   `"${file}"?.startsWith(...)`);
     });
 });

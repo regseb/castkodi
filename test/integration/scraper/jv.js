@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
+import { config } from "../config.js";
 
 describe("Scraper: JV", function () {
     before(function () {
@@ -20,7 +20,7 @@ describe("Scraper: JV", function () {
 
     it("should return video URL from videos-editors page", async function () {
         const url = new URL("http://www.jeuxvideo.com/videos-editeurs/0000" +
-                               "/00007335/half-life-2-pc-trailer-00004956.htm");
+                            "/00007335/half-life-2-pc-trailer-00004956.htm");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -31,7 +31,8 @@ describe("Scraper: JV", function () {
 
     it("should return video URL from extracts-videos page", async function () {
         const url = new URL("http://www.jeuxvideo.com/extraits-videos-jeux" +
-                       "/0002/00023827/portal-2-pc-meet-wheatley-00008311.htm");
+                            "/0002/00023827" +
+                            "/portal-2-pc-meet-wheatley-00008311.htm");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -42,7 +43,8 @@ describe("Scraper: JV", function () {
 
     it("should return video URL", async function () {
         const url = new URL("http://www.jeuxvideo.com/videos/461728" +
-                "/superhot-notre-avis-en-deux-minutes-sur-ce-fps-original.htm");
+                            "/superhot-notre-avis-en-deux-minutes-sur-ce-fps" +
+                            "-original.htm");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -53,8 +55,8 @@ describe("Scraper: JV", function () {
 
     it("should return video URL from news", async function () {
         const url = new URL("https://www.jeuxvideo.com/news/1415571" +
-                                    "/doom-eternal-plus-beau-que-jamais-en-4k" +
-                                        "-ray-tracing-sur-une-rtx-3080-ti.htm");
+                            "/doom-eternal-plus-beau-que-jamais-en-4k-ray" +
+                            "-tracing-sur-une-rtx-3080-ti.htm");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

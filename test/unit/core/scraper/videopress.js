@@ -13,9 +13,9 @@ describe("core/scraper/videopress.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ original: "https://foo.com/bar.avi" }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({ original: "https://foo.com/bar.avi" }),
+            );
 
             const url = new URL("https://videopress.com/v/baz");
 
@@ -29,9 +29,9 @@ describe("core/scraper/videopress.js", function () {
         });
 
         it("should return video URL from embed", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ original: "https://foo.com/bar.avi" }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({ original: "https://foo.com/bar.avi" }),
+            );
 
             const url = new URL("https://videopress.com/embed/baz?qux=quux");
 
@@ -45,10 +45,9 @@ describe("core/scraper/videopress.js", function () {
         });
 
         it("should return undefined when video not found", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                "",
-                { status: 404 },
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response("", { status: 404 }),
+            );
 
             const url = new URL("https://videopress.com/v/foo");
 

@@ -4,7 +4,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Veoh", function () {
     it("should return URL when it's a unsupported URL", async function () {
         const url = new URL("https://www.veoh.com/list-c" +
-                                                   "/Funny-Or-Die---The-Crypt");
+                            "/Funny-Or-Die---The-Crypt");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -33,7 +33,7 @@ describe("Scraper: Veoh", function () {
 
         const file = await extract(url, options);
         assert.ok(file?.startsWith("https://redirect.veoh.com/flash/p/2" +
-                                          "/v141918964qPaACxYC/h141918964.mp4"),
+                                   "/v141918964qPaACxYC/h141918964.mp4"),
                   `"${file}"?.startsWith(...)`);
     });
 });

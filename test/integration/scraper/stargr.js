@@ -14,9 +14,9 @@ describe("Scraper: StarGR", function () {
 
     it("should return video URL from StarTV", async function () {
         const url = new URL("https://www.star.gr/tv/psychagogia" +
-                                                     "/dancing-with-the-stars" +
-                                   "/dwts-o-edouard-stergiou-gia-ti-summetohi" +
-                                            "-tou-sto-dancing-with-the-stars/");
+                            "/dancing-with-the-stars" +
+                            "/dwts-o-edouard-stergiou-gia-ti-summetohi-tou" +
+                            "-sto-dancing-with-the-stars/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -29,7 +29,8 @@ describe("Scraper: StarGR", function () {
     it("should return video URL from StarTV when protocol is HTTP",
                                                              async function () {
         const url = new URL("http://www.star.gr/tv/psychagogia/globetrotters" +
-               "/to-neo-taxidiotiko-paihnidi-tou-star-globetrotters-xekinaei/");
+                            "/to-neo-taxidiotiko-paihnidi-tou-star" +
+                            "-globetrotters-xekinaei/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -41,7 +42,7 @@ describe("Scraper: StarGR", function () {
 
     it("should return video URL", async function () {
         const url = new URL("https://www.star.gr/video/lifestyle/viral/527838" +
-                               "/to-megalytero-festibal-pagoy-einai-sthn-kina");
+                            "/to-megalytero-festibal-pagoy-einai-sthn-kina");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -55,7 +56,7 @@ describe("Scraper: StarGR", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.star.gr/video/lifestyle/viral/165501" +
-                                 "/teleio_papagaloi_chorevoun_se_rap_rythmous");
+                            "/teleio_papagaloi_chorevoun_se_rap_rythmous");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

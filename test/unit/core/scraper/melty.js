@@ -19,7 +19,7 @@ describe("core/scraper/melty.js", function () {
                       <body>
                         <meta itemprop="contentUrl"
                               content="http://www.dailymotion.com/embed/video` +
-                                                                       `/bar" />
+                                      `/bar" />
                       </body>
                     </html>`, "text/html")),
             };
@@ -55,7 +55,7 @@ describe("core/scraper/melty.js", function () {
                               content="http://foo.com/bar.html" />
                         <meta itemprop="contentUrl"
                               content="http://www.dailymotion.com/embed/video` +
-                                                                       `/bar" />
+                                      `/bar" />
                       </body>
                     </html>`, "text/html")),
             };

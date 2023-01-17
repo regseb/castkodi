@@ -6,7 +6,7 @@ describe("core/scraper/applepodcasts.js", function () {
         it("should return undefined when it's a unsupported URL",
                                                              async function () {
             const url = new URL("https://podcasts.apple.com/us/artist" +
-                                                             "/arte-radio/foo");
+                                "/arte-radio/foo");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
@@ -27,7 +27,7 @@ describe("core/scraper/applepodcasts.js", function () {
 
         it("should return audio URL", async function () {
             const url = new URL("https://podcasts.apple.com/fr/podcast/foo" +
-                                                                      "/idbar");
+                                "/idbar");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>

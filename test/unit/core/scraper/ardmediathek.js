@@ -13,7 +13,7 @@ describe("core/scraper/ardmediathek.js", function () {
 
         it("should return video URL", async function () {
             const url = new URL("https://www.ardmediathek.de/video/foo/bar" +
-                                                                   "/baz/qux/");
+                                "/baz/qux/");
 
             const file = await scraper.extract(url);
             assert.equal(file,
@@ -24,7 +24,7 @@ describe("core/scraper/ardmediathek.js", function () {
 
         it("should return video URL when protocol is HTTP", async function () {
             const url = new URL("http://www.ardmediathek.de/video/foo/bar" +
-                                                                   "/baz/qux/");
+                                "/baz/qux/");
 
             const file = await scraper.extract(url);
             assert.equal(file,

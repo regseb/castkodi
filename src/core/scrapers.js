@@ -14,10 +14,10 @@ import * as ausha from "./scraper/ausha.js";
 import * as ballysports from "./scraper/ballysports.js";
 import * as bigo from "./scraper/bigo.js";
 import * as blogtalkradio from "./scraper/blogtalkradio.js";
-import * as devtube from "./scraper/devtube.js";
-import * as dumpert from "./scraper/dumpert.js";
 import * as dailymotion from "./scraper/dailymotion.js";
+import * as devtube from "./scraper/devtube.js";
 import * as dmax from "./scraper/dmax.js";
+import * as dumpert from "./scraper/dumpert.js";
 // eslint-disable-next-line import/no-cycle
 import * as embed from "./scraper/embed.js";
 import * as flickr from "./scraper/flickr.js";
@@ -40,7 +40,6 @@ import * as megaphone from "./scraper/megaphone.js";
 // eslint-disable-next-line import/no-cycle
 import * as melty from "./scraper/melty.js";
 import * as mixcloud from "./scraper/mixcloud.js";
-// eslint-disable-next-line import/no-cycle
 import * as noscript from "./scraper/noscript.js";
 // eslint-disable-next-line import/no-cycle
 import * as opengraph from "./scraper/opengraph.js";
@@ -57,10 +56,9 @@ import * as srf from "./scraper/srf.js";
 // eslint-disable-next-line import/no-cycle
 import * as stargr from "./scraper/stargr.js";
 import * as steam from "./scraper/steam.js";
-// eslint-disable-next-line import/no-cycle
 import * as template from "./scraper/template.js";
-import * as tiktok from "./scraper/tiktok.js";
 import * as theguardian from "./scraper/theguardian.js";
+import * as tiktok from "./scraper/tiktok.js";
 import * as torrent from "./scraper/torrent.js";
 import * as twitch from "./scraper/twitch.js";
 import * as ultimedia from "./scraper/ultimedia.js";
@@ -99,10 +97,10 @@ const SCRAPERS = [
     ballysports,
     bigo,
     blogtalkradio,
-    devtube,
-    dumpert,
     dailymotion,
+    devtube,
     dmax,
+    dumpert,
     flickr,
     francetv,
     futurasciences,
@@ -126,8 +124,8 @@ const SCRAPERS = [
     srf,
     stargr,
     steam,
-    tiktok,
     theguardian,
+    tiktok,
     torrent,
     twitch,
     ultimedia,
@@ -177,9 +175,8 @@ export const extract = async function (url, options) {
                     signal: controller.signal,
                 });
                 const contentType = response.headers.get("Content-Type");
-                if (null !== contentType &&
-                        (contentType.startsWith("text/html") ||
-                         contentType.startsWith("application/xhtml+xml"))) {
+                if (contentType?.startsWith("text/html") ||
+                        contentType?.startsWith("application/xhtml+xml")) {
                     const text = await response.text();
                     return new DOMParser().parseFromString(text, "text/html");
                 }

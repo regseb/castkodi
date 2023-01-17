@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
+import { config } from "../config.js";
 
 describe("Scraper: Ultimedia", function () {
     before(function () {
@@ -14,7 +14,7 @@ describe("Scraper: Ultimedia", function () {
 
     it("should return URL when it's not a video", async function () {
         const url = new URL("https://www.ultimedia.com/default/presentation" +
-                                                                        "/cgu");
+                            "/cgu");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -23,7 +23,7 @@ describe("Scraper: Ultimedia", function () {
 
     it("should return video URL", async function () {
         const url = new URL("https://www.ultimedia.com/default/index" +
-                                                     "/videogeneric/id/mvlx0f");
+                            "/videogeneric/id/mvlx0f");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -33,7 +33,7 @@ describe("Scraper: Ultimedia", function () {
 
     it("should return video URL when protocol is HTTP", async function () {
         const url = new URL("http://www.ultimedia.com/default/index" +
-                                                     "/videogeneric/id/83vr0l");
+                            "/videogeneric/id/83vr0l");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -42,8 +42,8 @@ describe("Scraper: Ultimedia", function () {
     });
 
     it("should return video URL from embed", async function () {
-        const url = new URL("https://www.ultimedia.com/deliver/generic" +
-                        "/iframe/mdtk/01836272/src/pzmpzr/zone/1/showtitle/1/");
+        const url = new URL("https://www.ultimedia.com/deliver/generic/iframe" +
+                            "/mdtk/01836272/src/pzmpzr/zone/1/showtitle/1/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

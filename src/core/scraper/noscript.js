@@ -4,11 +4,10 @@
 
 import { cacheable } from "../tools/cacheable.js";
 import { matchPattern } from "../tools/matchpattern.js";
-/* eslint-disable import/no-cycle */
+// eslint-disable-next-line import/no-cycle
 import { extract as iframeExtract } from "./iframe.js";
 import { extract as ldjsonExtract } from "./ldjson.js";
 import { extract as mediaExtract } from "./media.js";
-/* eslint-enable import/no-cycle */
 
 /**
  * La liste des extracteurs génériques.

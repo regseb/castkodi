@@ -64,7 +64,7 @@ describe("core/scraper/vudeo.js", function () {
                       <body>
                         <script>
                             var player = new Clappr.Player({
-                                sources: ["https://bar.com/baz/v.mp4"], 
+                                sources: ["https://bar.com/baz/v.mp4"],
                             });
                         </script>
                       </body>

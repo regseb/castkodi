@@ -28,7 +28,7 @@ describe("core/scraper/ouestfrance.js", function () {
                     <html>
                       <body>
                         <iframe data-ofiframe-src="https://www.youtube.com` +
-                                                          `/embed/bar"></iframe>
+                                                 `/embed/bar"></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -76,7 +76,7 @@ describe("core/scraper/ouestfrance.js", function () {
                       <body>
                         <iframe data-ofiframe-src="//bar.com/"></iframe>
                         <iframe data-ofiframe-src="//www.dailymotion.com` +
-                                                          `/video/baz"></iframe>
+                                                 `/video/baz"></iframe>
                       </body>
                     </html>`, "text/html")),
             };

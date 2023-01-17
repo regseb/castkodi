@@ -26,9 +26,9 @@ describe("core/scraper/jv.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ options: { video: "foo" } }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({ options: { video: "foo" } }),
+            );
 
             const url = new URL("https://www.jeuxvideo.com/bar");
             const content = {

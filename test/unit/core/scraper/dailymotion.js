@@ -74,7 +74,7 @@ describe("core/scraper/dailymotion.js", function () {
                     <html>
                       <head>
                         <script src="https://geo.dailymotion.com/bar.js">
-                                                                       </script>
+                        </script>
                         <script src="https://geo.dailymotion.com/player/baz.js"
                                 data-video="qux"></script>
                       </head>
@@ -107,7 +107,7 @@ describe("core/scraper/dailymotion.js", function () {
 
         it("should return video id", async function () {
             const url = new URL("https://geo.dailymotion.com/player/foo" +
-                                                                  "?video=bar");
+                                "?video=bar");
 
             const file = await scraper.extractPlayerIframe(url);
             assert.equal(file,

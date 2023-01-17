@@ -1,3 +1,7 @@
+/**
+ * @module
+ */
+
 import sinon from "sinon";
 
 export const mochaHooks = {

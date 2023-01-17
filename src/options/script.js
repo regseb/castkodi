@@ -22,7 +22,7 @@ const request = async function () {
 };
 
 /**
- * Demande (ou enlève) une permission optionnelle.
+ * Demande (ou enlève) éventuellement une permission optionnelle.
  *
  * @param {HTMLInputElement} input La case à cocher.
  * @returns {Promise<boolean>} Une promesse contenant le nouvel état de la
@@ -42,14 +42,14 @@ const ask = async function (input) {
 };
 
 /**
- * Vérifie la connexion à Kodi.
+ * Vérifie la connexion à Kodi ; ou le nom du serveur.
  *
- * @param {HTMLInputElement} input Le champ de l'adresse.
+ * @param {HTMLInputElement} input Le champ de l'adresse ou du nom.
  */
 const check = async function (input) {
     input.setCustomValidity("");
-    input.removeAttribute("title");
     if (input.name.startsWith("address_")) {
+        input.removeAttribute("title");
         input.style.backgroundImage = `url("/design/icon/loading-gray.svg")`;
         const address = input.value;
         try {
@@ -58,8 +58,8 @@ const check = async function (input) {
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette réussite.
             if (address === input.value) {
-                input.style.backgroundImage =
-                                      `url("/design/icon/connected-green.svg")`;
+                input.style.backgroundImage = `url("/design/icon` +
+                                                   `/connected-green.svg")`;
             }
         } catch (err) {
             // Afficher l'erreur si la valeur testée est toujours la valeur
@@ -68,12 +68,12 @@ const check = async function (input) {
             if (address === input.value) {
                 if ("notFound" === err.type || "notSupported" === err.type) {
                     input.title = err.message;
-                    input.style.backgroundImage =
-                                       `url("/design/icon/warning-yellow.svg")`;
+                    input.style.backgroundImage = `url("/design/icon` +
+                                                       `/warning-yellow.svg")`;
                 } else {
                     input.setCustomValidity(err.message);
-                    input.style.backgroundImage =
-                                          `url("/design/icon/invalid-red.svg")`;
+                    input.style.backgroundImage = `url("/design/icon` +
+                                                       `/invalid-red.svg")`;
                 }
             }
         }
@@ -133,8 +133,7 @@ const save = async function () {
                      .forEach(check);
         }
     } else if ("checkbox" === this.type) {
-        const checked = await ask(this);
-        this.checked = checked;
+        this.checked = await ask(this);
         const inputs = this.form.querySelectorAll("input");
         if (1 === inputs.length) {
             await browser.storage.local.set({ [key]: inputs[0].checked });
@@ -165,14 +164,13 @@ const remove = async function (event) {
     let index = 0;
     for (const tr of document.querySelectorAll("tbody tr")) {
         for (const input of tr.querySelectorAll("input")) {
-            const type = input.name.slice(0, input.name.indexOf("_"));
-            input.name = `${type}_${index.toString()}`;
+            input.name = input.name.replace(/_\d+$/u, `_${index.toString()}`);
         }
         ++index;
     }
 
-    // Si un seul serveur est présent dans la liste : désactiver le bouton pour
-    // le supprimer.
+    // Si un seul serveur est présent dans la liste : désactiver le bouton de
+    // suppression.
     if (1 === document.querySelectorAll("tbody tr").length) {
         document.querySelector("tbody button").disabled = true;
     }
@@ -223,8 +221,6 @@ const add = function (server) {
 
     // Vérifier la connexion à Kodi.
     check(address);
-
-    return false;
 };
 
 /**
@@ -240,13 +236,8 @@ const load = function (config) {
             for (const input of document
                                .querySelectorAll(`input[name="server-mode"]`)) {
                 const tab = input.closest("details");
-                if (value === input.value) {
-                    input.checked = true;
-                    tab.open = true;
-                } else {
-                    input.checked = false;
-                    tab.open = false;
-                }
+                input.checked = value === input.value;
+                tab.open = input.checked;
             }
         } else if (Array.isArray(value)) {
             for (const input of document.querySelectorAll(`#${key} input`)) {
@@ -294,7 +285,7 @@ load(await browser.storage.local.get());
 const info = await browser.runtime.getBrowserInfo();
 for (const label of document.querySelectorAll("label" +
                                    `[data-supported-browser="${info.name}"]`)) {
-    label.style.display = "block";
+    delete label.dataset.supportedBrowser;
 }
 
 // Écouter les actions dans le formulaire.

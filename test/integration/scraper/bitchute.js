@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
+import { config } from "../config.js";
 
 describe("Scraper: BitChute", function () {
     before(function () {

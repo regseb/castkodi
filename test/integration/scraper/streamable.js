@@ -8,7 +8,7 @@ describe("Scraper: Streamable", function () {
 
         const file = await extract(url, options);
         assert.ok(undefined !== file &&
-                                   new URL(file).pathname.endsWith("tapn9.mp4"),
+                  new URL(file).pathname.endsWith("tapn9.mp4"),
                   `new URL("${file}").pathname.endsWith(...)`);
     });
 });

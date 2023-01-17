@@ -47,7 +47,7 @@ describe("Labeller: SoundCloud", function () {
 
     it("should return dynamic set label", async function () {
         const url = new URL("https://soundcloud.com/discover/sets" +
-                                                 "/charts-top:alternativerock");
+                            "/charts-top:alternativerock");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

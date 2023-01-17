@@ -12,14 +12,14 @@ describe("Scraper: SoundCloud", function () {
 
     it("should return audio url", async function () {
         const url = new URL("https://soundcloud.com/a-tribe-called-red" +
-                                                      "/electric-pow-wow-drum");
+                            "/electric-pow-wow-drum");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.equal(file,
             "plugin://plugin.audio.soundcloud/play/" +
-                                           "?url=https%3A%2F%2Fsoundcloud.com" +
-                               "%2Fa-tribe-called-red%2Felectric-pow-wow-drum");
+                "?url=https%3A%2F%2Fsoundcloud.com%2Fa-tribe-called-red" +
+                "%2Felectric-pow-wow-drum");
     });
 
     it("should return audio url from mobile version", async function () {
@@ -29,7 +29,7 @@ describe("Scraper: SoundCloud", function () {
         const file = await extract(url, options);
         assert.equal(file,
             "plugin://plugin.audio.soundcloud/play/" +
-                                      "?url=https%3A%2F%2Fmobi.soundcloud.com" +
-                                                    "%2Fesa%2Fa-singing-comet");
+                 "?url=https%3A%2F%2Fmobi.soundcloud.com%2Fesa" +
+                 "%2Fa-singing-comet");
     });
 });

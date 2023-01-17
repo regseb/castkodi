@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
+import { config } from "../config.js";
 
 describe("Scraper: Facebook", function () {
     before(function () {
@@ -20,7 +20,7 @@ describe("Scraper: Facebook", function () {
 
     it("should return video URL [opengraph]", async function () {
         const url = new URL("https://www.facebook.com/XBMC/videos" +
-                                                         "/10152476888501641/");
+                            "/10152476888501641/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -31,7 +31,7 @@ describe("Scraper: Facebook", function () {
     it("should return video URL when protocol is HTTP [opengraph]",
                                                              async function () {
         const url = new URL("http://www.facebook.com/XBMC/videos" +
-                                                         "/10152476888501641/");
+                            "/10152476888501641/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -42,7 +42,7 @@ describe("Scraper: Facebook", function () {
     it("should return video URL when it's mobile version [opengraph]",
                                                              async function () {
         const url = new URL("https://m.facebook.com/XBMC/videos" +
-                                                         "/10152476888501641/");
+                            "/10152476888501641/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -53,7 +53,7 @@ describe("Scraper: Facebook", function () {
     it("should return video URL when it's a live [opengraph]",
                                                              async function () {
         const url = new URL("https://www.facebook.com/foxcarolinanews/videos" +
-                                                          "/2332364197043199/");
+                            "/2332364197043199/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -72,7 +72,7 @@ describe("Scraper: Facebook", function () {
 
     it("should return URL when it's not video [opengraph]", async function () {
         const url = new URL("https://www.facebook.com/watch/" +
-                                                          "?x=315156812365737");
+                            "?x=315156812365737");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -82,7 +82,7 @@ describe("Scraper: Facebook", function () {
     it("should return video URL from watch page [opengraph]",
                                                              async function () {
         const url = new URL("https://www.facebook.com/watch/" +
-                                                          "?v=315156812365737");
+                            "?v=315156812365737");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

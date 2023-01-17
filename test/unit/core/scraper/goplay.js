@@ -26,11 +26,11 @@ describe("core/scraper/goplay.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     manifestUrls: { hls: "http://foo.be/bar.m3u8" },
                 }),
-            ));
+            );
 
             const url = new URL("https://www.goplay.be/video/baz");
             const content = {

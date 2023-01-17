@@ -6,8 +6,8 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: The Guardian", function () {
     it("should return URL when it's not a video / audio", async function () {
         const url = new URL("https://www.theguardian.com/technology/2019/nov" +
-                                     "/17/firefox-mozilla-fights-back-against" +
-                                      "-google-chrome-dominance-privacy-fears");
+                            "/17/firefox-mozilla-fights-back-against-google" +
+                            "-chrome-dominance-privacy-fears");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -18,8 +18,8 @@ describe("Scraper: The Guardian", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.theguardian.com/sport/video/2021/oct" +
-                                           "/18/dont-let-it-drop-peru-win-the" +
-                                         "-first-ever-balloon-world-cup-video");
+                            "/18/dont-let-it-drop-peru-win-the-first-ever" +
+                            "-balloon-world-cup-video");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -33,7 +33,9 @@ describe("Scraper: The Guardian", function () {
 
     it("should return audio URL", async function () {
         const url = new URL("https://www.theguardian.com/news/audio/2020/feb" +
-                     "/25/could-coronavirus-be-china-chernobyl-moment-podcast");
+                            "/25" +
+                            "/could-coronavirus-be-china-chernobyl-moment" +
+                            "-podcast");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

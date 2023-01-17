@@ -60,7 +60,7 @@ describe("Scraper: Vimeo", function () {
 
     it("should return embed video id from unlisted video", async function () {
         const url = new URL("https://player.vimeo.com/video/304887422" +
-                                                    "?autoplay=1&h=34c51f7a09");
+                            "?autoplay=1&h=34c51f7a09");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

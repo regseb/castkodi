@@ -18,7 +18,7 @@ describe("Labeller: Dailymotion", function () {
         assert.deepEqual(item, {
             file,
             label:    "Comment perdre 30 secondes sur Dailymotion ? - Archive" +
-                                                                         " INA",
+                      " INA",
             position: 0,
             title:    "",
             type:     "unknown",

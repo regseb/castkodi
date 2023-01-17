@@ -8,7 +8,7 @@ describe("core/scraper/theguardian.js", function () {
         it("should return undefined when it's a unsupported URL",
                                                              async function () {
             const url = new URL("https://support.theguardian.com/eu" +
-                                                                 "/contribute");
+                                "/contribute");
 
             const file = await scraper.extractVideo(url);
             assert.equal(file, undefined);
@@ -81,7 +81,7 @@ describe("core/scraper/theguardian.js", function () {
         it("should return undefined when it's a unsupported URL",
                                                              async function () {
             const url = new URL("https://support.theguardian.com/eu" +
-                                                                 "/contribute");
+                                "/contribute");
 
             const file = await scraper.extractAudio(url);
             assert.equal(file, undefined);

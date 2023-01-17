@@ -3,18 +3,23 @@
  */
 /* eslint-disable require-await */
 
+const TYPES = {
+    EPISODE: "e",
+    MOVIE:   "m",
+};
+
 /**
  * Extrait le titre d'une vidéo VTM GO.
  *
- * @param {string} type    Le type de la vidéo (<code>"episodes"</code> ou
- *                         <code>"movies"</code>).
+ * @param {string} type    Le type de la vidéo (<code>"e"</code> ou
+ *                         <code>"m"</code>).
  * @param {string} videoId L'identifiant de la vidéo VTM GO.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      <code>undefined</code>.
  */
 const extractVideo = async function (type, videoId) {
     const response = await fetch("https://vtm.be/vtmgo/afspelen" +
-                                                `/${type.charAt(0)}${videoId}`);
+                                 `/${type}${videoId}`);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
     return doc.querySelector("h1.player__title")?.textContent;
@@ -28,7 +33,7 @@ const extractVideo = async function (type, videoId) {
  *                                      <code>undefined</code>.
  */
 export const extractEpisode = async function (episodeId) {
-    return extractVideo("episodes", episodeId);
+    return extractVideo(TYPES.EPISODE, episodeId);
 };
 
 /**
@@ -39,7 +44,7 @@ export const extractEpisode = async function (episodeId) {
  *                                      <code>undefined</code>.
  */
 export const extractMovie = async function (movieId) {
-    return extractVideo("movies", movieId);
+    return extractVideo(TYPES.MOVIE, movieId);
 };
 
 /**

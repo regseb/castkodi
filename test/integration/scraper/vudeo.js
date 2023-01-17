@@ -24,7 +24,7 @@ describe("Scraper: Vudeo", function () {
 
         const file = await extract(url, options);
         assert.ok(undefined !== file &&
-                              file.endsWith("/v.mp4|Referer=https://vudeo.io/"),
+                  file.endsWith("/v.mp4|Referer=https://vudeo.io/"),
                   `"${file}".endsWith(...)`);
     });
 
@@ -34,7 +34,7 @@ describe("Scraper: Vudeo", function () {
 
         const file = await extract(url, options);
         assert.ok(undefined !== file &&
-                              file.endsWith("/v.mp4|Referer=https://vudeo.io/"),
+                  file.endsWith("/v.mp4|Referer=https://vudeo.io/"),
                   `"${file}".endsWith(...)`);
     });
 
@@ -44,7 +44,7 @@ describe("Scraper: Vudeo", function () {
 
         const file = await extract(url, options);
         assert.ok(undefined !== file &&
-                            file.endsWith("/v.mp4|Referer=https://vudeo.io/"),
+                  file.endsWith("/v.mp4|Referer=https://vudeo.io/"),
                   `"${file}".endsWith(...)`);
     });
 });

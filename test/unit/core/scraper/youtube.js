@@ -143,8 +143,8 @@ describe("core/scraper/youtube.js", function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            const url = new URL("https://music.youtube.com/watch" +
-                                                             "?v=foo&list=bar");
+            const url = new URL("https://music.youtube.com/watch?v=foo" +
+                                                               "&list=bar");
             const content = undefined;
             const options = { incognito: true };
 
@@ -227,7 +227,7 @@ describe("core/scraper/youtube.js", function () {
             browser.storage.local.set({ "youtube-order": "reverse" });
 
             const url = new URL("https://m.youtube.com/playlist" +
-                                                  "?video=foo&incognito=false");
+                                "?video=foo&incognito=false");
             const content = undefined;
             const options = { incognito: false };
 

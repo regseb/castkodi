@@ -3,7 +3,7 @@
  */
 
 /**
- * Stocke en cache le retour d'une méthode pour les prochains appels.
+ * Stocke en cache le retour d'une fonction pour les prochains appels.
  *
  * @param {Function} func La fonction dont le retour sera mis en cache.
  * @returns {Function} La fonction avec le cache.

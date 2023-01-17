@@ -9,8 +9,7 @@ import { locate } from "../../../src/core/l10n.js";
  * @returns {Object<string, string>} L'objet contenant les attributs.
  */
 const objectifyAttributes = function (attributes) {
-    return Object.fromEntries(Array.from(attributes)
-                                   .map((a) => [a.name, a.value]));
+    return Object.fromEntries(Array.from(attributes, (a) => [a.name, a.value]));
 };
 
 describe("core/l10n.js", function () {
@@ -115,18 +114,20 @@ describe("core/l10n.js", function () {
             const doc = new DOMParser().parseFromString(`
                 <html>
                   <body>
-                    <span data-l10n-textcontent="bar-baz"></span>
+                    <span data-l10n-textcontent="bar-baz-qux"></span>
                   </body>
                 </html>`, "text/html");
-            locate(doc, "qux");
+            locate(doc, "quux");
             const span = doc.querySelector("span");
             assert.equal(span.innerHTML.trim(), "foo");
             assert.deepEqual(objectifyAttributes(span.attributes), {
-                "data-l10n-textcontent": "bar-baz",
+                "data-l10n-textcontent": "bar-baz-qux",
             });
 
             assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["qux_barBaz_textcontent"]);
+            assert.deepEqual(stub.firstCall.args, [
+                "quux_barBazQux_textcontent",
+            ]);
         });
 
         it("should reject if no value", function () {

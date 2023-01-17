@@ -13,8 +13,8 @@ describe("core/scraper/vidyard.js", function () {
         });
 
         it("should return video URL from vyContext", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     payload: {
                         vyContext: {
                             chapterAttributes: [{
@@ -30,7 +30,7 @@ describe("core/scraper/vidyard.js", function () {
                         },
                     },
                 }),
-            ));
+            );
 
             const url = new URL("https://play.vidyard.com/quux");
 
@@ -45,8 +45,8 @@ describe("core/scraper/vidyard.js", function () {
         });
 
         it("should return video URL from chapters", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     payload: {
                         vyContext: {
                             // eslint-disable-next-line camelcase
@@ -59,7 +59,7 @@ describe("core/scraper/vidyard.js", function () {
                         }],
                     },
                 }),
-            ));
+            );
 
             const url = new URL("https://play.vidyard.com/baz?qux=1");
 
@@ -75,8 +75,8 @@ describe("core/scraper/vidyard.js", function () {
 
         it("should return video URL from pathname with extension",
                                                              async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     payload: {
                         chapters: [{
                             sources: {
@@ -85,7 +85,7 @@ describe("core/scraper/vidyard.js", function () {
                         }],
                     },
                 }),
-            ));
+            );
 
             // Ajouter deux fois l'extension ".html" pour vérifier que c'est
             // seulement la dernière qui est enlevée.

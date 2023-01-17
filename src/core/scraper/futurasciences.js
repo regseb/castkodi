@@ -32,10 +32,10 @@ const action = async function (url, content, options) {
     }
 
     const srcs = [
-        ...Array.from(doc.querySelectorAll("iframe[data-src]"))
-                .map((i) => i.dataset.src),
-        ...Array.from(doc.querySelectorAll("div.vsly-player[data-iframe]"))
-                .map((d) => d.dataset.iframe),
+        ...Array.from(doc.querySelectorAll("iframe[data-src]"),
+                      (i) => i.dataset.src),
+        ...Array.from(doc.querySelectorAll("div.vsly-player[data-iframe]"),
+                      (d) => d.dataset.iframe),
     ];
 
     for (const src of srcs) {

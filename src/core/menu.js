@@ -2,8 +2,8 @@
  * @module
  */
 
-import { notify } from "./tools/notify.js";
 import { checkHosts } from "./permission.js";
+import { notify } from "./tools/notify.js";
 import { cast } from "./index.js";
 
 /**

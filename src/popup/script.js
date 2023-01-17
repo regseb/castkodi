@@ -937,7 +937,7 @@ const handleShuffledChanged = async function (value) {
 
 const handleTimeChanged = function (value) {
     const time = document.querySelector("#time");
-    const max = Number.parseInt(time.max, 10);
+    const max = Number(time.max);
     time.valueAsNumber = Math.min(value, max);
 
     time.previousElementSibling.textContent = 3600 < max

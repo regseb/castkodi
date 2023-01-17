@@ -166,7 +166,7 @@ describe("core/scraper/ldjson.js", function () {
                             "@context": "http://schema.org/",
                             "@type":    "VideoObject",
                             embedUrl:   "https://www.dailymotion.com/embed" +
-                                                                   "/video/baz",
+                                        "/video/baz",
                         })}</script>
                       </body>
                     </html>`, "text/html")),
@@ -189,7 +189,7 @@ describe("core/scraper/ldjson.js", function () {
                             "@context": "http://schema.org/",
                             "@type":    "VideoObject",
                             embedUrl:   "https://www.dailymotion.com/embed" +
-                                                                   "/video/baz",
+                                        "/video/baz",
                         })}</script>
                       </body>
                     </html>`, "text/html")),

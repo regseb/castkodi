@@ -34,7 +34,14 @@ export default {
     "no-space-in-emphasis": true,
     "no-space-in-code": true,
     "no-space-in-links": true,
-    "fenced-code-language": true,
+    "fenced-code-language": {
+        // eslint-disable-next-line camelcase
+        allowed_languages: [
+            "CSS", "HTML", "JavaScript", "JSON", "Markdown", "Shell",
+        ],
+        // eslint-disable-next-line camelcase
+        language_only: true,
+    },
     "first-line-heading": true,
     "no-empty-links": true,
     "required-headings": true,

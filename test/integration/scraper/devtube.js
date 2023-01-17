@@ -12,8 +12,8 @@ describe("Scraper: DevTube", function () {
 
         const file = await extract(url, options);
         assert.equal(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=4rWypxBwrR4&incognito=false");
+            "plugin://plugin.video.youtube/play/?video_id=4rWypxBwrR4" +
+                                               "&incognito=false");
 
         assert.equal(stub.callCount, 1);
         assert.deepEqual(stub.firstCall.args, ["video"]);

@@ -7,16 +7,15 @@ describe("core/scraper/ballysports.js", function () {
         it("should return undefined when it's a unsupported URL",
                                                              async function () {
             const url = new URL("https://www.ballysports.com/national/news" +
-                                                                        "/foo");
+                                "/foo");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't video", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({}),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json({}));
 
             const url = new URL("https://www.ballysports.com/watch/vod/foo");
 
@@ -34,9 +33,9 @@ describe("core/scraper/ballysports.js", function () {
         // DOMParser des navigateurs. https://github.com/jsdom/jsdom/issues/3416
         it.skip("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch")
-                .onFirstCall().resolves(new Response(JSON.stringify({
+                .onFirstCall().resolves(Response.json({
                     videoId: "foo",
-                }))).onSecondCall().resolves(new Response(
+                })).onSecondCall().resolves(new Response(
                     `<video>
                        <videoSource name="HLSv3">
                          <uri><![CDATA[https://bar.com/baz.m3u8]]></uri>

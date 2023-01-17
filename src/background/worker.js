@@ -48,7 +48,7 @@ browser.contextMenus.onClicked.addListener(async (info) => {
             "add" === info.menuItemId) {
         await menu.click(info);
     } else if (!info.wasChecked) {
-        await menu.change(Number.parseInt(info.menuItemId, 10));
+        await menu.change(Number(info.menuItemId));
     }
 });
 

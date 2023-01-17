@@ -26,8 +26,8 @@ describe("core/scraper/zdf.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     priorityList: [{
                         formitaeten: [{
                             qualities: [{
@@ -40,7 +40,7 @@ describe("core/scraper/zdf.js", function () {
                         }],
                     }],
                 }),
-            ));
+            );
 
             const url = new URL("https://www.zdf.de/baz");
             const content = {

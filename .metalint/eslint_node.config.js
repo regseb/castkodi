@@ -4,6 +4,25 @@ export default {
     },
 
     rules: {
+        // Suggestions.
+        "no-restricted-properties": [2, {
+            object: "assert",
+            property: "deepStrictEqual",
+            message: "Use assert.deepEqual instead.",
+        }, {
+            object: "assert",
+            property: "notDeepStrictEqual",
+            message: "Use assert.notDeepEqual instead.",
+        }, {
+            object: "assert",
+            property: "notStrictEqual",
+            message: "Use assert.notEqual instead.",
+        }, {
+            object: "assert",
+            property: "strictEqual",
+            message: "Use assert.equal instead.",
+        }],
+
         // Plugin eslint-plugin-import.
         // Module systems.
         "import/no-nodejs-modules": 0,

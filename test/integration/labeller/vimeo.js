@@ -50,7 +50,7 @@ describe("Labeller: Vimeo", function () {
         // l'extension a modifié le fichier et le titre.
         const item = await complete({
             file:     "plugin://plugin.video.vimeo/play/" +
-                                        "?uri=%2Fvideos%2F43241044&texttracks=",
+                      "?uri=%2Fvideos%2F43241044&texttracks=",
             label:    "M83 | Fleur & Manu I DIVISION",
             position: 1,
             title:    "M83 | Fleur & Manu I DIVISION",
@@ -58,7 +58,7 @@ describe("Labeller: Vimeo", function () {
         });
         assert.deepEqual(item, {
             file:     "plugin://plugin.video.vimeo/play/" +
-                                        "?uri=%2Fvideos%2F43241044&texttracks=",
+                      "?uri=%2Fvideos%2F43241044&texttracks=",
             label:    "M83 | Fleur & Manu I DIVISION",
             position: 1,
             title:    "M83 | Fleur & Manu I DIVISION",

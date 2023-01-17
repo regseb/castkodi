@@ -44,12 +44,11 @@ describe("core/scraper/steam.js", function () {
 
     describe("extractBroadcast()", function () {
         it("should return undefined when it's not a video", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({}),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json({}));
 
             const url = new URL("https://steamcommunity.com/broadcast/watch" +
-                                                                        "/foo");
+                                "/foo");
 
             const file = await scraper.extractBroadcast(url);
             assert.equal(file, undefined);
@@ -62,13 +61,13 @@ describe("core/scraper/steam.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
+            const stub = sinon.stub(globalThis, "fetch").resolves(
                 // eslint-disable-next-line camelcase
-                JSON.stringify({ hls_url: "https://foo.com/bar.mp4" }),
-            ));
+                Response.json({ hls_url: "https://foo.com/bar.mp4" }),
+            );
 
             const url = new URL("https://steamcommunity.com/broadcast/watch" +
-                                                                        "/baz");
+                                "/baz");
 
             const file = await scraper.extractBroadcast(url);
             assert.equal(file, "https://foo.com/bar.mp4");

@@ -48,63 +48,63 @@ describe("Scraper: Twitch", function () {
 
     it("should return embed clip name", async function () {
         const url = new URL("https://clips.twitch.tv/embed" +
-                                   "?clip=IncredulousAbstemiousFennelImGlitch");
+                            "?clip=IncredulousAbstemiousFennelImGlitch");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                   "&slug=IncredulousAbstemiousFennelImGlitch");
+                "&slug=IncredulousAbstemiousFennelImGlitch");
     });
 
     it("should return clip name", async function () {
         const url = new URL("https://clips.twitch.tv" +
-                                                "/GleamingWildCougarFUNgineer");
+                            "/GleamingWildCougarFUNgineer");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                         "&slug=GleamingWildCougarFUNgineer");
+                "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return clip name when protocol is HTTP", async function () {
         const url = new URL("http://clips.twitch.tv" +
-                                                "/GleamingWildCougarFUNgineer");
+                            "/GleamingWildCougarFUNgineer");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                         "&slug=GleamingWildCougarFUNgineer");
+                "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return clip name from channel", async function () {
         const url = new URL("https://www.twitch.tv/twitch/clip" +
-                                                "/GleamingWildCougarFUNgineer" +
-                                            "?filter=clips&range=7d&sort=time");
+                            "/GleamingWildCougarFUNgineer" +
+                            "?filter=clips&range=7d&sort=time");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                         "&slug=GleamingWildCougarFUNgineer");
+                "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return clip name from 'go'", async function () {
         const url = new URL("https://go.twitch.tv/twitch/clip" +
-                                                "/GleamingWildCougarFUNgineer");
+                            "/GleamingWildCougarFUNgineer");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.equal(file,
             "plugin://plugin.video.twitch/?mode=play" +
-                                         "&slug=GleamingWildCougarFUNgineer");
+                "&slug=GleamingWildCougarFUNgineer");
     });
 
     it("should return clip name from mobile version", async function () {
         const url = new URL("https://m.twitch.tv/twitch/clip" +
-                                                "/GleamingWildCougarFUNgineer");
+                            "/GleamingWildCougarFUNgineer");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

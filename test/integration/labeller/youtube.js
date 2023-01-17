@@ -23,7 +23,7 @@ describe("Labeller: YouTube", function () {
         assert.deepEqual(item, {
             file,
             label:    "Rick Astley - Never Gonna Give You Up (Official Music" +
-                                                                      " Video)",
+                      " Video)",
             position: 0,
             title:    "",
             type:     "unknown",
@@ -38,7 +38,7 @@ describe("Labeller: YouTube", function () {
         // l'extension a modifié le titre.
         const item = await complete({
             file:     "plugin://plugin.video.youtube/play/" +
-                                        "?video_id=WBNjyvbqRYY&incognito=false",
+                      "?video_id=WBNjyvbqRYY&incognito=false",
             label:    "La Marseillaise s’empare de Paris",
             position: 0,
             title:    "La Marseillaise s’empare de Paris",
@@ -46,7 +46,7 @@ describe("Labeller: YouTube", function () {
         });
         assert.deepEqual(item, {
             file:     "plugin://plugin.video.youtube/play/" +
-                                        "?video_id=WBNjyvbqRYY&incognito=false",
+                      "?video_id=WBNjyvbqRYY&incognito=false",
             label:    "La Marseillaise s’empare de Paris",
             position: 0,
             title:    "La Marseillaise s’empare de Paris",
@@ -119,7 +119,7 @@ describe("Labeller: YouTube", function () {
         ]);
 
         const url = new URL("https://www.youtube.com/playlist" +
-                                                    "?list=PL6B3937A5D230E335");
+                            "?list=PL6B3937A5D230E335");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -148,8 +148,8 @@ describe("Labeller: YouTube", function () {
             "plugin.video.tubed", "plugin.video.youtube",
         ]);
 
-        const url = new URL("https://www.youtube.com/watch" +
-                                           "?v=Yrm_kb1d-Xc&list=RDYrm_kb1d-Xc");
+        const url = new URL("https://www.youtube.com/watch?v=Yrm_kb1d-Xc" +
+                                                         "&list=RDYrm_kb1d-Xc");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -177,7 +177,7 @@ describe("Labeller: YouTube", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://music.youtube.com/watch" +
-                                           "?v=9bZkp7q19f0&list=RD9bZkp7q19f0");
+                            "?v=9bZkp7q19f0&list=RD9bZkp7q19f0");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

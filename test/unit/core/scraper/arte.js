@@ -14,9 +14,9 @@ describe("core/scraper/arte.js", function () {
 
         it("should return undefined when video is unavailable",
                                                              async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ data: { attributes: { streams: [] } } }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({ data: { attributes: { streams: [] } } }),
+            );
 
             const url = new URL("https://www.arte.tv/de/videos/foo/bar");
 
@@ -30,15 +30,15 @@ describe("core/scraper/arte.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     data: {
                         attributes: {
                             streams: [{ url: "https://foo.tv/bar.mp4" }],
                         },
                     },
                 }),
-            ));
+            );
 
             const url = new URL("https://www.arte.tv/fr/videos/baz/qux");
 

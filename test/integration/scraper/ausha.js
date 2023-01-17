@@ -12,7 +12,7 @@ describe("Scraper: Ausha", function () {
 
     it("should return audio URL", async function () {
         const url = new URL("https://podcast.ausha.co/firstprintfra" +
-                                                             "/fp-aout-2022-1");
+                            "/fp-aout-2022-1");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

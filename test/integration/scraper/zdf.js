@@ -12,7 +12,7 @@ describe("Scraper: ZDF", function () {
 
     it("should return video URL", async function () {
         const url = new URL("https://www.zdf.de/dokumentation/37-grad" +
-                                             "/37-im-schuldenstrudel-100.html");
+                            "/37-im-schuldenstrudel-100.html");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

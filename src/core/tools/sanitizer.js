@@ -11,7 +11,7 @@
  *                   protégés.
  */
 export const quote = function (pattern) {
-    return pattern.replace(/[$()*+.?[\\\]^{|}]/gu, "\\$&");
+    return pattern.replaceAll(/[$()*+.?[\\\]^{|}]/gu, "\\$&");
 };
 
 /**
@@ -34,6 +34,6 @@ export const strip = function (text) {
                            (_, t) => t.charAt(0).toUpperCase() + t.slice(1))
                .replaceAll("[CR]", " ")
                .replaceAll(/\[TABS\](?<n>\d+)\[\/TABS\]/gu,
-                           (_, n) => "\t".repeat(Number.parseInt(n, 10)))
+                           (_, n) => "\t".repeat(Number(n)))
                .trim();
 };

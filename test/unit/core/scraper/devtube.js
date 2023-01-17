@@ -24,8 +24,8 @@ describe("core/scraper/devtube.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.equal(file,
-                "plugin://plugin.video.youtube/play/" +
-                                                "?video_id=foo&incognito=true");
+                "plugin://plugin.video.youtube/play/?video_id=foo" +
+                                                   "&incognito=true");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);

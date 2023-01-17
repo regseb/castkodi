@@ -9,6 +9,6 @@ describe("Scraper: آپارات (Aparat)", function () {
         const file = await extract(url, options);
         assert.equal(file,
             "https://www.aparat.com/video/hls/manifest/videohash/IWTPf/f" +
-                                                                 "/IWTPf.m3u8");
+                "/IWTPf.m3u8");
     });
 });

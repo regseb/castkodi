@@ -13,9 +13,8 @@ describe("core/scraper/peertube.js", function () {
         });
 
         it("should return undefined when it's not a video", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({}),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json({}));
 
             const url = new URL("https://foo.com/w/bar");
 
@@ -29,14 +28,14 @@ describe("core/scraper/peertube.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     streamingPlaylists: [{
                         playlistUrl: "http://foo.fr/bar.avi",
                         files:       [],
                     }],
                 }),
-            ));
+            );
 
             const url = new URL("https://baz.com/w/qux");
 
@@ -50,12 +49,12 @@ describe("core/scraper/peertube.js", function () {
         });
 
         it("should return video URL from watch page", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     streamingPlaylists: [],
                     files:              [{ fileUrl: "http://foo.io/bar.avi" }],
                 }),
-            ));
+            );
 
             const url = new URL("https://baz.com/videos/watch/qux");
 
@@ -69,12 +68,12 @@ describe("core/scraper/peertube.js", function () {
         });
 
         it("should return video URL from embed page", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     streamingPlaylists: [],
                     files:              [{ fileUrl: "http://foo.fr/bar.avi" }],
                 }),
-            ));
+            );
 
             const url = new URL("https://baz.com/videos/embed/qux");
 

@@ -8,8 +8,8 @@ describe("Scraper: Dailymotion", function () {
 
         const file = await extract(url, options);
         assert.equal(file,
-            "plugin://plugin.video.dailymotion_com/" +
-                                                 "?mode=playVideo&url=x17qw0a");
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=x17qw0a");
     });
 
     it("should return tiny video id", async function () {
@@ -18,8 +18,8 @@ describe("Scraper: Dailymotion", function () {
 
         const file = await extract(url, options);
         assert.equal(file,
-            "plugin://plugin.video.dailymotion_com/" +
-                                                 "?mode=playVideo&url=x5riqme");
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=x5riqme");
     });
 
     it("should return embed video id", async function () {
@@ -28,7 +28,7 @@ describe("Scraper: Dailymotion", function () {
 
         const file = await extract(url, options);
         assert.equal(file,
-            "plugin://plugin.video.dailymotion_com/" +
-                                                 "?mode=playVideo&url=a12bc3d");
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
+                                                  "&url=a12bc3d");
     });
 });

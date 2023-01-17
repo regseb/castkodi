@@ -28,11 +28,11 @@ describe("core/scraper/dmax.js", function () {
         it("should return undefined when request is geoblocking",
                                                              async function () {
             const stub = sinon.stub(globalThis, "fetch")
-                .onFirstCall().resolves(new Response(JSON.stringify({
+                .onFirstCall().resolves(Response.json({
                     data: { attributes: { token: "foo" } },
-                }))).onSecondCall().resolves(new Response(JSON.stringify({
+                })).onSecondCall().resolves(Response.json({
                     data: { id: "bar" },
-                }))).onThirdCall().resolves(new Response(JSON.stringify({})));
+                })).onThirdCall().resolves(Response.json({}));
 
             const url = new URL("https://dmax.de/sendungen/baz");
             const content = {
@@ -53,7 +53,7 @@ describe("core/scraper/dmax.js", function () {
                 {
                     headers: {
                         "x-device-info": "STONEJS/1 (Unknown/Unknown;" +
-                                                   " Unknown/Unknown; Unknown)",
+                                         " Unknown/Unknown; Unknown)",
                     },
                 },
             ]);
@@ -79,9 +79,9 @@ describe("core/scraper/dmax.js", function () {
 
         it("should return undefined when no assetid and no showid",
                                                              async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ data: { attributes: { token: "foo" } } }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({ data: { attributes: { token: "foo" } } }),
+            );
 
             const url = new URL("https://dmax.de/sendungen/bar");
             const content = {
@@ -102,7 +102,7 @@ describe("core/scraper/dmax.js", function () {
                 {
                     headers: {
                         "x-device-info": "STONEJS/1 (Unknown/Unknown;" +
-                                                   " Unknown/Unknown; Unknown)",
+                                         " Unknown/Unknown; Unknown)",
                     },
                 },
             ]);
@@ -110,11 +110,11 @@ describe("core/scraper/dmax.js", function () {
 
         it("should return undefined when no HLS video", async function () {
             const stub = sinon.stub(globalThis, "fetch")
-                .onFirstCall().resolves(new Response(JSON.stringify({
+                .onFirstCall().resolves(Response.json({
                     data: { attributes: { token: "foo" } },
-                }))).onSecondCall().resolves(new Response(JSON.stringify({
+                })).onSecondCall().resolves(Response.json({
                     data: [{ id: "bar" }],
-                }))).onThirdCall().resolves(new Response(JSON.stringify({
+                })).onThirdCall().resolves(Response.json({
                     data: {
                         attributes: {
                             streaming: [{
@@ -123,7 +123,7 @@ describe("core/scraper/dmax.js", function () {
                             }],
                         },
                     },
-                })));
+                }));
 
             const url = new URL("https://dmax.de/sendungen/quux");
             const content = {
@@ -144,13 +144,13 @@ describe("core/scraper/dmax.js", function () {
                 {
                     headers: {
                         "x-device-info": "STONEJS/1 (Unknown/Unknown;" +
-                                                   " Unknown/Unknown; Unknown)",
+                                         " Unknown/Unknown; Unknown)",
                     },
                 },
             ]);
             assert.deepEqual(stub.secondCall.args, [
                 "https://eu1-prod.disco-api.com/content/videos/" +
-                                                       "?filter[show.id]=corge",
+                    "?filter[show.id]=corge",
                 { headers: { authorization: "Bearer foo" } },
             ]);
             assert.deepEqual(stub.thirdCall.args, [
@@ -171,11 +171,11 @@ describe("core/scraper/dmax.js", function () {
 
         it("should return video URL from asset", async function () {
             const stub = sinon.stub(globalThis, "fetch")
-                .onFirstCall().resolves(new Response(JSON.stringify({
+                .onFirstCall().resolves(Response.json({
                     data: { attributes: { token: "foo" } },
-                }))).onSecondCall().resolves(new Response(JSON.stringify({
+                })).onSecondCall().resolves(Response.json({
                     data: { id: "bar" },
-                }))).onThirdCall().resolves(new Response(JSON.stringify({
+                })).onThirdCall().resolves(Response.json({
                     data: {
                         attributes: {
                             streaming: [{
@@ -184,7 +184,7 @@ describe("core/scraper/dmax.js", function () {
                             }],
                         },
                     },
-                })));
+                }));
 
             const url = new URL("https://dmax.de/sendungen/quux");
             const content = {
@@ -205,7 +205,7 @@ describe("core/scraper/dmax.js", function () {
                 {
                     headers: {
                         "x-device-info": "STONEJS/1 (Unknown/Unknown;" +
-                                                   " Unknown/Unknown; Unknown)",
+                                         " Unknown/Unknown; Unknown)",
                     },
                 },
             ]);
@@ -231,11 +231,11 @@ describe("core/scraper/dmax.js", function () {
 
         it("should return video URL from show", async function () {
             const stub = sinon.stub(globalThis, "fetch")
-                .onFirstCall().resolves(new Response(JSON.stringify({
+                .onFirstCall().resolves(Response.json({
                     data: { attributes: { token: "foo" } },
-                }))).onSecondCall().resolves(new Response(JSON.stringify({
+                })).onSecondCall().resolves(Response.json({
                     data: [{ id: "bar" }],
-                }))).onThirdCall().resolves(new Response(JSON.stringify({
+                })).onThirdCall().resolves(Response.json({
                     data: {
                         attributes: {
                             streaming: [{
@@ -244,7 +244,7 @@ describe("core/scraper/dmax.js", function () {
                             }],
                         },
                     },
-                })));
+                }));
 
             const url = new URL("https://dmax.de/sendungen/quux");
             const content = {
@@ -265,13 +265,13 @@ describe("core/scraper/dmax.js", function () {
                 {
                     headers: {
                         "x-device-info": "STONEJS/1 (Unknown/Unknown;" +
-                                                   " Unknown/Unknown; Unknown)",
+                                         " Unknown/Unknown; Unknown)",
                     },
                 },
             ]);
             assert.deepEqual(stub.secondCall.args, [
                 "https://eu1-prod.disco-api.com/content/videos/" +
-                                                       "?filter[show.id]=corge",
+                    "?filter[show.id]=corge",
                 { headers: { authorization: "Bearer foo" } },
             ]);
             assert.deepEqual(stub.thirdCall.args, [

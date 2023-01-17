@@ -1,6 +1,7 @@
 /**
  * @module
  * @see https://kodi.wiki/view/Add-on:YouTube
+ * @see https://kodi.wiki/view/Add-on:Tubed
  */
 /* eslint-disable require-await */
 
@@ -23,7 +24,7 @@ const YOUTUBE_PLUGIN_URL = "plugin://plugin.video.youtube/play/";
 const TUBED_PLUGIN_URL = "plugin://plugin.video.tubed/?mode=play";
 
 /**
- * Génère l'URL d'une vidéo dans l'extension YouTube.
+ * Génère l'URL d'une vidéo dans l'extension YouTube ou Tubed.
  *
  * @param {string}  videoId   L'identifiant de la vidéo YouTube.
  * @param {boolean} incognito La marque indiquant s'il faut lire la vidéo en
@@ -46,7 +47,7 @@ export const generateVideoUrl = async function (videoId, incognito) {
 };
 
 /**
- * Génère l'URL d'une playlist dans l'extension YouTube.
+ * Génère l'URL d'une playlist dans l'extension YouTube ou Tubed.
  *
  * @param {string}  playlistId L'identifiant de la playlist YouTube.
  * @param {boolean} incognito  La marque indiquant s'il faut lire la playlist en
@@ -73,7 +74,7 @@ export const generatePlaylistUrl = async function (playlistId, incognito) {
 /**
  * Extrait le titre d'une vidéo ou d'une playlist YouTube.
  *
- * @param {URL} url L'URL utilisant le plugin de YouTube.
+ * @param {URL} url L'URL utilisant le plugin de YouTube ou Tubed.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      <code>undefined</code>.
  */

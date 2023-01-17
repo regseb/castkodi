@@ -35,9 +35,8 @@ describe("core/scraper/bigo.js", function () {
         });
 
         it("should return undefined when it's not a video", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ data: [] }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json({ data: [] }));
 
             const url = new URL("https://www.bigo.tv/123");
 
@@ -52,10 +51,11 @@ describe("core/scraper/bigo.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                // eslint-disable-next-line camelcase
-                JSON.stringify({ data: { hls_src: "http://foo.tv/bar.m3u8" } }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                .resolves(Response.json({
+                    // eslint-disable-next-line camelcase
+                    data: { hls_src: "http://foo.tv/bar.m3u8" },
+                }));
 
             const url = new URL("http://www.bigo.tv/123");
 
@@ -70,10 +70,11 @@ describe("core/scraper/bigo.js", function () {
         });
 
         it("should return video URL from other language", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                // eslint-disable-next-line camelcase
-                JSON.stringify({ data: { hls_src: "http://foo.tv/bar.m3u8" } }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                .resolves(Response.json({
+                    // eslint-disable-next-line camelcase
+                    data: { hls_src: "http://foo.tv/bar.m3u8" },
+                }));
 
             const url = new URL("http://www.bigo.tv/ab/123");
 

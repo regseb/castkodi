@@ -20,7 +20,7 @@ describe("core/scraper/iframe.js", function () {
                     <html>
                       <body>
                         <iframe src="https://www.youtube.com/embed/baz"
-                                                                      ></iframe>
+                          ></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -52,7 +52,7 @@ describe("core/scraper/iframe.js", function () {
                     <html>
                       <body>
                         <iframe src="https://www.dailymotion.com/embed/video` +
-                                                                `/baz"></iframe>
+                                    `/baz"></iframe>
                       </body>
                     </html>`, "text/html")),
             };

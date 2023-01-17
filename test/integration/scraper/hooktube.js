@@ -13,8 +13,8 @@ describe("Scraper: HookTube", function () {
 
         const file = await extract(url, options);
         assert.equal(file,
-            "plugin://plugin.video.youtube/play/" +
-                                       "?video_id=LACbVhgtx9I&incognito=false");
+            "plugin://plugin.video.youtube/play/?video_id=LACbVhgtx9I" +
+                                               "&incognito=false");
 
         assert.equal(stub.callCount, 1);
         assert.deepEqual(stub.firstCall.args, ["video"]);
@@ -28,8 +28,8 @@ describe("Scraper: HookTube", function () {
 
         const file = await extract(url, options);
         assert.equal(file,
-            "plugin://plugin.video.youtube/play/" +
-                                        "?video_id=3lPSQ5KjamI&incognito=true");
+            "plugin://plugin.video.youtube/play/?video_id=3lPSQ5KjamI" +
+                                               "&incognito=true");
 
         assert.equal(stub.callCount, 1);
         assert.deepEqual(stub.firstCall.args, ["video"]);

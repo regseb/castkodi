@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import { System } from "../../../../src/core/jsonrpc/system.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
+import { System } from "../../../../src/core/jsonrpc/system.js";
 
 describe("core/jsonrpc/system.js", function () {
     describe("getProperties()", function () {

@@ -7,7 +7,7 @@ describe("core/scraper/pokemontv.js", function () {
         it("should return undefined when it's a unsupported URL",
                                                              async function () {
             const url = new URL("https://watch.pokemon.com/fr-fr/#/season" +
-                                            "?id=la-serie-pokemon-les-voyages");
+                                "?id=la-serie-pokemon-les-voyages");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
@@ -22,8 +22,8 @@ describe("core/scraper/pokemontv.js", function () {
         });
 
         it("should return french video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify([
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json([
                     {
                         media: [],
                     }, {
@@ -38,10 +38,10 @@ describe("core/scraper/pokemontv.js", function () {
                         }],
                     },
                 ]),
-            ));
+            );
 
             const url = new URL("https://watch.pokemon.com/fr-fr/#/player" +
-                                                                     "?id=bar");
+                                "?id=bar");
 
             const file = await scraper.extract(url);
             assert.equal(file, "http://bar.fr");
@@ -53,8 +53,8 @@ describe("core/scraper/pokemontv.js", function () {
         });
 
         it("should return british video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify([
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json([
                     {
                         media: [{
                             id:          "foo",
@@ -63,10 +63,10 @@ describe("core/scraper/pokemontv.js", function () {
                         }],
                     },
                 ]),
-            ));
+            );
 
             const url = new URL("https://watch.pokemon.com/en-gb/#/player" +
-                                                                     "?id=foo");
+                                "?id=foo");
 
             const file = await scraper.extract(url);
             assert.equal(file, "http://foo.co.uk");
@@ -78,8 +78,8 @@ describe("core/scraper/pokemontv.js", function () {
         });
 
         it("should return undefined when id not found", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify([
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json([
                     {
                         media: [{
                             id:          "foo",
@@ -88,10 +88,10 @@ describe("core/scraper/pokemontv.js", function () {
                         }],
                     },
                 ]),
-            ));
+            );
 
             const url = new URL("https://watch.pokemon.com/en-us/#/player" +
-                                                                     "?id=bar");
+                                "?id=bar");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);

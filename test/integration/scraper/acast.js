@@ -27,7 +27,7 @@ describe("Scraper: Acast", function () {
 
     it("should return audio URL from embed", async function () {
         const url = new URL("https://embed.acast.com/5b7ac427c6a58e726f576cff" +
-                                           "/626c0242162abf00141b401b?seek=42");
+                            "/626c0242162abf00141b401b?seek=42");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

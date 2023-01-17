@@ -1,3 +1,7 @@
+/**
+ * @module
+ */
+
 import nodeFetch from "node-fetch";
 
 /**
@@ -11,7 +15,7 @@ import nodeFetch from "node-fetch";
  * @type {string}
  */
 const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" +
-                   " (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36";
+                   " (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36";
 
 /**
  * Cherche une ressource.
@@ -19,6 +23,7 @@ const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" +
  * @param {string}      input  La ressource à collecter.
  * @param {RequestInit} [init] Les paramètres de la requête.
  * @returns {Promise<Response>} Une promesse contenant la réponse.
+ * @see https://developer.mozilla.org/Web/API/fetch
  */
 export const fetch = function (input, init) {
     const headers = {

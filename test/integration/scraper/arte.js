@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { config } from "../config.js";
 import { extract } from "../../../src/core/scrapers.js";
+import { config } from "../config.js";
 
 describe("Scraper: Arte", function () {
     before(function () {
@@ -13,7 +13,7 @@ describe("Scraper: Arte", function () {
 
     it("should return URL when video is unavailable", async function () {
         const url = new URL("https://www.arte.tv/fr/videos/067125-020-A" +
-                                                             "/bits-top-list/");
+                            "/bits-top-list/");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -23,12 +23,13 @@ describe("Scraper: Arte", function () {
     it("should return french video URL", async function () {
         // Récupérer l'URL d'une vidéo parmi les vidéos les plus vues.
         const response = await fetch("https://www.arte.tv/api/rproxy/emac/v3" +
-                                                 "/fr/web/data/VIDEO_LISTING/" +
-                                  "?videoType=MOST_VIEWED&authorizedAreas=ALL");
+                                     "/fr/web/data/VIDEO_LISTING/" +
+                                     "?videoType=MOST_VIEWED" +
+                                     "&authorizedAreas=ALL");
         const json = await response.json();
         // Garder les éléments pointant vers une seule vidéos (et non vers une
         // liste de vidéos).
-        const video = json.data.find((d) => !d.kind.isCollection);
+        const video = json.value.data.find((d) => !d.kind.isCollection);
 
         const url = new URL(video.url, "https://www.arte.tv/");
         const options = { depth: false, incognito: false };
@@ -41,12 +42,13 @@ describe("Scraper: Arte", function () {
     it("should return german video URL", async function () {
         // Récupérer l'URL d'une vidéo parmi les vidéos les plus vues.
         const response = await fetch("https://www.arte.tv/api/rproxy/emac/v3" +
-                                                 "/de/web/data/VIDEO_LISTING/" +
-                                  "?videoType=MOST_VIEWED&authorizedAreas=ALL");
+                                     "/de/web/data/VIDEO_LISTING/" +
+                                     "?videoType=MOST_VIEWED" +
+                                     "&authorizedAreas=ALL");
         const json = await response.json();
         // Garder les éléments pointant vers une seule vidéos (et non vers une
         // liste de vidéos).
-        const video = json.data.find((d) => !d.kind.isCollection);
+        const video = json.value.data.find((d) => !d.kind.isCollection);
 
         const url = new URL(video.url, "https://www.arte.tv/");
         const options = { depth: false, incognito: false };

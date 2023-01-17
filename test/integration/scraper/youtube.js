@@ -20,7 +20,8 @@ describe("Scraper: YouTube", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.youtube.com/watch" +
-                      "?v=avt4ZWlVjdY&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum");
+                            "?v=avt4ZWlVjdY" +
+                            "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -38,7 +39,8 @@ describe("Scraper: YouTube", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.youtube.com/watch" +
-                      "?v=avt4ZWlVjdY&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum");
+                            "?v=avt4ZWlVjdY" +
+                            "&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum");
         const options = { depth: false, incognito: true };
 
         const file = await extract(url, options);
@@ -120,7 +122,7 @@ describe("Scraper: YouTube", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://music.youtube.com/watch" +
-                                       "?v=IOqxarVWKRs&list=RDAMVMIOqxarVWKRs");
+                            "?v=IOqxarVWKRs&list=RDAMVMIOqxarVWKRs");
         const options = { depth: false, incognito: true };
 
         const file = await extract(url, options);
@@ -145,7 +147,7 @@ describe("Scraper: YouTube", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.youtube.com/playlist" +
-                                    "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9");
+                            "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -161,7 +163,7 @@ describe("Scraper: YouTube", function () {
     it("should return URL when it's not a playlist from mobile",
                                                              async function () {
         const url = new URL("https://m.youtube.com/playlist" +
-                                                   "?video=PL3A5849BDE0581B19");
+                            "?video=PL3A5849BDE0581B19");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -173,7 +175,7 @@ describe("Scraper: YouTube", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://m.youtube.com/playlist" +
-                                                    "?list=PL3A5849BDE0581B19");
+                            "?list=PL3A5849BDE0581B19");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -205,7 +207,7 @@ describe("Scraper: YouTube", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.youtube-nocookie.com/embed" +
-                                                                "/u9gVaeb9le4");
+                            "/u9gVaeb9le4");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -251,7 +253,7 @@ describe("Scraper: YouTube", function () {
         const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://youtube.com/shorts/rP34nI3E3bc" +
-                                                              "?feature=share");
+                            "?feature=share");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

@@ -7,7 +7,7 @@ describe("core/scraper/francetv.js", function () {
         it("should return undefined when it's a unsupported URL",
                                                              async function () {
             const url = new URL("https://www.francetelevisions.fr/et-vous" +
-                                                               "/programme-tv");
+                                "/programme-tv");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
@@ -30,12 +30,12 @@ describe("core/scraper/francetv.js", function () {
 
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch")
-                .onFirstCall().resolves(new Response(JSON.stringify({
+                .onFirstCall().resolves(Response.json({
                     video: { token: "https://foo.fr/" },
-                })))
-                .onSecondCall().resolves(new Response(JSON.stringify({
+                }))
+                .onSecondCall().resolves(Response.json({
                     url: "https://bar.fr/baz.mpd",
-                })));
+                }));
 
             const url = new URL("https://www.france.tv/qux");
             const content = {

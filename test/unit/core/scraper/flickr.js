@@ -26,13 +26,13 @@ describe("core/scraper/flickr.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     streams: {
                         stream: [{ _content: "https://foo.net/bar.mp4" }],
                     },
                 }),
-            ));
+            );
 
             const url = new URL("https://www.flickr.com/photos/baz");
             const content = {

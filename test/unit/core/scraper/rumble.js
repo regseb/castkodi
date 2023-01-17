@@ -13,9 +13,8 @@ describe("core/scraper/rumble.js", function () {
         });
 
         it("should return undefined when id is invalid", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify(false),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json(false));
 
             const url = new URL("https://rumble.com/embed/foo");
 
@@ -29,8 +28,8 @@ describe("core/scraper/rumble.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     ua: {
                         360:  ["https://foo.com/bar_360.mp4", 0],
                         480:  ["https://foo.com/bar_480.mp4", 0],
@@ -38,7 +37,7 @@ describe("core/scraper/rumble.js", function () {
                         1080: ["https://foo.com/bar_1080.mp4", 0],
                     },
                 }),
-            ));
+            );
 
             const url = new URL("https://rumble.com/embed/baz");
 

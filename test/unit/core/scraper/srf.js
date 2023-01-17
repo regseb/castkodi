@@ -20,12 +20,11 @@ describe("core/scraper/srf.js", function () {
         });
 
         it("should return undefined when urn is invalid", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ status: "foo" }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json({ status: "foo" }));
 
             const url = new URL("https://www.srf.ch/play/tv/bar/video/baz" +
-                                                                    "?urn=qux");
+                                "?urn=qux");
 
             const file = await scraper.extractVideo(url);
             assert.equal(file, undefined);
@@ -38,8 +37,8 @@ describe("core/scraper/srf.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     chapterList: [{
                         resourceList: [{
                             analyticsMetadata: {
@@ -49,10 +48,10 @@ describe("core/scraper/srf.js", function () {
                         }],
                     }],
                 }),
-            ));
+            );
 
             const url = new URL("https://www.srf.ch/play/tv/baz/video/qux" +
-                                                                   "?urn=quux");
+                                "?urn=quux");
 
             const file = await scraper.extractVideo(url);
             assert.equal(file, "http://foo.ch/bar.m3u8");
@@ -60,7 +59,7 @@ describe("core/scraper/srf.js", function () {
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
                 "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition" +
-                                                                  "/byUrn/quux",
+                    "/byUrn/quux",
             ]);
         });
     });
@@ -75,12 +74,11 @@ describe("core/scraper/srf.js", function () {
         });
 
         it("should return undefined when urn is invalid", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ status: "foo" }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json({ status: "foo" }));
 
             const url = new URL("https://www.srf.ch/play/tv/redirect/detail" +
-                                                                        "/bar");
+                                "/bar");
 
             const file = await scraper.extractRedirect(url);
             assert.equal(file, undefined);
@@ -93,8 +91,8 @@ describe("core/scraper/srf.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
                     chapterList: [{
                         resourceList: [{
                             analyticsMetadata: {
@@ -104,10 +102,10 @@ describe("core/scraper/srf.js", function () {
                         }],
                     }],
                 }),
-            ));
+            );
 
             const url = new URL("https://www.srf.ch/play/tv/redirect/detail" +
-                                                                        "/baz");
+                                "/baz");
 
             const file = await scraper.extractRedirect(url);
             assert.equal(file, "http://foo.ch/bar.m3u8");

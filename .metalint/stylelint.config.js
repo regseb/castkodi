@@ -3,93 +3,80 @@ export default {
 
     rules: {
         // AVOID ERRORS.
-        // Annotation
-        "annotation-no-unknown": true,
+        // Descending.
+        "no-descending-specificity": null,
 
-        // Color.
-        "color-no-invalid-hex": true,
-
-        // Font family.
-        "font-family-no-duplicate-names": true,
-        "font-family-no-missing-generic-family-keyword": true,
-
-        // Named grid areas.
-        "named-grid-areas-no-invalid": true,
-
-        // Function.
-        "function-calc-no-unspaced-operator": true,
-        "function-linear-gradient-no-nonstandard-direction": true,
-        "function-no-unknown": true,
-
-        // String.
-        "string-no-newline": true,
-
-        // Unit.
-        "unit-no-unknown": true,
-
-        // Custom property.
-        "custom-property-no-missing-var-function": true,
-
-        // Property.
-        "property-no-unknown": true,
-
-        // Keyframe declaration.
-        "keyframe-declaration-no-important": true,
-
-        // Keyframe block.
-        "keyframe-block-no-duplicate-selectors": true,
-
-        // Declaration block.
+        // Duplicate.
         "declaration-block-no-duplicate-custom-properties": true,
         "declaration-block-no-duplicate-properties": true,
+        "font-family-no-duplicate-names": true,
+        "keyframe-block-no-duplicate-selectors": true,
+        "no-duplicate-at-import-rules": true,
+        "no-duplicate-selectors": true,
+
+        // Empty.
+        "block-no-empty": [true, { ignore: ["comments"] }],
+        "comment-no-empty": true,
+        "no-empty-source": true,
+
+        // Invalid.
+        "color-no-invalid-hex": true,
+        "function-calc-no-unspaced-operator": true,
+        "keyframe-declaration-no-important": true,
+        "named-grid-areas-no-invalid": true,
+        "no-invalid-double-slash-comments": true,
+        "no-invalid-position-at-import-rule": true,
+        "string-no-newline": true,
+
+        // Irregular.
+        "no-irregular-whitespace": true,
+
+        // Missing.
+        "custom-property-no-missing-var-function": true,
+        "font-family-no-missing-generic-family-keyword": true,
+
+        // Non-stantard.
+        "function-linear-gradient-no-nonstandard-direction": true,
+
+        // Overrides
         "declaration-block-no-shorthand-property-overrides": true,
 
-        // Block.
-        "block-no-empty": [true, { ignore: ["comments"] }],
-
-        // Selector.
+        // Unknown.
+        "annotation-no-unknown": true,
+        "at-rule-no-unknown": true,
+        "function-no-unknown": true,
+        "media-feature-name-no-unknown": true,
+        "no-unknown-animations": true,
+        "property-no-unknown": true,
         "selector-pseudo-class-no-unknown": true,
         "selector-pseudo-element-no-unknown": true,
         "selector-type-no-unknown": [true, { ignore: ["custom-elements"] }],
+        "unit-no-unknown": true,
 
-        // Media feature.
-        "media-feature-name-no-unknown": true,
-
+        // ENFORCE NON-STYLISTIC CONVENTIONS.
+        // Allowed, disallowed & required.
         // At-rule.
-        "at-rule-no-unknown": true,
-
-        // Comment.
-        "comment-no-empty": true,
-
-        // General / Sheet.
-        "no-descending-specificity": null,
-        "no-duplicate-at-import-rules": true,
-        "no-duplicate-selectors": true,
-        "no-empty-source": true,
-        "no-extra-semicolons": true,
-        "no-invalid-double-slash-comments": true,
-        "no-invalid-position-at-import-rule": true,
-
-        // LIMIT LANGUAGE FEATURES.
-        // Alpha-value.
-        "alpha-value-notation": "percentage",
-
-        // Hue.
-        "hue-degree-notation": "angle",
+        "at-rule-allowed-list": null,
+        "at-rule-disallowed-list": null,
+        "at-rule-no-vendor-prefix": true,
+        "at-rule-property-required-list": null,
 
         // Color.
-        "color-function-notation": "modern",
         "color-hex-alpha": null,
         "color-named": "always-where-possible",
         "color-no-hex": null,
 
-        // Length.
-        "length-zero-no-unit": true,
-
-        // Font weight.
-        "font-weight-notation": ["named-where-possible", {
-            ignore: ["relative"],
+        // Comment.
+        "comment-word-disallowed-list": [["/^TODO /", "/^FIXME /"], {
+            severity: "warning",
         }],
+
+        // Declaration.
+        "declaration-no-important": true,
+        "declaration-property-unit-allowed-list": null,
+        "declaration-property-unit-disallowed-list": null,
+        "declaration-property-value-allowed-list": null,
+        "declaration-property-value-disallowed-list": null,
 
         // Function.
         "function-allowed-list": null,
@@ -98,33 +85,14 @@ export default {
         "function-url-scheme-allowed-list": null,
         "function-url-scheme-disallowed-list": null,
 
-        // Imports
-        "import-notation": "string",
+        // Length.
+        "length-zero-no-unit": true,
 
-        // Keyframe selector
-        "keyframe-selector-notation": "keyword",
-
-        // Keyframes.
-        "keyframes-name-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
-
-        // Number.
-        "number-max-precision": 2,
-
-        // Time.
-        "time-min-milliseconds": 100,
-
-        // Unit.
-        "unit-allowed-list": null,
-        "unit-disallowed-list": null,
-
-        // Shorthand property.
-        "shorthand-property-no-redundant-values": true,
-
-        // Value.
-        "value-no-vendor-prefix": true,
-
-        // Custom property.
-        "custom-property-pattern": null,
+        // Media feature.
+        "media-feature-name-allowed-list": null,
+        "media-feature-name-disallowed-list": null,
+        "media-feature-name-no-vendor-prefix": true,
+        "media-feature-name-value-allowed-list": null,
 
         // Property.
         "property-allowed-list": null,
@@ -133,83 +101,106 @@ export default {
             ignoreProperties: ["appearance"],
         }],
 
-        // Declaration.
-        "declaration-no-important": true,
-        "declaration-property-max-values": null,
-        "declaration-property-unit-allowed-list": null,
-        "declaration-property-unit-disallowed-list": null,
-        "declaration-property-value-allowed-list": null,
-        "declaration-property-value-disallowed-list": null,
-
-        // Declaration block.
-        "declaration-block-no-redundant-longhand-properties": true,
-        "declaration-block-single-line-max-declarations": 1,
+        // Rules.
+        "rule-selector-property-disallowed-list": null,
 
         // Selector.
         "selector-attribute-name-disallowed-list": null,
         "selector-attribute-operator-allowed-list": null,
         "selector-attribute-operator-disallowed-list": null,
-        "selector-class-pattern": "^([a-z][0-9a-z]*(-[0-9a-z]+)*" +
-                                                            "|Chrome|Firefox)$",
         "selector-combinator-allowed-list": null,
         "selector-combinator-disallowed-list": null,
         "selector-disallowed-list": null,
-        "selector-id-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+        "selector-no-qualifying-type": null,
+        "selector-no-vendor-prefix": true,
+        "selector-pseudo-class-allowed-list": null,
+        "selector-pseudo-class-disallowed-list": null,
+        "selector-pseudo-element-allowed-list": null,
+        "selector-pseudo-element-disallowed-list": null,
+
+        // Unit.
+        "unit-allowed-list": null,
+        "unit-disallowed-list": null,
+
+        // Value.
+        "value-no-vendor-prefix": true,
+
+        // Max & min.
+        "declaration-block-single-line-max-declarations": 1,
+        "declaration-property-max-values": null,
+        "max-nesting-depth": null,
+        "number-max-precision": 2,
         "selector-max-attribute": null,
         "selector-max-class": null,
         "selector-max-combinators": null,
         "selector-max-compound-selectors": null,
-        "selector-max-empty-lines": 0,
         "selector-max-id": 1,
         "selector-max-pseudo-class": 3,
         "selector-max-specificity": null,
         "selector-max-type": null,
         "selector-max-universal": 1,
-        "selector-nested-pattern": null,
-        "selector-no-qualifying-type": null,
-        "selector-no-vendor-prefix": true,
+        "time-min-milliseconds": 100,
+
+        // Notation.
+        "alpha-value-notation": "percentage",
+        "color-function-notation": "modern",
+        "color-hex-length": "long",
+        "font-weight-notation": ["named-where-possible", {
+            ignore: ["relative"],
+        }],
+        "hue-degree-notation": "angle",
+        "import-notation": "string",
+        "keyframe-selector-notation": "keyword",
+        "media-feature-range-notation": "context",
         "selector-not-notation": "complex",
-        "selector-pseudo-class-allowed-list": null,
-        "selector-pseudo-class-disallowed-list": null,
-        "selector-pseudo-element-allowed-list": null,
         "selector-pseudo-element-colon-notation": "double",
-        "selector-pseudo-element-disallowed-list": null,
 
-        // Rules.
-        "rule-selector-property-disallowed-list": null,
-
-        // Media feature.
-        "media-feature-name-allowed-list": null,
-        "media-feature-name-disallowed-list": null,
-        "media-feature-name-no-vendor-prefix": true,
-        "media-feature-name-value-allowed-list": null,
-
-        // Custom media.
+        // Pattern.
+        "comment-pattern": null,
         "custom-media-pattern": null,
+        "custom-property-pattern": null,
+        "keyframes-name-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+        "selector-class-pattern": "^([a-z][0-9a-z]*(-[0-9a-z]+)*" +
+                                  "|Chromium|Firefox)$",
+        "selector-id-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+        "selector-nested-pattern": null,
+
+        // Quotes.
+        "font-family-name-quotes": "always-where-recommended",
+        "function-url-quotes": "always",
+        "selector-attribute-quotes": "always",
+
+        // Redundant.
+        "declaration-block-no-redundant-longhand-properties": true,
+        "shorthand-property-no-redundant-values": true,
+
+        // ENFORCE STYLISTIC CONVENTIONS.
+        // Not handled by pretty printers.
+        // Value.
+        "value-keyword-case": "lower",
+
+        // Function.
+        "function-name-case": "lower",
+
+        // Custom property.
+        "custom-property-empty-line-before": null,
+
+        // Selector.
+        "selector-type-case": "lower",
+
+        // Rule.
+        "rule-empty-line-before": null,
 
         // At-rule.
-        "at-rule-allowed-list": null,
-        "at-rule-disallowed-list": null,
-        "at-rule-no-vendor-prefix": true,
-        "at-rule-property-required-list": null,
+        "at-rule-empty-line-before": null,
 
         // Comment.
-        "comment-pattern": null,
-        "comment-word-disallowed-list": [["/^TODO /", "/^FIXME /"], {
-            severity: "warning",
-        }],
+        "comment-empty-line-before": null,
+        "comment-whitespace-inside": "always",
 
-        // General / Sheet.
-        "max-nesting-depth": null,
-        "no-unknown-animations": true,
-
-        // STYLISTIC ISSUES.
+        // Handled by pretty printers.
         // Color.
         "color-hex-case": "lower",
-        "color-hex-length": "long",
-
-        // Font family.
-        "font-family-name-quotes": "always-where-recommended",
 
         // Function.
         "function-comma-newline-after": null,
@@ -217,10 +208,8 @@ export default {
         "function-comma-space-after": "always-single-line",
         "function-comma-space-before": "never",
         "function-max-empty-lines": 0,
-        "function-name-case": "lower",
         "function-parentheses-newline-inside": "always-multi-line",
         "function-parentheses-space-inside": "never-single-line",
-        "function-url-quotes": "always",
         "function-whitespace-after": "always",
 
         // Number.
@@ -233,18 +222,12 @@ export default {
         // Unit.
         "unit-case": "lower",
 
-        // Value.
-        "value-keyword-case": "lower",
-
         // Value list.
         "value-list-comma-newline-after": "always-multi-line",
         "value-list-comma-newline-before": "never-multi-line",
         "value-list-comma-space-after": "always-single-line",
         "value-list-comma-space-before": "never",
         "value-list-max-empty-lines": 0,
-
-        // Custom property.
-        "custom-property-empty-line-before": null,
 
         // Property.
         "property-case": "lower",
@@ -279,23 +262,19 @@ export default {
         "selector-attribute-brackets-space-inside": "never",
         "selector-attribute-operator-space-after": "never",
         "selector-attribute-operator-space-before": "never",
-        "selector-attribute-quotes": "always",
         "selector-combinator-space-after": "always",
         "selector-combinator-space-before": "always",
         "selector-descendant-combinator-no-non-space": true,
+        "selector-max-empty-lines": 0,
         "selector-pseudo-class-case": "lower",
         "selector-pseudo-class-parentheses-space-inside": "never",
         "selector-pseudo-element-case": "lower",
-        "selector-type-case": "lower",
 
         // Selector list.
         "selector-list-comma-newline-after": "always-multi-line",
         "selector-list-comma-newline-before": "never-multi-line",
         "selector-list-comma-space-after": "always-single-line",
         "selector-list-comma-space-before": "never",
-
-        // Rule.
-        "rule-empty-line-before": null,
 
         // Media feature.
         "media-feature-colon-space-after": "always",
@@ -312,27 +291,22 @@ export default {
         "media-query-list-comma-space-before": "never",
 
         // At-rule.
-        "at-rule-empty-line-before": null,
         "at-rule-name-case": "lower",
         "at-rule-name-newline-after": null,
         "at-rule-name-space-after": "always",
         "at-rule-semicolon-newline-after": "always",
         "at-rule-semicolon-space-before": "never",
 
-        // Comment.
-        "comment-empty-line-before": null,
-        "comment-whitespace-inside": "always",
-
         // General / Sheet.
         indentation: 4,
         linebreaks: "unix",
         "max-empty-lines": 2,
         "max-line-length": [80, { severity: "warning" }],
-        "no-eol-whitespace": true,
-        "no-missing-end-of-source-newline": true,
         "no-empty-first-line": true,
+        "no-eol-whitespace": true,
+        "no-extra-semicolons": true,
+        "no-missing-end-of-source-newline": true,
         "unicode-bom": "never",
-        "no-irregular-whitespace": true,
 
         // PLUGIN STYLELINT-ORDER.
         "order/order": [

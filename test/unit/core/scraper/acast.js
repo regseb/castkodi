@@ -13,9 +13,8 @@ describe("core/scraper/acast.js", function () {
         });
 
         it("should return undefined when id is invalid", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({}),
-            ));
+            const stub = sinon.stub(globalThis, "fetch")
+                              .resolves(Response.json({}));
 
             const url = new URL("https://play.acast.com/s/foo/bar");
 
@@ -29,9 +28,9 @@ describe("core/scraper/acast.js", function () {
         });
 
         it("should return audio URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ url: "https://foo.com/bar.mp3" }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({ url: "https://foo.com/bar.mp3" }),
+            );
 
             const url = new URL("https://play.acast.com/s/baz/qux?quux=corge");
 
@@ -45,9 +44,9 @@ describe("core/scraper/acast.js", function () {
         });
 
         it("should return audio URL embed", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                JSON.stringify({ url: "https://foo.com/bar.mp3" }),
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({ url: "https://foo.com/bar.mp3" }),
+            );
 
             const url = new URL("https://embed.acast.com/baz/qux?quux=corge");
 

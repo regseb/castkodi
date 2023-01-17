@@ -6,7 +6,7 @@ describe("core/scraper/ultimedia.js", function () {
         it("should return undefined when it's a unsupported URL",
                                                              async function () {
             const url = new URL("https://www.ultimedia.com/default" +
-                                                           "/presentation/cgu");
+                                "/presentation/cgu");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
@@ -14,7 +14,7 @@ describe("core/scraper/ultimedia.js", function () {
 
         it("should return undefined when no script", async function () {
             const url = new URL("https://www.ultimedia.com/deliver/generic" +
-                                                                 "/iframe/foo");
+                                "/iframe/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -28,13 +28,13 @@ describe("core/scraper/ultimedia.js", function () {
 
         it("should return undefined when no inline script", async function () {
             const url = new URL("https://www.ultimedia.com/deliver/generic" +
-                                                                 "/iframe/foo");
+                                "/iframe/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <script src="https://www.ultimedia.com/script.js">` +
-                                                                      `</script>
+                        <script src="https://www.ultimedia.com/script.js"` +
+                          `></script>
                       </body>
                     </html>`, "text/html")),
             };
@@ -45,7 +45,7 @@ describe("core/scraper/ultimedia.js", function () {
 
         it("should return undefined when no station", async function () {
             const url = new URL("https://www.ultimedia.com/deliver/generic" +
-                                                                 "/iframe/foo");
+                                "/iframe/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
@@ -63,7 +63,7 @@ describe("core/scraper/ultimedia.js", function () {
 
         it("should return video URL", async function () {
             const url = new URL("https://www.ultimedia.com/deliver/generic" +
-                                                                 "/iframe/foo");
+                                "/iframe/foo");
             const content = {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>

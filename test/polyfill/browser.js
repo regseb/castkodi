@@ -100,8 +100,8 @@ export const browser = {
         },
         create(item) {
             if ("parentId" in item) {
-                const parent = data.contextMenus.find((i) => i.id ===
-                                                                 item.parentId);
+                const parent = data.contextMenus
+                                   .find((i) => i.id === item.parentId);
                 parent.children = [
                     ...parent.children ?? [],
                     item,
