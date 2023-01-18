@@ -154,10 +154,8 @@ const paste = async function (event) {
         // Pré-remplir le champ (avec la valeur du presse-papier) seulement si
         // le champ est vide.
         if ("" === textarea.value) {
-            const config = await browser.storage.local.get([
-                "general-clipboard",
-            ]);
-            if (config["general-clipboard"]) {
+            const config = await browser.storage.local.get(["popup-clipboard"]);
+            if (config["popup-clipboard"]) {
                 textarea.value = await navigator.clipboard.readText();
             }
         }
@@ -1249,7 +1247,12 @@ globalThis.addEventListener("keyup", (event) => {
         event.preventDefault();
     }
 });
-globalThis.addEventListener("wheel", (event) => {
+globalThis.addEventListener("wheel", async (event) => {
+    const config = await browser.storage.local.get(["popup-wheel"]);
+    // Ne pas modifier le volume si la configuration l'a désactivé.
+    if ("disabled" === config["popup-wheel"]) {
+        return;
+    }
     // Garder le comportement classique de la molette dans une zone de texte.
     const textarea = event.target.closest("textarea");
     if (null !== textarea) {
@@ -1263,7 +1266,10 @@ globalThis.addEventListener("wheel", (event) => {
         return;
     }
 
-    setVolume(0 < event.deltaY ? "increment" : "decrement");
+    setVolume("normal" === config["popup-wheel"] && 0 > event.deltaY ||
+              "reverse" === config["popup-wheel"] && 0 < event.deltaY
+        ? "increment"
+        : "decrement");
     event.preventDefault();
 }, { passive: false });
 

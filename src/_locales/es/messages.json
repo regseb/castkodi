@@ -309,8 +309,23 @@
     "options_generalHistoryInput_textcontent": {
         "message": "Añadir enlaces transmitidos al historial del navegador"
     },
-    "options_generalClipboardInput_textcontent": {
+    "options_popupTitle_textcontent": {
+        "message": "Popup"
+    },
+    "options_popupClipboardInput_textcontent": {
         "message": "Rellene previamente el campo de entrada en la ventana emergente con el contenido del portapapeles"
+    },
+    "options_popupWheelDescription_textcontent": {
+        "message": "Control de volumen con la rueda:"
+    },
+    "options_popupWheelNormal_textcontent": {
+        "message": "Normal"
+    },
+    "options_popupWheelReverse_textcontent": {
+        "message": "Reverso"
+    },
+    "options_popupWheelDisabled_textcontent": {
+        "message": "Inhabilitado"
     },
     "options_menuTitle_textcontent": {
         "message": "Menú contextual"

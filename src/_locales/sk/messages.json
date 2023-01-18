@@ -309,8 +309,23 @@
     "options_generalHistoryInput_textcontent": {
         "message": "Pridať odoslané odkazy do histórie prehliadača"
     },
-    "options_generalClipboardInput_textcontent": {
+    "options_popupTitle_textcontent": {
+        "message": "Popup"
+    },
+    "options_popupClipboardInput_textcontent": {
         "message": "Predvyplňte vstupné pole vo vyskakovacom okne obsahom schránky"
+    },
+    "options_popupWheelDescription_textcontent": {
+        "message": "Ovládanie hlasitosti pomocou kolieska:"
+    },
+    "options_popupWheelNormal_textcontent": {
+        "message": "Normálne"
+    },
+    "options_popupWheelReverse_textcontent": {
+        "message": "Reverzný"
+    },
+    "options_popupWheelDisabled_textcontent": {
+        "message": "Vypnuté"
     },
     "options_menuTitle_textcontent": {
         "message": "Kontextová ponuka"

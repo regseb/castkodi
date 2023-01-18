@@ -254,6 +254,19 @@ const load = function (config) {
 };
 
 /**
+ * Affiche le message d'erreur si la permission pour requêter les sites Internet
+ * est enlevée.
+ *
+ * @param {browser.permissions.Permissions} permissions Les permissions
+ *                                                      supprimées.
+ */
+const handleRemove = function (permissions) {
+    if (permissions.origins?.includes("<all_urls>")) {
+        document.querySelector("#permission").style.display = "block";
+    }
+};
+
+/**
  * Actualise les champs du formulaire quand la configuration change.
  *
  * @param {browser.storage.StorageChange} changes Les paramètres modifiés dans
@@ -293,6 +306,10 @@ for (const input of document.querySelectorAll("[name]")) {
     input.addEventListener("input", save);
 }
 document.querySelector("#server-add").addEventListener("click", add);
+
+// Surveiller des changements de permissions (pour le droit de requêter les
+// sites Internet).
+browser.permissions.onRemoved.addListener(handleRemove);
 
 // Surveiller des changements dans la configuration (qui peuvent arriver si
 // l'utilisateur enlève une permission optionnelle).

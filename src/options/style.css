@@ -93,6 +93,13 @@ td * {
     width: 100%;
 }
 
+#popup-wheel p {
+    display: flex;
+}
+#popup-wheel label {
+    flex-grow: 1;
+}
+
 #menu-actions div {
     display: flex;
     flex-direction: column;

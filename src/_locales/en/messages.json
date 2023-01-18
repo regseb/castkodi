@@ -309,8 +309,23 @@
     "options_generalHistoryInput_textcontent": {
         "message": "Add casted links in browser history"
     },
-    "options_generalClipboardInput_textcontent": {
+    "options_popupTitle_textcontent": {
+        "message": "Popup"
+    },
+    "options_popupClipboardInput_textcontent": {
         "message": "Prefill the input field in the popup with the content of the clipboard"
+    },
+    "options_popupWheelDescription_textcontent": {
+        "message": "Volume control with the wheel:"
+    },
+    "options_popupWheelNormal_textcontent": {
+        "message": "Normal"
+    },
+    "options_popupWheelReverse_textcontent": {
+        "message": "Reverse"
+    },
+    "options_popupWheelDisabled_textcontent": {
+        "message": "Disabled"
     },
     "options_menuTitle_textcontent": {
         "message": "Context menu"

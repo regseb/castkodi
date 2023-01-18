@@ -23,16 +23,17 @@ export const initialize = async function () {
     const { name } = await browser.runtime.getBrowserInfo();
 
     await browser.storage.local.set({
-        "config-version":    5,
-        "server-mode":       "single",
-        "server-list":       [{ address: "", name: "" }],
-        "server-active":     0,
-        "general-history":   false,
-        "general-clipboard": false,
-        "menu-actions":      ["send", "insert", "add"],
-        "menu-contexts":     DEFAULT_MENU_CONTEXTS[name],
-        "youtube-playlist":  "playlist",
-        "youtube-order":     "default",
+        "config-version":   6,
+        "server-mode":      "single",
+        "server-list":      [{ address: "", name: "" }],
+        "server-active":    0,
+        "general-history":  false,
+        "popup-clipboard":  false,
+        "popup-wheel":      "normal",
+        "menu-actions":     ["send", "insert", "add"],
+        "menu-contexts":    DEFAULT_MENU_CONTEXTS[name],
+        "youtube-playlist": "playlist",
+        "youtube-order":    "default",
     });
 };
 
@@ -77,19 +78,28 @@ export const migrate = async function () {
         }));
 
         config["config-version"] = 3;
-        config["server-list"]    = servers;
+        config["server-list"] = servers;
     }
 
     // Ajouter une propriété pour définir l'ordre des playlists YouTube.
     if (3 === config["config-version"]) {
         config["config-version"] = 4;
-        config["youtube-order"]  = "";
+        config["youtube-order"] = "";
     }
 
     // Ajouter une propriété pour indiquer s'il faut lire dans le presse-papier.
     if (4 === config["config-version"]) {
-        config["config-version"]    = 5;
+        config["config-version"] = 5;
         config["general-clipboard"] = false;
+    }
+
+    // Renommer la propriété pour le presse-papier et ajouter une propriété pour
+    // le contrôle du volume avec la molette.
+    if (5 === config["config-version"]) {
+        config["config-version"] = 6;
+        config["popup-clipboard"] = config["general-clipboard"];
+        delete config["general-clipboard"];
+        config["popup-wheel"] = "reverse";
     }
 
     // Vider la configuration pour enlever les éventuelles propriétés obsolètes.
@@ -109,7 +119,7 @@ export const remove = async function (permissions) {
     }
 
     if (permissions.includes("clipboardRead")) {
-        await browser.storage.local.set({ "general-clipboard": false });
+        await browser.storage.local.set({ "popup-clipboard": false });
     }
 
     if (permissions.includes("bookmarks")) {
