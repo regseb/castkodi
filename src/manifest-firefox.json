@@ -7,8 +7,7 @@
     },
     "manifest_version": 3,
     "name": "Cast Kodi",
-    "version": "6.10.0",
-
+    "version": "7.0.0",
     "action": {
         "default_icon": {
             "16": "img/icon16.png",
@@ -27,7 +26,6 @@
         "96": "img/icon96.png",
         "128": "img/icon128.png"
     },
-
     "author": "Sébastien Règne",
     "background": {
         "page": "background/page.html"
@@ -43,7 +41,9 @@
         "extension_pages": "script-src 'self'; object-src 'self'"
     },
     "homepage_url": "https://github.com/regseb/castkodi",
-    "host_permissions": ["<all_urls>"],
+    "host_permissions": [
+        "<all_urls>"
+    ],
     "minimum_chrome_version": "109",
     "optional_permissions": [
         "bookmarks",

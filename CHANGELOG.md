@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/regseb/castkodi/compare/v6.10.0...v7.0.0) (2023-01-24)
+
+
+### Features
+
+* Gérer le contrôle du volume avec la molette. ([935bee8](https://github.com/regseb/castkodi/commit/935bee8d1d1a138febb99897268a8f7e05a61e9e))
+* Indiquer que Kickstarter est géré. ([5ec2f97](https://github.com/regseb/castkodi/commit/5ec2f97e9e39d8a1b5b21ec039e459aa4ceaf9ec))
+* Traduire en espagnol les textes des stores. ([fc3b497](https://github.com/regseb/castkodi/commit/fc3b497b1a8fd621316b57e15f6b5d2e927130cb))
+
+
+### Bug Fixes
+
+* Corriger le scraper pour Veoh. ([57bb500](https://github.com/regseb/castkodi/commit/57bb50087bec284b80a7ed19ac4f978f5316314c))
+* Ne pas ajouter dans le menu quand il y a ni action, ni contexte. ([0b6d88f](https://github.com/regseb/castkodi/commit/0b6d88f71f4bc712c1d9c34bdd1759e1e90cb282))
+* Translated using Weblate (Spanish) ([#87](https://github.com/regseb/castkodi/issues/87)) ([9c69e06](https://github.com/regseb/castkodi/commit/9c69e060277f3e1fe075d7e4a00ec685f9e5040a))
+
 ## [6.10.0](https://github.com/regseb/castkodi/compare/v6.9.1...v6.10.0) (2022-10-30)
 
 
