@@ -38,7 +38,7 @@
         "message": "Autorización no otorgada"
     },
     "notifications_notGranted_message": {
-        "message": "La extensión no puede acceder a sitios web."
+        "message": "La extensión no puede acceder a los sitios web."
     },
     "notifications_unconfigured_title": {
         "message": "Sin dirección"
@@ -256,7 +256,7 @@
         "message": "Cambiar servidor:"
     },
     "options_permissionDescription_textcontent": {
-        "message": "No se permite el acceso a sitios web. La extensión no puede analizar las páginas en busca de videos o música."
+        "message": "No se permite el acceso a los sitios web. La extensión no puede rastrear páginas de videos o música."
     },
     "options_permissionButton_textcontent": {
         "message": "Permitir el acceso"
@@ -310,7 +310,7 @@
         "message": "Añadir enlaces transmitidos al historial del navegador"
     },
     "options_popupTitle_textcontent": {
-        "message": "Popup"
+        "message": "Ventana emergente"
     },
     "options_popupClipboardInput_textcontent": {
         "message": "Rellene previamente el campo de entrada en la ventana emergente con el contenido del portapapeles"
