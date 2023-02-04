@@ -16,7 +16,7 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
       <li>🇳🇱&nbsp;Holandsko: Dumpert;</li>
       <li>🇮🇷&nbsp;Irán: آپارات<!-- Aparat -->;</li>
       <li>🇮🇸&nbsp;Island: Útvarp&nbsp;Saga;</li>
-      <li>🇩🇪&nbsp;Nemecko: ARD&nbsp;Mediathek, Arte, DMAX, ZDF;</li>
+      <li>🇩🇪&nbsp;Nemecko: ARD&nbsp;Mediathek, Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;</li>
       <li>🇬🇧&nbsp;Spojené kráľovstvo: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
       <li>🇨🇭&nbsp;Švajčiarsko: Play&nbsp;SRF;</li>
       <li>🇺🇸&nbsp;USA: Bally&nbsp;Sports, KCAA&nbsp;Radio.</li>
