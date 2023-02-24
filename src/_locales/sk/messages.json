@@ -72,7 +72,15 @@
         "message": "Nepodporovaná verzia Kodi"
     },
     "notifications_notSupported_message": {
-        "message": "Je potrebná verzia Kodi 19 (Matrix)."
+        "message": "Je potrebná verzia Kodi $NUMBER$ ($NAME$).",
+        "placeholders": {
+            "number": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
     },
     "notifications_noLink_title": {
         "message": "Nepodporovaný odkaz"

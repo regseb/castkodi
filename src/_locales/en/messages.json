@@ -72,7 +72,15 @@
         "message": "Kodi version not supported"
     },
     "notifications_notSupported_message": {
-        "message": "Kodi version 19 (Matrix) is required."
+        "message": "Kodi version $NUMBER$ ($NAME$) is required.",
+        "placeholders": {
+            "number": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
     },
     "notifications_noLink_title": {
         "message": "Unsupported link"

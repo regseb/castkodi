@@ -13,13 +13,24 @@ import { Playlist } from "./playlist.js";
 import { System } from "./system.js";
 
 /**
- * La version minimale de l'API JSON-RPC de Kodi nécessaire. Le numéro de
- * de l'API est différent du numéro de version de Kodi.
+ * @typedef {Object} KodiVersions Les versions de Kodi.
+ * @property {number} API_VERSION La version de l'API JSON-RPC.
+ * @property {number} VERSION     La version de Kodi.
+ * @property {string} NAME        Le nom de la version de Kodi.
+ */
+
+/**
+ * La version minimale de l'API JSON-RPC de Kodi nécessaire ; et la version
+ * (ainsi que son nom) de Kodi liée à la version de l'API.
  *
- * @type {number}
+ * @type {KodiVersions}
  * @see https://kodi.wiki/view/JSON-RPC_API#API_versions
  */
-const KODI_JSONRPC_API_VERSION = 12;
+const KODI_VERSIONS = {
+    API_VERSION: 12,
+    VERSION:     19,
+    NAME:        "Matrix",
+};
 
 /**
  * Le client JSON-RPC pour contacter Kodi.
@@ -41,8 +52,11 @@ export const Kodi = class {
         const kodi = new Kodi(address);
         const result = await kodi.send("JSONRPC.Version");
         kodi.close();
-        if (KODI_JSONRPC_API_VERSION > result.version.major) {
-            throw new PebkacError("notSupported");
+        if (KODI_VERSIONS.API_VERSION > result.version.major) {
+            throw new PebkacError("notSupported", [
+                KODI_VERSIONS.VERSION.toString(),
+                KODI_VERSIONS.NAME,
+            ]);
         }
         return "OK";
     }

@@ -132,7 +132,9 @@ export const browser = {
     },
 
     i18n: {
-        getMessage(key, ...substitutions) {
+        getMessage(key, substitution) {
+            const substitutions = Array.isArray(substitution) ? substitution
+                                                              : [substitution];
             return Object.keys(MESSAGES[key]?.placeholders ?? {})
                          .reduce((message, placeholder, index) => {
                 return message.replace("$" + placeholder.toUpperCase() + "$",

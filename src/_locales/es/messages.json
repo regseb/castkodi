@@ -72,7 +72,15 @@
         "message": "Versión de Kodi no soportada"
     },
     "notifications_notSupported_message": {
-        "message": "Se requiere la versión 19 (Matrix) de Kodi."
+        "message": "Se requiere la versión $NUMBER$ ($NAME$) de Kodi.",
+        "placeholders": {
+            "number": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
     },
     "notifications_noLink_title": {
         "message": "Enlace no soportado"
