@@ -32,8 +32,8 @@ const action = async function (url, content, options) {
         return undefined;
     }
 
-    for (const iframe of doc.querySelectorAll("iframe[data-ofiframe-src]")) {
-        const file = await metaExtract(new URL(iframe.dataset.ofiframeSrc, url),
+    for (const iframe of doc.querySelectorAll("iframe[data-embed-src]")) {
+        const file = await metaExtract(new URL(iframe.dataset.embedSrc, url),
                                        { ...options, depth: true });
         if (undefined !== file) {
             return file;

@@ -27,8 +27,8 @@ describe("core/scraper/ouestfrance.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <iframe data-ofiframe-src="https://www.youtube.com` +
-                                                 `/embed/bar"></iframe>
+                        <iframe data-embed-src="https://www.youtube.com` +
+                                               `/embed/bar"></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -58,7 +58,7 @@ describe("core/scraper/ouestfrance.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <iframe data-ofiframe-src="//bar.com/"></iframe>
+                        <iframe data-embed-src="//bar.com/"></iframe>
                       </body>
                     </html>`, "text/html")),
             };
@@ -74,9 +74,9 @@ describe("core/scraper/ouestfrance.js", function () {
                 html: () => Promise.resolve(new DOMParser().parseFromString(`
                     <html>
                       <body>
-                        <iframe data-ofiframe-src="//bar.com/"></iframe>
-                        <iframe data-ofiframe-src="//www.dailymotion.com` +
-                                                 `/video/baz"></iframe>
+                        <iframe data-embed-src="//bar.com/"></iframe>
+                        <iframe data-embed-src="//www.dailymotion.com/video` +
+                                               `/baz"></iframe>
                       </body>
                     </html>`, "text/html")),
             };
