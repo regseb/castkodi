@@ -12,7 +12,10 @@ describe("Scraper: Kickstarter", function () {
         assert.equal(file, url.href);
     });
 
-    it("should return video URL [media]", async function () {
+    // Désactiver ce test car Kickstarter bloque les requêtes venant de Node.js
+    // ("www.kickstarter.com needs to review the security of your connection
+    // before proceeding. Performance & security by Cloudflare").
+    it.skip("should return video URL [media]", async function () {
         const url = new URL("https://www.kickstarter.com/projects/coreywright" +
                             "/kartoffelkrieg-potato-wars");
         const options = { depth: false, incognito: false };

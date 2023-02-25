@@ -10,7 +10,9 @@ describe("Scraper: VideosHub", function () {
         assert.equal(file, url.href);
     });
 
-    it("should return video URL", async function () {
+    // Désactiver ce test car VideosHub est temporairement indisponible ("503
+    // Service Temporarily Unavailable").
+    it.skip("should return video URL", async function () {
         const url = new URL("https://videoshub.com/videos/25310930");
         const options = { depth: false, incognito: false };
 
