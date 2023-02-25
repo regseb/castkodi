@@ -27,9 +27,12 @@ const action = async function (_url, content) {
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = DATA_REGEXP.exec(script.text);
         if (null !== result) {
-            return result.groups.source + "|Referer=https://uqload.com/";
+            return result.groups.source + "|Referer=https://uqload.co/";
         }
     }
     return undefined;
 };
-export const extract = matchPattern(action, "*://uqload.com/*.html");
+export const extract = matchPattern(action,
+    "*://uqload.co/*.html",
+    // Ajouter aussi l'ancien nom de domaine (qui redirige vers le nouveau).
+    "*://uqload.com/*.html");
