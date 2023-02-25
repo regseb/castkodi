@@ -30,8 +30,9 @@ describe("core/jsonrpc/kodi.js", function () {
             });
 
             await assert.rejects(() => Kodi.check("foo.com"), {
-                name: "PebkacError",
-                type: "notSupported",
+                name:    "PebkacError",
+                message: "Kodi version 19 (Matrix) is required.",
+                type:    "notSupported",
             });
 
             assert.equal(stub.callCount, 1);
@@ -167,33 +168,37 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return error when address is invalid", async function () {
-            const kodi = new Kodi("bad address");
-            await assert.rejects(() => kodi.send("Foo"), {
-                name: "PebkacError",
-                type: "badAddress",
+            const kodi = new Kodi("foo bar");
+            await assert.rejects(() => kodi.send("Baz"), {
+                name:    "PebkacError",
+                message: "Address of Kodi Web server foo bar is invalid.",
+                type:    "badAddress",
             });
         });
 
         it("should return error when IP is invalid", async function () {
             const kodi = new Kodi("192.168");
             await assert.rejects(() => kodi.send("Foo"), {
-                name: "PebkacError",
-                type: "badAddress",
+                name:    "PebkacError",
+                message: "Address of Kodi Web server 192.168 is invalid.",
+                type:    "badAddress",
             });
         });
 
         it("should return error when receive 400", async function () {
             const stub = sinon.stub(JSONRPC, "open").rejects(new Error("foo"));
 
-            const kodi = new Kodi("localhost");
-            await assert.rejects(() => kodi.send("Foo"), {
-                name: "PebkacError",
-                type: "notFound",
+            const kodi = new Kodi("bar");
+            await assert.rejects(() => kodi.send("Baz"), {
+                name:    "PebkacError",
+                message: "Address of Kodi Web server bar is invalid or Kodi's" +
+                         " remote control isn't enabled.",
+                type:    "notFound",
             });
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                new URL("ws://localhost:9090/jsonrpc"),
+                new URL("ws://bar:9090/jsonrpc"),
             ]);
         });
 

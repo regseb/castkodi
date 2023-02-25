@@ -82,8 +82,8 @@ describe("core/index.js", function () {
         it("should reject invalid url", async function () {
             await assert.rejects(() => cast("send", ["foo://bar"]), {
                 name:    "PebkacError",
-                type:    "noLink",
                 message: "Link foo://bar is invalid.",
+                type:    "noLink",
             });
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
