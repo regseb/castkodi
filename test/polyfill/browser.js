@@ -62,25 +62,14 @@ const data = {
  * @see https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API
  */
 export const browser = {
-    _clear() {
-        data.bookmarks.data.length = 0;
-        data.bookmarks.index = 0;
-        data.contextMenus.length = 0;
-        data.histories.length = 0;
-        data.permissions.data.origins.clear();
-        data.permissions.data.permissions.clear();
-        data.permissions.listeners.length = 0;
-        data.runtime.browserInfo = { name: "" };
-        Object.keys(data.storage.local.data).forEach((property) => {
-            delete data.storage.local.data[property];
-        });
-        data.storage.local.listeners.length = 0;
-        data.tabs.length = 0;
-
-        browser.extension.inIncognitoContext = false;
-    },
-
     bookmarks: {
+
+        /**
+         * Crée un marque-page.
+         *
+         * @param {Object} options Les données du marque-page.
+         * @returns {Object} Le marque-page créé.
+         */
         create(options) {
             const bookmark = {
                 id: (++data.bookmarks.index).toString(),
@@ -89,49 +78,87 @@ export const browser = {
             data.bookmarks.data.push(bookmark);
             return bookmark;
         },
+
+        /**
+         * Récupère des marque-pages.
+         *
+         * @param {string} id L'identifiant des marque-pages.
+         * @returns {Object[]} Les marque-pages ayant l'identifiant.
+         */
         get(id) {
             return data.bookmarks.data.filter((b) => id === b.id);
         },
     },
 
     contextMenus: {
-        _getAll() {
-            return data.contextMenus;
-        },
+
+        /**
+         * Crée un élément dans le menu contextuel.
+         *
+         * @param {Object} item Les données de l'élément.
+         */
         create(item) {
-            if ("parentId" in item) {
-                const parent = data.contextMenus
-                                   .find((i) => i.id === item.parentId);
-                parent.children = [
-                    ...parent.children ?? [],
-                    item,
-                ];
-            } else {
-                data.contextMenus.push(item);
-            }
+            data.contextMenus.push(item);
         },
+
+        /**
+         * Enlève tous les éléments du menu contextuel.
+         */
         removeAll() {
             data.contextMenus.length = 0;
         },
     },
 
     extension: {
+
+        /**
+         * La marque indiquant si l'utilisateur est en navigation privée.
+         *
+         * @type {boolean}
+         */
         inIncognitoContext: false,
     },
 
     history: {
+
+        /**
+         * Ajoute une page dans l'historique.
+         *
+         * @param {Object} details Les données de la page.
+         */
         addUrl(details) {
             data.histories.push(details);
         },
+
+        /**
+         * Supprime toutes les pages de l'historique.
+         */
         deleteAll() {
             data.histories.length = 0;
         },
+
+        /**
+         * Cherche des pages dans l'historique.
+         *
+         * @param {Object} query      Les filtres de la recherche.
+         * @param {string} query.text Le texte cherché dans les URLs des pages.
+         * @returns {Object[]} Les pages respectant les filtres.
+         */
         search({ text }) {
             return data.histories.filter((h) => h.url.includes(text));
         },
     },
 
     i18n: {
+
+        /**
+         * Récupère un message.
+         *
+         * @param {string}          key          La clé du message.
+         * @param {string|string[]} substitution Les éléments insérés dans le
+         *                                       message.
+         * @returns {string} Le message.
+         */
         getMessage(key, substitution) {
             const substitutions = Array.isArray(substitution) ? substitution
                                                               : [substitution];
@@ -144,6 +171,14 @@ export const browser = {
     },
 
     notifications: {
+
+        /**
+         * Crée une notification.
+         *
+         * @param {string} _id      L'identifiant de la notification.
+         * @param {Object} _options Les options de la notification.
+         * @throws {Error} Si la méthode n'est pas implémentée.
+         */
         create(_id, _options) {
             throw new Error("no polyfill for browser.notifications.create" +
                             " function");
@@ -200,10 +235,6 @@ export const browser = {
         getBrowserInfo() {
             return Promise.resolve(data.runtime.browserInfo);
         },
-
-        _setBrowserInfo(browserInfo) {
-            data.runtime.browserInfo = browserInfo;
-        },
     },
 
     storage: {
@@ -243,4 +274,25 @@ export const browser = {
             },
         },
     },
+};
+
+/**
+ * Réinitialise les données de la prothèse des APIs des WebExtensions.
+ */
+export const clear = function () {
+    data.bookmarks.data.length = 0;
+    data.bookmarks.index = 0;
+    data.contextMenus.length = 0;
+    data.histories.length = 0;
+    data.permissions.data.origins.clear();
+    data.permissions.data.permissions.clear();
+    data.permissions.listeners.length = 0;
+    data.runtime.browserInfo = { name: "" };
+    Object.keys(data.storage.local.data).forEach((property) => {
+        delete data.storage.local.data[property];
+    });
+    data.storage.local.listeners.length = 0;
+    data.tabs.length = 0;
+
+    browser.extension.inIncognitoContext = false;
 };

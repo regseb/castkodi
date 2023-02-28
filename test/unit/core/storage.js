@@ -1,11 +1,12 @@
 import assert from "node:assert/strict";
+import sinon from "sinon";
 import * as storage from "../../../src/core/storage.js";
 
 describe("core/storage.js", function () {
     describe("initialize()", function () {
         it("should create config in Chromium", async function () {
-            // eslint-disable-next-line no-underscore-dangle
-            browser.runtime._setBrowserInfo({ name: "Chromium" });
+            const stub = sinon.stub(browser.runtime, "getBrowserInfo")
+                              .resolves({ name: "Chromium" });
 
             await storage.initialize();
             const config = await browser.storage.local.get();
@@ -24,11 +25,14 @@ describe("core/storage.js", function () {
                 "youtube-playlist": "playlist",
                 "youtube-order":    "default",
             });
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, []);
         });
 
         it("should create config in Firefox", async function () {
-            // eslint-disable-next-line no-underscore-dangle
-            browser.runtime._setBrowserInfo({ name: "Firefox" });
+            const stub = sinon.stub(browser.runtime, "getBrowserInfo")
+                              .resolves({ name: "Firefox" });
 
             await storage.initialize();
             const config = await browser.storage.local.get();
@@ -53,6 +57,9 @@ describe("core/storage.js", function () {
                 "youtube-playlist": "playlist",
                 "youtube-order":    "default",
             });
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, []);
         });
     });
 

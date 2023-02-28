@@ -11,11 +11,11 @@ describe("core/menu.js", function () {
                 "menu-actions":  [],
                 "menu-contexts": ["audio"],
             });
+            const spy = sinon.spy(browser.contextMenus, "create");
 
             await menu.update();
-            // eslint-disable-next-line no-underscore-dangle
-            const items = browser.contextMenus._getAll();
-            assert.deepEqual(items, []);
+
+            assert.equal(spy.callCount, 0);
         });
 
         it("shouldn't add item because no context", async function () {
@@ -24,11 +24,11 @@ describe("core/menu.js", function () {
                 "menu-actions":  ["send"],
                 "menu-contexts": [],
             });
+            const spy = sinon.spy(browser.contextMenus, "create");
 
             await menu.update();
-            // eslint-disable-next-line no-underscore-dangle
-            const items = browser.contextMenus._getAll();
-            assert.deepEqual(items, []);
+
+            assert.equal(spy.callCount, 0);
         });
 
         it("should add one item", async function () {
@@ -37,11 +37,12 @@ describe("core/menu.js", function () {
                 "menu-actions":  ["send"],
                 "menu-contexts": ["frame"],
             });
+            const spy = sinon.spy(browser.contextMenus, "create");
 
             await menu.update();
-            // eslint-disable-next-line no-underscore-dangle
-            const items = browser.contextMenus._getAll();
-            assert.deepEqual(items, [{
+
+            assert.equal(spy.callCount, 1);
+            assert.deepEqual(spy.firstCall.args, [{
                 contexts: ["frame"],
                 id:       "send",
                 title:    "Play now to Kodi",
@@ -54,25 +55,27 @@ describe("core/menu.js", function () {
                 "menu-actions":  ["insert", "add"],
                 "menu-contexts": ["link"],
             });
+            const spy = sinon.spy(browser.contextMenus, "create");
 
             await menu.update();
-            // eslint-disable-next-line no-underscore-dangle
-            const items = browser.contextMenus._getAll();
-            assert.deepEqual(items, [{
+
+            assert.equal(spy.callCount, 3);
+            assert.deepEqual(spy.firstCall.args, [{
                 contexts: ["link"],
                 id:       "parent",
                 title:    "Cast to Kodi",
-                children: [{
-                    contexts: ["link"],
-                    id:       "insert",
-                    parentId: "parent",
-                    title:    "Play next",
-                }, {
-                    contexts: ["link"],
-                    id:       "add",
-                    parentId: "parent",
-                    title:    "Queue item",
-                }],
+            }]);
+            assert.deepEqual(spy.secondCall.args, [{
+                contexts: ["link"],
+                id:       "insert",
+                parentId: "parent",
+                title:    "Play next",
+            }]);
+            assert.deepEqual(spy.thirdCall.args, [{
+                contexts: ["link"],
+                id:       "add",
+                parentId: "parent",
+                title:    "Queue item",
             }]);
         });
 
@@ -90,39 +93,43 @@ describe("core/menu.js", function () {
                 "menu-actions":  ["send"],
                 "menu-contexts": ["page"],
             });
+            const spy = sinon.spy(browser.contextMenus, "create");
 
             await menu.update();
-            // eslint-disable-next-line no-underscore-dangle
-            const items = browser.contextMenus._getAll();
-            assert.deepEqual(items, [{
+
+            assert.equal(spy.callCount, 5);
+            assert.deepEqual(spy.getCall(0).args, [{
                 contexts: ["page"],
                 id:       "parent",
                 title:    "Cast to Kodi",
-                children: [{
-                    contexts: ["page"],
-                    id:       "send",
-                    parentId: "parent",
-                    title:    "Play now",
-                }, {
-                    contexts: ["page"],
-                    id:       "separator",
-                    parentId: "parent",
-                    type:     "separator",
-                }, {
-                    checked:  false,
-                    contexts: ["page"],
-                    id:       "0",
-                    parentId: "parent",
-                    title:    "foo",
-                    type:     "radio",
-                }, {
-                    checked:  true,
-                    contexts: ["page"],
-                    id:       "1",
-                    parentId: "parent",
-                    title:    "(noname 2)",
-                    type:     "radio",
-                }],
+            }]);
+            assert.deepEqual(spy.getCall(1).args, [{
+                contexts: ["page"],
+                id:       "send",
+                parentId: "parent",
+                title:    "Play now",
+            }]);
+            assert.deepEqual(spy.getCall(2).args, [{
+                contexts: ["page"],
+                id:       "separator",
+                parentId: "parent",
+                type:     "separator",
+            }]);
+            assert.deepEqual(spy.getCall(3).args, [{
+                checked:  false,
+                contexts: ["page"],
+                id:       "0",
+                parentId: "parent",
+                title:    "foo",
+                type:     "radio",
+            }]);
+            assert.deepEqual(spy.getCall(4).args, [{
+                checked:  true,
+                contexts: ["page"],
+                id:       "1",
+                parentId: "parent",
+                title:    "(noname 2)",
+                type:     "radio",
             }]);
         });
 
@@ -137,42 +144,47 @@ describe("core/menu.js", function () {
                 "menu-actions":  ["send", "insert", "add"],
                 "menu-contexts": ["selection", "video"],
             });
+            const spy = sinon.spy(browser.contextMenus, "create");
 
             await menu.update();
-            // eslint-disable-next-line no-underscore-dangle
-            const items = browser.contextMenus._getAll();
-            assert.deepEqual(items, [{
+
+            assert.equal(spy.callCount, 6);
+            assert.deepEqual(spy.getCall(0).args, [{
                 contexts: ["selection", "video"],
                 id:       "parent",
                 title:    "Cast to Kodi",
-                children: [{
-                    contexts: ["selection", "video"],
-                    id:       "send",
-                    parentId: "parent",
-                    title:    "Play now",
-                }, {
-                    contexts: ["selection", "video"],
-                    id:       "insert",
-                    parentId: "parent",
-                    title:    "Play next",
-                }, {
-                    contexts: ["selection", "video"],
-                    id:       "add",
-                    parentId: "parent",
-                    title:    "Queue item",
-                }, {
-                    contexts: ["selection", "video"],
-                    id:       "separator",
-                    parentId: "parent",
-                    type:     "separator",
-                }, {
-                    checked:  false,
-                    contexts: ["selection", "video"],
-                    id:       "0",
-                    parentId: "parent",
-                    title:    "(noname 1)",
-                    type:     "radio",
-                }],
+            }]);
+            assert.deepEqual(spy.getCall(1).args, [{
+                contexts: ["selection", "video"],
+                id:       "send",
+                parentId: "parent",
+                title:    "Play now",
+            }]);
+            assert.deepEqual(spy.getCall(2).args, [{
+                contexts: ["selection", "video"],
+                id:       "insert",
+                parentId: "parent",
+                title:    "Play next",
+            }]);
+            assert.deepEqual(spy.getCall(3).args, [{
+                contexts: ["selection", "video"],
+                id:       "add",
+                parentId: "parent",
+                title:    "Queue item",
+            }]);
+            assert.deepEqual(spy.getCall(4).args, [{
+                contexts: ["selection", "video"],
+                id:       "separator",
+                parentId: "parent",
+                type:     "separator",
+            }]);
+            assert.deepEqual(spy.getCall(5).args, [{
+                checked:  false,
+                contexts: ["selection", "video"],
+                id:       "0",
+                parentId: "parent",
+                title:    "(noname 1)",
+                type:     "radio",
             }]);
         });
     });
