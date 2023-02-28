@@ -22,7 +22,7 @@ const search = function (doc) {
     for (let attribut = results.iterateNext();
             null !== attribut;
             attribut = results.iterateNext()) {
-        attributes.push(attribut);
+        attributes.push(/** @type {Attr} */ (attribut));
     }
     return attributes;
 };

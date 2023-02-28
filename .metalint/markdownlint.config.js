@@ -1,3 +1,12 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
+/**
+ * @type {import("markdownlint").Configuration}
+ */
 export default {
     "heading-increment": true,
     "heading-style": { style: "atx" },

@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 export default {
     plugins: [
         "array-func",
@@ -310,7 +316,7 @@ export default {
         "keyword-spacing": 2,
         "line-comment-position": 2,
         "linebreak-style": 2,
-        "lines-around-comment": 2,
+        "lines-around-comment": [2, { afterHashbangComment: true }],
         "lines-between-class-members": 2,
         "max-len": 1,
         "max-statements-per-line": [2, { max: 2 }],
@@ -448,7 +454,11 @@ export default {
         // les imports ne sont pas gérés.
         // https://github.com/import-js/eslint-plugin-import/issues/2673
         "import/newline-after-import": [2, { considerComments: false }],
-        "import/no-anonymous-default-export": 2,
+        "import/no-anonymous-default-export": [2, {
+            allowArray: true,
+            allowCallExpression: false,
+            allowObject: true,
+        }],
         "import/no-default-export": 0,
         "import/no-duplicates": 2,
         "import/no-named-default": 2,
@@ -469,10 +479,13 @@ export default {
         // https://github.com/gajus/eslint-plugin-jsdoc/releases/tag/v37.0.0
         "jsdoc/check-examples": 0,
         "jsdoc/check-indentation": 0,
-        // Ne pas activer cette règle car elle demande d'aligner les paramètres
-        // et les valeurs de retours (l'option "tags" fonctionne seulement avec
-        // "never").
-        "jsdoc/check-line-alignment": 0,
+        "jsdoc/check-line-alignment": [2, "always", {
+            tags: ["param", "property"],
+            customSpacings: {
+                postDelimiter: 1,
+                postTag: 1,
+            },
+        }],
         "jsdoc/check-param-names": 2,
         "jsdoc/check-property-names": 2,
         "jsdoc/check-syntax": 2,

@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 export default {
     plugins: ["stylelint-order"],
 

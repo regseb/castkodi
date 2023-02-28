@@ -16,10 +16,10 @@ const URL_REGEXP = /url: '(?<url>https:\/\/.*\/manifest.m3u8)'/u;
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url              L'URL d'une vidéo de StarGR.
- * @param {Object}   content           Le contenu de l'URL.
- * @param {Function} content.html      La fonction retournant la promesse
- *                                     contenant le document HTML.
+ * @param {URL}      _url         L'URL d'une vidéo de StarGR.
+ * @param {Object}   content      Le contenu de l'URL.
+ * @param {Function} content.html La fonction retournant la promessecontenant le
+ *                                document HTML.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
