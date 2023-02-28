@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.1.0](https://github.com/regseb/castkodi/compare/v7.0.0...v7.1.0) (2023-02-28)
+
+
+### Features
+
+* Indiquer le support de VidLii. ([74242e3](https://github.com/regseb/castkodi/commit/74242e35f5f29829e192b0472ce1ceb319c6b8a5))
+* Indiquer le support du Chaos Computer Club. ([ec234d1](https://github.com/regseb/castkodi/commit/ec234d1368d03b7ad44aa1c73e6752b8e9e8b5a7))
+
+
+### Bug Fixes
+
+* **ouestfrance:** Chercher dans le nouvel attribut des IFrames. ([fc519b6](https://github.com/regseb/castkodi/commit/fc519b6e84171559414a6f007b2a14661a5276da))
+* Translated using Weblate (Spanish) ([d19e215](https://github.com/regseb/castkodi/commit/d19e2154ef14e0140e85912442d45387f493593c))
+* **uqload:** Utiliser le nouveau nom de domaine. ([6440ea4](https://github.com/regseb/castkodi/commit/6440ea49becddd841fe0fd5942c4bc8510f44b57))
+
 ## [7.0.0](https://github.com/regseb/castkodi/compare/v6.10.0...v7.0.0) (2023-01-24)
 
 
