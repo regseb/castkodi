@@ -1,0 +1,413 @@
+{
+  "manifest_description": {
+    "message": "Stuur video's en muzien van meer dan 50 sites (YouTube, Twitch, Vimeo, SoundCloud, torrent, …) naar Kodi."
+  },
+  "menus_firstParent": {
+    "message": "Stuur naar Kodi"
+  },
+  "menus_firstSend": {
+    "message": "Nu afspelen met Kodi"
+  },
+  "menus_firstInsert": {
+    "message": "Hierna afspelen met Kodi"
+  },
+  "menus_firstAdd": {
+    "message": "Aan afspeellijst toevoegen naar Kodi"
+  },
+  "menus_secondSend": {
+    "message": "Nu afspelen"
+  },
+  "menus_secondInsert": {
+    "message": "Hierna afspelen"
+  },
+  "menus_secondAdd": {
+    "message": "Aan afspeellijst toevoegen"
+  },
+  "menus_noName": {
+    "message": "(geen naam $INDEX$)",
+    "placeholders": {
+      "index": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifications_unknown_title": {
+    "message": "Onbekende fout"
+  },
+  "notifications_notGranted_title": {
+    "message": "Autorisatie niet verleend"
+  },
+  "notifications_notGranted_message": {
+    "message": "De extensie krijgt geen toegang tot websites."
+  },
+  "notifications_unconfigured_title": {
+    "message": "Geen adres"
+  },
+  "notifications_unconfigured_message": {
+    "message": "Adres van de Kodi webserver is niet in de opties ingevuld."
+  },
+  "notifications_badAddress_title": {
+    "message": "Foutief adres"
+  },
+  "notifications_badAddress_message": {
+    "message": "Adres van de Kodi webserver $ADDRESS$ is foutief.",
+    "placeholders": {
+      "address": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifications_notFound_title": {
+    "message": "Kodi niet gevonden"
+  },
+  "notifications_notFound_message": {
+    "message": "Adres van de Kodi webserver $ADDRESS$ is foutief, of Kodi's externe controle is niet ingeschakeld.",
+    "placeholders": {
+      "address": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifications_notSupported_title": {
+    "message": "Kodi-versie wordt niet ondersteund"
+  },
+  "notifications_notSupported_message": {
+    "message": "Kodi-versie $NUMBER$ ($NAME$) is vereist.",
+    "placeholders": {
+      "number": {
+        "content": "$1"
+      },
+      "name": {
+        "content": "$2"
+      }
+    }
+  },
+  "notifications_noLink_title": {
+    "message": "Niet-ondersteunde link"
+  },
+  "notifications_noLink_message": {
+    "message": "Link $URL$ is foutief.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifications_noLinks_title": {
+    "message": "Niet-ondersteunde link"
+  },
+  "notifications_noLinks_message": {
+    "message": "Tekst is geen acceptabele link."
+  },
+  "popup_send_title": {
+    "message": "Nu afspelen met Kodi [P]"
+  },
+  "popup_insert_title": {
+    "message": "Hierna afspelen met Kodi [N]"
+  },
+  "popup_add_title": {
+    "message": "Aan afspeellijst toevoegen naar Kodi [Q]"
+  },
+  "popup_paste_title": {
+    "message": "Plak link… [V]"
+  },
+  "popup_server_title": {
+    "message": "Verander server"
+  },
+  "popup_previous_title": {
+    "message": "Ga naar de vorige [PageUp]"
+  },
+  "popup_rewind_title": {
+    "message": "Terugspoelen [R]"
+  },
+  "popup_stop_title": {
+    "message": "Stop [X]"
+  },
+  "popup_pause_title": {
+    "message": "Pauze [Spatiebalk]"
+  },
+  "popup_play_title": {
+    "message": "Afspelen [Spatiebalk]"
+  },
+  "popup_forward_title": {
+    "message": "Vooruitspoelen [F]"
+  },
+  "popup_next_title": {
+    "message": "Ga naar volgende [PageDown]"
+  },
+  "popup_volume_title": {
+    "message": "$VALUE$% [-/+]",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_mute_title": {
+    "message": "Dempen / Opheffen [F8]"
+  },
+  "popup_contextmenu_title": {
+    "message": "Open contextmenu [C]"
+  },
+  "popup_up_title": {
+    "message": "Omhoog [Arrow Up]"
+  },
+  "popup_info_title": {
+    "message": "Toon info [I]"
+  },
+  "popup_left_title": {
+    "message": "Links [Arrow Left]"
+  },
+  "popup_select_title": {
+    "message": "Kies [Enter]"
+  },
+  "popup_right_title": {
+    "message": "Rechts [Arrow Right]"
+  },
+  "popup_back_title": {
+    "message": "Terug [Backspace]"
+  },
+  "popup_down_title": {
+    "message": "Omlaag [Arrow Down]"
+  },
+  "popup_osd_title": {
+    "message": "Toon OSD [M]"
+  },
+  "popup_home_title": {
+    "message": "Ga naar home"
+  },
+  "popup_fullscreen_title": {
+    "message": "Omschakelen volledig scherm [Tab]"
+  },
+  "popup_opensendtext_title": {
+    "message": "Stuur tekst…"
+  },
+  "popup_opensubtitle_title": {
+    "message": "Stuur ondertiteling… [T]"
+  },
+  "popup_playerprocessinfo_title": {
+    "message": "Toon procesinformatie afspeler [O]"
+  },
+  "popup_openquit_title": {
+    "message": "Poweropties [S]"
+  },
+  "popup_repeat_title": {
+    "message": "Herhalen"
+  },
+  "popup_shuffle_title": {
+    "message": "Willekeurig"
+  },
+  "popup_clear_title": {
+    "message": "Wissen"
+  },
+  "popup_empty_textcontent": {
+    "message": "Lege afspeellijst"
+  },
+  "popup_playItem_title": {
+    "message": "Afspelen"
+  },
+  "popup_removeItem_title": {
+    "message": "Verwijder"
+  },
+  "popup_loading_title": {
+    "message": "Verbinden…"
+  },
+  "popup_web_title": {
+    "message": "Ga naar de Kodi-webinterface…"
+  },
+  "popup_feedback_title": {
+    "message": "Rapporteer een fout… / Vraag nieuwe feature aan…"
+  },
+  "popup_donate_title": {
+    "message": "Ondersteuning…"
+  },
+  "popup_rate_title": {
+    "message": "Uw ervaring waarderen…"
+  },
+  "popup_preferences_title": {
+    "message": "Configureren…"
+  },
+  "popup_cancel_textcontent": {
+    "message": "Afbreken"
+  },
+  "popup_text_placeholder": {
+    "message": "Te versturen tekst"
+  },
+  "popup_done_textcontent": {
+    "message": "Afsluiten na versturen"
+  },
+  "popup_sendtext_textcontent": {
+    "message": "Versturen"
+  },
+  "popup_subtitle_placeholder": {
+    "message": "Ondertitelingslink"
+  },
+  "popup_addsubtitle_textcontent": {
+    "message": "Versturen"
+  },
+  "popup_shutdown_textcontent": {
+    "message": "Systeem uitschakelen"
+  },
+  "popup_suspend_textcontent": {
+    "message": "Slaapstand"
+  },
+  "popup_hibernate_textcontent": {
+    "message": "Sluimerstand"
+  },
+  "popup_reboot_textcontent": {
+    "message": "Opnieuw opstarten"
+  },
+  "popup_configure_textcontent": {
+    "message": "Configureren"
+  },
+  "popup_text_textcontent": {
+    "message": "Verander server:"
+  },
+  "options_permissionDescription_textcontent": {
+    "message": "Toegang tot websites is niet verleend. De extensie kan de pagina's voor video's of muziek niet analyseren."
+  },
+  "options_permissionButton_textcontent": {
+    "message": "Toegang verlenen"
+  },
+  "options_serverTitle_textcontent": {
+    "message": "Verbinding"
+  },
+  "options_serverIntro_textcontent": {
+    "message": "Om video's/muziek te sturen naar Kodi moet je \"Externe controle toestaan vanuit programma's van andere systemen\". Deze optie vind je in de \"Instellingen / Services / Controle\" pagina. Vul daar Kodi's adres in. Dit IP-adres staat op de \"Instellingen / Systeeminformatie / Overzicht\" pagina."
+  },
+  "options_serverModeSingle_textcontent": {
+    "message": "Configureer een server"
+  },
+  "options_serverAddress_textcontent": {
+    "message": "Adres:"
+  },
+  "options_serverAddress_title": {
+    "message": "IP-adres of volledig adres (bijvoorbeeld: 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
+  },
+  "options_serverModeMulti_textcontent": {
+    "message": "Configureer meerdere servers"
+  },
+  "options_serverAddresses_textcontent": {
+    "message": "Adres"
+  },
+  "options_serverNames_textcontent": {
+    "message": "Naam"
+  },
+  "options_serverAdd_textcontent": {
+    "message": "Server toevoegen"
+  },
+  "options_serverAddress_placeholder": {
+    "message": "192.168.0.1"
+  },
+  "options_serverName_placeholder": {
+    "message": "Woonkamer, Slaapkamer,…"
+  },
+  "options_serverName_error": {
+    "message": "Naam is niet ingevuld."
+  },
+  "options_serverRemove_title": {
+    "message": "Server verwijderen"
+  },
+  "options_serverRemove_alt": {
+    "message": "Verwijderen"
+  },
+  "options_generalTitle_textcontent": {
+    "message": "Algemeen"
+  },
+  "options_generalHistoryInput_textcontent": {
+    "message": "Castlinks toevoegen in browsergeschiedenis"
+  },
+  "options_popupTitle_textcontent": {
+    "message": "Popup"
+  },
+  "options_popupClipboardInput_textcontent": {
+    "message": "Invoerveld in de popup vooraf invullen met de inhoud van het klembord"
+  },
+  "options_popupWheelDescription_textcontent": {
+    "message": "Volumecontrole met het wiel:"
+  },
+  "options_popupWheelNormal_textcontent": {
+    "message": "Normaal"
+  },
+  "options_popupWheelReverse_textcontent": {
+    "message": "Omgekeerd"
+  },
+  "options_popupWheelDisabled_textcontent": {
+    "message": "Uitgeschakeld"
+  },
+  "options_menuTitle_textcontent": {
+    "message": "Contextmenu"
+  },
+  "options_menuActionsDescription_textcontent": {
+    "message": "Kies items toegevoegd aan het contextmenu:"
+  },
+  "options_menuActionsSend_textcontent": {
+    "message": "Nu afspelen"
+  },
+  "options_menuActionsInsert_textcontent": {
+    "message": "Hierna afspelen"
+  },
+  "options_menuActionsAdd_textcontent": {
+    "message": "Aan afspeellijst toevoegen"
+  },
+  "options_menuContextsDescription_textcontent": {
+    "message": "Specificeer de items waar het contextmenu wordt toegevoegd:"
+  },
+  "options_menuContextsAudio_textcontent": {
+    "message": "Audio"
+  },
+  "options_menuContextsBookmark_textcontent": {
+    "message": "Bladwijzer"
+  },
+  "options_menuContextsFrame_textcontent": {
+    "message": "IFrame"
+  },
+  "options_menuContextsLink_textcontent": {
+    "message": "Link"
+  },
+  "options_menuContextsPage_textcontent": {
+    "message": "Pagina"
+  },
+  "options_menuContextsSelection_textcontent": {
+    "message": "Selectie"
+  },
+  "options_menuContextsTab_textcontent": {
+    "message": "Tabblad"
+  },
+  "options_menuContextsVideo_textcontent": {
+    "message": "Video"
+  },
+  "options_youtubeTitle_textcontent": {
+    "message": "YouTube"
+  },
+  "options_youtubePlaylistDescription_textcontent": {
+    "message": "Voor links naar video in playlist:"
+  },
+  "options_youtubePlaylistPlaylist_textcontent": {
+    "message": "Stuur alle video's van playlist"
+  },
+  "options_youtubePlaylistVideo_textcontent": {
+    "message": "Stuur alleen de video"
+  },
+  "options_youtubeOrderDescription_textcontent": {
+    "message": "Kies de volgorde van de playlists:"
+  },
+  "options_youtubeOrderAsk_textcontent": {
+    "message": "Vraag"
+  },
+  "options_youtubeOrderDefault_textcontent": {
+    "message": "Standaard"
+  },
+  "options_youtubeOrderReverse_textcontent": {
+    "message": "Omgekeerd"
+  },
+  "options_youtubeOrderShuffle_textcontent": {
+    "message": "Willekeurige volgorde"
+  },
+  "labeller_youtube_unavailable": {
+    "message": "(Video niet beschikbaar)"
+  },
+  "labeller_youtube_mix": {
+    "message": "Mix"
+  }
+}

@@ -66,6 +66,10 @@ describe("_locales", function () {
         await compare("en", "fr");
     });
 
+    it("english and dutch should have same messages", async function () {
+        await compare("en", "nl");
+    });
+
     it("english and slovak should have same messages", async function () {
         await compare("en", "sk");
     });
