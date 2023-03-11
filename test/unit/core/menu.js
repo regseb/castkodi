@@ -220,9 +220,6 @@ describe("core/menu.js", function () {
         it("should ignore URLs (with audio)", async function () {
             await browser.storage.local.set({ "menu-contexts": ["video"] });
 
-            // @ts-ignore: Désactiver la vérification de TypeScript car la
-            // déclaration du type OnClickData (argument de aggregate) n'est pas
-            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             const urls = await menu.aggregate({
                 menuItemId:    "send",
                 modifiers:     [],
@@ -240,9 +237,6 @@ describe("core/menu.js", function () {
         it("should ignore URLs (with video)", async function () {
             await browser.storage.local.set({ "menu-contexts": ["audio"] });
 
-            // @ts-ignore: Désactiver la vérification de TypeScript car la
-            // déclaration du type OnClickData (argument de aggregate) n'est pas
-            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             const urls = await menu.aggregate({
                 menuItemId:    "send",
                 modifiers:     [],
@@ -264,9 +258,6 @@ describe("core/menu.js", function () {
                 ],
             });
 
-            // @ts-ignore: Désactiver la vérification de TypeScript car la
-            // déclaration du type OnClickData (argument de aggregate) n'est pas
-            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             const urls = await menu.aggregate({
                 menuItemId:    "send",
                 modifiers:     [],
@@ -288,9 +279,6 @@ describe("core/menu.js", function () {
                 ],
             });
 
-            // @ts-ignore: Désactiver la vérification de TypeScript car la
-            // déclaration du type OnClickData (argument de aggregate) n'est pas
-            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             const urls = await menu.aggregate({
                 menuItemId:    "send",
                 modifiers:     [],
@@ -313,9 +301,6 @@ describe("core/menu.js", function () {
             const stub = sinon.stub(browser.notifications, "create")
                               .resolves("foo");
 
-            // @ts-ignore: Désactiver la vérification de TypeScript car la
-            // déclaration du type OnClickData (argument de aggregate) n'est pas
-            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             await menu.click({
                 menuItemId: "add",
                 modifiers:  [],
@@ -340,9 +325,6 @@ describe("core/menu.js", function () {
             // remplacer la function appelée par l'export.
             const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
 
-            // @ts-ignore: Désactiver la vérification de TypeScript car la
-            // déclaration du type OnClickData (argument de aggregate) n'est pas
-            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             await menu.click({
                 menuItemId: "add",
                 modifiers:  [],
@@ -362,9 +344,6 @@ describe("core/menu.js", function () {
             const stub = sinon.stub(browser.notifications, "create")
                               .resolves("foo");
 
-            // @ts-ignore: Désactiver la vérification de TypeScript car la
-            // déclaration du type OnClickData (argument de aggregate) n'est pas
-            // bonne sur la propriété bookmarkId. https://bugzil.la/1707405
             await menu.click({
                 menuItemId: "add",
                 modifiers:  [],
