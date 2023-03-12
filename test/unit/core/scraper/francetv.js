@@ -1,27 +1,36 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/francetv.js";
 
 describe("core/scraper/francetv.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
-            const url = new URL("https://www.francetelevisions.fr/et-vous" +
-                                "/programme-tv");
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL(
+                "https://www.francetelevisions.fr/et-vous/programme-tv",
+            );
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's not a video", async function () {
+        it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.france.tv/foo");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <script></script>
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <script></script>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
 
             const file = await scraper.extract(url, content);
@@ -29,27 +38,37 @@ describe("core/scraper/francetv.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch")
-                .onFirstCall().resolves(Response.json({
-                    video: { token: "https://foo.fr/" },
-                }))
-                .onSecondCall().resolves(Response.json({
-                    url: "https://bar.fr/baz.mpd",
-                }));
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .onFirstCall()
+                .resolves(
+                    Response.json({
+                        video: { token: "https://foo.fr/" },
+                    }),
+                )
+                .onSecondCall()
+                .resolves(
+                    Response.json({
+                        url: "https://bar.fr/baz.mpd",
+                    }),
+                );
 
             const url = new URL("https://www.france.tv/qux");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <script>
-                          var FTVPlayerVideos = [{
-                              "contentId":1143295,
-                              "videoId":"123-abc"
-                          }];
-                        </script>
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <script>
+                                 var FTVPlayerVideos = [{
+                                   "contentId":1143295,
+                                   "videoId":"123-abc"
+                                 }];
+                               </script>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
 
             const file = await scraper.extract(url, content);

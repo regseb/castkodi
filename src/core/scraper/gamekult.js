@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import * as plugin from "../plugin/dailymotion.js";
@@ -19,9 +21,10 @@ import { matchPattern } from "../tools/matchpattern.js";
 const action = async function (_url, content) {
     const doc = await content.html();
     const video = doc.querySelector(".js-dailymotion-video[data-id]");
-    return null === video ? undefined
-                          : plugin.generateUrl(video.dataset.id);
+    return null === video ? undefined : plugin.generateUrl(video.dataset.id);
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://www.gamekult.com/*",
-    "*://gamekult.com/*");
+    "*://gamekult.com/*",
+);

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // Utiliser une async IIFE car addons-linter échoue à analyser les fichiers sans

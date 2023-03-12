@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -17,8 +19,8 @@ import { matchPattern } from "../tools/matchpattern.js";
 const actionClip = async function ({ pathname, searchParams }) {
     if ("/embed" === pathname) {
         return searchParams.has("clip")
-                              ? plugin.generateClipUrl(searchParams.get("clip"))
-                              : undefined;
+            ? plugin.generateClipUrl(searchParams.get("clip"))
+            : undefined;
     }
     return plugin.generateClipUrl(pathname.slice(1));
 };
@@ -66,7 +68,9 @@ const action = async function ({ pathname }) {
     }
     return plugin.generateLiveUrl(pathname.slice(1));
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://www.twitch.tv/*",
     "*://go.twitch.tv/*",
-    "*://m.twitch.tv/*");
+    "*://m.twitch.tv/*",
+);

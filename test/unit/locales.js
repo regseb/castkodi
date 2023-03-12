@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 
@@ -8,10 +14,11 @@ import fs from "node:fs/promises";
  * @returns {Promise<Object[][]>} Une promesse contenant la liste des messages.
  */
 const read = async function (lang) {
-    return Object.entries(JSON.parse(await fs.readFile(
-        `src/_locales/${lang}/messages.json`,
-        "utf8",
-    )));
+    return Object.entries(
+        JSON.parse(
+            await fs.readFile(`src/_locales/${lang}/messages.json`, "utf8"),
+        ),
+    );
 };
 
 /**
@@ -37,10 +44,14 @@ const compare = async function (lang1, lang2) {
 
         if ("placeholders" in value1) {
             for (const key of Object.keys(value1.placeholders)) {
-                assert.ok(value1.message.includes(`$${key.toUpperCase()}$`),
-                          `${name1} / ${key}`);
-                assert.ok(value2.message.includes(`$${key.toUpperCase()}$`),
-                          `${name1} / ${key}`);
+                assert.ok(
+                    value1.message.includes("$" + key.toUpperCase() + "$"),
+                    `${name1} / ${key}`,
+                );
+                assert.ok(
+                    value2.message.includes("$" + key.toUpperCase() + "$"),
+                    `${name1} / ${key}`,
+                );
             }
         }
     }

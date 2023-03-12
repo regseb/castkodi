@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
@@ -12,9 +18,10 @@ describe("Scraper: Ultimedia", function () {
         }
     });
 
-    it("should return URL when it's not a video", async function () {
-        const url = new URL("https://www.ultimedia.com/default/presentation" +
-                            "/cgu");
+    it("should return URL when it isn't a video", async function () {
+        const url = new URL(
+            "https://www.ultimedia.com/default/presentation/cgu",
+        );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -22,32 +29,42 @@ describe("Scraper: Ultimedia", function () {
     });
 
     it("should return video URL", async function () {
-        const url = new URL("https://www.ultimedia.com/default/index" +
-                            "/videogeneric/id/mvlx0f");
+        const url = new URL(
+            "https://www.ultimedia.com/default/index/videogeneric/id/mvlx0f",
+        );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(undefined !== file && new URL(file).pathname.endsWith(".mp4"),
-                  `new URL("${file}").pathname.endsWith(...)`);
+        assert.ok(
+            undefined !== file && new URL(file).pathname.endsWith(".mp4"),
+            `new URL("${file}").pathname.endsWith(...)`,
+        );
     });
 
     it("should return video URL when protocol is HTTP", async function () {
-        const url = new URL("http://www.ultimedia.com/default/index" +
-                            "/videogeneric/id/83vr0l");
+        const url = new URL(
+            "http://www.ultimedia.com/default/index/videogeneric/id/83vr0l",
+        );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(undefined !== file && new URL(file).pathname.endsWith(".mp4"),
-                  `new URL("${file}").pathname.endsWith(...)`);
+        assert.ok(
+            undefined !== file && new URL(file).pathname.endsWith(".mp4"),
+            `new URL("${file}").pathname.endsWith(...)`,
+        );
     });
 
     it("should return video URL from embed", async function () {
-        const url = new URL("https://www.ultimedia.com/deliver/generic/iframe" +
-                            "/mdtk/01836272/src/pzmpzr/zone/1/showtitle/1/");
+        const url = new URL(
+            "https://www.ultimedia.com/deliver/generic/iframe/mdtk/01836272" +
+                "/src/pzmpzr/zone/1/showtitle/1/",
+        );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(undefined !== file && new URL(file).pathname.endsWith(".mp4"),
-                  `new URL("${file}").pathname.endsWith(...)`);
+        assert.ok(
+            undefined !== file && new URL(file).pathname.endsWith(".mp4"),
+            `new URL("${file}").pathname.endsWith(...)`,
+        );
     });
 });

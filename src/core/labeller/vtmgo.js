@@ -1,11 +1,13 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
 const TYPES = {
     EPISODE: "e",
-    MOVIE:   "m",
+    MOVIE: "m",
 };
 
 /**
@@ -18,8 +20,9 @@ const TYPES = {
  *                                      <code>undefined</code>.
  */
 const extractVideo = async function (type, videoId) {
-    const response = await fetch("https://vtm.be/vtmgo/afspelen" +
-                                 `/${type}${videoId}`);
+    const response = await fetch(
+        `https://vtm.be/vtmgo/afspelen/${type}${videoId}`,
+    );
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
     return doc.querySelector("h1.player__title")?.textContent;

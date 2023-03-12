@@ -1,12 +1,13 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
  * Le gestionnaire d'auditeurs pour des notifications.
  */
 export const NotificationListener = class {
-
     /**
      * Les auditeurs dans le gestionnaire.
      *

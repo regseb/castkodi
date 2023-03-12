@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import { complete } from "../../../src/core/labellers.js";
 import { extract } from "../../../src/core/scrapers.js";
@@ -10,17 +16,17 @@ describe("Labeller: Vimeo", function () {
         const file = await extract(url, options);
         const item = await complete({
             file,
-            label:    "play",
+            label: "play",
             position: 0,
-            title:    "",
-            type:     "unknown",
+            title: "",
+            type: "unknown",
         });
         assert.deepEqual(item, {
             file,
-            label:    "Looking For Something",
+            label: "Looking For Something",
             position: 0,
-            title:    "",
-            type:     "unknown",
+            title: "",
+            type: "unknown",
         });
     });
 
@@ -31,17 +37,17 @@ describe("Labeller: Vimeo", function () {
         const file = await extract(url, options);
         const item = await complete({
             file,
-            label:    "play",
+            label: "play",
             position: 0,
-            title:    "",
-            type:     "unknown",
+            title: "",
+            type: "unknown",
         });
         assert.deepEqual(item, {
             file,
-            label:    "Shaking",
+            label: "Shaking",
             position: 0,
-            title:    "",
-            type:     "unknown",
+            title: "",
+            type: "unknown",
         });
     });
 
@@ -49,20 +55,22 @@ describe("Labeller: Vimeo", function () {
         // Tester le cas quand la lecture de la vidéo a commencé et que
         // l'extension a modifié le fichier et le titre.
         const item = await complete({
-            file:     "plugin://plugin.video.vimeo/play/" +
-                      "?uri=%2Fvideos%2F43241044&texttracks=",
-            label:    "M83 | Fleur & Manu I DIVISION",
+            file:
+                "plugin://plugin.video.vimeo/play/" +
+                "?uri=%2Fvideos%2F43241044&texttracks=",
+            label: "M83 | Fleur & Manu I DIVISION",
             position: 1,
-            title:    "M83 | Fleur & Manu I DIVISION",
-            type:     "unknown",
+            title: "M83 | Fleur & Manu I DIVISION",
+            type: "unknown",
         });
         assert.deepEqual(item, {
-            file:     "plugin://plugin.video.vimeo/play/" +
-                      "?uri=%2Fvideos%2F43241044&texttracks=",
-            label:    "M83 | Fleur & Manu I DIVISION",
+            file:
+                "plugin://plugin.video.vimeo/play/" +
+                "?uri=%2Fvideos%2F43241044&texttracks=",
+            label: "M83 | Fleur & Manu I DIVISION",
             position: 1,
-            title:    "M83 | Fleur & Manu I DIVISION",
-            type:     "unknown",
+            title: "M83 | Fleur & Manu I DIVISION",
+            type: "unknown",
         });
     });
 });

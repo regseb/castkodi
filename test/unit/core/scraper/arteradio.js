@@ -1,10 +1,15 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/arteradio.js";
 
 describe("core/scraper/arteradio.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.arteradio.com/content/au_hasard");
 
             const file = await scraper.extract(url);
@@ -14,20 +19,25 @@ describe("core/scraper/arteradio.js", function () {
         it("should return audio URL", async function () {
             const url = new URL("https://www.arteradio.com/son/foo");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <article class="cover">
-                          <button data-sound-href="bar.mp3"></button>
-                        </article>
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <article class="cover">
+                                 <button data-sound-href="bar.mp3"></button>
+                               </article>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
 
             const file = await scraper.extract(url, content);
-            assert.equal(file,
+            assert.equal(
+                file,
                 "https://download.www.arte.tv/permanent/arteradio/sites" +
-                    "/default/files/sons/bar.mp3");
+                    "/default/files/sons/bar.mp3",
+            );
         });
     });
 });

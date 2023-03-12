@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -16,8 +18,10 @@ import { matchPattern } from "../tools/matchpattern.js";
 const actionVideo = async function ({ pathname }) {
     return plugin.generateUrl(pathname.slice(7));
 };
-export const extractVideo = matchPattern(actionVideo,
-    "*://www.dailymotion.com/video/*");
+export const extractVideo = matchPattern(
+    actionVideo,
+    "*://www.dailymotion.com/video/*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -41,8 +45,10 @@ export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
 const actionEmbed = async function ({ pathname }) {
     return plugin.generateUrl(pathname.slice(13));
 };
-export const extractEmbed = matchPattern(actionEmbed,
-    "*://www.dailymotion.com/embed/video/*");
+export const extractEmbed = matchPattern(
+    actionEmbed,
+    "*://www.dailymotion.com/embed/video/*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -63,8 +69,9 @@ const actionPlayerScript = async function (_url, content) {
         return undefined;
     }
 
-    const script = doc.querySelector(`script[src^="https://geo.dailymotion` +
-                                                  `.com/player/"][data-video]`);
+    const script = doc.querySelector(
+        'script[src^="https://geo.dailymotion.com/player/"][data-video]',
+    );
     if (null === script) {
         return undefined;
     }
@@ -83,8 +90,10 @@ export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
  */
 const actionPlayerIframe = async function ({ searchParams }) {
     return searchParams.has("video")
-                                 ? plugin.generateUrl(searchParams.get("video"))
-                                 : undefined;
+        ? plugin.generateUrl(searchParams.get("video"))
+        : undefined;
 };
-export const extractPlayerIframe = matchPattern(actionPlayerIframe,
-    "*://geo.dailymotion.com/player/*");
+export const extractPlayerIframe = matchPattern(
+    actionPlayerIframe,
+    "*://geo.dailymotion.com/player/*",
+);

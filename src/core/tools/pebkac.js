@@ -1,12 +1,13 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
  * Les erreurs spécifiques à Cast Kodi.
  */
 export const PebkacError = class extends Error {
-
     /**
      * La clé du message d'erreur.
      *
@@ -23,8 +24,12 @@ export const PebkacError = class extends Error {
      *                                          insérées dans le message.
      */
     constructor(key, substitutions) {
-        super(browser.i18n.getMessage(`notifications_${key}_message`,
-                                      substitutions));
+        super(
+            browser.i18n.getMessage(
+                `notifications_${key}_message`,
+                substitutions,
+            ),
+        );
         this.name = "PebkacError";
         this.#key = key;
     }

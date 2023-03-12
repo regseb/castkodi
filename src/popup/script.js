@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { cast } from "../core/index.js";
@@ -52,8 +54,9 @@ const openError = function (err) {
         if ("PebkacError" === err.name) {
             dialog.querySelector("h1").textContent = err.title;
         } else {
-            dialog.querySelector("h1").textContent =
-                        browser.i18n.getMessage("notifications_unknown_title");
+            dialog.querySelector("h1").textContent = browser.i18n.getMessage(
+                "notifications_unknown_title",
+            );
         }
         dialog.querySelector("p").textContent = err.message;
         dialog.showModal();
@@ -65,8 +68,12 @@ const closeDialog = function (event) {
     // boite.
     if ("DIALOG" === event.target.nodeName) {
         const rect = event.target.getBoundingClientRect();
-        if (rect.top > event.clientY || rect.bottom < event.clientY ||
-                rect.left > event.clientX || rect.right < event.clientX) {
+        if (
+            rect.top > event.clientY ||
+            rect.bottom < event.clientY ||
+            rect.left > event.clientX ||
+            rect.right < event.clientX
+        ) {
             event.target.close();
         }
     }
@@ -469,7 +476,7 @@ const openSendText = function () {
 
     const dialog = document.querySelector("#dialogsendtext");
     if (!dialog.open) {
-        const text = dialog.querySelector(`input[name="text"]`);
+        const text = dialog.querySelector('input[name="text"]');
         text.type = "text";
         text.value = "";
         dialog.showModal();
@@ -479,8 +486,8 @@ const openSendText = function () {
 const sendText = async function (event) {
     const dialog = event.target;
     if ("sendtext" === dialog.returnValue) {
-        const text = dialog.querySelector(`input[name="text"]`);
-        const done = dialog.querySelector(`input[name="done"]`);
+        const text = dialog.querySelector('input[name="text"]');
+        const done = dialog.querySelector('input[name="done"]');
         try {
             await kodi.input.sendText(text.value, done.checked);
         } catch (err) {
@@ -498,7 +505,7 @@ const openSubtitle = function () {
 
     const dialog = document.querySelector("#dialogsubtitle");
     if (!dialog.open) {
-        const subtitle = dialog.querySelector(`textarea[name="subtitle"]`);
+        const subtitle = dialog.querySelector('textarea[name="subtitle"]');
         subtitle.value = "";
         dialog.showModal();
     }
@@ -507,7 +514,7 @@ const openSubtitle = function () {
 const addSubtitle = async function (event) {
     const dialog = event.target;
     if ("addsubtitle" === dialog.returnValue) {
-        const subtitle = dialog.querySelector(`textarea[name="subtitle"]`);
+        const subtitle = dialog.querySelector('textarea[name="subtitle"]');
         try {
             await kodi.player.addSubtitle(subtitle.value);
         } catch (err) {
@@ -564,7 +571,7 @@ const quit = async function (event) {
                 close();
                 break;
             default:
-                // Ne rien faire avec le bouton Annuler.
+            // Ne rien faire avec le bouton Annuler.
         }
     } catch (err) {
         openError(err);
@@ -574,7 +581,7 @@ const quit = async function (event) {
 const repeat = async function () {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
-    if (document.querySelector(`[name="repeat"]`).disabled) {
+    if (document.querySelector('[name="repeat"]').disabled) {
         return;
     }
 
@@ -654,8 +661,9 @@ const rate = async function () {
     const { name } = await browser.runtime.getBrowserInfo();
     switch (name) {
         case "Chromium":
-            url = "https://chrome.google.com/webstore/detail/cast-kodi" +
-                                    "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
+            url =
+                "https://chrome.google.com/webstore/detail/cast-kodi" +
+                "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
             break;
         case "Firefox":
             url = "https://addons.mozilla.org/addon/castkodi/";
@@ -778,10 +786,10 @@ const handleAdd = function (item) {
     const li = document.createElement("li");
     li.dataset.file = item.file;
     li.addEventListener("dragstart", handleDragStart, false);
-    li.addEventListener("dragover",  handleDragOver,  false);
+    li.addEventListener("dragover", handleDragOver, false);
     li.addEventListener("dragleave", handleDragLeave, false);
-    li.addEventListener("drop",      handleDrop,      false);
-    li.addEventListener("dragend",   handleDragEnd,   false);
+    li.addEventListener("drop", handleDrop, false);
+    li.addEventListener("dragend", handleDragEnd, false);
     li.draggable = true;
     li.append(clone);
 
@@ -795,15 +803,18 @@ const handleClear = function () {
 };
 
 const handleRemove = function (value) {
-    document.querySelector(`#playlist-items li:nth-child(${value + 1})`)
-            .remove();
+    document
+        .querySelector(`#playlist-items li:nth-child(${value + 1})`)
+        .remove();
 };
 
 const handleVolumeChanged = function (value) {
     const volume = document.querySelector("#volume");
     volume.valueAsNumber = value;
-    volume.title = browser.i18n.getMessage("popup_volume_title",
-                                           value.toString());
+    volume.title = browser.i18n.getMessage(
+        "popup_volume_title",
+        value.toString(),
+    );
 };
 
 const handleMutedChanged = function (value) {
@@ -817,7 +828,7 @@ const handleMutedChanged = function (value) {
 const handleInputRequested = function ({ type, value }) {
     const dialog = document.querySelector("#dialogsendtext");
     if (!dialog.open) {
-        const text = dialog.querySelector(`input[name="text"]`);
+        const text = dialog.querySelector('input[name="text"]');
         switch (type) {
             case "date":
                 text.type = "date";
@@ -882,8 +893,9 @@ const handlePositionChanged = function (value) {
             button.disabled = false;
         }
     }
-    for (const li of document.querySelectorAll("#playlist-items" +
-                                               ` li:nth-child(${value + 1})`)) {
+    for (const li of document.querySelectorAll(
+        `#playlist-items li:nth-child(${value + 1})`,
+    )) {
         li.querySelector("span").classList.add("active");
         for (const button of li.querySelectorAll("button")) {
             button.disabled = true;
@@ -922,8 +934,9 @@ const handleShuffledChanged = async function (value) {
         document.querySelector("#playlist-items").classList.remove("waiting");
     } else {
         for (const item of items) {
-            const li = Array.from(ol.children)
-                            .find((l) => item.file === l.dataset.file);
+            const li = Array.from(ol.children).find(
+                (l) => item.file === l.dataset.file,
+            );
             if (li.querySelector("span").classList.contains("active")) {
                 position = item.position;
             }
@@ -938,18 +951,23 @@ const handleTimeChanged = function (value) {
     const max = Number(time.max);
     time.valueAsNumber = Math.min(value, max);
 
-    time.previousElementSibling.textContent = 3600 < max
-           ? Math.trunc(time.valueAsNumber / 3600) + ":" +
-             (Math.trunc(time.valueAsNumber / 60) % 60).toString()
-                                                       .padStart(2, "0") + ":" +
-             (time.valueAsNumber % 60).toString().padStart(2, "0")
-           : Math.trunc(time.valueAsNumber / 60) + ":" +
-             (time.valueAsNumber % 60).toString().padStart(2, "0");
+    time.previousElementSibling.textContent =
+        3600 < max
+            ? Math.trunc(time.valueAsNumber / 3600) +
+              ":" +
+              (Math.trunc(time.valueAsNumber / 60) % 60)
+                  .toString()
+                  .padStart(2, "0") +
+              ":" +
+              (time.valueAsNumber % 60).toString().padStart(2, "0")
+            : Math.trunc(time.valueAsNumber / 60) +
+              ":" +
+              (time.valueAsNumber % 60).toString().padStart(2, "0");
 
     // Utiliser la taille du temps total pour que l'élément ait toujours la
     // même taille (même durant le passage à la dizaine).
     time.previousElementSibling.style.width =
-                          time.nextElementSibling.offsetWidth.toString() + "px";
+        time.nextElementSibling.offsetWidth.toString() + "px";
 };
 
 const handleTotaltimeChanged = function (value) {
@@ -974,13 +992,16 @@ const handleTotaltimeChanged = function (value) {
         document.querySelector("#pause").disabled = false;
         document.querySelector("#forward").disabled = false;
 
-        time.nextElementSibling.textContent = 3600 < value
-                        ? Math.trunc(value / 3600) + ":" +
-                          (Math.trunc(value / 60) % 60).toString()
-                                                       .padStart(2, "0") + ":" +
-                          (value % 60).toString().padStart(2, "0")
-                        : Math.trunc(value / 60) + ":" +
-                          (value % 60).toString().padStart(2, "0");
+        time.nextElementSibling.textContent =
+            3600 < value
+                ? Math.trunc(value / 3600) +
+                  ":" +
+                  (Math.trunc(value / 60) % 60).toString().padStart(2, "0") +
+                  ":" +
+                  (value % 60).toString().padStart(2, "0")
+                : Math.trunc(value / 60) +
+                  ":" +
+                  (value % 60).toString().padStart(2, "0");
     }
 };
 
@@ -1041,12 +1062,19 @@ const seek = async function () {
 
 const load = async function () {
     try {
-        handlePropertyChanged(await kodi.player.getProperties([
-            "position", "repeat", "shuffled", "speed", "time", "totaltime",
-        ]));
-        handlePropertyChanged(await kodi.application.getProperties([
-            "muted", "volume",
-        ]));
+        handlePropertyChanged(
+            await kodi.player.getProperties([
+                "position",
+                "repeat",
+                "shuffled",
+                "speed",
+                "time",
+                "totaltime",
+            ]),
+        );
+        handlePropertyChanged(
+            await kodi.application.getProperties(["muted", "volume"]),
+        );
 
         document.querySelector("#send").disabled = false;
         document.querySelector("#insert").disabled = false;
@@ -1091,26 +1119,31 @@ const load = async function () {
         }
 
         const cans = await kodi.system.getProperties([
-            "canhibernate", "canreboot", "canshutdown", "cansuspend",
+            "canhibernate",
+            "canreboot",
+            "canshutdown",
+            "cansuspend",
         ]);
-        Object.entries(cans).filter(([_, v]) => !v)
-                            .map(([k]) => k.slice(3))
-                            .forEach((key) => {
-            document.querySelector(`#dialogquit button[value="${key}"]`)
+        Object.entries(cans)
+            .filter(([_, v]) => !v)
+            .map(([k]) => k.slice(3))
+            .forEach((key) => {
+                document
+                    .querySelector(`#dialogquit button[value="${key}"]`)
                     .remove();
-        });
+            });
     } catch (err) {
         openError(err);
     }
 };
 
-
 document.querySelector("#send").addEventListener("click", send);
 document.querySelector("#insert").addEventListener("click", insert);
 document.querySelector("#add").addEventListener("click", add);
 document.querySelector("#paste input").addEventListener("change", paste);
-for (const input of document.querySelectorAll("#server select," +
-                                              " #dialogerror select")) {
+for (const input of document.querySelectorAll(
+    "#server select, #dialogerror select",
+)) {
     input.addEventListener("change", change);
 }
 
@@ -1142,10 +1175,9 @@ document.querySelector("#home").addEventListener("click", home);
 document.querySelector("#fullscreen").addEventListener("click", setFullscreen);
 document.querySelector("#opensendtext").addEventListener("click", openSendText);
 document.querySelector("#opensubtitle").addEventListener("click", openSubtitle);
-document.querySelector("#playerprocessinfo").addEventListener(
-    "click",
-    showPlayerProcessInfo,
-);
+document
+    .querySelector("#playerprocessinfo")
+    .addEventListener("click", showPlayerProcessInfo);
 document.querySelector("#openquit").addEventListener("click", openQuit);
 
 for (const input of document.querySelectorAll("#repeat input")) {
@@ -1164,17 +1196,73 @@ document.querySelector("#dialogerror").addEventListener("cancel", (event) => {
     event.preventDefault();
 });
 document.querySelector("#dialogsendtext").addEventListener("close", sendText);
-document.querySelector("#dialogsendtext").addEventListener("click",
-                                                           closeDialog);
-document.querySelector("#dialogsubtitle").addEventListener("close",
-                                                           addSubtitle);
-document.querySelector("#dialogsubtitle").addEventListener("click",
-                                                           closeDialog);
+document
+    .querySelector("#dialogsendtext")
+    .addEventListener("click", closeDialog);
+document
+    .querySelector("#dialogsubtitle")
+    .addEventListener("close", addSubtitle);
+document
+    .querySelector("#dialogsubtitle")
+    .addEventListener("click", closeDialog);
 
 document.querySelector("#dialogquit").addEventListener("close", quit);
 document.querySelector("#dialogquit").addEventListener("click", closeDialog);
 
 document.querySelector("#configure").addEventListener("click", preferences);
+
+/**
+ * Liste des raccourcis clavier avec leur fonction associée.
+ *
+ * @type {Map<string, Function>}
+ * @see https://kodi.wiki/view/Keyboard_controls
+ */
+const SHORTCUTS = new Map([
+    ["p", send],
+    ["P", send],
+    ["n", insert],
+    ["N", insert],
+    ["q", add],
+    ["Q", add],
+    ["v", paste],
+    ["V", paste],
+
+    ["PageUp", previous],
+    ["r", rewind],
+    ["R", rewind],
+    ["x", stop],
+    ["X", stop],
+    [" ", playPause],
+    ["f", forward],
+    ["F", forward],
+    ["PageDown", next],
+
+    ["F8", setMute],
+    ["-", setVolume.bind(undefined, "decrement")],
+    ["+", setVolume.bind(undefined, "increment")],
+    ["=", setVolume.bind(undefined, "increment")],
+
+    ["c", contextMenu],
+    ["C", contextMenu],
+    ["ArrowUp", up],
+    ["i", info],
+    ["I", info],
+    ["ArrowLeft", left],
+    ["Enter", select],
+    ["ArrowRight", right],
+    ["Backspace", back],
+    ["ArrowDown", down],
+    ["m", showOSD],
+    ["M", showOSD],
+
+    ["Tab", setFullscreen],
+    ["t", openSubtitle],
+    ["T", openSubtitle],
+    ["o", showPlayerProcessInfo],
+    ["O", showPlayerProcessInfo],
+    ["s", openQuit],
+    ["S", openQuit],
+]);
 
 // Attention ! La popup n'a pas automatiquement le focus quand elle est ouverte
 // dans le menu prolongeant la barre d'outils. https://bugzil.la/1623875
@@ -1205,94 +1293,81 @@ globalThis.addEventListener("keydown", (event) => {
         return;
     }
 
-    switch (event.key) {
-        case "p": case "P": send();                  break;
-        case "n": case "N": insert();                break;
-        case "q": case "Q": add();                   break;
-        case "v": case "V": paste();                 break;
-
-        case "PageUp":      previous();              break;
-        case "r": case "R": rewind();                break;
-        case "x": case "X": stop();                  break;
-        case " ":           playPause();             break;
-        case "f": case "F": forward();               break;
-        case "PageDown":    next();                  break;
-
-        case "F8":          setMute();               break;
-        case "-":           setVolume("decrement");  break;
-        case "+": case "=": setVolume("increment");  break;
-
-        case "c": case "C": contextMenu();           break;
-        case "ArrowUp":     up();                    break;
-        case "i": case "I": info();                  break;
-        case "ArrowLeft":   left();                  break;
-        case "Enter":       select();                break;
-        case "ArrowRight":  right();                 break;
-        case "Backspace":   back();                  break;
-        case "ArrowDown":   down();                  break;
-        case "m": case "M": showOSD();               break;
-
-        case "Tab":         setFullscreen();         break;
-        case "t": case "T": openSubtitle();          break;
-        case "o": case "O": showPlayerProcessInfo(); break;
-        case "s": case "S": openQuit();              break;
-        // Appliquer le traitement par défaut pour les autres entrées.
-        default: return;
+    if (SHORTCUTS.has(event.key)) {
+        SHORTCUTS.get(event.key)();
+        event.preventDefault();
     }
-    event.preventDefault();
+
+    // Appliquer le traitement par défaut pour les autres entrées.
 });
+
 globalThis.addEventListener("keyup", (event) => {
     // Désactiver l'actionnement des boutons avec la touche Espace.
     if (" " === event.key) {
         event.preventDefault();
     }
 });
-globalThis.addEventListener("wheel", async (event) => {
-    const config = await browser.storage.local.get(["popup-wheel"]);
-    // Ne pas modifier le volume si la configuration l'a désactivé.
-    if ("disabled" === config["popup-wheel"]) {
-        return;
-    }
-    // Garder le comportement classique de la molette dans une zone de texte.
-    const textarea = event.target.closest("textarea");
-    if (null !== textarea) {
-        return;
-    }
-    // Garder le comportement classique de la molette pour la liste de lecture
-    // lorsque la barre défilement est présente.
-    const section = event.target.closest("#playlist-items");
-    if (0 === event.deltaY ||
-            null !== section && section.scrollHeight > section.clientHeight) {
-        return;
-    }
 
-    setVolume("normal" === config["popup-wheel"] && 0 > event.deltaY ||
-              "reverse" === config["popup-wheel"] && 0 < event.deltaY
-        ? "increment"
-        : "decrement");
-    event.preventDefault();
-}, { passive: false });
+globalThis.addEventListener(
+    "wheel",
+    async (event) => {
+        const config = await browser.storage.local.get(["popup-wheel"]);
+        // Ne pas modifier le volume si la configuration l'a désactivé.
+        if ("disabled" === config["popup-wheel"]) {
+            return;
+        }
+        // Garder le comportement classique de la molette dans une zone de
+        // texte.
+        const textarea = event.target.closest("textarea");
+        if (null !== textarea) {
+            return;
+        }
+        // Garder le comportement classique de la molette pour la liste de
+        // lecture lorsque la barre défilement est présente.
+        const section = event.target.closest("#playlist-items");
+        if (
+            0 === event.deltaY ||
+            (null !== section && section.scrollHeight > section.clientHeight)
+        ) {
+            return;
+        }
+
+        setVolume(
+            ("normal" === config["popup-wheel"] && 0 > event.deltaY) ||
+                ("reverse" === config["popup-wheel"] && 0 < event.deltaY)
+                ? "increment"
+                : "decrement",
+        );
+        event.preventDefault();
+    },
+    { passive: false },
+);
 
 interval = setInterval(passing, 1000);
 
 const config = await browser.storage.local.get();
 if ("multi" === config["server-mode"]) {
-    for (const input of document.querySelectorAll("#server select," +
-                                                  " #dialogerror select")) {
+    for (const input of document.querySelectorAll(
+        "#server select, #dialogerror select",
+    )) {
         for (const [index, server] of config["server-list"].entries()) {
-            const name = (/^\s*$/u).test(server.name)
-                               ? browser.i18n.getMessage("menus_noName",
-                                                         (index + 1).toString())
-                               : server.name;
-            input[index] = new Option(name,
-                                      index,
-                                      index === config["server-active"],
-                                      index === config["server-active"]);
+            const name = /^\s*$/u.test(server.name)
+                ? browser.i18n.getMessage(
+                      "menus_noName",
+                      (index + 1).toString(),
+                  )
+                : server.name;
+            input[index] = new Option(
+                name,
+                index,
+                index === config["server-active"],
+                index === config["server-active"],
+            );
         }
     }
     document.querySelector("#server").style.visibility = "visible";
-    document.querySelector("#dialogerror select")
-            .style.display = "inline-block";
+    document.querySelector("#dialogerror select").style.display =
+        "inline-block";
 }
 
 kodi.application.onPropertyChanged.addListener(handlePropertyChanged);

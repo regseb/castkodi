@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /* eslint-disable import/no-unassigned-import */
@@ -23,29 +25,38 @@ browser.runtime.onInstalled.addListener(async ({ reason }) => {
             await storage.migrate();
             break;
         default:
-            // Ne rien faire.
+        // Ne rien faire.
     }
 });
 
 browser.storage.onChanged.addListener(async (changes) => {
     // Garder seulement les changements liés aux menus et aux serveurs.
-    if (Object.entries(changes).some(([k, v]) => k.startsWith("menu-") &&
-                                                 "newValue" in v ||
-                                                 k.startsWith("server-") &&
-                                                 "newValue" in v)) {
+    if (
+        Object.entries(changes).some(
+            ([k, v]) =>
+                (k.startsWith("menu-") && "newValue" in v) ||
+                (k.startsWith("server-") && "newValue" in v),
+        )
+    ) {
         await menu.update();
     }
 
     // Garder seulement les changements liés au serveur.
-    if (Object.keys(changes).some(([k, v]) => k.startsWith("server-") &&
-                                              "newValue" in v)) {
+    if (
+        Object.keys(changes).some(
+            ([k, v]) => k.startsWith("server-") && "newValue" in v,
+        )
+    ) {
         kodi.close();
     }
 });
 
 browser.contextMenus.onClicked.addListener(async (info) => {
-    if ("send" === info.menuItemId || "insert" === info.menuItemId ||
-            "add" === info.menuItemId) {
+    if (
+        "send" === info.menuItemId ||
+        "insert" === info.menuItemId ||
+        "add" === info.menuItemId
+    ) {
         await menu.click(info);
     } else if (!info.wasChecked) {
         await menu.change(Number(info.menuItemId));

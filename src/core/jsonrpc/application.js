@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { NotificationListener } from "./notificationlistener.js";
@@ -18,7 +20,6 @@ import { NotificationListener } from "./notificationlistener.js";
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
 export const Application = class {
-
     /**
      * Le client pour contacter Kodi.
      *
@@ -92,8 +93,10 @@ export const Application = class {
     handleNotification({ method, params: { data } }) {
         // Analyser seulement les notifications venant de l'espace Application
         // et si des auditeurs sont présents.
-        if (!method.startsWith("Application.") ||
-                0 === this.onPropertyChanged.length) {
+        if (
+            !method.startsWith("Application.") ||
+            0 === this.onPropertyChanged.length
+        ) {
             return;
         }
         switch (method.slice(12)) {
@@ -101,7 +104,7 @@ export const Application = class {
                 this.onPropertyChanged.dispatch(data);
                 break;
             default:
-                // Ignorer les autres notifications.
+            // Ignorer les autres notifications.
         }
     }
 };

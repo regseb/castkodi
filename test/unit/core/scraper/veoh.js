@@ -1,11 +1,16 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/veoh.js";
 
 describe("core/scraper/veoh.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.veoh.com/list-c/foo");
 
             const file = await scraper.extract(url);
@@ -13,9 +18,9 @@ describe("core/scraper/veoh.js", function () {
         });
 
         it("should return undefined when there isn't video", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                Response.json({ video: { src: { HQ: "" } } }),
-            );
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(Response.json({ video: { src: { HQ: "" } } }));
 
             const url = new URL("https://www.veoh.com/watch/foo");
 
@@ -28,10 +33,10 @@ describe("core/scraper/veoh.js", function () {
             ]);
         });
 
-        it("should return undefined when page doesn't exist",
-                                                             async function () {
-            const stub = sinon.stub(globalThis, "fetch")
-                              .resolves(Response.json({}));
+        it("should return undefined when page doesn't exist", async function () {
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(Response.json({}));
 
             const url = new URL("https://www.veoh.com/watch/foo");
 

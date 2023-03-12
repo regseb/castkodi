@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -32,5 +34,7 @@ const action = async function (_url, content) {
     }
     return undefined;
 };
-export const extract = matchPattern(action,
-    "*://www.ultimedia.com/deliver/generic/iframe/*");
+export const extract = matchPattern(
+    action,
+    "*://www.ultimedia.com/deliver/generic/iframe/*",
+);

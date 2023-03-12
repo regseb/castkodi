@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import { quote, strip } from "../../../../src/core/tools/sanitizer.js";
 
@@ -5,8 +11,10 @@ describe("core/tools/sanitizer.js", function () {
     describe("quote()", function () {
         it("should quote", function () {
             const quoted = quote("foo[.*+?^${}()|[]\\bar");
-            assert.equal(quoted,
-                "foo\\[\\.\\*\\+\\?\\^\\$\\{\\}\\(\\)\\|\\[\\]\\\\bar");
+            assert.equal(
+                quoted,
+                "foo\\[\\.\\*\\+\\?\\^\\$\\{\\}\\(\\)\\|\\[\\]\\\\bar",
+            );
         });
 
         it("should sanitize empty string", function () {

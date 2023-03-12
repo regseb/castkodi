@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -20,5 +22,7 @@ const action = async function ({ pathname }) {
     );
     return plugin.generateUrl(id);
 };
-export const extract = matchPattern(action,
-    "*://www.ardmediathek.de/video/*/*/*/*/");
+export const extract = matchPattern(
+    action,
+    "*://www.ardmediathek.de/video/*/*/*/*/",
+);

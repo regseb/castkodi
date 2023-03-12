@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/dailymotion.js";
@@ -5,13 +11,13 @@ import * as labeller from "../../../../src/core/labeller/dailymotion.js";
 describe("core/labeller/dailymotion.js", function () {
     describe("extract()", function () {
         it("should return video label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head>
-                     <meta property="og:title" content="foo - bar - baz" />
-                   </head>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><head>
+                       <meta property="og:title" content="foo - bar - baz" />
+                     </head></html>`,
+                ),
+            );
 
             const videoId = "qux";
 

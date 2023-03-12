@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
@@ -11,9 +17,11 @@ describe("Scraper: DevTube", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file,
-            "plugin://plugin.video.youtube/play/?video_id=4rWypxBwrR4" +
-                                               "&incognito=false");
+        assert.equal(
+            file,
+            "plugin://plugin.video.youtube/play/" +
+                "?video_id=4rWypxBwrR4&incognito=false",
+        );
 
         assert.equal(stub.callCount, 1);
         assert.deepEqual(stub.firstCall.args, ["video"]);

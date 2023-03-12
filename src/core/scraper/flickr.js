@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -16,10 +18,11 @@ const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "(?<key>[^"]+)"/u;
  *
  * @type {string}
  */
-const API_URL = "https://api.flickr.com/services/rest" +
-                                          "?method=flickr.video.getStreamInfo" +
-                                          "&format=json" +
-                                          "&nojsoncallback=1";
+const API_URL =
+    "https://api.flickr.com/services/rest" +
+    "?method=flickr.video.getStreamInfo" +
+    "&format=json" +
+    "&nojsoncallback=1";
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -41,10 +44,11 @@ const action = async function (_url, content) {
 
     const parts = video.poster.split(/[./_]/u);
     const photoId = parts[6];
-    const secret  = parts[7];
+    const secret = parts[7];
     const key = KEY_REGEXP.exec(doc.documentElement.innerHTML).groups.key;
-    const response = await fetch(`${API_URL}&photo_id=${photoId}` +
-                                           `&secret=${secret}&api_key=${key}`);
+    const response = await fetch(
+        `${API_URL}&photo_id=${photoId}&secret=${secret}&api_key=${key}`,
+    );
     const json = await response.json();
     return json.streams.stream[0]["_content"];
 };

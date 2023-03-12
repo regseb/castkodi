@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -31,8 +33,8 @@ const action = async function (_url, content) {
     // Récupérer le jeton pour appeler l'API.
     let response = await fetch(`${API_URL}/token?realm=dmaxde`, {
         headers: {
-            "x-device-info": "STONEJS/1 (Unknown/Unknown; Unknown/Unknown;" +
-                                                                    " Unknown)",
+            "x-device-info":
+                "STONEJS/1 (Unknown/Unknown; Unknown/Unknown; Unknown)",
         },
     });
     let json = await response.json();
@@ -42,30 +44,33 @@ const action = async function (_url, content) {
     let videoId;
     if (player.hasAttribute("assetid")) {
         const assetid = player.getAttribute("assetid");
-        const subresponse = await fetch(`${API_URL}/content/videos` +
-                                                                `/${assetid}`, {
-            headers: { authorization: `Bearer ${token}` },
-        });
+        const subresponse = await fetch(
+            `${API_URL}/content/videos/${assetid}`,
+            {
+                headers: { authorization: `Bearer ${token}` },
+            },
+        );
         const subjson = await subresponse.json();
         videoId = subjson.data.id;
     } else if (player.hasAttribute("showid")) {
         const showid = player.getAttribute("showid");
-        const subresponse = await fetch(`${API_URL}/content/videos/` +
-                                        `?filter[show.id]=${showid}`, {
-            headers: { authorization: `Bearer ${token}` },
-        });
+        const subresponse = await fetch(
+            `${API_URL}/content/videos/?filter[show.id]=${showid}`,
+            {
+                headers: { authorization: `Bearer ${token}` },
+            },
+        );
         const subjson = await subresponse.json();
         videoId = subjson.data[0].id;
     } else {
         return undefined;
     }
 
-
     // Récupérer l'URL de la vidéo.
     response = await fetch(`${API_URL}/playback/v3/videoPlaybackInfo`, {
-        method:  "POST",
+        method: "POST",
         headers: {
-            authorization:  `Bearer ${token}`,
+            authorization: `Bearer ${token}`,
             "content-type": "application/json",
         },
         body: JSON.stringify({

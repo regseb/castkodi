@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
@@ -9,7 +11,6 @@
  * @returns {Function} La fonction avec le cache.
  */
 export const cacheable = function (func) {
-
     /**
      * La marque indicant si une valeur est déjà en cache.
      *
@@ -39,7 +40,7 @@ export const cacheable = function (func) {
     };
 
     Object.defineProperty(wrapped, "name", {
-        value:        func.name,
+        value: func.name,
         configurable: true,
     });
     return wrapped;

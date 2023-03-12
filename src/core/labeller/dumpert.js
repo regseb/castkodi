@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
@@ -12,5 +14,5 @@ export const extract = async function (videoUrl) {
     const response = await fetch(videoUrl);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
-    return doc.querySelector(`meta[property="og:title"]`).content;
+    return doc.querySelector('meta[property="og:title"]').content;
 };

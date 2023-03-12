@@ -83,14 +83,15 @@ commandes utiles :
 Les traductions dans les différentes langues se font avec
 [Weblate](https://hosted.weblate.org/engage/castkodi/).
 
-[img-chrome]:https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=chrome&logo=googlechrome&logoColor=white
-[img-firefox]:https://img.shields.io/amo/stars/castkodi.svg?label=firefox&logo=firefox-browser&logoColor=white
-[img-build]:https://img.shields.io/github/actions/workflow/status/regseb/castkodi/ci.yml?branch=main&logo=github&logoColor=white
+[img-chrome]: https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=chrome&logo=googlechrome&logoColor=white
+[img-firefox]: https://img.shields.io/amo/stars/castkodi.svg?label=firefox&logo=firefox-browser&logoColor=white
+[img-build]: https://img.shields.io/github/actions/workflow/status/regseb/castkodi/ci.yml?branch=main&logo=github&logoColor=white
+
 <!-- Attendre que le logo de Stryker soit accepté.
      https://github.com/simple-icons/simple-icons/pull/7388 -->
-[img-coverage]:https://img.shields.io/endpoint?label=coverage&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fregseb%2Fcastkodi%2Fmain
 
-[link-chrome]:https://chrome.google.com/webstore/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
-[link-firefox]:https://addons.mozilla.org/addon/castkodi/
-[link-build]:https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain
-[link-coverage]:https://dashboard.stryker-mutator.io/reports/github.com/regseb/castkodi/main
+[img-coverage]: https://img.shields.io/endpoint?label=coverage&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fregseb%2Fcastkodi%2Fmain
+[link-chrome]: https://chrome.google.com/webstore/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
+[link-firefox]: https://addons.mozilla.org/addon/castkodi/
+[link-build]: https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain
+[link-coverage]: https://dashboard.stryker-mutator.io/reports/github.com/regseb/castkodi/main

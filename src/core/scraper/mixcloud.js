@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -15,7 +17,8 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                      <code>undefined</code>.
  */
 const action = async function ({ pathname }) {
-    return pathname.startsWith("/discover/") ? undefined
-                                             : plugin.generateUrl(pathname);
+    return pathname.startsWith("/discover/")
+        ? undefined
+        : plugin.generateUrl(pathname);
 };
 export const extract = matchPattern(action, "*://www.mixcloud.com/*/*/");

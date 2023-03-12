@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { checkHosts } from "./permission.js";
@@ -24,8 +26,8 @@ export const update = async function () {
     await browser.contextMenus.removeAll();
 
     const config = await browser.storage.local.get();
-    const mode     = config["server-mode"];
-    const actions  = config["menu-actions"];
+    const mode = config["server-mode"];
+    const actions = config["menu-actions"];
     const contexts = config["menu-contexts"];
     if (0 === actions.length || 0 === contexts.length) {
         return;
@@ -35,13 +37,13 @@ export const update = async function () {
         const key = `menus_first${capitalize(actions[0])}`;
         browser.contextMenus.create({
             contexts,
-            id:    actions[0],
+            id: actions[0],
             title: browser.i18n.getMessage(key),
         });
     } else {
         browser.contextMenus.create({
             contexts,
-            id:    "parent",
+            id: "parent",
             title: browser.i18n.getMessage("menus_firstParent"),
         });
         for (const action of actions) {
@@ -51,9 +53,9 @@ export const update = async function () {
                 // sont pas hérités du parent (et sans contexte, l'option n'est
                 // pas affichée).
                 contexts,
-                id:       action,
+                id: action,
                 parentId: "parent",
-                title:    browser.i18n.getMessage(key),
+                title: browser.i18n.getMessage(key),
             });
         }
 
@@ -63,25 +65,27 @@ export const update = async function () {
                 // sont pas hérités du parent (et sans contexte, l'option n'est
                 // pas affichée).
                 contexts,
-                id:       "separator",
+                id: "separator",
                 parentId: "parent",
-                type:     "separator",
+                type: "separator",
             });
             for (const [index, server] of config["server-list"].entries()) {
-                const name = (/^\s*$/u).test(server.name)
-                               ? browser.i18n.getMessage("menus_noName",
-                                                         (index + 1).toString())
-                               : server.name;
+                const name = /^\s*$/u.test(server.name)
+                    ? browser.i18n.getMessage(
+                          "menus_noName",
+                          (index + 1).toString(),
+                      )
+                    : server.name;
                 browser.contextMenus.create({
-                    checked:  config["server-active"] === index,
+                    checked: config["server-active"] === index,
                     // Passer les contextes aux enfants car dans Chromium ils ne
                     // sont pas hérités du parent (et sans contexte, l'option
                     // n'est pas affichée).
                     contexts,
-                    id:       index.toString(),
+                    id: index.toString(),
                     parentId: "parent",
-                    title:    name,
-                    type:     "radio",
+                    title: name,
+                    type: "radio",
                 });
             }
         }
@@ -106,10 +110,12 @@ export const aggregate = async function (info) {
     return [
         contexts.includes("selection") ? info.selectionText : undefined,
         contexts.includes("link") ? info.linkUrl : undefined,
-        "audio" === info.mediaType && contexts.includes("audio") ? info.srcUrl
-                                                                 : undefined,
-        "video" === info.mediaType && contexts.includes("video") ? info.srcUrl
-                                                                 : undefined,
+        "audio" === info.mediaType && contexts.includes("audio")
+            ? info.srcUrl
+            : undefined,
+        "video" === info.mediaType && contexts.includes("video")
+            ? info.srcUrl
+            : undefined,
         contexts.includes("frame") ? info.frameUrl : undefined,
         contexts.includes("page") ? info.pageUrl : undefined,
     ].filter((u) => undefined !== u);

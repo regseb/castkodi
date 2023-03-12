@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
@@ -11,7 +13,7 @@
 export const ping = async function (url) {
     try {
         await fetch(url, {
-            method:  "HEAD",
+            method: "HEAD",
             // Fournir des « identifiants » vides dans les entêtes pour que si
             // la page demande une authentification : celle-ci échoue
             // directement sans demander à l'utilisateur de saisir son

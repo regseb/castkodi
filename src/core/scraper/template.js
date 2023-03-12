@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { cacheable } from "../tools/cacheable.js";
@@ -43,10 +45,12 @@ const action = async function (url, content, options) {
     for (const template of doc.querySelectorAll("template")) {
         const subcontent = {
             html: cacheable(() => {
-                return Promise.resolve(new DOMParser().parseFromString(
-                    template.innerHTML,
-                    "text/html",
-                ));
+                return Promise.resolve(
+                    new DOMParser().parseFromString(
+                        template.innerHTML,
+                        "text/html",
+                    ),
+                );
             }),
         };
         for (const genericExtract of GENERIC_EXTRACTS) {

@@ -1,9 +1,14 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Input } from "../../../../src/core/jsonrpc/input.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
-import { NotificationEvent }
-                         from "../../../../src/core/tools/notificationevent.js";
+import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/input.js", function () {
     describe("back()", function () {
@@ -200,13 +205,15 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(new Kodi());
             input.onInputRequested.addListener(fake);
-            input.handleNotification(new NotificationEvent("notification", {
-                // Utiliser un espace de 5 caractères pour avoir la même
-                // longueur que le mot "Input".
-                method: "12345.OnInputRequested",
-                // eslint-disable-next-line unicorn/no-null
-                params: { data: null },
-            }));
+            input.handleNotification(
+                new NotificationEvent("notification", {
+                    // Utiliser un espace de 5 caractères pour avoir la même
+                    // longueur que le mot "Input".
+                    method: "12345.OnInputRequested",
+                    // eslint-disable-next-line unicorn/no-null
+                    params: { data: null },
+                }),
+            );
 
             assert.equal(fake.callCount, 0);
         });
@@ -214,10 +221,12 @@ describe("core/jsonrpc/input.js", function () {
         it("should ignore when no listener", function () {
             const input = new Input(new Kodi());
             const spy = sinon.spy(input.onInputRequested, "dispatch");
-            input.handleNotification(new NotificationEvent("notification", {
-                method: "Input.OnInputRequested",
-                params: { data: "foo" },
-            }));
+            input.handleNotification(
+                new NotificationEvent("notification", {
+                    method: "Input.OnInputRequested",
+                    params: { data: "foo" },
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
         });
@@ -227,10 +236,12 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(new Kodi());
             input.onInputRequested.addListener(fake);
-            input.handleNotification(new NotificationEvent("notification", {
-                method: "Input.OnInputRequested",
-                params: { data: { foo: "bar" } },
-            }));
+            input.handleNotification(
+                new NotificationEvent("notification", {
+                    method: "Input.OnInputRequested",
+                    params: { data: { foo: "bar" } },
+                }),
+            );
 
             assert.equal(fake.callCount, 1);
             assert.deepEqual(fake.firstCall.args, [{ foo: "bar" }]);
@@ -241,10 +252,12 @@ describe("core/jsonrpc/input.js", function () {
 
             const input = new Input(new Kodi());
             input.onInputRequested.addListener(fake);
-            input.handleNotification(new NotificationEvent("notification", {
-                method: "Input.Other",
-                params: { data: "foo" },
-            }));
+            input.handleNotification(
+                new NotificationEvent("notification", {
+                    method: "Input.Other",
+                    params: { data: "foo" },
+                }),
+            );
 
             assert.equal(fake.callCount, 0);
         });

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { JSONRPC } from "../tools/jsonrpc.js";
@@ -28,8 +30,8 @@ import { System } from "./system.js";
  */
 const KODI_VERSIONS = {
     API_VERSION: 12,
-    VERSION:     19,
-    NAME:        "Matrix",
+    VERSION: 19,
+    NAME: "Matrix",
 };
 
 /**
@@ -38,7 +40,6 @@ const KODI_VERSIONS = {
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
 export const Kodi = class {
-
     /**
      * Vérifie la connexion et la version de Kodi.
      *
@@ -298,8 +299,8 @@ export const Kodi = class {
                     "server-list",
                     "server-active",
                 ]);
-                address = config["server-list"][config["server-active"]]
-                                                                       .address;
+                address =
+                    config["server-list"][config["server-active"]].address;
             } else {
                 address = this.#address;
             }

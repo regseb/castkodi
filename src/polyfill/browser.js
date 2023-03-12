@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // Copier la variable "chrome" (qui contient les APIs pour les WebExtensions)

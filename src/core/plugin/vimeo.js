@@ -1,6 +1,8 @@
 /**
  * @module
+ * @license MIT
  * @see https://kodi.wiki/view/Add-on:Vimeo
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -24,8 +26,7 @@ const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
  *                            <em>fichier</em>.
  */
 export const generateUrl = async function (videoId, hash) {
-    return PLUGIN_URL + videoId + (undefined === hash ? ""
-                                                      : `:${hash}`);
+    return PLUGIN_URL + videoId + (undefined === hash ? "" : `:${hash}`);
 };
 
 /**
@@ -43,5 +44,7 @@ const action = async function ({ searchParams }) {
     const [videoId, hash] = searchParams.get("video_id").split(":");
     return labeller.extract(videoId, hash);
 };
-export const extract = matchPattern(action,
-    "plugin://plugin.video.vimeo/play/*");
+export const extract = matchPattern(
+    action,
+    "plugin://plugin.video.vimeo/play/*",
+);

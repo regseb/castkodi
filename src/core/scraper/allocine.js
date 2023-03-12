@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -24,11 +26,8 @@ const action = async function (url, content) {
 
     const model = JSON.parse(figure.dataset.model);
     const sources = model.videos[0].sources;
-    const source = sources.high ??
-                   sources.standard ??
-                   sources.medium ??
-                   sources.low;
-    return undefined === source ? undefined
-                                : new URL(source, url).href;
+    const source =
+        sources.high ?? sources.standard ?? sources.medium ?? sources.low;
+    return undefined === source ? undefined : new URL(source, url).href;
 };
 export const extract = matchPattern(action, "*://www.allocine.fr/*");

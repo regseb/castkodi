@@ -1,17 +1,17 @@
 {
-    "extends": "./.tsconfig.json",
-    "compilerOptions": {
-        "allowUnreachableCode": false,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitReturns": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "strict": true,
+  "extends": "./.tsconfig.json",
+  "compilerOptions": {
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
 
-        "noEmit": true,
+    "noEmit": true,
 
-        "checkJs": true,
+    "checkJs": true,
 
-        "noStrictGenericChecks": true
-    }
+    "noStrictGenericChecks": true
+  }
 }

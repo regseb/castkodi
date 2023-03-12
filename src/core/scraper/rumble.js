@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -22,7 +24,6 @@ const API_URL = "https://rumble.com/embedJS/u3/?request=video";
 const action = async function ({ pathname }) {
     const response = await fetch(`${API_URL}&v=${pathname.slice(7)}`);
     const json = await response.json();
-    return false === json ? undefined
-                          : Object.values(json.ua).at(-1)[0];
+    return false === json ? undefined : Object.values(json.ua).at(-1)[0];
 };
 export const extract = matchPattern(action, "*://rumble.com/embed/*");

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import * as plugin from "../plugin/youtube.js";
@@ -23,11 +25,13 @@ const actionVideo = async function (_url, content, { incognito }) {
     const doc = await content.html();
     const div = doc.querySelector("div.youtube-media-atom__iframe");
     return null === div
-                      ? undefined
-                      : plugin.generateVideoUrl(div.dataset.assetId, incognito);
+        ? undefined
+        : plugin.generateVideoUrl(div.dataset.assetId, incognito);
 };
-export const extractVideo = matchPattern(actionVideo,
-    "*://www.theguardian.com/*");
+export const extractVideo = matchPattern(
+    actionVideo,
+    "*://www.theguardian.com/*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
@@ -45,5 +49,7 @@ const actionAudio = async function (_url, content) {
     const figure = doc.querySelector("figure#audio-component-container");
     return figure?.dataset.source;
 };
-export const extractAudio = matchPattern(actionAudio,
-    "*://www.theguardian.com/*");
+export const extractAudio = matchPattern(
+    actionAudio,
+    "*://www.theguardian.com/*",
+);

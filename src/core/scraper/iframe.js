@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // eslint-disable-next-line import/no-cycle
@@ -33,8 +35,10 @@ const action = async function (url, content, options) {
     }
 
     for (const iframe of doc.querySelectorAll("iframe[src]")) {
-        const file = await metaExtract(new URL(iframe.getAttribute("src"), url),
-                                      { ...options, depth: true });
+        const file = await metaExtract(
+            new URL(iframe.getAttribute("src"), url),
+            { ...options, depth: true },
+        );
         if (undefined !== file) {
             return file;
         }

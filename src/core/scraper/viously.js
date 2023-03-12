@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -16,6 +18,8 @@ const action = async function ({ pathname }) {
     const id = pathname.slice(pathname.indexOf("/", 1) + 1);
     return `https://v.kolplay.com/${id}/index.m3u8`;
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://www.viously.com/export/*",
-    "*://www.viously.com/amp/*");
+    "*://www.viously.com/amp/*",
+);

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -28,11 +30,15 @@ const API_URL = "https://feeder.acast.com/api/v1";
  */
 const action = async function ({ pathname }) {
     const result = REGEXP.exec(pathname);
-    const response = await fetch(`${API_URL}/shows/${result.groups.show}` +
-                                          `/episodes/${result.groups.episode}`);
+    const response = await fetch(
+        `${API_URL}/shows/${result.groups.show}` +
+            `/episodes/${result.groups.episode}`,
+    );
     const json = await response.json();
     return json.url;
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://play.acast.com/s/*/*",
-    "*://embed.acast.com/*/*");
+    "*://embed.acast.com/*/*",
+);

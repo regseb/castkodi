@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
@@ -5,45 +11,51 @@ import * as scraper from "../../../../src/core/scraper/lemonde.js";
 
 describe("core/scraper/lemonde.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://journal.lemonde.fr/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't youtube / dailymotion" +
-                                                                    " / tiktok",
-                                                             async function () {
-            const url = new URL("https://www.lemonde.fr/foo.html");
-            const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body></body>
-                    </html>`, "text/html")),
-            };
-            const options = { depth: false };
+        it(
+            "should return undefined when there isn't youtube / dailymotion" +
+                " / tiktok",
+            async function () {
+                const url = new URL("https://www.lemonde.fr/foo.html");
+                const content = {
+                    html: () =>
+                        Promise.resolve(
+                            new DOMParser().parseFromString(
+                                "<html><body></body></html>",
+                                "text/html",
+                            ),
+                        ),
+                };
+                const options = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
-            assert.equal(file, undefined);
-        });
+                const file = await scraper.extract(url, content, options);
+                assert.equal(file, undefined);
+            },
+        );
 
-        it("should return undefined when it's depth with youtube",
-                                                             async function () {
+        it("should return undefined when it's depth with youtube", async function () {
             const spy = sinon.spy(kodi.addons, "getAddons");
 
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <video>
-                          <source type="video/youtube"
-                                  src="https://youtu.be/bar" />
-                        </video>
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <video>
+                                 <source type="video/youtube"
+                                         src="https://youtu.be/bar" />
+                               </video>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
             const options = { depth: true, incognito: true };
 
@@ -53,19 +65,21 @@ describe("core/scraper/lemonde.js", function () {
             assert.equal(spy.callCount, 0);
         });
 
-        it("should return undefined when youtube sub-page doesn't have media",
-                                                             async function () {
+        it("should return undefined when youtube sub-page doesn't have media", async function () {
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <video>
-                          <source type="video/youtube"
-                                  src="https://youtube.com/" />
-                        </video>
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <video>
+                                 <source type="video/youtube"
+                                         src="https://youtube.com/" />
+                               </video>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
             const options = { depth: false, incognito: true };
 
@@ -78,22 +92,27 @@ describe("core/scraper/lemonde.js", function () {
 
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <video>
-                          <source type="video/youtube"
-                                  src="https://youtu.be/bar" />
-                        </video>
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <video>
+                                 <source type="video/youtube"
+                                         src="https://youtu.be/bar" />
+                               </video>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
             const options = { depth: false, incognito: true };
 
             const file = await scraper.extract(url, content, options);
-            assert.equal(file,
-                "plugin://plugin.video.youtube/play/?video_id=bar" +
-                                                   "&incognito=true");
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=bar&incognito=true",
+            );
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
@@ -102,34 +121,40 @@ describe("core/scraper/lemonde.js", function () {
         it("should return URL from dailymotion", async function () {
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <div data-provider="dailymotion" data-id="bar" />
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <div data-provider="dailymotion" data-id="bar" />
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.equal(file,
-                "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                      "&url=bar");
+            assert.equal(
+                file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
+            );
         });
 
-        it("should return undefined when it's depth with tiktok",
-                                                             async function () {
+        it("should return undefined when it's depth with tiktok", async function () {
             const spy = sinon.spy(globalThis, "fetch");
 
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <blockquote class="tiktok-embed"
-                                    cite="https://www.tiktok.com/baz" />
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <blockquote class="tiktok-embed"
+                                           cite="https://www.tiktok.com/baz" />
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
             const options = { depth: true, incognito: false };
 
@@ -139,25 +164,25 @@ describe("core/scraper/lemonde.js", function () {
             assert.equal(spy.callCount, 0);
         });
 
-        it("should return undefined when tiktok sub-page doesn't have media",
-                                                             async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <body>
-                   </body>
-                 </html>`,
-                { headers: { "Content-Type": "text/html" } },
-            ));
+        it("should return undefined when tiktok sub-page doesn't have media", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response("<html><body></body></html>", {
+                    headers: { "Content-Type": "text/html" },
+                }),
+            );
 
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <blockquote class="tiktok-embed"
-                                    cite="https://www.tiktok.com/baz" />
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <blockquote class="tiktok-embed"
+                                           cite="https://www.tiktok.com/baz" />
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
             const options = { depth: false, incognito: false };
 
@@ -166,45 +191,54 @@ describe("core/scraper/lemonde.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.equal(stub.firstCall.args.length, 2);
-            assert.deepEqual(stub.firstCall.args[0],
-                             new URL("https://www.tiktok.com/baz"));
+            assert.deepEqual(
+                stub.firstCall.args[0],
+                new URL("https://www.tiktok.com/baz"),
+            );
             assert.equal(typeof stub.firstCall.args[1], "object");
         });
 
         it("should return URL from tiktok", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <body>
-                     <script id="SIGI_STATE">${JSON.stringify({
-                         AppContext: {},
-                         ItemModule: [{
-                             video: { playAddr: "https://foo.com/bar.mp4" },
-                         }],
-                     })}</script>
-                   </body>
-                 </html>`,
-                { headers: { "Content-Type": "text/html" } },
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><body>
+                       <script id="SIGI_STATE">${JSON.stringify({
+                           AppContext: {},
+                           ItemModule: [
+                               {
+                                   video: { playAddr: "http://foo.io/bar.mp4" },
+                               },
+                           ],
+                       })}</script>
+                     </body></html>`,
+                    { headers: { "Content-Type": "text/html" } },
+                ),
+            );
 
             const url = new URL("https://www.lemonde.fr/baz.html");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <blockquote class="tiktok-embed"
-                                    cite="https://www.tiktok.com/qux" />
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <blockquote class="tiktok-embed"
+                                           cite="https://www.tiktok.com/qux" />
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
             const options = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, content, options);
-            assert.equal(file, "https://foo.com/bar.mp4");
+            assert.equal(file, "http://foo.io/bar.mp4");
 
             assert.equal(stub.callCount, 1);
             assert.equal(stub.firstCall.args.length, 2);
-            assert.deepEqual(stub.firstCall.args[0],
-                             new URL("https://www.tiktok.com/qux"));
+            assert.deepEqual(
+                stub.firstCall.args[0],
+                new URL("https://www.tiktok.com/qux"),
+            );
             assert.equal(typeof stub.firstCall.args[1], "object");
         });
     });

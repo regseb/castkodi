@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -7,8 +13,10 @@ describe("Scraper: آپارات (Aparat)", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file,
+        assert.equal(
+            file,
             "https://www.aparat.com/video/hls/manifest/videohash/IWTPf/f" +
-                "/IWTPf.m3u8");
+                "/IWTPf.m3u8",
+        );
     });
 });

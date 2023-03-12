@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { notify } from "../../../../src/core/tools/notify.js";
@@ -11,12 +17,14 @@ describe("core/tools/notify.js", function () {
             notify(new Error("foo"));
 
             assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [{
-                type:    "basic",
-                iconUrl: "/img/icon128.png",
-                title:   "Unknown error",
-                message: "foo",
-            }]);
+            assert.deepEqual(stub.firstCall.args, [
+                {
+                    type: "basic",
+                    iconUrl: "/img/icon128.png",
+                    title: "Unknown error",
+                    message: "foo",
+                },
+            ]);
         });
 
         it("should accept PebkacError", function () {
@@ -25,12 +33,14 @@ describe("core/tools/notify.js", function () {
             notify(new PebkacError("noLink", "foo"));
 
             assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [{
-                type:    "basic",
-                iconUrl: "/img/icon128.png",
-                title:   "Unsupported link",
-                message: "Link foo is invalid.",
-            }]);
+            assert.deepEqual(stub.firstCall.args, [
+                {
+                    type: "basic",
+                    iconUrl: "/img/icon128.png",
+                    title: "Unsupported link",
+                    message: "Link foo is invalid.",
+                },
+            ]);
         });
     });
 });

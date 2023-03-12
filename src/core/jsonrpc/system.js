@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
@@ -12,7 +14,6 @@
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
 export const System = class {
-
     /**
      * Le client pour contacter Kodi.
      *

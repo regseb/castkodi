@@ -1,6 +1,8 @@
 /**
  * @module
+ * @license MIT
  * @see https://kodi.wiki/view/Add-on:VRT_NU
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 

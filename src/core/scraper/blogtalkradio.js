@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -17,7 +19,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    const meta = doc.querySelector(`meta[property="twitter:player:stream"]`);
+    const meta = doc.querySelector('meta[property="twitter:player:stream"]');
     return meta?.content;
 };
 export const extract = matchPattern(action, "*://www.blogtalkradio.com/*");

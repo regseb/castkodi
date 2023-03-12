@@ -1,7 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
   <g fill="white" stroke="white">
-    <rect x="2" y="2" width="12" height="12" stroke-width="2"
-          stroke-linejoin="round" />
+    <rect
+      x="2"
+      y="2"
+      width="12"
+      height="12"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
   </g>
 </svg>

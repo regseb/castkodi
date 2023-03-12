@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
@@ -12,7 +18,7 @@ describe("Scraper: BitChute", function () {
         }
     });
 
-    it("should return URL when it's not a video", async function () {
+    it("should return URL when it isn't a video", async function () {
         const url = new URL("https://www.bitchute.com/category/science/");
         const options = { depth: false, incognito: false };
 
@@ -25,7 +31,9 @@ describe("Scraper: BitChute", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.ok(file?.endsWith(".bitchute.com/hU2elaB5u3kB/dz5JcCZnJMge.mp4"),
-                  `"${file}"?.endsWith(...)`);
+        assert.ok(
+            file?.endsWith(".bitchute.com/hU2elaB5u3kB/dz5JcCZnJMge.mp4"),
+            `"${file}"?.endsWith(...)`,
+        );
     });
 });

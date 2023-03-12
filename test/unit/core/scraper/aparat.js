@@ -1,10 +1,15 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/aparat.js";
 
 describe("core/scraper/aparat.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.aparat.com/result/foo");
 
             const file = await scraper.extract(url);
@@ -15,9 +20,11 @@ describe("core/scraper/aparat.js", function () {
             const url = new URL("https://www.aparat.com/v/foo");
 
             const file = await scraper.extract(url);
-            assert.equal(file,
+            assert.equal(
+                file,
                 "https://www.aparat.com/video/hls/manifest/videohash/foo/f" +
-                    "/foo.m3u8");
+                    "/foo.m3u8",
+            );
         });
     });
 });

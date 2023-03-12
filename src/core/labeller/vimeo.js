@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
@@ -11,10 +13,10 @@
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
 export const extract = async function (videoId, hash) {
-    const response = await fetch(`https://vimeo.com/${videoId}` +
-                                 (undefined === hash ? ""
-                                                     : `/${hash}`));
+    const response = await fetch(
+        `https://vimeo.com/${videoId}` + (undefined === hash ? "" : `/${hash}`),
+    );
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
-    return doc.querySelector(`meta[property="og:title"]`).content;
+    return doc.querySelector('meta[property="og:title"]').content;
 };

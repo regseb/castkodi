@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import nodeFetch from "node-fetch";
@@ -14,8 +16,9 @@ import nodeFetch from "node-fetch";
  *
  * @type {string}
  */
-const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" +
-                   " (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36";
+const USER_AGENT =
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)" +
+    " Chrome/109.0.0.0 Safari/537.36";
 
 /**
  * Cherche une ressource.
@@ -30,10 +33,10 @@ export const fetch = function (input, init) {
         "Accept-Language": "*",
         // Définir "keep-alive" car node-fetch utilise par défaut "close".
         // https://github.com/node-fetch/node-fetch/pull/1473
-        Connection:        "keep-alive",
+        Connection: "keep-alive",
         // Remplacer l'agent utilisateur "node-fetch" par la valeur d'un vrai
         // navigateur ; pour ne pas être bloqué par des sites.
-        "User-Agent":      USER_AGENT,
+        "User-Agent": USER_AGENT,
         ...init?.headers,
     };
     // Utiliser node-fetch car la fonction native fetch() de Node.js ne supporte

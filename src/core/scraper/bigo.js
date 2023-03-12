@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -20,13 +22,13 @@ const API_URL = "https://www.bigo.tv/studio/getInternalStudioInfo";
  *                                      <code>undefined</code>.
  */
 const action = async function ({ pathname }) {
-    const result = (/^\/(?:[a-z]{2}\/)?(?<id>\d+)$/iu).exec(pathname);
+    const result = /^\/(?:[a-z]{2}\/)?(?<id>\d+)$/iu.exec(pathname);
     if (undefined === result?.groups) {
         return undefined;
     }
     const response = await fetch(API_URL, {
         method: "POST",
-        body:   new URLSearchParams({ siteId: result.groups.id }),
+        body: new URLSearchParams({ siteId: result.groups.id }),
     });
     const json = await response.json();
     return json.data.hls_src;

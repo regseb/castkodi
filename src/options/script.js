@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { Kodi } from "../core/jsonrpc/kodi.js";
@@ -50,7 +52,7 @@ const check = async function (input) {
     input.setCustomValidity("");
     if (input.name.startsWith("address_")) {
         input.removeAttribute("title");
-        input.style.backgroundImage = `url("/design/icon/loading-gray.svg")`;
+        input.style.backgroundImage = 'url("/design/icon/loading-gray.svg")';
         const address = input.value;
         try {
             await Kodi.check(address);
@@ -58,8 +60,8 @@ const check = async function (input) {
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette réussite.
             if (address === input.value) {
-                input.style.backgroundImage = `url("/design/icon` +
-                                                   `/connected-green.svg")`;
+                input.style.backgroundImage =
+                    'url("/design/icon/connected-green.svg")';
             }
         } catch (err) {
             // Afficher l'erreur si la valeur testée est toujours la valeur
@@ -68,20 +70,20 @@ const check = async function (input) {
             if (address === input.value) {
                 if ("notFound" === err.type || "notSupported" === err.type) {
                     input.title = err.message;
-                    input.style.backgroundImage = `url("/design/icon` +
-                                                       `/warning-yellow.svg")`;
+                    input.style.backgroundImage =
+                        'url("/design/icon/warning-yellow.svg")';
                 } else {
                     input.setCustomValidity(err.message);
-                    input.style.backgroundImage = `url("/design/icon` +
-                                                       `/invalid-red.svg")`;
+                    input.style.backgroundImage =
+                        'url("/design/icon/invalid-red.svg")';
                 }
             }
         }
-    } else if ((/^\s*$/u).test(input.value)) {
+    } else if (/^\s*$/u.test(input.value)) {
         input.setCustomValidity(
             browser.i18n.getMessage("options_serverName_error"),
         );
-        input.style.backgroundImage = `url("/design/icon/invalid-red.svg")`;
+        input.style.backgroundImage = 'url("/design/icon/invalid-red.svg")';
     } else {
         input.style.backgroundImage = "none";
     }
@@ -102,7 +104,7 @@ const save = async function () {
                 // Modifier la configuration en une fois pour éviter d'appeler
                 // les auditeurs à chaque changement.
                 await browser.storage.local.set({
-                    "server-mode":   "single",
+                    "server-mode": "single",
                     "server-active": 0,
                 });
                 tab.nextElementSibling.open = false;
@@ -113,13 +115,14 @@ const save = async function () {
         } else {
             // Synchroniser les deux champs de l'adresse du premier serveur.
             if ("address_0" === this.name) {
-                for (const input of
-                        this.form.querySelectorAll(`input[name="address_0"]`)) {
+                for (const input of this.form.querySelectorAll(
+                    'input[name="address_0"]',
+                )) {
                     input.value = this.value;
                 }
             }
             const list = [];
-            for (const input of this.form.querySelectorAll(`tbody input`)) {
+            for (const input of this.form.querySelectorAll("tbody input")) {
                 const [type, position] = input.name.split("_");
                 const index = Number(position);
                 if (undefined === list[index]) {
@@ -129,8 +132,9 @@ const save = async function () {
                 }
             }
             await browser.storage.local.set({ "server-list": list });
-            this.form.querySelectorAll(`input[name="${this.name}"]`)
-                     .forEach(check);
+            this.form
+                .querySelectorAll(`input[name="${this.name}"]`)
+                .forEach(check);
         }
     } else if ("checkbox" === this.type) {
         this.checked = await ask(this);
@@ -140,8 +144,8 @@ const save = async function () {
         } else {
             await browser.storage.local.set({
                 [key]: Array.from(inputs)
-                            .filter((i) => i.checked)
-                            .map((i) => i.name),
+                    .filter((i) => i.checked)
+                    .map((i) => i.name),
             });
         }
     } else {
@@ -157,8 +161,9 @@ const save = async function () {
 const remove = async function (event) {
     const tbody = document.querySelector("tbody");
     // Enlever la ligne.
-    document.querySelector("table")
-            .deleteRow(event.target.closest("tr").rowIndex);
+    document
+        .querySelector("table")
+        .deleteRow(event.target.closest("tr").rowIndex);
 
     // Recalculer les index.
     let index = 0;
@@ -176,7 +181,7 @@ const remove = async function (event) {
     }
 
     // Enregistrer la nouvelle configuration.
-    await save.apply(tbody.querySelector(`[name="address_0"]`));
+    await save.apply(tbody.querySelector('[name="address_0"]'));
     // Activer le premier serveur car c'est peut-être le serveur actif qui a été
     // supprimé.
     await browser.storage.local.set({ "server-active": 0 });
@@ -193,14 +198,14 @@ const add = function (server) {
     const index = document.querySelectorAll("tbody tr").length;
 
     const tr = document.querySelector("template").content.cloneNode(true);
-    const address = tr.querySelector(`[name="address_"]`);
+    const address = tr.querySelector('[name="address_"]');
     if ("address" in server) {
         address.value = server.address;
     }
     address.name += index.toString();
     address.addEventListener("input", save);
     if (0 === index) {
-        const single = document.querySelector(`[name="address_0"]`);
+        const single = document.querySelector('[name="address_0"]');
         single.value = server.address;
         check(single);
         tr.querySelector("button").disabled = true;
@@ -208,7 +213,7 @@ const add = function (server) {
         document.querySelector("tbody button").disabled = false;
     }
 
-    const name = tr.querySelector(`[name="name_"]`);
+    const name = tr.querySelector('[name="name_"]');
     if ("name" in server) {
         name.value = server.name;
     }
@@ -233,8 +238,9 @@ const load = function (config) {
         if ("server-list" === key) {
             value.forEach(add);
         } else if ("server-mode" === key) {
-            for (const input of document
-                               .querySelectorAll(`input[name="server-mode"]`)) {
+            for (const input of document.querySelectorAll(
+                'input[name="server-mode"]',
+            )) {
                 const tab = input.closest("details");
                 input.checked = value === input.value;
                 tab.open = input.checked;
@@ -273,15 +279,19 @@ const handleRemove = function (permissions) {
  *                                                la configuration.
  */
 const handleChange = function (changes) {
-    load(Object.fromEntries(Object.entries(changes)
-                                  .filter(([, v]) => "newValue" in v)
-                                  // Ignorer "server-active" car ce paramètre
-                                  // n'est pas affiché dans la page.
-                                  .filter(([k]) => "server-active" !== k)
-                                  // Ne pas actualiser la liste des serveurs car
-                                  // cela provoque un bogue.
-                                  .filter(([k]) => "server-list" !== k)
-                                  .map(([k, v]) => [k, v.newValue])));
+    load(
+        Object.fromEntries(
+            Object.entries(changes)
+                .filter(([, v]) => "newValue" in v)
+                // Ignorer "server-active" car ce paramètre n'est pas affiché
+                // dans la page.
+                .filter(([k]) => "server-active" !== k)
+                // Ne pas actualiser la liste des serveurs car cela provoque un
+                // bogue.
+                .filter(([k]) => "server-list" !== k)
+                .map(([k, v]) => [k, v.newValue]),
+        ),
+    );
 };
 
 document.querySelector("#permission button").addEventListener("click", request);
@@ -296,8 +306,9 @@ load(await browser.storage.local.get());
 
 // Activer les contextes disponibles seulement dans certains navigateurs.
 const info = await browser.runtime.getBrowserInfo();
-for (const label of document.querySelectorAll("label" +
-                                   `[data-supported-browser="${info.name}"]`)) {
+for (const label of document.querySelectorAll(
+    `label[data-supported-browser="${info.name}"]`,
+)) {
     delete label.dataset.supportedBrowser;
 }
 

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -20,5 +22,7 @@ const action = async function (_url, content) {
     const div = doc.querySelector("div[data-hls-url]");
     return div?.dataset.hlsUrl;
 };
-export const extract = matchPattern(action,
-    "*://www.redditmedia.com/mediaembed/*");
+export const extract = matchPattern(
+    action,
+    "*://www.redditmedia.com/mediaembed/*",
+);

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -24,7 +26,7 @@ const action = async function (_url, content) {
 
     const json = JSON.parse(script.text);
     return "ItemModule" in json
-                              ? Object.values(json.ItemModule)[0].video.playAddr
-                              : undefined;
+        ? Object.values(json.ItemModule)[0].video.playAddr
+        : undefined;
 };
 export const extract = matchPattern(action, "*://www.tiktok.com/*");

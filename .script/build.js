@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import fs from "node:fs/promises";
@@ -34,19 +36,20 @@ const plain = function (html) {
         switch (node.nodeName) {
             case "#comment":
                 switch (node.nodeValue?.trim()) {
-                    case "disable chrome": enabled = false; break;
-                    case "enable chrome":  enabled = true;  break;
+                    case "disable chrome":
+                        enabled = false;
+                        break;
+                    case "enable chrome":
+                        enabled = true;
+                        break;
                     default:
-                        // Ignorer ce commentaire.
+                    // Ignorer les autres commentaires.
                 }
                 return "";
             case "#text":
-                return enabled ? node?.nodeValue ?? ""
-                               : "";
+                return enabled ? node?.nodeValue ?? "" : "";
             default:
-                return Array.from(node.childNodes)
-                            .map(extract)
-                            .join("");
+                return Array.from(node.childNodes).map(extract).join("");
         }
     };
 
@@ -63,25 +66,33 @@ for (const browser of ["chromium", "firefox"]) {
 
     // Créer l'archive de l'extension.
     await webExt.cmd.build({
-        sourceDir:     SOURCE_DIR,
-        artifactsDir:  buildDir,
+        sourceDir: SOURCE_DIR,
+        artifactsDir: buildDir,
         overwriteDest: true,
     });
 
     // Déplacer et générer les fichiers pour les textes dans les boutiques.
     for (const lang of await fs.readdir(LOCALES_DIR)) {
         if ("chromium" === browser) {
-            await fs.writeFile(path.join(buildDir, `description-${lang}.txt`),
-                               plain(await fs.readFile(
-                path.join(LOCALES_DIR, lang, "description.tpl"),
-                "utf8",
-            )));
+            await fs.writeFile(
+                path.join(buildDir, `description-${lang}.txt`),
+                plain(
+                    await fs.readFile(
+                        path.join(LOCALES_DIR, lang, "description.tpl"),
+                        "utf8",
+                    ),
+                ),
+            );
         } else if ("firefox" === browser) {
-            await fs.cp(path.join(LOCALES_DIR, lang, "summary.txt"),
-                        path.join(buildDir, `summary-${lang}.txt`));
+            await fs.cp(
+                path.join(LOCALES_DIR, lang, "summary.txt"),
+                path.join(buildDir, `summary-${lang}.txt`),
+            );
 
-            await fs.cp(path.join(LOCALES_DIR, lang, "description.tpl"),
-                        path.join(buildDir, `description-${lang}.tpl`));
+            await fs.cp(
+                path.join(LOCALES_DIR, lang, "description.tpl"),
+                path.join(buildDir, `description-${lang}.tpl`),
+            );
         }
     }
 }

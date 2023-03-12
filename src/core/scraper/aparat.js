@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -14,7 +16,9 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function ({ pathname }) {
     const id = pathname.slice(3);
-    return `https://www.aparat.com/video/hls/manifest/videohash/${id}/f/${id}` +
-                                                                        ".m3u8";
+    return (
+        `https://www.aparat.com/video/hls/manifest/videohash/${id}/f/${id}` +
+        ".m3u8"
+    );
 };
 export const extract = matchPattern(action, "*://www.aparat.com/v/*");

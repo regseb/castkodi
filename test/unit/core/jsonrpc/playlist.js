@@ -1,9 +1,14 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
-import { NotificationEvent }
-                         from "../../../../src/core/tools/notificationevent.js";
+import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/playlist.js", function () {
     describe("add()", function () {
@@ -94,7 +99,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 {
                     playlistid: 1,
                     properties: ["file", "title"],
-                    limits:     { start: 42, end: 43 },
+                    limits: { start: 42, end: 43 },
                 },
             ]);
         });
@@ -114,7 +119,7 @@ describe("core/jsonrpc/playlist.js", function () {
                 {
                     playlistid: 1,
                     properties: ["file", "title"],
-                    limits:     { start: 42, end: 43 },
+                    limits: { start: 42, end: 43 },
                 },
             ]);
         });
@@ -247,16 +252,15 @@ describe("core/jsonrpc/playlist.js", function () {
             playlist.onAdd.addListener(fakeAdd);
             playlist.onClear.addListener(fakeClear);
             playlist.onRemove.addListener(fakeRemove);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification",
-                {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     // Utiliser un espace de 9 caractères pour avoir la même
                     // longueur que le mot "Playlist".
                     method: "123456789.OnAdd",
                     // eslint-disable-next-line unicorn/no-null
                     params: { data: null },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
             assert.equal(fakeAdd.callCount, 0);
@@ -267,12 +271,12 @@ describe("core/jsonrpc/playlist.js", function () {
         it("should ignore when no listener on add", async function () {
             const playlist = new Playlist(new Kodi());
             const spy = sinon.spy(playlist.onAdd, "dispatch");
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnAdd",
                     params: { data: { playlistid: 1 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
         });
@@ -280,12 +284,12 @@ describe("core/jsonrpc/playlist.js", function () {
         it("should ignore when no listener on clear", async function () {
             const playlist = new Playlist(new Kodi());
             const spy = sinon.spy(playlist.onClear, "dispatch");
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnClear",
                     params: { data: { playlistid: 1 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
         });
@@ -293,12 +297,12 @@ describe("core/jsonrpc/playlist.js", function () {
         it("should ignore when no listener on remove", async function () {
             const playlist = new Playlist(new Kodi());
             const spy = sinon.spy(playlist.onRemove, "dispatch");
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnRemove",
                     params: { data: { playlistid: 1 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
         });
@@ -314,12 +318,12 @@ describe("core/jsonrpc/playlist.js", function () {
             playlist.onAdd.addListener(fakeAdd);
             playlist.onClear.addListener(fakeClear);
             playlist.onRemove.addListener(fakeRemove);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnAdd",
                     params: { data: { playlistid: 2 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
             assert.equal(fakeAdd.callCount, 0);
@@ -336,13 +340,12 @@ describe("core/jsonrpc/playlist.js", function () {
 
             const playlist = new Playlist(kodi);
             playlist.onAdd.addListener(fake);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification",
-                {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnAdd",
                     params: { data: { playlistid: 1, position: 2 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -350,14 +353,16 @@ describe("core/jsonrpc/playlist.js", function () {
                 {
                     playlistid: 1,
                     properties: ["file", "title"],
-                    limits:     { start: 2, end: 3 },
+                    limits: { start: 2, end: 3 },
                 },
             ]);
             assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [{
-                foo:      "bar",
-                position: 2,
-            }]);
+            assert.deepEqual(fake.firstCall.args, [
+                {
+                    foo: "bar",
+                    position: 2,
+                },
+            ]);
         });
 
         it("should only handle 'OnAdd'", async function () {
@@ -373,13 +378,12 @@ describe("core/jsonrpc/playlist.js", function () {
             playlist.onAdd.addListener(fakeAdd);
             playlist.onClear.addListener(fakeClear);
             playlist.onRemove.addListener(fakeRemove);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification",
-                {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnAdd",
                     params: { data: { playlistid: 1, position: 2 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -387,14 +391,16 @@ describe("core/jsonrpc/playlist.js", function () {
                 {
                     playlistid: 1,
                     properties: ["file", "title"],
-                    limits:     { start: 2, end: 3 },
+                    limits: { start: 2, end: 3 },
                 },
             ]);
             assert.equal(fakeAdd.callCount, 1);
-            assert.deepEqual(fakeAdd.firstCall.args, [{
-                foo:      "bar",
-                position: 2,
-            }]);
+            assert.deepEqual(fakeAdd.firstCall.args, [
+                {
+                    foo: "bar",
+                    position: 2,
+                },
+            ]);
             assert.equal(fakeClear.callCount, 0);
             assert.equal(fakeRemove.callCount, 0);
         });
@@ -406,12 +412,12 @@ describe("core/jsonrpc/playlist.js", function () {
 
             const playlist = new Playlist(kodi);
             playlist.onClear.addListener(fake);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnClear",
                     params: { data: { playlistid: 1 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
             assert.equal(fake.callCount, 1);
@@ -429,12 +435,12 @@ describe("core/jsonrpc/playlist.js", function () {
             playlist.onAdd.addListener(fakeAdd);
             playlist.onClear.addListener(fakeClear);
             playlist.onRemove.addListener(fakeRemove);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnClear",
                     params: { data: { playlistid: 1 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
             assert.equal(fakeAdd.callCount, 0);
@@ -450,12 +456,12 @@ describe("core/jsonrpc/playlist.js", function () {
 
             const playlist = new Playlist(kodi);
             playlist.onRemove.addListener(fake);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnRemove",
                     params: { data: { playlistid: 1, position: 2 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
             assert.equal(fake.callCount, 1);
@@ -473,12 +479,12 @@ describe("core/jsonrpc/playlist.js", function () {
             playlist.onAdd.addListener(fakeAdd);
             playlist.onClear.addListener(fakeClear);
             playlist.onRemove.addListener(fakeRemove);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification", {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.OnRemove",
                     params: { data: { playlistid: 1, position: 2 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
             assert.equal(fakeAdd.callCount, 0);
@@ -498,13 +504,12 @@ describe("core/jsonrpc/playlist.js", function () {
             playlist.onAdd.addListener(fakeAdd);
             playlist.onClear.addListener(fakeClear);
             playlist.onRemove.addListener(fakeRemove);
-            await playlist.handleNotification(new NotificationEvent(
-                "notification",
-                {
+            await playlist.handleNotification(
+                new NotificationEvent("notification", {
                     method: "Playlist.Other",
                     params: { data: { playlistid: 1 } },
-                },
-            ));
+                }),
+            );
 
             assert.equal(spy.callCount, 0);
             assert.equal(fakeAdd.callCount, 0);

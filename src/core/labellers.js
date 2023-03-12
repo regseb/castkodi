@@ -1,9 +1,11 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import * as dailymotion from "./plugin/dailymotion.js";
-import * as dumpert  from "./plugin/dumpert.js";
+import * as dumpert from "./plugin/dumpert.js";
 import * as soundcloud from "./plugin/soundcloud.js";
 import * as twitch from "./plugin/twitch.js";
 import * as vimeo from "./plugin/vimeo.js";
@@ -25,9 +27,11 @@ const PLUGINS = [
     vimeo,
     vtmgo,
     youtube,
-].flatMap((p) => Object.entries(p)
-                       .filter(([n]) => n.startsWith("extract"))
-                       .map(([_, f]) => f));
+].flatMap((p) =>
+    Object.entries(p)
+        .filter(([n]) => n.startsWith("extract"))
+        .map(([_, f]) => f),
+);
 
 /**
  * Complète un élément de la liste de lecture avec un label.
@@ -46,8 +50,9 @@ export const complete = async function (item) {
         return { ...item, label: strip(item.title) };
     }
 
-    const url = new URL(item.file.startsWith("/") ? `file:/${item.file}`
-                                                  : item.file);
+    const url = new URL(
+        item.file.startsWith("/") ? `file:/${item.file}` : item.file,
+    );
     for (const plugin of PLUGINS) {
         const label = await plugin(url);
         if (undefined !== label) {
@@ -57,7 +62,6 @@ export const complete = async function (item) {
 
     return {
         ...item,
-        label: "" === item.label ? item.file
-                                 : strip(item.label),
+        label: "" === item.label ? item.file : strip(item.label),
     };
 };

@@ -1,6 +1,8 @@
 /**
  * @module
+ * @license MIT
  * @see https://kodi.wiki/view/Add-on:VTM_GO
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -60,8 +62,10 @@ const actionEpisode = async function ({ pathname }) {
     const episodeId = pathname.replace("//plugin.video.vtm.go", "").slice(23);
     return labeller.extractEpisode(episodeId);
 };
-export const extractEpisode = matchPattern(actionEpisode,
-    "plugin://plugin.video.vtm.go/play/catalog/episodes/*");
+export const extractEpisode = matchPattern(
+    actionEpisode,
+    "plugin://plugin.video.vtm.go/play/catalog/episodes/*",
+);
 
 /**
  * Extrait le titre d'un film VTM GO.
@@ -76,8 +80,10 @@ const actionMovie = async function ({ pathname }) {
     const movieId = pathname.replace("//plugin.video.vtm.go", "").slice(21);
     return labeller.extractMovie(movieId);
 };
-export const extractMovie = matchPattern(actionMovie,
-    "plugin://plugin.video.vtm.go/play/catalog/movies/*");
+export const extractMovie = matchPattern(
+    actionMovie,
+    "plugin://plugin.video.vtm.go/play/catalog/movies/*",
+);
 
 /**
  * Extrait le titre d'une chaine VTM GO.
@@ -92,5 +98,7 @@ const actionChannel = async function ({ pathname }) {
     const channelId = pathname.replace("//plugin.video.vtm.go", "").slice(23);
     return labeller.extractChannel(channelId);
 };
-export const extractChannel = matchPattern(actionChannel,
-    "plugin://plugin.video.vtm.go/play/catalog/channels/*");
+export const extractChannel = matchPattern(
+    actionChannel,
+    "plugin://plugin.video.vtm.go/play/catalog/channels/*",
+);

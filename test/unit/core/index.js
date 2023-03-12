@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { cast, mux } from "../../../src/core/index.js";
@@ -59,8 +65,10 @@ describe("core/index.js", function () {
             ];
 
             const url = mux(urls);
-            assert.equal(url,
-                "magnet:?xt=urn:sha1:0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33");
+            assert.equal(
+                url,
+                "magnet:?xt=urn:sha1:0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33",
+            );
         });
 
         it("should get acestream URL", function () {
@@ -81,9 +89,9 @@ describe("core/index.js", function () {
     describe("cast()", function () {
         it("should reject invalid url", async function () {
             await assert.rejects(() => cast("send", ["foo://bar"]), {
-                name:    "PebkacError",
+                name: "PebkacError",
                 message: "Link foo://bar is invalid.",
-                type:    "noLink",
+                type: "noLink",
             });
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
@@ -118,18 +126,19 @@ describe("core/index.js", function () {
 
         it("should insert url", async function () {
             browser.extension.inIncognitoContext = true;
-            const stubGetProperty = sinon.stub(kodi.player, "getProperty")
-                                         .resolves(42);
-            const stubInsert = sinon.stub(kodi.playlist, "insert")
-                                    .resolves("OK");
+            const stubGetProperty = sinon
+                .stub(kodi.player, "getProperty")
+                .resolves(42);
+            const stubInsert = sinon
+                .stub(kodi.playlist, "insert")
+                .resolves("OK");
 
             await cast("insert", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetProperty.callCount, 1);
-            assert.deepEqual(stubGetProperty.firstCall.args,
-                                   ["position"]);
+            assert.deepEqual(stubGetProperty.firstCall.args, ["position"]);
             assert.equal(stubInsert.callCount, 1);
             assert.deepEqual(stubInsert.firstCall.args, [
                 "http://foo.com/bar",
@@ -151,7 +160,7 @@ describe("core/index.js", function () {
 
         it("should reject invalid action", async function () {
             await assert.rejects(() => cast("foo", ["http://foo.com/bar"]), {
-                name:    "Error",
+                name: "Error",
                 message: "foo is not supported",
             });
             const histories = browser.history.search({ text: "" });
@@ -198,10 +207,12 @@ describe("core/index.js", function () {
         it("should pass incognito on scrapers", async function () {
             browser.extension.inIncognitoContext = true;
             browser.storage.local.set({ "general-history": false });
-            const stubAddons = sinon.stub(kodi.addons, "getAddons")
-                                    .resolves([]);
-            const stubPlaylist = sinon.stub(kodi.playlist, "add")
-                                      .resolves("OK");
+            const stubAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
+            const stubPlaylist = sinon
+                .stub(kodi.playlist, "add")
+                .resolves("OK");
 
             await cast("add", ["http://youtu.be/foo"]);
             const histories = browser.history.search({ text: "" });
@@ -211,8 +222,8 @@ describe("core/index.js", function () {
             assert.deepEqual(stubAddons.firstCall.args, ["video"]);
             assert.equal(stubPlaylist.callCount, 1);
             assert.deepEqual(stubPlaylist.firstCall.args, [
-                "plugin://plugin.video.youtube/play/?video_id=foo" +
-                                                   "&incognito=true",
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=foo&incognito=true",
             ]);
         });
     });

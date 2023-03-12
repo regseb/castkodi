@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -60,5 +62,7 @@ const action = async function ({ pathname, hash }) {
 
     return undefined;
 };
-export const extract = matchPattern(action,
-    "*://watch.pokemon.com/*/#/player?*");
+export const extract = matchPattern(
+    action,
+    "*://watch.pokemon.com/*/#/player?*",
+);

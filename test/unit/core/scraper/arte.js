@@ -1,22 +1,28 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/arte.js";
 
 describe("core/scraper/arte.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.arte.tv/fr/guide/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when video is unavailable",
-                                                             async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                Response.json({ data: { attributes: { streams: [] } } }),
-            );
+        it("should return undefined when video is unavailable", async function () {
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(
+                    Response.json({ data: { attributes: { streams: [] } } }),
+                );
 
             const url = new URL("https://www.arte.tv/de/videos/foo/bar");
 

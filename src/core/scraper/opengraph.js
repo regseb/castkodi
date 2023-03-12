@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // eslint-disable-next-line import/no-cycle
@@ -15,14 +17,14 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const SELECTORS = {
     VIDEO: [
-        `meta[property="og:video:secure_url"]`,
-        `meta[property="og:video:url"]`,
-        `meta[property="og:video"]`,
+        'meta[property="og:video:secure_url"]',
+        'meta[property="og:video:url"]',
+        'meta[property="og:video"]',
     ],
     AUDIO: [
-        `meta[property="og:audio:secure_url"]`,
-        `meta[property="og:audio:url"]`,
-        `meta[property="og:audio"]`,
+        'meta[property="og:audio:secure_url"]',
+        'meta[property="og:audio:url"]',
+        'meta[property="og:audio"]',
     ],
 };
 
@@ -49,13 +51,14 @@ const actionVideo = async function (_url, content, options) {
         return undefined;
     }
 
-    const type = doc.querySelector(`meta[property="og:video:type"]`);
+    const type = doc.querySelector('meta[property="og:video:type"]');
     if (null === type) {
         return undefined;
     }
 
-    const meta = SELECTORS.VIDEO.map((s) => doc.querySelector(s))
-                                .find((m) => null !== m && "" !== m.content);
+    const meta = SELECTORS.VIDEO.map((s) => doc.querySelector(s)).find(
+        (m) => null !== m && "" !== m.content,
+    );
     if (undefined === meta) {
         return undefined;
     }
@@ -94,13 +97,14 @@ const actionAudio = async function (_url, content, options) {
         return undefined;
     }
 
-    const type = doc.querySelector(`meta[property="og:audio:type"]`);
+    const type = doc.querySelector('meta[property="og:audio:type"]');
     if (null === type) {
         return undefined;
     }
 
-    const meta = SELECTORS.AUDIO.map((s) => doc.querySelector(s))
-                                .find((m) => null !== m && "" !== m.content);
+    const meta = SELECTORS.AUDIO.map((s) => doc.querySelector(s)).find(
+        (m) => null !== m && "" !== m.content,
+    );
     if (undefined === meta) {
         return undefined;
     }
@@ -134,7 +138,7 @@ const actionTwitter = async function (_url, content) {
         return undefined;
     }
 
-    const meta = doc.querySelector(`meta[property="twitter:player:stream"]`);
+    const meta = doc.querySelector('meta[property="twitter:player:stream"]');
     return meta?.content;
 };
 export const extractTwitter = matchPattern(actionTwitter, "*://*/*");
@@ -158,7 +162,7 @@ const actionYandex = async function (_url, content) {
         return undefined;
     }
 
-    const meta = doc.querySelector(`meta[property="ya:ovs:content_url"]`);
+    const meta = doc.querySelector('meta[property="ya:ovs:content_url"]');
     return meta?.content;
 };
 export const extractYandex = matchPattern(actionYandex, "*://*/*");

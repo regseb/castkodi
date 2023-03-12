@@ -1,20 +1,26 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/peertube.js";
 
 describe("core/scraper/peertube.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://joinpeertube.org/fr/faq/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's not a video", async function () {
-            const stub = sinon.stub(globalThis, "fetch")
-                              .resolves(Response.json({}));
+        it("should return undefined when it isn't a video", async function () {
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(Response.json({}));
 
             const url = new URL("https://foo.com/w/bar");
 
@@ -30,10 +36,12 @@ describe("core/scraper/peertube.js", function () {
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
-                    streamingPlaylists: [{
-                        playlistUrl: "http://foo.fr/bar.avi",
-                        files:       [],
-                    }],
+                    streamingPlaylists: [
+                        {
+                            playlistUrl: "http://foo.fr/bar.avi",
+                            files: [],
+                        },
+                    ],
                 }),
             );
 
@@ -52,7 +60,7 @@ describe("core/scraper/peertube.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
                     streamingPlaylists: [],
-                    files:              [{ fileUrl: "http://foo.io/bar.avi" }],
+                    files: [{ fileUrl: "http://foo.io/bar.avi" }],
                 }),
             );
 
@@ -71,7 +79,7 @@ describe("core/scraper/peertube.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
                     streamingPlaylists: [],
-                    files:              [{ fileUrl: "http://foo.fr/bar.avi" }],
+                    files: [{ fileUrl: "http://foo.fr/bar.avi" }],
                 }),
             );
 
@@ -86,10 +94,10 @@ describe("core/scraper/peertube.js", function () {
             ]);
         });
 
-        it("should return undefined when it's not a PeerTube website",
-                                                             async function () {
-            const stub = sinon.stub(globalThis, "fetch")
-                              .rejects(new Error("foo"));
+        it("should return undefined when it isn't a PeerTube website", async function () {
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .rejects(new Error("foo"));
 
             const url = new URL("https://bar.com/w/baz");
 

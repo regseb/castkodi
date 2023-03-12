@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
@@ -19,9 +21,11 @@ const search = function (doc) {
         null,
     );
     const attributes = [];
-    for (let attribut = results.iterateNext();
-            null !== attribut;
-            attribut = results.iterateNext()) {
+    for (
+        let attribut = results.iterateNext();
+        null !== attribut;
+        attribut = results.iterateNext()
+    ) {
         attributes.push(/** @type {Attr} */ (attribut));
     }
     return attributes;
@@ -40,8 +44,9 @@ const searchInTemplate = function (doc) {
         attributes.push(...searchInTemplate(template.content));
         for (const element of template.content.querySelectorAll("*")) {
             attributes.push(
-                ...Array.from(element.attributes)
-                        .filter((a) => a.name.startsWith("data-l10n-")),
+                ...Array.from(element.attributes).filter((a) =>
+                    a.name.startsWith("data-l10n-"),
+                ),
             );
         }
     }

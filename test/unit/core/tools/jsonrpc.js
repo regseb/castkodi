@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import { Server } from "mock-socket";
 import sinon from "sinon";
@@ -20,10 +26,12 @@ describe("core/tools/jsonrpc.js", function () {
         it("should return promise rejected", async function () {
             // Ne pas instancier de serveur pour faire échouer la connexion.
             await assert.rejects(
-                () => JSONRPC.open(new URL("ws://localhost/")), {
-                    name:    "Error",
-                    message: "Connection to the server at ws://localhost/" +
-                             " unestablished",
+                () => JSONRPC.open(new URL("ws://localhost/")),
+                {
+                    name: "Error",
+                    message:
+                        "Connection to the server at ws://localhost/" +
+                        " unestablished",
                 },
             );
         });
@@ -96,16 +104,18 @@ describe("core/tools/jsonrpc.js", function () {
                     const request = JSON.parse(data.toString());
                     assert.deepEqual(request, {
                         jsonrpc: "2.0",
-                        method:  "foo",
-                        params:  { bar: "baz" },
-                        id:      1,
+                        method: "foo",
+                        params: { bar: "baz" },
+                        id: 1,
                     });
 
-                    socket.send(JSON.stringify({
-                        jsonrpc: "2.0",
-                        result:  "qux",
-                        id:      request.id,
-                    }));
+                    socket.send(
+                        JSON.stringify({
+                            jsonrpc: "2.0",
+                            result: "qux",
+                            id: request.id,
+                        }),
+                    );
                 });
             });
 
@@ -123,15 +133,17 @@ describe("core/tools/jsonrpc.js", function () {
                     const request = JSON.parse(data.toString());
                     assert.deepEqual(request, {
                         jsonrpc: "2.0",
-                        method:  "foo",
-                        id:      1,
+                        method: "foo",
+                        id: 1,
                     });
 
-                    socket.send(JSON.stringify({
-                        jsonrpc: "2.0",
-                        result:  { bar: "baz" },
-                        id:      request.id,
-                    }));
+                    socket.send(
+                        JSON.stringify({
+                            jsonrpc: "2.0",
+                            result: { bar: "baz" },
+                            id: request.id,
+                        }),
+                    );
                 });
             });
 
@@ -147,17 +159,19 @@ describe("core/tools/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
                     const request = JSON.parse(data.toString());
-                    socket.send(JSON.stringify({
-                        jsonrpc: "2.0",
-                        error:   { code: 42, message: "bar" },
-                        id:      request.id,
-                    }));
+                    socket.send(
+                        JSON.stringify({
+                            jsonrpc: "2.0",
+                            error: { code: 42, message: "bar" },
+                            id: request.id,
+                        }),
+                    );
                 });
             });
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
             await assert.rejects(() => jsonrpc.send("foo"), {
-                name:    "Error",
+                name: "Error",
                 message: "bar",
             });
 
@@ -171,25 +185,31 @@ describe("core/tools/jsonrpc.js", function () {
                     const request = JSON.parse(data.toString());
                     switch (request.id) {
                         case 1:
-                            socket.send(JSON.stringify({
-                                jsonrpc: "2.0",
-                                result:  "baz",
-                                id:      request.id,
-                            }));
+                            socket.send(
+                                JSON.stringify({
+                                    jsonrpc: "2.0",
+                                    result: "baz",
+                                    id: request.id,
+                                }),
+                            );
                             break;
                         case 2:
-                            socket.send(JSON.stringify({
-                                jsonrpc: "2.0",
-                                result:  { qux: "quux" },
-                                id:      request.id,
-                            }));
+                            socket.send(
+                                JSON.stringify({
+                                    jsonrpc: "2.0",
+                                    result: { qux: "quux" },
+                                    id: request.id,
+                                }),
+                            );
                             break;
                         default:
-                            socket.send(JSON.stringify({
-                                jsonrpc: "2.0",
-                                error:   { message: request.id },
-                                id:      request.id,
-                            }));
+                            socket.send(
+                                JSON.stringify({
+                                    jsonrpc: "2.0",
+                                    error: { message: request.id },
+                                    id: request.id,
+                                }),
+                            );
                     }
                 });
             });
@@ -224,11 +244,17 @@ describe("core/tools/jsonrpc.js", function () {
             server.on("connection", (socket) => {
                 // Décaler l'envoi de la notification pour laisser le temps au
                 // client d'ajouter son écouteur.
-                setTimeout(() => socket.send(JSON.stringify({
-                    jsonrpc: "2.0",
-                    method:  "foo",
-                    params:  { bar: "baz" },
-                })), 0);
+                setTimeout(
+                    () =>
+                        socket.send(
+                            JSON.stringify({
+                                jsonrpc: "2.0",
+                                method: "foo",
+                                params: { bar: "baz" },
+                            }),
+                        ),
+                    0,
+                );
             });
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));

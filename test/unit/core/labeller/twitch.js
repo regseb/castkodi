@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/twitch.js";
@@ -5,13 +11,13 @@ import * as labeller from "../../../../src/core/labeller/twitch.js";
 describe("core/labeller/twitch.js", function () {
     describe("extractLive()", function () {
         it("should return live label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head>
-                     <title>foo - Twitch</title>
-                   </head>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><head>
+                       <title>foo - Twitch</title>
+                     </head></html>`,
+                ),
+            );
 
             const channelName = "bar";
 
@@ -25,13 +31,13 @@ describe("core/labeller/twitch.js", function () {
 
     describe("extractVideo()", function () {
         it("should return video label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head>
-                     <title>foo - bar sur Twitch</title>
-                   </head>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><head>
+                       <title>foo - bar sur Twitch</title>
+                     </head></html>`,
+                ),
+            );
 
             const videoId = "baz";
 

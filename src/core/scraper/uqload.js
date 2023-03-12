@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -32,7 +34,9 @@ const action = async function (_url, content) {
     }
     return undefined;
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://uqload.co/*.html",
     // Ajouter aussi l'ancien nom de domaine (qui redirige vers le nouveau).
-    "*://uqload.com/*.html");
+    "*://uqload.com/*.html",
+);

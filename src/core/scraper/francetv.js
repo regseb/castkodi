@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -37,8 +39,11 @@ const action = async function (_url, content) {
             continue;
         }
 
-        const url = API_URL + result.groups.videoId + "?device_type=desktop" +
-                                                      "&browser=firefox";
+        const url =
+            API_URL +
+            result.groups.videoId +
+            "?device_type=desktop" +
+            "&browser=firefox";
         let response = await fetch(url);
         let json = await response.json();
 

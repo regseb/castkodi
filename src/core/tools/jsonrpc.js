@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { NotificationEvent } from "./notificationevent.js";
@@ -11,7 +13,6 @@ import { NotificationEvent } from "./notificationevent.js";
  * @see https://developer.mozilla.org/Web/API/WebSocket
  */
 export const JSONRPC = class extends EventTarget {
-
     /**
      * Ouvre une connexion avec un serveur JSON-RPC.
      *
@@ -22,9 +23,14 @@ export const JSONRPC = class extends EventTarget {
         return new Promise((resolve, reject) => {
             const ws = new WebSocket(url.href);
             ws.addEventListener("open", () => resolve(new JSONRPC(ws)));
-            ws.addEventListener("error",
-                () => reject(new Error("Connection to the server at " +
-                                                 `${url.href} unestablished`)));
+            ws.addEventListener("error", () =>
+                reject(
+                    new Error(
+                        "Connection to the server at " +
+                            `${url.href} unestablished`,
+                    ),
+                ),
+            );
         });
     }
 
@@ -86,12 +92,14 @@ export const JSONRPC = class extends EventTarget {
     send(method, params) {
         return new Promise((resolve, reject) => {
             this.#promises.set(++this.#id, { resolve, reject });
-            this.#ws.send(JSON.stringify({
-                jsonrpc: "2.0",
-                method,
-                ...undefined === params ? {} : { params },
-                id:      this.#id,
-            }));
+            this.#ws.send(
+                JSON.stringify({
+                    jsonrpc: "2.0",
+                    method,
+                    ...(undefined === params ? {} : { params }),
+                    id: this.#id,
+                }),
+            );
         });
     }
 
@@ -115,9 +123,9 @@ export const JSONRPC = class extends EventTarget {
         const response = JSON.parse(data);
         if ("id" in response) {
             if ("error" in response) {
-                this.#promises.get(response.id).reject(
-                    new Error(response.error.message),
-                );
+                this.#promises
+                    .get(response.id)
+                    .reject(new Error(response.error.message));
             } else {
                 this.#promises.get(response.id).resolve(response.result);
             }

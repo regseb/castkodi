@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
@@ -18,8 +24,10 @@ describe("Scraper: Rumble", function () {
     });
 
     it("should return video URL [opengraph-rumble]", async function () {
-        const url = new URL("https://rumble.com/v1k2hrq-nasa-gets-set-to" +
-                            "-crash-spacecraft-into-asteroid.html");
+        const url = new URL(
+            "https://rumble.com/v1k2hrq-nasa-gets-set-to-crash-spacecraft" +
+                "-into-asteroid.html",
+        );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

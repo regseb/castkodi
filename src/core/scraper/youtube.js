@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -21,9 +23,10 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const actionVideo = async function ({ searchParams }, _content, { incognito }) {
     const config = await browser.storage.local.get(["youtube-playlist"]);
-    if (searchParams.has("list") &&
-            ("playlist" === config["youtube-playlist"] ||
-             !searchParams.has("v"))) {
+    if (
+        searchParams.has("list") &&
+        ("playlist" === config["youtube-playlist"] || !searchParams.has("v"))
+    ) {
         return plugin.generatePlaylistUrl(searchParams.get("list"), incognito);
     }
     if (searchParams.has("v")) {
@@ -32,10 +35,12 @@ const actionVideo = async function ({ searchParams }, _content, { incognito }) {
 
     return undefined;
 };
-export const extractVideo = matchPattern(actionVideo,
+export const extractVideo = matchPattern(
+    actionVideo,
     "*://*.youtube.com/watch*",
     "*://invidio.us/watch*",
-    "*://hooktube.com/watch*");
+    "*://hooktube.com/watch*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire une playlist sur Kodi.
@@ -49,15 +54,19 @@ export const extractVideo = matchPattern(actionVideo,
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionPlaylist = async function ({ searchParams },
-                                       _content,
-                                       { incognito }) {
+const actionPlaylist = async function (
+    { searchParams },
+    _content,
+    { incognito },
+) {
     return searchParams.has("list")
-               ? plugin.generatePlaylistUrl(searchParams.get("list"), incognito)
-               : undefined;
+        ? plugin.generatePlaylistUrl(searchParams.get("list"), incognito)
+        : undefined;
 };
-export const extractPlaylist = matchPattern(actionPlaylist,
-    "*://*.youtube.com/playlist*");
+export const extractPlaylist = matchPattern(
+    actionPlaylist,
+    "*://*.youtube.com/playlist*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -74,11 +83,13 @@ export const extractPlaylist = matchPattern(actionPlaylist,
 const actionEmbed = async function ({ pathname }, _content, { incognito }) {
     return plugin.generateVideoUrl(pathname.slice(7), incognito);
 };
-export const extractEmbed = matchPattern(actionEmbed,
+export const extractEmbed = matchPattern(
+    actionEmbed,
     "*://www.youtube.com/embed/*",
     "*://www.youtube-nocookie.com/embed/*",
     "*://invidio.us/embed/*",
-    "*://hooktube.com/embed/*");
+    "*://hooktube.com/embed/*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -110,6 +121,8 @@ export const extractMinify = matchPattern(actionMinify, "*://youtu.be/*");
 const actionShort = async function ({ pathname }, _content, { incognito }) {
     return plugin.generateVideoUrl(pathname.slice(8), incognito);
 };
-export const extractShort = matchPattern(actionShort,
+export const extractShort = matchPattern(
+    actionShort,
     "*://*.youtube.com/shorts/*",
-    "*://youtube.com/shorts/*");
+    "*://youtube.com/shorts/*",
+);

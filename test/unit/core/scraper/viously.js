@@ -1,10 +1,15 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import * as scraper from "../../../../src/core/scraper/viously.js";
 
 describe("core/scraper/viously.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.viously.com/");
 
             const file = await scraper.extract(url);

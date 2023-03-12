@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -16,6 +18,8 @@ import { matchPattern } from "../tools/matchpattern.js";
 const action = async function (url) {
     return plugin.generateUrl(url);
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://soundcloud.com/*",
-    "*://mobi.soundcloud.com/*");
+    "*://mobi.soundcloud.com/*",
+);

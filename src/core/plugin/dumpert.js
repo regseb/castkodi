@@ -1,6 +1,8 @@
 /**
  * @module
+ * @license MIT
  * @see https://kodi.wiki/view/Add-on:Dumpert
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 

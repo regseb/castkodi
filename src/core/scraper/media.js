@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -30,12 +32,14 @@ const action = async function (url, content) {
         return undefined;
     }
 
-    const media = SELECTORS.map((s) => `${s}[src]:not([src=""])` +
-                                                `:not([src^="blob:"])`)
-                           .map((s) => doc.querySelectorAll(s))
-                           .flatMap((l) => Array.from(l))
-                           .shift();
-    return undefined === media ? undefined
-                               : new URL(media.getAttribute("src"), url).href;
+    const media = SELECTORS.map(
+        (s) => `${s}[src]:not([src=""]):not([src^="blob:"])`,
+    )
+        .map((s) => doc.querySelectorAll(s))
+        .flatMap((l) => Array.from(l))
+        .shift();
+    return undefined === media
+        ? undefined
+        : new URL(media.getAttribute("src"), url).href;
 };
 export const extract = matchPattern(action, "*://*/*");

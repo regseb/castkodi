@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import * as acast from "./scraper/acast.js";
@@ -175,8 +177,10 @@ export const extract = async function (url, options) {
                     signal: controller.signal,
                 });
                 const contentType = response.headers.get("Content-Type");
-                if (contentType?.startsWith("text/html") ||
-                        contentType?.startsWith("application/xhtml+xml")) {
+                if (
+                    contentType?.startsWith("text/html") ||
+                    contentType?.startsWith("application/xhtml+xml")
+                ) {
                     const text = await response.text();
                     return new DOMParser().parseFromString(text, "text/html");
                 }
@@ -200,6 +204,5 @@ export const extract = async function (url, options) {
     // croire qu'une URL a été trouvée (en ne retournant pas l'URL d'entrée).
     // Sinon retourner l'URL de la page car c'est peut-être un lien direct vers
     // une vidéo ou une musique.
-    return options.depth ? undefined
-                         : url.href;
+    return options.depth ? undefined : url.href;
 };

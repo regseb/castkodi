@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -16,7 +18,9 @@ import { matchPattern } from "../tools/matchpattern.js";
 const action = async function (url) {
     return plugin.generateUrl(url);
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://www.vrt.be/vrtnu/a-z/*",
     "*://vrt.be/vrtnu/a-z/*",
-    "*://vrtnu.page.link/*");
+    "*://vrtnu.page.link/*",
+);

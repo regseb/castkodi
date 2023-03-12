@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -17,7 +19,9 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                            <em>fichier</em>.
  */
 const action = async function ({ pathname, searchParams }) {
-    return plugin.generateUrl(pathname.slice(7),
-                              searchParams.get("h") ?? undefined);
+    return plugin.generateUrl(
+        pathname.slice(7),
+        searchParams.get("h") ?? undefined,
+    );
 };
 export const extract = matchPattern(action, "*://player.vimeo.com/video/*");

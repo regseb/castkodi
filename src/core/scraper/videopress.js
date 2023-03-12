@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -29,6 +31,8 @@ const action = async function ({ pathname }) {
     }
     return undefined;
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://videopress.com/v/*",
-    "*://videopress.com/embed/*");
+    "*://videopress.com/embed/*",
+);

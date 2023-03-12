@@ -1,19 +1,19 @@
 {
-    "types": [
-        { "type": "feat",     "section": "Features" },
-        { "type": "fix",      "section": "Bug Fixes" },
-        { "type": "chore",    "hidden": true },
-        { "type": "docs",     "hidden": true },
-        { "type": "style",    "hidden": true },
-        { "type": "refactor", "hidden": true },
-        { "type": "perf",     "section": "Performance Improvements" },
-        { "type": "test",     "hidden": true }
-    ],
-    "packageFiles": "package.json",
-    "bumpFiles": [
-        "package.json",
-        "package-lock.json",
-        { "filename": "src/manifest-chromium.json", "type": "json" },
-        { "filename": "src/manifest-firefox.json",  "type": "json" }
-    ]
+  "types": [
+    { "type": "feat", "section": "Features" },
+    { "type": "fix", "section": "Bug Fixes" },
+    { "type": "chore", "hidden": true },
+    { "type": "docs", "hidden": true },
+    { "type": "style", "hidden": true },
+    { "type": "refactor", "hidden": true },
+    { "type": "perf", "section": "Performance Improvements" },
+    { "type": "test", "hidden": true }
+  ],
+  "packageFiles": "package.json",
+  "bumpFiles": [
+    "package.json",
+    "package-lock.json",
+    { "filename": "src/manifest-chromium.json", "type": "json" },
+    { "filename": "src/manifest-firefox.json", "type": "json" }
+  ]
 }

@@ -1,24 +1,32 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/zdf.js";
 
 describe("core/scraper/zdf.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.zdftext.de/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's not a video", async function () {
+        it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.zdf.de/foo");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body></body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            "<html><body></body></html>",
+                            "text/html",
+                        ),
+                    ),
             };
 
             const file = await scraper.extract(url, content);
@@ -28,32 +36,47 @@ describe("core/scraper/zdf.js", function () {
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
-                    priorityList: [{
-                        formitaeten: [{
-                            qualities: [{
-                                audio: {
-                                    tracks: [{
-                                        uri: "https://foo.de/bar.webm",
-                                    }],
+                    priorityList: [
+                        {
+                            formitaeten: [
+                                {
+                                    qualities: [
+                                        {
+                                            audio: {
+                                                tracks: [
+                                                    {
+                                                        uri:
+                                                            "https://foo.de" +
+                                                            "/bar.webm",
+                                                    },
+                                                ],
+                                            },
+                                        },
+                                    ],
                                 },
-                            }],
-                        }],
-                    }],
+                            ],
+                        },
+                    ],
                 }),
             );
 
             const url = new URL("https://www.zdf.de/baz");
             const content = {
-                html: () => Promise.resolve(new DOMParser().parseFromString(`
-                    <html>
-                      <body>
-                        <button class="download-btn"
-                                data-dialog="${JSON.stringify({
-                            contentUrl: "http://qux.de/{playerId}/quux.json",
-                            apiToken:   "corge",
-                        }).replaceAll(`"`, "&quot;")}"></button>
-                      </body>
-                    </html>`, "text/html")),
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `
+                    <html><body>
+                      <button class="download-btn"
+                              data-dialog="${JSON.stringify({
+                                  contentUrl:
+                                      "http://qux.de/{playerId}/quux.json",
+                                  apiToken: "corge",
+                              }).replaceAll('"', "&quot;")}"></button>
+                    </body></html>`,
+                            "text/html",
+                        ),
+                    ),
             };
 
             const file = await scraper.extract(url, content);

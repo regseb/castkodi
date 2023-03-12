@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { quote } from "./sanitizer.js";
@@ -12,18 +14,24 @@ import { quote } from "./sanitizer.js";
  */
 export const compile = function (pattern) {
     if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
-        return new RegExp("^" + quote(pattern).replaceAll("\\*", ".*") + "$",
-                          "iu");
+        return new RegExp(
+            "^" + quote(pattern).replaceAll("\\*", ".*") + "$",
+            "iu",
+        );
     }
 
     const RE = /^(?<scheme>.+?):\/\/(?<host>\*|(?:\*\.)?[^*/]+)\/(?<path>.*)/u;
     const { scheme, host, path } = RE.exec(pattern).groups;
-    return new RegExp("^" +
-        ("*" === scheme ? "https?"
-                        : quote(scheme)) + "://" +
-        ("*" === host ? "[^/]+"
-                      : quote(host).replace("\\*", "[^./]+")) +
-        "/" + quote(path).replaceAll("\\*", ".*") + "$", "iu");
+    return new RegExp(
+        "^" +
+            ("*" === scheme ? "https?" : quote(scheme)) +
+            "://" +
+            ("*" === host ? "[^/]+" : quote(host).replace("\\*", "[^./]+")) +
+            "/" +
+            quote(path).replaceAll("\\*", ".*") +
+            "$",
+        "iu",
+    );
 };
 
 /**
@@ -47,11 +55,12 @@ export const matchPattern = function (func, ...patterns) {
      *                                   correspondance.
      */
     const wrapped = (url, ...others) => {
-        return regexes.some((r) => r.test(url.href)) ? func(url, ...others)
-                                                     : Promise.resolve();
+        return regexes.some((r) => r.test(url.href))
+            ? func(url, ...others)
+            : Promise.resolve();
     };
     Object.defineProperty(wrapped, "name", {
-        value:        func.name,
+        value: func.name,
         configurable: true,
     });
     return wrapped;

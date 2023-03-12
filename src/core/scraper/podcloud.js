@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -18,5 +20,7 @@ const action = async function ({ pathname }) {
     const episode = parts[4];
     return `https://podcloud.fr/ext/${podcast}/${episode}/enclosure.mp3`;
 };
-export const extract = matchPattern(action,
-    "*://podcloud.fr/podcast/*/episode/*");
+export const extract = matchPattern(
+    action,
+    "*://podcloud.fr/podcast/*/episode/*",
+);

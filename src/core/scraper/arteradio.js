@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -9,8 +11,9 @@ import { matchPattern } from "../tools/matchpattern.js";
  *
  * @type {string}
  */
-const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
-                                                         "/default/files/sons/";
+const BASE_URL =
+    "https://download.www.arte.tv/permanent/arteradio/sites" +
+    "/default/files/sons/";
 
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
@@ -24,7 +27,9 @@ const BASE_URL = "https://download.www.arte.tv/permanent/arteradio/sites" +
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    return BASE_URL + doc.querySelector(".cover *[data-sound-href]")
-                         .dataset.soundHref;
+    return (
+        BASE_URL +
+        doc.querySelector(".cover *[data-sound-href]").dataset.soundHref
+    );
 };
 export const extract = matchPattern(action, "*://www.arteradio.com/son/*");

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { kodi } from "./jsonrpc/kodi.js";
@@ -15,27 +17,32 @@ import { PebkacError } from "./tools/pebkac.js";
  *                             aucun lien est valide.
  */
 export const mux = function (urls) {
-    return urls.map((u) => u.trim())
-               .map((url) => {
-        // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
-        return (/^[-a-z]+:/iu).test(url) ? url
-                                         : url.replace(/^\/*/u, "http://");
-    }).find((url) => {
-        // Vérifier que l'URL est valide.
-        try {
-            // eslint-disable-next-line no-new
-            new URL(url);
-        } catch {
-            // Indiquer que la construction de l'URL a échouée.
-            return false;
-        }
+    return urls
+        .map((u) => u.trim())
+        .map((url) => {
+            // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
+            return /^[-a-z]+:/iu.test(url)
+                ? url
+                : url.replace(/^\/*/u, "http://");
+        })
+        .find((url) => {
+            // Vérifier que l'URL est valide.
+            try {
+                // eslint-disable-next-line no-new
+                new URL(url);
+            } catch {
+                // Indiquer que la construction de l'URL a échouée.
+                return false;
+            }
 
-        // Vérifier que l'URL utilise un schéma géré.
-        return (/^https?:\/\//iu).test(url) ||
-               (/^magnet:/iu).test(url) ||
-               (/^acestream:/iu).test(url) ||
-               (/^plugin:/iu).test(url);
-    });
+            // Vérifier que l'URL utilise un schéma géré.
+            return (
+                /^https?:\/\//iu.test(url) ||
+                /^magnet:/iu.test(url) ||
+                /^acestream:/iu.test(url) ||
+                /^plugin:/iu.test(url)
+            );
+        });
 };
 
 /**
@@ -49,12 +56,13 @@ export const mux = function (urls) {
 export const cast = async function (action, urls) {
     const url = mux(urls);
     if (undefined === url) {
-        throw 1 === urls.length ? new PebkacError("noLink", urls[0])
-                                : new PebkacError("noLinks");
+        throw 1 === urls.length
+            ? new PebkacError("noLink", urls[0])
+            : new PebkacError("noLinks");
     }
 
     const file = await extract(new URL(url), {
-        depth:     false,
+        depth: false,
         incognito: browser.extension.inIncognitoContext,
     });
     if ("send" === action) {

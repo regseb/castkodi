@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
@@ -13,8 +15,10 @@ export const extractVideo = async function (videoId) {
     const response = await fetch(`https://www.youtube.com/watch?v=${videoId}`);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
-    return doc.querySelector(`meta[property="og:title"]`)?.content ??
-           browser.i18n.getMessage("labeller_youtube_unavailable");
+    return (
+        doc.querySelector('meta[property="og:title"]')?.content ??
+        browser.i18n.getMessage("labeller_youtube_unavailable")
+    );
 };
 
 /**
@@ -25,11 +29,13 @@ export const extractVideo = async function (videoId) {
  *                            défaut pour les playlists sans titre.
  */
 export const extractPlaylist = async function (playlistId) {
-    const response = await fetch("https://www.youtube.com/playlist" +
-                                                         `?list=${playlistId}`);
+    const response = await fetch(
+        `https://www.youtube.com/playlist?list=${playlistId}`,
+    );
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
-    const label = doc.querySelector(`meta[property="og:title"]`).content;
-    return "null" === label ? browser.i18n.getMessage("labeller_youtube_mix")
-                            : label;
+    const label = doc.querySelector('meta[property="og:title"]').content;
+    return "null" === label
+        ? browser.i18n.getMessage("labeller_youtube_mix")
+        : label;
 };

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -17,6 +19,6 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    return doc.querySelector(`a[href^="https://audio.ausha.co/"]`)?.href;
+    return doc.querySelector('a[href^="https://audio.ausha.co/"]')?.href;
 };
 export const extract = matchPattern(action, "https://podcast.ausha.co/*/*");

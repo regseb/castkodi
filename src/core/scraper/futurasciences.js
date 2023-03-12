@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // eslint-disable-next-line import/no-cycle
@@ -32,15 +34,21 @@ const action = async function (url, content, options) {
     }
 
     const srcs = [
-        ...Array.from(doc.querySelectorAll("iframe[data-src]"),
-                      (i) => i.dataset.src),
-        ...Array.from(doc.querySelectorAll("div.vsly-player[data-iframe]"),
-                      (d) => d.dataset.iframe),
+        ...Array.from(
+            doc.querySelectorAll("iframe[data-src]"),
+            (i) => i.dataset.src,
+        ),
+        ...Array.from(
+            doc.querySelectorAll("div.vsly-player[data-iframe]"),
+            (d) => d.dataset.iframe,
+        ),
     ];
 
     for (const src of srcs) {
-        const file = await metaExtract(new URL(src, url),
-                                       { ...options, depth: true });
+        const file = await metaExtract(new URL(src, url), {
+            ...options,
+            depth: true,
+        });
         if (undefined !== file) {
             return file;
         }

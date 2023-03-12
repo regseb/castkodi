@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
@@ -13,7 +15,7 @@
  */
 const DEFAULT_MENU_CONTEXTS = {
     Chromium: ["audio", "frame", "link", "page", "selection", "video"],
-    Firefox:  ["audio", "frame", "link", "page", "selection", "tab", "video"],
+    Firefox: ["audio", "frame", "link", "page", "selection", "tab", "video"],
 };
 
 /**
@@ -23,17 +25,17 @@ export const initialize = async function () {
     const { name } = await browser.runtime.getBrowserInfo();
 
     await browser.storage.local.set({
-        "config-version":   6,
-        "server-mode":      "single",
-        "server-list":      [{ address: "", name: "" }],
-        "server-active":    0,
-        "general-history":  false,
-        "popup-clipboard":  false,
-        "popup-wheel":      "normal",
-        "menu-actions":     ["send", "insert", "add"],
-        "menu-contexts":    DEFAULT_MENU_CONTEXTS[name],
+        "config-version": 6,
+        "server-mode": "single",
+        "server-list": [{ address: "", name: "" }],
+        "server-active": 0,
+        "general-history": false,
+        "popup-clipboard": false,
+        "popup-wheel": "normal",
+        "menu-actions": ["send", "insert", "add"],
+        "menu-contexts": DEFAULT_MENU_CONTEXTS[name],
         "youtube-playlist": "playlist",
-        "youtube-order":    "default",
+        "youtube-order": "default",
     });
 };
 
@@ -47,24 +49,26 @@ export const migrate = async function () {
     // propriétés ; et permettre la configuration de plusieurs serveurs.
     if (1 === config["config-version"]) {
         const actions = Object.entries(config)
-                            .filter(([k, v]) => k.startsWith("menus-") && v)
-                            .map(([k]) => k.slice(6))
-                            .reverse();
+            .filter(([k, v]) => k.startsWith("menus-") && v)
+            .map(([k]) => k.slice(6))
+            .reverse();
         const contexts = Object.entries(config)
-                         .filter(([k, v]) => k.startsWith("contexts-") && v)
-                         .map(([k]) => k.slice(9));
+            .filter(([k, v]) => k.startsWith("contexts-") && v)
+            .map(([k]) => k.slice(9));
 
         config = {
-            "config-version":   2,
-            "server-mode":      "single",
-            "server-list":      [{
-                host: config["connection-host"],
-                name: "",
-            }],
-            "server-active":    0,
-            "general-history":  config["general-history"],
-            "menu-actions":     actions,
-            "menu-contexts":    contexts,
+            "config-version": 2,
+            "server-mode": "single",
+            "server-list": [
+                {
+                    host: config["connection-host"],
+                    name: "",
+                },
+            ],
+            "server-active": 0,
+            "general-history": config["general-history"],
+            "menu-actions": actions,
+            "menu-contexts": contexts,
             "youtube-playlist": config["youtube-playlist"],
         };
     }
@@ -74,7 +78,7 @@ export const migrate = async function () {
     if (2 === config["config-version"]) {
         const servers = config["server-list"].map((server) => ({
             address: server.host,
-            name:    server.name,
+            name: server.name,
         }));
 
         config["config-version"] = 3;

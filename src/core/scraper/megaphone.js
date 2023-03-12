@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -15,8 +17,10 @@ import { matchPattern } from "../tools/matchpattern.js";
 const actionPlayer = async function ({ pathname }) {
     return `https://dcs.megaphone.fm${pathname}.mp3`;
 };
-export const extractPlayer = matchPattern(actionPlayer,
-    "*://player.megaphone.fm/*");
+export const extractPlayer = matchPattern(
+    actionPlayer,
+    "*://player.megaphone.fm/*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
@@ -28,8 +32,10 @@ export const extractPlayer = matchPattern(actionPlayer,
  */
 const actionPlaylist = async function ({ searchParams }) {
     return searchParams.has("e")
-                       ? `https://dcs.megaphone.fm/${searchParams.get("e")}.mp3`
-                       : undefined;
+        ? `https://dcs.megaphone.fm/${searchParams.get("e")}.mp3`
+        : undefined;
 };
-export const extractPlaylist = matchPattern(actionPlaylist,
-    "*://playlist.megaphone.fm/*");
+export const extractPlaylist = matchPattern(
+    actionPlaylist,
+    "*://playlist.megaphone.fm/*",
+);

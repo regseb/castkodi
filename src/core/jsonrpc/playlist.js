@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { NotificationListener } from "./notificationlistener.js";
@@ -17,7 +19,6 @@ import { NotificationListener } from "./notificationlistener.js";
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
 export const Playlist = class {
-
     /**
      * Le client pour contacter Kodi.
      *
@@ -67,7 +68,7 @@ export const Playlist = class {
     add(file) {
         return this.#kodi.send("Playlist.Add", {
             playlistid: 1,
-            item:       { file },
+            item: { file },
         });
     }
 
@@ -108,7 +109,7 @@ export const Playlist = class {
         const results = await this.#kodi.send("Playlist.GetItems", {
             playlistid: 1,
             properties: ["file", "title"],
-            limits:     { start: position, end: position + 1 },
+            limits: { start: position, end: position + 1 },
         });
         return results.items?.[0];
     }
@@ -124,7 +125,7 @@ export const Playlist = class {
         return this.#kodi.send("Playlist.Insert", {
             playlistid: 1,
             position,
-            item:       { file },
+            item: { file },
         });
     }
 
@@ -185,15 +186,19 @@ export const Playlist = class {
         // Analyser seulement les notifications venant de l'espace Playlist, si
         // des auditeurs sont présents et si elles viennent de la liste de
         // lecture des vidéos.
-        if (!method.startsWith("Playlist.") ||
-                0 === this.onAdd.length && 0 === this.onClear.length &&
-                0 === this.onRemove.length || 1 !== data.playlistid) {
+        if (
+            !method.startsWith("Playlist.") ||
+            (0 === this.onAdd.length &&
+                0 === this.onClear.length &&
+                0 === this.onRemove.length) ||
+            1 !== data.playlistid
+        ) {
             return;
         }
         switch (method.slice(9)) {
             case "OnAdd":
                 this.onAdd.dispatch({
-                    ...await this.getItem(data.position),
+                    ...(await this.getItem(data.position)),
                     position: data.position,
                 });
                 break;
@@ -204,7 +209,7 @@ export const Playlist = class {
                 this.onRemove.dispatch(data.position);
                 break;
             default:
-                // Ignorer les autres notifications.
+            // Ignorer les autres notifications.
         }
     }
 };

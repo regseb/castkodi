@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
@@ -8,8 +14,7 @@ import { Player } from "../../../../src/core/jsonrpc/player.js";
 import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
 import { System } from "../../../../src/core/jsonrpc/system.js";
 import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
-import { NotificationEvent }
-                         from "../../../../src/core/tools/notificationevent.js";
+import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/kodi.js", function () {
     describe("check()", function () {
@@ -20,19 +25,18 @@ describe("core/jsonrpc/kodi.js", function () {
             });
         });
 
-        it("should return promise rejected with old version",
-                                                             async function () {
+        it("should return promise rejected with old version", async function () {
             const fake = sinon.fake.resolves({ version: { major: 11 } });
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
-                send:             fake,
-                close:            () => {},
+                send: fake,
+                close: () => {},
             });
 
             await assert.rejects(() => Kodi.check("foo.com"), {
-                name:    "PebkacError",
+                name: "PebkacError",
                 message: "Kodi version 19 (Matrix) is required.",
-                type:    "notSupported",
+                type: "notSupported",
             });
 
             assert.equal(stub.callCount, 1);
@@ -50,8 +54,8 @@ describe("core/jsonrpc/kodi.js", function () {
             const fake = sinon.fake.resolves({ version: { major: 12 } });
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
-                send:             fake,
-                close:            () => {},
+                send: fake,
+                close: () => {},
             });
 
             const result = await Kodi.check("foo.com");
@@ -78,7 +82,7 @@ describe("core/jsonrpc/kodi.js", function () {
         it("should return URL when url is built", async function () {
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
-                send:             () => Promise.resolve({}),
+                send: () => Promise.resolve({}),
             });
 
             const kodi = new Kodi("localhost");
@@ -139,8 +143,8 @@ describe("core/jsonrpc/kodi.js", function () {
             const fake = sinon.fake();
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
-                send:             () => Promise.resolve({}),
-                close:            fake,
+                send: () => Promise.resolve({}),
+                close: fake,
             });
 
             const kodi = new Kodi("localhost");
@@ -170,18 +174,18 @@ describe("core/jsonrpc/kodi.js", function () {
         it("should return error when address is invalid", async function () {
             const kodi = new Kodi("foo bar");
             await assert.rejects(() => kodi.send("Baz"), {
-                name:    "PebkacError",
+                name: "PebkacError",
                 message: "Address of Kodi Web server foo bar is invalid.",
-                type:    "badAddress",
+                type: "badAddress",
             });
         });
 
         it("should return error when IP is invalid", async function () {
             const kodi = new Kodi("192.168");
             await assert.rejects(() => kodi.send("Foo"), {
-                name:    "PebkacError",
+                name: "PebkacError",
                 message: "Address of Kodi Web server 192.168 is invalid.",
-                type:    "badAddress",
+                type: "badAddress",
             });
         });
 
@@ -190,10 +194,11 @@ describe("core/jsonrpc/kodi.js", function () {
 
             const kodi = new Kodi("bar");
             await assert.rejects(() => kodi.send("Baz"), {
-                name:    "PebkacError",
-                message: "Address of Kodi Web server bar is invalid or Kodi's" +
-                         " remote control isn't enabled.",
-                type:    "notFound",
+                name: "PebkacError",
+                message:
+                    "Address of Kodi Web server bar is invalid or Kodi's" +
+                    " remote control isn't enabled.",
+                type: "notFound",
             });
 
             assert.equal(stub.callCount, 1);
@@ -206,12 +211,12 @@ describe("core/jsonrpc/kodi.js", function () {
             const fake = sinon.fake.rejects(new Error("FooError"));
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
-                send:             fake,
+                send: fake,
             });
 
             const kodi = new Kodi("localhost");
             await assert.rejects(() => kodi.send("Foo"), {
-                name:    "Error",
+                name: "Error",
                 message: "FooError",
             });
 
@@ -227,7 +232,7 @@ describe("core/jsonrpc/kodi.js", function () {
             const fake = sinon.fake.resolves("OK");
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
-                send:             fake,
+                send: fake,
             });
 
             const kodi = new Kodi("foo");
@@ -247,7 +252,7 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should send request from configuration", async function () {
             browser.storage.local.set({
-                "server-list":   [
+                "server-list": [
                     { address: "localhost" },
                     { address: "127.0.0.1" },
                 ],
@@ -256,8 +261,8 @@ describe("core/jsonrpc/kodi.js", function () {
             const fake = sinon.fake.resolves("OK");
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
-                close:            () => {},
-                send:             fake,
+                close: () => {},
+                send: fake,
             });
 
             const kodi = new Kodi();
@@ -286,8 +291,8 @@ describe("core/jsonrpc/kodi.js", function () {
                 addEventListener: (type, listener) => {
                     listeners[type] = listener;
                 },
-                close:            () => {},
-                send:             () => Promise.resolve({ corge: true }),
+                close: () => {},
+                send: () => Promise.resolve({ corge: true }),
             });
 
             const kodi = new Kodi("foo");
@@ -312,18 +317,22 @@ describe("core/jsonrpc/kodi.js", function () {
                 addEventListener: (type, listener) => {
                     listeners[type] = listener;
                 },
-                close:            () => {},
-                send:             () => Promise.resolve({}),
+                close: () => {},
+                send: () => Promise.resolve({}),
             });
 
             const kodi = new Kodi("foo");
-            const stubApplication = sinon.stub(kodi.application,
-                                               "handleNotification");
+            const stubApplication = sinon.stub(
+                kodi.application,
+                "handleNotification",
+            );
             await kodi.send("Bar.Baz");
-            listeners.notification(new NotificationEvent("notification", {
-                method: "Qux",
-                params: { data: "Quux" },
-            }));
+            listeners.notification(
+                new NotificationEvent("notification", {
+                    method: "Qux",
+                    params: { data: "Quux" },
+                }),
+            );
 
             assert.equal(stubJSONRPC.callCount, 1);
             assert.deepEqual(stubJSONRPC.firstCall.args, [
@@ -331,8 +340,10 @@ describe("core/jsonrpc/kodi.js", function () {
             ]);
             assert.equal(stubApplication.callCount, 1);
             assert.equal(stubApplication.firstCall.args.length, 1);
-            assert.equal(stubApplication.firstCall.args[0].type,
-                         "notification");
+            assert.equal(
+                stubApplication.firstCall.args[0].type,
+                "notification",
+            );
             assert.equal(stubApplication.firstCall.args[0].method, "Qux");
             assert.deepEqual(stubApplication.firstCall.args[0].params, {
                 data: "Quux",

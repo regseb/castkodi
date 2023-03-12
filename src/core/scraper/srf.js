@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -10,8 +12,8 @@ import { matchPattern } from "../tools/matchpattern.js";
  *
  * @type {string}
  */
-const API_URL = "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition" +
-                                                                      "/byUrn/";
+const API_URL =
+    "https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/";
 
 /**
  * Appelle l'API de Play SRF pour en récupérer l'URL de la vidéo.
@@ -42,8 +44,10 @@ const actionVideo = async function ({ searchParams }) {
 
     return getVideoUrl(searchParams.get("urn"));
 };
-export const extractVideo = matchPattern(actionVideo,
-    "*://www.srf.ch/play/tv/*/video/*");
+export const extractVideo = matchPattern(
+    actionVideo,
+    "*://www.srf.ch/play/tv/*/video/*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -56,5 +60,7 @@ export const extractVideo = matchPattern(actionVideo,
 const actionRedirect = async function ({ pathname }) {
     return getVideoUrl("urn:srf:video:" + pathname.slice(25));
 };
-export const extractRedirect = matchPattern(actionRedirect,
-    "*://www.srf.ch/play/tv/redirect/detail/*");
+export const extractRedirect = matchPattern(
+    actionRedirect,
+    "*://www.srf.ch/play/tv/redirect/detail/*",
+);

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import * as plugin from "../plugin/dailymotion.js";
@@ -26,20 +28,22 @@ import { matchPattern } from "../tools/matchpattern.js";
 const action = async function (_url, content, options) {
     const doc = await content.html();
 
-    const source = doc.querySelector(`video source[type="video/youtube"]`);
+    const source = doc.querySelector('video source[type="video/youtube"]');
     if (null !== source && !options.depth) {
         return metaExtract(new URL(source.src), { ...options, depth: true });
     }
 
-    const div = doc.querySelector(`div[data-provider="dailymotion"]`);
+    const div = doc.querySelector('div[data-provider="dailymotion"]');
     if (null !== div) {
         return plugin.generateUrl(div.dataset.id);
     }
 
     const blockquote = doc.querySelector("blockquote.tiktok-embed");
     if (null !== blockquote && !options.depth) {
-        return metaExtract(new URL(blockquote.cite),
-                           { ...options, depth: true });
+        return metaExtract(new URL(blockquote.cite), {
+            ...options,
+            depth: true,
+        });
     }
 
     return undefined;

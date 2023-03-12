@@ -1,7 +1,9 @@
 /**
  * @module
+ * @license MIT
  * @see https://kodi.wiki/view/Add-on:YouTube
  * @see https://kodi.wiki/view/Add-on:Tubed
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -37,13 +39,17 @@ export const generateVideoUrl = async function (videoId, incognito) {
     // Si les deux extensions YouTube et Tubed sont présentes ou si aucune est
     // présente : envoyer les vidéos à YouTube ; sinon envoyer à l'extension
     // présente.
-    if (addons.includes("plugin.video.tubed") &&
-            !addons.includes("plugin.video.youtube")) {
+    if (
+        addons.includes("plugin.video.tubed") &&
+        !addons.includes("plugin.video.youtube")
+    ) {
         return `${TUBED_PLUGIN_URL}&video_id=${videoId}`;
     }
 
-    return `${YOUTUBE_PLUGIN_URL}?video_id=${videoId}` +
-                                `&incognito=${incognito.toString()}`;
+    return (
+        YOUTUBE_PLUGIN_URL +
+        `?video_id=${videoId}&incognito=${incognito.toString()}`
+    );
 };
 
 /**
@@ -60,15 +66,19 @@ export const generatePlaylistUrl = async function (playlistId, incognito) {
     // Si les deux extensions YouTube et Tubed sont présentes ou si aucune est
     // présente : envoyer les vidéos à YouTube ; sinon envoyer à l'extension
     // présente.
-    if (addons.includes("plugin.video.tubed") &&
-            !addons.includes("plugin.video.youtube")) {
+    if (
+        addons.includes("plugin.video.tubed") &&
+        !addons.includes("plugin.video.youtube")
+    ) {
         return `${TUBED_PLUGIN_URL}&playlist_id=${playlistId}`;
     }
 
     const config = await browser.storage.local.get(["youtube-order"]);
-    return `${YOUTUBE_PLUGIN_URL}?playlist_id=${playlistId}` +
-                                `&order=${config["youtube-order"]}` +
-                                `&play=1&incognito=${incognito.toString()}`;
+    return (
+        YOUTUBE_PLUGIN_URL +
+        `?playlist_id=${playlistId}&order=${config["youtube-order"]}&play=1` +
+        `&incognito=${incognito.toString()}`
+    );
 };
 
 /**
@@ -87,6 +97,8 @@ const action = async function ({ searchParams }) {
     }
     return undefined;
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "plugin://plugin.video.youtube/play/*",
-    "plugin://plugin.video.tubed/*");
+    "plugin://plugin.video.tubed/*",
+);

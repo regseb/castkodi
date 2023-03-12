@@ -1,7 +1,15 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import { compile, matchPattern }
-                              from "../../../../src/core/tools/matchpattern.js";
+import {
+    compile,
+    matchPattern,
+} from "../../../../src/core/tools/matchpattern.js";
 
 describe("core/tools/matchpattern.js", function () {
     describe("compile()", function () {
@@ -56,8 +64,10 @@ describe("core/tools/matchpattern.js", function () {
 
         it("should compile path", function () {
             const regexp = compile("https://foo.com/bar/*/baz/*");
-            assert.equal(regexp.source,
-                               "^https:\\/\\/foo\\.com\\/bar\\/.*\\/baz\\/.*$");
+            assert.equal(
+                regexp.source,
+                "^https:\\/\\/foo\\.com\\/bar\\/.*\\/baz\\/.*$",
+            );
             assert.ok(regexp.test("https://foo.com/bar/qux/baz/quux"));
             assert.ok(!regexp.test("https://foo.com/bar/corge/"));
         });
@@ -71,8 +81,7 @@ describe("core/tools/matchpattern.js", function () {
 
         it("should be case-insensitive in standard schema", function () {
             const regexp = compile("https://*.fr/foo/*");
-            assert.equal(regexp.source,
-                               "^https:\\/\\/[^./]+\\.fr\\/foo\\/.*$");
+            assert.equal(regexp.source, "^https:\\/\\/[^./]+\\.fr\\/foo\\/.*$");
             assert.ok(regexp.test("HTTPS://BAR.FR/FOO/BAZ"));
             assert.ok(!regexp.test("HTTPS://QUX.FR/QUUX/CORGE"));
         });
@@ -101,7 +110,9 @@ describe("core/tools/matchpattern.js", function () {
             const fake = sinon.fake.resolves("foo");
 
             const wrapped = matchPattern(
-                fake, "*://bar.com/", "http://baz.io/",
+                fake,
+                "*://bar.com/",
+                "http://baz.io/",
             );
             let result = await wrapped(new URL("http://bar.com/"));
             assert.equal(result, "foo");

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -23,7 +25,6 @@ const action = async function ({ pathname }) {
     const response = await fetch(API_URL + pathname.slice(7));
     const json = await response.json();
     const hq = json.video?.src.HQ ?? "";
-    return "" === hq ? undefined
-                     : hq;
+    return "" === hq ? undefined : hq;
 };
 export const extract = matchPattern(action, "*://www.veoh.com/watch/*");

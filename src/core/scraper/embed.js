@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // eslint-disable-next-line import/no-cycle
@@ -31,8 +33,10 @@ const action = async function (url, content, options) {
     }
 
     for (const embed of doc.querySelectorAll("embed[src]")) {
-        if (embed.type.startsWith("video/") ||
-                embed.type.startsWith("audio/")) {
+        if (
+            embed.type.startsWith("video/") ||
+            embed.type.startsWith("audio/")
+        ) {
             return new URL(embed.getAttribute("src"), url).href;
         }
 

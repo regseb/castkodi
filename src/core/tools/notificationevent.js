@@ -1,12 +1,13 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 /**
  * L'évènement d'une notification reçu d'un serveur JSON-RPC.
  */
 export const NotificationEvent = class extends Event {
-
     /**
      * La méthode de la notification.
      *

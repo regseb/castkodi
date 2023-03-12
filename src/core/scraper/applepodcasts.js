@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -24,5 +26,7 @@ const action = async function (_url, content) {
     const json = JSON.parse(Object.values(JSON.parse(script.text))[0]);
     return json.d[0].attributes.assetUrl;
 };
-export const extract = matchPattern(action,
-    "https://podcasts.apple.com/*/podcast/*/id*");
+export const extract = matchPattern(
+    action,
+    "https://podcasts.apple.com/*/podcast/*/id*",
+);

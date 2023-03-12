@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -17,9 +19,11 @@ const actionEpisode = async function ({ pathname }) {
     return plugin.generateEpisodeUrl(pathname.slice(17));
 };
 
-export const extractEpisode = matchPattern(actionEpisode,
+export const extractEpisode = matchPattern(
+    actionEpisode,
     "*://vtm.be/vtmgo/afspelen/e*",
-    "*://www.vtm.be/vtmgo/afspelen/e*");
+    "*://www.vtm.be/vtmgo/afspelen/e*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire un film sur Kodi.
@@ -32,9 +36,11 @@ const actionMovie = async function ({ pathname }) {
     return plugin.generateMovieUrl(pathname.slice(17));
 };
 
-export const extractMovie = matchPattern(actionMovie,
+export const extractMovie = matchPattern(
+    actionMovie,
     "*://vtm.be/vtmgo/afspelen/m*",
-    "*://www.vtm.be/vtmgo/afspelen/m*");
+    "*://www.vtm.be/vtmgo/afspelen/m*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire un film sur Kodi.
@@ -47,9 +53,11 @@ const actionMoviePage = async function ({ pathname }) {
     return plugin.generateMovieUrl(pathname.slice(pathname.indexOf("~m") + 2));
 };
 
-export const extractMoviePage = matchPattern(actionMoviePage,
+export const extractMoviePage = matchPattern(
+    actionMoviePage,
     "*://vtm.be/vtmgo/*~m*",
-    "*://www.vtm.be/vtmgo/*~m*");
+    "*://www.vtm.be/vtmgo/*~m*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire une chaine sur Kodi.
@@ -65,9 +73,10 @@ export const extractMoviePage = matchPattern(actionMoviePage,
 const actionChannel = async function (_url, content) {
     const doc = await content.html();
     const div = doc.querySelector("div.fjs-player[data-id]");
-    return null === div ? undefined
-                        : plugin.generateChannelUrl(div.dataset.id);
+    return null === div ? undefined : plugin.generateChannelUrl(div.dataset.id);
 };
-export const extractChannel = matchPattern(actionChannel,
+export const extractChannel = matchPattern(
+    actionChannel,
     "*://vtm.be/vtmgo/live-kijken/*",
-    "*://www.vtm.be/vtmgo/live-kijken/*");
+    "*://www.vtm.be/vtmgo/live-kijken/*",
+);

@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // eslint-disable-next-line import/no-cycle
@@ -29,9 +31,11 @@ const action = async function (url, content, options) {
     }
 
     const doc = await content.html();
-    for (const meta of doc.querySelectorAll(`meta[itemprop="contentUrl"]`)) {
-        const file = await metaExtract(new URL(meta.content, url),
-                                       { ...options, depth: true });
+    for (const meta of doc.querySelectorAll('meta[itemprop="contentUrl"]')) {
+        const file = await metaExtract(new URL(meta.content, url), {
+            ...options,
+            depth: true,
+        });
         if (undefined !== file) {
             return file;
         }

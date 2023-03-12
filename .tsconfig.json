@@ -1,26 +1,21 @@
 {
-    "compilerOptions": {
-        "module": "ESNext",
-        "moduleResolution": "node",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
 
-        "allowJs": true,
+    "allowJs": true,
 
-        "esModuleInterop": true,
+    "esModuleInterop": true,
 
-        "target": "ESNext"
-    },
-    "include": [
-        "**/*",
-        "**/.*",
-        "**/.*/**/*",
-        "**/.*/**/.*"
-    ],
-    "exclude": [
-        "build/",
-        ".git/",
-        "jsdocs/",
-        "node_modules/",
-        "src/polyfill/lib/",
-        ".stryker/"
-    ]
+    "target": "ESNext"
+  },
+  "include": ["**/*", "**/.*", "**/.*/**/*", "**/.*/**/.*"],
+  "exclude": [
+    "build/",
+    ".git/",
+    "jsdocs/",
+    "node_modules/",
+    "src/polyfill/lib/",
+    ".stryker/"
+  ]
 }

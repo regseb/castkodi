@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // eslint-disable-next-line import/no-cycle
@@ -73,5 +75,7 @@ const actionVideo = async function (_url, content, options) {
     }
     return undefined;
 };
-export const extractVideo = matchPattern(actionVideo,
-    "*://www.star.gr/video/*");
+export const extractVideo = matchPattern(
+    actionVideo,
+    "*://www.star.gr/video/*",
+);

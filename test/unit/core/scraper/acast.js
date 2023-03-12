@@ -1,11 +1,16 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/acast.js";
 
 describe("core/scraper/acast.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://play.acast.com/foo/bar");
 
             const file = await scraper.extract(url);
@@ -13,8 +18,9 @@ describe("core/scraper/acast.js", function () {
         });
 
         it("should return undefined when id is invalid", async function () {
-            const stub = sinon.stub(globalThis, "fetch")
-                              .resolves(Response.json({}));
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(Response.json({}));
 
             const url = new URL("https://play.acast.com/s/foo/bar");
 
@@ -28,9 +34,9 @@ describe("core/scraper/acast.js", function () {
         });
 
         it("should return audio URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                Response.json({ url: "https://foo.com/bar.mp3" }),
-            );
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(Response.json({ url: "https://foo.com/bar.mp3" }));
 
             const url = new URL("https://play.acast.com/s/baz/qux?quux=corge");
 
@@ -44,9 +50,9 @@ describe("core/scraper/acast.js", function () {
         });
 
         it("should return audio URL embed", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                Response.json({ url: "https://foo.com/bar.mp3" }),
-            );
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(Response.json({ url: "https://foo.com/bar.mp3" }));
 
             const url = new URL("https://embed.acast.com/baz/qux?quux=corge");
 

@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/vtmgo.js";
@@ -5,13 +11,13 @@ import * as labeller from "../../../../src/core/labeller/vtmgo.js";
 describe("core/labeller/vtmgo.js", function () {
     describe("extractEpisode()", function () {
         it("should return episode label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <body>
-                     <h1 class="player__title">foo</h1>
-                   </body>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><body>
+                       <h1 class="player__title">foo</h1>
+                     </body></html>`,
+                ),
+            );
 
             const episodeId = "bar";
 
@@ -27,13 +33,13 @@ describe("core/labeller/vtmgo.js", function () {
 
     describe("extractMovie()", function () {
         it("should return movie label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <body>
-                     <h1 class="player__title">foo</h1>
-                   </body>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><body>
+                       <h1 class="player__title">foo</h1>
+                     </body></html>`,
+                ),
+            );
 
             const movieId = "bar";
 
@@ -47,13 +53,13 @@ describe("core/labeller/vtmgo.js", function () {
         });
 
         it("should return undefined when there isn't title", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <body>
-                     <h1>foo</h1>
-                   </body>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><body>
+                       <h1>foo</h1>
+                     </body></html>`,
+                ),
+            );
 
             const movieId = "bar";
 
@@ -69,13 +75,13 @@ describe("core/labeller/vtmgo.js", function () {
 
     describe("extractChannel()", function () {
         it("should return channel label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <body>
-                     <a data-gtm="foo/bar/baz">qux</a>
-                   </body>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><body>
+                       <a data-gtm="foo/bar/baz">qux</a>
+                     </body></html>`,
+                ),
+            );
 
             const channelId = "bar";
 
@@ -89,11 +95,9 @@ describe("core/labeller/vtmgo.js", function () {
         });
 
         it("should return undefined when there isn't link", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <body></body>
-                 </html>`,
-            ));
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(new Response("<html><body></body></html>"));
 
             const channelId = "bar";
 

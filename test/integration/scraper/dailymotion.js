@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
@@ -7,9 +13,10 @@ describe("Scraper: Dailymotion", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file,
-            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                  "&url=x17qw0a");
+        assert.equal(
+            file,
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x17qw0a",
+        );
     });
 
     it("should return tiny video id", async function () {
@@ -17,9 +24,10 @@ describe("Scraper: Dailymotion", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file,
-            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                  "&url=x5riqme");
+        assert.equal(
+            file,
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x5riqme",
+        );
     });
 
     it("should return embed video id", async function () {
@@ -27,8 +35,9 @@ describe("Scraper: Dailymotion", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file,
-            "plugin://plugin.video.dailymotion_com/?mode=playVideo" +
-                                                  "&url=a12bc3d");
+        assert.equal(
+            file,
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=a12bc3d",
+        );
     });
 });

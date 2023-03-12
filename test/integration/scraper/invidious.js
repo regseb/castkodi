@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
@@ -12,9 +18,11 @@ describe("Scraper: Invidious", function () {
         const options = { depth: false, incognito: true };
 
         const file = await extract(url, options);
-        assert.equal(file,
-            "plugin://plugin.video.youtube/play/?video_id=e6EQwSadpPk" +
-                                               "&incognito=true");
+        assert.equal(
+            file,
+            "plugin://plugin.video.youtube/play/" +
+                "?video_id=e6EQwSadpPk&incognito=true",
+        );
 
         assert.equal(stub.callCount, 1);
         assert.deepEqual(stub.firstCall.args, ["video"]);
@@ -27,9 +35,11 @@ describe("Scraper: Invidious", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file,
-            "plugin://plugin.video.youtube/play/?video_id=8cmBd7lkunk" +
-                                               "&incognito=false");
+        assert.equal(
+            file,
+            "plugin://plugin.video.youtube/play/" +
+                "?video_id=8cmBd7lkunk&incognito=false",
+        );
 
         assert.equal(stub.callCount, 1);
         assert.deepEqual(stub.firstCall.args, ["video"]);

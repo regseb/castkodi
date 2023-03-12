@@ -1,6 +1,8 @@
 /**
  * @module
+ * @license MIT
  * @see https://kodi.wiki/view/Add-on:SoundCloud
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -39,5 +41,7 @@ const action = async function ({ searchParams }) {
     }
     return undefined;
 };
-export const extract = matchPattern(action,
-    "plugin://plugin.audio.soundcloud/play/*");
+export const extract = matchPattern(
+    action,
+    "plugin://plugin.audio.soundcloud/play/*",
+);

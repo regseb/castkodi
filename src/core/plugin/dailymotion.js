@@ -1,6 +1,8 @@
 /**
  * @module
+ * @license MIT
  * @see https://kodi.wiki/view/Add-on:DailyMotion.com
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -33,8 +35,11 @@ export const generateUrl = async function (videoId) {
  *                                      <code>undefined</code>.
  */
 const action = async function ({ searchParams }) {
-    return searchParams.has("url") ? labeller.extract(searchParams.get("url"))
-                                   : undefined;
+    return searchParams.has("url")
+        ? labeller.extract(searchParams.get("url"))
+        : undefined;
 };
-export const extract = matchPattern(action,
-    "plugin://plugin.video.dailymotion_com/*");
+export const extract = matchPattern(
+    action,
+    "plugin://plugin.video.dailymotion_com/*",
+);

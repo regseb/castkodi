@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { NotificationListener } from "./notificationlistener.js";
@@ -20,9 +22,9 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 const toTime = function (timestamp) {
     return {
-        hours:        Math.trunc(timestamp / 3600),
-        minutes:      Math.trunc(timestamp / 60) % 60,
-        seconds:      timestamp % 60,
+        hours: Math.trunc(timestamp / 3600),
+        minutes: Math.trunc(timestamp / 60) % 60,
+        seconds: timestamp % 60,
         milliseconds: 0,
     };
 };
@@ -49,7 +51,6 @@ const toTimestamp = function (time) {
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
 export const Player = class {
-
     /**
      * Le client pour contacter Kodi.
      *
@@ -100,20 +101,21 @@ export const Player = class {
                 playerid: 1,
                 properties,
             });
-            return Object.fromEntries(Object.entries(results)
-                .map(([key, value]) => {
+            return Object.fromEntries(
+                Object.entries(results).map(([key, value]) => {
                     return "time" === key || "totaltime" === key
-                                                     ? [key, toTimestamp(value)]
-                                                     : [key, value];
-                }));
+                        ? [key, toTimestamp(value)]
+                        : [key, value];
+                }),
+            );
         }
 
         return {
-            position:  -1,
-            repeat:    "off",
-            shuffled:  false,
-            speed:     0,
-            time:      0,
+            position: -1,
+            repeat: "off",
+            shuffled: false,
+            speed: 0,
+            time: 0,
             totaltime: 0,
         };
     }
@@ -175,7 +177,7 @@ export const Player = class {
     async seek(time) {
         const result = await this.#kodi.send("Player.Seek", {
             playerid: 1,
-            value:    { time: toTime(time) },
+            value: { time: toTime(time) },
         });
         return toTimestamp(result.time);
     }
@@ -188,7 +190,7 @@ export const Player = class {
     setRepeat() {
         return this.#kodi.send("Player.SetRepeat", {
             playerid: 1,
-            repeat:   "cycle",
+            repeat: "cycle",
         });
     }
 
@@ -200,7 +202,7 @@ export const Player = class {
     setShuffle() {
         return this.#kodi.send("Player.SetShuffle", {
             playerid: 1,
-            shuffle:  "toggle",
+            shuffle: "toggle",
         });
     }
 
@@ -240,17 +242,23 @@ export const Player = class {
     async handleNotification({ method, params: { data } }) {
         // Analyser seulement les notifications venant de l'espace Player, si
         // des auditeurs sont présents et si elles viennent du lecteur de vidéo.
-        if (!method.startsWith("Player.") ||
-                0 === this.onPropertyChanged.length ||
-                "player" in data && 1 !== data.player.playerid) {
+        if (
+            !method.startsWith("Player.") ||
+            0 === this.onPropertyChanged.length ||
+            ("player" in data && 1 !== data.player.playerid)
+        ) {
             return;
         }
         switch (method.slice(7)) {
             case "OnAVStart":
                 this.onPropertyChanged.dispatch({
-                    ...await this.getProperties([
-                        "position", "repeat", "shuffled", "time", "totaltime",
-                    ]),
+                    ...(await this.getProperties([
+                        "position",
+                        "repeat",
+                        "shuffled",
+                        "time",
+                        "totaltime",
+                    ])),
                     speed: data.player.speed,
                 });
                 break;
@@ -273,14 +281,14 @@ export const Player = class {
                 break;
             case "OnStop":
                 this.onPropertyChanged.dispatch({
-                    position:  -1,
-                    speed:     0,
-                    time:      0,
+                    position: -1,
+                    speed: 0,
+                    time: 0,
                     totaltime: 0,
                 });
                 break;
             default:
-                // Ignorer les autres notifications.
+            // Ignorer les autres notifications.
         }
     }
 };

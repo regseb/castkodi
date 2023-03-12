@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -21,7 +23,8 @@ const action = async function (_url, content) {
     const json = JSON.parse(script.text);
     return json.props.pageProps.data.broadcast?.streams[0].url;
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     // Liste des noms de domaines récupérés sur la page
     // https://www.radio.net/country-selector.
     "*://*.radio.net/s/*",
@@ -33,4 +36,5 @@ export const extract = matchPattern(action,
     "*://www.radio.pl/s/*",
     "*://www.radio.pt/s/*",
     "*://www.radio.se/s/*",
-    "*://www.radio.at/s/*");
+    "*://www.radio.at/s/*",
+);

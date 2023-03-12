@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 // eslint-disable-next-line import/no-cycle
@@ -18,7 +20,7 @@ const TYPES = new Set(["AudioObject", "MusicVideoObject", "VideoObject"]);
  *
  * @type {string}
  */
-const SELECTOR = `script[type="application/ld+json"]`;
+const SELECTOR = 'script[type="application/ld+json"]';
 
 /**
  * Extrait récursivement les propriétés de type objet d'un objet JSON.
@@ -28,8 +30,8 @@ const SELECTOR = `script[type="application/ld+json"]`;
  */
 const walk = function (root) {
     return null !== root && "object" === typeof root
-                                  ? [root, ...Object.values(root).flatMap(walk)]
-                                  : [];
+        ? [root, ...Object.values(root).flatMap(walk)]
+        : [];
 };
 
 /**

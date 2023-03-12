@@ -1,13 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-     viewBox="0 0 100 100">
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="100"
+  height="100"
+  viewBox="0 0 100 100"
+>
   <defs>
     <mask id="wave">
       <g fill="none" stroke="white">
         <!-- Regrouper tous les éléments car Inkscape utilise seulement le
              premier enfant pour le masque.
              https://bugs.launchpad.net/inkscape/+bug/794472 -->
-        <circle cx="0" cy="50" r="5"  stroke-width="10" />
+        <circle cx="0" cy="50" r="5" stroke-width="10" />
         <circle cx="0" cy="50" r="25" stroke-width="10" />
         <circle cx="0" cy="50" r="45" stroke-width="10" />
         <circle cx="0" cy="50" r="80" stroke-width="40" />
@@ -16,7 +20,12 @@
   </defs>
 
   <g mask="url(#wave)">
-    <polygon points="5,50 50,5 95,50 50,95" fill="#0a84ff" stroke="#0a84ff"
-             stroke-width="10" stroke-linejoin="round" />
+    <polygon
+      points="5,50 50,5 95,50 50,95"
+      fill="#0a84ff"
+      stroke="#0a84ff"
+      stroke-width="10"
+      stroke-linejoin="round"
+    />
   </g>
 </svg>

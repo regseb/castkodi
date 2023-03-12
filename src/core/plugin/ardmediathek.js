@@ -1,6 +1,8 @@
 /**
  * @module
+ * @license MIT
  * @see https://kodi.wiki/view/Add-on:ARD_Mediathek
+ * @author Sébastien Règne
  */
 /* eslint-disable require-await */
 
@@ -9,8 +11,8 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.ardmediathek_de/?client=ard" +
-                                                         "&mode=libArdPlay&id=";
+const PLUGIN_URL =
+    "plugin://plugin.video.ardmediathek_de/?client=ard&mode=libArdPlay&id=";
 
 /**
  * Génère l'URL d'une vidéo dans l'extension ARD Mediathek.

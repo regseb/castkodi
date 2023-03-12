@@ -137,10 +137,13 @@ export default {
         "prefer-scripts": "off",
 
         // Format rules.
-        "description-format": ["error", {
-            requireCapitalFirstLetter: true,
-            requireEndingPeriod: true,
-        }],
+        "description-format": [
+            "error",
+            {
+                requireCapitalFirstLetter: true,
+                requireEndingPeriod: true,
+            },
+        ],
         "name-format": "error",
         "version-format": "error",
 

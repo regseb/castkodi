@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import * as plugin from "../plugin/dailymotion.js";
@@ -26,7 +28,8 @@ const action = async function (_url, content) {
     const blockquote = doc.querySelector(
         "blockquote.video-dailymotion-unloaded[data-videoid]",
     );
-    return null === blockquote ? undefined
-                               : plugin.generateUrl(blockquote.dataset.videoid);
+    return null === blockquote
+        ? undefined
+        : plugin.generateUrl(blockquote.dataset.videoid);
 };
 export const extract = matchPattern(action, "*://www.lepoint.fr/*");

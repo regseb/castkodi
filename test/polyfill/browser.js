@@ -1,11 +1,12 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import fs from "node:fs/promises";
 
 if (undefined === import.meta.resolve) {
-
     /**
      * Résous un chemin relatif à partir du module.
      *
@@ -31,14 +32,14 @@ const MESSAGES = JSON.parse(
  */
 const data = {
     bookmarks: {
-        data:  [],
+        data: [],
         index: 0,
     },
     contextMenus: [],
-    histories:    [],
-    permissions:  {
-        data:      {
-            origins:     new Set(),
+    histories: [],
+    permissions: {
+        data: {
+            origins: new Set(),
             permissions: new Set(),
         },
         listeners: [],
@@ -48,7 +49,7 @@ const data = {
     },
     storage: {
         local: {
-            data:      {},
+            data: {},
             listeners: [],
         },
     },
@@ -63,7 +64,6 @@ const data = {
  */
 export const browser = {
     bookmarks: {
-
         /**
          * Crée un marque-page.
          *
@@ -91,7 +91,6 @@ export const browser = {
     },
 
     contextMenus: {
-
         /**
          * Crée un élément dans le menu contextuel.
          *
@@ -110,7 +109,6 @@ export const browser = {
     },
 
     extension: {
-
         /**
          * La marque indiquant si l'utilisateur est en navigation privée.
          *
@@ -120,7 +118,6 @@ export const browser = {
     },
 
     history: {
-
         /**
          * Ajoute une page dans l'historique.
          *
@@ -150,28 +147,31 @@ export const browser = {
     },
 
     i18n: {
-
         /**
          * Récupère un message.
          *
          * @param {string}          key          La clé du message.
-         * @param {string|string[]} substitution Les éléments insérés dans le
-         *                                       message.
+         * @param {string|string[]} substitution L'éléméent ou les éléments
+         *                                       insérés dans le message.
          * @returns {string} Le message.
          */
         getMessage(key, substitution) {
-            const substitutions = Array.isArray(substitution) ? substitution
-                                                              : [substitution];
-            return Object.keys(MESSAGES[key]?.placeholders ?? {})
-                         .reduce((message, placeholder, index) => {
-                return message.replace("$" + placeholder.toUpperCase() + "$",
-                                       substitutions[index]);
-            }, MESSAGES[key]?.message ?? "");
+            const substitutions = Array.isArray(substitution)
+                ? substitution
+                : [substitution];
+            return Object.keys(MESSAGES[key]?.placeholders ?? {}).reduce(
+                (message, placeholder, index) => {
+                    return message.replace(
+                        "$" + placeholder.toUpperCase() + "$",
+                        substitutions[index],
+                    );
+                },
+                MESSAGES[key]?.message ?? "",
+            );
         },
     },
 
     notifications: {
-
         /**
          * Crée une notification.
          *
@@ -180,8 +180,9 @@ export const browser = {
          * @throws {Error} Si la méthode n'est pas implémentée.
          */
         create(_id, _options) {
-            throw new Error("no polyfill for browser.notifications.create" +
-                            " function");
+            throw new Error(
+                "no polyfill for browser.notifications.create function",
+            );
         },
     },
 
@@ -189,8 +190,9 @@ export const browser = {
         contains({ origins = [], permissions = [] }) {
             return Promise.resolve(
                 origins.every((o) => data.permissions.data.origins.has(o)) &&
-                permissions.every((p) => data.permissions.data.permissions
-                                                              .has(p)),
+                    permissions.every((p) =>
+                        data.permissions.data.permissions.has(p),
+                    ),
             );
         },
         remove({ origins = [], permissions = [] }) {
@@ -202,14 +204,16 @@ export const browser = {
                 }
             }
             for (const permission of permissions) {
-                const deleted = data.permissions.data.permissions
-                                                     .delete(permission);
+                const deleted =
+                    data.permissions.data.permissions.delete(permission);
                 if (deleted) {
                     changes.permissions.push(permission);
                 }
             }
-            if (0 !== changes.origins.length ||
-                    0 !== changes.permissions.length) {
+            if (
+                0 !== changes.origins.length ||
+                0 !== changes.permissions.length
+            ) {
                 data.permissions.listeners.forEach((l) => l(changes));
                 return Promise.resolve(true);
             }
@@ -243,26 +247,32 @@ export const browser = {
                 if (undefined === properties) {
                     return Promise.resolve(data.storage.local.data);
                 }
-                return Promise.resolve(Object.fromEntries(
-                    Object.entries(data.storage.local.data)
-                          .filter(([k]) => properties.includes(k)),
-                ));
+                return Promise.resolve(
+                    Object.fromEntries(
+                        Object.entries(data.storage.local.data).filter(([k]) =>
+                            properties.includes(k),
+                        ),
+                    ),
+                );
             },
             set(values) {
-                const changes = Object.fromEntries(Object.entries(values)
-                    .map(([key, value]) => {
+                const changes = Object.fromEntries(
+                    Object.entries(values).map(([key, value]) => {
                         // eslint-disable-next-line unicorn/no-keyword-prefix
                         const change = { newValue: value };
                         if (key in data.storage.local.data) {
                             change.oldValue = data.storage.local.data[key];
                         }
                         return [key, change];
-                    }));
+                    }),
+                );
                 data.storage.local.listeners.forEach((l) => l(changes));
-                data.storage.local.data = Object.fromEntries(Object.entries({
-                    ...data.storage.local.data,
-                    ...values,
-                }).sort(([k1], [k2]) => k1.localeCompare(k2)));
+                data.storage.local.data = Object.fromEntries(
+                    Object.entries({
+                        ...data.storage.local.data,
+                        ...values,
+                    }).sort(([k1], [k2]) => k1.localeCompare(k2)),
+                );
             },
             clear() {
                 data.storage.local.data = {};

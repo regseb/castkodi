@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -20,8 +22,10 @@ const actionGame = async function (_url, content) {
     const div = doc.querySelector(".highlight_movie[data-mp4-hd-source]");
     return div?.dataset.mp4HdSource;
 };
-export const extractGame = matchPattern(actionGame,
-    "*://store.steampowered.com/app/*");
+export const extractGame = matchPattern(
+    actionGame,
+    "*://store.steampowered.com/app/*",
+);
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -33,10 +37,14 @@ export const extractGame = matchPattern(actionGame,
  */
 const actionBroadcast = async function ({ pathname }) {
     const id = pathname.slice(17);
-    const response = await fetch("https://steamcommunity.com/broadcast" +
-                                             `/getbroadcastmpd/?steamid=${id}`);
+    const response = await fetch(
+        "https://steamcommunity.com/broadcast" +
+            `/getbroadcastmpd/?steamid=${id}`,
+    );
     const json = await response.json();
     return json.hls_url;
 };
-export const extractBroadcast = matchPattern(actionBroadcast,
-    "*://steamcommunity.com/broadcast/watch/*");
+export const extractBroadcast = matchPattern(
+    actionBroadcast,
+    "*://steamcommunity.com/broadcast/watch/*",
+);

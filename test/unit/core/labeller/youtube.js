@@ -1,3 +1,9 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/youtube.js";
@@ -5,13 +11,13 @@ import * as labeller from "../../../../src/core/labeller/youtube.js";
 describe("core/labeller/youtube.js", function () {
     describe("extractVideo()", function () {
         it("should return video label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head>
-                     <meta property="og:title" content="foo" />
-                   </head>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><head>
+                       <meta property="og:title" content="foo" />
+                     </head></html>`,
+                ),
+            );
 
             const videoId = "bar";
 
@@ -25,11 +31,9 @@ describe("core/labeller/youtube.js", function () {
         });
 
         it("should return unavailable label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head></head>
-                 </html>`,
-            ));
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(new Response("<html><head></head></html>"));
 
             const videoId = "foo";
 
@@ -45,13 +49,13 @@ describe("core/labeller/youtube.js", function () {
 
     describe("extractPlaylist()", function () {
         it("should return playlist label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head>
-                     <meta property="og:title" content="foo" />
-                   </head>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><head>
+                       <meta property="og:title" content="foo" />
+                     </head></html>`,
+                ),
+            );
 
             const playlistId = "bar";
 
@@ -65,13 +69,13 @@ describe("core/labeller/youtube.js", function () {
         });
 
         it("should return mix label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(new Response(
-                `<html>
-                   <head>
-                     <meta property="og:title" content="null" />
-                   </head>
-                 </html>`,
-            ));
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><head>
+                       <meta property="og:title" content="null" />
+                     </head></html>`,
+                ),
+            );
 
             const playlistId = "foo";
 

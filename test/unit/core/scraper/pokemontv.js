@@ -1,20 +1,26 @@
+/**
+ * @module
+ * @license MIT
+ * @author Sébastien Règne
+ */
+
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/pokemontv.js";
 
 describe("core/scraper/pokemontv.js", function () {
     describe("extract()", function () {
-        it("should return undefined when it's a unsupported URL",
-                                                             async function () {
-            const url = new URL("https://watch.pokemon.com/fr-fr/#/season" +
-                                "?id=la-serie-pokemon-les-voyages");
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL(
+                "https://watch.pokemon.com/fr-fr/#/season" +
+                    "?id=la-serie-pokemon-les-voyages",
+            );
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when video is unavailable",
-                                                             async function () {
+        it("should return undefined when video is unavailable", async function () {
             const url = new URL("https://watch.pokemon.com/fr-fr/#/player?");
 
             const file = await scraper.extract(url);
@@ -26,22 +32,27 @@ describe("core/scraper/pokemontv.js", function () {
                 Response.json([
                     {
                         media: [],
-                    }, {
-                        media: [{
-                            id:          "foo",
-                            // eslint-disable-next-line camelcase
-                            offline_url: "http://foo.com",
-                        }, {
-                            id:          "bar",
-                            // eslint-disable-next-line camelcase
-                            offline_url: "http://bar.fr",
-                        }],
+                    },
+                    {
+                        media: [
+                            {
+                                id: "foo",
+                                // eslint-disable-next-line camelcase
+                                offline_url: "http://foo.com",
+                            },
+                            {
+                                id: "bar",
+                                // eslint-disable-next-line camelcase
+                                offline_url: "http://bar.fr",
+                            },
+                        ],
                     },
                 ]),
             );
 
-            const url = new URL("https://watch.pokemon.com/fr-fr/#/player" +
-                                "?id=bar");
+            const url = new URL(
+                "https://watch.pokemon.com/fr-fr/#/player?id=bar",
+            );
 
             const file = await scraper.extract(url);
             assert.equal(file, "http://bar.fr");
@@ -56,17 +67,20 @@ describe("core/scraper/pokemontv.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json([
                     {
-                        media: [{
-                            id:          "foo",
-                            // eslint-disable-next-line camelcase
-                            offline_url: "http://foo.co.uk",
-                        }],
+                        media: [
+                            {
+                                id: "foo",
+                                // eslint-disable-next-line camelcase
+                                offline_url: "http://foo.co.uk",
+                            },
+                        ],
                     },
                 ]),
             );
 
-            const url = new URL("https://watch.pokemon.com/en-gb/#/player" +
-                                "?id=foo");
+            const url = new URL(
+                "https://watch.pokemon.com/en-gb/#/player?id=foo",
+            );
 
             const file = await scraper.extract(url);
             assert.equal(file, "http://foo.co.uk");
@@ -81,17 +95,20 @@ describe("core/scraper/pokemontv.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json([
                     {
-                        media: [{
-                            id:          "foo",
-                            // eslint-disable-next-line camelcase
-                            offline_url: "http://foo.com",
-                        }],
+                        media: [
+                            {
+                                id: "foo",
+                                // eslint-disable-next-line camelcase
+                                offline_url: "http://foo.com",
+                            },
+                        ],
                     },
                 ]),
             );
 
-            const url = new URL("https://watch.pokemon.com/en-us/#/player" +
-                                "?id=bar");
+            const url = new URL(
+                "https://watch.pokemon.com/en-us/#/player?id=bar",
+            );
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);

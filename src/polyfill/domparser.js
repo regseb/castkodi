@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import * as linkedom from "./lib/linkedom.js";
@@ -12,7 +14,6 @@ if (!("DOMParser" in globalThis)) {
     // Ajouter des propriétés manquantes dans les classes fournies par LinkeDOM.
     // Comme document.querySelector() ne retourne pas la classe spécifique :
     // ajouter les propriétés dans HTMLElement.
-    // https://github.com/WebReflection/linkedom/issues/183
     // https://github.com/WebReflection/linkedom/issues/184
     Object.defineProperties(linkedom.HTMLElement.prototype, {
         // Ajouter HTMLEmbedElement.type.
@@ -31,12 +32,6 @@ if (!("DOMParser" in globalThis)) {
         cite: {
             get() {
                 return this.getAttribute("cite") ?? "";
-            },
-        },
-        // Ajouter HTMLMetaElement.content.
-        content: {
-            get() {
-                return this.getAttribute("content") ?? "";
             },
         },
     });

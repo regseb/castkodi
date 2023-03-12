@@ -1,5 +1,7 @@
 /**
  * @module
+ * @license MIT
+ * @author Sébastien Règne
  */
 
 import { matchPattern } from "../tools/matchpattern.js";
@@ -32,6 +34,8 @@ const action = async function (_url, content) {
     }
     return undefined;
 };
-export const extract = matchPattern(action,
+export const extract = matchPattern(
+    action,
     "*://vudeo.io/*.html",
-    "*://vudeo.net/*.html");
+    "*://vudeo.net/*.html",
+);
