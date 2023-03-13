@@ -41,7 +41,7 @@
         "clean": "node .script/clean.js"
     },
     "dependencies": {
-        "linkedom": "0.14.22"
+        "linkedom": "0.14.24"
     },
     "devDependencies": {
         "@stryker-mutator/core": "6.4.1",
