@@ -47,6 +47,9 @@ export default {
         // Overrides
         "declaration-block-no-shorthand-property-overrides": true,
 
+        // Unmatchable
+        "selector-anb-no-unmatchable": true,
+
         // Unknown.
         "annotation-no-unknown": true,
         "at-rule-no-unknown": true,

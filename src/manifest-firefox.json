@@ -2,7 +2,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "castkodi@regseb.github.io",
-      "strict_min_version": "110.0"
+      "strict_min_version": "111.0"
     }
   },
   "manifest_version": 3,
@@ -42,7 +42,7 @@
   },
   "homepage_url": "https://github.com/regseb/castkodi",
   "host_permissions": ["<all_urls>"],
-  "minimum_chrome_version": "110",
+  "minimum_chrome_version": "111",
   "optional_permissions": ["bookmarks", "clipboardRead", "history"],
   "options_ui": {
     "browser_style": false,
