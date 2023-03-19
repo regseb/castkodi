@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.2.0](https://github.com/regseb/castkodi/compare/v7.1.0...v7.2.0) (2023-03-19)
+
+
+### Features
+
+* Added translation using Weblate (Dutch) ([c27940f](https://github.com/regseb/castkodi/commit/c27940f74420af381d72f115f8584948d8b899e0))
+
 ## [7.1.0](https://github.com/regseb/castkodi/compare/v7.0.0...v7.1.0) (2023-02-28)
 
 
