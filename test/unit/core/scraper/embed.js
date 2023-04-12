@@ -35,6 +35,45 @@ describe("core/scraper/embed.js", function () {
             assert.equal(file, undefined);
         });
 
+        it("should ignore src empty", async function () {
+            const url = new URL("https://foo.com/bar.html");
+            const content = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <embed type="video/mp4" src="" />
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+            const options = { depth: false, incognito: true };
+
+            const file = await scraper.extract(url, content, options);
+            assert.equal(file, undefined);
+        });
+
+        it("should ignore blob", async function () {
+            const url = new URL("https://foo.com/bar.html");
+            const content = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <embed type="video/mp4"
+                                      src="blob:https://foo.com/baz" />
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+            const options = { depth: false, incognito: true };
+
+            const file = await scraper.extract(url, content, options);
+            assert.equal(file, undefined);
+        });
+
         it("should return URL from video embed", async function () {
             const url = new URL("https://foo.com/bar.html");
             const content = {

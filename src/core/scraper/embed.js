@@ -32,7 +32,8 @@ const action = async function (url, content, options) {
         return undefined;
     }
 
-    for (const embed of doc.querySelectorAll("embed[src]")) {
+    const selector = 'embed[src]:not([src=""]):not([src^="blob:"])';
+    for (const embed of doc.querySelectorAll(selector)) {
         if (
             embed.type.startsWith("video/") ||
             embed.type.startsWith("audio/")
