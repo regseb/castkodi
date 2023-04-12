@@ -61,10 +61,11 @@ export const cast = async function (action, urls) {
             : new PebkacError("noLinks");
     }
 
-    const file = await extract(new URL(url), {
+    const file =
+        (await extract(new URL(url), {
         depth: false,
         incognito: browser.extension.inIncognitoContext,
-    });
+        })) ?? url;
     if ("send" === action) {
         // Vider la liste de lecture, ajouter le nouveau média et lancer la
         // lecture.

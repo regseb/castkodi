@@ -11,7 +11,9 @@ import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
 describe("Scraper: Le Monde", function () {
-    it("should return URL when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL(
             "https://www.lemonde.fr/pixels/article/2015/02/27" +
                 "/on-a-teste-pour-vous-le-raspberry-pi-l-ordinateur-miniature" +
@@ -20,11 +22,11 @@ describe("Scraper: Le Monde", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return video id [lemonde-youtube]", async function () {
-        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL(
             "https://www.lemonde.fr/blog/unmondedejeux/2021/02/02" +
@@ -38,9 +40,6 @@ describe("Scraper: Le Monde", function () {
             "plugin://plugin.video.youtube/play/" +
                 "?video_id=dI-xlzU-r1c&incognito=false",
         );
-
-        assert.equal(stub.callCount, 1);
-        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return video id [lemonde-dailymotion]", async function () {

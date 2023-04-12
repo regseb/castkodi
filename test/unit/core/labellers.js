@@ -6,10 +6,41 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import { complete } from "../../../src/core/labellers.js";
+import { complete, extract } from "../../../src/core/labellers.js";
 
 describe("core/labellers.js", function () {
     describe("extract()", function () {
+        it("should return label", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><head>
+                       <meta property="og:title" content="bar" />
+                     </head></html>`,
+                ),
+            );
+
+            const url = new URL(
+                "plugin://plugin.video.youtube/play/?video_id=foo",
+            );
+
+            const label = await extract(url);
+            assert.equal(label, "bar");
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
+                new URL("https://www.youtube.com/watch?v=foo"),
+            ]);
+        });
+
+        it("should return undefined", async function () {
+            const url = new URL("https://foo.com/");
+
+            const label = await extract(url);
+            assert.equal(label, undefined);
+        });
+    });
+
+    describe("complete()", function () {
         it("should return 'title' when it's present", async function () {
             const item = {
                 file: "https://foo.com/",
@@ -114,7 +145,7 @@ describe("core/labellers.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://www.youtube.com/watch?v=foo",
+                new URL("https://www.youtube.com/watch?v=foo"),
             ]);
         });
 

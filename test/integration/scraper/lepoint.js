@@ -10,7 +10,9 @@ import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Le Point", function () {
-    it("should return URL when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL(
             "https://www.lepoint.fr/economie" +
                 "/desinformation-l-ue-accentue-la-pression-sur-les-geants-d" +
@@ -20,7 +22,7 @@ describe("Scraper: Le Point", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return video URL of Dailymotion", async function () {
@@ -56,7 +58,7 @@ describe("Scraper: Le Point", function () {
     });
 
     it("should return video URL [iframe-youtube]", async function () {
-        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL(
             "https://www.lepoint.fr/pop-culture" +
@@ -71,8 +73,5 @@ describe("Scraper: Le Point", function () {
             "plugin://plugin.video.youtube/play/" +
                 "?video_id=SE6jppsjo9E&incognito=false",
         );
-
-        assert.equal(stub.callCount, 1);
-        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 });

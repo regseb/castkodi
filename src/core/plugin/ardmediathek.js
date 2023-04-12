@@ -4,7 +4,6 @@
  * @see https://kodi.wiki/view/Add-on:ARD_Mediathek
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 /**
  * L'URL de l'extension pour lire des vidéos issues de ARD Mediathek.
@@ -18,9 +17,8 @@ const PLUGIN_URL =
  * Génère l'URL d'une vidéo dans l'extension ARD Mediathek.
  *
  * @param {string} id L'identifiant de la vidéo ARD Mediathek.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {string} Le lien du <em>fichier</em>.
  */
-export const generateUrl = async function (id) {
+export const generateUrl = function (id) {
     return PLUGIN_URL + id;
 };

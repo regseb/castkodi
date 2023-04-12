@@ -6,12 +6,13 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("core/scrapers.js", function () {
     describe("extract()", function () {
-        it("should return URL when it isn't supported", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
+        it("should return undefined when it isn't supported", async function () {
+            const stubFetch = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
                     // Ajouter du contenu dans la page pour vérifier qu'il n'est
                     // pas récupéré.
@@ -19,21 +20,26 @@ describe("core/scrapers.js", function () {
                     { headers: { "Content-Type": "application/svg+xml" } },
                 ),
             );
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
 
             const url = new URL("https://foo.com/bar.svg");
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.equal(file, url.href);
+            assert.equal(file, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.equal(stub.firstCall.args.length, 2);
-            assert.deepEqual(stub.firstCall.args[0], url);
-            assert.equal(typeof stub.firstCall.args[1], "object");
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubFetch.firstCall.args.length, 2);
+            assert.deepEqual(stubFetch.firstCall.args[0], url);
+            assert.equal(typeof stubFetch.firstCall.args[1], "object");
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
         });
 
-        it("should return URL when no Content-Type", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
+        it("should return undefined when no Content-Type", async function () {
+            const stubFetch = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
                     // Ajouter du contenu dans la page pour vérifier qu'il n'est
                     // pas récupéré.
@@ -41,39 +47,22 @@ describe("core/scrapers.js", function () {
                     { headers: { "Content-Type": undefined } },
                 ),
             );
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
 
             const url = new URL("https://foo.com/bar");
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
-            assert.equal(file, url.href);
-
-            assert.equal(stub.callCount, 1);
-            assert.equal(stub.firstCall.args.length, 2);
-            assert.deepEqual(stub.firstCall.args[0], url);
-            assert.equal(typeof stub.firstCall.args[1], "object");
-        });
-
-        it("should return undefined when it isn't supported and depther", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    // Ajouter du contenu dans la page pour vérifier qu'il n'est
-                    // pas récupéré.
-                    '<audio src="foo.mp3">',
-                    { headers: { "Content-Type": "application/svg+xml" } },
-                ),
-            );
-
-            const url = new URL("https://foo.com/bar.svg");
-            const options = { depth: true, incognito: false };
-
-            const file = await extract(url, options);
             assert.equal(file, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.equal(stub.firstCall.args.length, 2);
-            assert.deepEqual(stub.firstCall.args[0], url);
-            assert.equal(typeof stub.firstCall.args[1], "object");
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubFetch.firstCall.args.length, 2);
+            assert.deepEqual(stubFetch.firstCall.args[0], url);
+            assert.equal(typeof stubFetch.firstCall.args[1], "object");
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
         });
 
         it("should return media URL", async function () {

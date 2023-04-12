@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
@@ -16,12 +18,14 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
         }
     });
 
-    it("should return URL when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL("http://www.jeuxvideo.com/videos-de-jeux.htm");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return video URL from videos-editors page", async function () {

@@ -5,27 +5,33 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Futura Sciences", function () {
-    it("should return page URL when there isn't video", async function () {
+    it("should return page undefined when there isn't video", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL(
             "https://www.futura-sciences.com/tech/telecharger/kodi-287",
         );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
-    it("should return image URL when it's a image", async function () {
+    it("should return undefined URL when it's a image", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL(
             "https://www.futura-sciences.com/favicon-16x16.png",
         );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return video URL from iframe", async function () {

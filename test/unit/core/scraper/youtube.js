@@ -91,25 +91,6 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video id when protocol is HTTP", async function () {
-            browser.storage.local.set({ "youtube-playlist": "playlist" });
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
-
-            const url = new URL("http://www.youtube.com/watch?v=foo");
-            const content = undefined;
-            const options = { incognito: true };
-
-            const file = await scraper.extractVideo(url, content, options);
-            assert.equal(
-                file,
-                "plugin://plugin.video.youtube/play/" +
-                    "?video_id=foo&incognito=true",
-            );
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
-        });
-
         it("should return undefined when it isn't a video from mobile", async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
 
@@ -209,6 +190,72 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
+
+        it("should return video id with youtube", async function () {
+            browser.storage.local.set({ "youtube-playlist": "video" });
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([
+                    "plugin.video.youtube",
+                    "plugin.video.tubed",
+                    "plugin.video.sendtokodi",
+                ]);
+
+            const url = new URL("https://www.youtube.com/watch?v=foo");
+            const content = undefined;
+            const options = { incognito: true };
+
+            const file = await scraper.extractVideo(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=foo&incognito=true",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return video id with tubed", async function () {
+            browser.storage.local.set({ "youtube-playlist": "video" });
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.tubed", "plugin.video.sendtokodi"]);
+
+            const url = new URL("https://www.youtube.com/watch?v=foo");
+            const content = undefined;
+            const options = { incognito: true };
+
+            const file = await scraper.extractVideo(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.tubed/?mode=play&video_id=foo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return video id with sendtokodi", async function () {
+            browser.storage.local.set({ "youtube-playlist": "video" });
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.sendtokodi"]);
+
+            const url = new URL("https://www.youtube.com/watch?v=foo");
+            const content = undefined;
+            const options = { incognito: true };
+
+            const file = await scraper.extractVideo(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.sendtokodi/" +
+                    "?https://www.youtube.com/watch?v=foo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
     });
 
     describe("extractPlaylist()", function () {
@@ -273,6 +320,72 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
+
+        it("should return playlist id with youtube", async function () {
+            browser.storage.local.set({ "youtube-order": "" });
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([
+                    "plugin.video.youtube",
+                    "plugin.video.tubed",
+                    "plugin.video.sendtokodi",
+                ]);
+
+            const url = new URL("https://www.youtube.com/playlist?list=foo");
+            const content = undefined;
+            const options = { incognito: false };
+
+            const file = await scraper.extractPlaylist(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?playlist_id=foo&order=&play=1&incognito=false",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return playlist id with tubed", async function () {
+            browser.storage.local.set({ "youtube-order": "" });
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.tubed", "plugin.video.sendtokodi"]);
+
+            const url = new URL("https://www.youtube.com/playlist?list=foo");
+            const content = undefined;
+            const options = { incognito: false };
+
+            const file = await scraper.extractPlaylist(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.tubed/?mode=play&playlist_id=foo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return playlist id with sendtokodi", async function () {
+            browser.storage.local.set({ "youtube-order": "" });
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.sendtokodi"]);
+
+            const url = new URL("https://www.youtube.com/playlist?list=foo");
+            const content = undefined;
+            const options = { incognito: false };
+
+            const file = await scraper.extractPlaylist(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.sendtokodi/?" +
+                    "https://www.youtube.com/playlist?list=foo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
     });
 
     describe("extractEmbed()", function () {
@@ -306,6 +419,42 @@ describe("core/scraper/youtube.js", function () {
                 file,
                 "plugin://plugin.video.youtube/play/" +
                     "?video_id=foo&incognito=true",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return video id from short", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+            const url = new URL("https://www.youtube.com/shorts/foo");
+            const content = undefined;
+            const options = { incognito: false };
+
+            const file = await scraper.extractEmbed(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=foo&incognito=false",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return video id from short and URL without 'www'", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+            const url = new URL("https://youtube.com/shorts/foo");
+            const content = undefined;
+            const options = { incognito: false };
+
+            const file = await scraper.extractEmbed(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=foo&incognito=false",
             );
 
             assert.equal(stub.callCount, 1);
@@ -347,6 +496,24 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
+
+        it("should return video id from DevTube", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+            const url = new URL("https://dev.tube/video/foo");
+            const content = undefined;
+            const options = { incognito: true };
+
+            const file = await scraper.extractEmbed(url, content, options);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=foo&incognito=true",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
     });
 
     describe("extractMinify()", function () {
@@ -358,44 +525,6 @@ describe("core/scraper/youtube.js", function () {
             const options = { incognito: false };
 
             const file = await scraper.extractMinify(url, content, options);
-            assert.equal(
-                file,
-                "plugin://plugin.video.youtube/play/" +
-                    "?video_id=foo&incognito=false",
-            );
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
-        });
-    });
-
-    describe("extractShort()", function () {
-        it("should return video id", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
-
-            const url = new URL("https://www.youtube.com/shorts/foo");
-            const content = undefined;
-            const options = { incognito: false };
-
-            const file = await scraper.extractShort(url, content, options);
-            assert.equal(
-                file,
-                "plugin://plugin.video.youtube/play/" +
-                    "?video_id=foo&incognito=false",
-            );
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
-        });
-
-        it("should return video id from URL without 'www'", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
-
-            const url = new URL("https://youtube.com/shorts/foo");
-            const content = undefined;
-            const options = { incognito: false };
-
-            const file = await scraper.extractShort(url, content, options);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +

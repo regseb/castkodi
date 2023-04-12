@@ -28,18 +28,5 @@ describe("core/scraper/ardmediathek.js", function () {
                     "?client=ard&mode=libArdPlay&id=qux",
             );
         });
-
-        it("should return video URL when protocol is HTTP", async function () {
-            const url = new URL(
-                "http://www.ardmediathek.de/video/foo/bar/baz/qux/",
-            );
-
-            const file = await scraper.extract(url);
-            assert.equal(
-                file,
-                "plugin://plugin.video.ardmediathek_de/" +
-                    "?client=ard&mode=libArdPlay&id=qux",
-            );
-        });
     });
 });

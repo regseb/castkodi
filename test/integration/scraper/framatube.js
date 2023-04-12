@@ -5,17 +5,21 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Framatube", function () {
-    it("should return URL when UUID is invalid [peertube]", async function () {
+    it("should return undefined when UUID is invalid [peertube]", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL(
             "https://framatube.org/w/123e4567-e89b-12d3-a456-426614174000",
         );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return video embed URL [peertube]", async function () {

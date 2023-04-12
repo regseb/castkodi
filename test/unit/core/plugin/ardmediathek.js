@@ -9,8 +9,8 @@ import * as plugin from "../../../../src/core/plugin/ardmediathek.js";
 
 describe("core/plugin/ardmediathek.js", function () {
     describe("generateUrl()", function () {
-        it("should return URL with video URL", async function () {
-            const label = await plugin.generateUrl("foo");
+        it("should return URL with video URL", function () {
+            const label = plugin.generateUrl("foo");
             assert.equal(
                 label,
                 "plugin://plugin.video.ardmediathek_de/" +

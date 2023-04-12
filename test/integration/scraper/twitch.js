@@ -5,22 +5,13 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Twitch", function () {
     it("should return video id", async function () {
         const url = new URL("https://www.twitch.tv/videos/164088111");
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.equal(
-            file,
-            "plugin://plugin.video.twitch/?mode=play&video_id=164088111",
-        );
-    });
-
-    it("should return video id when protocol is HTTP", async function () {
-        const url = new URL("http://www.twitch.tv/videos/164088111");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -52,12 +43,14 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return URL when it isn't a clip", async function () {
+    it("should return undefined when it isn't a clip", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL("https://clips.twitch.tv/embed?noclip=Awesome");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return embed clip name", async function () {
@@ -78,20 +71,6 @@ describe("Scraper: Twitch", function () {
     it("should return clip name", async function () {
         const url = new URL(
             "https://clips.twitch.tv/GleamingWildCougarFUNgineer",
-        );
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.equal(
-            file,
-            "plugin://plugin.video.twitch/" +
-                "?mode=play&slug=GleamingWildCougarFUNgineer",
-        );
-    });
-
-    it("should return clip name when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://clips.twitch.tv/GleamingWildCougarFUNgineer",
         );
         const options = { depth: false, incognito: false };
 
@@ -146,12 +125,14 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return URL when it isn't channel or video", async function () {
+    it("should return undefined when it isn't channel or video", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL("https://player.twitch.tv/?other=foobar");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return channel name from player", async function () {
@@ -193,17 +174,6 @@ describe("Scraper: Twitch", function () {
 
     it("should return channel name", async function () {
         const url = new URL("https://www.twitch.tv/nolife");
-        const options = { depth: false, incognito: false };
-
-        const file = await extract(url, options);
-        assert.equal(
-            file,
-            "plugin://plugin.video.twitch/?mode=play&channel_name=nolife",
-        );
-    });
-
-    it("should return channel name when protocol is HTTP", async function () {
-        const url = new URL("http://www.twitch.tv/nolife");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);

@@ -9,8 +9,8 @@ import * as plugin from "../../../../src/core/plugin/plexus.js";
 
 describe("core/plugin/plexus.js", function () {
     describe("generateUrl()", function () {
-        it("should return URL with video URL", async function () {
-            const label = await plugin.generateUrl(new URL("acestream://foo"));
+        it("should return URL with video URL", function () {
+            const label = plugin.generateUrl(new URL("acestream://foo"));
             assert.equal(
                 label,
                 "plugin://program.plexus/" +

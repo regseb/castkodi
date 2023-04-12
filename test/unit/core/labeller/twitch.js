@@ -9,8 +9,15 @@ import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/twitch.js";
 
 describe("core/labeller/twitch.js", function () {
-    describe("extractLive()", function () {
-        it("should return live label", async function () {
+    describe("extract()", function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL("https://appeals.twitch.tv/");
+
+            const file = await labeller.extract(url);
+            assert.equal(file, undefined);
+        });
+
+        it("should return label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
                     `<html><head>
@@ -19,44 +26,13 @@ describe("core/labeller/twitch.js", function () {
                 ),
             );
 
-            const channelName = "bar";
+            const url = new URL("https://www.twitch.tv/bar");
 
-            const label = await labeller.extractLive(channelName);
+            const label = await labeller.extract(url);
             assert.equal(label, "foo");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["https://m.twitch.tv/bar"]);
-        });
-    });
-
-    describe("extractVideo()", function () {
-        it("should return video label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <title>foo - bar sur Twitch</title>
-                     </head></html>`,
-                ),
-            );
-
-            const videoId = "baz";
-
-            const label = await labeller.extractVideo(videoId);
-            assert.equal(label, "foo");
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
-                "https://m.twitch.tv/videos/baz",
-            ]);
-        });
-    });
-
-    describe("extractClip()", function () {
-        it("should return clip label", async function () {
-            const clipId = "foo";
-
-            const label = await labeller.extractClip(clipId);
-            assert.equal(label, clipId);
         });
     });
 });

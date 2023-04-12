@@ -17,7 +17,6 @@ import * as ballysports from "./scraper/ballysports.js";
 import * as bigo from "./scraper/bigo.js";
 import * as blogtalkradio from "./scraper/blogtalkradio.js";
 import * as dailymotion from "./scraper/dailymotion.js";
-import * as devtube from "./scraper/devtube.js";
 import * as dmax from "./scraper/dmax.js";
 import * as dumpert from "./scraper/dumpert.js";
 // eslint-disable-next-line import/no-cycle
@@ -26,16 +25,19 @@ import * as flickr from "./scraper/flickr.js";
 import * as francetv from "./scraper/francetv.js";
 // eslint-disable-next-line import/no-cycle
 import * as futurasciences from "./scraper/futurasciences.js";
+// eslint-disable-next-line import/no-cycle
 import * as gamekult from "./scraper/gamekult.js";
 import * as goplay from "./scraper/goplay.js";
 // eslint-disable-next-line import/no-cycle
 import * as iframe from "./scraper/iframe.js";
+// eslint-disable-next-line import/no-cycle
 import * as jv from "./scraper/jv.js";
 import * as kcaastreaming from "./scraper/kcaastreaming.js";
 // eslint-disable-next-line import/no-cycle
 import * as ldjson from "./scraper/ldjson.js";
 // eslint-disable-next-line import/no-cycle
 import * as lemonde from "./scraper/lemonde.js";
+// eslint-disable-next-line import/no-cycle
 import * as lepoint from "./scraper/lepoint.js";
 import * as media from "./scraper/media.js";
 import * as megaphone from "./scraper/megaphone.js";
@@ -59,11 +61,13 @@ import * as srf from "./scraper/srf.js";
 import * as stargr from "./scraper/stargr.js";
 import * as steam from "./scraper/steam.js";
 import * as template from "./scraper/template.js";
+// eslint-disable-next-line import/no-cycle
 import * as theguardian from "./scraper/theguardian.js";
 import * as tiktok from "./scraper/tiktok.js";
 import * as torrent from "./scraper/torrent.js";
 import * as twitch from "./scraper/twitch.js";
 import * as ultimedia from "./scraper/ultimedia.js";
+import * as unknown from "./scraper/unknown.js";
 import * as uqload from "./scraper/uqload.js";
 import * as veoh from "./scraper/veoh.js";
 import * as videopress from "./scraper/videopress.js";
@@ -100,7 +104,6 @@ const SCRAPERS = [
     bigo,
     blogtalkradio,
     dailymotion,
-    devtube,
     dmax,
     dumpert,
     flickr,
@@ -153,6 +156,9 @@ const SCRAPERS = [
     // Chercher récursivement dans les éléments inertes.
     noscript,
     template,
+    // Utiliser des plugins de Kodi qui chercheront des vidéos / musiques dans
+    // les pages.
+    unknown,
 ].flatMap((s) => Object.values(s));
 
 /**
@@ -199,10 +205,5 @@ export const extract = async function (url, options) {
             return file;
         }
     }
-
-    // Si on analyse une sous-page : indiquer que rien n'a été trouvé sans faire
-    // croire qu'une URL a été trouvée (en ne retournant pas l'URL d'entrée).
-    // Sinon retourner l'URL de la page car c'est peut-être un lien direct vers
-    // une vidéo ou une musique.
-    return options.depth ? undefined : url.href;
+    return undefined;
 };

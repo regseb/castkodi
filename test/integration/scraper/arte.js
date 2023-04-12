@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
@@ -20,14 +22,16 @@ describe("Scraper: Arte", function () {
         }
     });
 
-    it("should return URL when video is unavailable", async function () {
+    it("should return undefined when video is unavailable", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL(
             "https://www.arte.tv/fr/videos/067125-020-A/bits-top-list/",
         );
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return french video URL", async function () {

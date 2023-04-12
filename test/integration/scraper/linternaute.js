@@ -10,7 +10,9 @@ import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: L'Internaute", function () {
-    it("should return URL when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL(
             "https://www.linternaute.com/cinema/film" +
                 "/2462551-films-pixar-selection-des-meilleurs-et-liste-de" +
@@ -19,7 +21,7 @@ describe("Scraper: L'Internaute", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return video URL [ldjson]", async function () {
@@ -38,7 +40,7 @@ describe("Scraper: L'Internaute", function () {
     });
 
     it("should return video URL [template-iframe-youtube]", async function () {
-        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL(
             "https://www.linternaute.fr/cinema/pratique" +
@@ -53,8 +55,5 @@ describe("Scraper: L'Internaute", function () {
             "plugin://plugin.video.youtube/play/" +
                 "?video_id=cMAiO2X12tk&incognito=false",
         );
-
-        assert.equal(stub.callCount, 1);
-        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 });

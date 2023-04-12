@@ -35,16 +35,6 @@ describe("core/scraper/twitch.js", function () {
                 "plugin://plugin.video.twitch/?mode=play&slug=foo",
             );
         });
-
-        it("should return clip name when protocol is HTTP", async function () {
-            const url = new URL("http://clips.twitch.tv/foo");
-
-            const file = await scraper.extractClip(url);
-            assert.equal(
-                file,
-                "plugin://plugin.video.twitch/?mode=play&slug=foo",
-            );
-        });
     });
 
     describe("extractEmbed()", function () {
@@ -94,16 +84,6 @@ describe("core/scraper/twitch.js", function () {
             );
         });
 
-        it("should return video id when protocol is HTTP", async function () {
-            const url = new URL("http://www.twitch.tv/videos/foo");
-
-            const file = await scraper.extract(url);
-            assert.equal(
-                file,
-                "plugin://plugin.video.twitch/?mode=play&video_id=foo",
-            );
-        });
-
         it("should return video id from 'go'", async function () {
             const url = new URL("https://go.twitch.tv/videos/foo");
 
@@ -126,16 +106,6 @@ describe("core/scraper/twitch.js", function () {
 
         it("should return clip name", async function () {
             const url = new URL("https://www.twitch.tv/twitch/clip/foo");
-
-            const file = await scraper.extract(url);
-            assert.equal(
-                file,
-                "plugin://plugin.video.twitch/?mode=play&slug=foo",
-            );
-        });
-
-        it("should return clip name when protocol is HTTP", async function () {
-            const url = new URL("http://www.twitch.tv/twitch/clip/foo");
 
             const file = await scraper.extract(url);
             assert.equal(
@@ -176,16 +146,6 @@ describe("core/scraper/twitch.js", function () {
 
         it("should return channel name", async function () {
             const url = new URL("https://www.twitch.tv/foo");
-
-            const file = await scraper.extract(url);
-            assert.equal(
-                file,
-                "plugin://plugin.video.twitch/?mode=play&channel_name=foo",
-            );
-        });
-
-        it("should return channel name when protocol is HTTP", async function () {
-            const url = new URL("http://www.twitch.tv/foo");
 
             const file = await scraper.extract(url);
             assert.equal(

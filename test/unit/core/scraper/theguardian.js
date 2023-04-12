@@ -15,8 +15,19 @@ describe("core/scraper/theguardian.js", function () {
             const url = new URL(
                 "https://support.theguardian.com/eu/contribute",
             );
+            const content = undefined;
+            const options = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url);
+            const file = await scraper.extractVideo(url, content, options);
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when it's depth", async function () {
+            const url = new URL("https://www.theguardian.com/foo");
+            const content = undefined;
+            const options = { depth: true, incognito: false };
+
+            const file = await scraper.extractVideo(url, content, options);
             assert.equal(file, undefined);
         });
 
@@ -31,7 +42,7 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
-            const options = { incognito: false };
+            const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
             assert.equal(file, undefined);
@@ -53,7 +64,7 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
-            const options = { incognito: false };
+            const options = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, content, options);
             assert.equal(
@@ -82,7 +93,7 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
-            const options = { incognito: true };
+            const options = { depth: false, incognito: true };
 
             const file = await scraper.extractVideo(url, content, options);
             assert.equal(
@@ -101,8 +112,10 @@ describe("core/scraper/theguardian.js", function () {
             const url = new URL(
                 "https://support.theguardian.com/eu/contribute",
             );
+            const content = undefined;
+            const options = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url);
+            const file = await scraper.extractAudio(url, content, options);
             assert.equal(file, undefined);
         });
 
@@ -117,8 +130,9 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
+            const options = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content);
+            const file = await scraper.extractAudio(url, content, options);
             assert.equal(file, undefined);
         });
 
@@ -136,8 +150,9 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
+            const options = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content);
+            const file = await scraper.extractAudio(url, content, options);
             assert.equal(file, "https://bar.com/baz.mp3");
         });
     });

@@ -10,6 +10,13 @@ import * as labeller from "../../../../src/core/labeller/vimeo.js";
 
 describe("core/labeller/vimeo.js", function () {
     describe("extract()", function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL("https://developer.vimeo.com/");
+
+            const file = await labeller.extract(url);
+            assert.equal(file, undefined);
+        });
+
         it("should return video label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
@@ -19,34 +26,14 @@ describe("core/labeller/vimeo.js", function () {
                 ),
             );
 
-            const videoId = "bar";
-            const hash = undefined;
+            const url = new URL("https://vimeo.com/bar");
 
-            const label = await labeller.extract(videoId, hash);
-            assert.equal(label, "foo");
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["https://vimeo.com/bar"]);
-        });
-
-        it("should return video label from unlisted", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <meta property="og:title" content="foo" />
-                     </head></html>`,
-                ),
-            );
-
-            const videoId = "bar";
-            const hash = "baz";
-
-            const label = await labeller.extract(videoId, hash);
+            const label = await labeller.extract(url);
             assert.equal(label, "foo");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://vimeo.com/bar/baz",
+                new URL("https://vimeo.com/bar"),
             ]);
         });
     });

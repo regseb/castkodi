@@ -16,6 +16,15 @@ describe("core/scraper/lepoint.js", function () {
             assert.equal(file, undefined);
         });
 
+        it("should return undefined when it's depth", async function () {
+            const url = new URL("https://www.lepoint.fr/foo");
+            const content = undefined;
+            const options = { depth: true, incognito: false };
+
+            const file = await scraper.extract(url, content, options);
+            assert.equal(file, undefined);
+        });
+
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.lepoint.fr/foo");
             const content = {

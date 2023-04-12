@@ -9,30 +9,15 @@ import sinon from "sinon";
 import * as labeller from "../../../../src/core/labeller/vtmgo.js";
 
 describe("core/labeller/vtmgo.js", function () {
-    describe("extractEpisode()", function () {
-        it("should return episode label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><body>
-                       <h1 class="player__title">foo</h1>
-                     </body></html>`,
-                ),
-            );
+    describe("extract()", function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL("https://vtm.be/vtmgo/regarder/foo");
 
-            const episodeId = "bar";
-
-            const label = await labeller.extractEpisode(episodeId);
-            assert.equal(label, "foo");
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
-                "https://vtm.be/vtmgo/afspelen/ebar",
-            ]);
+            const label = await labeller.extract(url);
+            assert.equal(label, undefined);
         });
-    });
 
-    describe("extractMovie()", function () {
-        it("should return movie label", async function () {
+        it("should return label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
                     `<html><body>
@@ -41,14 +26,14 @@ describe("core/labeller/vtmgo.js", function () {
                 ),
             );
 
-            const movieId = "bar";
+            const url = new URL("https://vtm.be/vtmgo/afspelen/bar");
 
-            const label = await labeller.extractMovie(movieId);
+            const label = await labeller.extract(url);
             assert.equal(label, "foo");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://vtm.be/vtmgo/afspelen/mbar",
+                new URL("https://vtm.be/vtmgo/afspelen/bar"),
             ]);
         });
 
@@ -61,52 +46,14 @@ describe("core/labeller/vtmgo.js", function () {
                 ),
             );
 
-            const movieId = "bar";
+            const url = new URL("https://vtm.be/vtmgo/afspelen/bar");
 
-            const label = await labeller.extractMovie(movieId);
+            const label = await labeller.extract(url);
             assert.equal(label, undefined);
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://vtm.be/vtmgo/afspelen/mbar",
-            ]);
-        });
-    });
-
-    describe("extractChannel()", function () {
-        it("should return channel label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><body>
-                       <a data-gtm="foo/bar/baz">qux</a>
-                     </body></html>`,
-                ),
-            );
-
-            const channelId = "bar";
-
-            const label = await labeller.extractChannel(channelId);
-            assert.equal(label, "baz");
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
-                "https://vtm.be/vtmgo/live-kijken/vtm",
-            ]);
-        });
-
-        it("should return undefined when there isn't link", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(new Response("<html><body></body></html>"));
-
-            const channelId = "bar";
-
-            const label = await labeller.extractChannel(channelId);
-            assert.equal(label, undefined);
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
-                "https://vtm.be/vtmgo/live-kijken/vtm",
+                new URL("https://vtm.be/vtmgo/afspelen/bar"),
             ]);
         });
     });

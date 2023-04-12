@@ -10,7 +10,9 @@ import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: The Guardian", function () {
-    it("should return URL when it isn't a video / audio", async function () {
+    it("should return undefined when it isn't a video / audio", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL(
             "https://www.theguardian.com/technology/2019/nov/17" +
                 "/firefox-mozilla-fights-back-against-google-chrome-dominance" +
@@ -19,11 +21,11 @@ describe("Scraper: The Guardian", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return video URL [theguardian-youtube]", async function () {
-        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL(
             "https://www.theguardian.com/sport/video/2021/oct/18" +
@@ -38,9 +40,6 @@ describe("Scraper: The Guardian", function () {
             "plugin://plugin.video.youtube/play/" +
                 "?video_id=Iiigz06_lvM&incognito=false",
         );
-
-        assert.equal(stub.callCount, 1);
-        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 
     it("should return audio URL", async function () {

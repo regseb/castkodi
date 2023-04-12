@@ -9,8 +9,8 @@ import * as plugin from "../../../../src/core/plugin/elementum.js";
 
 describe("core/plugin/elementum.js", function () {
     describe("generateUrl()", function () {
-        it("should return URL with torrent URL", async function () {
-            const label = await plugin.generateUrl(
+        it("should return URL with torrent URL", function () {
+            const label = plugin.generateUrl(
                 new URL("http://foo.fr/bar.torrent"),
             );
             assert.equal(

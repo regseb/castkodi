@@ -108,6 +108,9 @@ describe("core/index.js", function () {
 
         it("should send url", async function () {
             browser.extension.inIncognitoContext = true;
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
             const stubClear = sinon.stub(kodi.playlist, "clear").resolves("OK");
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
             const stubOpen = sinon.stub(kodi.player, "open").resolves("OK");
@@ -116,6 +119,8 @@ describe("core/index.js", function () {
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
             assert.equal(stubClear.callCount, 1);
             assert.deepEqual(stubClear.firstCall.args, []);
             assert.equal(stubAdd.callCount, 1);
@@ -126,6 +131,9 @@ describe("core/index.js", function () {
 
         it("should insert url", async function () {
             browser.extension.inIncognitoContext = true;
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
             const stubGetProperty = sinon
                 .stub(kodi.player, "getProperty")
                 .resolves(42);
@@ -137,6 +145,8 @@ describe("core/index.js", function () {
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
             assert.equal(stubGetProperty.callCount, 1);
             assert.deepEqual(stubGetProperty.firstCall.args, ["position"]);
             assert.equal(stubInsert.callCount, 1);
@@ -148,66 +158,91 @@ describe("core/index.js", function () {
 
         it("should add url", async function () {
             browser.extension.inIncognitoContext = true;
-            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
+            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
+            assert.equal(stubAdd.callCount, 1);
+            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("should reject invalid action", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             await assert.rejects(() => cast("foo", ["http://foo.com/bar"]), {
                 name: "Error",
                 message: "foo is not supported",
             });
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should add in history", async function () {
             browser.storage.local.set({ "general-history": true });
-            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
+            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
             assert.deepEqual(histories, [{ url: "http://foo.com/bar" }]);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
+            assert.equal(stubAdd.callCount, 1);
+            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("shouldn't add in history", async function () {
             browser.storage.local.set({ "general-history": false });
-            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
+            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
+            assert.equal(stubAdd.callCount, 1);
+            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("shouldn't add in history in incognito", async function () {
             browser.extension.inIncognitoContext = true;
             browser.storage.local.set({ "general-history": true });
-            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
+            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["http://foo.com/bar"]);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
+            assert.equal(stubAdd.callCount, 1);
+            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
         });
 
         it("should pass incognito on scrapers", async function () {
             browser.extension.inIncognitoContext = true;
             browser.storage.local.set({ "general-history": false });
-            const stubAddons = sinon
+            const stubGetAddons = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([]);
             const stubPlaylist = sinon
@@ -218,8 +253,8 @@ describe("core/index.js", function () {
             const histories = browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stubAddons.callCount, 1);
-            assert.deepEqual(stubAddons.firstCall.args, ["video"]);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
             assert.equal(stubPlaylist.callCount, 1);
             assert.deepEqual(stubPlaylist.firstCall.args, [
                 "plugin://plugin.video.youtube/play/" +

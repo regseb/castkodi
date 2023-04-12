@@ -375,7 +375,10 @@ describe("core/menu.js", function () {
             browser.extension.inIncognitoContext = true;
             // Comme il n'est pas possible de remplacer un export avec sinon,
             // remplacer la fonction appelée par l'export.
-            const stub = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
+            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await menu.click({
                 menuItemId: "add",
@@ -384,8 +387,10 @@ describe("core/menu.js", function () {
                 linkUrl: "http://foo.com/",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["http://foo.com/"]);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
+            assert.equal(stubAdd.callCount, 1);
+            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/"]);
         });
 
         it("should notify bad link", async function () {

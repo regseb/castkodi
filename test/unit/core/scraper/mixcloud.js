@@ -32,15 +32,5 @@ describe("core/scraper/mixcloud.js", function () {
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F",
             );
         });
-
-        it("should return audio id when protocol is HTTP", async function () {
-            const url = new URL("http://www.mixcloud.com/foo/bar/");
-
-            const file = await scraper.extract(url);
-            assert.equal(
-                file,
-                "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F",
-            );
-        });
     });
 });

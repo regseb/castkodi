@@ -10,12 +10,14 @@ import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: StarGR", function () {
-    it("should return URL when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async function () {
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
+
         const url = new URL("https://www.star.gr/lifestyle/media");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, url.href);
+        assert.equal(file, undefined);
     });
 
     it("should return video URL from StarTV", async function () {
@@ -29,9 +31,9 @@ describe("Scraper: StarGR", function () {
         const file = await extract(url, options);
         assert.equal(
             file,
-            "https://cdnapisec.kaltura.com/p/713821/sp/0/playManifest/entryId" +
-                "/1_dodsq0jt/format/applehttp/protocol/https/flavorParamId/0" +
-                "/manifest.m3u8",
+            "https://cdnapisec.siliconweb.com/p/713821/sp/0/playManifest" +
+                "/entryId/1_dodsq0jt/format/applehttp/protocol/https" +
+                "/flavorParamId/0/manifest.m3u8",
         );
     });
 
@@ -45,9 +47,9 @@ describe("Scraper: StarGR", function () {
         const file = await extract(url, options);
         assert.equal(
             file,
-            "https://cdnapisec.kaltura.com/p/713821/sp/0/playManifest/entryId" +
-                "/1_p9vdk3nq/format/applehttp/protocol/https/flavorParamId/0" +
-                "/manifest.m3u8",
+            "https://cdnapisec.siliconweb.com/p/713821/sp/0/playManifest" +
+                "/entryId/1_p9vdk3nq/format/applehttp/protocol/https" +
+                "/flavorParamId/0/manifest.m3u8",
         );
     });
 
@@ -61,14 +63,14 @@ describe("Scraper: StarGR", function () {
         const file = await extract(url, options);
         assert.equal(
             file,
-            "https://cdnapisec.kaltura.com/p/713821/sp/0/playManifest/entryId" +
-                "/1_ppyp3x8c/format/applehttp/protocol/https/flavorParamId/0" +
-                "/manifest.m3u8",
+            "https://cdnapisec.siliconweb.com/p/713821/sp/0/playManifest" +
+                "/entryId/1_ppyp3x8c/format/applehttp/protocol/https" +
+                "/flavorParamId/0/manifest.m3u8",
         );
     });
 
     it("should return video id", async function () {
-        const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+        sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL(
             "https://www.star.gr/video/lifestyle/viral/165501" +
@@ -82,8 +84,5 @@ describe("Scraper: StarGR", function () {
             "plugin://plugin.video.youtube/play/?video_id=c-AgydAVh5k" +
                 "&incognito=false",
         );
-
-        assert.equal(stub.callCount, 1);
-        assert.deepEqual(stub.firstCall.args, ["video"]);
     });
 });

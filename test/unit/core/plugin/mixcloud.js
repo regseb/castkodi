@@ -9,8 +9,8 @@ import * as plugin from "../../../../src/core/plugin/mixcloud.js";
 
 describe("core/plugin/mixcloud.js", function () {
     describe("generateUrl()", function () {
-        it("should return URL with audio URL", async function () {
-            const label = await plugin.generateUrl("http://foo.ai/bar.html");
+        it("should return URL with audio URL", function () {
+            const label = plugin.generateUrl("http://foo.ai/bar.html");
             assert.equal(
                 label,
                 "plugin://plugin.audio.mixcloud/" +
