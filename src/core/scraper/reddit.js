@@ -19,10 +19,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, content) {
     const doc = await content.html();
-    const div = doc.querySelector("div[data-hls-url]");
-    return div?.dataset.hlsUrl;
+    const player = doc.querySelector("shreddit-player[src]");
+    return player?.getAttribute("src");
 };
-export const extract = matchPattern(
-    action,
-    "*://www.redditmedia.com/mediaembed/*",
-);
+export const extract = matchPattern(action, "*://www.reddit.com/r/*");

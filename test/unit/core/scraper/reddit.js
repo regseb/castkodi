@@ -10,14 +10,14 @@ import * as scraper from "../../../../src/core/scraper/reddit.js";
 describe("core/scraper/reddit.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("https://www.reddit.com/");
+            const url = new URL("https://www.redditinc.com/policies/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when it isn't a video", async function () {
-            const url = new URL("https://www.redditmedia.com/mediaembed/foo");
+            const url = new URL("https://www.reddit.com/r/foo");
             const content = {
                 html: () =>
                     Promise.resolve(
@@ -33,13 +33,13 @@ describe("core/scraper/reddit.js", function () {
         });
 
         it("should return video URL", async function () {
-            const url = new URL("https://www.redditmedia.com/mediaembed/foo");
+            const url = new URL("https://www.reddit.com/r/foo");
             const content = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <div data-hls-url="https://bar.com/baz.m3u8" />
+                               <shreddit-player src="https://bar.com/baz.mp4" />
                              </body></html>`,
                             "text/html",
                         ),
@@ -47,7 +47,7 @@ describe("core/scraper/reddit.js", function () {
             };
 
             const file = await scraper.extract(url, content);
-            assert.equal(file, "https://bar.com/baz.m3u8");
+            assert.equal(file, "https://bar.com/baz.mp4");
         });
     });
 });
