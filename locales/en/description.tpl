@@ -19,7 +19,7 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
       <li>🇳🇱&nbsp;Netherlands: Dumpert;</li>
       <li>🇨🇭&nbsp;Switzerland: Play SRF;</li>
       <li>🇬🇧&nbsp;United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
-      <li>🇺🇸&nbsp;USA: Bally&nbsp;Sports, KCAA&nbsp;Radio.</li>
+      <li>🇺🇸&nbsp;United States: Bally&nbsp;Sports, KCAA&nbsp;Radio.</li>
     </ul>
   </li>
 </ul>

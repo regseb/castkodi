@@ -11,10 +11,12 @@ import { PebkacError } from "../../../../src/core/tools/pebkac.js";
 
 describe("core/tools/notify.js", function () {
     describe("constructor()", function () {
-        it("should accept Error", function () {
-            const stub = sinon.stub(browser.notifications, "create");
+        it("should accept Error", async function () {
+            const stub = sinon
+                .stub(browser.notifications, "create")
+                .resolves("foo");
 
-            notify(new Error("foo"));
+            await notify(new Error("bar"));
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -22,15 +24,17 @@ describe("core/tools/notify.js", function () {
                     type: "basic",
                     iconUrl: "/img/icon128.png",
                     title: "Unknown error",
-                    message: "foo",
+                    message: "bar",
                 },
             ]);
         });
 
-        it("should accept PebkacError", function () {
-            const stub = sinon.stub(browser.notifications, "create");
+        it("should accept PebkacError", async function () {
+            const stub = sinon
+                .stub(browser.notifications, "create")
+                .resolves("foo");
 
-            notify(new PebkacError("noLink", "foo"));
+            await notify(new PebkacError("noLink", "bar"));
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -38,7 +42,7 @@ describe("core/tools/notify.js", function () {
                     type: "basic",
                     iconUrl: "/img/icon128.png",
                     title: "Unsupported link",
-                    message: "Link foo is invalid.",
+                    message: "Link bar is invalid.",
                 },
             ]);
         });

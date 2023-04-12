@@ -103,7 +103,7 @@ const send = async function () {
         await cast("send", [url]);
         close();
     } catch (err) {
-        notify(err);
+        await notify(err);
     }
 };
 
@@ -119,7 +119,7 @@ const insert = async function () {
         await cast("insert", [url]);
         close();
     } catch (err) {
-        notify(err);
+        await notify(err);
     }
 };
 
@@ -135,7 +135,7 @@ const add = async function () {
         await cast("add", [url]);
         close();
     } catch (err) {
-        notify(err);
+        await notify(err);
     }
 };
 

@@ -29,6 +29,7 @@ const action = async function (url, content, options) {
     if (options.depth) {
         return undefined;
     }
+
     const doc = await content.html();
     if (undefined === doc) {
         return undefined;

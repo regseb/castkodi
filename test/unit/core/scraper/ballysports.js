@@ -36,9 +36,7 @@ describe("core/scraper/ballysports.js", function () {
             ]);
         });
 
-        // Désactiver ce test car jsdom (avec nwsapi) n'est pas identique à
-        // DOMParser des navigateurs. https://github.com/jsdom/jsdom/issues/3416
-        it.skip("should return video URL", async function () {
+        it("should return video URL", async function () {
             const stub = sinon
                 .stub(globalThis, "fetch")
                 .onFirstCall()
@@ -61,7 +59,7 @@ describe("core/scraper/ballysports.js", function () {
             const url = new URL("https://www.ballysports.com/watch/vod/qux");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "https://baz.com/qux.m3u8");
+            assert.equal(file, "https://bar.com/baz.m3u8");
 
             assert.equal(stub.callCount, 2);
             assert.deepEqual(stub.firstCall.args, [
@@ -69,8 +67,8 @@ describe("core/scraper/ballysports.js", function () {
                     "?use_custom_id=true",
             ]);
             assert.deepEqual(stub.secondCall.args, [
-                "https://eu1-prod.disco-api.com/content/videos/corge",
-                { headers: { authorization: "Bearer foo" } },
+                "https://feedpublisher.ballysports.com/divauni/SINCLAIR/fe" +
+                    "/video/videodata/foo.xml",
             ]);
         });
     });

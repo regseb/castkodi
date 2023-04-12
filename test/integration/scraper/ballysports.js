@@ -20,9 +20,7 @@ describe("Scraper: Bally Sports", function () {
         assert.equal(file, undefined);
     });
 
-    // Désactiver ce test car jsdom (avec nwsapi) n'est pas identique à
-    // DOMParser des navigateurs. https://github.com/jsdom/jsdom/issues/3416
-    it.skip("should return video URL", async function () {
+    it("should return video URL", async function () {
         const url = new URL(
             "https://www.ballysports.com/watch/vod" +
                 "/hunter-greene-has-made-a-habit-of-giving-back-to-kids",
@@ -32,8 +30,9 @@ describe("Scraper: Bally Sports", function () {
         const file = await extract(url, options);
         assert.equal(
             file,
-            "https://fr.vid.web.acsta.net/nmedia/33/18/02/23/15" +
-                "/19577157_hd_013.mp4",
+            "https://vod-i-01-ballysports.akamaized.net/Content/HLSv3/VOD" +
+                "/10943/8939/2f712042-9bc6-4b28-9abc-0ef2ebf92750" +
+                "/95a063a6-2e7a-8419-4854-28fe929ec7c4/index.m3u8",
         );
     });
 });

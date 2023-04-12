@@ -35,7 +35,9 @@ const ask = async function (input) {
         return input.checked;
     }
 
-    const permissions = { permissions: [input.dataset.permissions] };
+    const permissions = {
+        permissions: [/** @type {string} */ (input.dataset.permissions)],
+    };
     if (input.checked) {
         return browser.permissions.request(permissions);
     }

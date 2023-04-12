@@ -4,6 +4,4 @@
  * @author Sébastien Règne
  */
 
-export default {
-    maxManifestVersion: 3,
-};
+export default {};

@@ -18,7 +18,7 @@ import nodeFetch from "node-fetch";
  */
 const USER_AGENT =
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)" +
-    " Chrome/111.0.0.0 Safari/537.36";
+    " Chrome/112.0.0.0 Safari/537.36";
 
 /**
  * Cherche une ressource.
@@ -40,6 +40,6 @@ export const fetch = function (input, init) {
         ...init?.headers,
     };
     // Utiliser node-fetch car la fonction native fetch() de Node.js ne supporte
-    // pas HTTP/2. https://github.com/nodejs/undici/issues/1412
+    // pas HTTP/2. https://github.com/nodejs/undici/issues/902
     return nodeFetch(input, { ...init, headers });
 };

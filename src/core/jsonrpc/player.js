@@ -6,12 +6,10 @@
 
 import { NotificationListener } from "./notificationlistener.js";
 
-/* eslint-disable max-len */
 /**
  * @typedef {import("../tools/notificationevent.js").NotificationEvent} NotificationEvent
  * @typedef {import("./kodi.js").Kodi} Kodi
  */
-/* eslint-enable max-len */
 
 /**
  * Convertit un horodatage vers un temps au format objet.

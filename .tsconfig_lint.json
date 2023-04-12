@@ -10,8 +10,6 @@
 
     "noEmit": true,
 
-    "checkJs": true,
-
-    "noStrictGenericChecks": true
+    "checkJs": true
   }
 }

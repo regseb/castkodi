@@ -3,5 +3,9 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["src/"]
+
+  "typedocOptions": {
+    "entryPoints": ["src/core/index.js"],
+    "out": "jsdocs"
+  }
 }

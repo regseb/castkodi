@@ -107,18 +107,20 @@ export const aggregate = async function (info) {
 
     const config = await browser.storage.local.get(["menu-contexts"]);
     const contexts = config["menu-contexts"];
-    return [
-        contexts.includes("selection") ? info.selectionText : undefined,
-        contexts.includes("link") ? info.linkUrl : undefined,
-        "audio" === info.mediaType && contexts.includes("audio")
-            ? info.srcUrl
-            : undefined,
-        "video" === info.mediaType && contexts.includes("video")
-            ? info.srcUrl
-            : undefined,
-        contexts.includes("frame") ? info.frameUrl : undefined,
-        contexts.includes("page") ? info.pageUrl : undefined,
-    ].filter((u) => undefined !== u);
+    return /** @type {string[]} */ (
+        [
+            contexts.includes("selection") ? info.selectionText : undefined,
+            contexts.includes("link") ? info.linkUrl : undefined,
+            "audio" === info.mediaType && contexts.includes("audio")
+                ? info.srcUrl
+                : undefined,
+            "video" === info.mediaType && contexts.includes("video")
+                ? info.srcUrl
+                : undefined,
+            contexts.includes("frame") ? info.frameUrl : undefined,
+            contexts.includes("page") ? info.pageUrl : undefined,
+        ].filter((u) => undefined !== u)
+    );
 };
 
 /**

@@ -4,6 +4,7 @@
  * @author Sébastien Règne
  */
 
+import "../polyfill/url.js";
 import { kodi } from "./jsonrpc/kodi.js";
 import { extract } from "./scrapers.js";
 import { PebkacError } from "./tools/pebkac.js";
@@ -26,21 +27,13 @@ export const mux = function (urls) {
                 : url.replace(/^\/*/u, "http://");
         })
         .find((url) => {
-            // Vérifier que l'URL est valide.
-            try {
-                // eslint-disable-next-line no-new
-                new URL(url);
-            } catch {
-                // Indiquer que la construction de l'URL a échouée.
-                return false;
-            }
-
-            // Vérifier que l'URL utilise un schéma géré.
+            // Vérifier que l'URL est valide et qu'elle utilise un schéma géré.
             return (
-                /^https?:\/\//iu.test(url) ||
-                /^magnet:/iu.test(url) ||
-                /^acestream:/iu.test(url) ||
-                /^plugin:/iu.test(url)
+                URL.canParse(url) &&
+                (/^https?:\/\//iu.test(url) ||
+                    /^magnet:/iu.test(url) ||
+                    /^acestream:/iu.test(url) ||
+                    /^plugin:/iu.test(url))
             );
         });
 };
@@ -63,8 +56,8 @@ export const cast = async function (action, urls) {
 
     const file =
         (await extract(new URL(url), {
-        depth: false,
-        incognito: browser.extension.inIncognitoContext,
+            depth: false,
+            incognito: browser.extension.inIncognitoContext,
         })) ?? url;
     if ("send" === action) {
         // Vider la liste de lecture, ajouter le nouveau média et lancer la

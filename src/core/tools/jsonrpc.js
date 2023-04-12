@@ -110,7 +110,7 @@ export const JSONRPC = class extends EventTarget {
      */
     #handleClose(event) {
         // Redéclarer un CloseEvent, sinon l'évènement n'est pas réparti dans
-        // les écouteurs "close".
+        // les auditeurs "close".
         this.dispatchEvent(new CloseEvent(event.type, event));
     }
 

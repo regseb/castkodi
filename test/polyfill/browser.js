@@ -32,35 +32,45 @@ const MESSAGES = JSON.parse(
  */
 const data = {
     bookmarks: {
+        /** @type {Object[]} */
         data: [],
         index: 0,
     },
+
+    /** @type {Object[]} */
     contextMenus: [],
+
+    /** @type {Object[]} */
     histories: [],
+
     permissions: {
         data: {
             origins: new Set(),
             permissions: new Set(),
         },
+
+        /** @type {Function[]} */
         listeners: [],
     },
+
     runtime: {
         browserInfo: { name: "" },
     },
+
     storage: {
         local: {
             data: {},
+
+            /** @type {Function[]} */
             listeners: [],
         },
     },
-    tabs: [],
 };
 
 /**
  * La prothèse pour les APIs des WebExtensions.
  *
- * @type {browser}
- * @see https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API
+ * @see https://developer.mozilla.org/Add-ons/WebExtensions/API
  */
 export const browser = {
     bookmarks: {
@@ -150,9 +160,9 @@ export const browser = {
         /**
          * Récupère un message.
          *
-         * @param {string}          key          La clé du message.
-         * @param {string|string[]} substitution L'éléméent ou les éléments
-         *                                       insérés dans le message.
+         * @param {string}          key            La clé du message.
+         * @param {string|string[]} [substitution] L'éléméent ou les éléments
+         *                                         insérés dans le message.
          * @returns {string} Le message.
          */
         getMessage(key, substitution) {
@@ -177,16 +187,31 @@ export const browser = {
          *
          * @param {string} _id      L'identifiant de la notification.
          * @param {Object} _options Les options de la notification.
-         * @throws {Error} Si la méthode n'est pas implémentée.
+         * @returns {Promise<string>} Une promesse contenant l'identifiant de
+         *                            la notification.
          */
         create(_id, _options) {
-            throw new Error(
-                "no polyfill for browser.notifications.create function",
+            return Promise.reject(
+                new Error(
+                    "no polyfill for browser.notifications.create function",
+                ),
             );
         },
     },
 
     permissions: {
+        /**
+         * Vérifie si l'extension a des permissions.
+         *
+         * @param {Object}   permissions               Les permissions
+         *                                             vérifiées.
+         * @param {string[]} [permissions.origins]     Les permissions de
+         *                                             l'hôte.
+         * @param {string[]} [permissions.permissions] Les permissions d'API.
+         * @returns {Promise<boolean>} Une promesse contenant <code>true</code>
+         *                             si l'extension a toutes les
+         *                             permissions ; sinon <code>false</code>.
+         */
         contains({ origins = [], permissions = [] }) {
             return Promise.resolve(
                 origins.every((o) => data.permissions.data.origins.has(o)) &&
@@ -195,6 +220,19 @@ export const browser = {
                     ),
             );
         },
+
+        /**
+         * Renonce a des permissions.
+         *
+         * @param {Object}   permissions               Les permissions
+         *                                             renoncées.
+         * @param {string[]} [permissions.origins]     Les permissions de
+         *                                             l'hôte.
+         * @param {string[]} [permissions.permissions] Les permissions d'API.
+         * @returns {Promise<boolean>} Une promesse contenant <code>true</code>
+         *                             si l'extension a renoncé à toutes les
+         *                             permissions ; sinon <code>false</code>.
+         */
         remove({ origins = [], permissions = [] }) {
             const changes = { origins: [], permissions: [] };
             for (const origin of origins) {
@@ -219,6 +257,18 @@ export const browser = {
             }
             return Promise.resolve(false);
         },
+
+        /**
+         * Demande des permissions.
+         *
+         * @param {Object}   permissions               Les permissions
+         *                                             demandées.
+         * @param {string[]} [permissions.origins]     Les permissions de
+         *                                             l'hôte.
+         * @param {string[]} [permissions.permissions] Les permissions d'API.
+         * @returns {Promise<boolean>} Une promesse contenant
+         *                             <code>true</code>0.
+         */
         request({ origins = [], permissions = [] }) {
             for (const origin of origins) {
                 data.permissions.data.origins.add(origin);
@@ -228,7 +278,13 @@ export const browser = {
             }
             return Promise.resolve(true);
         },
+
         onRemoved: {
+            /**
+             * Ajoute un auditeur sur les changements des permissions.
+             *
+             * @param {Function} listener L'auditeur ajouté.
+             */
             addListener(listener) {
                 data.permissions.listeners.push(listener);
             },
@@ -236,6 +292,12 @@ export const browser = {
     },
 
     runtime: {
+        /**
+         * Renvoie les informations sur le navigateur.
+         *
+         * @returns {Promise<Object>} Une promesse contenant les informations
+         *                            sur le navigateur.
+         */
         getBrowserInfo() {
             return Promise.resolve(data.runtime.browserInfo);
         },
@@ -243,6 +305,12 @@ export const browser = {
 
     storage: {
         local: {
+            /**
+             * Récupère des éléments de la zone de stockage.
+             *
+             * @param {string[]} [properties] Les clés des éléments récupérés.
+             * @returns {Promise<Object>} Les éléments de la zone de stockage.
+             */
             get(properties) {
                 if (undefined === properties) {
                     return Promise.resolve(data.storage.local.data);
@@ -255,6 +323,13 @@ export const browser = {
                     ),
                 );
             },
+
+            /**
+             * Modifie des éléments de la zone de stockage.
+             *
+             * @param {Object} values Les éléments modifiés.
+             * @returns {Promise<void>} Une promesse vide.
+             */
             set(values) {
                 const changes = Object.fromEntries(
                     Object.entries(values).map(([key, value]) => {
@@ -273,12 +348,26 @@ export const browser = {
                         ...values,
                     }).sort(([k1], [k2]) => k1.localeCompare(k2)),
                 );
+                return Promise.resolve();
             },
+
+            /**
+             * Supprime tous les éléments de la zone de stockage.
+             *
+             * @returns {Promise<void>} Une promesse vide.
+             */
             clear() {
                 data.storage.local.data = {};
+                return Promise.resolve();
             },
         },
+
         onChanged: {
+            /**
+             * Ajoute un auditeur sur les changements de la zone de stockage.
+             *
+             * @param {Function} listener L'auditeur ajouté.
+             */
             addListener(listener) {
                 data.storage.local.listeners.push(listener);
             },
@@ -302,7 +391,6 @@ export const clear = function () {
         delete data.storage.local.data[property];
     });
     data.storage.local.listeners.length = 0;
-    data.tabs.length = 0;
 
     browser.extension.inIncognitoContext = false;
 };

@@ -57,6 +57,9 @@ export default {
         "function-no-unknown": true,
         "media-feature-name-no-unknown": true,
         "no-unknown-animations": true,
+        // Désactiver cette règle car les variables sont déclarées dans d'autres
+        // fichiers.
+        "no-unknown-custom-properties": null,
         "property-no-unknown": true,
         "selector-pseudo-class-no-unknown": true,
         "selector-pseudo-element-no-unknown": true,

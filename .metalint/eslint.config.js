@@ -376,7 +376,7 @@ export default {
                 // Ignorer les imports et les déclarations de tests unitaires
                 // car Prettier n'ajoute pas de retour à la ligne pour ne pas
                 // dépasser les 80 caractères.
-                ignorePattern: '^import |^ +it\\("',
+                ignorePattern: '^import |^ \\* @typedef \\{import\\(|^ +it\\("',
                 // Ignorer les expressions rationnelles car il n'est pas
                 // possible de les écrire sur plusieurs lignes.
                 ignoreRegExpLiterals: true,
@@ -545,7 +545,7 @@ export default {
         "import/no-named-default": "error",
         "import/no-named-export": "off",
         "import/no-namespace": "off",
-        "import/no-unassigned-import": "error",
+        "import/no-unassigned-import": ["error", { allow: ["**/polyfill/**"] }],
         "import/order": [
             "error",
             {
@@ -582,6 +582,7 @@ export default {
         "jsdoc/check-values": "error",
         "jsdoc/empty-tags": "error",
         "jsdoc/implements-on-classes": "error",
+        "jsdoc/informative-docs": "error",
         "jsdoc/match-description": ["error", { matchDescription: "[A-ZÉ].*" }],
         "jsdoc/match-name": "off",
         "jsdoc/multiline-blocks": "error",

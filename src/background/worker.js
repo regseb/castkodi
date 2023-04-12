@@ -4,10 +4,8 @@
  * @author Sébastien Règne
  */
 
-/* eslint-disable import/no-unassigned-import */
 import "../polyfill/browser.js";
 import "../polyfill/domparser.js";
-/* eslint-enable import/no-unassigned-import */
 import { kodi } from "../core/jsonrpc/kodi.js";
 import * as menu from "../core/menu.js";
 import * as storage from "../core/storage.js";

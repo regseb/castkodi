@@ -243,7 +243,7 @@ describe("core/tools/jsonrpc.js", function () {
             const server = new Server("ws://localhost/", { mock: false });
             server.on("connection", (socket) => {
                 // Décaler l'envoi de la notification pour laisser le temps au
-                // client d'ajouter son écouteur.
+                // client d'ajouter son auditeur.
                 setTimeout(
                     () =>
                         socket.send(

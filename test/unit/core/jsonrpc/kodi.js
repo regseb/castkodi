@@ -87,7 +87,7 @@ describe("core/jsonrpc/kodi.js", function () {
 
             const kodi = new Kodi("localhost");
             await kodi.send("foo");
-            assert.equal(kodi.url.href, "ws://localhost:9090/jsonrpc");
+            assert.deepEqual(kodi.url, new URL("ws://localhost:9090/jsonrpc"));
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
