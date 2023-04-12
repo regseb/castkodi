@@ -10,29 +10,9 @@ import * as scraper from "../../../../src/core/scraper/opengraph.js";
 
 describe("core/scraper/opengraph.js", function () {
     describe("extractVideo()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+        it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://foo.com");
             const content = { html: () => Promise.resolve(undefined) };
-            const options = { depth: false };
-
-            const file = await scraper.extractVideo(url, content, options);
-            assert.equal(file, undefined);
-        });
-
-        it("should return undefined when there isn't Open Graph type", async function () {
-            const url = new URL("https://foo.com");
-            const content = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html><head>
-                               <meta property="og:video"
-                                     content="http://bar.com/" />
-                             </head></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
@@ -60,17 +40,15 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when type isn't supported", async function () {
+        it("should return video URL when there isn't type", async function () {
             const url = new URL("https://foo.com");
             const content = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><head>
-                               <meta property="og:video:type"
-                                     content="application/pdf" />
                                <meta property="og:video"
-                                     content="http://bar.com/baz.pdf" />
+                                     content="https://bar.com/baz.hls" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -79,7 +57,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractVideo(url, content, options);
-            assert.equal(file, undefined);
+            assert.equal(file, "https://bar.com/baz.hls");
         });
 
         it("should return video URL", async function () {
@@ -104,7 +82,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, "http://bar.com/baz.mkv");
         });
 
-        it("should return undefined when content is unknown", async function () {
+        it("should return undefined when type isn't supported", async function () {
             const spy = sinon.stub(globalThis, "fetch");
 
             const url = new URL("https://foo.com");
@@ -114,9 +92,9 @@ describe("core/scraper/opengraph.js", function () {
                         new DOMParser().parseFromString(
                             `<html><head>
                                <meta property="og:video:type"
-                                     content="bar/baz" />
+                                     content="application/pdf" />
                                <meta property="og:video"
-                                     content="http://qux.com/" />
+                                     content="http://bar.com/baz.pdf" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -210,26 +188,6 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't Open Graph type", async function () {
-            const url = new URL("https://foo.com");
-            const content = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html><head>
-                               <meta property="og:audio"
-                                     content="http://bar.com/" />
-                             </head></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
-            const options = { depth: false };
-
-            const file = await scraper.extractAudio(url, content, options);
-            assert.equal(file, undefined);
-        });
-
         it("should return undefined when content is empty", async function () {
             const url = new URL("https://foo.com");
             const content = {
@@ -251,17 +209,15 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when type isn't supported", async function () {
+        it("should return audio URL when there isn't type", async function () {
             const url = new URL("https://foo.com");
             const content = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><head>
-                               <meta property="og:audio:type"
-                                     content="application/pdf" />
                                <meta property="og:audio"
-                                     content="http://bar.com/baz.pdf" />
+                                     content="https://bar.com/baz.mp3" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -270,7 +226,7 @@ describe("core/scraper/opengraph.js", function () {
             const options = { depth: false };
 
             const file = await scraper.extractAudio(url, content, options);
-            assert.equal(file, undefined);
+            assert.equal(file, "https://bar.com/baz.mp3");
         });
 
         it("should return audio URL", async function () {
@@ -295,7 +251,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, "http://bar.com/baz.wav");
         });
 
-        it("should return undefined when content is unknown", async function () {
+        it("should return undefined when type isn't supported", async function () {
             const spy = sinon.stub(globalThis, "fetch");
 
             const url = new URL("https://foo.com");

@@ -52,10 +52,6 @@ const actionVideo = async function (_url, content, options) {
     }
 
     const type = doc.querySelector('meta[property="og:video:type"]');
-    if (null === type) {
-        return undefined;
-    }
-
     const meta = SELECTORS.VIDEO.map((s) => doc.querySelector(s)).find(
         (m) => null !== m && "" !== m.content,
     );
@@ -63,7 +59,7 @@ const actionVideo = async function (_url, content, options) {
         return undefined;
     }
 
-    if (type.content.startsWith("video/")) {
+    if (null === type || type.content.startsWith("video/")) {
         return meta.content;
     }
     if ("text/html" === type.content && !options.depth) {
@@ -98,10 +94,6 @@ const actionAudio = async function (_url, content, options) {
     }
 
     const type = doc.querySelector('meta[property="og:audio:type"]');
-    if (null === type) {
-        return undefined;
-    }
-
     const meta = SELECTORS.AUDIO.map((s) => doc.querySelector(s)).find(
         (m) => null !== m && "" !== m.content,
     );
@@ -109,7 +101,7 @@ const actionAudio = async function (_url, content, options) {
         return undefined;
     }
 
-    if (type.content.startsWith("audio/")) {
+    if (null === type || type.content.startsWith("audio/")) {
         return meta.content;
     }
     if ("text/html" === type.content && !options.depth) {
