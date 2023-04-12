@@ -3,3 +3,7 @@
 /node_modules/
 /src/manifest.json
 /.stryker/
+
+# Ignorer les autres lockfile.
+/pnpm-lock.yaml
+/yarn.lock

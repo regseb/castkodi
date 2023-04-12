@@ -469,7 +469,11 @@ export default {
         "import/no-extraneous-dependencies": [
             "error",
             {
-                devDependencies: [".script/**/*.js", "test/**/*.js"],
+                devDependencies: [
+                    ".script/**/*.js",
+                    "test/**/*.js",
+                    "{.,}**/{.,}*.config.js",
+                ],
             },
         ],
         "import/no-mutable-exports": "error",
@@ -583,6 +587,7 @@ export default {
         "jsdoc/multiline-blocks": "error",
         "jsdoc/newline-after-description": "error",
         "jsdoc/no-bad-blocks": "error",
+        "jsdoc/no-blank-block-descriptions": "error",
         "jsdoc/no-defaults": "error",
         "jsdoc/no-missing-syntax": "off",
         "jsdoc/no-multi-asterisks": "error",
