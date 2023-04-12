@@ -26,6 +26,6 @@ const action = async function ({ pathname }) {
     const response = await fetch(`${API_URL}/${lang}/${id}`);
     const json = await response.json();
 
-    return json.data.attributes.streams[0]?.url;
+    return json.data.attributes.streams?.[0].url;
 };
 export const extract = matchPattern(action, "*://www.arte.tv/*/videos/*/*");

@@ -18,11 +18,10 @@ describe("core/scraper/arte.js", function () {
         });
 
         it("should return undefined when video is unavailable", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(
-                    Response.json({ data: { attributes: { streams: [] } } }),
-                );
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                // eslint-disable-next-line unicorn/no-null
+                Response.json({ data: { attributes: { streams: null } } }),
+            );
 
             const url = new URL("https://www.arte.tv/de/videos/foo/bar");
 
