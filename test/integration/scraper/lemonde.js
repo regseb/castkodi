@@ -38,7 +38,7 @@ describe("Scraper: Le Monde", function () {
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
-                "?video_id=dI-xlzU-r1c&incognito=false",
+                "?video_id=cz81uaXm5ps&incognito=false",
         );
     });
 
