@@ -7,7 +7,7 @@
   },
   "manifest_version": 3,
   "name": "Cast Kodi",
-  "version": "7.2.0",
+  "version": "7.3.0",
   "action": {
     "default_icon": {
       "16": "img/icon16.png",
@@ -41,12 +41,23 @@
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "homepage_url": "https://github.com/regseb/castkodi",
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "minimum_chrome_version": "112",
-  "optional_permissions": ["bookmarks", "clipboardRead", "history"],
+  "optional_permissions": [
+    "bookmarks",
+    "clipboardRead",
+    "history"
+  ],
   "options_ui": {
     "browser_style": false,
     "page": "options/index.html"
   },
-  "permissions": ["activeTab", "contextMenus", "notifications", "storage"]
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "notifications",
+    "storage"
+  ]
 }

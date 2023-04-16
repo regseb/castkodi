@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.3.0](https://github.com/regseb/castkodi/compare/v7.2.0...v7.3.0) (2023-04-16)
+
+
+### Features
+
+* Envoyer les URLs inconnues à SendToKodi. ([65860db](https://github.com/regseb/castkodi/commit/65860dbb584fc43d5e3b1d9eaffb3279e0eeadb6))
+* Être plus souple pour OpenGraph. ([3348573](https://github.com/regseb/castkodi/commit/33485734a1dad41cc56da5520cc053ec8c906155))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de Reddit. ([19c5b56](https://github.com/regseb/castkodi/commit/19c5b56d079d82c7c72136c7d4a43dd1e72a0701))
+* Améliorer la détection des embed. ([ea349aa](https://github.com/regseb/castkodi/commit/ea349aa88d768636a3be77b17d48d3774e18229b))
+* Gérer les nouveaux retours de l'API d'Arte. ([d82285b](https://github.com/regseb/castkodi/commit/d82285b131ca1cf50f0ce21066f06fd16654893b))
+
 ## [7.2.0](https://github.com/regseb/castkodi/compare/v7.1.0...v7.2.0) (2023-03-19)
 
 
