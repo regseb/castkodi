@@ -22,7 +22,7 @@ et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
   DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kickstarter, Mastodon,
   Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast Addict, podCloud,
   Pokémon TV, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia,
-  Uqload, Veoh, VideoPress, VideosHub, VidLii, Vidyard, Viously, Vudeo ;
+  Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo ;
   - 🇩🇪 Allemagne : ARD Mediathek, Arte, Chaos Computer Club, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
   - 🇺🇸 États-Unis : Bally Sports, KCAA Radio ;

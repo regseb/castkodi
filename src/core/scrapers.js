@@ -71,7 +71,6 @@ import * as unknown from "./scraper/unknown.js";
 import * as uqload from "./scraper/uqload.js";
 import * as veoh from "./scraper/veoh.js";
 import * as videopress from "./scraper/videopress.js";
-import * as videoshub from "./scraper/videoshub.js";
 import * as vidlox from "./scraper/vidlox.js";
 import * as vidyard from "./scraper/vidyard.js";
 import * as vimeo from "./scraper/vimeo.js";
@@ -137,7 +136,6 @@ const SCRAPERS = [
     uqload,
     veoh,
     videopress,
-    videoshub,
     vidlox,
     vidyard,
     vimeo,
