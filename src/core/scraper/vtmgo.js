@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://vtm.be/vtmgo
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */

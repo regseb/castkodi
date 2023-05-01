@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://developer.mozilla.org/Web/HTML/Element/noscript
  * @author Sébastien Règne
  */
 

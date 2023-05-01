@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.tiktok.com/
  * @author Sébastien Règne
  */
 

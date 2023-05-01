@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.jeuxvideo.com/
  * @author Sébastien Règne
  */
 

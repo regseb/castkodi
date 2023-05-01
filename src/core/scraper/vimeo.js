@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://vimeo.com/
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */

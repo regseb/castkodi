@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://watch.pokemon.com/
  * @author Sébastien Règne
  */
 

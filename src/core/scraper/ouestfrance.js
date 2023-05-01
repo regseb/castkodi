@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.ouest-france.fr/
  * @author Sébastien Règne
  */
 

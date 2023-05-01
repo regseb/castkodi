@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.radio.net/
  * @author Sébastien Règne
  */
 

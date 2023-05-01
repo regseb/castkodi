@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.srf.ch/
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.reddit.com/
  * @author Sébastien Règne
  */
 

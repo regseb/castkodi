@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.ballysports.com/
  * @author Sébastien Règne
  */
 

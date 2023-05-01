@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://store.steampowered.com/
  * @author Sébastien Règne
  */
 

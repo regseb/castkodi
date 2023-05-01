@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.theguardian.com/
  * @author Sébastien Règne
  */
 

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.dumpert.nl/
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.arteradio.com/
  * @author Sébastien Règne
  */
 

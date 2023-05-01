@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.apple.com/apple-podcasts/
  * @author Sébastien Règne
  */
 

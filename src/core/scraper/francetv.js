@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.france.tv/
  * @author Sébastien Règne
  */
 

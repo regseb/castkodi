@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.lemonde.fr/
  * @author Sébastien Règne
  */
 

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.gamekult.com/
  * @author Sébastien Règne
  */
 

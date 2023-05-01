@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.futura-sciences.com/
  * @author Sébastien Règne
  */
 

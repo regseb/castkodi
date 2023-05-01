@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.allocine.fr/
  * @author Sébastien Règne
  */
 

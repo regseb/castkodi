@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://live.kcaastreaming.com/
  * @author Sébastien Règne
  */
 

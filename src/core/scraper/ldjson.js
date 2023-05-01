@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://json-ld.org/
  * @author Sébastien Règne
  */
 
@@ -50,7 +51,6 @@ const walk = function (root) {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
- * @see https://json-ld.org/
  */
 const action = async function (url, content, options) {
     const doc = await content.html();

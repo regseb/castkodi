@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.star.gr/
  * @author Sébastien Règne
  */
 

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://developer.mozilla.org/Web/HTML/Element/embed
  * @author Sébastien Règne
  */
 
@@ -24,7 +25,6 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
- * @see https://developer.mozilla.org/Web/HTML/Element/embed
  */
 const action = async function (url, content, options) {
     const doc = await content.html();

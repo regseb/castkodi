@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.ausha.co/
  * @author Sébastien Règne
  */
 

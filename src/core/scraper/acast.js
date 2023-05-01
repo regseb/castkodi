@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.acast.com/
  * @author Sébastien Règne
  */
 

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.veoh.com/
  * @author Sébastien Règne
  */
 

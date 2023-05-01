@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://uqload.co/
  * @author Sébastien Règne
  */
 

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.zdf.de/
  * @author Sébastien Règne
  */
 

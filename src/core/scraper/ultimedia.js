@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.ultimedia.com/
  * @author Sébastien Règne
  */
 

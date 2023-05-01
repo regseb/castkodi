@@ -1,6 +1,8 @@
 /**
  * @module
  * @license MIT
+ * @see https://en.wikipedia.org/wiki/BitTorrent
+ * @see https://en.wikipedia.org/wiki/Magnet_URI_scheme
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */

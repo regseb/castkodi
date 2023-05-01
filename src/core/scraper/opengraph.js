@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://ogp.me/
  * @author Sébastien Règne
  */
 
@@ -13,7 +14,6 @@ import { matchPattern } from "../tools/matchpattern.js";
  * vidéos et audio d'Open Graph.
  *
  * @type {Object<string, string[]>}
- * @see https://ogp.me/
  */
 const SELECTORS = {
     VIDEO: [

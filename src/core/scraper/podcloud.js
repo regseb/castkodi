@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://podcloud.fr/
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://vudeo.io/
  * @author Sébastien Règne
  */
 

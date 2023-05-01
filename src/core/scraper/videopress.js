@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://videopress.com/
  * @author Sébastien Règne
  */
 

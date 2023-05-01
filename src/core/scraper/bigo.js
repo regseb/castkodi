@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.bigo.tv/
  * @author Sébastien Règne
  */
 

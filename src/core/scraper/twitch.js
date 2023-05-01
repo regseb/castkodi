@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.twitch.tv/
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */

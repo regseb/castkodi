@@ -12,6 +12,7 @@ import { PebkacError } from "./pebkac.js";
  * @param {Error} err L'erreur affichée dans la notification.
  * @returns {Promise<string>} Une promesse contenant l'identifiant de la
  *                            notification.
+ * @see https://developer.mozilla.org/Add-ons/WebExtensions/API/notifications
  */
 export const notify = function (err) {
     // Ne pas ajouter un bouton vers la configuration car cette fonctionnalité

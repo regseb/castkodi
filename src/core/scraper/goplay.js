@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.goplay.be/
  * @author Sébastien Règne
  */
 

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.arte.tv/
  * @author Sébastien Règne
  */
 

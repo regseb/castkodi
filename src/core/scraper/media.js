@@ -1,6 +1,9 @@
 /**
  * @module
  * @license MIT
+ * @see https://developer.mozilla.org/Web/HTML/Element/video
+ * @see https://developer.mozilla.org/Web/HTML/Element/audio
+ * @see https://developer.mozilla.org/Web/HTML/Element/source
  * @author Sébastien Règne
  */
 

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://megaphone.spotify.com/
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */

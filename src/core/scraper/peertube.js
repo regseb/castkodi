@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://joinpeertube.org/
  * @author Sébastien Règne
  */
 

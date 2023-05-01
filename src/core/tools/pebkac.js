@@ -6,6 +6,8 @@
 
 /**
  * Les erreurs spécifiques à Cast Kodi.
+ *
+ * @see https://fr.wikipedia.org/wiki/PEBKAC
  */
 export const PebkacError = class extends Error {
     /**

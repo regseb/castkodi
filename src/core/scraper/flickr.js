@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.flickr.com/
  * @author Sébastien Règne
  */
 

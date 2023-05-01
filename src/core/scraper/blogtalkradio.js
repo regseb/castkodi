@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.blogtalkradio.com/
  * @author Sébastien Règne
  */
 

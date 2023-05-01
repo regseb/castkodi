@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.lepoint.fr/
  * @author Sébastien Règne
  */
 

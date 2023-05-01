@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.melty.fr/
  * @author Sébastien Règne
  */
 
