@@ -42,7 +42,7 @@
     "clean": "node .script/clean.js"
   },
   "dependencies": {
-    "linkedom": "0.14.25"
+    "linkedom": "0.14.26"
   },
   "devDependencies": {
     "@prettier/plugin-xml": "2.2.0",
