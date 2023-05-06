@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cast Kodi</title>
-    <link href="/design/color-light.css" rel="stylesheet">
-    <link href="/design/style.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
-    <link href="/img/icon.svg" rel="shortcut icon">
+    <link href="/design/color-light.css" rel="stylesheet" />
+    <link href="/design/style.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+    <link href="/img/icon.svg" rel="shortcut icon" />
   </head>
   <body>
     <p class="error" id="permission">
@@ -21,34 +21,47 @@
       <details>
         <summary>
           <label data-l10n-textcontent="server-mode-single">
-            <input name="server-mode" type="radio" value="single"> {}
+            <input name="server-mode" type="radio" value="single" /> {}
           </label>
         </summary>
         <div>
-          <label data-l10n-textcontent="server-address"
-                 data-l10n-title="server-address">
+          <label
+            data-l10n-textcontent="server-address"
+            data-l10n-title="server-address"
+          >
             {}
-            <sup><img src="/design/icon/help-black.svg" alt="help-black"></sup>
-            <input name="address_0" type="text" required autocapitalize="off"
-                   autocomplete="off" spellcheck="false"
-                   data-l10n-placeholder="server-address">
+            <sup
+              ><img src="/design/icon/help-black.svg" alt="help-black"
+            /></sup>
+            <input
+              name="address_0"
+              type="text"
+              required
+              autocapitalize="off"
+              autocomplete="off"
+              spellcheck="false"
+              data-l10n-placeholder="server-address"
+            />
           </label>
         </div>
       </details>
       <details>
         <summary>
           <label data-l10n-textcontent="server-mode-multi">
-            <input name="server-mode" type="radio" value="multi"> {}
+            <input name="server-mode" type="radio" value="multi" /> {}
           </label>
         </summary>
         <table>
           <thead>
             <tr>
-              <th data-l10n-textcontent="server-addresses"
-                  data-l10n-title="server-address">
+              <th
+                data-l10n-textcontent="server-addresses"
+                data-l10n-title="server-address"
+              >
                 {}
-                <sup><img src="/design/icon/help-black.svg"
-                          alt="help-black"></sup>
+                <sup
+                  ><img src="/design/icon/help-black.svg" alt="help-black"
+                /></sup>
               </th>
               <th data-l10n-textcontent="server-names"></th>
               <th></th>
@@ -62,19 +75,34 @@
         <template>
           <tr>
             <td>
-              <input name="address_" type="text" required autocapitalize="off"
-                     autocomplete="off" spellcheck="false"
-                     data-l10n-placeholder="server-address">
+              <input
+                name="address_"
+                type="text"
+                required
+                autocapitalize="off"
+                autocomplete="off"
+                spellcheck="false"
+                data-l10n-placeholder="server-address"
+              />
             </td>
             <td>
-              <input name="name_" type="text" required autocapitalize="off"
-                     autocomplete="off" spellcheck="false"
-                     data-l10n-placeholder="server-name">
+              <input
+                name="name_"
+                type="text"
+                required
+                autocapitalize="off"
+                autocomplete="off"
+                spellcheck="false"
+                data-l10n-placeholder="server-name"
+              />
             </td>
             <td>
-              <button class="ghost" type="button"
-                      data-l10n-title="server-remove">
-                <img src="/design/icon/remove-black.svg" alt="remove-black">
+              <button
+                class="ghost"
+                type="button"
+                data-l10n-title="server-remove"
+              >
+                <img src="/design/icon/remove-black.svg" alt="remove-black" />
               </button>
             </td>
           </tr>
@@ -86,7 +114,7 @@
     <form id="general-history">
       <div>
         <label data-l10n-textcontent="general-history-input">
-          <input name="history" type="checkbox" data-permissions="history"> {}
+          <input name="history" type="checkbox" data-permissions="history" /> {}
         </label>
       </div>
     </form>
@@ -95,8 +123,12 @@
     <form id="popup-clipboard">
       <div>
         <label data-l10n-textcontent="popup-clipboard-input">
-          <input name="clipboard" type="checkbox"
-                 data-permissions="clipboardRead"> {}
+          <input
+            name="clipboard"
+            type="checkbox"
+            data-permissions="clipboardRead"
+          />
+          {}
         </label>
       </div>
     </form>
@@ -104,13 +136,13 @@
       <p data-l10n-textcontent="popup-wheel-description">
         {}
         <label data-l10n-textcontent="popup-wheel-normal">
-          <input name="popup-wheel" type="radio" value="normal"> {}
+          <input name="popup-wheel" type="radio" value="normal" /> {}
         </label>
         <label data-l10n-textcontent="popup-wheel-reverse">
-          <input name="popup-wheel" type="radio" value="reverse"> {}
+          <input name="popup-wheel" type="radio" value="reverse" /> {}
         </label>
         <label data-l10n-textcontent="popup-wheel-disabled">
-          <input name="popup-wheel" type="radio" value="disabled"> {}
+          <input name="popup-wheel" type="radio" value="disabled" /> {}
         </label>
       </p>
     </form>
@@ -120,13 +152,13 @@
       <p data-l10n-textcontent="menu-actions-description"></p>
       <div>
         <label data-l10n-textcontent="menu-actions-send">
-          <input name="send" type="checkbox"> {}
+          <input name="send" type="checkbox" /> {}
         </label>
         <label data-l10n-textcontent="menu-actions-insert">
-          <input name="insert" type="checkbox"> {}
+          <input name="insert" type="checkbox" /> {}
         </label>
         <label data-l10n-textcontent="menu-actions-add">
-          <input name="add" type="checkbox"> {}
+          <input name="add" type="checkbox" /> {}
         </label>
       </div>
     </form>
@@ -134,31 +166,35 @@
       <p data-l10n-textcontent="menu-contexts-description"></p>
       <div>
         <label data-l10n-textcontent="menu-contexts-audio">
-          <input name="audio" type="checkbox"> {}
+          <input name="audio" type="checkbox" /> {}
         </label>
-        <label data-l10n-textcontent="menu-contexts-bookmark"
-               data-supported-browser="Firefox">
-          <input name="bookmark" type="checkbox" data-permissions="bookmarks">
+        <label
+          data-l10n-textcontent="menu-contexts-bookmark"
+          data-supported-browser="Firefox"
+        >
+          <input name="bookmark" type="checkbox" data-permissions="bookmarks" />
           {}
         </label>
         <label data-l10n-textcontent="menu-contexts-frame">
-          <input name="frame" type="checkbox"> {}
+          <input name="frame" type="checkbox" /> {}
         </label>
         <label data-l10n-textcontent="menu-contexts-link">
-          <input name="link" type="checkbox"> {}
+          <input name="link" type="checkbox" /> {}
         </label>
         <label data-l10n-textcontent="menu-contexts-page">
-          <input name="page" type="checkbox"> {}
+          <input name="page" type="checkbox" /> {}
         </label>
         <label data-l10n-textcontent="menu-contexts-selection">
-          <input name="selection" type="checkbox"> {}
+          <input name="selection" type="checkbox" /> {}
         </label>
-        <label data-l10n-textcontent="menu-contexts-tab"
-               data-supported-browser="Firefox">
-          <input name="tab" type="checkbox"> {}
+        <label
+          data-l10n-textcontent="menu-contexts-tab"
+          data-supported-browser="Firefox"
+        >
+          <input name="tab" type="checkbox" /> {}
         </label>
         <label data-l10n-textcontent="menu-contexts-video">
-          <input name="video" type="checkbox"> {}
+          <input name="video" type="checkbox" /> {}
         </label>
       </div>
     </form>
@@ -168,10 +204,10 @@
       <p data-l10n-textcontent="youtube-playlist-description"></p>
       <div>
         <label data-l10n-textcontent="youtube-playlist-playlist">
-          <input name="youtube-playlist" type="radio" value="playlist"> {}
+          <input name="youtube-playlist" type="radio" value="playlist" /> {}
         </label>
         <label data-l10n-textcontent="youtube-playlist-video">
-          <input name="youtube-playlist" type="radio" value="video"> {}
+          <input name="youtube-playlist" type="radio" value="video" /> {}
         </label>
       </div>
     </form>
@@ -179,16 +215,16 @@
       <p data-l10n-textcontent="youtube-order-description"></p>
       <div>
         <label data-l10n-textcontent="youtube-order-ask">
-          <input name="youtube-order" type="radio" value=""> {}
+          <input name="youtube-order" type="radio" value="" /> {}
         </label>
         <label data-l10n-textcontent="youtube-order-default">
-          <input name="youtube-order" type="radio" value="default"> {}
+          <input name="youtube-order" type="radio" value="default" /> {}
         </label>
         <label data-l10n-textcontent="youtube-order-reverse">
-          <input name="youtube-order" type="radio" value="reverse"> {}
+          <input name="youtube-order" type="radio" value="reverse" /> {}
         </label>
         <label data-l10n-textcontent="youtube-order-shuffle">
-          <input name="youtube-order" type="radio" value="shuffle"> {}
+          <input name="youtube-order" type="radio" value="shuffle" /> {}
         </label>
       </div>
     </form>

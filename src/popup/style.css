@@ -10,25 +10,28 @@ body {
     min-width: 325px;
 }
 
-button.ghost, label.checkbox, label.radio {
+button.ghost,
+label.checkbox,
+label.radio {
     margin: 8px;
 }
 button.micro {
     margin: 4px;
 }
 
-
 div {
     text-align: center;
 }
 
-label.checkbox, label.radio {
+label.checkbox,
+label.radio {
     cursor: pointer;
     display: flex;
     height: 32px;
     width: 32px;
 }
-label.checkbox img, label.radio img {
+label.checkbox img,
+label.radio img {
     border-radius: 4px;
     padding: 8px;
 }
@@ -46,7 +49,8 @@ label.radio input[type="radio"]:disabled ~ img {
     opacity: 50%;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"],
+input[type="checkbox"] {
     display: none;
 }
 
@@ -176,7 +180,11 @@ dialog {
     display: grid;
     grid-template-columns: repeat(3, auto);
 }
-#up::before, #left::before, #select::before, #right::before, #down::before {
+#up::before,
+#left::before,
+#select::before,
+#right::before,
+#down::before {
     background-color: var(--button-background-color);
     content: "";
     height: 48px;
