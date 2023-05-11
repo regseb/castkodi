@@ -5,9 +5,7 @@
  */
 
 import * as dailymotion from "./labeller/dailymotion.js";
-import * as dumpert from "./labeller/dumpert.js";
 import * as pluginDailymotion from "./labeller/plugin/dailymotion.js";
-import * as pluginDumpert from "./labeller/plugin/dumpert.js";
 import * as pluginSendtokodi from "./labeller/plugin/sendtokodi.js";
 import * as pluginSoundcloud from "./labeller/plugin/soundcloud.js";
 import * as pluginTubed from "./labeller/plugin/tubed.js";
@@ -30,7 +28,6 @@ import { strip } from "./tools/sanitizer.js";
 const LABELLERS = [
     // Lister les labellisateurs des plugins (triées par ordre alphabétique).
     pluginDailymotion,
-    pluginDumpert,
     pluginSendtokodi,
     pluginSoundcloud,
     pluginTubed,
@@ -40,7 +37,6 @@ const LABELLERS = [
     pluginYoutube,
     // Lister les labellisateurs (triées par ordre alphabétique).
     dailymotion,
-    dumpert,
     soundcloud,
     twitch,
     vimeo,

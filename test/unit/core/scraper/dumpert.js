@@ -16,28 +16,39 @@ describe("core/scraper/dumpert.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
-            const url = new URL("https://www.dumpert.nl/mediabase/foo");
+        it("should return undefined when it isn't a video", async function () {
+            const url = new URL("https://www.dumpert.nl/item/foo");
+            const content = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            "<html><body></body></html>",
+                            "text/html",
+                        ),
+                    ),
+            };
 
-            const file = await scraper.extract(url);
-            assert.equal(
-                file,
-                "plugin://plugin.video.dumpert/" +
-                    "?action=play&video_page_url=https%3A%2F%2Fwww.dumpert.nl" +
-                    "%2Fmediabase%2Ffoo",
-            );
+            const file = await scraper.extract(url, content);
+            assert.equal(file, undefined);
         });
 
-        it("should return video URL when protocol is HTTP", async function () {
-            const url = new URL("http://www.dumpert.nl/mediabase/foo");
+        it("should return video URL", async function () {
+            const url = new URL("https://www.dumpert.nl/item/foo");
+            const content = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><head>
+                               <meta name="og:video"
+                                     content="http://bar.nl/baz.mp4" />
+                             </head></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
 
-            const file = await scraper.extract(url);
-            assert.equal(
-                file,
-                "plugin://plugin.video.dumpert/" +
-                    "?action=play&video_page_url=http%3A%2F%2Fwww.dumpert.nl" +
-                    "%2Fmediabase%2Ffoo",
-            );
+            const file = await scraper.extract(url, content);
+            assert.equal(file, "http://bar.nl/baz.mp4");
         });
     });
 });
