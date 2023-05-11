@@ -19,6 +19,6 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (url, content) {
     const doc = await content.html();
-    return new URL(doc.querySelector("#show a").href, url).href;
+    return new URL(doc.querySelector("#show a").getAttribute("href"), url).href;
 };
 export const extract = matchPattern(action, "*://live.kcaastreaming.com/");
