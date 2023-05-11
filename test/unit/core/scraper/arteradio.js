@@ -35,8 +35,8 @@ describe("core/scraper/arteradio.js", function () {
             const file = await scraper.extract(url, content);
             assert.equal(
                 file,
-                "https://download.www.arte.tv/permanent/arteradio/sites" +
-                    "/default/files/sons/bar.mp3",
+                "https://cdn.arteradio.com/permanent/arteradio/sites/default" +
+                    "/files/sons/bar.mp3",
             );
         });
     });

@@ -17,7 +17,7 @@ describe("Scraper: Arte Radio", function () {
         const file = await extract(url, options);
         assert.equal(
             file,
-            "https://download.www.arte.tv/permanent/arteradio/sites/default" +
+            "https://cdn.arteradio.com/permanent/arteradio/sites/default" +
                 "/files/sons/01faismoiouir_hq_fr.mp3",
         );
     });
@@ -31,7 +31,7 @@ describe("Scraper: Arte Radio", function () {
         const file = await extract(url, options);
         assert.equal(
             file,
-            "https://download.www.arte.tv/permanent/arteradio/sites/default" +
+            "https://cdn.arteradio.com/permanent/arteradio/sites/default" +
                 "/files/sons/01faismoiouir_hq_fr.mp3",
         );
     });

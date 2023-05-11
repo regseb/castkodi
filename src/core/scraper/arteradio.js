@@ -13,8 +13,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @type {string}
  */
 const BASE_URL =
-    "https://download.www.arte.tv/permanent/arteradio/sites" +
-    "/default/files/sons/";
+    "https://cdn.arteradio.com/permanent/arteradio/sites/default/files/sons/";
 
 /**
  * Extrait les informations nécessaire pour lire un son sur Kodi.
