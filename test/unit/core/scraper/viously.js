@@ -20,14 +20,20 @@ describe("core/scraper/viously.js", function () {
             const url = new URL("https://www.viously.com/export/foo?bar=baz");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "https://v.kolplay.com/foo/index.m3u8");
+            assert.equal(
+                file,
+                "https://www.viously.com/video/hls/foo/index.m3u8",
+            );
         });
 
         it("should return video URL from amp", async function () {
             const url = new URL("https://www.viously.com/amp/foo");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "https://v.kolplay.com/foo/index.m3u8");
+            assert.equal(
+                file,
+                "https://www.viously.com/video/hls/foo/index.m3u8",
+            );
         });
     });
 });

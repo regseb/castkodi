@@ -15,7 +15,10 @@ describe("Scraper: Viously", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, "https://v.kolplay.com/doDeMzbVkpr/index.m3u8");
+        assert.equal(
+            file,
+            "https://www.viously.com/video/hls/doDeMzbVkpr/index.m3u8",
+        );
     });
 
     it("should return video URL when protocol is HTTP", async function () {
@@ -25,7 +28,10 @@ describe("Scraper: Viously", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, "https://v.kolplay.com/doDeMzbVkpr/index.m3u8");
+        assert.equal(
+            file,
+            "https://www.viously.com/video/hls/doDeMzbVkpr/index.m3u8",
+        );
     });
 
     it("should return video URL from amp", async function () {
@@ -33,6 +39,9 @@ describe("Scraper: Viously", function () {
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
-        assert.equal(file, "https://v.kolplay.com/3ZSdTrtt4G5/index.m3u8");
+        assert.equal(
+            file,
+            "https://www.viously.com/video/hls/3ZSdTrtt4G5/index.m3u8",
+        );
     });
 });
