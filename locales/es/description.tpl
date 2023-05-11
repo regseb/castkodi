@@ -10,7 +10,7 @@ Cast&nbsp;Kodi añade la posibilidad de emitir vídeos y música a <strong>Kodi<
   <li>
     YouTube, Twitch, Vimeo, SoundCloud y Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Pokémon&nbsp;TV, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo;
     <ul>
-      <li>🇩🇪&nbsp;Alemania: ARD&nbsp;Mediathek, Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;</li>
+      <li>🇩🇪&nbsp;Alemania: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;</li>
       <li>🇧🇪&nbsp;Belgica: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
       <li>🇺🇸&nbsp;Estados Unidos: Bally&nbsp;Sports, KCAA&nbsp;Radio;</li>
       <li>🇫🇷&nbsp;Francia: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
