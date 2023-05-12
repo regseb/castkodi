@@ -123,6 +123,53 @@ describe("core/l10n.js", function () {
             assert.deepEqual(stub.firstCall.args, ["baz_bar_title"]);
         });
 
+        it("should use name", function () {
+            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+
+            const doc = new DOMParser().parseFromString(
+                `<html><body>
+                   <input name="bar" data-l10n-placeholder />
+                 </body></html>`,
+                "text/html",
+            );
+            locate(doc, "baz");
+            const input = /** @type {HTMLInputElement} */ (
+                doc.querySelector("input")
+            );
+            assert.equal(input.innerHTML.trim(), "");
+            assert.deepEqual(objectifyAttributes(input.attributes), {
+                name: "bar",
+                "data-l10n-placeholder": "",
+                placeholder: "foo",
+            });
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["baz_bar_placeholder"]);
+        });
+
+        it("should use value", function () {
+            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+
+            const doc = new DOMParser().parseFromString(
+                `<html><body>
+                   <button value="bar" data-l10n-textcontent></button>
+                 </body></html>`,
+                "text/html",
+            );
+            locate(doc, "baz");
+            const button = /** @type {HTMLButtonElement} */ (
+                doc.querySelector("button")
+            );
+            assert.equal(button.innerHTML.trim(), "foo");
+            assert.deepEqual(objectifyAttributes(button.attributes), {
+                value: "bar",
+                "data-l10n-textcontent": "",
+            });
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["baz_bar_textcontent"]);
+        });
+
         it("should convert beer-case to PascalCase", function () {
             const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
 
