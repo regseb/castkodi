@@ -5,8 +5,6 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Twitch", function () {
@@ -44,8 +42,6 @@ describe("Scraper: Twitch", function () {
     });
 
     it("should return undefined when it isn't a clip", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://clips.twitch.tv/embed?noclip=Awesome");
         const options = { depth: false, incognito: false };
 
@@ -126,8 +122,6 @@ describe("Scraper: Twitch", function () {
     });
 
     it("should return undefined when it isn't channel or video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://player.twitch.tv/?other=foobar");
         const options = { depth: false, incognito: false };
 

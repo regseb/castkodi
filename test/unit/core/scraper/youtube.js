@@ -191,14 +191,14 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video id with youtube", async function () {
+        it("should return video id to youtube", async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([
-                    "plugin.video.youtube",
-                    "plugin.video.tubed",
                     "plugin.video.sendtokodi",
+                    "plugin.video.tubed",
+                    "plugin.video.youtube",
                 ]);
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
@@ -216,11 +216,11 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video id with tubed", async function () {
+        it("should return video id to tubed", async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.tubed", "plugin.video.sendtokodi"]);
+                .resolves(["plugin.video.sendtokodi", "plugin.video.tubed"]);
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
             const content = undefined;
@@ -236,7 +236,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video id with sendtokodi", async function () {
+        it("should return video id to sendtokodi", async function () {
             browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
@@ -321,14 +321,14 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return playlist id with youtube", async function () {
+        it("should return playlist id to youtube", async function () {
             browser.storage.local.set({ "youtube-order": "" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([
-                    "plugin.video.youtube",
-                    "plugin.video.tubed",
                     "plugin.video.sendtokodi",
+                    "plugin.video.tubed",
+                    "plugin.video.youtube",
                 ]);
 
             const url = new URL("https://www.youtube.com/playlist?list=foo");
@@ -346,11 +346,11 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return playlist id with tubed", async function () {
+        it("should return playlist id to tubed", async function () {
             browser.storage.local.set({ "youtube-order": "" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.tubed", "plugin.video.sendtokodi"]);
+                .resolves(["plugin.video.sendtokodi", "plugin.video.tubed"]);
 
             const url = new URL("https://www.youtube.com/playlist?list=foo");
             const content = undefined;
@@ -366,7 +366,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return playlist id with sendtokodi", async function () {
+        it("should return playlist id to sendtokodi", async function () {
             browser.storage.local.set({ "youtube-order": "" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")

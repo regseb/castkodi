@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Steam", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://store.steampowered.com/bundle/234/Portal_Bundle/",
         );
@@ -47,8 +43,6 @@ describe("Scraper: Steam", function () {
     });
 
     it("should return undefined when it isn't a broadcast", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://steamcommunity.com/broadcast/watch/404");
         const options = { depth: false, incognito: false };
 

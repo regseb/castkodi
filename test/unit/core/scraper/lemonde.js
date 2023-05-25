@@ -119,6 +119,8 @@ describe("core/scraper/lemonde.js", function () {
         });
 
         it("should return URL from dailymotion", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.lemonde.fr/foo.html");
             const content = {
                 html: () =>
@@ -138,6 +140,9 @@ describe("core/scraper/lemonde.js", function () {
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return undefined when it's depth with tiktok", async function () {

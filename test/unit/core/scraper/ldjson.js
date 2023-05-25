@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/ldjson.js";
 
 describe("core/scraper/ldjson.js", function () {
@@ -183,6 +185,8 @@ describe("core/scraper/ldjson.js", function () {
         });
 
         it("should return embedUrl", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("http://foo.com");
             const content = {
                 html: () =>
@@ -214,6 +218,9 @@ describe("core/scraper/ldjson.js", function () {
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=baz",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should ignore embedUrl in depther", async function () {

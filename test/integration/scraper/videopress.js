@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: VideoPress", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://videopress.com/v/foo");
         const options = { depth: false, incognito: false };
 
@@ -21,8 +17,6 @@ describe("Scraper: VideoPress", function () {
     });
 
     it("should return undefined when it isn't a video embed", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://videopress.com/embed/foo");
         const options = { depth: false, incognito: false };
 

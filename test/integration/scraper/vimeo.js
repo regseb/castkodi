@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Vimeo", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://vimeo.com/channels");
         const options = { depth: false, incognito: false };
 

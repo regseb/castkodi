@@ -5,15 +5,11 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
 describe("Scraper: Le Monde", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.lemonde.fr/pixels/article/2015/02/27" +
                 "/on-a-teste-pour-vous-le-raspberry-pi-l-ordinateur-miniature" +
@@ -26,8 +22,6 @@ describe("Scraper: Le Monde", function () {
     });
 
     it("should return video id [lemonde-youtube]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.lemonde.fr/blog/unmondedejeux/2021/02/02" +
                 "/la-selection-officielle-de-las-dor-2021/",

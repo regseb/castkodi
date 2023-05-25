@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Pokémon TV", function () {
     it("should return undefined when video is unavailable", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://watch.pokemon.com/fr-fr/#/season" +
                 "?id=la-serie-pokemon-les-voyages",

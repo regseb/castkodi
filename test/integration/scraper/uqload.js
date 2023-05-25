@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Uqload", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://uqload.co/checkfiles.html");
         const options = { depth: false, incognito: false };
 
@@ -21,8 +17,6 @@ describe("Scraper: Uqload", function () {
     });
 
     it("should return undefined when video was deleted", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://uqload.co/k1phujbh3t7d.html");
         const options = { depth: false, incognito: false };
 

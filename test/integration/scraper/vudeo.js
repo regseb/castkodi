@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Vudeo", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://vudeo.io/faq");
         const options = { depth: false, incognito: false };
 
@@ -21,8 +17,6 @@ describe("Scraper: Vudeo", function () {
     });
 
     it("should return undefined when there isn't video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://vudeo.io/xr7um5Ieoo5i.html");
         const options = { depth: false, incognito: false };
 

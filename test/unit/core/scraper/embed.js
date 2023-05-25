@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/embed.js";
 
 describe("core/scraper/embed.js", function () {
@@ -114,6 +116,8 @@ describe("core/scraper/embed.js", function () {
         });
 
         it("should return URL from other page embed", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () =>
@@ -133,9 +137,14 @@ describe("core/scraper/embed.js", function () {
                 file,
                 "plugin://plugin.video.vimeo/play/?video_id=baz",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return undefined when it's depth", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () =>
@@ -152,9 +161,13 @@ describe("core/scraper/embed.js", function () {
 
             const file = await scraper.extract(url, content, options);
             assert.equal(file, undefined);
+
+            assert.equal(stub.callCount, 0);
         });
 
         it("should return URL from second embed", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.dailymotion.com/index.html");
             const content = {
                 html: () =>
@@ -176,6 +189,9 @@ describe("core/scraper/embed.js", function () {
                 "plugin://plugin.video.dailymotion_com/" +
                     "?mode=playVideo&url=foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

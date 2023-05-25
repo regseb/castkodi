@@ -6,6 +6,7 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/jv.js";
 
 describe("core/scraper/jv.js", function () {
@@ -46,9 +47,12 @@ describe("core/scraper/jv.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon
+            const stubFetch = sinon
                 .stub(globalThis, "fetch")
                 .resolves(Response.json({ options: { video: "foo" } }));
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
 
             const url = new URL("https://www.jeuxvideo.com/bar");
             const content = {
@@ -70,10 +74,12 @@ describe("core/scraper/jv.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(stubFetch.callCount, 1);
+            assert.deepEqual(stubFetch.firstCall.args, [
                 new URL("https://www.jeuxvideo.com/baz/qux.php"),
             ]);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
         });
     });
 });

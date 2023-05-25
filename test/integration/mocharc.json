@@ -1,5 +1,9 @@
 {
-  "require": ["test/polyfill.js", "test/hook/global.js"],
+  "require": [
+    "test/polyfill.js",
+    "test/hook/global.js",
+    "test/hook/integration.js"
+  ],
   "spec": "test/integration/**/*.js",
   "timeout": 0
 }

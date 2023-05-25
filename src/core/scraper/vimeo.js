@@ -6,8 +6,36 @@
  */
 /* eslint-disable require-await */
 
-import * as plugin from "../plugin/vimeo.js";
+import { kodi } from "../jsonrpc/kodi.js";
+import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
+import * as vimeoPlugin from "../plugin/vimeo.js";
 import { matchPattern } from "../tools/matchpattern.js";
+
+/**
+ * Répartit une vidéo Vimeo à un plugin de Kodi.
+ *
+ * @param {string}           videoId L'identifiant de la vidéo Vimeo.
+ * @param {string|undefined} hash    L'éventuel <em>hash</em> pour accéder à une
+ *                                   vidéo non-listée.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
+ */
+const dispatch = async function (videoId, hash) {
+    const addons = new Set(await kodi.addons.getAddons("video"));
+    if (addons.has("plugin.video.vimeo")) {
+        return vimeoPlugin.generateUrl(videoId, hash);
+    }
+    if (addons.has("plugin.video.sendtokodi")) {
+        return sendtokodiPlugin.generateUrl(
+            new URL(
+                `https://vimeo.com/${videoId}` +
+                    (undefined === hash ? "" : `/${hash}`),
+            ),
+        );
+    }
+    // Envoyer par défaut au plugin Vimeo.
+    return vimeoPlugin.generateUrl(videoId, hash);
+};
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi. Seul les
@@ -20,9 +48,6 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                            <em>fichier</em>.
  */
 const action = async function ({ pathname, searchParams }) {
-    return plugin.generateUrl(
-        pathname.slice(7),
-        searchParams.get("h") ?? undefined,
-    );
+    return dispatch(pathname.slice(7), searchParams.get("h") ?? undefined);
 };
 export const extract = matchPattern(action, "*://player.vimeo.com/video/*");

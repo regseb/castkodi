@@ -13,7 +13,6 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Labeller: YouTube", function () {
     it("should return video label", async function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         const options = { depth: false, incognito: false };
@@ -165,7 +164,6 @@ describe("Labeller: YouTube", function () {
 
     it("should return mix label from YouTube Music", async function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
 
         const url = new URL(
             "https://music.youtube.com/watch?v=9bZkp7q19f0&list=RD9bZkp7q19f0",

@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: L'Internaute", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.linternaute.com/cinema/film" +
                 "/2462551-films-pixar-selection-des-meilleurs-et-liste-de" +
@@ -40,8 +36,6 @@ describe("Scraper: L'Internaute", function () {
     });
 
     it("should return video URL [template-iframe-youtube]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.linternaute.fr/cinema/pratique" +
                 "/2595113-alerte-rouge-a-partir-de-quel-age-voir-le-dernier" +

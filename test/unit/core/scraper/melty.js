@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/melty.js";
 
 describe("core/scraper/melty.js", function () {
@@ -57,6 +59,8 @@ describe("core/scraper/melty.js", function () {
         });
 
         it("should return URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.melty.fr/foo");
             const content = {
                 html: () =>
@@ -80,6 +84,9 @@ describe("core/scraper/melty.js", function () {
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

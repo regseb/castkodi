@@ -36,8 +36,8 @@ const action = async function (url, _content, options) {
 
     // Si le plugin SendToKodi est installé dans Kodi : lui envoyer l'URL pour
     // qu'il essaie d'en extraire une vidéo ou une musique.
-    const addons = await kodi.addons.getAddons("video");
-    if (addons.includes("plugin.video.sendtokodi")) {
+    const addons = new Set(await kodi.addons.getAddons("video"));
+    if (addons.has("plugin.video.sendtokodi")) {
         return plugin.generateUrl(url);
     }
 

@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Le Point", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.lepoint.fr/economie" +
                 "/desinformation-l-ue-accentue-la-pression-sur-les-geants-d" +
@@ -58,8 +54,6 @@ describe("Scraper: Le Point", function () {
     });
 
     it("should return video URL [iframe-youtube]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.lepoint.fr/pop-culture" +
                 "/tout-ce-qu-il-faut-savoir-sur-le-prochain-oss-117-" +

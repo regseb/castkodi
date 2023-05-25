@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/gamekult.js";
 
 describe("core/scraper/gamekult.js", function () {
@@ -45,6 +47,8 @@ describe("core/scraper/gamekult.js", function () {
         });
 
         it("should return video URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.gamekult.com/foo");
             const content = {
                 html: () =>
@@ -65,6 +69,9 @@ describe("core/scraper/gamekult.js", function () {
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

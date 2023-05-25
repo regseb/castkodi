@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/iframe.js";
 
 describe("core/scraper/iframe.js", function () {
@@ -56,6 +58,8 @@ describe("core/scraper/iframe.js", function () {
         });
 
         it("should return URL from iframe", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com/bar.html");
             const content = {
                 html: () =>
@@ -77,9 +81,14 @@ describe("core/scraper/iframe.js", function () {
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=baz",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return URL from second iframe", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.dailymotion.com/index.html");
             const content = {
                 html: () =>
@@ -101,6 +110,9 @@ describe("core/scraper/iframe.js", function () {
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

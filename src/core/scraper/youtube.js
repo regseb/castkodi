@@ -23,14 +23,14 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                            <em>fichier</em>.
  */
 const dispatchVideo = async function (videoId, { incognito }) {
-    const addons = await kodi.addons.getAddons("video");
-    if (addons.includes("plugin.video.youtube")) {
+    const addons = new Set(await kodi.addons.getAddons("video"));
+    if (addons.has("plugin.video.youtube")) {
         return youtubePlugin.generateVideoUrl(videoId, incognito);
     }
-    if (addons.includes("plugin.video.tubed")) {
+    if (addons.has("plugin.video.tubed")) {
         return tubedPlugin.generateVideoUrl(videoId);
     }
-    if (addons.includes("plugin.video.sendtokodi")) {
+    if (addons.has("plugin.video.sendtokodi")) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.youtube.com/watch?v=${videoId}`),
         );
@@ -50,14 +50,14 @@ const dispatchVideo = async function (videoId, { incognito }) {
  *                            <em>fichier</em>.
  */
 const dispatchPlaylist = async function (playlistId, { incognito }) {
-    const addons = await kodi.addons.getAddons("video");
-    if (addons.includes("plugin.video.youtube")) {
+    const addons = new Set(await kodi.addons.getAddons("video"));
+    if (addons.has("plugin.video.youtube")) {
         return youtubePlugin.generatePlaylistUrl(playlistId, incognito);
     }
-    if (addons.includes("plugin.video.tubed")) {
+    if (addons.has("plugin.video.tubed")) {
         return tubedPlugin.generatePlaylistUrl(playlistId);
     }
-    if (addons.includes("plugin.video.sendtokodi")) {
+    if (addons.has("plugin.video.sendtokodi")) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.youtube.com/playlist?list=${playlistId}`),
         );

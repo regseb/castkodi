@@ -5,8 +5,6 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
@@ -19,8 +17,6 @@ describe("Scraper: Facebook", function () {
     });
 
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://www.facebook.com/XBMC/videos/666/");
         const options = { depth: false, incognito: false };
 
@@ -81,8 +77,6 @@ describe("Scraper: Facebook", function () {
     });
 
     it("should return URL when video doesn't exist [opengraph]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://www.facebook.com/watch/?v=666");
         const options = { depth: false, incognito: false };
 
@@ -91,8 +85,6 @@ describe("Scraper: Facebook", function () {
     });
 
     it("should return URL when it isn't video [opengraph]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.facebook.com/watch/?x=315156812365737",
         );

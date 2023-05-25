@@ -6,6 +6,7 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/opengraph.js";
 
 describe("core/scraper/opengraph.js", function () {
@@ -153,6 +154,8 @@ describe("core/scraper/opengraph.js", function () {
         });
 
         it("should return plugin URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com");
             const content = {
                 html: () =>
@@ -175,6 +178,9 @@ describe("core/scraper/opengraph.js", function () {
                 file,
                 "plugin://plugin.video.twitch/?mode=play&channel_name=foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -322,6 +328,8 @@ describe("core/scraper/opengraph.js", function () {
         });
 
         it("should return plugin URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com");
             const content = {
                 html: () =>
@@ -345,6 +353,9 @@ describe("core/scraper/opengraph.js", function () {
                 file,
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["audio", "video"]);
         });
     });
 

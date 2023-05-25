@@ -115,9 +115,12 @@ describe("core/scrapers.js", function () {
         });
 
         it("should support URL", async function () {
-            const stub = sinon
+            const stubFetch = sinon
                 .stub(globalThis, "fetch")
                 .resolves(new Response(""));
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
 
             const url = new URL("http://www.dailymotion.com/video/foo");
             const options = { depth: false, incognito: false };
@@ -128,15 +131,20 @@ describe("core/scrapers.js", function () {
                 `"${file}"?.startsWith(...)`,
             );
 
-            assert.equal(stub.callCount, 1);
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
         });
 
         it("should support uppercase URL", async function () {
-            const stub = sinon
+            const stubFetch = sinon
                 .stub(globalThis, "fetch")
                 .resolves(new Response(""));
+            const stubGetAddons = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([]);
 
-            const url = new URL("HTTPS://PLAYER.VIMEO.COM/VIDEO/foo");
+            const url = new URL("HTTPS://PLAYER.VIMEO.COM/VIDEO/FOO");
             const options = { depth: false, incognito: false };
 
             const file = await extract(url, options);
@@ -145,7 +153,9 @@ describe("core/scrapers.js", function () {
                 `"${file}"?.startsWith(...)`,
             );
 
-            assert.equal(stub.callCount, 1);
+            assert.equal(stubFetch.callCount, 1);
+            assert.equal(stubGetAddons.callCount, 1);
+            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
         });
     });
 });

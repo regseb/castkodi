@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/futurasciences.js";
 
 describe("core/scraper/futurasciences.js", function () {
@@ -62,6 +64,8 @@ describe("core/scraper/futurasciences.js", function () {
         });
 
         it("should return URL from iframe", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.futura-sciences.com/foo");
             const content = {
                 html: () =>
@@ -81,9 +85,14 @@ describe("core/scraper/futurasciences.js", function () {
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return URL from iframe with data-src", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.futura-sciences.com/foo");
             const content = {
                 html: () =>
@@ -107,9 +116,14 @@ describe("core/scraper/futurasciences.js", function () {
                 "plugin://plugin.video.dailymotion_com/" +
                     "?mode=playVideo&url=quux",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return URL from vsly-player", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.futura-sciences.com/foo");
             const content = {
                 html: () =>
@@ -130,6 +144,9 @@ describe("core/scraper/futurasciences.js", function () {
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

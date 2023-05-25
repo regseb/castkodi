@@ -33,21 +33,27 @@ export const Addons = class {
     /**
      * Retourne une liste d'addons gérant un type de contenu.
      *
-     * @param {string} content Le type de contenu géré par les addons à
-     *                         retourner (<code>"unknown"</code>,
-     *                         <code>"video"</code>, <code>"audio"</code>,
-     *                         <code>"image"</code> ou
-     *                         <code>"executable"</code>).
+     * @param {...string} contents Le type de contenu géré par les addons à
+     *                             retourner (<code>"unknown"</code>,
+     *                             <code>"video"</code>, <code>"audio"</code>,
+     *                             <code>"image"</code> ou
+     *                             <code>"executable"</code>).
      * @returns {Promise<string[]>} Une promesse contenant les identifiants des
      *                              addons.
      */
-    async getAddons(content) {
-        const results = await this.#kodi.send("Addons.GetAddons", {
-            content,
-            enabled: true,
-        });
-        // Gérer le cas où la propriété "addons" n'est pas présente (quand aucun
-        // addon est retourné).
-        return results.addons?.map((a) => a.addonid) ?? [];
+    async getAddons(...contents) {
+        const addons = [];
+        for (const content of contents) {
+            const results = await this.#kodi.send("Addons.GetAddons", {
+                content,
+                enabled: true,
+            });
+            // Gérer le cas où la propriété "addons" n'est pas présente (quand
+            // aucun addon est retourné).
+            if (undefined !== results.addons) {
+                addons.push(results.addons.map((a) => a.addonid));
+            }
+        }
+        return addons.flat();
     }
 };

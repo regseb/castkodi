@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Dumpert", function () {
     it("should return video URL [opengraph]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://www.dumpert.nl/item/7924631_3a727e30");
         const options = { depth: false, incognito: false };
 
@@ -25,8 +21,6 @@ describe("Scraper: Dumpert", function () {
     });
 
     it("should return video URL when protocol is HTTP [opengraph]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("http://www.dumpert.nl/item/7924631_3a727e30");
         const options = { depth: false, incognito: false };
 
@@ -39,8 +33,6 @@ describe("Scraper: Dumpert", function () {
     });
 
     it("should return video URL from old page [opengraph]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.dumpert.nl/mediabase/7248279/47066e59" +
                 "/wheelie_in_ny.html",

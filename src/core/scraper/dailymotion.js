@@ -6,8 +6,31 @@
  */
 /* eslint-disable require-await */
 
-import * as plugin from "../plugin/dailymotion.js";
+import { kodi } from "../jsonrpc/kodi.js";
+import * as dailymotionPlugin from "../plugin/dailymotion.js";
+import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
 import { matchPattern } from "../tools/matchpattern.js";
+
+/**
+ * Répartit une vidéo Dailymotion à un plugin de Kodi.
+ *
+ * @param {string} videoId L'identifiant de la vidéo Dailymotion.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
+ */
+const dispatch = async function (videoId) {
+    const addons = new Set(await kodi.addons.getAddons("video"));
+    if (addons.has("plugin.video.dailymotion_com")) {
+        return dailymotionPlugin.generateUrl(videoId);
+    }
+    if (addons.has("plugin.video.sendtokodi")) {
+        return sendtokodiPlugin.generateUrl(
+            new URL(`https://www.dailymotion.com/video/${videoId}`),
+        );
+    }
+    // Envoyer par défaut au plugin Dailymotion
+    return dailymotionPlugin.generateUrl(videoId);
+};
 
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
@@ -17,7 +40,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                            <em>fichier</em>.
  */
 const actionVideo = async function ({ pathname }) {
-    return plugin.generateUrl(pathname.slice(7));
+    return dispatch(pathname.slice(7));
 };
 export const extractVideo = matchPattern(
     actionVideo,
@@ -32,7 +55,7 @@ export const extractVideo = matchPattern(
  *                            <em>fichier</em>.
  */
 const actionMinify = async function ({ pathname }) {
-    return plugin.generateUrl(pathname.slice(1));
+    return dispatch(pathname.slice(1));
 };
 export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
 
@@ -44,7 +67,7 @@ export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
  *                            <em>fichier</em>.
  */
 const actionEmbed = async function ({ pathname }) {
-    return plugin.generateUrl(pathname.slice(13));
+    return dispatch(pathname.slice(13));
 };
 export const extractEmbed = matchPattern(
     actionEmbed,
@@ -76,7 +99,7 @@ const actionPlayerScript = async function (_url, content) {
     if (null === script) {
         return undefined;
     }
-    return plugin.generateUrl(script.dataset.video);
+    return dispatch(script.dataset.video);
 };
 export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
 
@@ -91,7 +114,7 @@ export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
  */
 const actionPlayerIframe = async function ({ searchParams }) {
     return searchParams.has("video")
-        ? plugin.generateUrl(searchParams.get("video"))
+        ? dispatch(searchParams.get("video"))
         : undefined;
 };
 export const extractPlayerIframe = matchPattern(

@@ -5,14 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Futura Sciences", function () {
     it("should return page undefined when there isn't video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.futura-sciences.com/tech/telecharger/kodi-287",
         );
@@ -23,8 +19,6 @@ describe("Scraper: Futura Sciences", function () {
     });
 
     it("should return undefined URL when it's a image", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.futura-sciences.com/favicon-16x16.png",
         );

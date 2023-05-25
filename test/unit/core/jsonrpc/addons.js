@@ -32,6 +32,39 @@ describe("core/jsonrpc/addons.js", function () {
             ]);
         });
 
+        it("should return addons from two contents", async function () {
+            const kodi = new Kodi();
+            const stub = sinon
+                .stub(kodi, "send")
+                .onFirstCall()
+                .resolves({
+                    addons: [
+                        { addonid: "foo", type: "bar" },
+                        { addonid: "baz", type: "bar" },
+                    ],
+                    limits: { end: 2, start: 0, total: 2 },
+                })
+                .onSecondCall()
+                .resolves({
+                    addons: [{ addonid: "qux", type: "quux" }],
+                    limits: { end: 2, start: 0, total: 2 },
+                });
+
+            const addons = new Addons(kodi);
+            const result = await addons.getAddons("bar", "quux");
+            assert.deepEqual(result, ["foo", "baz", "qux"]);
+
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, [
+                "Addons.GetAddons",
+                { content: "bar", enabled: true },
+            ]);
+            assert.deepEqual(stub.secondCall.args, [
+                "Addons.GetAddons",
+                { content: "quux", enabled: true },
+            ]);
+        });
+
         it("should return no addon", async function () {
             const kodi = new Kodi();
             const stub = sinon.stub(kodi, "send").resolves({
