@@ -15,9 +15,9 @@ describe("Scraper: Le Point", function () {
                 "-internet-29-01-2019-2289710_28.php" +
                 "#xtmc=firefox&xtnp=1&xtcr=4",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -28,9 +28,9 @@ describe("Scraper: Le Point", function () {
                 "-scientifiques-18-02-2020-2363244_1925.php" +
                 "#xtmc=video&xtnp=7&xtcr=61",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x7rz0ur",
@@ -44,9 +44,9 @@ describe("Scraper: Le Point", function () {
                 "-scientifiques-18-02-2020-2363244_1925.php" +
                 "#xtmc=video&xtnp=7&xtcr=61",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x7rz0ur",
@@ -59,9 +59,9 @@ describe("Scraper: Le Point", function () {
                 "/tout-ce-qu-il-faut-savoir-sur-le-prochain-oss-117-" +
                 "-20-02-2020-2363643_2920.php",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +

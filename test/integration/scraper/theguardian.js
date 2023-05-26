@@ -14,9 +14,9 @@ describe("Scraper: The Guardian", function () {
                 "/firefox-mozilla-fights-back-against-google-chrome-dominance" +
                 "-privacy-fears",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -26,9 +26,9 @@ describe("Scraper: The Guardian", function () {
                 "/dont-let-it-drop-peru-win-the-first-ever-balloon-world-cup" +
                 "-video",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -41,9 +41,9 @@ describe("Scraper: The Guardian", function () {
             "https://www.theguardian.com/news/audio/2020/feb/25" +
                 "/could-coronavirus-be-china-chernobyl-moment-podcast",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://audio.guim.co.uk/2020/02/24-70184-200225TIFchina.mp3",

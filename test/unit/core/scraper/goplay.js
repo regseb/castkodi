@@ -19,7 +19,7 @@ describe("core/scraper/goplay.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.goplay.be/video/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,7 +29,7 @@ describe("core/scraper/goplay.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -41,7 +41,7 @@ describe("core/scraper/goplay.js", function () {
             );
 
             const url = new URL("https://www.goplay.be/video/baz");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -55,7 +55,7 @@ describe("core/scraper/goplay.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "http://foo.be/bar.m3u8");
 
             assert.equal(stub.callCount, 1);

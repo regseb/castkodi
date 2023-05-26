@@ -25,9 +25,9 @@ describe("core/scrapers.js", function () {
                 .resolves([]);
 
             const url = new URL("https://foo.com/bar.svg");
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await extract(url, options);
+            const file = await extract(url, context);
             assert.equal(file, undefined);
 
             assert.equal(stubFetch.callCount, 1);
@@ -52,9 +52,9 @@ describe("core/scrapers.js", function () {
                 .resolves([]);
 
             const url = new URL("https://foo.com/bar");
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await extract(url, options);
+            const file = await extract(url, context);
             assert.equal(file, undefined);
 
             assert.equal(stubFetch.callCount, 1);
@@ -76,9 +76,9 @@ describe("core/scrapers.js", function () {
             );
 
             const url = new URL("https://foo.com/bar.html");
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await extract(url, options);
+            const file = await extract(url, context);
             assert.equal(file, "https://foo.com/baz.mp4");
 
             assert.equal(stub.callCount, 1);
@@ -103,9 +103,9 @@ describe("core/scrapers.js", function () {
             );
 
             const url = new URL("https://bar.org/baz.html");
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await extract(url, options);
+            const file = await extract(url, context);
             assert.equal(file, "https://bar.org/foo.mp4");
 
             assert.equal(stub.callCount, 1);
@@ -123,9 +123,9 @@ describe("core/scrapers.js", function () {
                 .resolves([]);
 
             const url = new URL("http://www.dailymotion.com/video/foo");
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await extract(url, options);
+            const file = await extract(url, context);
             assert.ok(
                 file?.startsWith("plugin://plugin.video.dailymotion_com/"),
                 `"${file}"?.startsWith(...)`,
@@ -145,9 +145,9 @@ describe("core/scrapers.js", function () {
                 .resolves([]);
 
             const url = new URL("HTTPS://PLAYER.VIMEO.COM/VIDEO/FOO");
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await extract(url, options);
+            const file = await extract(url, context);
             assert.ok(
                 file?.startsWith("plugin://plugin.video.vimeo/"),
                 `"${file}"?.startsWith(...)`,

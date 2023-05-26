@@ -12,9 +12,9 @@ describe("Scraper: Apple Podcasts", function () {
         const url = new URL(
             "https://podcasts.apple.com/us/podcast/culture-1999/id",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -28,9 +28,9 @@ describe("Scraper: Apple Podcasts", function () {
         const doc = new DOMParser().parseFromString(text, "text/html");
 
         const url = new URL(doc.querySelector(".tracks a").href);
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.startsWith("https://rf.proxycast.org/"),
             `"${file}"?.startsWith(...) from ${url}`,

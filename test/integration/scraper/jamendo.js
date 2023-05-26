@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Jamendo", function () {
     it("should return undefined when it isn't a sound", async function () {
         const url = new URL("https://www.jamendo.com/track/404/not-found");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -20,9 +20,9 @@ describe("Scraper: Jamendo", function () {
         const url = new URL(
             "https://www.jamendo.com/track/3431/avant-j-etais-trappeur",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.startsWith(
                 "https://prod-1.storage.jamendo.com/?trackid=3431&format=mp31",
@@ -35,9 +35,9 @@ describe("Scraper: Jamendo", function () {
         const url = new URL(
             "http://www.jamendo.com/track/33454/vacance-au-camping",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.startsWith(
                 "https://prod-1.storage.jamendo.com/?trackid=33454&format=mp31",

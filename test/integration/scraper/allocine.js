@@ -10,17 +10,17 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: AlloCiné", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.allocine.fr/video/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return video URL", async function () {
         const url = new URL("https://www.allocine.fr/video/video-19577157/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://fr.vid.web.acsta.net/nmedia/33/18/02/23/15" +
@@ -33,9 +33,9 @@ describe("Scraper: AlloCiné", function () {
             "http://www.allocine.fr/video" +
                 "/player_gen_cmedia=19131078&cfilm=147912.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://fr.vid.web.acsta.net/nmedia/s3/33/18/78/52/54" +
@@ -48,9 +48,9 @@ describe("Scraper: AlloCiné", function () {
             "https://www.allocine.fr/article" +
                 "/fichearticle_gen_carticle=18706016.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://fr.vid.web.acsta.net/nmedia/33/19/10/22/06" +

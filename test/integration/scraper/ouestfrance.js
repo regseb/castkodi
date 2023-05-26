@@ -24,9 +24,9 @@ describe("Scraper: Ouest-France", function () {
                 "/bd-grand-prix-d-angouleme-catherine-meurisse-chris-ware-et" +
                 "-emmanuel-guibert-finalistes-6690989",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -36,9 +36,9 @@ describe("Scraper: Ouest-France", function () {
                 "/festival-de-cannes-spike-lee-cineaste-phare-de-la-cause" +
                 "-noire-president-du-jury-6688060",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.endsWith(
                 "/cd/be/cdbeda603ae5805ab0561403d5e1afabcd685162.mp4",
@@ -56,9 +56,9 @@ describe("Scraper: Ouest-France", function () {
                     "/coronavirus-en-france-le-nombre-de-cas-detectes" +
                     "-augmente-plus-que-le-nombre-de-tests-effectues-6930380",
             );
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await extract(url, options);
+            const file = await extract(url, context);
             assert.ok(
                 file?.endsWith(
                     "/d7/5d/d75df81c7abb517d514bff22ab74816fa86a3850.mp4",

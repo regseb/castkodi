@@ -12,9 +12,9 @@ describe("Scraper: HookTube", function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL("https://hooktube.com/watch?v=LACbVhgtx9I");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -24,9 +24,9 @@ describe("Scraper: HookTube", function () {
 
     it("should return embed video id [youtube]", async function () {
         const url = new URL("https://hooktube.com/embed/3lPSQ5KjamI");
-        const options = { depth: false, incognito: true };
+        const context = { depth: false, incognito: true };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +

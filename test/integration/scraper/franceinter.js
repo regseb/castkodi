@@ -13,9 +13,9 @@ describe("Scraper: France Inter", function () {
             "https://www.franceinter.fr/emissions/blockbusters" +
                 "/blockbusters-19-juillet-2019",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://media.radiofrance-podcast.net/podcast09" +

@@ -10,17 +10,17 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Vimeo", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://vimeo.com/channels");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return video id [opengraph-vimeo]", async function () {
         const url = new URL("https://vimeo.com/228786490");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vimeo/play/?video_id=228786490:a81341a31d",
@@ -29,9 +29,9 @@ describe("Scraper: Vimeo", function () {
 
     it("should return video id when protocol is HTTP [opengraph-vimeo]", async function () {
         const url = new URL("http://vimeo.com/228786490");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vimeo/play/?video_id=228786490:a81341a31d",
@@ -40,9 +40,9 @@ describe("Scraper: Vimeo", function () {
 
     it("should return video id from groups video [opengraph-vimeo]", async function () {
         const url = new URL("https://vimeo.com/groups/motion/videos/93206523");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vimeo/play/?video_id=93206523:d496437eee",
@@ -51,9 +51,9 @@ describe("Scraper: Vimeo", function () {
 
     it("should return video id from unlisted video [opengraph-vimeo]", async function () {
         const url = new URL("https://vimeo.com/304887422/34c51f7a09");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vimeo/play/?video_id=304887422:34c51f7a09",
@@ -62,9 +62,9 @@ describe("Scraper: Vimeo", function () {
 
     it("should return embed video id", async function () {
         const url = new URL("https://player.vimeo.com/video/228786490");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vimeo/play/?video_id=228786490",
@@ -75,9 +75,9 @@ describe("Scraper: Vimeo", function () {
         const url = new URL(
             "https://player.vimeo.com/video/304887422?autoplay=1&h=34c51f7a09",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vimeo/play/?video_id=304887422:34c51f7a09",

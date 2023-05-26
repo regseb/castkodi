@@ -18,7 +18,7 @@ describe("core/scraper/vidlox.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://vidlox.me/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -30,13 +30,13 @@ describe("core/scraper/vidlox.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
             const url = new URL("https://vidlox.me/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -52,7 +52,7 @@ describe("core/scraper/vidlox.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.baz/qux.m3u8");
         });
     });

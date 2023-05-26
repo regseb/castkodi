@@ -24,16 +24,16 @@ const API_URL = "https://player.webservices.francetelevisions.fr/v1/videos/";
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une page de France tv.
- * @param {Object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML.
+ * @param {URL}      _url          L'URL d'une page de France tv.
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const action = async function (_url, content) {
-    const doc = await content.html();
+const action = async function (_url, metadata) {
+    const doc = await metadata.html();
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = UUID_REGEXP.exec(script.text);
         if (null === result) {

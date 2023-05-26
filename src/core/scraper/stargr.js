@@ -19,16 +19,16 @@ const URL_REGEXP = /url: '(?<url>https:\/\/.*\/manifest.m3u8)'/u;
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une vidéo de StarGR.
- * @param {Object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promessecontenant le
- *                                document HTML.
+ * @param {URL}      _url          L'URL d'une vidéo de StarGR.
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionTv = async function (_url, content) {
-    const doc = await content.html();
+const actionTv = async function (_url, metadata) {
+    const doc = await metadata.html();
     const div = doc.querySelector("div[data-plugin-bitmovinv5]");
     if (null === div) {
         return undefined;
@@ -43,20 +43,20 @@ export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url              L'URL d'une vidéo de StarGR.
- * @param {Object}   content           Le contenu de l'URL.
- * @param {Function} content.html      La fonction retournant la promesse
+ * @param {Object}   metadata          Les métadonnées de l'URL.
+ * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML.
- * @param {Object}   options           Les options de l'extraction.
- * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
- * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionVideo = async function (_url, content, options) {
-    const doc = await content.html();
+const actionVideo = async function (_url, metadata, context) {
+    const doc = await metadata.html();
 
     // Ne pas utiliser le scraper iframe car il est exécuté trop tard.
     // La page contient des microdonnées sur la vidéo, mais c'est l'URL de
@@ -64,8 +64,8 @@ const actionVideo = async function (_url, content, options) {
     // iframe étant exécuté après celui sur le ldjson, il faut gérer l'iframe
     // avant le scraper ldjson.
     const iframe = doc.querySelector("iframe#yt-player");
-    if (null !== iframe && !options.depth) {
-        return metaExtract(new URL(iframe.src), { ...options, depth: true });
+    if (null !== iframe && !context.depth) {
+        return metaExtract(new URL(iframe.src), { ...context, depth: true });
     }
 
     for (const script of doc.querySelectorAll("script:not([src])")) {

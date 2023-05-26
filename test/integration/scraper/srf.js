@@ -12,9 +12,9 @@ describe("Scraper: Play SRF", function () {
         const url = new URL(
             "https://www.srf.ch/hilfe/kontakt?srg_shorturl_source=kontakt",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -23,9 +23,9 @@ describe("Scraper: Play SRF", function () {
             "https://www.srf.ch/play/tv/foo/video/bar" +
                 "?urn=urn:srf:video:d5cb6b79-cc9f-4e29-82fb-64e8283f02e2",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -35,9 +35,9 @@ describe("Scraper: Play SRF", function () {
                 "/bei-spitzenkoechin-tanja-grandits" +
                 "?urn=urn:srf:video:05fe9231-6f59-46e1-bcd1-82c3d30f9ccd",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 new URL(file).pathname.endsWith("/master.m3u8"),
@@ -50,9 +50,9 @@ describe("Scraper: Play SRF", function () {
             "https://www.srf.ch/play/tv/redirect/detail" +
                 "/074231f3-96d9-4ee5-8baa-c029e774caeb",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 new URL(file).pathname.endsWith("/master.m3u8"),

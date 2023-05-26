@@ -24,9 +24,9 @@ describe("Scraper: Arte", function () {
         const url = new URL(
             "https://www.arte.tv/fr/videos/067125-020-A/bits-top-list/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -42,9 +42,9 @@ describe("Scraper: Arte", function () {
         const video = json.value.data.find((d) => !d.kind.isCollection);
 
         const url = new URL(video.url, "https://www.arte.tv/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.endsWith(".mp4") || file?.endsWith(".m3u8"),
             `"${file}"?.endsWith(...) from ${url}`,
@@ -63,9 +63,9 @@ describe("Scraper: Arte", function () {
         const video = json.value.data.find((d) => !d.kind.isCollection);
 
         const url = new URL(video.url, "https://www.arte.tv/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.endsWith(".mp4") || file?.endsWith(".m3u8"),
             `"${file}"?.endsWith(...) from ${url}`,

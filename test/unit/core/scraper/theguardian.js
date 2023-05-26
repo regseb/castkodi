@@ -15,25 +15,25 @@ describe("core/scraper/theguardian.js", function () {
             const url = new URL(
                 "https://support.theguardian.com/eu/contribute",
             );
-            const content = undefined;
-            const options = { depth: false, incognito: false };
+            const metadata = undefined;
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth", async function () {
             const url = new URL("https://www.theguardian.com/foo");
-            const content = undefined;
-            const options = { depth: true, incognito: false };
+            const metadata = undefined;
+            const context = { depth: true, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.theguardian.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -42,9 +42,9 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -52,7 +52,7 @@ describe("core/scraper/theguardian.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.theguardian.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -64,9 +64,9 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -81,7 +81,7 @@ describe("core/scraper/theguardian.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.theguardian.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -93,9 +93,9 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -112,16 +112,16 @@ describe("core/scraper/theguardian.js", function () {
             const url = new URL(
                 "https://support.theguardian.com/eu/contribute",
             );
-            const content = undefined;
-            const options = { depth: false, incognito: false };
+            const metadata = undefined;
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when it isn't an audio", async function () {
             const url = new URL("https://www.theguardian.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -130,15 +130,15 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
             const url = new URL("https://www.theguardian.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -150,9 +150,9 @@ describe("core/scraper/theguardian.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, "https://bar.com/baz.mp3");
         });
     });

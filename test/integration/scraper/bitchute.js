@@ -20,17 +20,17 @@ describe("Scraper: BitChute", function () {
 
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.bitchute.com/category/science/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return video URL [video]", async function () {
         const url = new URL("https://www.bitchute.com/video/dz5JcCZnJMge/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.endsWith(".bitchute.com/hU2elaB5u3kB/dz5JcCZnJMge.mp4"),
             `"${file}"?.endsWith(...)`,

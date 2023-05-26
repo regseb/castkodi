@@ -14,9 +14,9 @@ describe("Scraper: 20 Minutes", function () {
                 "/2694715-20200114-mozilla-devoile-son-assistant-virtuel" +
                 "-pense-pour-firefox",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -25,9 +25,9 @@ describe("Scraper: 20 Minutes", function () {
             "https://www.20minutes.fr/sciences" +
                 "/2697215-20200117-ariane-5-succes-premier-lancement-annee",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.endsWith(
                 "/59/6b/596b282e57e592e47df9a6f0434f3281f82b79df.mp4",

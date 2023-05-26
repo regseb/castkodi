@@ -28,17 +28,17 @@ describe("Scraper: Rumble", function () {
             "https://rumble.com/v1k2hrq-nasa-gets-set-to-crash-spacecraft" +
                 "-into-asteroid.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, "https://sp.rmbl.ws/s8/2/2/5/p/N/25pNf.haa.mp4");
     });
 
     it("should return video URL from embed", async function () {
         const url = new URL("https://rumble.com/embed/v1gga0u/?pub=4");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, "https://sp.rmbl.ws/s8/2/-/p/1/G/-p1Gf.haa.mp4");
     });
 });

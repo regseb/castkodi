@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Blog Talk Radio", function () {
     it("should return undefined when it isn't an audio", async function () {
         const url = new URL("https://www.blogtalkradio.com/technology");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -22,9 +22,9 @@ describe("Scraper: Blog Talk Radio", function () {
                 "/7-mozilla-firefox-add-ons-to-help-your-small-business" +
                 "-stretch-a-dollar-to-save",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://www.blogtalkradio.com/stretchingadollar/2011/03/02" +
@@ -38,9 +38,9 @@ describe("Scraper: Blog Talk Radio", function () {
             "http://www.blogtalkradio.com/firefoxnews-online/2011/06/13" +
                 "/firefoxnews-online",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://www.blogtalkradio.com/firefoxnews-online/2011/06/13" +

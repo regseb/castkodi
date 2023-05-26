@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: YouTube", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.youtube.com/watch?x=123456");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -26,9 +26,9 @@ describe("Scraper: YouTube", function () {
             "https://www.youtube.com/watch" +
                 "?v=avt4ZWlVjdY&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -44,9 +44,9 @@ describe("Scraper: YouTube", function () {
             "https://www.youtube.com/watch" +
                 "?v=avt4ZWlVjdY&list=PL7nedIL_qbuZBS5ZAiGkjB1LW9C3zZvum",
         );
-        const options = { depth: false, incognito: true };
+        const context = { depth: false, incognito: true };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -58,9 +58,9 @@ describe("Scraper: YouTube", function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
 
         const url = new URL("https://www.youtube.com/watch?v=sWfAtMQa_yo");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -70,9 +70,9 @@ describe("Scraper: YouTube", function () {
 
     it("should return undefined when it isn't a video from mobile", async function () {
         const url = new URL("https://m.youtube.com/watch?a=dQw4w9WgXcQ");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -80,9 +80,9 @@ describe("Scraper: YouTube", function () {
         browser.storage.local.set({ "youtube-playlist": "playlist" });
 
         const url = new URL("https://m.youtube.com/watch?v=dQw4w9WgXcQ");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -92,9 +92,9 @@ describe("Scraper: YouTube", function () {
 
     it("should return undefined when it isn't a video from music", async function () {
         const url = new URL("https://music.youtube.com/watch?m=abcdef");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -105,9 +105,9 @@ describe("Scraper: YouTube", function () {
             "https://music.youtube.com/watch" +
                 "?v=IOqxarVWKRs&list=RDAMVMIOqxarVWKRs",
         );
-        const options = { depth: false, incognito: true };
+        const context = { depth: false, incognito: true };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -117,9 +117,9 @@ describe("Scraper: YouTube", function () {
 
     it("should return undefined when it isn't a playlist", async function () {
         const url = new URL("https://www.youtube.com/playlist?v=dQw4w9WgXcQ");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -130,9 +130,9 @@ describe("Scraper: YouTube", function () {
             "https://www.youtube.com/playlist" +
                 "?list=PLd8UclkuwTj9vaRGP3859UHcdmlrkAd-9",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -145,9 +145,9 @@ describe("Scraper: YouTube", function () {
         const url = new URL(
             "https://m.youtube.com/playlist?video=PL3A5849BDE0581B19",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -157,9 +157,9 @@ describe("Scraper: YouTube", function () {
         const url = new URL(
             "https://m.youtube.com/playlist?list=PL3A5849BDE0581B19",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -170,9 +170,9 @@ describe("Scraper: YouTube", function () {
 
     it("should return embed video id", async function () {
         const url = new URL("https://www.youtube.com/embed/v3gefWEggSc");
-        const options = { depth: false, incognito: true };
+        const context = { depth: false, incognito: true };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -184,9 +184,9 @@ describe("Scraper: YouTube", function () {
         const url = new URL(
             "https://www.youtube-nocookie.com/embed/u9gVaeb9le4",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -196,9 +196,9 @@ describe("Scraper: YouTube", function () {
 
     it("should return video id from tiny URL", async function () {
         const url = new URL("https://youtu.be/NSFbekvYOlI");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -208,9 +208,9 @@ describe("Scraper: YouTube", function () {
 
     it("should return video id from short", async function () {
         const url = new URL("https://www.youtube.com/shorts/Oq98KDthqyk");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -222,9 +222,9 @@ describe("Scraper: YouTube", function () {
         const url = new URL(
             "https://youtube.com/shorts/rP34nI3E3bc?feature=share",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +

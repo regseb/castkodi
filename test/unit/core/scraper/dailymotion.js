@@ -111,9 +111,9 @@ describe("core/scraper/dailymotion.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://foo.com/");
-            const content = { html: () => Promise.resolve(undefined) };
+            const metadata = { html: () => Promise.resolve(undefined) };
 
-            const file = await scraper.extractPlayerScript(url, content);
+            const file = await scraper.extractPlayerScript(url, metadata);
             assert.equal(file, undefined);
 
             assert.equal(stub.callCount, 0);
@@ -123,7 +123,7 @@ describe("core/scraper/dailymotion.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://foo.com/");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -133,7 +133,7 @@ describe("core/scraper/dailymotion.js", function () {
                     ),
             };
 
-            const file = await scraper.extractPlayerScript(url, content);
+            const file = await scraper.extractPlayerScript(url, metadata);
             assert.equal(file, undefined);
 
             assert.equal(stub.callCount, 0);
@@ -143,7 +143,7 @@ describe("core/scraper/dailymotion.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://foo.com/");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -158,7 +158,7 @@ describe("core/scraper/dailymotion.js", function () {
                     ),
             };
 
-            const file = await scraper.extractPlayerScript(url, content);
+            const file = await scraper.extractPlayerScript(url, metadata);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=qux",

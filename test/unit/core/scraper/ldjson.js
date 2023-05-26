@@ -13,16 +13,16 @@ describe("core/scraper/ldjson.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://foo.com");
-            const content = { html: () => Promise.resolve(undefined) };
-            const options = { depth: false };
+            const metadata = { html: () => Promise.resolve(undefined) };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't microdata", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -31,15 +31,15 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when JSON is invalid", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -50,15 +50,15 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't type", async function () {
             const url = new URL("http://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -74,15 +74,15 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't content", async function () {
             const url = new URL("http://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -97,15 +97,15 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return contentUrl", async function () {
             const url = new URL("http://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -121,15 +121,15 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "https://bar.com/baz.mkv");
         });
 
         it("should return contentUrl in children object", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -150,15 +150,15 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "https://baz.com/qux.flac");
         });
 
         it("should return contentUrl in children array", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -178,9 +178,9 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "https://bar.io/baz.mp3");
         });
 
@@ -188,7 +188,7 @@ describe("core/scraper/ldjson.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("http://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -211,9 +211,9 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=baz",
@@ -225,7 +225,7 @@ describe("core/scraper/ldjson.js", function () {
 
         it("should ignore embedUrl in depther", async function () {
             const url = new URL("http://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -243,9 +243,9 @@ describe("core/scraper/ldjson.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true };
+            const context = { depth: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
     });

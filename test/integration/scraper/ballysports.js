@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Bally Sports", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.ballysports.com/watch/vod/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -21,9 +21,9 @@ describe("Scraper: Bally Sports", function () {
             "https://www.ballysports.com/watch/vod" +
                 "/hunter-greene-has-made-a-habit-of-giving-back-to-kids",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://vod-i-01-ballysports.akamaized.net/Content/HLSv3/VOD" +

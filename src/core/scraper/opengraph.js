@@ -32,21 +32,21 @@ const SELECTORS = {
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url              L'URL d'une page quelconque.
- * @param {Object}   content           Le contenu de l'URL.
- * @param {Function} content.html      La fonction retournant la promesse
+ * @param {Object}   metadata          Les métadonnées de l'URL.
+ * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
  *                                     <code>undefined</code>.
- * @param {Object}   options           Les options de l'extraction.
- * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
- * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionVideo = async function (_url, content, options) {
-    const doc = await content.html();
+const actionVideo = async function (_url, metadata, context) {
+    const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
     }
@@ -62,8 +62,8 @@ const actionVideo = async function (_url, content, options) {
     if (null === type || type.content.startsWith("video/")) {
         return meta.content;
     }
-    if ("text/html" === type.content && !options.depth) {
-        return metaExtract(new URL(meta.content), { ...options, depth: true });
+    if ("text/html" === type.content && !context.depth) {
+        return metaExtract(new URL(meta.content), { ...context, depth: true });
     }
     return undefined;
 };
@@ -74,21 +74,21 @@ export const extractVideo = matchPattern(actionVideo, "*://*/*");
  *
  * @param {URL}      _url              L'URL d'une page quelconque avec
  *                                     peut-être des données Open Graph.
- * @param {Object}   content           Le contenu de l'URL.
- * @param {Function} content.html      La fonction retournant la promesse
+ * @param {Object}   metadata          Les métadonnées de l'URL.
+ * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
  *                                     <code>undefined</code>.
- * @param {Object}   options           Les options de l'extraction.
- * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
- * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionAudio = async function (_url, content, options) {
-    const doc = await content.html();
+const actionAudio = async function (_url, metadata, context) {
+    const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
     }
@@ -104,8 +104,8 @@ const actionAudio = async function (_url, content, options) {
     if (null === type || type.content.startsWith("audio/")) {
         return meta.content;
     }
-    if ("text/html" === type.content && !options.depth) {
-        return metaExtract(new URL(meta.content), { ...options, depth: true });
+    if ("text/html" === type.content && !context.depth) {
+        return metaExtract(new URL(meta.content), { ...context, depth: true });
     }
     return undefined;
 };
@@ -114,18 +114,18 @@ export const extractAudio = matchPattern(actionAudio, "*://*/*");
 /**
  * Extrait les informations nécessaire pour lire une vidéo ou un son sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une page quelconque avec peut-être des
- *                                données Open Graph « à la Twitter ».
- * @param {Object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML ou <code>undefined</code>.
+ * @param {URL}      _url          L'URL d'une page quelconque avec peut-être
+ *                                 des données Open Graph « à la Twitter ».
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML ou <code>undefined</code>.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  * @see https://developer.twitter.com/docs/twitter-for-websites/cards/overview
  */
-const actionTwitter = async function (_url, content) {
-    const doc = await content.html();
+const actionTwitter = async function (_url, metadata) {
+    const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
     }
@@ -138,18 +138,18 @@ export const extractTwitter = matchPattern(actionTwitter, "*://*/*");
 /**
  * Extrait les informations nécessaire pour lire une vidéo ou un son sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une page quelconque avec peut-être des
- *                                données Open Graph « à la Yandex ».
- * @param {Object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML ou <code>undefined</code>.
+ * @param {URL}      _url          L'URL d'une page quelconque avec peut-être
+ *                                 des données Open Graph « à la Yandex ».
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML ou <code>undefined</code>.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  * @see https://yandex.com/support/video/partners/open-graph.html
  */
-const actionYandex = async function (_url, content) {
-    const doc = await content.html();
+const actionYandex = async function (_url, metadata) {
+    const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
     }

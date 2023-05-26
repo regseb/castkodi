@@ -19,7 +19,7 @@ describe("core/scraper/flickr.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.flickr.com/photos/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,7 +29,7 @@ describe("core/scraper/flickr.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -43,7 +43,7 @@ describe("core/scraper/flickr.js", function () {
             );
 
             const url = new URL("https://www.flickr.com/photos/baz");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -58,7 +58,7 @@ describe("core/scraper/flickr.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.net/bar.mp4");
 
             assert.equal(stub.callCount, 1);

@@ -28,16 +28,16 @@ const API_URL =
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une vidéo Flickr.
- * @param {Object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML.
+ * @param {URL}      _url          L'URL d'une vidéo Flickr.
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const action = async function (_url, content) {
-    const doc = await content.html();
+const action = async function (_url, metadata) {
+    const doc = await metadata.html();
     const video = doc.querySelector("video");
     if (null === video) {
         return undefined;

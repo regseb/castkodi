@@ -21,9 +21,9 @@ describe("Labeller: Twitch", function () {
             "https://m.twitch.tv" +
                 doc.querySelector('[role="list"] a.tw-link').href,
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",
@@ -41,9 +41,9 @@ describe("Labeller: Twitch", function () {
 
     it("should return default label when channel is offline", async function () {
         const url = new URL("https://www.twitch.tv/nolife");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",
@@ -72,9 +72,9 @@ describe("Labeller: Twitch", function () {
             "https://m.twitch.tv" +
                 doc.querySelector('a.tw-link[href^="/videos/"]').href,
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",

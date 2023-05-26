@@ -69,17 +69,23 @@ const dispatchPlaylist = async function (playlistId, { incognito }) {
 /**
  * Extrait les informations nécessaire pour lire une vidéo / playlist sur Kodi.
  *
- * @param {URL}     url               L'URL d'une vidéo / playlist YouTube (ou
- *                                    Invidious / HookTube).
- * @param {Object}  _content          Le contenu de l'URL.
- * @param {Object}  options           Les options de l'extraction.
- * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
- *                                    en navigation privée.
+ * @param {URL}      url               L'URL d'une vidéo / playlist YouTube (ou
+ *                                     Invidious / HookTube).
+ * @param {Object}   _metadata         Les métadonnées de l'URL.
+ * @param {Function} _metadata.html    La fonction retournant la promesse
+ *                                     contenant le document HTML.
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionVideo = async function ({ searchParams }, _content, { incognito }) {
+const actionVideo = async function (
+    { searchParams },
+    _metadata,
+    { incognito },
+) {
     const config = await browser.storage.local.get(["youtube-playlist"]);
     if (
         searchParams.has("list") &&
@@ -103,18 +109,20 @@ export const extractVideo = matchPattern(
 /**
  * Extrait les informations nécessaire pour lire une playlist sur Kodi.
  *
- * @param {URL}     url               L'URL d'une playlist YouTube.
- * @param {Object}  _content          Le contenu de l'URL.
- * @param {Object}  options           Les options de l'extraction.
- * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
- *                                    en navigation privée.
+ * @param {URL}      url               L'URL d'une playlist YouTube.
+ * @param {Object}   _metadata         Les métadonnées de l'URL.
+ * @param {Function} _metadata.html    La fonction retournant la promesse
+ *                                     contenant le document HTML.
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
 const actionPlaylist = async function (
     { searchParams },
-    _content,
+    _metadata,
     { incognito },
 ) {
     return searchParams.has("list")
@@ -130,15 +138,17 @@ export const extractPlaylist = matchPattern(
  * Extrait les informations nécessaire pour lire une vidéo intégrée (un
  * <em>short</em> ou depuis un frontale alternatif) sur Kodi.
  *
- * @param {URL}     url               L'URL d'une vidéo YouTube intégrée.
- * @param {Object}  _content          Le contenu de l'URL.
- * @param {Object}  options           Les options de l'extraction.
- * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
- *                                    en navigation privée.
+ * @param {URL}      url               L'URL d'une vidéo YouTube intégrée.
+ * @param {Object}   _metadata         Les métadonnées de l'URL.
+ * @param {Function} _metadata.html    La fonction retournant la promesse
+ *                                     contenant le document HTML.
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionEmbed = async function ({ pathname }, _content, { incognito }) {
+const actionEmbed = async function ({ pathname }, _metadata, { incognito }) {
     return dispatchVideo(pathname.slice(pathname.indexOf("/", 1) + 1), {
         incognito,
     });
@@ -157,15 +167,17 @@ export const extractEmbed = matchPattern(
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}     url               L'URL minifiée d'une vidéo YouTube.
- * @param {Object}  _content          Le contenu de l'URL.
- * @param {Object}  options           Les options de l'extraction.
- * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
- *                                    en navigation privée.
+ * @param {URL}      url               L'URL minifiée d'une vidéo YouTube.
+ * @param {Object}   _metadata         Les métadonnées de l'URL.
+ * @param {Function} _metadata.html    La fonction retournant la promesse
+ *                                     contenant le document HTML.
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionMinify = async function ({ pathname }, _content, { incognito }) {
+const actionMinify = async function ({ pathname }, _metadata, { incognito }) {
     return dispatchVideo(pathname.slice(1), { incognito });
 };
 export const extractMinify = matchPattern(actionMinify, "*://youtu.be/*");

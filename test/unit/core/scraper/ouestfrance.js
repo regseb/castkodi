@@ -20,16 +20,16 @@ describe("core/scraper/ouestfrance.js", function () {
 
         it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
-            const content = { html: () => Promise.resolve(undefined) };
-            const options = { depth: false };
+            const metadata = { html: () => Promise.resolve(undefined) };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -41,15 +41,15 @@ describe("core/scraper/ouestfrance.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true };
+            const context = { depth: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when no iframe", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -58,15 +58,15 @@ describe("core/scraper/ouestfrance.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined with iframe no video", async function () {
             const url = new URL("https://www.ouest-france.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -77,9 +77,9 @@ describe("core/scraper/ouestfrance.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -87,7 +87,7 @@ describe("core/scraper/ouestfrance.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.ouest-france.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -100,9 +100,9 @@ describe("core/scraper/ouestfrance.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=baz",

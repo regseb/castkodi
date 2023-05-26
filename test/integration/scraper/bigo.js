@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Bigo Live", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.bigo.tv/games");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -25,9 +25,9 @@ describe("Scraper: Bigo Live", function () {
         const json = await response.json();
 
         const url = new URL(`https://www.bigo.tv/${json.data.data[0].bigo_id}`);
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file && new URL(file).pathname.endsWith(".m3u8"),
             `new URL("${file}").pathname.endsWith(...) from ${url}`,
@@ -45,9 +45,9 @@ describe("Scraper: Bigo Live", function () {
         const url = new URL(
             `https://www.bigo.tv/fr/${json.data.data[0].bigo_id}`,
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file && new URL(file).pathname.endsWith(".m3u8"),
             `new URL("${file}").pathname.endsWith(...) from ${url}`,
@@ -56,9 +56,9 @@ describe("Scraper: Bigo Live", function () {
 
     it("should return URL when it isn't a live", async function () {
         const url = new URL("https://www.bigo.tv/0");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 });

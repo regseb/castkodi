@@ -11,9 +11,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Labeller: Vimeo", function () {
     it("should return video label", async function () {
         const url = new URL("https://vimeo.com/265045525");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "play",
@@ -32,9 +32,9 @@ describe("Labeller: Vimeo", function () {
 
     it("should return video label from unlisted video", async function () {
         const url = new URL("https://vimeo.com/304887422/34c51f7a09");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "play",

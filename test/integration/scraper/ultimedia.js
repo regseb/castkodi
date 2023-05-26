@@ -22,9 +22,9 @@ describe("Scraper: Ultimedia", function () {
         const url = new URL(
             "https://www.ultimedia.com/default/presentation/cgu",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -32,9 +32,9 @@ describe("Scraper: Ultimedia", function () {
         const url = new URL(
             "https://www.ultimedia.com/default/index/videogeneric/id/mvlx0f",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file && new URL(file).pathname.endsWith(".mp4"),
             `new URL("${file}").pathname.endsWith(...)`,
@@ -45,9 +45,9 @@ describe("Scraper: Ultimedia", function () {
         const url = new URL(
             "http://www.ultimedia.com/default/index/videogeneric/id/83vr0l",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file && new URL(file).pathname.endsWith(".mp4"),
             `new URL("${file}").pathname.endsWith(...)`,
@@ -59,9 +59,9 @@ describe("Scraper: Ultimedia", function () {
             "https://www.ultimedia.com/deliver/generic/iframe/mdtk/01836272" +
                 "/src/pzmpzr/zone/1/showtitle/1/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file && new URL(file).pathname.endsWith(".mp4"),
             `new URL("${file}").pathname.endsWith(...)`,

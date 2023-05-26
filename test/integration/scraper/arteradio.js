@@ -12,9 +12,9 @@ describe("Scraper: Arte Radio", function () {
         const url = new URL(
             "https://www.arteradio.com/son/61657661/fais_moi_ouir",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://cdn.arteradio.com/permanent/arteradio/sites/default" +
@@ -26,9 +26,9 @@ describe("Scraper: Arte Radio", function () {
         const url = new URL(
             "http://www.arteradio.com/son/61657661/fais_moi_ouir",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://cdn.arteradio.com/permanent/arteradio/sites/default" +

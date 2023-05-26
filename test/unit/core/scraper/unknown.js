@@ -13,10 +13,10 @@ describe("core/scraper/unknown.js", function () {
     describe("extract()", function () {
         it("should return undefined when it's depth", async function () {
             const url = new URL("https://foo.com/");
-            const content = undefined;
-            const options = { depth: true, incognito: false };
+            const metadata = undefined;
+            const context = { depth: true, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -26,10 +26,10 @@ describe("core/scraper/unknown.js", function () {
                 .resolves(["plugin.video.sendtokodi"]);
 
             const url = new URL("https://foo.com/");
-            const content = undefined;
-            const options = { depth: false, incognito: false };
+            const metadata = undefined;
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.sendtokodi/?https://foo.com/",
@@ -43,10 +43,10 @@ describe("core/scraper/unknown.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://foo.com/");
-            const content = undefined;
-            const options = { depth: false, incognito: false };
+            const metadata = undefined;
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
             assert.equal(stub.callCount, 1);

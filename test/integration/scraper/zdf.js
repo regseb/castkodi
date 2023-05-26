@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: ZDF", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.zdf.de/filme");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -21,9 +21,9 @@ describe("Scraper: ZDF", function () {
             "https://www.zdf.de/dokumentation/37-grad" +
                 "/37-im-schuldenstrudel-100.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://nrodlzdf-a.akamaihd.net/none/zdf/21/04" +

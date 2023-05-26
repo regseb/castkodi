@@ -20,7 +20,7 @@ describe("core/scraper/applepodcasts.js", function () {
 
         it("should return undefined when it isn't an audio", async function () {
             const url = new URL("https://podcasts.apple.com/us/podcast/foo/id");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -30,7 +30,7 @@ describe("core/scraper/applepodcasts.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -38,7 +38,7 @@ describe("core/scraper/applepodcasts.js", function () {
             const url = new URL(
                 "https://podcasts.apple.com/fr/podcast/foo/idbar",
             );
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -63,7 +63,7 @@ describe("core/scraper/applepodcasts.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "http://qux.fr/quux.mp3");
         });
     });

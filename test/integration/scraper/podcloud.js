@@ -13,9 +13,9 @@ describe("Scraper: podCloud", function () {
             "https://podcloud.fr/podcast/le-cosy-corner/episode" +
                 "/numero-51-sa-puissance-est-maximum",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://podcloud.fr/ext/le-cosy-corner" +
@@ -27,9 +27,9 @@ describe("Scraper: podCloud", function () {
         const url = new URL(
             "https://podcloud.fr/podcast/2-heures-de-perdues/episode/stargate",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://podcloud.fr/ext/2-heures-de-perdues/stargate" +

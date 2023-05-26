@@ -10,25 +10,25 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: VideoPress", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://videopress.com/v/foo");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return undefined when it isn't a video embed", async function () {
         const url = new URL("https://videopress.com/embed/foo");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return video URL", async function () {
         const url = new URL("https://videopress.com/v/OcobLTqC");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://videos.files.wordpress.com/OcobLTqC/img_5786.m4v",
@@ -39,9 +39,9 @@ describe("Scraper: VideoPress", function () {
         const url = new URL(
             "https://videopress.com/embed/knHSQ2fb?hd=0&autoPlay=0",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://videos.files.wordpress.com/knHSQ2fb/pexel-stock-video.mp4",

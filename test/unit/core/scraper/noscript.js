@@ -11,16 +11,16 @@ describe("core/scraper/noscript.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://foo.com/bar.zip");
-            const content = { html: () => Promise.resolve(undefined) };
-            const options = { depth: false };
+            const metadata = { html: () => Promise.resolve(undefined) };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't noscript", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,15 +29,15 @@ describe("core/scraper/noscript.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when noscript is empty", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -48,15 +48,15 @@ describe("core/scraper/noscript.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return URL from video in noscript", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -69,15 +69,15 @@ describe("core/scraper/noscript.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "https://baz.org/qux.mp4");
         });
 
         it("should return URL from second noscript", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -93,9 +93,9 @@ describe("core/scraper/noscript.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "https://qux.org/quux.mp3");
         });
     });

@@ -18,7 +18,7 @@ describe("core/scraper/kcaastreaming.js", function () {
 
         it("should return audio URL", async function () {
             const url = new URL("https://live.kcaastreaming.com/");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -32,7 +32,7 @@ describe("core/scraper/kcaastreaming.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.com/bar.mp3");
         });
     });

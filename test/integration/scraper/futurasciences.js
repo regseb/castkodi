@@ -12,9 +12,9 @@ describe("Scraper: Futura Sciences", function () {
         const url = new URL(
             "https://www.futura-sciences.com/tech/telecharger/kodi-287",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -22,9 +22,9 @@ describe("Scraper: Futura Sciences", function () {
         const url = new URL(
             "https://www.futura-sciences.com/favicon-16x16.png",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -34,9 +34,9 @@ describe("Scraper: Futura Sciences", function () {
                 "/acces-espace-video-decollage-atterrissage-reussi-prototype" +
                 "-starship-spacex-80782/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://www.viously.com/video/hls/XLJomogr83J/index.m3u8",
@@ -48,9 +48,9 @@ describe("Scraper: Futura Sciences", function () {
             "https://www.futura-sciences.com/sciences/videos" +
                 "/jupiter-devoilee-sonde-juno-5580/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://www.viously.com/video/hls/3ZSdTrtt4G5/index.m3u8",

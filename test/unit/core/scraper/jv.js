@@ -13,25 +13,25 @@ describe("core/scraper/jv.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.jvlemag.com/");
-            const content = undefined;
-            const options = { depth: false, incognito: false };
+            const metadata = undefined;
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when it's depth", async function () {
             const url = new URL("https://www.jeuxvideo.com/foo");
-            const content = undefined;
-            const options = { depth: true, incognito: false };
+            const metadata = undefined;
+            const context = { depth: true, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.jeuxvideo.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -40,9 +40,9 @@ describe("core/scraper/jv.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -55,7 +55,7 @@ describe("core/scraper/jv.js", function () {
                 .resolves([]);
 
             const url = new URL("https://www.jeuxvideo.com/bar");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -66,9 +66,9 @@ describe("core/scraper/jv.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",

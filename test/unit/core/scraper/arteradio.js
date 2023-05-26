@@ -18,7 +18,7 @@ describe("core/scraper/arteradio.js", function () {
 
         it("should return audio URL", async function () {
             const url = new URL("https://www.arteradio.com/son/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -32,7 +32,7 @@ describe("core/scraper/arteradio.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(
                 file,
                 "https://cdn.arteradio.com/permanent/arteradio/sites/default" +

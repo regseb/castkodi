@@ -13,9 +13,9 @@ describe("Scraper: Kickstarter", function () {
             "https://www.kickstarter.com/projects/playeress" +
                 "/whos-she-a-guessing-game-about-extraordinary-women",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -27,9 +27,9 @@ describe("Scraper: Kickstarter", function () {
             "https://www.kickstarter.com/projects/coreywright" +
                 "/kartoffelkrieg-potato-wars",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.endsWith("/projects/3266544/video-870029-hls_playlist.m3u8"),
             `"${file}"?.endsWith(...)`,

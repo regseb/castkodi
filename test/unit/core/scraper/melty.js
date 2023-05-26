@@ -20,7 +20,7 @@ describe("core/scraper/melty.js", function () {
 
         it("should return undefined when it's depth", async function () {
             const url = new URL("https://www.melty.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -33,15 +33,15 @@ describe("core/scraper/melty.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true };
+            const context = { depth: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't video", async function () {
             const url = new URL("https://www.melty.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -52,9 +52,9 @@ describe("core/scraper/melty.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -62,7 +62,7 @@ describe("core/scraper/melty.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.melty.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -77,9 +77,9 @@ describe("core/scraper/melty.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",

@@ -13,9 +13,9 @@ describe("Scraper: Útvarp Saga", function () {
             "https://www.utvarpsaga.is/snjallsimarnir-eru-farnir-ad-stjorna" +
                 "-lifi-folks/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://utvarpsaga.is/wp-content/uploads" +
@@ -28,9 +28,9 @@ describe("Scraper: Útvarp Saga", function () {
             "https://utvarpsaga.is/samfelagsmidlar-mynda-nuning-milli-hopa" +
                 "-med-olikar-skodanir/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://utvarpsaga.is/wp-content/uploads" +

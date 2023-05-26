@@ -14,9 +14,9 @@ describe("Scraper: L'Internaute", function () {
                 "/2462551-films-pixar-selection-des-meilleurs-et-liste-de" +
                 "-tous-les-films-pixar/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -26,9 +26,9 @@ describe("Scraper: L'Internaute", function () {
                 "/2617245-rugby-france-angleterre-suivez-le-match-des-6" +
                 "-nations-en-direct/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://media.ccmbg.com/vc/1647588853/8654741851/960911.mp4",
@@ -41,9 +41,9 @@ describe("Scraper: L'Internaute", function () {
                 "/2595113-alerte-rouge-a-partir-de-quel-age-voir-le-dernier" +
                 "-film-pixar/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +

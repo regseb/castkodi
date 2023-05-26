@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Mixcloud", function () {
     it("should return undefined when it isn't an audio", async function () {
         const url = new URL("https://www.mixcloud.com/discover/jazz/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -20,9 +20,9 @@ describe("Scraper: Mixcloud", function () {
         const url = new URL(
             "https://www.mixcloud.com/LesGar%C3%A7onsBienElev%C3%A9s/n101/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.audio.mixcloud/?mode=40" +
@@ -34,9 +34,9 @@ describe("Scraper: Mixcloud", function () {
         const url = new URL(
             "http://www.mixcloud.com/LesGar%C3%A7onsBienElev%C3%A9s/n101/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.audio.mixcloud/?mode=40" +

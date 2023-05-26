@@ -18,7 +18,7 @@ describe("core/scraper/allocine.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.allocine.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -28,13 +28,13 @@ describe("core/scraper/allocine.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return high video URL", async function () {
             const url = new URL("https://www.allocine.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -57,13 +57,13 @@ describe("core/scraper/allocine.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.com/baz.mkv");
         });
 
         it("should return standard video URL", async function () {
             const url = new URL("https://www.allocine.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -85,13 +85,13 @@ describe("core/scraper/allocine.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.com/quux.mp4");
         });
 
         it("should return medium video URL", async function () {
             const url = new URL("https://www.allocine.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -111,13 +111,13 @@ describe("core/scraper/allocine.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.com/qux.avi");
         });
 
         it("should return low video URL", async function () {
             const url = new URL("https://www.allocine.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -136,13 +136,13 @@ describe("core/scraper/allocine.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.com/baz.wmv");
         });
 
         it("should return undefined when there isn't video", async function () {
             const url = new URL("https://www.allocine.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -155,13 +155,13 @@ describe("core/scraper/allocine.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return video URL with protocol", async function () {
             const url = new URL("https://www.allocine.fr/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -178,7 +178,7 @@ describe("core/scraper/allocine.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.com/baz.mkv");
         });
     });

@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: GoPlay", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.goplay.be/programmas");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -22,9 +22,9 @@ describe("Scraper: GoPlay", function () {
                 "/teleurgesteld-en-fier-yemi-en-laura-moeten-dancing-with-the" +
                 "-stars-verlaten",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://stream1-vod.cdn1.sbs.prd.telenet-ops.be/geo" +

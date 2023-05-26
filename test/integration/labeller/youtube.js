@@ -15,9 +15,9 @@ describe("Labeller: YouTube", function () {
         browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "play",
@@ -64,9 +64,9 @@ describe("Labeller: YouTube", function () {
         sinon.stub(kodi.addons, "getAddons").resolves(["plugin.video.tubed"]);
 
         const url = new URL("https://www.youtube.com/watch?v=v_cwYv4K2vo");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",
@@ -88,9 +88,9 @@ describe("Labeller: YouTube", function () {
         sinon.stub(kodi.addons, "getAddons").resolves(["plugin.video.tubed"]);
 
         const url = new URL("https://www.youtube.com/watch?v=4fVLxS3BMpQ");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",
@@ -114,9 +114,9 @@ describe("Labeller: YouTube", function () {
         const url = new URL(
             "https://www.youtube.com/playlist?list=PL6B3937A5D230E335",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",
@@ -143,9 +143,9 @@ describe("Labeller: YouTube", function () {
             "https://www.youtube.com/watch?v=Yrm_kb1d-Xc" +
                 "&list=RDYrm_kb1d-Xc",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",
@@ -168,9 +168,9 @@ describe("Labeller: YouTube", function () {
         const url = new URL(
             "https://music.youtube.com/watch?v=9bZkp7q19f0&list=RD9bZkp7q19f0",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",

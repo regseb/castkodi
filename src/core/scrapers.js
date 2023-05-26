@@ -163,17 +163,17 @@ const SCRAPERS = [
  * Extrait le <em>fichier</em> d'une URL.
  *
  * @param {URL}     url               L'URL d'une page Internet.
- * @param {Object}  options           Les options de l'extraction.
- * @param {boolean} options.depth     La marque indiquant si l'extraction est en
+ * @param {Object}  context           Le contexte de l'extraction.
+ * @param {boolean} context.depth     La marque indiquant si l'extraction est en
  *                                    profondeur.
- * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
+ * @param {boolean} context.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-export const extract = async function (url, options) {
-    const content = {
+export const extract = async function (url, context) {
+    const metadata = {
         html: cacheable(async () => {
             try {
                 const controller = new AbortController();
@@ -198,7 +198,7 @@ export const extract = async function (url, options) {
     };
 
     for (const scraper of SCRAPERS) {
-        const file = await scraper(url, content, options);
+        const file = await scraper(url, metadata, context);
         if (undefined !== file) {
             return file;
         }

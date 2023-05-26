@@ -13,24 +13,24 @@ import { matchPattern } from "../tools/matchpattern.js";
  * vidéo ou une musique.
  *
  * @param {URL}      url               L'URL d'une page quelconque.
- * @param {Object}   _content          Le contenu de l'URL.
- * @param {Function} _content.html     La fonction retournant la promesse
+ * @param {Object}   _metadata         Les métadonnées de l'URL.
+ * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML ou
  *                                     <code>undefined</code>.
- * @param {Object}   options           Les options de l'extraction.
- * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
- * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const action = async function (url, _content, options) {
+const action = async function (url, _metadata, context) {
     // Si on analyse une sous-page : retourner undefined pour indiquer que rien
     // n'a été trouvé sans faire croire qu'une vidéo ou une musique ait été
     // trouvée.
-    if (options.depth) {
+    if (context.depth) {
         return undefined;
     }
 

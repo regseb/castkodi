@@ -77,18 +77,18 @@ export const extractEmbed = matchPattern(
 /**
  * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url         L'URL d'une page quelconque ayant
- *                                éventuellement un lecteur Dailymotion.
- * @param {Object}   content      Le contenu de l'URL.
- * @param {Function} content.html La fonction retournant la promesse contenant
- *                                le document HTML ou <code>undefined</code>.
+ * @param {URL}      _url          L'URL d'une page quelconque ayant
+ *                                 éventuellement un lecteur Dailymotion.
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML ou <code>undefined</code>.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  * @see https://developers.dailymotion.com/player/#player-embed-script
  */
-const actionPlayerScript = async function (_url, content) {
-    const doc = await content.html();
+const actionPlayerScript = async function (_url, metadata) {
+    const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
     }

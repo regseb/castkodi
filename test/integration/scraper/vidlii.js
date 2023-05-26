@@ -10,17 +10,17 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: VidLii", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.vidlii.com/help");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return video URL [video]", async function () {
         const url = new URL("https://www.vidlii.com/watch?v=2Ng8Abj2Fkl");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://www.vidlii.com/usfi/v/2Ng8Abj2Fkl.QfHzede4RBuRpC3G8glW4C" +

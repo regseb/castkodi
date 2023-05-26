@@ -21,7 +21,7 @@ describe("core/scraper/francetv.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.france.tv/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -33,7 +33,7 @@ describe("core/scraper/francetv.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -54,7 +54,7 @@ describe("core/scraper/francetv.js", function () {
                 );
 
             const url = new URL("https://www.france.tv/qux");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -71,7 +71,7 @@ describe("core/scraper/francetv.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.fr/baz.mpd");
 
             assert.equal(stub.callCount, 2);

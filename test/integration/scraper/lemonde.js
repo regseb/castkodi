@@ -15,9 +15,9 @@ describe("Scraper: Le Monde", function () {
                 "/on-a-teste-pour-vous-le-raspberry-pi-l-ordinateur-miniature" +
                 "-a-35_4584204_4408996.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -26,9 +26,9 @@ describe("Scraper: Le Monde", function () {
             "https://www.lemonde.fr/blog/unmondedejeux/2021/02/02" +
                 "/la-selection-officielle-de-las-dor-2021/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -42,9 +42,9 @@ describe("Scraper: Le Monde", function () {
                 "/un-prototype-de-fusee-spacex-s-ecrase-a-l-atterrissage" +
                 "_6068556_1650684.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/" +
@@ -63,9 +63,9 @@ describe("Scraper: Le Monde", function () {
                 "/le-monde-sur-tiktok-la-meme-info-de-nouveaux-codes" +
                 "_6043338_3236.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 "video_mp4" === new URL(file).searchParams.get("mime_type"),

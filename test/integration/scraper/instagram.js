@@ -20,17 +20,17 @@ describe("Scraper: Instagram", function () {
 
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.instagram.com/p/6p_BDeK-8G/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return video URL [opengraph]", async function () {
         const url = new URL("https://www.instagram.com/p/BpFwZ6JnYPq/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file && new URL(file).pathname.endsWith(".mp4"),
             `new URL("${file}").pathname.endsWith(...)`,
@@ -39,9 +39,9 @@ describe("Scraper: Instagram", function () {
 
     it("should return video URL when protocol is HTTP [opengraph]", async function () {
         const url = new URL("http://www.instagram.com/p/Bpji87LiJFs/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file && new URL(file).pathname.endsWith(".mp4"),
             `new URL("${file}").pathname.endsWith(...)`,

@@ -209,7 +209,7 @@ describe("core/scraper/vtmgo.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -219,7 +219,7 @@ describe("core/scraper/vtmgo.js", function () {
                     ),
             };
 
-            const file = await scraper.extractChannel(url, content);
+            const file = await scraper.extractChannel(url, metadata);
             assert.equal(file, undefined);
 
             assert.equal(stub.callCount, 0);
@@ -229,7 +229,7 @@ describe("core/scraper/vtmgo.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -241,7 +241,7 @@ describe("core/scraper/vtmgo.js", function () {
                     ),
             };
 
-            const file = await scraper.extractChannel(url, content);
+            const file = await scraper.extractChannel(url, metadata);
             assert.equal(
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/channels/bar",
@@ -257,7 +257,7 @@ describe("core/scraper/vtmgo.js", function () {
                 .resolves(["plugin.video.vtm.go", "plugin.video.sendtokodi"]);
 
             const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -269,7 +269,7 @@ describe("core/scraper/vtmgo.js", function () {
                     ),
             };
 
-            const file = await scraper.extractChannel(url, content);
+            const file = await scraper.extractChannel(url, metadata);
             assert.equal(
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/channels/bar",
@@ -285,7 +285,7 @@ describe("core/scraper/vtmgo.js", function () {
                 .resolves(["plugin.video.sendtokodi"]);
 
             const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -297,7 +297,7 @@ describe("core/scraper/vtmgo.js", function () {
                     ),
             };
 
-            const file = await scraper.extractChannel(url, content);
+            const file = await scraper.extractChannel(url, metadata);
             assert.equal(
                 file,
                 "plugin://plugin.video.sendtokodi/" +

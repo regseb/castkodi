@@ -12,9 +12,9 @@ describe("Scraper: Castbox", function () {
         const url = new URL(
             "https://castbox.fm/channel/Par-Jupiter-!-id1018326",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -22,9 +22,9 @@ describe("Scraper: Castbox", function () {
         const url = new URL(
             "https://castbox.fm/episode/'Ultramoderne'-id1018326-id255945951",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(file?.endsWith(".mp3"), `"${file}"?.endsWith(...)`);
     });
 });

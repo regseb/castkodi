@@ -13,9 +13,9 @@ describe("Scraper: Reddit", function () {
             "https://www.reddit.com/r/place/comments/twb3gq" +
                 "/ill_miss_you_rplace/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -24,9 +24,9 @@ describe("Scraper: Reddit", function () {
             "https://www.reddit.com/r/Portal/comments/ju5buj" +
                 "/70s_aperture_science_logo_animation_i_had_a_lot/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.startsWith(
                 "https://v.redd.it/2g08wt2wj8z51/HLSPlaylist.m3u8?",

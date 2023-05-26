@@ -12,9 +12,9 @@ describe("Scraper: SoundCloud", function () {
         const url = new URL(
             "https://soundcloud.com/a-tribe-called-red/electric-pow-wow-drum",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.audio.soundcloud/play/" +
@@ -25,9 +25,9 @@ describe("Scraper: SoundCloud", function () {
 
     it("should return audio url from mobile version", async function () {
         const url = new URL("https://mobi.soundcloud.com/esa/a-singing-comet");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.audio.soundcloud/play/" +
