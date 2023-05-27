@@ -43,9 +43,9 @@ const action = async function (_url, metadata) {
         return undefined;
     }
 
-    const parts = video.poster.split(/[./_]/u);
-    const photoId = parts[6];
-    const secret = parts[7];
+    const parts = new URL(video.poster).pathname.split(/[./_]/u);
+    const photoId = parts[2];
+    const secret = parts[3];
     const key = KEY_REGEXP.exec(doc.documentElement.innerHTML).groups.key;
     const response = await fetch(
         `${API_URL}&photo_id=${photoId}&secret=${secret}&api_key=${key}`,

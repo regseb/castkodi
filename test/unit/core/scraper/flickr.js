@@ -51,7 +51,8 @@ describe("core/scraper/flickr.js", function () {
                                <script>
                                  root.YUI_config.flickr.api.site_key = "qux";
                                </script>
-                               <video poster="0/1_2.3.4_5/6/7_8.9" />
+                               <video poster="//quux.com/corge` +
+                                `/grault_garply.jpg" />
                              </body></html>`,
                             "text/html",
                         ),
@@ -65,7 +66,8 @@ describe("core/scraper/flickr.js", function () {
             assert.deepEqual(stub.firstCall.args, [
                 "https://api.flickr.com/services/rest" +
                     "?method=flickr.video.getStreamInfo&format=json" +
-                    "&nojsoncallback=1&photo_id=6&secret=7&api_key=qux",
+                    "&nojsoncallback=1&photo_id=grault&secret=garply" +
+                    "&api_key=qux",
             ]);
         });
     });
