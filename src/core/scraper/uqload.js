@@ -37,6 +37,7 @@ const action = async function (_url, content) {
 export const extract = matchPattern(
     action,
     "*://uqload.io/*.html",
-    // Ajouter aussi l'ancien nom de domaine (qui redirige vers le nouveau).
+    // Ajouter aussi les anciens noms de domaine (qui redirige vers le nouveau).
+    "*://uqload.co/*.html",
     "*://uqload.com/*.html",
 );

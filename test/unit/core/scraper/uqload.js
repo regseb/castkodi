@@ -96,8 +96,33 @@ describe("core/scraper/uqload.js", function () {
             );
         });
 
-        it("should return video URL from old TLD", async function () {
+        it("should return video URL from old TLD .com", async function () {
             const url = new URL("https://uqload.com/foo.html");
+            const content = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <script>
+                                 var player = new Clappr.Player({
+                                   sources: ["https://bar.com/baz/v.mp4"],
+                                 });
+                               </script>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extract(url, content);
+            assert.equal(
+                file,
+                "https://bar.com/baz/v.mp4|Referer=https://uqload.io/",
+            );
+        });
+
+        it("should return video URL from old TLD .co", async function () {
+            const url = new URL("https://uqload.co/foo.html");
             const content = {
                 html: () =>
                     Promise.resolve(
