@@ -29,14 +29,14 @@ const action = async function (_url, content) {
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = DATA_REGEXP.exec(script.text);
         if (null !== result) {
-            return result.groups.source + "|Referer=https://uqload.co/";
+            return result.groups.source + "|Referer=https://uqload.io/";
         }
     }
     return undefined;
 };
 export const extract = matchPattern(
     action,
-    "*://uqload.co/*.html",
+    "*://uqload.io/*.html",
     // Ajouter aussi l'ancien nom de domaine (qui redirige vers le nouveau).
     "*://uqload.com/*.html",
 );

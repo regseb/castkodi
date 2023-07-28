@@ -13,7 +13,7 @@ describe("Scraper: Uqload", function () {
     it("should return undefined when it isn't a video", async function () {
         sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-        const url = new URL("https://uqload.co/checkfiles.html");
+        const url = new URL("https://uqload.io/checkfiles.html");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -23,7 +23,7 @@ describe("Scraper: Uqload", function () {
     it("should return undefined when video was deleted", async function () {
         sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-        const url = new URL("https://uqload.co/k1phujbh3t7d.html");
+        const url = new URL("https://uqload.io/k1phujbh3t7d.html");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
@@ -31,37 +31,37 @@ describe("Scraper: Uqload", function () {
     });
 
     it("should return video URL", async function () {
-        const url = new URL("https://uqload.co/5x0cgygu2bgg.html");
+        const url = new URL("https://uqload.io/5x0cgygu2bgg.html");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.ok(
             undefined !== file &&
-                file.endsWith("/v.mp4|Referer=https://uqload.co/"),
+                file.endsWith("/v.mp4|Referer=https://uqload.io/"),
             `"${file}".endsWith(...)`,
         );
     });
 
     it("should return video URL when protocol is HTTP", async function () {
-        const url = new URL("http://uqload.co/5x0cgygu2bgg.html");
+        const url = new URL("http://uqload.io/5x0cgygu2bgg.html");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.ok(
             undefined !== file &&
-                file.endsWith("/v.mp4|Referer=https://uqload.co/"),
+                file.endsWith("/v.mp4|Referer=https://uqload.io/"),
             `"${file}".endsWith(...)`,
         );
     });
 
     it("should return video URL from embed", async function () {
-        const url = new URL("https://uqload.co/embed-5x0cgygu2bgg.html");
+        const url = new URL("https://uqload.io/embed-5x0cgygu2bgg.html");
         const options = { depth: false, incognito: false };
 
         const file = await extract(url, options);
         assert.ok(
             undefined !== file &&
-                file.endsWith("/v.mp4|Referer=https://uqload.co/"),
+                file.endsWith("/v.mp4|Referer=https://uqload.io/"),
             `"${file}".endsWith(...)`,
         );
     });
@@ -73,7 +73,7 @@ describe("Scraper: Uqload", function () {
         const file = await extract(url, options);
         assert.ok(
             undefined !== file &&
-                file.endsWith("/v.mp4|Referer=https://uqload.co/"),
+                file.endsWith("/v.mp4|Referer=https://uqload.io/"),
             `"${file}".endsWith(...)`,
         );
     });
