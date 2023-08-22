@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://api.goplay.be/web/v1/videos/short-form/";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une vidéo GoPlay.
  * @param {Object}   metadata      Les métadonnées de l'URL.

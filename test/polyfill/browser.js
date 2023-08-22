@@ -161,7 +161,7 @@ export const browser = {
          * Récupère un message.
          *
          * @param {string}          key            La clé du message.
-         * @param {string|string[]} [substitution] L'éléméent ou les éléments
+         * @param {string|string[]} [substitution] L'élément ou les éléments
          *                                         insérés dans le message.
          * @returns {string} Le message.
          */
@@ -222,7 +222,7 @@ export const browser = {
         },
 
         /**
-         * Renonce a des permissions.
+         * Renonce à des permissions.
          *
          * @param {Object}   permissions               Les permissions
          *                                             renoncées.

@@ -60,7 +60,7 @@ export const System = class {
     }
 
     /**
-     * Étient le système.
+     * Éteint le système.
      *
      * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
      */

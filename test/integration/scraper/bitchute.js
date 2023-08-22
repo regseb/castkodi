@@ -10,8 +10,8 @@ import { config } from "../config.js";
 
 describe("Scraper: BitChute", function () {
     before(function () {
-        // Désactiver les tests de BitChute en dehors de la France car pour les
-        // autres pays, ce ne fonctionne pas.
+        // Désactiver les tests de BitChute en dehors de la France, car ça ne
+        // fonctionne pas dans les autres pays.
         if (undefined !== config.country && "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this
             this.skip();

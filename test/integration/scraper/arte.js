@@ -37,7 +37,7 @@ describe("Scraper: Arte", function () {
                 "/?videoType=MOST_VIEWED&authorizedAreas=ALL",
         );
         const json = await response.json();
-        // Garder les éléments pointant vers une seule vidéos (et non vers une
+        // Garder les éléments pointant vers une seule vidéo (et non vers une
         // liste de vidéos).
         const video = json.value.data.find((d) => !d.kind.isCollection);
 
@@ -58,7 +58,7 @@ describe("Scraper: Arte", function () {
                 "/?videoType=MOST_VIEWED&authorizedAreas=ALL",
         );
         const json = await response.json();
-        // Garder les éléments pointant vers une seule vidéos (et non vers une
+        // Garder les éléments pointant vers une seule vidéo (et non vers une
         // liste de vidéos).
         const video = json.value.data.find((d) => !d.kind.isCollection);
 

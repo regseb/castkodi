@@ -9,7 +9,7 @@ import * as plugin from "../plugin/sendtokodi.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Envoi l'URL à un éventuel plugin de Kodi pour qu'il essai d'en extraire une
+ * Envoi l'URL à un éventuel plugin de Kodi pour qu'il essaie d'en extraire une
  * vidéo ou une musique.
  *
  * @param {URL}      url               L'URL d'une page quelconque.

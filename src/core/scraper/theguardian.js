@@ -10,7 +10,7 @@ import { extract as metaExtract } from "../scrapers.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url              L'URL d'un article du Guardian.
  * @param {Object}   metadata          Les métadonnées de l'URL.
@@ -45,7 +45,7 @@ export const extractVideo = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire un son sur Kodi.
+ * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL}      _url          L'URL d'un article du Guardian.
  * @param {Object}   metadata      Les métadonnées de l'URL.

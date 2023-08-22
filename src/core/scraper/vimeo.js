@@ -38,8 +38,8 @@ const dispatch = async function (videoId, hash) {
 };
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi. Seul les
- * URLs des vidéos intégrées sont gérées car pour les URLs vers les vidéos : le
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi. Seules les
+ * URLs des vidéos intégrées sont gérées, car pour les URLs vers les vidéos : le
  * scraper <em>opengraph</em> va extrait l'URL de la vidéo intégrée depuis la
  * méta-donnée <code>og:video:secure_url</code>.
  *

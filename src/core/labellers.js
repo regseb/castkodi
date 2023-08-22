@@ -21,7 +21,8 @@ import * as youtube from "./labeller/youtube.js";
 import { strip } from "./tools/sanitizer.js";
 
 /**
- * La liste des fonctions des labellisateurs retournant le label d'une URL.
+ * La liste des fonctions des labellisateurs (retournant le label d'une URL ou
+ * <code>undefined</code>).
  *
  * @type {Function[]}
  */

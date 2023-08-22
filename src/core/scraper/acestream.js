@@ -10,7 +10,7 @@ import * as plugin from "../plugin/plexus.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Ace Stream.
  * @returns {Promise<string>} Une promesse contenant le lien du

@@ -10,7 +10,7 @@ import { extract as metaExtract } from "../scrapers.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * La liste des sélecteur retournant les éléments <code>meta</code> liés aux
+ * La liste des sélecteurs retournant les éléments <code>meta</code> liés aux
  * vidéos et audio d'Open Graph.
  *
  * @type {Object<string, string[]>}
@@ -29,7 +29,7 @@ const SELECTORS = {
 };
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url              L'URL d'une page quelconque.
  * @param {Object}   metadata          Les métadonnées de l'URL.
@@ -70,7 +70,7 @@ const actionVideo = async function (_url, metadata, context) {
 export const extractVideo = matchPattern(actionVideo, "*://*/*");
 
 /**
- * Extrait les informations nécessaire pour lire un son sur Kodi.
+ * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL}      _url              L'URL d'une page quelconque avec
  *                                     peut-être des données Open Graph.
@@ -112,7 +112,7 @@ const actionAudio = async function (_url, metadata, context) {
 export const extractAudio = matchPattern(actionAudio, "*://*/*");
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo ou un son sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo ou un son sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une page quelconque avec peut-être
  *                                 des données Open Graph « à la Twitter ».
@@ -136,7 +136,7 @@ const actionTwitter = async function (_url, metadata) {
 export const extractTwitter = matchPattern(actionTwitter, "*://*/*");
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo ou un son sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo ou un son sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une page quelconque avec peut-être
  *                                 des données Open Graph « à la Yandex ».

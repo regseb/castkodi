@@ -33,7 +33,7 @@ const dispatch = async function (path) {
 };
 
 /**
- * Extrait les informations nécessaire pour lire une musique sur Kodi.
+ * Extrait les informations nécessaires pour lire une musique sur Kodi.
  *
  * @param {URL} url L'URL d'une musique Mixcloud.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

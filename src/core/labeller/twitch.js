@@ -13,7 +13,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
 const action = async function ({ href }) {
-    // Consulter la page en passant par la version mobile car la version
+    // Consulter la page en passant par la version mobile, car la version
     // classique charge le contenu de la page en asynchrone avec des APIs.
     const response = await fetch(href.replace("://www.", "://m."));
     const text = await response.text();

@@ -8,7 +8,7 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire la vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire la vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo PeerTube.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
@@ -27,8 +27,8 @@ const action = async function ({ href }) {
             json.files?.[0]?.fileUrl
         );
     } catch {
-        // Ignorer les erreurs car elles proviennent d'un site qui n'est pas une
-        // instance PeerTube (et l'appel à l'API a échoué).
+        // Ignorer les erreurs, car elles proviennent d'un site qui n'est pas
+        // une instance PeerTube (et l'appel à l'API a échoué).
         return undefined;
     }
 };

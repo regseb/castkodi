@@ -10,7 +10,7 @@ import { extract as metaExtract } from "../scrapers.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi. Les pages
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi. Les pages
  * avec des vidéos Dailymotion contiennent des microdonnées, mais c'est l'URL de
  * la page embarquée de Dailymotion qui est renseignée dans le champ de l'URL
  * de la vidéo. Il faut donc récupérer l'identifiant de la vidéo Dailymotion

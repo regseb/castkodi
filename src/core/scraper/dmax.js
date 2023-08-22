@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://eu1-prod.disco-api.com";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une vidéo DMAX.
  * @param {Object}   metadata      Les métadonnées de l'URL.

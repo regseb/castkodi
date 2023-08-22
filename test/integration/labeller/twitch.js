@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Labeller: Twitch", function () {
     it("should return channel label", async function () {
-        // Récupérer l'URL d'une chaine en live en passant par la version mobile
-        // car la version classique charge le contenu de la page en asynchrone
-        // avec des APIs.
+        // Récupérer l'URL d'une chaine en live en passant par la version
+        // mobile, car la version classique charge le contenu de la page en
+        // asynchrone avec des APIs.
         const response = await fetch("https://m.twitch.tv/directory/all");
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
@@ -61,7 +61,7 @@ describe("Labeller: Twitch", function () {
     });
 
     it("should return video label", async function () {
-        // Récupérer l'URL d'une vidéo en passant par la version mobile car la
+        // Récupérer l'URL d'une vidéo en passant par la version mobile, car la
         // version classique charge le contenu de la page en asynchrone avec des
         // APIs.
         const response = await fetch("https://m.twitch.tv/canardpc/profile");

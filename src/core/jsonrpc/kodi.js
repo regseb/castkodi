@@ -78,7 +78,7 @@ export const Kodi = class {
         try {
             url = new URL(address);
         } catch {
-            // Si la connexion avec l'adresse complète n'a pas fonctionnée :
+            // Si la connexion avec l'adresse complète n'a pas fonctionné :
             // essayer avec l'adresse IP (en y ajoutant le protocole, le port et
             // le chemin).
             try {

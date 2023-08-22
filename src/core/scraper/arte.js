@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://api.arte.tv/api/player/v2/config";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Arte.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

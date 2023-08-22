@@ -8,7 +8,7 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une vidéo de ZDF.
  * @param {Object}   metadata      Les métadonnées de l'URL.

@@ -9,7 +9,7 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire un son sur Kodi.
+ * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son de Megaphone.
  * @returns {Promise<string>} Une promesse contenant le lien du
@@ -24,7 +24,7 @@ export const extractPlayer = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire un son sur Kodi.
+ * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son (d'une liste de lecture) de Megaphone.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

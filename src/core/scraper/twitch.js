@@ -75,7 +75,7 @@ const dispatchClip = async function (clipId) {
 };
 
 /**
- * Extrait les informations nécessaire pour lire un clip sur Kodi.
+ * Extrait les informations nécessaires pour lire un clip sur Kodi.
  *
  * @param {URL} url L'URL d'un clip Twitch.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
@@ -93,7 +93,7 @@ const actionClip = async function ({ pathname, searchParams }) {
 export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
 
 /**
- * Extrait les informations nécessaire pour lire un <em>live</em> ou une vidéo
+ * Extrait les informations nécessaires pour lire un <em>live</em> ou une vidéo
  * intégré sur Kodi.
  *
  * @param {URL} url L'URL d'un <em>live</em> ou d'une vidéo intégré.
@@ -113,8 +113,8 @@ const actionEmbed = async function ({ searchParams }) {
 export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
 
 /**
- * Extrait les informations nécessaire pour lire un <em>live</em> ou un clip sur
- * Kodi.
+ * Extrait les informations nécessaires pour lire un <em>live</em> ou un clip
+ * sur Kodi.
  *
  * @param {URL} url L'URL d'un <em>live</em> ou d'un clip Twitch.
  * @returns {Promise<string>} Une promesse contenant le lien du

@@ -18,7 +18,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const SELECTORS = ["video source", "video", "audio source", "audio"];
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo ou une musique sur
+ * Extrait les informations nécessaires pour lire une vidéo ou une musique sur
  * Kodi.
  *
  * @param {URL}      url           L'URL d'une page quelconque.

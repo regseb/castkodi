@@ -10,8 +10,8 @@ import { config } from "../config.js";
 
 describe("Scraper: Instagram", function () {
     before(function () {
-        // Désactiver les tests d'Instagram en dehors de la France car pour les
-        // autres pays, il faut être connecté pour consulter les publications.
+        // Désactiver les tests d'Instagram en dehors de la France, car il faut
+        // être connecté pour consulter les publications dans les autres pays.
         if (undefined !== config.country && "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this
             this.skip();

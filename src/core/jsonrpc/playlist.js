@@ -99,7 +99,7 @@ export const Playlist = class {
      * Récupère un élément de la liste de lecture.
      *
      * @param {number} position La position de l'élément.
-     * @returns {Promise<Object|undefined>} Une promesse contenant l'élement de
+     * @returns {Promise<Object|undefined>} Une promesse contenant l'élément de
      *                                      la liste de lecture ou
      *                                      <code>undefined</code>.
      */

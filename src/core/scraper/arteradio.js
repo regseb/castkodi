@@ -16,7 +16,7 @@ const BASE_URL =
     "https://cdn.arteradio.com/permanent/arteradio/sites/default/files/sons/";
 
 /**
- * Extrait les informations nécessaire pour lire un son sur Kodi.
+ * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL}      _url          L'URL d'un son Arte Radio.
  * @param {Object}   metadata      Les métadonnées de l'URL.

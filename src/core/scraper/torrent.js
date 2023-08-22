@@ -11,7 +11,7 @@ import * as plugin from "../plugin/elementum.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'un torrent ou d'un magnet.
  * @returns {Promise<string>} Une promesse contenant le lien du

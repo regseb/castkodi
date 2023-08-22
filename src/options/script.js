@@ -8,7 +8,7 @@ import { Kodi } from "../core/jsonrpc/kodi.js";
 import { locate } from "../core/l10n.js";
 import { checkHosts } from "../core/permission.js";
 
-// Insérer les textes dans la bonnes langues.
+// Insérer les textes dans la bonne langue.
 locate(document, "options");
 
 /**
@@ -184,8 +184,8 @@ const remove = async function (event) {
 
     // Enregistrer la nouvelle configuration.
     await save.apply(tbody.querySelector('[name="address_0"]'));
-    // Activer le premier serveur car c'est peut-être le serveur actif qui a été
-    // supprimé.
+    // Activer le premier serveur, car c'est peut-être le serveur actif qui a
+    // été supprimé.
     await browser.storage.local.set({ "server-active": 0 });
 };
 
@@ -288,7 +288,7 @@ const handleChange = function (changes) {
                 // Ignorer "server-active" car ce paramètre n'est pas affiché
                 // dans la page.
                 .filter(([k]) => "server-active" !== k)
-                // Ne pas actualiser la liste des serveurs car cela provoque un
+                // Ne pas actualiser la liste des serveurs, car cela provoque un
                 // bogue.
                 .filter(([k]) => "server-list" !== k)
                 .map(([k, v]) => [k, v.newValue]),

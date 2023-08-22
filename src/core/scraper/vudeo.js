@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const DATA_REGEXP = /sources: \["(?<source>.*\/v.mp4)"\],/u;
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une vidéo de Vudeo.
  * @param {Object}   metadata      Les métadonnées de l'URL.

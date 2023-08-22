@@ -49,7 +49,7 @@ export const Addons = class {
                 enabled: true,
             });
             // Gérer le cas où la propriété "addons" n'est pas présente (quand
-            // aucun addon est retourné).
+            // aucun addon n'est retourné).
             if (undefined !== results.addons) {
                 addons.push(results.addons.map((a) => a.addonid));
             }

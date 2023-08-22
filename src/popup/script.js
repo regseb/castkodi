@@ -12,7 +12,7 @@ import { checkHosts } from "../core/permission.js";
 import { notify } from "../core/tools/notify.js";
 import { ping } from "../core/tools/ping.js";
 
-// Insérer les textes dans la bonnes langues.
+// Insérer les textes dans la bonne langue.
 locate(document, "popup");
 
 /**
@@ -48,7 +48,7 @@ const openError = function (err) {
     const dialog = document.querySelector("#dialogerror");
     if (!dialog.open) {
         // Cacher l'indicateur de chargement (pour éviter de le voir bouger en
-        // arrière plan).
+        // arrière-plan).
         document.querySelector("#loading").style.display = "none";
 
         if ("PebkacError" === err.name) {
@@ -158,7 +158,7 @@ const paste = async function (event) {
         }
 
         const textarea = document.querySelector("textarea");
-        // Pré-remplir le champ (avec la valeur du presse-papier) seulement si
+        // Préremplir le champ (avec la valeur du presse-papier) seulement si
         // le champ est vide.
         if ("" === textarea.value) {
             const config = await browser.storage.local.get(["popup-clipboard"]);
@@ -227,7 +227,7 @@ const playPause = async function () {
     const play = document.querySelector("#play");
     if ("open" === play.dataset.action) {
         // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-        // désactivé (car la connexion à Kodi a échouée).
+        // désactivé (car la connexion à Kodi a échoué).
         if (play.disabled) {
             return;
         }
@@ -1024,8 +1024,8 @@ const handlePropertyChanged = function (properties) {
     if ("speed" in properties) {
         handleSpeedChanged(properties.speed);
     }
-    // Mettre à jour le temps total avant le temps courant car celui-ci a besoin
-    // du temps total.
+    // Mettre à jour le temps total avant le temps courant, car celui-ci a
+    // besoin du temps total.
     if ("totaltime" in properties) {
         handleTotaltimeChanged(properties.totaltime);
     }

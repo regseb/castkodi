@@ -10,7 +10,7 @@ import { config } from "../config.js";
 
 describe("Scraper: Ouest-France", function () {
     before(function () {
-        // Désactiver les tests de Ouest-France en dehors de la France car le
+        // Désactiver les tests de Ouest-France en dehors de la France, car le
         // site utilise Ultimedia qui fonctionne seulement en France.
         if (undefined !== config.country && "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this

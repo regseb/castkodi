@@ -8,7 +8,7 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire une radio sur Kodi.
+ * Extrait les informations nécessaires pour lire une radio sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une radio de Radio.
  * @param {Object}   metadata      Les métadonnées de l'URL.

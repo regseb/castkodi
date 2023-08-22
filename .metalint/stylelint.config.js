@@ -41,7 +41,7 @@ export default {
         "custom-property-no-missing-var-function": true,
         "font-family-no-missing-generic-family-keyword": true,
 
-        // Non-stantard.
+        // Non-standard.
         "function-linear-gradient-no-nonstandard-direction": true,
 
         // Overrides
@@ -57,8 +57,8 @@ export default {
         "function-no-unknown": true,
         "media-feature-name-no-unknown": true,
         "no-unknown-animations": true,
-        // Désactiver cette règle car les variables sont déclarées dans d'autres
-        // fichiers.
+        // Désactiver cette règle, car les variables sont déclarées dans
+        // d'autres fichiers.
         "no-unknown-custom-properties": null,
         "property-no-unknown": true,
         "selector-pseudo-class-no-unknown": true,

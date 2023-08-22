@@ -8,7 +8,7 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'un jeu Steam.
  * @param {Object}   metadata      Les métadonnées de l'URL.
@@ -29,7 +29,7 @@ export const extractGame = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une diffusion Steam.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

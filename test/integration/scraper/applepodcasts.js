@@ -19,7 +19,7 @@ describe("Scraper: Apple Podcasts", function () {
     });
 
     it("should return audio URL", async function () {
-        // Récupérer un podcast récent car ils ne sont pas gardés indéfiniment.
+        // Récupérer un podcast récent, car ils ne sont pas gardés indéfiniment.
         const response = await fetch(
             "https://podcasts.apple.com/fr/podcast" +
                 "/les-journaux-de-france-bleu-provence/id1041742167",

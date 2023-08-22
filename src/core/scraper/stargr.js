@@ -17,7 +17,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const URL_REGEXP = /url: '(?<url>https:\/\/.*\/manifest.m3u8)'/u;
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une vidéo de StarGR.
  * @param {Object}   metadata      Les métadonnées de l'URL.
@@ -40,7 +40,7 @@ const actionTv = async function (_url, metadata) {
 export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url              L'URL d'une vidéo de StarGR.
  * @param {Object}   metadata          Les métadonnées de l'URL.

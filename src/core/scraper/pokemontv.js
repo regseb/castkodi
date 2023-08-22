@@ -37,7 +37,7 @@ const LANGS = {
 const API_URL = "https://www.pokemon.com/api/pokemontv/v2/channels/";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Pokémon TV.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

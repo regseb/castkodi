@@ -8,7 +8,7 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait les informations nécessaire pour lire un podcast sur Kodi.
+ * Extrait les informations nécessaires pour lire un podcast sur Kodi.
  *
  * @param {URL}      _url          L'URL d'un podcast sur Ausha.
  * @param {Object}   metadata      Les métadonnées de l'URL.

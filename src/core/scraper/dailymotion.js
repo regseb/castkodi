@@ -33,7 +33,7 @@ const dispatch = async function (videoId) {
 };
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Dailymotion.
  * @returns {Promise<string>} Une promesse contenant le lien du
@@ -48,7 +48,7 @@ export const extractVideo = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL minifiée d'une vidéo Dailymotion.
  * @returns {Promise<string>} Une promesse contenant le lien du
@@ -60,7 +60,7 @@ const actionMinify = async function ({ pathname }) {
 export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Dailymotion intégrée.
  * @returns {Promise<string>} Une promesse contenant le lien du
@@ -75,7 +75,7 @@ export const extractEmbed = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une page quelconque ayant
  *                                 éventuellement un lecteur Dailymotion.
@@ -104,7 +104,7 @@ const actionPlayerScript = async function (_url, metadata) {
 export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'un lecteur Dailymotion avec sa vidéo.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

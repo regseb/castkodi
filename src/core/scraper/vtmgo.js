@@ -75,7 +75,7 @@ const dispatchChannel = async function (channelUuid) {
 };
 
 /**
- * Extrait les informations nécessaire pour lire un épisode sur Kodi.
+ * Extrait les informations nécessaires pour lire un épisode sur Kodi.
  *
  * @param {URL} url L'URL d'un épisode de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du
@@ -92,7 +92,7 @@ export const extractEpisode = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire un film sur Kodi.
+ * Extrait les informations nécessaires pour lire un film sur Kodi.
  *
  * @param {URL} url L'URL d'un film de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du
@@ -109,7 +109,7 @@ export const extractMovie = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire un film sur Kodi.
+ * Extrait les informations nécessaires pour lire un film sur Kodi.
  *
  * @param {URL} url L'URL d'une page d'un film de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du
@@ -126,7 +126,7 @@ export const extractMoviePage = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire une chaine sur Kodi.
+ * Extrait les informations nécessaires pour lire une chaine sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une chaine VTM GO.
  * @param {Object}   metadata      Les métadonnées de l'URL.

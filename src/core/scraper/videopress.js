@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://public-api.wordpress.com/rest/v1.1/videos/";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo de VideoPress.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

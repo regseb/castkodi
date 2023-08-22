@@ -36,7 +36,7 @@ const walk = function (root) {
 };
 
 /**
- * Extrait les informations nécessaire pour lire un média sur Kodi.
+ * Extrait les informations nécessaires pour lire un média sur Kodi.
  *
  * @param {URL}      url               L'URL d'une page quelconque.
  * @param {Object}   metadata          Les métadonnées de l'URL.

@@ -22,7 +22,7 @@ const UUID_REGEXP = /"videoId":"(?<videoId>[-0-9a-f]+)"/u;
 const API_URL = "https://player.webservices.francetelevisions.fr/v1/videos/";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une page de France tv.
  * @param {Object}   metadata      Les métadonnées de l'URL.

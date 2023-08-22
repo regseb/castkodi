@@ -10,8 +10,8 @@ import { config } from "../config.js";
 
 describe("Scraper: Ultimedia", function () {
     before(function () {
-        // Désactiver les tests d'Ultimedia en dehors de la France car les pages
-        // sont en "maintenance" dans les autres pays.
+        // Désactiver les tests d'Ultimedia en dehors de la France, car les
+        // pages sont en "maintenance" dans les autres pays.
         if (undefined !== config.country && "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this
             this.skip();

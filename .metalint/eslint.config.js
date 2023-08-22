@@ -373,7 +373,7 @@ export default {
         "max-len": [
             "warn",
             {
-                // Ignorer les imports et les déclarations de tests unitaires
+                // Ignorer les imports et les déclarations de tests unitaires,
                 // car Prettier n'ajoute pas de retour à la ligne pour ne pas
                 // dépasser les 80 caractères.
                 ignorePattern: '^import |^ \\* @typedef \\{import\\(|^ +it\\("',
@@ -390,7 +390,7 @@ export default {
         "no-mixed-spaces-and-tabs": "off",
         "no-multi-spaces": "off",
         "no-multiple-empty-lines": "off",
-        // Activer cette règle car Prettier garde des tabulations (par exemple
+        // Activer cette règle, car Prettier garde des tabulations (par exemple
         // dans les chaines de caractères).
         "no-tabs": "error",
         "no-trailing-spaces": "off",
@@ -479,14 +479,14 @@ export default {
         "import/no-mutable-exports": "error",
         "import/no-named-as-default": "off",
         "import/no-named-as-default-member": "off",
-        // Ne pas appliquer cette règle car elle ne fonctionnne pas quand le nom
+        // Ne pas appliquer cette règle, car elle ne fonctionne pas quand le nom
         // du fichier de configuration de ESLint n'est pas standard.
         // https://github.com/import-js/eslint-plugin-import/issues/2678
         "import/no-unused-modules": "off",
 
         // Module systems.
-        // Désactiver cette règle car no-undef remontera une erreur car les
-        // méthodes define() et require() ne sont pas définies.
+        // Désactiver cette règle et laisser la règle no-undef remonter les
+        // erreurs, car les méthodes define() et require() ne sont pas définies.
         "import/no-amd": "off",
         // Désactiver cette règle et préférer unicorn/prefer-module.
         "import/no-commonjs": "off",
@@ -500,7 +500,7 @@ export default {
         "import/namespace": "error",
         "import/no-absolute-path": "error",
         "import/no-cycle": ["error", { ignoreExternal: true }],
-        // Désactiver cette règle car la méthode require() est déjà interdite.
+        // Désactiver cette règle, car la méthode require() est déjà interdite.
         "import/no-dynamic-require": "off",
         "import/no-internal-modules": "off",
         "import/no-relative-packages": "error",
@@ -558,7 +558,7 @@ export default {
         // Plugin eslint-plugin-jsdoc.
         "jsdoc/check-access": "error",
         "jsdoc/check-alignment": "error",
-        // Désactiver cette règle car elle n'est pas pour le moment compatible
+        // Désactiver cette règle, car elle n'est pas pour le moment compatible
         // avec ESLint 8.
         // https://github.com/gajus/eslint-plugin-jsdoc/releases/tag/v37.0.0
         "jsdoc/check-examples": "off",
@@ -851,7 +851,7 @@ export default {
         "unicorn/relative-url-style": "error",
         "unicorn/require-array-join-separator": "off",
         "unicorn/require-number-to-fixed-digits-argument": "off",
-        // Désactiver cette règles car il y a des faux-positifs avec la méthode
+        // Désactiver cette règle, car il y a des faux-positifs avec la méthode
         // port.postMessage() des WebExtensions.
         // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1396
         "unicorn/require-post-message-target-origin": "off",

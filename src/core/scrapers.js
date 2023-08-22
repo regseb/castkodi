@@ -83,13 +83,13 @@ import * as zdf from "./scraper/zdf.js";
 import { cacheable } from "./tools/cacheable.js";
 
 /**
- * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
- * <code>undefined</code>).
+ * La liste des fonctions des extracteurs (retournant le <em>fichier</em>
+ * extrait ou <code>undefined</code>).
  *
  * @type {Function[]}
  */
 const SCRAPERS = [
-    // Lister les scrapers (triés par ordre alphabétique).
+    // Lister les extracteurs (triés par ordre alphabétique).
     acast,
     acestream,
     allocine,
@@ -145,7 +145,7 @@ const SCRAPERS = [
     vudeo,
     youtube,
     zdf,
-    // Utiliser les scrapers génériques en dernier recours.
+    // Utiliser les extracteurs génériques en dernier recours.
     media,
     ldjson,
     opengraph,

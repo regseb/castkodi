@@ -66,7 +66,7 @@ dans la page _Paramètres_ / _Infos sur le système_ / _Résumé_.
 
 [Node.js et
 npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) sont
-nécessaire pour contribuer au projet. Après avoir [forké et
+nécessaires pour contribuer au projet. Après avoir [forké et
 cloné](https://docs.github.com/get-started/quickstart/fork-a-repo) Cast Kodi,
 exécutez `npm ci` pour télécharger les dépendances. Voici d'autres
 commandes utiles :

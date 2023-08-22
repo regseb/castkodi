@@ -22,7 +22,7 @@ const REGEXP = /^(?:\/s)?\/(?<show>[^/]+)\/(?<episode>[^/]+)/u;
 const API_URL = "https://feeder.acast.com/api/v1";
 
 /**
- * Extrait les informations nécessaire pour lire un son sur Kodi.
+ * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son de Acast.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
