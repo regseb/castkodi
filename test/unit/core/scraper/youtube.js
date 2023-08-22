@@ -21,7 +21,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return undefined when it isn't a video", async function () {
-            browser.storage.local.set({ "youtube-playlist": "playlist" });
+            await browser.storage.local.set({ "youtube-playlist": "playlist" });
 
             const url = new URL("https://www.youtube.com/watch?x=foo");
             const metadata = undefined;
@@ -32,7 +32,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return playlist id", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "youtube-playlist": "playlist",
                 "youtube-order": "",
             });
@@ -54,7 +54,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.youtube.com/watch?v=foo&list=bar");
@@ -73,7 +73,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id even with playlist option", async function () {
-            browser.storage.local.set({ "youtube-playlist": "playlist" });
+            await browser.storage.local.set({ "youtube-playlist": "playlist" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
@@ -92,7 +92,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return undefined when it isn't a video from mobile", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
 
             const url = new URL("https://m.youtube.com/watch?a=foo");
             const metadata = undefined;
@@ -103,7 +103,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id from mobile", async function () {
-            browser.storage.local.set({ "youtube-playlist": "playlist" });
+            await browser.storage.local.set({ "youtube-playlist": "playlist" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://m.youtube.com/watch?v=foo");
@@ -122,7 +122,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return undefined when it isn't a video from music", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
 
             const url = new URL("https://music.youtube.com/watch?m=foo");
             const metadata = undefined;
@@ -133,7 +133,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id from music", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL(
@@ -154,7 +154,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id from invidio.us", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://invidio.us/watch?v=foo");
@@ -173,7 +173,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id from hooktube", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://hooktube.com/watch?v=foo");
@@ -192,7 +192,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id to youtube", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([
@@ -217,7 +217,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id to tubed", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves(["plugin.video.sendtokodi", "plugin.video.tubed"]);
@@ -237,7 +237,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return video id to sendtokodi", async function () {
-            browser.storage.local.set({ "youtube-playlist": "video" });
+            await browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves(["plugin.video.sendtokodi"]);
@@ -260,7 +260,7 @@ describe("core/scraper/youtube.js", function () {
 
     describe("extractPlaylist()", function () {
         it("should return undefined when it isn't a playlist", async function () {
-            browser.storage.local.set({ "youtube-order": "" });
+            await browser.storage.local.set({ "youtube-order": "" });
 
             const url = new URL("https://www.youtube.com/playlist?v=foo");
             const metadata = undefined;
@@ -271,7 +271,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return playlist id", async function () {
-            browser.storage.local.set({ "youtube-order": "" });
+            await browser.storage.local.set({ "youtube-order": "" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.youtube.com/playlist?list=foo");
@@ -290,7 +290,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return undefined when it isn't a playlist from mobile", async function () {
-            browser.storage.local.set({ "youtube-order": "reverse" });
+            await browser.storage.local.set({ "youtube-order": "reverse" });
 
             const url = new URL(
                 "https://m.youtube.com/playlist?video=foo&incognito=false",
@@ -303,7 +303,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return playlist id from mobile", async function () {
-            browser.storage.local.set({ "youtube-order": "reverse" });
+            await browser.storage.local.set({ "youtube-order": "reverse" });
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://m.youtube.com/playlist?list=foo");
@@ -322,7 +322,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return playlist id to youtube", async function () {
-            browser.storage.local.set({ "youtube-order": "" });
+            await browser.storage.local.set({ "youtube-order": "" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([
@@ -347,7 +347,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return playlist id to tubed", async function () {
-            browser.storage.local.set({ "youtube-order": "" });
+            await browser.storage.local.set({ "youtube-order": "" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves(["plugin.video.sendtokodi", "plugin.video.tubed"]);
@@ -367,7 +367,7 @@ describe("core/scraper/youtube.js", function () {
         });
 
         it("should return playlist id to sendtokodi", async function () {
-            browser.storage.local.set({ "youtube-order": "" });
+            await browser.storage.local.set({ "youtube-order": "" });
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves(["plugin.video.sendtokodi"]);

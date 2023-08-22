@@ -5,24 +5,25 @@
  */
 
 import fs from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 
 if (undefined === import.meta.resolve) {
     /**
      * Résous un chemin relatif à partir du module.
      *
-     * @param {string} specifier Le chemin relatif vers un fichier.
-     * @returns {Promise<string>} Une promesse contenant le chemin absolu vers
-     *                            le fichier.
-     * @see https://nodejs.org/docs/latest/api/esm.html#importmeta
+     * @param {string} specifier Le chemin relatif vers un fichier ou un
+     *                           répertoire.
+     * @returns {string} L'URL absolue vers le fichier ou le répertoire.
+     * @see https://nodejs.org/api/esm.html#importmetaresolvespecifier-parent
      */
     import.meta.resolve = (specifier) => {
-        return Promise.resolve(new URL(specifier, import.meta.url).pathname);
+        return new URL(specifier, import.meta.url).href;
     };
 }
 
 const MESSAGES = JSON.parse(
     await fs.readFile(
-        await import.meta.resolve("../../locales/en/messages.json"),
+        fileURLToPath(import.meta.resolve("../../locales/en/messages.json")),
         "utf8",
     ),
 );
@@ -149,10 +150,13 @@ export const browser = {
          *
          * @param {Object} query      Les filtres de la recherche.
          * @param {string} query.text Le texte cherché dans les URLs des pages.
-         * @returns {Object[]} Les pages respectant les filtres.
+         * @returns {Promise<Object[]>} Une promesse contenant les pages
+         *                              respectant les filtres.
          */
         search({ text }) {
-            return data.histories.filter((h) => h.url.includes(text));
+            return Promise.resolve(
+                data.histories.filter((h) => h.url.includes(text)),
+            );
         },
     },
 

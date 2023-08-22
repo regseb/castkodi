@@ -93,7 +93,7 @@ describe("core/index.js", function () {
                 message: "Link foo://bar is invalid.",
                 type: "noLink",
             });
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
         });
 
@@ -102,7 +102,7 @@ describe("core/index.js", function () {
                 name: "PebkacError",
                 type: "noLinks",
             });
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
         });
 
@@ -116,7 +116,7 @@ describe("core/index.js", function () {
             const stubOpen = sinon.stub(kodi.player, "open").resolves("OK");
 
             await cast("send", ["http://foo.com/bar"]);
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);
@@ -142,7 +142,7 @@ describe("core/index.js", function () {
                 .resolves("OK");
 
             await cast("insert", ["http://foo.com/bar"]);
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);
@@ -164,7 +164,7 @@ describe("core/index.js", function () {
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await cast("add", ["http://foo.com/bar"]);
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);
@@ -180,7 +180,7 @@ describe("core/index.js", function () {
                 name: "Error",
                 message: "foo is not supported",
             });
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stub.callCount, 1);
@@ -188,14 +188,14 @@ describe("core/index.js", function () {
         });
 
         it("should add in history", async function () {
-            browser.storage.local.set({ "general-history": true });
+            await browser.storage.local.set({ "general-history": true });
             const stubGetAddons = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([]);
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await cast("add", ["http://foo.com/bar"]);
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.deepEqual(histories, [{ url: "http://foo.com/bar" }]);
 
             assert.equal(stubGetAddons.callCount, 1);
@@ -205,14 +205,14 @@ describe("core/index.js", function () {
         });
 
         it("shouldn't add in history", async function () {
-            browser.storage.local.set({ "general-history": false });
+            await browser.storage.local.set({ "general-history": false });
             const stubGetAddons = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([]);
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await cast("add", ["http://foo.com/bar"]);
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);
@@ -223,14 +223,14 @@ describe("core/index.js", function () {
 
         it("shouldn't add in history in incognito", async function () {
             browser.extension.inIncognitoContext = true;
-            browser.storage.local.set({ "general-history": true });
+            await browser.storage.local.set({ "general-history": true });
             const stubGetAddons = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([]);
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
             await cast("add", ["http://foo.com/bar"]);
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);
@@ -241,7 +241,7 @@ describe("core/index.js", function () {
 
         it("should pass incognito on scrapers", async function () {
             browser.extension.inIncognitoContext = true;
-            browser.storage.local.set({ "general-history": false });
+            await browser.storage.local.set({ "general-history": false });
             const stubGetAddons = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves([]);
@@ -250,7 +250,7 @@ describe("core/index.js", function () {
                 .resolves("OK");
 
             await cast("add", ["http://youtu.be/foo"]);
-            const histories = browser.history.search({ text: "" });
+            const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);

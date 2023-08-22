@@ -1005,7 +1005,7 @@ const handleTotaltimeChanged = function (value) {
     }
 };
 
-const handlePropertyChanged = function (properties) {
+const handlePropertyChanged = async function (properties) {
     if ("volume" in properties) {
         handleVolumeChanged(properties.volume);
     }
@@ -1019,7 +1019,7 @@ const handlePropertyChanged = function (properties) {
         handleRepeatChanged(properties.repeat);
     }
     if ("shuffled" in properties) {
-        handleShuffledChanged(properties.shuffled);
+        await handleShuffledChanged(properties.shuffled);
     }
     if ("speed" in properties) {
         handleSpeedChanged(properties.speed);
@@ -1062,7 +1062,7 @@ const seek = async function () {
 
 const load = async function () {
     try {
-        handlePropertyChanged(
+        await handlePropertyChanged(
             await kodi.player.getProperties([
                 "position",
                 "repeat",
@@ -1072,7 +1072,7 @@ const load = async function () {
                 "totaltime",
             ]),
         );
-        handlePropertyChanged(
+        await handlePropertyChanged(
             await kodi.application.getProperties(["muted", "volume"]),
         );
 
@@ -1266,7 +1266,7 @@ const SHORTCUTS = new Map([
 
 // Attention ! La popup n'a pas automatiquement le focus quand elle est ouverte
 // dans le menu prolongeant la barre d'outils. https://bugzil.la/1623875
-globalThis.addEventListener("keydown", (event) => {
+globalThis.addEventListener("keydown", async (event) => {
     // Ignorer les entrées avec une touche de modification.
     if (event.altKey || event.ctrlKey || event.metaKey) {
         return;
@@ -1287,7 +1287,7 @@ globalThis.addEventListener("keydown", (event) => {
     // touche Entrée qui envoi l'URL saisie).
     if ("TEXTAREA" === event.target.nodeName) {
         if ("Enter" === event.key) {
-            send();
+            await send();
             event.preventDefault();
         }
         return;
@@ -1332,7 +1332,7 @@ globalThis.addEventListener(
             return;
         }
 
-        setVolume(
+        await setVolume(
             ("normal" === config["popup-wheel"] && 0 > event.deltaY) ||
                 ("reverse" === config["popup-wheel"] && 0 < event.deltaY)
                 ? "increment"

@@ -251,7 +251,7 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should send request from configuration", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "server-list": [
                     { address: "localhost" },
                     { address: "127.0.0.1" },
@@ -269,7 +269,7 @@ describe("core/jsonrpc/kodi.js", function () {
             let result = await kodi.send("Foo.Bar");
             assert.equal(result, "OK");
             kodi.close();
-            browser.storage.local.set({ "server-active": 1 });
+            await browser.storage.local.set({ "server-active": 1 });
             result = await kodi.send("Baz.Qux", true);
             assert.equal(result, "OK");
 

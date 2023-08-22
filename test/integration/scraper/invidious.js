@@ -9,7 +9,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Invidious", function () {
     it("should return video id [youtube]", async function () {
-        browser.storage.local.set({ "youtube-playlist": "video" });
+        await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL("https://invidio.us/watch?v=e6EQwSadpPk");
         const context = { depth: false, incognito: true };

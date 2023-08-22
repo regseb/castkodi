@@ -9,7 +9,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: HookTube", function () {
     it("should return video id [youtube]", async function () {
-        browser.storage.local.set({ "youtube-playlist": "video" });
+        await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL("https://hooktube.com/watch?v=LACbVhgtx9I");
         const context = { depth: false, incognito: false };

@@ -78,7 +78,7 @@ describe("core/storage.js", function () {
 
     describe("migrate()", function () {
         it("should upgrade from version '1'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "config-version": 1,
                 "connection-host": "foo",
                 "general-history": true,
@@ -114,7 +114,7 @@ describe("core/storage.js", function () {
         });
 
         it("should upgrade from version '2'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "config-version": 2,
                 "server-mode": "multi",
                 "server-list": [
@@ -149,7 +149,7 @@ describe("core/storage.js", function () {
         });
 
         it("should upgrade from version '3'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "config-version": 3,
                 "server-mode": "single",
                 "server-list": [{ address: "foo", name: "" }],
@@ -178,7 +178,7 @@ describe("core/storage.js", function () {
         });
 
         it("should upgrade from version '4'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "config-version": 4,
                 "server-mode": "multi",
                 "server-list": [
@@ -214,7 +214,7 @@ describe("core/storage.js", function () {
         });
 
         it("should upgrade from version '5'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "config-version": 5,
                 "server-mode": "multi",
                 "server-list": [
@@ -251,7 +251,7 @@ describe("core/storage.js", function () {
         });
 
         it("should do nothing from version '6'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "config-version": 6,
                 "server-mode": "multi",
                 "server-list": [
@@ -291,7 +291,7 @@ describe("core/storage.js", function () {
 
     describe("remove()", function () {
         it("should support no permission", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
                 "menu-contexts": ["bookmark"],
@@ -307,7 +307,7 @@ describe("core/storage.js", function () {
         });
 
         it("should ignore unknown permission", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
                 "menu-contexts": ["bookmark"],
@@ -325,7 +325,7 @@ describe("core/storage.js", function () {
         });
 
         it("should disable 'general-history'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
                 "menu-contexts": ["bookmark"],
@@ -341,7 +341,7 @@ describe("core/storage.js", function () {
         });
 
         it("should disable 'general-clipboard'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
                 "menu-contexts": ["bookmark"],
@@ -357,7 +357,7 @@ describe("core/storage.js", function () {
         });
 
         it("should remove 'bookmark'", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
                 "menu-contexts": ["bookmark", "foo"],
@@ -373,7 +373,7 @@ describe("core/storage.js", function () {
         });
 
         it("should support when 'bookmark' is removed", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
                 "menu-contexts": [],

@@ -17,7 +17,7 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return playlist id from video in playlist", async function () {
-        browser.storage.local.set({
+        await browser.storage.local.set({
             "youtube-playlist": "playlist",
             "youtube-order": "default",
         });
@@ -38,7 +38,7 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return video id", async function () {
-        browser.storage.local.set({ "youtube-playlist": "video" });
+        await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL(
             "https://www.youtube.com/watch" +
@@ -55,7 +55,7 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return video id even with playlist option", async function () {
-        browser.storage.local.set({ "youtube-playlist": "playlist" });
+        await browser.storage.local.set({ "youtube-playlist": "playlist" });
 
         const url = new URL("https://www.youtube.com/watch?v=sWfAtMQa_yo");
         const context = { depth: false, incognito: false };
@@ -77,7 +77,7 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return video id from mobile", async function () {
-        browser.storage.local.set({ "youtube-playlist": "playlist" });
+        await browser.storage.local.set({ "youtube-playlist": "playlist" });
 
         const url = new URL("https://m.youtube.com/watch?v=dQw4w9WgXcQ");
         const context = { depth: false, incognito: false };
@@ -99,7 +99,7 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return video id from music", async function () {
-        browser.storage.local.set({ "youtube-playlist": "video" });
+        await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL(
             "https://music.youtube.com/watch" +
@@ -124,7 +124,7 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return playlist id", async function () {
-        browser.storage.local.set({ "youtube-order": "" });
+        await browser.storage.local.set({ "youtube-order": "" });
 
         const url = new URL(
             "https://www.youtube.com/playlist" +
@@ -152,7 +152,7 @@ describe("Scraper: YouTube", function () {
     });
 
     it("should return playlist id from mobile", async function () {
-        browser.storage.local.set({ "youtube-order": "reverse" });
+        await browser.storage.local.set({ "youtube-order": "reverse" });
 
         const url = new URL(
             "https://m.youtube.com/playlist?list=PL3A5849BDE0581B19",
