@@ -10,14 +10,22 @@ import * as scraper from "../../../../src/core/scraper/vudeo.js";
 describe("core/scraper/vudeo.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("https://vudeo.io/faq");
+            const url = new URL("https://vudeo.foo/faq");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
+        it("should return undefined when no html", async function () {
+            const url = new URL("https://vudeo.foo/bar.html");
+            const metadata = { html: () => Promise.resolve(undefined) };
+
+            const file = await scraper.extract(url, metadata);
+            assert.equal(file, undefined);
+        });
+
         it("should return undefined when no script", async function () {
-            const url = new URL("https://vudeo.io/foo.html");
+            const url = new URL("https://vudeo.foo/bar.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -33,13 +41,13 @@ describe("core/scraper/vudeo.js", function () {
         });
 
         it("should return undefined when no inline script", async function () {
-            const url = new URL("https://vudeo.io/foo.html");
+            const url = new URL("https://vudeo.foo/bar.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <script src="https://vudeo.io/foo.js"></script>
+                               <script src="https://vudeo.foo/bar.js"></script>
                              </body></html>`,
                             "text/html",
                         ),
@@ -51,7 +59,7 @@ describe("core/scraper/vudeo.js", function () {
         });
 
         it("should return undefined when no sources", async function () {
-            const url = new URL("https://vudeo.io/foo.html");
+            const url = new URL("https://vudeo.foo/bar.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -71,7 +79,7 @@ describe("core/scraper/vudeo.js", function () {
         });
 
         it("should return video URL", async function () {
-            const url = new URL("https://vudeo.io/foo.html");
+            const url = new URL("https://vudeo.foo/bar.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -79,7 +87,7 @@ describe("core/scraper/vudeo.js", function () {
                             `<html><body>
                                <script>
                                  var player = new Clappr.Player({
-                                   sources: ["https://bar.com/baz/v.mp4"],
+                                   sources: ["https://baz.com/qux/v.mp4"],
                                  });
                                </script>
                              </body></html>`,
@@ -91,7 +99,7 @@ describe("core/scraper/vudeo.js", function () {
             const file = await scraper.extract(url, metadata);
             assert.equal(
                 file,
-                "https://bar.com/baz/v.mp4|Referer=https://vudeo.io/",
+                "https://baz.com/qux/v.mp4|Referer=https://vudeo.foo/bar.html",
             );
         });
     });
