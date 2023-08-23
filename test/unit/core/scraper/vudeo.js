@@ -47,7 +47,7 @@ describe("core/scraper/vudeo.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <script src="https://vudeo.foo/bar.js"></script>
+                               <script src="https://vudeo.foo/baz.js"></script>
                              </body></html>`,
                             "text/html",
                         ),
