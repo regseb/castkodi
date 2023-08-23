@@ -20,7 +20,8 @@ describe("Scraper: Castbox", function () {
 
     it("should return audio URL [audio]", async function () {
         const url = new URL(
-            "https://castbox.fm/episode/'Ultramoderne'-id1018326-id255945951",
+            "https://castbox.fm/episode" +
+                "/C'est-encore-classe%C2%A0!-id1018326-id592857521",
         );
         const context = { depth: false, incognito: false };
 

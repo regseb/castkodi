@@ -19,7 +19,9 @@ describe("Labeller: Twitch", function () {
 
         const url = new URL(
             "https://m.twitch.tv" +
-                doc.querySelector('[role="list"] a.tw-link').href,
+                doc
+                    .querySelector('[role="list"] a.tw-link')
+                    .getAttribute("href"),
         );
         const context = { depth: false, incognito: false };
 
@@ -70,7 +72,9 @@ describe("Labeller: Twitch", function () {
 
         const url = new URL(
             "https://m.twitch.tv" +
-                doc.querySelector('a.tw-link[href^="/videos/"]').href,
+                doc
+                    .querySelector('a.tw-link[href^="/videos/"]')
+                    .getAttribute("href"),
         );
         const context = { depth: false, incognito: false };
 

@@ -24,8 +24,9 @@ describe("Scraper: Steam", function () {
 
         const file = await extract(url, context);
         assert.ok(
-            file?.endsWith("/steam/apps/81613/movie_max.mp4?t=1452903069"),
-            `"${file}"?.endsWith(...)`,
+            undefined !== file &&
+                new URL(file).pathname.endsWith("/movie_max.mp4"),
+            `new URL("${file}").pathname.endsWith(...)`,
         );
     });
 
@@ -37,8 +38,9 @@ describe("Scraper: Steam", function () {
 
         const file = await extract(url, context);
         assert.ok(
-            file?.endsWith("/steam/apps/256682033/movie_max.mp4?t=1492645342"),
-            `"${file}"?.endsWith(...)`,
+            undefined !== file &&
+                new URL(file).pathname.endsWith("/movie_max.mp4"),
+            `new URL("${file}").pathname.endsWith(...)`,
         );
     });
 

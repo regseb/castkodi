@@ -18,4 +18,15 @@ describe("Scraper: Streamable", function () {
             `new URL("${file}").pathname.endsWith(...)`,
         );
     });
+
+    it("should return video URL when protocol is HTTP [opengraph]", async function () {
+        const url = new URL("http://streamable.com/jkij1");
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.ok(
+            undefined !== file && new URL(file).pathname.endsWith("jkij1.mp4"),
+            `new URL("${file}").pathname.endsWith(...)`,
+        );
+    });
 });

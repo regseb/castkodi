@@ -27,8 +27,9 @@ describe("Scraper: Framatube", function () {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://framatube.org/static/webseed" +
-                "/0900bd2e-7306-4c39-b48b-2d0cd611742e-1080.mp4",
+            "https://framatube.org/static/streaming-playlists/hls" +
+                "/0900bd2e-7306-4c39-b48b-2d0cd611742e" +
+                "/11f2c8bb-eb81-4924-8fd5-2083435f5ccb-master.m3u8",
         );
     });
 

@@ -25,7 +25,7 @@ describe("Scraper: podCloud", function () {
 
     it("should return audio URL when protocol is HTTP", async function () {
         const url = new URL(
-            "https://podcloud.fr/podcast/2-heures-de-perdues/episode/stargate",
+            "http://podcloud.fr/podcast/2-heures-de-perdues/episode/stargate",
         );
         const context = { depth: false, incognito: false };
 
