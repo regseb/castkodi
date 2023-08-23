@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.4.0](https://github.com/regseb/castkodi/compare/v7.3.0...v7.4.0) (2023-08-23)
+
+
+### Features
+
+* Ajouter le support de Kick. ([7d84768](https://github.com/regseb/castkodi/commit/7d847687c981278eb2c36be521b14c874657b36e))
+* Utiliser SendToKodi comme alternative aux plugins. ([04e85a3](https://github.com/regseb/castkodi/commit/04e85a3ca31de2d976574fec0e720605c4faa73f))
+
+
+### Bug Fixes
+
+* Corriger des async / await. ([cf8735b](https://github.com/regseb/castkodi/commit/cf8735b45f7ffb693043b7450b14a7b8d2515f52))
+* Corriger le scraper Arte Radio. ([80806be](https://github.com/regseb/castkodi/commit/80806bebf82a5663e39b8f939dd9f8781f7014c6))
+* Corriger le scraper Flickr. ([39a6029](https://github.com/regseb/castkodi/commit/39a60296b3b4c7faf6dbb28427d780a9fbfa0cb2))
+* Corriger le scraper KCAA Radio. ([55d84ea](https://github.com/regseb/castkodi/commit/55d84ea2324af300e81299cad170eb0cba927d57))
+* Corriger le scraper pour Dumpert. ([f58c294](https://github.com/regseb/castkodi/commit/f58c2949811e5c21ef8aef2dc9defb0e46f53423))
+* Corriger le scraper Viously. ([222213b](https://github.com/regseb/castkodi/commit/222213ba4e47b290864025fbcadaade1f3b0bc62))
+* Enlever ARD Mediathek. ([805645f](https://github.com/regseb/castkodi/commit/805645ff01d61fce28978937042aa70284702145))
+* Enlever VideosHub qui ne fonctionne plus. ([3a7b17f](https://github.com/regseb/castkodi/commit/3a7b17fe67dcc670fc60cf3028ace3570fb4a52d))
+* Gérer tous les TLDs de Vudeo. ([a9cc569](https://github.com/regseb/castkodi/commit/a9cc569b604487e47c2087e12b6cfff0759f03de))
+* Ne plus vérifier le TLD de Uqload. ([#103](https://github.com/regseb/castkodi/issues/103)) ([da94b41](https://github.com/regseb/castkodi/commit/da94b41e2598545127f21a9201de4e8b5e209324))
+
 ## [7.3.0](https://github.com/regseb/castkodi/compare/v7.2.0...v7.3.0) (2023-04-16)
 
 
