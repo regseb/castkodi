@@ -26,7 +26,7 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return promise rejected with old version", async function () {
-            const fake = sinon.fake.resolves({ version: { major: 11 } });
+            const fake = sinon.fake.resolves({ version: { major: 12 } });
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
                 send: fake,
@@ -35,7 +35,7 @@ describe("core/jsonrpc/kodi.js", function () {
 
             await assert.rejects(() => Kodi.check("foo.com"), {
                 name: "PebkacError",
-                message: "Kodi version 19 (Matrix) is required.",
+                message: "Kodi version 20 (Nexus) is required.",
                 type: "notSupported",
             });
 
@@ -51,7 +51,7 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return promise fulfilled", async function () {
-            const fake = sinon.fake.resolves({ version: { major: 12 } });
+            const fake = sinon.fake.resolves({ version: { major: 13 } });
             const stub = sinon.stub(JSONRPC, "open").resolves({
                 addEventListener: () => {},
                 send: fake,

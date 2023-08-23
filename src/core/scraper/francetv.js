@@ -43,8 +43,7 @@ const action = async function (_url, metadata) {
         const url =
             API_URL +
             result.groups.videoId +
-            "?device_type=desktop" +
-            "&browser=firefox";
+            "?device_type=desktop&browser=firefox";
         let response = await fetch(url);
         let json = await response.json();
 

@@ -5,5 +5,5 @@
  */
 
 export default {
-    content: ["/src/popup/*.html", "/src/popup/*.js"],
+    tabWidth: 4,
 };

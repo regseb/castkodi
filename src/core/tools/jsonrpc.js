@@ -26,8 +26,7 @@ export const JSONRPC = class extends EventTarget {
             ws.addEventListener("error", () =>
                 reject(
                     new Error(
-                        "Connection to the server at " +
-                            `${url.href} unestablished`,
+                        `Connection to the server at ${url.href} unestablished`,
                     ),
                 ),
             );

@@ -6,95 +6,94 @@
 
 export default {
     patterns: [
-        "!/CHANGELOG.md",
-        "!/.git/",
-        "!/jsdocs/",
-        "!/node_modules/",
-        "!/src/polyfill/lib/",
-        "!/.stryker/",
-        "!*.swp",
         "**",
+        // Ignorer les répertoires et les fichiers générés.
+        "!/.git/**",
+        "!/.stryker/**",
+        "!/CHANGELOG.md",
+        "!/jsdocs/**",
+        "!/node_modules/**",
+        "!/src/polyfill/lib/**",
+        // Ignorer les fichiers de configuration de Visual Studio Code.
+        "!/.vscode/**",
+        // Ignorer les fichiers de configuration de IntelliJ IDEA.
+        "!/.idea/**",
+        // Ignorer les fichiers temporaires de Vim.
+        "!*.swp",
+        // Ignorer les autres lockfiles.
+        "!/pnpm-lock.yaml",
+        "!/yarn.lock",
     ],
     checkers: [
-        {
-            patterns: ["*.json", "*.md", "*.svg", "*.yml"],
-            linters: "prettier",
-        },
-        {
-            patterns: "*.js",
-            linters: {
-                prettier: ["prettier.config.js", { tabWidth: 4 }],
-            },
-        },
         {
             patterns: ["/build/firefox/*.zip", "/src/"],
             linters: "addons-linter",
         },
         {
-            patterns: "/src/**/*.js",
-            linters: {
-                eslint: ["eslint.config.js", "eslint_webext.config.js"],
-            },
-        },
-        {
-            patterns: "/test/**/*.js",
-            linters: {
-                eslint: [
-                    "eslint.config.js",
-                    "eslint_node.config.js",
-                    "eslint_test.config.js",
-                ],
-            },
-        },
-        {
-            patterns: "/.script/**/*.js",
-            linters: {
-                eslint: ["eslint.config.js", "eslint_node.config.js"],
-            },
-        },
-        {
-            patterns: "*.config.js",
-            linters: {
-                eslint: ["eslint.config.js", "eslint_config.config.js"],
-            },
+            patterns: "*.js",
+            linters: ["prettier", "prettier_javascript", "eslint"],
+            overrides: [
+                {
+                    patterns: "/src/**",
+                    linters: "eslint_webext",
+                },
+                {
+                    patterns: "/test/**",
+                    linters: ["eslint_node", "eslint_test"],
+                },
+                {
+                    patterns: "/.script/**",
+                    linters: "eslint_node",
+                },
+                {
+                    patterns: "*.config.js",
+                    linters: ["eslint_node", "eslint_config"],
+                },
+            ],
         },
         {
             patterns: "*.html",
-            linters: "htmlhint",
+            linters: ["prettier", "htmlhint"],
         },
         {
             patterns: "*.tpl",
-            linters: {
-                htmlhint: ["htmlhint.config.js", "htmlhint_tpl.config.js"],
-            },
+            // Ne pas formatter les fichiers templates avec Prettier car les
+            // retours à la ligne ne sont pas gérés correctement.
+            linters: ["htmlhint", "htmlhint_tpl"],
         },
         {
             patterns: "*.css",
-            linters: "stylelint",
-        },
-        {
-            patterns: "/src/options/*.css",
-            linters: { purgecss: "purgecss_options.config.js" },
-        },
-        {
-            patterns: "/src/popup/*.css",
-            linters: { purgecss: "purgecss_popup.config.js" },
+            linters: ["prettier", "prettier_css", "stylelint"],
+            overrides: [
+                {
+                    patterns: "/src/options/**",
+                    linters: "purgecss_options",
+                },
+                {
+                    patterns: "/src/popup/**",
+                    linters: "purgecss_popup",
+                },
+            ],
         },
         {
             patterns: "*.md",
-            linters: "markdownlint",
+            linters: ["prettier", "markdownlint"],
         },
         {
             patterns: "*.json",
-            linters: { "jsonlint-mod": null },
-        },
-        {
-            patterns: "/package.json",
-            linters: "npm-package-json-lint",
+            linters: ["prettier", "prantlf__jsonlint"],
+            overrides: {
+                patterns: "/package.json",
+                linters: "npm-package-json-lint",
+            },
         },
         {
             patterns: "*.yml",
-            linters: { "yaml-lint": null },
+            linters: ["prettier", "yaml-lint"],
+        },
+        {
+            patterns: "*.svg",
+            linters: "prettier",
         },
     ],
 };

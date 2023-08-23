@@ -6,6 +6,7 @@
 
 import { spawnSync } from "node:child_process";
 import fs from "node:fs/promises";
+import process from "node:process";
 
 const exist = await fs
     .access("src/manifest.json", fs.constants.F_OK)

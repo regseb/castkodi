@@ -4,6 +4,9 @@
  * @author Sébastien Règne
  */
 
+import "../polyfill/browser.js";
+// eslint-disable-next-line import/no-unassigned-import
+import "../core/css.js";
 import { Kodi } from "../core/jsonrpc/kodi.js";
 import { locate } from "../core/l10n.js";
 import { checkHosts } from "../core/permission.js";

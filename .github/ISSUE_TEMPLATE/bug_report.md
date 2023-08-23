@@ -28,9 +28,9 @@ Steps to reproduce the behavior:
 
 ### Environment
 
-- Cast Kodi version<!-- e.g. 7.3.0 -->:
-- Browser version<!-- e.g. Chrome 112.0.5615.49, Firefox 112.0 -->:
-- Kodi version<!-- e.g. 19.5 -->:
+- Cast Kodi version<!-- e.g. 7.4.0 -->:
+- Browser version<!-- e.g. Chrome 116.0.5845.96, Firefox 116.0 -->:
+- Kodi version<!-- e.g. 20.2 -->:
 - Kodi add-on version (if appropriate)<!-- e.g. YouTube 6.8.25+matrix.1 -->:
 
 ### Additional context

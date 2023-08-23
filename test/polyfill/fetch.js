@@ -18,7 +18,7 @@ import nodeFetch from "node-fetch";
  */
 const USER_AGENT =
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)" +
-    " Chrome/112.0.0.0 Safari/537.36";
+    " Chrome/116.0.0.0 Safari/537.36";
 
 /**
  * Cherche une ressource.
@@ -31,9 +31,6 @@ const USER_AGENT =
 export const fetch = function (input, init) {
     const headers = {
         "Accept-Language": "*",
-        // Définir "keep-alive" car node-fetch utilise par défaut "close".
-        // https://github.com/node-fetch/node-fetch/pull/1473
-        Connection: "keep-alive",
         // Remplacer l'agent utilisateur "node-fetch" par la valeur d'un vrai
         // navigateur ; pour ne pas être bloqué par des sites.
         "User-Agent": USER_AGENT,

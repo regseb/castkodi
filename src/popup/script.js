@@ -4,6 +4,9 @@
  * @author Sébastien Règne
  */
 
+import "../polyfill/browser.js";
+// eslint-disable-next-line import/no-unassigned-import
+import "../core/css.js";
 import { cast } from "../core/index.js";
 import { kodi } from "../core/jsonrpc/kodi.js";
 import { locate } from "../core/l10n.js";
@@ -33,7 +36,7 @@ let speed = 0;
 /**
  * L'identifiant de l'intervalle faisant avancer la barre de progression.
  *
- * @type {Timeout|undefined}
+ * @type {ReturnType<typeof setInterval>|undefined}
  */
 let interval;
 

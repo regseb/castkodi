@@ -5,10 +5,6 @@
  */
 
 export default {
-    env: {
-        node: true,
-    },
-
     rules: {
         // Suggestions.
         "no-restricted-properties": [
@@ -79,14 +75,17 @@ export default {
         // https://github.com/eslint-community/eslint-plugin-n/issues/59
         "n/no-restricted-import": ["error", ["node:assert"]],
         "n/no-restricted-require": "error",
-        "n/no-sync": ["error", { allowAtRootLevel: true }],
-        "n/prefer-global/buffer": "error",
-        "n/prefer-global/console": "error",
-        "n/prefer-global/process": "error",
-        "n/prefer-global/text-decoder": "error",
-        "n/prefer-global/text-encoder": "error",
-        "n/prefer-global/url-search-params": "error",
-        "n/prefer-global/url": "error",
+        "n/no-sync": "error",
+        // Désactiver les règles n/prefer-global car aucune variable global de
+        // Node n'est déclarée, donc si elles sont utilisées : la règle no-undef
+        // remontera une erreur.
+        "n/prefer-global/buffer": "off",
+        "n/prefer-global/console": "off",
+        "n/prefer-global/process": "off",
+        "n/prefer-global/text-decoder": "off",
+        "n/prefer-global/text-encoder": "off",
+        "n/prefer-global/url-search-params": "off",
+        "n/prefer-global/url": "off",
         "n/prefer-promises/dns": "error",
         "n/prefer-promises/fs": "error",
     },

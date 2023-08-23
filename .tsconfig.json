@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "nodenext",
 
     "allowJs": true,
 
     "esModuleInterop": true,
 
-    "target": "ESNext"
+    "target": "esnext"
   },
   "include": ["**/*", "**/.*", "**/.*/**/*", "**/.*/**/.*"],
   "exclude": [
-    "build/",
     ".git/",
+    ".stryker/",
+    "build/",
     "jsdocs/",
     "node_modules/",
     "src/polyfill/lib/",
-    ".stryker/"
+    ".vscode/",
+    ".idea/"
   ]
 }

@@ -24,7 +24,7 @@ export default {
 
     env: {
         "shared-node-browser": true,
-        es2022: true,
+        es2023: true,
     },
 
     rules: {
@@ -376,8 +376,12 @@ export default {
                 // Ignorer les imports et les déclarations de tests unitaires,
                 // car Prettier n'ajoute pas de retour à la ligne pour ne pas
                 // dépasser les 80 caractères.
-                ignorePattern: '^import |^ \\* @typedef \\{import\\(|^ +it\\("',
-                // Ignorer les expressions rationnelles car il n'est pas
+                ignorePattern:
+                    "^import " +
+                    "|^ +\\* @typedef \\{import\\(" +
+                    "|^ +\\* @see " +
+                    '|^ +it\\("',
+                // Ignorer les expressions rationnelles, car il n'est pas
                 // possible de les écrire sur plusieurs lignes.
                 ignoreRegExpLiterals: true,
             },
@@ -582,19 +586,22 @@ export default {
         "jsdoc/check-values": "error",
         "jsdoc/empty-tags": "error",
         "jsdoc/implements-on-classes": "error",
+        // Désactiver la règle car elle ne supporte pas la propriété "exports".
+        // https://github.com/gajus/eslint-plugin-jsdoc/issues/1114
+        "jsdoc/imports-as-dependencies": "off",
         "jsdoc/informative-docs": "error",
         "jsdoc/match-description": ["error", { matchDescription: "[A-ZÉ].*" }],
         "jsdoc/match-name": "off",
         "jsdoc/multiline-blocks": "error",
-        "jsdoc/newline-after-description": "error",
         "jsdoc/no-bad-blocks": "error",
         "jsdoc/no-blank-block-descriptions": "error",
+        "jsdoc/no-blank-blocks": "error",
         "jsdoc/no-defaults": "error",
         "jsdoc/no-missing-syntax": "off",
         "jsdoc/no-multi-asterisks": "error",
         "jsdoc/no-restricted-syntax": "off",
         "jsdoc/no-types": "off",
-        "jsdoc/no-undefined-types": ["error", { definedTypes: ["Timeout"] }],
+        "jsdoc/no-undefined-types": "error",
         "jsdoc/require-asterisk-prefix": "error",
         "jsdoc/require-description": "error",
         "jsdoc/require-description-complete-sentence": "off",
@@ -626,7 +633,7 @@ export default {
         "jsdoc/require-yields": "error",
         "jsdoc/require-yields-check": "error",
         "jsdoc/sort-tags": "error",
-        "jsdoc/tag-lines": "error",
+        "jsdoc/tag-lines": ["error", "never", { startLines: 1 }],
         "jsdoc/valid-types": "error",
 
         // Plugin eslint-plugin-no-unsanitized.
@@ -749,7 +756,7 @@ export default {
         "unicorn/escape-case": "error",
         "unicorn/expiring-todo-comments": "off",
         "unicorn/explicit-length-check": "off",
-        "unicorn/filename-case": ["error", { case: "kebabCase" }],
+        "unicorn/filename-case": "error",
         "unicorn/import-style": "error",
         "unicorn/new-for-builtins": "error",
         "unicorn/no-abusive-eslint-disable": "error",
@@ -787,10 +794,6 @@ export default {
         "unicorn/no-unnecessary-await": "error",
         "unicorn/no-unreadable-array-destructuring": "error",
         "unicorn/no-unreadable-iife": "error",
-        // Désactiver la règle car il y a des faux-positifs avec les petites
-        // valeurs de quantification.
-        // https://github.com/davisjam/safe-regex/issues/10
-        "unicorn/no-unsafe-regex": "off",
         "unicorn/no-unused-properties": "error",
         "unicorn/no-useless-fallback-in-spread": "error",
         "unicorn/no-useless-length-check": "error",
@@ -809,6 +812,7 @@ export default {
         "unicorn/prefer-array-index-of": "error",
         "unicorn/prefer-array-some": "error",
         "unicorn/prefer-at": "error",
+        "unicorn/prefer-blob-reading-methods": "error",
         "unicorn/prefer-code-point": "error",
         "unicorn/prefer-date-now": "error",
         "unicorn/prefer-default-parameters": "error",
@@ -864,7 +868,6 @@ export default {
 
     settings: {
         jsdoc: {
-            mode: "typescript",
             preferredTypes: {
                 ".<>": "<>",
                 "Array<>": "[]",

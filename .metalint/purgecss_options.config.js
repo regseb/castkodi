@@ -5,5 +5,5 @@
  */
 
 export default {
-    content: "/src/options/*.html",
+    content: ["/src/options/*.html", "/src/options/*.js"],
 };

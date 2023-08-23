@@ -3947,8 +3947,8 @@ const moCallback = (element, parentNode) => {
       for (const [target, {subtree, childList, characterData}] of observer.nodes) {
         if (childList) {
           if (
-            (parentNode && (target === parentNode || (subtree && target.contains(parentNode)))) ||
-            (!parentNode && ((subtree && (target === ownerDocument || target.contains(element))) ||
+            (parentNode && (target === parentNode || /* c8 ignore next */(subtree && target.contains(parentNode)))) ||
+            (!parentNode && ((subtree && (target === ownerDocument || /* c8 ignore next */target.contains(element))) ||
                             (!subtree && target[characterData ? 'childNodes' : 'children'].includes(element))))
           ) {
             const {callback, records, scheduled} = observer;
@@ -4405,11 +4405,16 @@ let Node$1 = class Node extends DOMEventTarget {
     return this.parentNode;
   }
 
+  /**
+   * Calling it on an element inside a standard web page will return an HTMLDocument object representing the entire page (or <iframe>).
+   * Calling it on an element inside a shadow DOM will return the associated ShadowRoot.
+   * @return {ShadowRoot | HTMLDocument}
+   */
   getRootNode() {
     let root = this;
     while (root.parentNode)
       root = root.parentNode;
-    return root.nodeType === DOCUMENT_NODE ? root.documentElement : root;
+    return root;
   }
 };
 
@@ -6566,7 +6571,7 @@ class ParentNode extends Node$1 {
     while (next !== end) {
       if (next.nodeType === ELEMENT_NODE && matches(next))
         return next;
-      next = next[NEXT];
+      next = next.localName === 'template' ? next[END] : next[NEXT];
     }
     return null;
   }
@@ -6578,7 +6583,7 @@ class ParentNode extends Node$1 {
     while (next !== end) {
       if (next.nodeType === ELEMENT_NODE && matches(next))
         elements.push(next);
-      next = next[NEXT];
+      next = next.localName === 'template' ? next[END] : next[NEXT];
     }
     return elements;
   }
@@ -7441,7 +7446,6 @@ let Element$1 = class Element extends ParentNode {
     // TODO: shadowRoot should be likely a specialized class that extends DocumentFragment
     //       but until DSD is out, I am not sure I should spend time on this.
     const shadowRoot = new ShadowRoot$1(this);
-    shadowRoot.append(...this.childNodes);
     shadowRoots.set(this, {
       mode: init.mode,
       shadowRoot

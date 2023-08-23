@@ -6,6 +6,6 @@
 
   "typedocOptions": {
     "entryPoints": ["src/core/index.js"],
-    "out": "jsdocs"
+    "out": "jsdocs/"
   }
 }

@@ -4,7 +4,7 @@
   <defs>
     <style type="text/css">
 /* Utiliser la police de caractères du logo de Kodi. */
-@import url(http://fonts.googleapis.com/css?family=Questrial);
+@import url(https://fonts.googleapis.com/css?family=Questrial);
     </style>
 
     <radialGradient id="radial">

@@ -6,11 +6,23 @@
 
 import fs from "node:fs/promises";
 
-const paths = await fs.readFile(".gitignore", "utf8");
-paths
-    .split("\n")
-    // Ignorer les lignes vides et les commentaires.
-    .filter((p) => "" !== p && !p.startsWith("#"))
-    // Enlever la barre oblique commençant le chemin.
-    .map((p) => p.slice(1))
-    .forEach((p) => fs.rm(p, { force: true, recursive: true }));
+/**
+ * La liste des répertoires et des fichiers à supprimer.
+ *
+ * @type {string[]}
+ */
+const PATHS = [
+    // Supprimer les répertoires et les fichiers générés.
+    ".stryker/",
+    "build/",
+    "jsdocs/",
+    "node_modules/",
+    "src/manifest.json",
+    // Supprimer les autres lockfiles.
+    "pnpm-lock.yaml",
+    "yarn.lock",
+];
+
+for (const path of PATHS) {
+    await fs.rm(path, { force: true, recursive: true });
+}

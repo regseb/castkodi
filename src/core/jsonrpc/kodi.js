@@ -29,9 +29,9 @@ import { System } from "./system.js";
  * @see https://kodi.wiki/view/JSON-RPC_API#API_versions
  */
 const KODI_VERSIONS = {
-    API_VERSION: 12,
-    VERSION: 19,
-    NAME: "Matrix",
+    API_VERSION: 13,
+    VERSION: 20,
+    NAME: "Nexus",
 };
 
 /**
