@@ -28,7 +28,7 @@
   },
   "author": "Sébastien Règne",
   "background": {
-    "service_worker": "background/worker.js",
+    "service_worker": "background.js",
     "type": "module"
   },
   "commands": {

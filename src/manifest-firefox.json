@@ -28,7 +28,8 @@
   },
   "author": "Sébastien Règne",
   "background": {
-    "page": "background/page.html"
+    "scripts": ["background.js"],
+    "type": "module"
   },
   "commands": {
     "_execute_action": {
