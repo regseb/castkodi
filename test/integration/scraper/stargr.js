@@ -5,18 +5,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: StarGR", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://www.star.gr/lifestyle/media");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -26,9 +22,9 @@ describe("Scraper: StarGR", function () {
                 "/dwts-o-edouard-stergiou-gia-ti-summetohi-tou-sto-dancing" +
                 "-with-the-stars/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://cdnapisec.siliconweb.com/p/713821/sp/0/playManifest" +
@@ -42,9 +38,9 @@ describe("Scraper: StarGR", function () {
             "http://www.star.gr/tv/psychagogia/globetrotters" +
                 "/to-neo-taxidiotiko-paihnidi-tou-star-globetrotters-xekinaei/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://cdnapisec.siliconweb.com/p/713821/sp/0/playManifest" +
@@ -58,9 +54,9 @@ describe("Scraper: StarGR", function () {
             "https://www.star.gr/video/lifestyle/viral/527838" +
                 "/to-megalytero-festibal-pagoy-einai-sthn-kina",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://cdnapisec.siliconweb.com/p/713821/sp/0/playManifest" +
@@ -70,15 +66,13 @@ describe("Scraper: StarGR", function () {
     });
 
     it("should return video id", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.star.gr/video/lifestyle/viral/165501" +
                 "/teleio_papagaloi_chorevoun_se_rap_rythmous",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/?video_id=c-AgydAVh5k" +

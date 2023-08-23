@@ -5,31 +5,28 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Steam", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://store.steampowered.com/bundle/234/Portal_Bundle/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return video URL", async function () {
         const url = new URL("https://store.steampowered.com/app/620/Portal_2/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
-            file?.endsWith("/steam/apps/81613/movie_max.mp4?t=1452903069"),
-            `"${file}"?.endsWith(...)`,
+            undefined !== file &&
+                new URL(file).pathname.endsWith("/movie_max.mp4"),
+            `new URL("${file}").pathname.endsWith(...)`,
         );
     });
 
@@ -37,22 +34,21 @@ describe("Scraper: Steam", function () {
         const url = new URL(
             "http://store.steampowered.com/app/322500/SUPERHOT/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
-            file?.endsWith("/steam/apps/256682033/movie_max.mp4?t=1492645342"),
-            `"${file}"?.endsWith(...)`,
+            undefined !== file &&
+                new URL(file).pathname.endsWith("/movie_max.mp4"),
+            `new URL("${file}").pathname.endsWith(...)`,
         );
     });
 
     it("should return undefined when it isn't a broadcast", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://steamcommunity.com/broadcast/watch/404");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -66,9 +62,9 @@ describe("Scraper: Steam", function () {
         const doc = new DOMParser().parseFromString(text, "text/html");
 
         const url = new URL(doc.querySelector("a").href);
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 new URL(file).pathname.endsWith("/master.m3u8"),

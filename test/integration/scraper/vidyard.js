@@ -12,9 +12,9 @@ describe("Scraper: Vidyard", function () {
         const url = new URL(
             "https://video.vidyard.com/watch/sZLW7HbuBytapHnaGNDRYP?",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.startsWith(
                 "https://cdn.vidyard.com/media/hls/ANNZVaQ7Jr4FJFpv36A-IQ" +
@@ -29,9 +29,9 @@ describe("Scraper: Vidyard", function () {
             "https://play.vidyard.com/T3dY7vWGe3kCzH4RtSRKSD" +
                 "?disable_popouts=1&v=4.2.31&type=inline",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.startsWith(
                 "https://cdn.vidyard.com/media/hls/ZoUHbEeXnQtGWB_F_LOogQ" +

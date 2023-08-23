@@ -8,11 +8,11 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
     direct links: <em>avi</em>, <em>mkv</em>, <em>mp3</em>, <em>flac</em>, … and torrent / magnet;
   </li>
   <li>
-    YouTube, Twitch, Vimeo, SoundCloud as well as Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Pokémon&nbsp;TV, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, Veoh, VideoPress, VideosHub, VidLii, Vidyard, Viously, Vudeo;
+    YouTube, Twitch, Vimeo, SoundCloud as well as Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Pokémon&nbsp;TV, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo;
     <ul>
       <li>🇧🇪&nbsp;Belgium: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
       <li>🇫🇷&nbsp;France: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
-      <li>🇩🇪&nbsp;Germany: ARD&nbsp;Mediathek, Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;</li>
+      <li>🇩🇪&nbsp;Germany: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;</li>
       <li>🇬🇷&nbsp;Greece: StarGR;</li>
       <li>🇮🇸&nbsp;Iceland: Útvarp&nbsp;Saga;</li>
       <li>🇮🇷&nbsp;Iran: آپارات<!-- Aparat -->;</li>

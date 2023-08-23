@@ -5,8 +5,6 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
@@ -19,12 +17,10 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
     });
 
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("http://www.jeuxvideo.com/videos-de-jeux.htm");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -33,9 +29,9 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
             "http://www.jeuxvideo.com/videos-editeurs/0000/00007335" +
                 "/half-life-2-pc-trailer-00004956.htm",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x89cq08",
@@ -47,9 +43,9 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
             "http://www.jeuxvideo.com/extraits-videos-jeux/0002/00023827" +
                 "/portal-2-pc-meet-wheatley-00008311.htm",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x89i98o",
@@ -61,9 +57,9 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
             "http://www.jeuxvideo.com/videos/461728" +
                 "/superhot-notre-avis-en-deux-minutes-sur-ce-fps-original.htm",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x89lx2g",
@@ -76,9 +72,9 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
                 "/doom-eternal-plus-beau-que-jamais-en-4k-ray-tracing-sur-une" +
                 "-rtx-3080-ti.htm",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x89nrvo",

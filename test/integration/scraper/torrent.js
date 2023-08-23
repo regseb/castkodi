@@ -12,9 +12,9 @@ describe("Scraper: torrent", function () {
         const url = new URL(
             "https://archive.org/download/Sintel/Sintel_archive.torrent",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.elementum/play" +

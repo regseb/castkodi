@@ -5,8 +5,6 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
@@ -19,12 +17,10 @@ describe("Scraper: DMAX", function () {
     });
 
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://dmax.de/sendungen/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -33,9 +29,9 @@ describe("Scraper: DMAX", function () {
             "https://dmax.de/sendungen" +
                 "/blind-frog-ranch-die-schatzsucher-von-utah/antworten/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://nrodlzdf-a.akamaihd.net/none/zdf/21/04" +
@@ -46,9 +42,9 @@ describe("Scraper: DMAX", function () {
 
     it("should return video URL from show", async function () {
         const url = new URL("https://dmax.de/sendungen/fast-n-loud/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://nrodlzdf-a.akamaihd.net/none/zdf/21/04" +

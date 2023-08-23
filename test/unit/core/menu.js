@@ -12,7 +12,7 @@ import * as menu from "../../../src/core/menu.js";
 describe("core/menu.js", function () {
     describe("update()", function () {
         it("shouldn't add item because no action", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "server-mode": "single",
                 "menu-actions": [],
                 "menu-contexts": ["audio"],
@@ -25,7 +25,7 @@ describe("core/menu.js", function () {
         });
 
         it("shouldn't add item because no context", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "server-mode": "single",
                 "menu-actions": ["send"],
                 "menu-contexts": [],
@@ -38,7 +38,7 @@ describe("core/menu.js", function () {
         });
 
         it("should add one item", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "server-mode": "single",
                 "menu-actions": ["send"],
                 "menu-contexts": ["frame"],
@@ -58,7 +58,7 @@ describe("core/menu.js", function () {
         });
 
         it("should add two items", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "server-mode": "single",
                 "menu-actions": ["insert", "add"],
                 "menu-contexts": ["link"],
@@ -94,7 +94,7 @@ describe("core/menu.js", function () {
         });
 
         it("should add two servers", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "server-mode": "multi",
                 "server-list": [
                     {
@@ -161,7 +161,7 @@ describe("core/menu.js", function () {
         });
 
         it("should add three items and one multi-server", async function () {
-            browser.storage.local.set({
+            await browser.storage.local.set({
                 "server-mode": "multi",
                 "server-list": [
                     {

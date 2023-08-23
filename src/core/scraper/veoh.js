@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.veoh.com/
  * @author Sébastien Règne
  */
 
@@ -14,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://www.veoh.com/watch/getVideo/";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo Veoh.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

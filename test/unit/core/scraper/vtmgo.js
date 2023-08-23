@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/vtmgo.js";
 
 describe("core/scraper/vtmgo.js", function () {
@@ -16,7 +18,9 @@ describe("core/scraper/vtmgo.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video UUID", async function () {
+        it("should return episode UUID", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("http://vtm.be/vtmgo/afspelen/efoo");
 
             const file = await scraper.extractEpisode(url);
@@ -24,9 +28,14 @@ describe("core/scraper/vtmgo.js", function () {
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/episodes/foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video UUID with 'www'", async function () {
+        it("should return episode UUID with 'www'", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("http://www.vtm.be/vtmgo/afspelen/efoo");
 
             const file = await scraper.extractEpisode(url);
@@ -34,6 +43,44 @@ describe("core/scraper/vtmgo.js", function () {
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/episodes/foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return episode UUID to vtmgo", async function () {
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.vtm.go", "plugin.video.sendtokodi"]);
+
+            const url = new URL("http://vtm.be/vtmgo/afspelen/efoo");
+
+            const file = await scraper.extractEpisode(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.vtm.go/play/catalog/episodes/foo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return episode UUID to sendtokodi", async function () {
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.sendtokodi"]);
+
+            const url = new URL("http://vtm.be/vtmgo/afspelen/efoo");
+
+            const file = await scraper.extractEpisode(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.sendtokodi/" +
+                    "?https://www.vtm.be/vtmgo/afspelen/efoo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -45,7 +92,9 @@ describe("core/scraper/vtmgo.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video UUID", async function () {
+        it("should return movie UUID", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("http://vtm.be/vtmgo/afspelen/mfoo");
 
             const file = await scraper.extractMovie(url);
@@ -53,9 +102,14 @@ describe("core/scraper/vtmgo.js", function () {
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video UUID with 'www'", async function () {
+        it("should return movie UUID with 'www'", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("http://www.vtm.be/vtmgo/afspelen/mfoo");
 
             const file = await scraper.extractMovie(url);
@@ -63,6 +117,44 @@ describe("core/scraper/vtmgo.js", function () {
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return movie UUID to vtmgo", async function () {
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.vtm.go", "plugin.video.sendtokodi"]);
+
+            const url = new URL("http://vtm.be/vtmgo/afspelen/mfoo");
+
+            const file = await scraper.extractMovie(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.vtm.go/play/catalog/movies/foo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return movie UUID to sendtokodi", async function () {
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.sendtokodi"]);
+
+            const url = new URL("http://vtm.be/vtmgo/afspelen/mfoo");
+
+            const file = await scraper.extractMovie(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.sendtokodi/" +
+                    "?https://www.vtm.be/vtmgo/afspelen/mfoo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -74,7 +166,9 @@ describe("core/scraper/vtmgo.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video UUID", async function () {
+        it("should return movie UUID", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://vtm.be/vtmgo/foo~mbar");
 
             const file = await scraper.extractMoviePage(url);
@@ -82,9 +176,14 @@ describe("core/scraper/vtmgo.js", function () {
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video UUID with 'www'", async function () {
+        it("should return movie UUID with 'www'", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.vtm.be/vtmgo/foo~mbar");
 
             const file = await scraper.extractMoviePage(url);
@@ -92,6 +191,9 @@ describe("core/scraper/vtmgo.js", function () {
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/movies/bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 
@@ -104,8 +206,10 @@ describe("core/scraper/vtmgo.js", function () {
         });
 
         it("should return undefined when no player", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -115,13 +219,17 @@ describe("core/scraper/vtmgo.js", function () {
                     ),
             };
 
-            const file = await scraper.extractChannel(url, content);
+            const file = await scraper.extractChannel(url, metadata);
             assert.equal(file, undefined);
+
+            assert.equal(stub.callCount, 0);
         });
 
-        it("should return video UUID", async function () {
+        it("should return channel UUID", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -133,11 +241,71 @@ describe("core/scraper/vtmgo.js", function () {
                     ),
             };
 
-            const file = await scraper.extractChannel(url, content);
+            const file = await scraper.extractChannel(url, metadata);
             assert.equal(
                 file,
                 "plugin://plugin.video.vtm.go/play/catalog/channels/bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return channel UUID to vtmgo", async function () {
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.vtm.go", "plugin.video.sendtokodi"]);
+
+            const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <div class="fjs-player" data-id="bar"></div>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extractChannel(url, metadata);
+            assert.equal(
+                file,
+                "plugin://plugin.video.vtm.go/play/catalog/channels/bar",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return channel UUID to sendtokodi", async function () {
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.sendtokodi"]);
+
+            const url = new URL("https://vtm.be/vtmgo/live-kijken/foo");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><body>
+                               <div class="fjs-player" data-id="bar"></div>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extractChannel(url, metadata);
+            assert.equal(
+                file,
+                "plugin://plugin.video.sendtokodi/" +
+                    "?https://www.vtm.be/vtmgo/live-kijken/bar",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

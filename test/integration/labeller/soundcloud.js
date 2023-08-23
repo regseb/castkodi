@@ -11,9 +11,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Labeller: SoundCloud", function () {
     it("should return audio label", async function () {
         const url = new URL("https://soundcloud.com/esa/hear-the-lightning");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "play",
@@ -32,9 +32,9 @@ describe("Labeller: SoundCloud", function () {
 
     it("should return set label", async function () {
         const url = new URL("https://soundcloud.com/esa/sets/news-views");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "play",
@@ -55,9 +55,9 @@ describe("Labeller: SoundCloud", function () {
         const url = new URL(
             "https://soundcloud.com/discover/sets/charts-top:alternativerock",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "play",

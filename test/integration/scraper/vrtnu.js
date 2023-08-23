@@ -13,9 +13,9 @@ describe("Scraper: VRT NU", function () {
             "https://www.vrt.be/vrtnu/a-z/het-journaal/2019" +
                 "/het-journaal-het-journaal-13u-20190901/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vrt.nu/play/url" +
@@ -28,9 +28,9 @@ describe("Scraper: VRT NU", function () {
         const url = new URL(
             "http://www.vrt.be/vrtnu/a-z/pano/2019/pano-s2019a9/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vrt.nu/play/url" +
@@ -42,9 +42,9 @@ describe("Scraper: VRT NU", function () {
         const url = new URL(
             "https://vrt.be/vrtnu/a-z/koppen/2016/koppen-d20180721/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vrt.nu/play/url" +
@@ -54,9 +54,9 @@ describe("Scraper: VRT NU", function () {
 
     it("should return video URL from 'link' page", async function () {
         const url = new URL("https://vrtnu.page.link/KXWX");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.vrt.nu/play/url" +

@@ -8,9 +8,9 @@ Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur <strong>Kodi</
     liens directs : <em>avi</em>, <em>mkv</em>, <em>mp3</em>, <em>flac</em>… et torrent / magnet&nbsp;;
   </li>
   <li>
-    YouTube, Twitch, Vimeo, SoundCloud ainsi que Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Pokémon&nbsp;TV, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, Veoh, VideoPress, VideosHub, VidLii, Vidyard, Viously, Vudeo&nbsp;;
+    YouTube, Twitch, Vimeo, SoundCloud ainsi que Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Pokémon&nbsp;TV, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo&nbsp;;
     <ul>
-      <li>🇩🇪&nbsp;Allemagne&nbsp;: ARD&nbsp;Mediathek, Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF&nbsp;;</li>
+      <li>🇩🇪&nbsp;Allemagne&nbsp;: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF&nbsp;;</li>
       <li>🇧🇪&nbsp;Belgique&nbsp;: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO&nbsp;;</li>
       <li>🇺🇸&nbsp;États-Unis&nbsp;: Bally&nbsp;Sports, KCAA&nbsp;Radio&nbsp;;</li>
       <li>🇫🇷&nbsp;France&nbsp;: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France&nbsp;;</li>

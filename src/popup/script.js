@@ -12,7 +12,7 @@ import { checkHosts } from "../core/permission.js";
 import { notify } from "../core/tools/notify.js";
 import { ping } from "../core/tools/ping.js";
 
-// Insérer les textes dans la bonnes langues.
+// Insérer les textes dans la bonne langue.
 locate(document, "popup");
 
 /**
@@ -48,7 +48,7 @@ const openError = function (err) {
     const dialog = document.querySelector("#dialogerror");
     if (!dialog.open) {
         // Cacher l'indicateur de chargement (pour éviter de le voir bouger en
-        // arrière plan).
+        // arrière-plan).
         document.querySelector("#loading").style.display = "none";
 
         if ("PebkacError" === err.name) {
@@ -158,7 +158,7 @@ const paste = async function (event) {
         }
 
         const textarea = document.querySelector("textarea");
-        // Pré-remplir le champ (avec la valeur du presse-papier) seulement si
+        // Préremplir le champ (avec la valeur du presse-papier) seulement si
         // le champ est vide.
         if ("" === textarea.value) {
             const config = await browser.storage.local.get(["popup-clipboard"]);
@@ -227,7 +227,7 @@ const playPause = async function () {
     const play = document.querySelector("#play");
     if ("open" === play.dataset.action) {
         // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-        // désactivé (car la connexion à Kodi a échouée).
+        // désactivé (car la connexion à Kodi a échoué).
         if (play.disabled) {
             return;
         }
@@ -1005,7 +1005,7 @@ const handleTotaltimeChanged = function (value) {
     }
 };
 
-const handlePropertyChanged = function (properties) {
+const handlePropertyChanged = async function (properties) {
     if ("volume" in properties) {
         handleVolumeChanged(properties.volume);
     }
@@ -1019,13 +1019,13 @@ const handlePropertyChanged = function (properties) {
         handleRepeatChanged(properties.repeat);
     }
     if ("shuffled" in properties) {
-        handleShuffledChanged(properties.shuffled);
+        await handleShuffledChanged(properties.shuffled);
     }
     if ("speed" in properties) {
         handleSpeedChanged(properties.speed);
     }
-    // Mettre à jour le temps total avant le temps courant car celui-ci a besoin
-    // du temps total.
+    // Mettre à jour le temps total avant le temps courant, car celui-ci a
+    // besoin du temps total.
     if ("totaltime" in properties) {
         handleTotaltimeChanged(properties.totaltime);
     }
@@ -1062,7 +1062,7 @@ const seek = async function () {
 
 const load = async function () {
     try {
-        handlePropertyChanged(
+        await handlePropertyChanged(
             await kodi.player.getProperties([
                 "position",
                 "repeat",
@@ -1072,7 +1072,7 @@ const load = async function () {
                 "totaltime",
             ]),
         );
-        handlePropertyChanged(
+        await handlePropertyChanged(
             await kodi.application.getProperties(["muted", "volume"]),
         );
 
@@ -1266,7 +1266,7 @@ const SHORTCUTS = new Map([
 
 // Attention ! La popup n'a pas automatiquement le focus quand elle est ouverte
 // dans le menu prolongeant la barre d'outils. https://bugzil.la/1623875
-globalThis.addEventListener("keydown", (event) => {
+globalThis.addEventListener("keydown", async (event) => {
     // Ignorer les entrées avec une touche de modification.
     if (event.altKey || event.ctrlKey || event.metaKey) {
         return;
@@ -1287,7 +1287,7 @@ globalThis.addEventListener("keydown", (event) => {
     // touche Entrée qui envoi l'URL saisie).
     if ("TEXTAREA" === event.target.nodeName) {
         if ("Enter" === event.key) {
-            send();
+            await send();
             event.preventDefault();
         }
         return;
@@ -1332,7 +1332,7 @@ globalThis.addEventListener(
             return;
         }
 
-        setVolume(
+        await setVolume(
             ("normal" === config["popup-wheel"] && 0 > event.deltaY) ||
                 ("reverse" === config["popup-wheel"] && 0 < event.deltaY)
                 ? "increment"

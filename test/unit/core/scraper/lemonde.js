@@ -23,7 +23,7 @@ describe("core/scraper/lemonde.js", function () {
                 " / tiktok",
             async function () {
                 const url = new URL("https://www.lemonde.fr/foo.html");
-                const content = {
+                const metadata = {
                     html: () =>
                         Promise.resolve(
                             new DOMParser().parseFromString(
@@ -32,9 +32,9 @@ describe("core/scraper/lemonde.js", function () {
                             ),
                         ),
                 };
-                const options = { depth: false };
+                const context = { depth: false, incognito: false };
 
-                const file = await scraper.extract(url, content, options);
+                const file = await scraper.extract(url, metadata, context);
                 assert.equal(file, undefined);
             },
         );
@@ -43,7 +43,7 @@ describe("core/scraper/lemonde.js", function () {
             const spy = sinon.spy(kodi.addons, "getAddons");
 
             const url = new URL("https://www.lemonde.fr/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -57,9 +57,9 @@ describe("core/scraper/lemonde.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true, incognito: true };
+            const context = { depth: true, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
             assert.equal(spy.callCount, 0);
@@ -67,7 +67,7 @@ describe("core/scraper/lemonde.js", function () {
 
         it("should return undefined when youtube sub-page doesn't have media", async function () {
             const url = new URL("https://www.lemonde.fr/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -81,9 +81,9 @@ describe("core/scraper/lemonde.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -91,7 +91,7 @@ describe("core/scraper/lemonde.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.lemonde.fr/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -105,9 +105,9 @@ describe("core/scraper/lemonde.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -119,8 +119,10 @@ describe("core/scraper/lemonde.js", function () {
         });
 
         it("should return URL from dailymotion", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.lemonde.fr/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -131,20 +133,23 @@ describe("core/scraper/lemonde.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return undefined when it's depth with tiktok", async function () {
             const spy = sinon.spy(globalThis, "fetch");
 
             const url = new URL("https://www.lemonde.fr/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -156,9 +161,9 @@ describe("core/scraper/lemonde.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true, incognito: false };
+            const context = { depth: true, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
             assert.equal(spy.callCount, 0);
@@ -172,7 +177,7 @@ describe("core/scraper/lemonde.js", function () {
             );
 
             const url = new URL("https://www.lemonde.fr/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -184,9 +189,9 @@ describe("core/scraper/lemonde.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
             assert.equal(stub.callCount, 1);
@@ -216,7 +221,7 @@ describe("core/scraper/lemonde.js", function () {
             );
 
             const url = new URL("https://www.lemonde.fr/baz.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -228,9 +233,9 @@ describe("core/scraper/lemonde.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "http://foo.io/bar.mp4");
 
             assert.equal(stub.callCount, 1);

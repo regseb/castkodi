@@ -18,7 +18,7 @@ describe("core/scraper/ausha.js", function () {
 
         it("should return undefined when it isn't an audio", async function () {
             const url = new URL("https://podcast.ausha.co/foo/bar");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -28,13 +28,13 @@ describe("core/scraper/ausha.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return audio URL", async function () {
             const url = new URL("https://podcast.ausha.co/foo/bar");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -46,7 +46,7 @@ describe("core/scraper/ausha.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://audio.ausha.co/baz.mp3");
         });
     });

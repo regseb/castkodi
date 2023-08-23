@@ -12,7 +12,6 @@ p {
     font-weight: normal;
 }
 
-
 label {
     align-items: center;
     color: var(--label-color);
@@ -320,7 +319,8 @@ dialog menu {
     margin: 0;
     padding-left: 0;
 }
-dialog menu button, dialog menu select {
+dialog menu button,
+dialog menu select {
     flex: 1 1 0;
     min-width: auto;
 }
@@ -329,7 +329,8 @@ dialog menu button, dialog menu select {
     background-color: rgb(215 0 34);
     color: rgb(251 251 254);
 }
-.error button, .error select {
+.error button,
+.error select {
     background-color: rgb(91 91 102 / 33%);
     color: rgb(251 251 254);
 }

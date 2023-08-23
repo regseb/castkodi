@@ -10,9 +10,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: آپارات (Aparat)", function () {
     it("should return show URL", async function () {
         const url = new URL("https://www.aparat.com/v/IWTPf");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://www.aparat.com/video/hls/manifest/videohash/IWTPf/f" +

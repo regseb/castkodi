@@ -5,23 +5,19 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Le Point", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.lepoint.fr/economie" +
                 "/desinformation-l-ue-accentue-la-pression-sur-les-geants-d" +
                 "-internet-29-01-2019-2289710_28.php" +
                 "#xtmc=firefox&xtnp=1&xtcr=4",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -32,9 +28,9 @@ describe("Scraper: Le Point", function () {
                 "-scientifiques-18-02-2020-2363244_1925.php" +
                 "#xtmc=video&xtnp=7&xtcr=61",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x7rz0ur",
@@ -48,9 +44,9 @@ describe("Scraper: Le Point", function () {
                 "-scientifiques-18-02-2020-2363244_1925.php" +
                 "#xtmc=video&xtnp=7&xtcr=61",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x7rz0ur",
@@ -58,16 +54,14 @@ describe("Scraper: Le Point", function () {
     });
 
     it("should return video URL [iframe-youtube]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.lepoint.fr/pop-culture" +
                 "/tout-ce-qu-il-faut-savoir-sur-le-prochain-oss-117-" +
                 "-20-02-2020-2363643_2920.php",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +

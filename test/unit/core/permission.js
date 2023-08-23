@@ -10,7 +10,7 @@ import * as permission from "../../../src/core/permission.js";
 describe("core/permission.js", function () {
     describe("checkHosts()", function () {
         it("should return 'true'", async function () {
-            browser.permissions.request({ origins: ["<all_urls>"] });
+            await browser.permissions.request({ origins: ["<all_urls>"] });
 
             const granted = await permission.checkHosts();
 
@@ -18,7 +18,7 @@ describe("core/permission.js", function () {
         });
 
         it("should throw error", async function () {
-            browser.permissions.request({ origins: ["http://foo.com/"] });
+            await browser.permissions.request({ origins: ["http://foo.com/"] });
 
             await assert.rejects(() => permission.checkHosts(), {
                 name: "PebkacError",

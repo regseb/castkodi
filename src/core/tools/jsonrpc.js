@@ -74,8 +74,8 @@ export const JSONRPC = class extends EventTarget {
      * @param {number} [code]   L'éventuel code de statut qui explique pourquoi
      *                          la connexion est fermée ; <code>1005</code> par
      *                          défaut.
-     * @param {string} [reason] L'éventual raison (compréhensible par un humain)
-     *                          de la fermeture.
+     * @param {string} [reason] L'éventuelle raison (compréhensible par un
+     *                          humain) de la fermeture.
      * @see https://developer.mozilla.org/Web/API/WebSocket/close
      */
     close(code, reason) {

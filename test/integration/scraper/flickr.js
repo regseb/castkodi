@@ -5,21 +5,17 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Flickr", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.flickr.com/photos/europeanspaceagency/48194834627/in" +
                 "/album-72157709420314132/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -27,9 +23,9 @@ describe("Scraper: Flickr", function () {
         const url = new URL(
             "https://www.flickr.com/photos/nasahqphoto/50041655251/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.startsWith(
                 "https://live.staticflickr.com/video/50041655251/5178cf57ec" +

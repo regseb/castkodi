@@ -5,21 +5,17 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Pokémon TV", function () {
     it("should return undefined when video is unavailable", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://watch.pokemon.com/fr-fr/#/season" +
                 "?id=la-serie-pokemon-les-voyages",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -28,9 +24,9 @@ describe("Scraper: Pokémon TV", function () {
             "https://watch.pokemon.com/fr-fr/#/player" +
                 "?id=31ed3ab48e734662bdeffe02ba591f34",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://s2.content.video.llnw.net/smedia" +
@@ -45,9 +41,9 @@ describe("Scraper: Pokémon TV", function () {
             "https://watch.pokemon.com/en-us/#/player" +
                 "?id=7fe404392a77410e88af4a19ca20184f",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://s2.content.video.llnw.net/smedia" +
@@ -62,9 +58,9 @@ describe("Scraper: Pokémon TV", function () {
             "https://watch.pokemon.com/es-xl/#/player" +
                 "?id=94223aa2b4d143799542c06fb66b5e64",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://s2.content.video.llnw.net/smedia" +

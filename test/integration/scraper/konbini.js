@@ -12,9 +12,9 @@ describe("Scraper: Konbini", function () {
         const url = new URL(
             "https://www.konbini.com/fr/cinema/video-8-choses-palmashow",
         );
-        const options = { depth: false, incognito: true };
+        const context = { depth: false, incognito: true };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x81cjw7",

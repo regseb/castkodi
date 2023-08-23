@@ -5,25 +5,21 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Apple Podcasts", function () {
     it("should return undefined when it isn't an audio", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://podcasts.apple.com/us/podcast/culture-1999/id",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return audio URL", async function () {
-        // Récupérer un podcast récent car ils ne sont pas gardés indéfiniment.
+        // Récupérer un podcast récent, car ils ne sont pas gardés indéfiniment.
         const response = await fetch(
             "https://podcasts.apple.com/fr/podcast" +
                 "/les-journaux-de-france-bleu-provence/id1041742167",
@@ -32,9 +28,9 @@ describe("Scraper: Apple Podcasts", function () {
         const doc = new DOMParser().parseFromString(text, "text/html");
 
         const url = new URL(doc.querySelector(".tracks a").href);
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.startsWith("https://rf.proxycast.org/"),
             `"${file}"?.startsWith(...) from ${url}`,

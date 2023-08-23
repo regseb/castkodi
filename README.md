@@ -19,11 +19,11 @@ et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
 - liens directs : _avi_, _mkv_, _mp3_, _flac_… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Acast, Ace Stream, Apple
   Podcasts, Ausha, Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion,
-  DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kickstarter, Mastodon,
-  Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast Addict, podCloud,
-  Pokémon TV, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia,
-  Uqload, Veoh, VideoPress, VideosHub, VidLii, Vidyard, Viously, Vudeo ;
-  - 🇩🇪 Allemagne : ARD Mediathek, Arte, Chaos Computer Club, DMAX, ZDF ;
+  DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter,
+  Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast Addict,
+  podCloud, Pokémon TV, Radio, Reddit, Rumble, Steam, Streamable, TikTok,
+  Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo ;
+  - 🇩🇪 Allemagne : Arte, Chaos Computer Club, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
   - 🇺🇸 États-Unis : Bally Sports, KCAA Radio ;
   - 🇫🇷 France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
@@ -66,7 +66,7 @@ dans la page _Paramètres_ / _Infos sur le système_ / _Résumé_.
 
 [Node.js et
 npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) sont
-nécessaire pour contribuer au projet. Après avoir [forké et
+nécessaires pour contribuer au projet. Après avoir [forké et
 cloné](https://docs.github.com/get-started/quickstart/fork-a-repo) Cast Kodi,
 exécutez `npm ci` pour télécharger les dépendances. Voici d'autres
 commandes utiles :

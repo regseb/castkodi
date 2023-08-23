@@ -5,8 +5,6 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
@@ -23,14 +21,12 @@ describe("Scraper: Arte", function () {
     });
 
     it("should return undefined when video is unavailable", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.arte.tv/fr/videos/067125-020-A/bits-top-list/",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -41,14 +37,14 @@ describe("Scraper: Arte", function () {
                 "/?videoType=MOST_VIEWED&authorizedAreas=ALL",
         );
         const json = await response.json();
-        // Garder les éléments pointant vers une seule vidéos (et non vers une
+        // Garder les éléments pointant vers une seule vidéo (et non vers une
         // liste de vidéos).
         const video = json.value.data.find((d) => !d.kind.isCollection);
 
         const url = new URL(video.url, "https://www.arte.tv/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.endsWith(".mp4") || file?.endsWith(".m3u8"),
             `"${file}"?.endsWith(...) from ${url}`,
@@ -62,14 +58,14 @@ describe("Scraper: Arte", function () {
                 "/?videoType=MOST_VIEWED&authorizedAreas=ALL",
         );
         const json = await response.json();
-        // Garder les éléments pointant vers une seule vidéos (et non vers une
+        // Garder les éléments pointant vers une seule vidéo (et non vers une
         // liste de vidéos).
         const video = json.value.data.find((d) => !d.kind.isCollection);
 
         const url = new URL(video.url, "https://www.arte.tv/");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.ok(
             file?.endsWith(".mp4") || file?.endsWith(".m3u8"),
             `"${file}"?.endsWith(...) from ${url}`,

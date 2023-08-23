@@ -5,20 +5,16 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Framatube", function () {
     it("should return undefined when UUID is invalid [peertube]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://framatube.org/w/123e4567-e89b-12d3-a456-426614174000",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -26,13 +22,14 @@ describe("Scraper: Framatube", function () {
         const url = new URL(
             "https://framatube.org/w/0900bd2e-7306-4c39-b48b-2d0cd611742e",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
-            "https://framatube.org/static/webseed" +
-                "/0900bd2e-7306-4c39-b48b-2d0cd611742e-1080.mp4",
+            "https://framatube.org/static/streaming-playlists/hls" +
+                "/0900bd2e-7306-4c39-b48b-2d0cd611742e" +
+                "/11f2c8bb-eb81-4924-8fd5-2083435f5ccb-master.m3u8",
         );
     });
 
@@ -41,9 +38,9 @@ describe("Scraper: Framatube", function () {
             "http://framatube.org/videos/watch" +
                 "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://peertube.datagueule.tv/static/streaming-playlists/hls" +

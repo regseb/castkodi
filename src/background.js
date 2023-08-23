@@ -4,11 +4,11 @@
  * @author Sébastien Règne
  */
 
-import "../polyfill/browser.js";
-import "../polyfill/domparser.js";
-import { kodi } from "../core/jsonrpc/kodi.js";
-import * as menu from "../core/menu.js";
-import * as storage from "../core/storage.js";
+import "./polyfill/browser.js";
+import "./polyfill/domparser.js";
+import { kodi } from "./core/jsonrpc/kodi.js";
+import * as menu from "./core/menu.js";
+import * as storage from "./core/storage.js";
 
 browser.runtime.onStartup.addListener(async () => {
     await menu.update();
@@ -41,7 +41,7 @@ browser.storage.onChanged.addListener(async (changes) => {
 
     // Garder seulement les changements liés au serveur.
     if (
-        Object.keys(changes).some(
+        Object.entries(changes).some(
             ([k, v]) => k.startsWith("server-") && "newValue" in v,
         )
     ) {

@@ -5,22 +5,24 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/embed.js";
 
 describe("core/scraper/embed.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://foo.com/bar.zip");
-            const content = { html: () => Promise.resolve(undefined) };
-            const options = { depth: false, incognito: true };
+            const metadata = { html: () => Promise.resolve(undefined) };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't embed", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,15 +31,15 @@ describe("core/scraper/embed.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should ignore src empty", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -48,15 +50,15 @@ describe("core/scraper/embed.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should ignore blob", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -68,15 +70,15 @@ describe("core/scraper/embed.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return URL from video embed", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -88,15 +90,15 @@ describe("core/scraper/embed.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "https://foo.com/baz.mp4");
         });
 
         it("should return URL from audio embed", async function () {
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -107,15 +109,17 @@ describe("core/scraper/embed.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "https://foo.com/baz.mp3");
         });
 
         it("should return URL from other page embed", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -126,18 +130,23 @@ describe("core/scraper/embed.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.vimeo/play/?video_id=baz",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return undefined when it's depth", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com/bar.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -148,15 +157,19 @@ describe("core/scraper/embed.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true, incognito: true };
+            const context = { depth: true, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
+
+            assert.equal(stub.callCount, 0);
         });
 
         it("should return URL from second embed", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.dailymotion.com/index.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -168,14 +181,17 @@ describe("core/scraper/embed.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/" +
                     "?mode=playVideo&url=foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

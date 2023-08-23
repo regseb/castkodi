@@ -11,15 +11,15 @@ describe("core/scraper/media.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://foo.com");
-            const content = { html: () => Promise.resolve(undefined) };
+            const metadata = { html: () => Promise.resolve(undefined) };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't video or audio", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,13 +29,13 @@ describe("core/scraper/media.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when src is invalid", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -60,13 +60,13 @@ describe("core/scraper/media.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -78,13 +78,13 @@ describe("core/scraper/media.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.com/bar.mp4");
         });
 
         it("should return video URL from second video", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -97,13 +97,13 @@ describe("core/scraper/media.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.com/bar.mp4");
         });
 
         it("should return video URL from first source", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -118,13 +118,13 @@ describe("core/scraper/media.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.com/baz.mkv");
         });
 
         it("should return audio URL", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -136,13 +136,13 @@ describe("core/scraper/media.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.com/bar.mp3");
         });
 
         it("should return audio URL from second audio", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -155,13 +155,13 @@ describe("core/scraper/media.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.com/baz.flac");
         });
 
         it("should return audio URL from first source", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -176,7 +176,7 @@ describe("core/scraper/media.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.com/baz.wav");
         });
     });

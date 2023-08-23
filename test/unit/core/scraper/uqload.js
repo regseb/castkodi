@@ -18,7 +18,7 @@ describe("core/scraper/uqload.js", function () {
 
         it("should return undefined when no script", async function () {
             const url = new URL("https://uqload.io/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -28,13 +28,13 @@ describe("core/scraper/uqload.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when no inline script", async function () {
             const url = new URL("https://uqload.io/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -47,13 +47,13 @@ describe("core/scraper/uqload.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when no sources", async function () {
             const url = new URL("https://uqload.io/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -67,13 +67,13 @@ describe("core/scraper/uqload.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
             const url = new URL("https://uqload.io/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -89,7 +89,7 @@ describe("core/scraper/uqload.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(
                 file,
                 "https://bar.com/baz/v.mp4|Referer=https://uqload.io/",
@@ -98,7 +98,7 @@ describe("core/scraper/uqload.js", function () {
 
         it("should return video URL from old TLD .com", async function () {
             const url = new URL("https://uqload.com/foo.html");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -114,7 +114,7 @@ describe("core/scraper/uqload.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(
                 file,
                 "https://bar.com/baz/v.mp4|Referer=https://uqload.io/",

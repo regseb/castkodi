@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.bigo.tv/
  * @author Sébastien Règne
  */
 
@@ -14,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://www.bigo.tv/studio/getInternalStudioInfo";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo de Bigo Live.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

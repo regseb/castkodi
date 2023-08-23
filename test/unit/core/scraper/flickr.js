@@ -19,7 +19,7 @@ describe("core/scraper/flickr.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.flickr.com/photos/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,7 +29,7 @@ describe("core/scraper/flickr.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -43,7 +43,7 @@ describe("core/scraper/flickr.js", function () {
             );
 
             const url = new URL("https://www.flickr.com/photos/baz");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -51,21 +51,23 @@ describe("core/scraper/flickr.js", function () {
                                <script>
                                  root.YUI_config.flickr.api.site_key = "qux";
                                </script>
-                               <video poster="0/1_2.3.4_5/6/7_8.9" />
+                               <video poster="//quux.com/corge` +
+                                `/grault_garply.jpg" />
                              </body></html>`,
                             "text/html",
                         ),
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.net/bar.mp4");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
                 "https://api.flickr.com/services/rest" +
                     "?method=flickr.video.getStreamInfo&format=json" +
-                    "&nojsoncallback=1&photo_id=6&secret=7&api_key=qux",
+                    "&nojsoncallback=1&photo_id=grault&secret=garply" +
+                    "&api_key=qux",
             ]);
         });
     });

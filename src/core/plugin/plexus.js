@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://github.com/enen92/program.plexus
  * @author Sébastien Règne
  */
 

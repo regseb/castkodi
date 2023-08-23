@@ -20,7 +20,7 @@ describe("core/scraper/stargr.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.star.gr/tv/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -31,15 +31,14 @@ describe("core/scraper/stargr.js", function () {
                         ),
                     ),
             };
-            const options = { incognito: false };
 
-            const file = await scraper.extractTv(url, content, options);
+            const file = await scraper.extractTv(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
             const url = new URL("https://www.star.gr/tv/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -55,9 +54,8 @@ describe("core/scraper/stargr.js", function () {
                         ),
                     ),
             };
-            const options = { incognito: false };
 
-            const file = await scraper.extractTv(url, content, options);
+            const file = await scraper.extractTv(url, metadata);
             assert.equal(file, "https://baz.gr/manifest.m3u8");
         });
     });
@@ -72,7 +70,7 @@ describe("core/scraper/stargr.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.star.gr/video/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -84,9 +82,9 @@ describe("core/scraper/stargr.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -94,7 +92,7 @@ describe("core/scraper/stargr.js", function () {
             const spy = sinon.spy(kodi.addons, "getAddons");
 
             const url = new URL("https://www.star.gr/video/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -110,9 +108,9 @@ describe("core/scraper/stargr.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true, incognito: false };
+            const context = { depth: true, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
 
             assert.equal(spy.callCount, 0);
@@ -120,7 +118,7 @@ describe("core/scraper/stargr.js", function () {
 
         it("should return undefined when sub-page doesn't have media", async function () {
             const url = new URL("https://www.star.gr/video/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -135,9 +133,9 @@ describe("core/scraper/stargr.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -145,7 +143,7 @@ describe("core/scraper/stargr.js", function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://www.star.gr/video/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -161,9 +159,9 @@ describe("core/scraper/stargr.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -176,7 +174,7 @@ describe("core/scraper/stargr.js", function () {
 
         it("should return video URL", async function () {
             const url = new URL("https://www.star.gr/video/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -195,9 +193,9 @@ describe("core/scraper/stargr.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, "https://baz.gr/qux/quux/manifest.m3u8");
         });
     });

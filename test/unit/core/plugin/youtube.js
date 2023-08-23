@@ -30,7 +30,7 @@ describe("core/plugin/youtube.js", function () {
 
     describe("generatePlaylistUrl()", function () {
         it("should return YouTube URL", async function () {
-            browser.storage.local.set({ "youtube-order": "" });
+            await browser.storage.local.set({ "youtube-order": "" });
 
             const label = await plugin.generatePlaylistUrl("foo", false);
             assert.equal(
@@ -41,7 +41,7 @@ describe("core/plugin/youtube.js", function () {
         });
 
         it("should return YouTube URL with incognito", async function () {
-            browser.storage.local.set({ "youtube-order": "" });
+            await browser.storage.local.set({ "youtube-order": "" });
 
             const label = await plugin.generatePlaylistUrl("foo", true);
             assert.equal(
@@ -52,7 +52,7 @@ describe("core/plugin/youtube.js", function () {
         });
 
         it("should return YouTube URL with default order", async function () {
-            browser.storage.local.set({ "youtube-order": "default" });
+            await browser.storage.local.set({ "youtube-order": "default" });
 
             const label = await plugin.generatePlaylistUrl("foo", false);
             assert.equal(

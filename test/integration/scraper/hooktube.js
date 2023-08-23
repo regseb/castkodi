@@ -5,19 +5,16 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: HookTube", function () {
     it("should return video id [youtube]", async function () {
-        browser.storage.local.set({ "youtube-playlist": "video" });
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
+        await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL("https://hooktube.com/watch?v=LACbVhgtx9I");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -26,12 +23,10 @@ describe("Scraper: HookTube", function () {
     });
 
     it("should return embed video id [youtube]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://hooktube.com/embed/3lPSQ5KjamI");
-        const options = { depth: false, incognito: true };
+        const context = { depth: false, incognito: true };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +

@@ -22,7 +22,7 @@ describe("core/scraper/ultimedia.js", function () {
             const url = new URL(
                 "https://www.ultimedia.com/deliver/generic/iframe/foo",
             );
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -32,7 +32,7 @@ describe("core/scraper/ultimedia.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -40,7 +40,7 @@ describe("core/scraper/ultimedia.js", function () {
             const url = new URL(
                 "https://www.ultimedia.com/deliver/generic/iframe/foo",
             );
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -54,7 +54,7 @@ describe("core/scraper/ultimedia.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -62,7 +62,7 @@ describe("core/scraper/ultimedia.js", function () {
             const url = new URL(
                 "https://www.ultimedia.com/deliver/generic/iframe/foo",
             );
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -76,7 +76,7 @@ describe("core/scraper/ultimedia.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -84,7 +84,7 @@ describe("core/scraper/ultimedia.js", function () {
             const url = new URL(
                 "https://www.ultimedia.com/deliver/generic/iframe/foo",
             );
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -103,7 +103,7 @@ describe("core/scraper/ultimedia.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.com/baz_1080.mp4");
         });
     });

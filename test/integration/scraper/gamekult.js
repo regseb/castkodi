@@ -5,20 +5,16 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Gamekult", function () {
     it("should return undefined when it isn't a video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.gamekult.com/jeux/dead-cells-3050326015/joueurs.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -28,9 +24,9 @@ describe("Scraper: Gamekult", function () {
                 "/revivez-la-conference-bethesda-et-le-debriefing-avec-le" +
                 "-plateau-gk-3050817795.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x7aour7",
@@ -42,9 +38,9 @@ describe("Scraper: Gamekult", function () {
             "https://www.gamekult.com/jeux/tekken-7-3050301183" +
                 "/video-3052640103.html#player",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x8cx6c1",

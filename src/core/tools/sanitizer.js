@@ -11,6 +11,7 @@
  * @param {string} pattern La chaine de caractères.
  * @returns {string} La chaine de caractères avec les caractères spéciaux
  *                   protégés.
+ * @see https://developer.mozilla.org/Web/JavaScript/Guide/Regular_expressions
  */
 export const quote = function (pattern) {
     return pattern.replaceAll(/[$()*+.?[\\\]^{|}]/gu, "\\$&");

@@ -15,7 +15,7 @@ import { PebkacError } from "./tools/pebkac.js";
  * @param {string[]} urls La liste des liens récupérés par le menu contextuel ou
  *                        dans la zone de saisie de la popup.
  * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
- *                             aucun lien est valide.
+ *                             aucun lien n'est valide.
  */
 export const mux = function (urls) {
     return urls
@@ -67,8 +67,8 @@ export const cast = async function (action, urls) {
         await kodi.player.open();
     } else if ("insert" === action) {
         const position = await kodi.player.getProperty("position");
-        // Si aucun média est en cours de lecture : le nouveau média sera placé
-        // en première position.
+        // Si aucun média n'est en cours de lecture : le nouveau média sera
+        // placé en première position.
         await kodi.playlist.insert(file, position + 1);
     } else if ("add" === action) {
         await kodi.playlist.add(file);

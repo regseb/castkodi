@@ -5,16 +5,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Twitch", function () {
     it("should return video id", async function () {
         const url = new URL("https://www.twitch.tv/videos/164088111");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&video_id=164088111",
@@ -23,9 +21,9 @@ describe("Scraper: Twitch", function () {
 
     it("should return video id from 'go'", async function () {
         const url = new URL("https://go.twitch.tv/videos/164088111");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&video_id=164088111",
@@ -34,9 +32,9 @@ describe("Scraper: Twitch", function () {
 
     it("should return video id from mobile version", async function () {
         const url = new URL("https://m.twitch.tv/videos/164088111");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&video_id=164088111",
@@ -44,12 +42,10 @@ describe("Scraper: Twitch", function () {
     });
 
     it("should return undefined when it isn't a clip", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://clips.twitch.tv/embed?noclip=Awesome");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -58,9 +54,9 @@ describe("Scraper: Twitch", function () {
             "https://clips.twitch.tv/embed" +
                 "?clip=IncredulousAbstemiousFennelImGlitch",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/" +
@@ -72,9 +68,9 @@ describe("Scraper: Twitch", function () {
         const url = new URL(
             "https://clips.twitch.tv/GleamingWildCougarFUNgineer",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/" +
@@ -87,9 +83,9 @@ describe("Scraper: Twitch", function () {
             "https://www.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer" +
                 "?filter=clips&range=7d&sort=time",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/" +
@@ -101,9 +97,9 @@ describe("Scraper: Twitch", function () {
         const url = new URL(
             "https://go.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/" +
@@ -115,9 +111,9 @@ describe("Scraper: Twitch", function () {
         const url = new URL(
             "https://m.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/" +
@@ -126,12 +122,10 @@ describe("Scraper: Twitch", function () {
     });
 
     it("should return undefined when it isn't channel or video", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://player.twitch.tv/?other=foobar");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
@@ -139,9 +133,9 @@ describe("Scraper: Twitch", function () {
         const url = new URL(
             "https://player.twitch.tv/?channel=canardpc&muted=true",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=canardpc",
@@ -152,9 +146,9 @@ describe("Scraper: Twitch", function () {
         const url = new URL(
             "https://player.twitch.tv/?video=474384559&autoplay=false",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&video_id=474384559",
@@ -163,9 +157,9 @@ describe("Scraper: Twitch", function () {
 
     it("should return channel name from moderator URL", async function () {
         const url = new URL("https://www.twitch.tv/moderator/artefr");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=artefr",
@@ -174,9 +168,9 @@ describe("Scraper: Twitch", function () {
 
     it("should return channel name", async function () {
         const url = new URL("https://www.twitch.tv/nolife");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=nolife",
@@ -185,9 +179,9 @@ describe("Scraper: Twitch", function () {
 
     it("should return channel name from 'go'", async function () {
         const url = new URL("https://go.twitch.tv/nolife");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=nolife",
@@ -196,9 +190,9 @@ describe("Scraper: Twitch", function () {
 
     it("should return channel name from mobile version", async function () {
         const url = new URL("https://m.twitch.tv/jvtv");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=jvtv",

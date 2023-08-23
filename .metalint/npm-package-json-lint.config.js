@@ -79,21 +79,21 @@ export default {
         "no-repeated-dependencies": "error",
 
         "no-absolute-version-dependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-dependencies oblige les versions absolues.
         "no-archive-dependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-dependencies oblige les versions absolues.
         "no-caret-version-dependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-dependencies oblige les versions absolues.
         "no-file-dependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-dependencies oblige les versions absolues.
         "no-git-dependencies": "off",
         "no-restricted-dependencies": "off",
         "no-restricted-pre-release-dependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-dependencies oblige les versions absolues.
         "no-tilde-version-dependencies": "off",
         "prefer-absolute-version-dependencies": "error",
@@ -103,21 +103,21 @@ export default {
         "prefer-tilde-version-dependencies": "off",
 
         "no-absolute-version-devDependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-devDependencies oblige les versions absolues.
         "no-archive-devDependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-devDependencies oblige les versions absolues.
         "no-caret-version-devDependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-devDependencies oblige les versions absolues.
         "no-file-devDependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-devDependencies oblige les versions absolues.
         "no-git-devDependencies": "off",
         "no-restricted-devDependencies": "off",
         "no-restricted-pre-release-devDependencies": "off",
-        // Ne pas activer cette règle car la règle
+        // Ne pas activer cette règle, car la règle
         // prefer-absolute-version-devDependencies oblige les versions absolues.
         "no-tilde-version-devDependencies": "off",
         "prefer-absolute-version-devDependencies": "error",

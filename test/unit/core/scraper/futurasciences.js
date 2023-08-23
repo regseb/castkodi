@@ -5,6 +5,8 @@
  */
 
 import assert from "node:assert/strict";
+import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/futurasciences.js";
 
 describe("core/scraper/futurasciences.js", function () {
@@ -18,7 +20,7 @@ describe("core/scraper/futurasciences.js", function () {
 
         it("should return undefined when it's depth", async function () {
             const url = new URL("https://www.futura-sciences.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,24 +31,24 @@ describe("core/scraper/futurasciences.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true, incognito: false };
+            const context = { depth: true, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://www.futura-sciences.com/favicon.png");
-            const content = { html: () => Promise.resolve(undefined) };
-            const options = { depth: false };
+            const metadata = { html: () => Promise.resolve(undefined) };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't iframe", async function () {
             const url = new URL("https://www.futura-sciences.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -55,15 +57,17 @@ describe("core/scraper/futurasciences.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return URL from iframe", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.futura-sciences.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -74,18 +78,23 @@ describe("core/scraper/futurasciences.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return URL from iframe with data-src", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.futura-sciences.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -99,19 +108,24 @@ describe("core/scraper/futurasciences.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/" +
                     "?mode=playVideo&url=quux",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
         it("should return URL from vsly-player", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://www.futura-sciences.com/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -123,13 +137,16 @@ describe("core/scraper/futurasciences.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extract(url, content, options);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://rumble.com/
  * @author Sébastien Règne
  */
 
@@ -14,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://rumble.com/embedJS/u3/?request=video";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo embarquée sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo embarquée sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo embarquée de Rumble.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

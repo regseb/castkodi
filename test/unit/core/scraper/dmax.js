@@ -19,7 +19,7 @@ describe("core/scraper/dmax.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://dmax.de/sendungen/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,7 +29,7 @@ describe("core/scraper/dmax.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -52,7 +52,7 @@ describe("core/scraper/dmax.js", function () {
                 .resolves(Response.json({}));
 
             const url = new URL("https://dmax.de/sendungen/baz");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -64,7 +64,7 @@ describe("core/scraper/dmax.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
 
             assert.equal(stub.callCount, 3);
@@ -106,7 +106,7 @@ describe("core/scraper/dmax.js", function () {
                 );
 
             const url = new URL("https://dmax.de/sendungen/bar");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -118,7 +118,7 @@ describe("core/scraper/dmax.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
 
             assert.equal(stub.callCount, 1);
@@ -166,7 +166,7 @@ describe("core/scraper/dmax.js", function () {
                 );
 
             const url = new URL("https://dmax.de/sendungen/quux");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -178,7 +178,7 @@ describe("core/scraper/dmax.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
 
             assert.equal(stub.callCount, 3);
@@ -245,7 +245,7 @@ describe("core/scraper/dmax.js", function () {
                 );
 
             const url = new URL("https://dmax.de/sendungen/quux");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -257,7 +257,7 @@ describe("core/scraper/dmax.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://baz.com/qux.m3u8");
 
             assert.equal(stub.callCount, 3);
@@ -323,7 +323,7 @@ describe("core/scraper/dmax.js", function () {
                 );
 
             const url = new URL("https://dmax.de/sendungen/quux");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -335,7 +335,7 @@ describe("core/scraper/dmax.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://baz.com/qux.m3u8");
 
             assert.equal(stub.callCount, 3);

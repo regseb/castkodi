@@ -34,7 +34,8 @@ table {
     vertical-align: top;
     width: 100%;
 }
-th, td {
+th,
+td {
     padding: 8px;
 }
 th {
@@ -44,15 +45,15 @@ th {
     text-align: left;
 }
 th:not(:first-child) {
-    border-image:
-        linear-gradient(
+    border-image: linear-gradient(
             transparent 0%,
             transparent 20%,
             var(--input-border-color) 20%,
             var(--input-border-color) 80%,
             transparent 80%,
             transparent 100%
-        ) 1 1;
+        )
+        1 1;
     border-inline-start-style: solid;
     border-inline-start-width: 1px;
 }
@@ -85,7 +86,8 @@ td * {
     font-weight: bold;
     list-style: none;
 }
-#server div, #server table {
+#server div,
+#server table {
     margin-top: 15px;
 }
 #server table input[type="text"] {

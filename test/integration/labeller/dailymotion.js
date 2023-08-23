@@ -11,9 +11,9 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Labeller: Dailymotion", function () {
     it("should return video label", async function () {
         const url = new URL("https://www.dailymotion.com/video/x2knr9t");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         const item = await complete({
             file,
             label: "",

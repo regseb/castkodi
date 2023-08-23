@@ -17,9 +17,9 @@ describe("Scraper: magnet", function () {
                 "&ws=http%3a%2f%2fdistribution.bbb3d.renderfarming.net" +
                 "%2fvideo%2fmp4%2fbbb_sunflower_1080p_30fps_normal.mp4",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.elementum/play?uri=magnet%3A%3Fxt%3Durn" +

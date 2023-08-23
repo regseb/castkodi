@@ -5,50 +5,44 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Blog Talk Radio", function () {
     it("should return undefined when it isn't an audio", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL("https://www.blogtalkradio.com/technology");
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return audio URL", async function () {
         const url = new URL(
-            "https://www.blogtalkradio.com/stretchingadollar/2011/03/02" +
-                "/7-mozilla-firefox-add-ons-to-help-your-small-business" +
-                "-stretch-a-dollar-to-save",
+            "https://www.blogtalkradio.com/weekdayswithmurph/2013/04/24" +
+                "/kodi-kitchen-live-interview-2",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
-            "https://www.blogtalkradio.com/stretchingadollar/2011/03/02" +
-                "/7-mozilla-firefox-add-ons-to-help-your-small-business" +
-                "-stretch-a-dollar-to-save.mp3",
+            "https://www.blogtalkradio.com/weekdayswithmurph/2013/04/24" +
+                "/kodi-kitchen-live-interview-2.mp3",
         );
     });
 
     it("should return audio URL when protocol is HTTP", async function () {
         const url = new URL(
-            "http://www.blogtalkradio.com/firefoxnews-online/2011/06/13" +
-                "/firefoxnews-online",
+            "http://www.blogtalkradio.com/weekdayswithmurph/2013/04/24" +
+                "/kodi-kitchen-live-interview-2",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
-            "https://www.blogtalkradio.com/firefoxnews-online/2011/06/13" +
-                "/firefoxnews-online.mp3",
+            "https://www.blogtalkradio.com/weekdayswithmurph/2013/04/24" +
+                "/kodi-kitchen-live-interview-2.mp3",
         );
     });
 });

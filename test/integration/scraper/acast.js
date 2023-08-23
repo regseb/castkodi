@@ -13,9 +13,9 @@ describe("Scraper: Acast", function () {
             "https://play.acast.com/s/cyber" +
                 "/the-killer-robot-future-is-already-here",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://sphinx.acast.com/p/acast/s/cyber/e" +
@@ -28,9 +28,9 @@ describe("Scraper: Acast", function () {
             "https://play.acast.com/s/5d84d37cf721f89940031fb4" +
                 "/63282b9b00922400136f2602",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://sphinx.acast.com/p/open/s/5d84d37cf721f89940031fb4/e" +
@@ -43,9 +43,9 @@ describe("Scraper: Acast", function () {
             "https://embed.acast.com/5b7ac427c6a58e726f576cff" +
                 "/626c0242162abf00141b401b?seek=42",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://sphinx.acast.com/p/open/s/5b7ac427c6a58e726f576cff/e" +

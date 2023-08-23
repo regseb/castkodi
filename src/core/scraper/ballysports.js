@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.ballysports.com/
  * @author Sébastien Règne
  */
 
@@ -22,7 +23,7 @@ const FEED_URL =
     "https://feedpublisher.ballysports.com/divauni/SINCLAIR/fe/video/videodata";
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo de Bally Sports.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

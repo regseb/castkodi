@@ -14,9 +14,9 @@ describe("Scraper: Daily Mail", function () {
                 "/Scientists-create-stunning-gifs-Mars-sand-dunes-understand" +
                 "-conditions-impact-them.html",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://videos.dailymail.co.uk/video/mol/2019/12/12" +

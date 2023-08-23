@@ -5,36 +5,30 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: The Guardian", function () {
     it("should return undefined when it isn't a video / audio", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.theguardian.com/technology/2019/nov/17" +
                 "/firefox-mozilla-fights-back-against-google-chrome-dominance" +
                 "-privacy-fears",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(file, undefined);
     });
 
     it("should return video URL [theguardian-youtube]", async function () {
-        sinon.stub(kodi.addons, "getAddons").resolves([]);
-
         const url = new URL(
             "https://www.theguardian.com/sport/video/2021/oct/18" +
                 "/dont-let-it-drop-peru-win-the-first-ever-balloon-world-cup" +
                 "-video",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "plugin://plugin.video.youtube/play/" +
@@ -47,9 +41,9 @@ describe("Scraper: The Guardian", function () {
             "https://www.theguardian.com/news/audio/2020/feb/25" +
                 "/could-coronavirus-be-china-chernobyl-moment-podcast",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://audio.guim.co.uk/2020/02/24-70184-200225TIFchina.mp3",

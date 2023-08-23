@@ -9,7 +9,6 @@ import * as acestream from "./scraper/acestream.js";
 import * as allocine from "./scraper/allocine.js";
 import * as aparat from "./scraper/aparat.js";
 import * as applepodcasts from "./scraper/applepodcasts.js";
-import * as ardmediathek from "./scraper/ardmediathek.js";
 import * as arte from "./scraper/arte.js";
 import * as arteradio from "./scraper/arteradio.js";
 import * as ausha from "./scraper/ausha.js";
@@ -33,6 +32,7 @@ import * as iframe from "./scraper/iframe.js";
 // eslint-disable-next-line import/no-cycle
 import * as jv from "./scraper/jv.js";
 import * as kcaastreaming from "./scraper/kcaastreaming.js";
+import * as kick from "./scraper/kick.js";
 // eslint-disable-next-line import/no-cycle
 import * as ldjson from "./scraper/ldjson.js";
 // eslint-disable-next-line import/no-cycle
@@ -71,7 +71,6 @@ import * as unknown from "./scraper/unknown.js";
 import * as uqload from "./scraper/uqload.js";
 import * as veoh from "./scraper/veoh.js";
 import * as videopress from "./scraper/videopress.js";
-import * as videoshub from "./scraper/videoshub.js";
 import * as vidlox from "./scraper/vidlox.js";
 import * as vidyard from "./scraper/vidyard.js";
 import * as vimeo from "./scraper/vimeo.js";
@@ -84,19 +83,18 @@ import * as zdf from "./scraper/zdf.js";
 import { cacheable } from "./tools/cacheable.js";
 
 /**
- * La liste des extracteurs (retournant le <em>fichier</em> extrait ou
- * <code>undefined</code>).
+ * La liste des fonctions des extracteurs (retournant le <em>fichier</em>
+ * extrait ou <code>undefined</code>).
  *
  * @type {Function[]}
  */
 const SCRAPERS = [
-    // Lister les scrapers (triés par ordre alphabétique).
+    // Lister les extracteurs (triés par ordre alphabétique).
     acast,
     acestream,
     allocine,
     aparat,
     applepodcasts,
-    ardmediathek,
     arte,
     arteradio,
     ausha,
@@ -113,6 +111,7 @@ const SCRAPERS = [
     goplay,
     jv,
     kcaastreaming,
+    kick,
     lemonde,
     lepoint,
     megaphone,
@@ -137,7 +136,6 @@ const SCRAPERS = [
     uqload,
     veoh,
     videopress,
-    videoshub,
     vidlox,
     vidyard,
     vimeo,
@@ -147,7 +145,7 @@ const SCRAPERS = [
     vudeo,
     youtube,
     zdf,
-    // Utiliser les scrapers génériques en dernier recours.
+    // Utiliser les extracteurs génériques en dernier recours.
     media,
     ldjson,
     opengraph,
@@ -165,17 +163,17 @@ const SCRAPERS = [
  * Extrait le <em>fichier</em> d'une URL.
  *
  * @param {URL}     url               L'URL d'une page Internet.
- * @param {Object}  options           Les options de l'extraction.
- * @param {boolean} options.depth     La marque indiquant si l'extraction est en
+ * @param {Object}  context           Le contexte de l'extraction.
+ * @param {boolean} context.depth     La marque indiquant si l'extraction est en
  *                                    profondeur.
- * @param {boolean} options.incognito La marque indiquant si l'utilisateur est
+ * @param {boolean} context.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-export const extract = async function (url, options) {
-    const content = {
+export const extract = async function (url, context) {
+    const metadata = {
         html: cacheable(async () => {
             try {
                 const controller = new AbortController();
@@ -200,7 +198,7 @@ export const extract = async function (url, options) {
     };
 
     for (const scraper of SCRAPERS) {
-        const file = await scraper(url, content, options);
+        const file = await scraper(url, metadata, context);
         if (undefined !== file) {
             return file;
         }

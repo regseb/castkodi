@@ -12,9 +12,9 @@ describe("Scraper: Blender Video", function () {
         const url = new URL(
             "https://video.blender.org/w/pAQiVCgv2CsLg79KKXUoMw",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://video.blender.org/static/webseed" +
@@ -27,9 +27,9 @@ describe("Scraper: Blender Video", function () {
             "https://video.blender.org/videos/embed" +
                 "/a69d68a5-a0e0-4a80-9d66-49f093c97aaf",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://video.blender.org/static/webseed" +

@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see http://elementum.surge.sh/
  * @author Sébastien Règne
  */
 

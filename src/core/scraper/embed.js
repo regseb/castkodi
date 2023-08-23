@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://developer.mozilla.org/Web/HTML/Element/embed
  * @author Sébastien Règne
  */
 
@@ -12,22 +13,21 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Fouille les éléments <code>embed</code> de la page.
  *
  * @param {URL}      url               L'URL d'une page quelconque.
- * @param {Object}   content           Le contenu de l'URL.
- * @param {Function} content.html      La fonction retournant la promesse
+ * @param {Object}   metadata          Les métadonnées de l'URL.
+ * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
  *                                     <code>undefined</code>.
- * @param {Object}   options           Les options de l'extraction.
- * @param {boolean}  options.depth     La marque indiquant si l'extraction est
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
- * @param {boolean}  options.incognito La marque indiquant si l'utilisateur est
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
- * @see https://developer.mozilla.org/Web/HTML/Element/embed
  */
-const action = async function (url, content, options) {
-    const doc = await content.html();
+const action = async function (url, metadata, context) {
+    const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
     }
@@ -41,10 +41,10 @@ const action = async function (url, content, options) {
             return new URL(embed.getAttribute("src"), url).href;
         }
 
-        if (!options.depth) {
+        if (!context.depth) {
             const file = await metaExtract(
                 new URL(embed.getAttribute("src"), url),
-                { ...options, depth: true },
+                { ...context, depth: true },
             );
             if (undefined !== file) {
                 return file;

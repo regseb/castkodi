@@ -6,22 +6,23 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/opengraph.js";
 
 describe("core/scraper/opengraph.js", function () {
     describe("extractVideo()", function () {
         it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://foo.com");
-            const content = { html: () => Promise.resolve(undefined) };
-            const options = { depth: false };
+            const metadata = { html: () => Promise.resolve(undefined) };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when content is empty", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -34,15 +35,15 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return video URL when there isn't type", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -54,15 +55,15 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, "https://bar.com/baz.hls");
         });
 
         it("should return video URL", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -76,9 +77,9 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, "http://bar.com/baz.mkv");
         });
 
@@ -86,7 +87,7 @@ describe("core/scraper/opengraph.js", function () {
             const spy = sinon.stub(globalThis, "fetch");
 
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -100,9 +101,9 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
 
             assert.equal(spy.callCount, 0);
@@ -110,7 +111,7 @@ describe("core/scraper/opengraph.js", function () {
 
         it("should return undefined when it's depther", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -124,15 +125,15 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true };
+            const context = { depth: true, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when sub-page doesn't have media", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -146,15 +147,17 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return plugin URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -168,29 +171,32 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false, incognito: true };
+            const context = { depth: false, incognito: true };
 
-            const file = await scraper.extractVideo(url, content, options);
+            const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.twitch/?mode=play&channel_name=foo",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 
     describe("extractAudio()", function () {
         it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://foo.com");
-            const content = { html: () => Promise.resolve(undefined) };
-            const options = { depth: false };
+            const metadata = { html: () => Promise.resolve(undefined) };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when content is empty", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -203,15 +209,15 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return audio URL when there isn't type", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -223,15 +229,15 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, "https://bar.com/baz.mp3");
         });
 
         it("should return audio URL", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -245,9 +251,9 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, "http://bar.com/baz.wav");
         });
 
@@ -255,7 +261,7 @@ describe("core/scraper/opengraph.js", function () {
             const spy = sinon.stub(globalThis, "fetch");
 
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -269,9 +275,9 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, undefined);
 
             assert.equal(spy.callCount, 0);
@@ -279,7 +285,7 @@ describe("core/scraper/opengraph.js", function () {
 
         it("should return undefined when it's depther", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -293,15 +299,15 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: true };
+            const context = { depth: true, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when sub-page doesn't have media", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -315,15 +321,17 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, undefined);
         });
 
         it("should return plugin URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -338,28 +346,31 @@ describe("core/scraper/opengraph.js", function () {
                         ),
                     ),
             };
-            const options = { depth: false };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractAudio(url, content, options);
+            const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F",
             );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["audio", "video"]);
         });
     });
 
     describe("extractTwitter()", function () {
         it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://foo.com");
-            const content = { html: () => Promise.resolve(undefined) };
+            const metadata = { html: () => Promise.resolve(undefined) };
 
-            const file = await scraper.extractTwitter(url, content);
+            const file = await scraper.extractTwitter(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't Open Graph", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -369,13 +380,13 @@ describe("core/scraper/opengraph.js", function () {
                     ),
             };
 
-            const file = await scraper.extractTwitter(url, content);
+            const file = await scraper.extractTwitter(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -388,7 +399,7 @@ describe("core/scraper/opengraph.js", function () {
                     ),
             };
 
-            const file = await scraper.extractTwitter(url, content);
+            const file = await scraper.extractTwitter(url, metadata);
             assert.equal(file, "https://bar.com/baz.avi");
         });
     });
@@ -396,15 +407,15 @@ describe("core/scraper/opengraph.js", function () {
     describe("extractYandex()", function () {
         it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://foo.com");
-            const content = { html: () => Promise.resolve(undefined) };
+            const metadata = { html: () => Promise.resolve(undefined) };
 
-            const file = await scraper.extractYandex(url, content);
+            const file = await scraper.extractYandex(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return undefined when there isn't Open Graph", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -414,13 +425,13 @@ describe("core/scraper/opengraph.js", function () {
                     ),
             };
 
-            const file = await scraper.extractYandex(url, content);
+            const file = await scraper.extractYandex(url, metadata);
             assert.equal(file, undefined);
         });
 
         it("should return video URL", async function () {
             const url = new URL("https://foo.com");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -433,7 +444,7 @@ describe("core/scraper/opengraph.js", function () {
                     ),
             };
 
-            const file = await scraper.extractYandex(url, content);
+            const file = await scraper.extractYandex(url, metadata);
             assert.equal(file, "https://bar.com/baz.avi");
         });
     });

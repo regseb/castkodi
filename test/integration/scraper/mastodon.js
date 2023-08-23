@@ -12,9 +12,9 @@ describe("Scraper: Mastodon", function () {
         const url = new URL(
             "https://mastodon.social/@Mi_NumEco_Gouv/108469304023929478",
         );
-        const options = { depth: false, incognito: false };
+        const context = { depth: false, incognito: false };
 
-        const file = await extract(url, options);
+        const file = await extract(url, context);
         assert.equal(
             file,
             "https://files.mastodon.social/media_attachments/files/108/469" +

@@ -71,6 +71,10 @@ export const locate = function (doc, page) {
             key = attribute.value;
         } else if (attribute.ownerElement.hasAttribute("id")) {
             key = attribute.ownerElement.id;
+        } else if (attribute.ownerElement.hasAttribute("name")) {
+            key = attribute.ownerElement.getAttribute("name");
+        } else if (attribute.ownerElement.hasAttribute("value")) {
+            key = attribute.ownerElement.getAttribute("value");
         } else {
             throw new Error("[data-l10n-*] without value");
         }

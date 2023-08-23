@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.srf.ch/
  * @author Sébastien Règne
  */
 /* eslint-disable require-await */
@@ -30,7 +31,7 @@ const getVideoUrl = async function (urn) {
 };
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo de Play SRF.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
@@ -50,7 +51,7 @@ export const extractVideo = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une page de redirection vers une vidéo de Play SRF.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

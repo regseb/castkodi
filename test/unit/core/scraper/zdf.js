@@ -19,7 +19,7 @@ describe("core/scraper/zdf.js", function () {
 
         it("should return undefined when it isn't a video", async function () {
             const url = new URL("https://www.zdf.de/foo");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -29,7 +29,7 @@ describe("core/scraper/zdf.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -61,7 +61,7 @@ describe("core/scraper/zdf.js", function () {
             );
 
             const url = new URL("https://www.zdf.de/baz");
-            const content = {
+            const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
@@ -79,7 +79,7 @@ describe("core/scraper/zdf.js", function () {
                     ),
             };
 
-            const file = await scraper.extract(url, content);
+            const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.de/bar.webm");
 
             assert.equal(stub.callCount, 1);

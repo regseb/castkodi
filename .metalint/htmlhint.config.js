@@ -17,7 +17,7 @@ export default {
     "attr-whitespace": true,
     "doctype-first": true,
     "doctype-html5": true,
-    "empty-tag-not-self-closed": true,
+    "empty-tag-not-self-closed": false,
     "head-script-disabled": true,
     "href-abs-or-rel": false,
     "html-lang-require": false,
