@@ -1,8 +1,9 @@
 # Cast Kodi
 
-<!-- Utiliser du HTML pour faire flotter l'image à droite. -->
+<!-- Utiliser du HTML (avec l'attribut "align" obsolète) pour faire flotter
+     l'image à droite. -->
 <!-- markdownlint-disable-next-line no-inline-html-->
-<img src="src/img/icon.svg" style="float: right" alt="">
+<img src="src/img/icon.svg" align="right" alt="">
 
 [![chrome][img-chrome]][link-chrome]
 [![firefox][img-firefox]][link-firefox]
