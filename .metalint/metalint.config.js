@@ -82,10 +82,18 @@ export default {
         {
             patterns: "*.json",
             linters: ["prettier", "prantlf__jsonlint"],
-            overrides: {
-                patterns: "/package.json",
-                linters: "npm-package-json-lint",
-            },
+            overrides: [
+                {
+                    patterns: "/package.json",
+                    linters: "npm-package-json-lint",
+                },
+                // Indenter avec quatre espaces les fichiers des messages i18n
+                // pour avoir le même format que Weblate.
+                {
+                    patterns: ["/locales/**", "/src/_locales/**"],
+                    linters: "prettier_messages",
+                },
+            ],
         },
         {
             patterns: "*.yml",

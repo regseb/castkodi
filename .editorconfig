@@ -14,3 +14,6 @@ indent_size = 4
 
 [*.css]
 indent_size = 4
+
+[{locales/**.json,src/_locales/**.json}]
+indent_size = 4
