@@ -38,7 +38,7 @@
         "message": "Autorizácia nebola udelená"
     },
     "notifications_notGranted_message": {
-        "message": "Rozšírenie nemá prístup k webovým stránkam."
+        "message": "Predĺženie nemôže prístup k webovým stránkam."
     },
     "notifications_unconfigured_title": {
         "message": "Chýba adresa"
@@ -264,7 +264,7 @@
         "message": "Zmeniť server:"
     },
     "options_permissionDescription_textcontent": {
-        "message": "Prístup na webové stránky nie je povolený. Rozšírenie nedokáže na stránkach analyzovať videá alebo hudbu."
+        "message": "Prístup na webové stránky nie je povolený. Rozšírenie nemôže analyzovať stránky pre videá alebo hudbu."
     },
     "options_permissionButton_textcontent": {
         "message": "Povoliť prístup"
