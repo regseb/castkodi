@@ -19,8 +19,8 @@ describe("Scraper: France tv", function () {
     it("should return video URL", async function () {
         const url = new URL(
             "https://www.france.tv/france-3/des-racines-et-des-ailes" +
-                "/316863-les-imprenables-forteresses-cathares-queribus-et" +
-                "-peyrepertuse.html",
+                "/2487199-sur-les-sentiers-du-littoral-du-cap-d-antibes-aux" +
+                "-calanques.html",
         );
         const context = { depth: false, incognito: false };
 

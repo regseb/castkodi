@@ -33,7 +33,7 @@ describe("Scraper: Arte", function () {
     it("should return french video URL", async function () {
         // Récupérer l'URL d'une vidéo parmi les vidéos les plus vues.
         const response = await fetch(
-            "https://www.arte.tv/api/rproxy/emac/v3/fr/web/data/VIDEO_LISTING" +
+            "https://www.arte.tv/api/rproxy/emac/v4/fr/web/data/VIDEO_LISTING" +
                 "/?videoType=MOST_VIEWED&authorizedAreas=ALL",
         );
         const json = await response.json();
@@ -54,7 +54,7 @@ describe("Scraper: Arte", function () {
     it("should return german video URL", async function () {
         // Récupérer l'URL d'une vidéo parmi les vidéos les plus vues.
         const response = await fetch(
-            "https://www.arte.tv/api/rproxy/emac/v3/de/web/data/VIDEO_LISTING" +
+            "https://www.arte.tv/api/rproxy/emac/v4/de/web/data/VIDEO_LISTING" +
                 "/?videoType=MOST_VIEWED&authorizedAreas=ALL",
         );
         const json = await response.json();
