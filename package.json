@@ -38,7 +38,6 @@
     "start:chromium": "node .script/start.js chromium",
     "start:firefox": "node .script/start.js firefox",
     "build": "node .script/build.js",
-    "release": "standard-version",
     "clean": "node .script/clean.js"
   },
   "dependencies": {
@@ -76,7 +75,6 @@
     "prettier": "3.0.2",
     "purgecss": "5.0.0",
     "sinon": "15.2.0",
-    "standard-version": "9.5.0",
     "stylelint": "15.10.3",
     "stylelint-order": "6.0.3",
     "typedoc": "0.24.8",

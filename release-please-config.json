@@ -1,0 +1,14 @@
+{
+  "extra-files": [
+    {
+      "type": "json",
+      "path": "src/manifest-chromium.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "src/manifest-firefox.json",
+      "jsonpath": "$.version"
+    }
+  ]
+}
