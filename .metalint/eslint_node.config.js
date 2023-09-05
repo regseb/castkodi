@@ -76,7 +76,7 @@ export default {
         "n/no-restricted-import": ["error", ["node:assert"]],
         "n/no-restricted-require": "error",
         "n/no-sync": "error",
-        // Désactiver les règles n/prefer-global car aucune variable global de
+        // Désactiver les règles n/prefer-global, car aucune variable globale de
         // Node n'est déclarée, donc si elles sont utilisées : la règle no-undef
         // remontera une erreur.
         "n/prefer-global/buffer": "off",

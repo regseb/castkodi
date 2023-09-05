@@ -288,7 +288,7 @@ const handleChange = function (changes) {
         Object.fromEntries(
             Object.entries(changes)
                 .filter(([, v]) => "newValue" in v)
-                // Ignorer "server-active" car ce paramètre n'est pas affiché
+                // Ignorer "server-active", car ce paramètre n'est pas affiché
                 // dans la page.
                 .filter(([k]) => "server-active" !== k)
                 // Ne pas actualiser la liste des serveurs, car cela provoque un

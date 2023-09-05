@@ -8,7 +8,7 @@
   <defs>
     <mask id="wave">
       <g fill="none" stroke="white">
-        <!-- Regrouper tous les éléments car Inkscape utilise seulement le
+        <!-- Regrouper tous les éléments, car Inkscape utilise seulement le
              premier enfant pour le masque.
              https://bugs.launchpad.net/inkscape/+bug/794472 -->
         <circle cx="0" cy="50" r="5" stroke-width="10" />

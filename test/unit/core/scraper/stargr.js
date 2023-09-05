@@ -98,7 +98,7 @@ describe("core/scraper/stargr.js", function () {
                         new DOMParser().parseFromString(
                             `
                     <html><body>
-                      <!-- Coller le "style" et la "src" car c'est le cas dans
+                      <!-- Coller le "style" et la "src", car c'est le cas dans
                            les pages de StarGR. -->
                       <iframe id="yt-player"
                               style=""src="https://www.youtube.com/embed/bar"
@@ -124,7 +124,7 @@ describe("core/scraper/stargr.js", function () {
                         new DOMParser().parseFromString(
                             `
                     <html><body>
-                      <!-- Coller le "style" et la "src" car c'est le cas dans
+                      <!-- Coller le "style" et la "src", car c'est le cas dans
                            les pages de StarGR. -->
                       <iframe id="yt-player"
                               style=""src="https://www.youtube.com/"></iframe>
@@ -149,7 +149,7 @@ describe("core/scraper/stargr.js", function () {
                         new DOMParser().parseFromString(
                             `
                     <html><body>
-                      <!-- Coller le "style" et la "src" car c'est le cas dans
+                      <!-- Coller le "style" et la "src", car c'est le cas dans
                            les pages de StarGR. -->
                       <iframe id="yt-player"
                               style=""src="https://www.youtube.com/embed/bar"

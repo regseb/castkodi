@@ -532,8 +532,8 @@ export default {
         "import/first": "error",
         "import/group-exports": "off",
         "import/max-dependencies": "off",
-        // Ne pas activer l'option "considerComments" car les commentaires entre
-        // les imports ne sont pas gérés.
+        // Ne pas activer l'option "considerComments", car les commentaires
+        // entre les imports ne sont pas gérés.
         // https://github.com/import-js/eslint-plugin-import/issues/2673
         "import/newline-after-import": ["error", { considerComments: false }],
         "import/no-anonymous-default-export": [
@@ -586,7 +586,7 @@ export default {
         "jsdoc/check-values": "error",
         "jsdoc/empty-tags": "error",
         "jsdoc/implements-on-classes": "error",
-        // Désactiver la règle car elle ne supporte pas la propriété "exports".
+        // Désactiver la règle, car elle ne supporte pas la propriété "exports".
         // https://github.com/gajus/eslint-plugin-jsdoc/issues/1114
         "jsdoc/imports-as-dependencies": "off",
         "jsdoc/informative-docs": "error",
@@ -775,7 +775,7 @@ export default {
         "unicorn/no-invalid-remove-event-listener": "error",
         "unicorn/no-keyword-prefix": "error",
         "unicorn/no-lonely-if": "error",
-        // Utiliser la règle no-negated-condition d'ESLint car celle d'unicorn
+        // Utiliser la règle no-negated-condition d'ESLint, car celle d'unicorn
         // apporte seulement la correction automatique.
         "unicorn/no-negated-condition": "off",
         "unicorn/no-nested-ternary": "off",

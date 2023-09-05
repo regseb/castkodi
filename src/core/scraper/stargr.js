@@ -58,7 +58,7 @@ export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");
 const actionVideo = async function (_url, metadata, context) {
     const doc = await metadata.html();
 
-    // Ne pas utiliser le scraper iframe car il est exécuté trop tard.
+    // Ne pas utiliser le scraper iframe, car il est exécuté trop tard.
     // La page contient des microdonnées sur la vidéo, mais c'est l'URL de
     // l'image qui est renseignée dans le champ de l'URL de la vidéo. Le scraper
     // iframe étant exécuté après celui sur le ldjson, il faut gérer l'iframe

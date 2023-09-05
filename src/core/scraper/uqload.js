@@ -39,5 +39,5 @@ const action = async function (url, metadata) {
     }
     return undefined;
 };
-// Ne pas filter sur le TLD car il change régulièrement.
+// Ne pas filter sur le TLD, car il change régulièrement.
 export const extract = matchPattern(action, "*://uqload.*/*.html");

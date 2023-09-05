@@ -21,7 +21,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const action = async function (_url, metadata) {
     const doc = await metadata.html();
 
-    // Ne pas utiliser le scraper opengraph car Dumpert n'implémente pas
+    // Ne pas utiliser le scraper opengraph, car Dumpert n'implémente pas
     // correctement la norme Open Graph. La clé "og:video" est définie dans
     // l'attribut "name", alors qu'il faut la renseigner dans l'attribut
     // "property".

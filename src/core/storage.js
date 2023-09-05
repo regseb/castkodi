@@ -73,7 +73,7 @@ export const migrate = async function () {
         };
     }
 
-    // Renommer les propriétés "host" en "address" car elles peuvent maintenant
+    // Renommer les propriétés "host" en "address", car elles peuvent maintenant
     // contenir une adresse IP ou une adresse complête.
     if (2 === config["config-version"]) {
         const servers = config["server-list"].map((server) => ({

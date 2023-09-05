@@ -19,7 +19,7 @@ describe("Scraper: Kickstarter", function () {
         assert.equal(file, undefined);
     });
 
-    // Désactiver ce test car Kickstarter bloque les requêtes venant de Node.js
+    // Désactiver ce test, car Kickstarter bloque les requêtes venant de Node.js
     // ("www.kickstarter.com needs to review the security of your connection
     // before proceeding. Performance & security by Cloudflare").
     it.skip("should return video URL [media]", async function () {

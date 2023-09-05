@@ -57,7 +57,7 @@ export default {
         },
         {
             patterns: "*.tpl",
-            // Ne pas formatter les fichiers templates avec Prettier car les
+            // Ne pas formatter les fichiers templates avec Prettier, car les
             // retours à la ligne ne sont pas gérés correctement.
             linters: ["htmlhint", "htmlhint_tpl"],
         },

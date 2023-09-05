@@ -36,7 +36,7 @@ export const fetch = function (input, init) {
         "User-Agent": USER_AGENT,
         ...init?.headers,
     };
-    // Utiliser node-fetch car la fonction native fetch() de Node.js ne supporte
-    // pas HTTP/2. https://github.com/nodejs/undici/issues/902
+    // Utiliser node-fetch, car la fonction native fetch() de Node.js ne
+    // supporte pas HTTP/2. https://github.com/nodejs/undici/issues/902
     return nodeFetch(input, { ...init, headers });
 };
