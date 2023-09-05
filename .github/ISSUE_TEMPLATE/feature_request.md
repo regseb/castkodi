@@ -17,10 +17,10 @@ assignees: ""
 
 ### Environment
 
-- Cast Kodi version<!-- e.g. 7.4.0 -->:
-- Browser version<!-- e.g. Chrome 116.0.5845.96, Firefox 116.0 -->:
+- Cast Kodi version<!-- e.g. 7.4.1 -->:
+- Browser version<!-- e.g. Chrome 116.0.5845.140, Firefox 117.0 -->:
 - Kodi version<!-- e.g. 20.2 -->:
-- Kodi add-on version (if appropriate)<!-- e.g. YouTube 6.8.25+matrix.1 -->:
+- Kodi add-on version (if appropriate)<!-- e.g. YouTube 7.0.1 -->:
 
 ### Additional context
 

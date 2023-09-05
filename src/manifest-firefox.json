@@ -2,7 +2,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "castkodi@regseb.github.io",
-      "strict_min_version": "116.0"
+      "strict_min_version": "117.0"
     }
   },
   "manifest_version": 3,
@@ -39,7 +39,7 @@
     }
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
+    "extension_pages": "script-src 'self'"
   },
   "homepage_url": "https://github.com/regseb/castkodi",
   "host_permissions": ["<all_urls>"],
