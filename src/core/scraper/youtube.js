@@ -69,7 +69,7 @@ const dispatchPlaylist = async function (playlistId, { incognito }) {
  * Extrait les informations nécessaires pour lire une vidéo / playlist sur Kodi.
  *
  * @param {URL}      url               L'URL d'une vidéo / playlist YouTube (ou
- *                                     Invidious / HookTube).
+ *                                     Invidious).
  * @param {Object}   _metadata         Les métadonnées de l'URL.
  * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -102,7 +102,6 @@ export const extractVideo = matchPattern(
     actionVideo,
     "*://*.youtube.com/watch*",
     "*://invidio.us/watch*",
-    "*://hooktube.com/watch*",
 );
 
 /**
@@ -155,7 +154,6 @@ export const extractEmbed = matchPattern(
     "*://*.youtube.com/shorts/*",
     "*://youtube.com/shorts/*",
     "*://invidio.us/embed/*",
-    "*://hooktube.com/embed/*",
     "*://dev.tube/video/*",
 );
 
