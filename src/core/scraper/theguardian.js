@@ -34,7 +34,7 @@ const actionVideo = async function (_url, metadata, context) {
     const div = doc.querySelector("div.youtube-media-atom__iframe");
     return null === div
         ? undefined
-        : metaExtract(
+        : await metaExtract(
               new URL(`https://www.youtube.com/embed/${div.dataset.assetId}`),
               { ...context, depth: true },
           );

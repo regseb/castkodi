@@ -34,12 +34,15 @@ const action = async function (_url, metadata, context) {
 
     const source = doc.querySelector('video source[type="video/youtube"]');
     if (null !== source) {
-        return metaExtract(new URL(source.src), { ...context, depth: true });
+        return await metaExtract(new URL(source.src), {
+            ...context,
+            depth: true,
+        });
     }
 
     const div = doc.querySelector('div[data-provider="dailymotion"]');
     if (null !== div) {
-        return metaExtract(
+        return await metaExtract(
             new URL(
                 `https://www.dailymotion.com/embed/video/${div.dataset.id}`,
             ),
@@ -49,7 +52,7 @@ const action = async function (_url, metadata, context) {
 
     const blockquote = doc.querySelector("blockquote.tiktok-embed");
     if (null !== blockquote) {
-        return metaExtract(new URL(blockquote.cite), {
+        return await metaExtract(new URL(blockquote.cite), {
             ...context,
             depth: true,
         });

@@ -4,7 +4,6 @@
  * @see https://www.viously.com/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../tools/matchpattern.js";
 
@@ -15,9 +14,11 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ pathname }) {
+const action = function ({ pathname }) {
     const id = pathname.slice(pathname.indexOf("/", 1) + 1);
-    return `https://www.viously.com/video/hls/${id}/index.m3u8`;
+    return Promise.resolve(
+        `https://www.viously.com/video/hls/${id}/index.m3u8`,
+    );
 };
 export const extract = matchPattern(
     action,

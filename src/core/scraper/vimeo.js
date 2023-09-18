@@ -4,7 +4,6 @@
  * @see https://vimeo.com/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
@@ -23,10 +22,10 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (videoId, hash) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vimeo")) {
-        return vimeoPlugin.generateUrl(videoId, hash);
+        return await vimeoPlugin.generateUrl(videoId, hash);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(
                 `https://vimeo.com/${videoId}` +
                     (undefined === hash ? "" : `/${hash}`),
@@ -34,7 +33,7 @@ const dispatch = async function (videoId, hash) {
         );
     }
     // Envoyer par défaut au plugin Vimeo.
-    return vimeoPlugin.generateUrl(videoId, hash);
+    return await vimeoPlugin.generateUrl(videoId, hash);
 };
 
 /**
@@ -47,7 +46,7 @@ const dispatch = async function (videoId, hash) {
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ pathname, searchParams }) {
+const action = function ({ pathname, searchParams }) {
     return dispatch(pathname.slice(7), searchParams.get("h") ?? undefined);
 };
 export const extract = matchPattern(action, "*://player.vimeo.com/video/*");

@@ -265,7 +265,6 @@ export default {
             "JSXText",
         ],
         "no-return-assign": "error",
-        "no-return-await": "error",
         "no-script-url": "error",
         "no-sequences": ["error", { allowInParentheses: false }],
         "no-shadow": "error",

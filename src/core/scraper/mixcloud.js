@@ -4,7 +4,6 @@
  * @see https://www.mixcloud.com/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as mixcloudPlugin from "../plugin/mixcloud.js";
@@ -21,15 +20,15 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (path) {
     const addons = new Set(await kodi.addons.getAddons("audio", "video"));
     if (addons.has("plugin.audio.mixcloud")) {
-        return mixcloudPlugin.generateUrl(path);
+        return await mixcloudPlugin.generateUrl(path);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(`https://www.mixcloud.com${path}`),
         );
     }
     // Envoyer par défaut au plugin Mixcloud.
-    return mixcloudPlugin.generateUrl(path);
+    return await mixcloudPlugin.generateUrl(path);
 };
 
 /**
@@ -40,7 +39,9 @@ const dispatch = async function (path) {
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const action = async function ({ pathname }) {
-    return pathname.startsWith("/discover/") ? undefined : dispatch(pathname);
+const action = function ({ pathname }) {
+    return pathname.startsWith("/discover/")
+        ? Promise.resolve(undefined)
+        : dispatch(pathname);
 };
 export const extract = matchPattern(action, "*://www.mixcloud.com/*/*/");

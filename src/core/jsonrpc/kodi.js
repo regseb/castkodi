@@ -322,7 +322,7 @@ export const Kodi = class {
             }
         }
 
-        return this.#jsonrpc.send(method, params);
+        return await this.#jsonrpc.send(method, params);
     }
 };
 

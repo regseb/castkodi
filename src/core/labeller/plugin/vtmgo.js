@@ -4,7 +4,6 @@
  * @see https://kodi.wiki/view/Add-on:VTM_GO
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
 
@@ -18,7 +17,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      <code>undefined</code>.
  */
-const actionEpisode = async function ({ pathname }, { metaExtract }) {
+const actionEpisode = function ({ pathname }, { metaExtract }) {
     // Enlever le nom de domaine, car un bogue dans Firefox le déplace dans le
     // chemin. https://bugzil.la/1374505
     const episodeId = pathname.replace("//plugin.video.vtm.go", "").slice(23);
@@ -39,7 +38,7 @@ export const extractEpisode = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      <code>undefined</code>.
  */
-const actionMovie = async function ({ pathname }, { metaExtract }) {
+const actionMovie = function ({ pathname }, { metaExtract }) {
     // Enlever le nom de domaine, car un bogue dans Firefox le déplace dans le
     // chemin. https://bugzil.la/1374505
     const movieId = pathname.replace("//plugin.video.vtm.go", "").slice(21);

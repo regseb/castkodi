@@ -42,7 +42,7 @@ const ask = async function (input) {
         permissions: [/** @type {string} */ (input.dataset.permissions)],
     };
     if (input.checked) {
-        return browser.permissions.request(permissions);
+        return await browser.permissions.request(permissions);
     }
     await browser.permissions.remove(permissions);
     return false;
