@@ -136,7 +136,7 @@
         "message": "Ir al siguiente [AvPág]"
     },
     "popup_volume_title": {
-        "message": "$VALUE$&nbsp;% [-/+]",
+        "message": "$VALUE$% [-/+]",
         "placeholders": {
             "value": {
                 "content": "$1"
