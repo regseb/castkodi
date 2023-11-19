@@ -9,11 +9,12 @@ import sinon from "sinon";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
 import { GUI } from "../../../../src/core/jsonrpc/gui.js";
 import { Input } from "../../../../src/core/jsonrpc/input.js";
+import { JSONRPC } from "../../../../src/core/jsonrpc/jsonrpc.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { Player } from "../../../../src/core/jsonrpc/player.js";
 import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
 import { System } from "../../../../src/core/jsonrpc/system.js";
-import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
+import { JSONRPC as JSONRPCClient } from "../../../../src/core/tools/jsonrpc.js";
 import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/kodi.js", function () {
@@ -27,7 +28,7 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should return promise rejected with old version", async function () {
             const fake = sinon.fake.resolves({ version: { major: 12 } });
-            const stub = sinon.stub(JSONRPC, "open").resolves({
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: () => {},
                 send: fake,
                 close: () => {},
@@ -52,7 +53,7 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should return promise fulfilled", async function () {
             const fake = sinon.fake.resolves({ version: { major: 13 } });
-            const stub = sinon.stub(JSONRPC, "open").resolves({
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: () => {},
                 send: fake,
                 close: () => {},
@@ -80,7 +81,7 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return URL when url is built", async function () {
-            const stub = sinon.stub(JSONRPC, "open").resolves({
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: () => {},
                 send: () => Promise.resolve({}),
             });
@@ -117,6 +118,13 @@ describe("core/jsonrpc/kodi.js", function () {
         });
     });
 
+    describe("get jsonrpc()", function () {
+        it("should return JSONRPC object", function () {
+            const kodi = new Kodi("localhost");
+            assert.ok(kodi.jsonrpc instanceof JSONRPC);
+        });
+    });
+
     describe("get player()", function () {
         it("should return Player object", function () {
             const kodi = new Kodi("localhost");
@@ -141,7 +149,7 @@ describe("core/jsonrpc/kodi.js", function () {
     describe("close()", function () {
         it("should close WebSocket", async function () {
             const fake = sinon.fake();
-            const stub = sinon.stub(JSONRPC, "open").resolves({
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: () => {},
                 send: () => Promise.resolve({}),
                 close: fake,
@@ -190,7 +198,9 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return error when receive 400", async function () {
-            const stub = sinon.stub(JSONRPC, "open").rejects(new Error("foo"));
+            const stub = sinon
+                .stub(JSONRPCClient, "open")
+                .rejects(new Error("foo"));
 
             const kodi = new Kodi("bar");
             await assert.rejects(() => kodi.send("Baz"), {
@@ -209,7 +219,7 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should return error when receive Kodi's error", async function () {
             const fake = sinon.fake.rejects(new Error("FooError"));
-            const stub = sinon.stub(JSONRPC, "open").resolves({
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: () => {},
                 send: fake,
             });
@@ -230,7 +240,7 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should send request", async function () {
             const fake = sinon.fake.resolves("OK");
-            const stub = sinon.stub(JSONRPC, "open").resolves({
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: () => {},
                 send: fake,
             });
@@ -259,7 +269,7 @@ describe("core/jsonrpc/kodi.js", function () {
                 "server-active": 0,
             });
             const fake = sinon.fake.resolves("OK");
-            const stub = sinon.stub(JSONRPC, "open").resolves({
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: () => {},
                 close: () => {},
                 send: fake,
@@ -287,7 +297,7 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should listen close event", async function () {
             const listeners = {};
-            const stub = sinon.stub(JSONRPC, "open").resolves({
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: (type, listener) => {
                     listeners[type] = listener;
                 },
@@ -313,13 +323,15 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should listen notification event", async function () {
             const listeners = {};
-            const stubJSONRPC = sinon.stub(JSONRPC, "open").resolves({
-                addEventListener: (type, listener) => {
-                    listeners[type] = listener;
-                },
-                close: () => {},
-                send: () => Promise.resolve({}),
-            });
+            const stubJSONRPCClient = sinon
+                .stub(JSONRPCClient, "open")
+                .resolves({
+                    addEventListener: (type, listener) => {
+                        listeners[type] = listener;
+                    },
+                    close: () => {},
+                    send: () => Promise.resolve({}),
+                });
 
             const kodi = new Kodi("foo");
             const stubApplication = sinon.stub(
@@ -334,8 +346,8 @@ describe("core/jsonrpc/kodi.js", function () {
                 }),
             );
 
-            assert.equal(stubJSONRPC.callCount, 1);
-            assert.deepEqual(stubJSONRPC.firstCall.args, [
+            assert.equal(stubJSONRPCClient.callCount, 1);
+            assert.deepEqual(stubJSONRPCClient.firstCall.args, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
             assert.equal(stubApplication.callCount, 1);

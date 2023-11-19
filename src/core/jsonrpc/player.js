@@ -12,6 +12,20 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
+ * Les valeurs par défaut des propriétés de l'espace de nom <em>Player</em>.
+ *
+ * @type {Record<string, any>}
+ */
+const DEFAULT_PROPERTIES = {
+    position: -1,
+    repeat: "off",
+    shuffled: false,
+    speed: 0,
+    time: 0,
+    totaltime: 0,
+};
+
+/**
  * Convertit un horodatage vers un temps au format objet.
  *
  * @param {number} timestamp L'horodatage en secondes.
@@ -108,14 +122,9 @@ export const Player = class {
             );
         }
 
-        return {
-            position: -1,
-            repeat: "off",
-            shuffled: false,
-            speed: 0,
-            time: 0,
-            totaltime: 0,
-        };
+        return Object.fromEntries(
+            properties.map((p) => [p, DEFAULT_PROPERTIES[p]]),
+        );
     }
 
     /**

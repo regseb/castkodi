@@ -1065,19 +1065,7 @@ const seek = async function () {
 
 const load = async function () {
     try {
-        await handlePropertyChanged(
-            await kodi.player.getProperties([
-                "position",
-                "repeat",
-                "shuffled",
-                "speed",
-                "time",
-                "totaltime",
-            ]),
-        );
-        await handlePropertyChanged(
-            await kodi.application.getProperties(["muted", "volume"]),
-        );
+        await kodi.jsonrpc.ping();
 
         document.querySelector("#send").disabled = false;
         document.querySelector("#insert").disabled = false;
@@ -1107,11 +1095,30 @@ const load = async function () {
 
         document.querySelector("#clear").disabled = false;
 
-        document.querySelector("#loading").style.display = "none";
+        await handlePropertyChanged(
+            await kodi.player.getProperties([
+                "position",
+                "repeat",
+                "speed",
+                "time",
+                "totaltime",
+            ]),
+        );
+        await handlePropertyChanged(
+            await kodi.application.getProperties(["muted", "volume"]),
+        );
+        // Récupérer la propriété "shuffled" à la fin, car elle prend du temps
+        // à récupérer les éléments de la liste de lecture.
+        await handlePropertyChanged(
+            await kodi.player.getProperties(["shuffled"]),
+        );
+
         document.querySelector("#web").disabled = false;
         document.querySelector("#feedback").disabled = false;
         document.querySelector("#donate").disabled = false;
         document.querySelector("#rate").disabled = false;
+
+        document.querySelector("#loading").style.display = "none";
 
         // Afficher le bouton vers l'interface Web de Kodi seulement si
         // celle-ci est accessible.

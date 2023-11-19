@@ -4,12 +4,13 @@
  * @author Sébastien Règne
  */
 
-import { JSONRPC } from "../tools/jsonrpc.js";
+import { JSONRPC as JSONRPCClient } from "../tools/jsonrpc.js";
 import { PebkacError } from "../tools/pebkac.js";
 import { Addons } from "./addons.js";
 import { Application } from "./application.js";
 import { GUI } from "./gui.js";
 import { Input } from "./input.js";
+import { JSONRPC } from "./jsonrpc.js";
 import { Player } from "./player.js";
 import { Playlist } from "./playlist.js";
 import { System } from "./system.js";
@@ -51,9 +52,9 @@ export const Kodi = class {
      */
     static async check(address) {
         const kodi = new Kodi(address);
-        const result = await kodi.send("JSONRPC.Version");
+        const version = await kodi.jsonrpc.version();
         kodi.close();
-        if (KODI_VERSIONS.API_VERSION > result.version.major) {
+        if (KODI_VERSIONS.API_VERSION > version.major) {
             throw new PebkacError("notSupported", [
                 KODI_VERSIONS.VERSION.toString(),
                 KODI_VERSIONS.NAME,
@@ -115,9 +116,9 @@ export const Kodi = class {
      * Le client connecté au service de Kodi ; ou <code>undefined</code> si le
      * client n'est pas connecté.
      *
-     * @type {JSONRPC|undefined}
+     * @type {JSONRPCClient|undefined}
      */
-    #jsonrpc;
+    #client;
 
     /**
      * Le client JSON-RPC pour contacter l'espace de nom <em>Addons</em> de
@@ -148,6 +149,14 @@ export const Kodi = class {
      * @type {Input}
      */
     #input = new Input(this);
+
+    /**
+     * Le client JSON-RPC pour contacter l'espace de nom <em>JSONRPC</em> de
+     * Kodi.
+     *
+     * @type {JSONRPC}
+     */
+    #jsonrpc = new JSONRPC(this);
 
     /**
      * Le client JSON-RPC pour contacter l'espace de nom <em>Player</em> de
@@ -242,6 +251,17 @@ export const Kodi = class {
 
     /**
      * Retourne le client JSON-RPC pour contacter l'espace de nom
+     * <em>JSONRPC</em> de Kodi.
+     *
+     * @returns {JSONRPC} Le client JSON-RPC pour contacter l'espace de nom
+     *                    <em>JSONRPC</em> de Kodi.
+     */
+    get jsonrpc() {
+        return this.#jsonrpc;
+    }
+
+    /**
+     * Retourne le client JSON-RPC pour contacter l'espace de nom
      * <em>Player</em> de Kodi.
      *
      * @returns {Player} Le client JSON-RPC pour contacter l'espace de nom
@@ -277,9 +297,9 @@ export const Kodi = class {
      * Ferme la connexion.
      */
     close() {
-        if (undefined !== this.#jsonrpc) {
-            this.#jsonrpc.close();
-            this.#jsonrpc = undefined;
+        if (undefined !== this.#client) {
+            this.#client.close();
+            this.#client = undefined;
         }
     }
 
@@ -291,7 +311,7 @@ export const Kodi = class {
      * @returns {Promise<any>} Une promesse contenant le résultat de Kodi.
      */
     async send(method, params) {
-        if (undefined === this.#jsonrpc) {
+        if (undefined === this.#client) {
             let address;
             // S'il faut récupérer l'adresse dans la configuration.
             if (undefined === this.#address) {
@@ -307,11 +327,11 @@ export const Kodi = class {
             this.#url = Kodi.build(address);
 
             try {
-                this.#jsonrpc = await JSONRPC.open(this.#url);
-                this.#jsonrpc.addEventListener("close", () => {
-                    this.#jsonrpc = undefined;
+                this.#client = await JSONRPCClient.open(this.#url);
+                this.#client.addEventListener("close", () => {
+                    this.#client = undefined;
                 });
-                this.#jsonrpc.addEventListener("notification", (event) => {
+                this.#client.addEventListener("notification", (event) => {
                     this.#application.handleNotification(event);
                     this.#input.handleNotification(event);
                     this.#player.handleNotification(event);
@@ -322,7 +342,7 @@ export const Kodi = class {
             }
         }
 
-        return await this.#jsonrpc.send(method, params);
+        return await this.#client.send(method, params);
     }
 };
 
