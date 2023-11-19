@@ -1,9 +1,5 @@
 body {
-    /* Déplacer la marge supérieure dans le rembourrage pour contourner le
-       problème de la barre de défilement dans Firefox. */
-    margin-top: 0;
-    min-width: 500px;
-    padding-top: 8px;
+    margin: 22px 8px;
 }
 
 sup {
@@ -18,11 +14,17 @@ label[data-supported-browser] {
 input[type="text"] {
     background-position: right 8px center;
     background-repeat: no-repeat;
-    /* Ajouter du rembourrage à droite pour y mettre une icône. */
+    max-width: 300px;
+    width: 100%;
+}
+input[type="text"]:invalid {
+    /* Ajouter du rembourrage à droite pour y mettre l'icône d'erreur. */
     padding-right: 32px;
 }
 input[name^="address_"] {
     background-image: url("/design/icon/loading-gray.svg");
+    /* Ajouter du rembourrage à droite pour y mettre une icône. */
+    padding-right: 32px;
 }
 
 table {
@@ -70,6 +72,9 @@ td * {
     display: none;
     padding: 8px 8px 8px 32px;
 }
+.error button {
+    margin-top: 8px;
+}
 
 #server details {
     background-color: var(--button-background-color);
@@ -90,36 +95,50 @@ td * {
 #server table {
     margin-top: 15px;
 }
-#server table input[type="text"] {
-    box-sizing: border-box;
-    width: 100%;
-}
 
-#popup-wheel p {
-    display: flex;
+#popup-wheel {
+    container-type: inline-size;
 }
-#popup-wheel label {
-    flex-grow: 1;
+#popup-wheel div {
+    display: inline-grid;
+    grid-template-columns: repeat(3, 150px);
+}
+@container (width < 450px) {
+    #popup-wheel div {
+        grid-template-columns: repeat(1, 150px);
+    }
 }
 
 #menu-actions div {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
 }
 
 #menu-contexts div {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, 150px);
+    max-width: 450px;
 }
 
 #youtube-playlist div {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
 }
 
-#youtube-order div {
-    display: flex;
+#youtube-order {
+    container-type: inline-size;
 }
-#youtube-order label {
-    flex-grow: 1;
+#youtube-order div {
+    display: inline-grid;
+    grid-template-columns: repeat(4, 150px);
+}
+@container (width < 600px) {
+    #youtube-order div {
+        grid-template-columns: repeat(2, 150px);
+    }
+}
+@container (width < 300px) {
+    #youtube-order div {
+        grid-template-columns: repeat(1, 150px);
+    }
 }
