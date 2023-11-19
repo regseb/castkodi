@@ -665,7 +665,7 @@ const rate = async function () {
     switch (name) {
         case "Chromium":
             url =
-                "https://chrome.google.com/webstore/detail/cast-kodi" +
+                "https://chromewebstore.google.com/detail/cast-kodi" +
                 "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
             break;
         case "Firefox":

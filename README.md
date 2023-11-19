@@ -88,7 +88,7 @@ Les traductions dans les différentes langues se font avec
 [img-firefox]: https://img.shields.io/amo/stars/castkodi.svg?label=firefox&logo=firefox-browser&logoColor=whitesmoke
 [img-build]: https://img.shields.io/github/actions/workflow/status/regseb/castkodi/ci.yml?branch=main&logo=github&logoColor=whitesmoke
 [img-coverage]: https://img.shields.io/endpoint?label=coverage&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fregseb%2Fcastkodi%2Fmain&logo=stryker&logoColor=whitesmoke
-[link-chrome]: https://chrome.google.com/webstore/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
+[link-chrome]: https://chromewebstore.google.com/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
 [link-firefox]: https://addons.mozilla.org/addon/castkodi/
 [link-build]: https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain
 [link-coverage]: https://dashboard.stryker-mutator.io/reports/github.com/regseb/castkodi/main
