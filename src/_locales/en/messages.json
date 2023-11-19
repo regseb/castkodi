@@ -282,7 +282,7 @@
         "message": "Address:"
     },
     "options_serverAddress_title": {
-        "message": "IP address or full address (for example : 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
+        "message": "IP address or full address (for example: 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
     },
     "options_serverModeMulti_textcontent": {
         "message": "Configure many servers"
