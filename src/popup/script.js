@@ -625,6 +625,11 @@ const clear = async function () {
 
 const play = async function (event) {
     const li = event.target.closest("li");
+    // Annuler l'action (venant du double-clic) si le bouton est désactivé.
+    if (li.querySelector(".play").disabled) {
+        return;
+    }
+
     const index = Array.from(li.parentNode.children).indexOf(li);
     try {
         await kodi.player.open(index);
