@@ -61,7 +61,7 @@
         "message": "Kodi non trouvé"
     },
     "notifications_notFound_message": {
-        "message": "L'adresse du serveur Web de Kodi $ADDRESS$ est invalide&nbsp;; ou le contrôle à distance n'est pas activé dans Kodi.",
+        "message": "L'adresse du serveur Web de Kodi $ADDRESS$ est invalide ; ou le contrôle à distance n'est pas activé dans Kodi.",
         "placeholders": {
             "address": {
                 "content": "$1"
@@ -136,7 +136,7 @@
         "message": "Passer au suivant [Pg.Suiv]"
     },
     "popup_volume_title": {
-        "message": "$VALUE$&nbsp;% [-/+]",
+        "message": "$VALUE$ % [-/+]",
         "placeholders": {
             "value": {
                 "content": "$1"
@@ -261,7 +261,7 @@
         "message": "Configurer"
     },
     "popup_text_textcontent": {
-        "message": "Changer de serveur&nbsp;:"
+        "message": "Changer de serveur :"
     },
     "options_permissionDescription_textcontent": {
         "message": "L'accès aux sites Internet n'est pas autorisé. L'extension ne peut pas analyser les pages pour y trouver des vidéos ou de la musique."
@@ -279,10 +279,10 @@
         "message": "Configurer un seul serveur"
     },
     "options_serverAddress_textcontent": {
-        "message": "Adresse&nbsp;:"
+        "message": "Adresse :"
     },
     "options_serverAddress_title": {
-        "message": "Adresse IP ou adresse complète (par exemple&nbsp;: 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
+        "message": "Adresse IP ou adresse complète (par exemple : 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
     },
     "options_serverModeMulti_textcontent": {
         "message": "Configurer plusieurs serveurs"
@@ -324,7 +324,7 @@
         "message": "Pré-remplir le champ de saisie dans la popup avec le contenu du presse-papier"
     },
     "options_popupWheelDescription_textcontent": {
-        "message": "Contrôle du volume avec la molette&nbsp;:"
+        "message": "Contrôle du volume avec la molette :"
     },
     "options_popupWheelNormal_textcontent": {
         "message": "Normal"
@@ -339,7 +339,7 @@
         "message": "Menu contextuel"
     },
     "options_menuActionsDescription_textcontent": {
-        "message": "Sélectionnez les options ajoutées dans le menu contextuel&nbsp;:"
+        "message": "Sélectionnez les options ajoutées dans le menu contextuel :"
     },
     "options_menuActionsSend_textcontent": {
         "message": "Lire maintenant"
@@ -351,7 +351,7 @@
         "message": "Placer en file d'attente"
     },
     "options_menuContextsDescription_textcontent": {
-        "message": "Indiquez les éléments où le menu contextuel est ajouté&nbsp;:"
+        "message": "Indiquez les éléments où le menu contextuel est ajouté :"
     },
     "options_menuContextsAudio_textcontent": {
         "message": "Audio"
@@ -381,7 +381,7 @@
         "message": "YouTube"
     },
     "options_youtubePlaylistDescription_textcontent": {
-        "message": "Pour les liens vers une vidéo dans une playlist&nbsp;:"
+        "message": "Pour les liens vers une vidéo dans une playlist :"
     },
     "options_youtubePlaylistPlaylist_textcontent": {
         "message": "Diffuser toutes les vidéos de la playlist"
@@ -390,7 +390,7 @@
         "message": "Diffuser seulement la vidéo"
     },
     "options_youtubeOrderDescription_textcontent": {
-        "message": "Sélectionnez l'ordre des playlists&nbsp;:"
+        "message": "Sélectionnez l'ordre des playlists :"
     },
     "options_youtubeOrderAsk_textcontent": {
         "message": "Demander"
