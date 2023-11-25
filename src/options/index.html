@@ -24,7 +24,7 @@
             <input name="server-mode" type="radio" value="single" /> {}
           </label>
         </summary>
-        <div>
+        <div id="single">
           <label
             data-l10n-textcontent="server-address"
             data-l10n-title="server-address"
@@ -43,6 +43,13 @@
               data-l10n-placeholder="server-address"
             />
           </label>
+          <button class="fix ghost" type="button" data-l10n-title="server-fix">
+            <img
+              src="/design/icon/fix-black.svg"
+              alt="fix-black"
+              data-l10n-alt="server-fix"
+            />
+          </button>
         </div>
       </details>
       <details>
@@ -51,7 +58,7 @@
             <input name="server-mode" type="radio" value="multi" /> {}
           </label>
         </summary>
-        <table>
+        <table id="multi">
           <thead>
             <tr>
               <th
@@ -84,6 +91,17 @@
                 spellcheck="false"
                 data-l10n-placeholder="server-address"
               />
+              <button
+                class="fix ghost"
+                type="button"
+                data-l10n-title="server-fix"
+              >
+                <img
+                  src="/design/icon/fix-black.svg"
+                  alt="fix-black"
+                  data-l10n-alt="server-fix"
+                />
+              </button>
             </td>
             <td>
               <input
@@ -98,11 +116,15 @@
             </td>
             <td>
               <button
-                class="ghost"
+                class="remove ghost"
                 type="button"
                 data-l10n-title="server-remove"
               >
-                <img src="/design/icon/remove-black.svg" alt="remove-black" />
+                <img
+                  src="/design/icon/remove-black.svg"
+                  alt="remove-black"
+                  data-l10n-alt="server-remove"
+                />
               </button>
             </td>
           </tr>

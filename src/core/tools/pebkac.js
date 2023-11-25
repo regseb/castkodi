@@ -18,22 +18,40 @@ export const PebkacError = class extends Error {
     #key;
 
     /**
+     * Les détails de l'erreur.
+     *
+     * @type {Object}
+     */
+    #details;
+
+    /**
      * Crée une erreur avec un message et un titre.
      *
-     * @param {string}          key             La clé du message d'erreur.
-     * @param {string|string[]} [substitutions] La ou les éventuelles
-     *                                          substitutions qui seront
-     *                                          insérées dans le message.
+     * @param {string}          key               La clé du message d'erreur.
+     * @param {string|string[]} [substitutions]   La ou les éventuelles
+     *                                            substitutions qui seront
+     *                                            insérées dans le message.
+     * @param {Object}          [options]         Les éventuelles options de
+     *                                            l'erreur.
+     * @param {any}             [options.cause]   L'éventuelle cause de l'erreur.
+     * @param {Object}          [options.details] Les éventuels détails de
+     *                                            l'erreur.
      */
-    constructor(key, substitutions) {
+    constructor(key, substitutions, options) {
         super(
             browser.i18n.getMessage(
                 `notifications_${key}_message`,
                 substitutions,
             ),
+            {
+                ...(undefined === options?.cause
+                    ? {}
+                    : { cause: options?.cause }),
+            },
         );
         this.name = "PebkacError";
         this.#key = key;
+        this.#details = options?.details ?? {};
     }
 
     /**
@@ -52,5 +70,14 @@ export const PebkacError = class extends Error {
      */
     get title() {
         return browser.i18n.getMessage(`notifications_${this.#key}_title`);
+    }
+
+    /**
+     * Retourne les détails de l'erreur.
+     *
+     * @returns {Object} Les détails de l'erreur.
+     */
+    get details() {
+        return this.#details;
     }
 };

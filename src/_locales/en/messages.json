@@ -311,6 +311,12 @@
     "options_serverRemove_alt": {
         "message": "Remove"
     },
+    "options_serverFix_title": {
+        "message": "Fix address"
+    },
+    "options_serverFix_alt": {
+        "message": "Fix"
+    },
     "options_generalTitle_textcontent": {
         "message": "General"
     },

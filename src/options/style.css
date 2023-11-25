@@ -26,6 +26,18 @@ input[name^="address_"] {
     /* Ajouter du rembourrage à droite pour y mettre une icône. */
     padding-right: 32px;
 }
+input[name^="address_"].fixable {
+    max-width: min(300px, calc(100% - 40px));
+}
+button.fix {
+    display: none;
+    height: 32px;
+    margin-left: 4px;
+}
+
+div#single {
+    display: flex;
+}
 
 table {
     border: 1px solid var(--input-border-color);
@@ -62,6 +74,9 @@ th:not(:first-child) {
 td * {
     /* Définir une marge automatique pour que les éléments soient centrés. */
     margin: auto;
+}
+td button {
+    display: inline-block;
 }
 
 .error {

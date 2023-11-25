@@ -16,6 +16,7 @@ import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
 import { System } from "../../../../src/core/jsonrpc/system.js";
 import { JSONRPC as JSONRPCClient } from "../../../../src/core/tools/jsonrpc.js";
 import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
+import { PebkacError } from "../../../../src/core/tools/pebkac.js";
 
 describe("core/jsonrpc/kodi.js", function () {
     describe("check()", function () {
@@ -28,7 +29,8 @@ describe("core/jsonrpc/kodi.js", function () {
 
         it("should return promise rejected with old version", async function () {
             const fake = sinon.fake.resolves({ version: { major: 12 } });
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
+            const fixStub = sinon.stub(Kodi, "fix");
+            const openStub = sinon.stub(JSONRPCClient, "open").resolves({
                 addEventListener: () => {},
                 send: fake,
                 close: () => {},
@@ -40,8 +42,8 @@ describe("core/jsonrpc/kodi.js", function () {
                 type: "notSupported",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(openStub.callCount, 1);
+            assert.deepEqual(openStub.firstCall.args, [
                 new URL("ws://foo.com:9090/jsonrpc"),
             ]);
             assert.equal(fake.callCount, 1);
@@ -49,6 +51,71 @@ describe("core/jsonrpc/kodi.js", function () {
                 "JSONRPC.Version",
                 undefined,
             ]);
+            // Vérifier que la recherche d'une adresse alternative ne se fait
+            // pas.
+            assert.equal(fixStub.callCount, 0);
+        });
+
+        it("should return promise rejected with fix", async function () {
+            const fake = sinon.fake.rejects(new PebkacError("notFound", "foo"));
+            const fixStub = sinon.stub(Kodi, "fix").resolves("bar");
+            const openStub = sinon.stub(JSONRPCClient, "open").resolves({
+                addEventListener: () => {},
+                send: fake,
+                close: () => {},
+            });
+
+            await assert.rejects(() => Kodi.check("foo"), {
+                name: "PebkacError",
+                message:
+                    "Address of Kodi Web server foo is invalid or Kodi's" +
+                    " remote control isn't enabled.",
+                type: "notFound",
+                details: { fix: "bar" },
+            });
+
+            assert.equal(openStub.callCount, 1);
+            assert.deepEqual(openStub.firstCall.args, [
+                new URL("ws://foo:9090/jsonrpc"),
+            ]);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [
+                "JSONRPC.Version",
+                undefined,
+            ]);
+            assert.equal(fixStub.callCount, 1);
+            assert.deepEqual(fixStub.firstCall.args, ["foo"]);
+        });
+
+        it("should return promise rejected without fix", async function () {
+            const fake = sinon.fake.rejects(new PebkacError("notFound", "foo"));
+            const fixStub = sinon.stub(Kodi, "fix").resolves(undefined);
+            const openStub = sinon.stub(JSONRPCClient, "open").resolves({
+                addEventListener: () => {},
+                send: fake,
+                close: () => {},
+            });
+
+            await assert.rejects(() => Kodi.check("foo"), {
+                name: "PebkacError",
+                message:
+                    "Address of Kodi Web server foo is invalid or Kodi's" +
+                    " remote control isn't enabled.",
+                type: "notFound",
+                details: {},
+            });
+
+            assert.equal(openStub.callCount, 1);
+            assert.deepEqual(openStub.firstCall.args, [
+                new URL("ws://foo:9090/jsonrpc"),
+            ]);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [
+                "JSONRPC.Version",
+                undefined,
+            ]);
+            assert.equal(fixStub.callCount, 1);
+            assert.deepEqual(fixStub.firstCall.args, ["foo"]);
         });
 
         it("should return promise fulfilled", async function () {
@@ -71,6 +138,48 @@ describe("core/jsonrpc/kodi.js", function () {
                 "JSONRPC.Version",
                 undefined,
             ]);
+        });
+    });
+
+    describe("fix()", function () {
+        it("should return alternative address", async function () {
+            const fake = sinon.fake.resolves("pong");
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
+                addEventListener: () => {},
+                send: fake,
+                close: () => {},
+            });
+
+            const fix = await Kodi.fix("http://192.168.0.1:8080/foo");
+            assert.equal(fix, "192.168.0.1");
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
+                new URL("ws://192.168.0.1:9090/jsonrpc"),
+            ]);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, ["JSONRPC.Ping", undefined]);
+        });
+
+        it("shouldn't return alternative address", async function () {
+            const fake = sinon.fake.rejects(
+                new PebkacError("notFound", "192.168.0.1"),
+            );
+            const stub = sinon.stub(JSONRPCClient, "open").resolves({
+                addEventListener: () => {},
+                send: fake,
+                close: () => {},
+            });
+
+            const fix = await Kodi.fix("http://192.168.0.1:8080/foo");
+            assert.equal(fix, undefined);
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
+                new URL("ws://192.168.0.1:9090/jsonrpc"),
+            ]);
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, ["JSONRPC.Ping", undefined]);
         });
     });
 

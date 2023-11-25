@@ -51,16 +51,55 @@ export const Kodi = class {
      *                            sinon une promesse rompue.
      */
     static async check(address) {
-        const kodi = new Kodi(address);
-        const version = await kodi.jsonrpc.version();
-        kodi.close();
-        if (KODI_VERSIONS.API_VERSION > version.major) {
-            throw new PebkacError("notSupported", [
-                KODI_VERSIONS.VERSION.toString(),
-                KODI_VERSIONS.NAME,
-            ]);
+        try {
+            const kodi = new Kodi(address);
+            const version = await kodi.jsonrpc.version();
+            kodi.close();
+            if (KODI_VERSIONS.API_VERSION > version.major) {
+                throw new PebkacError("notSupported", [
+                    KODI_VERSIONS.VERSION.toString(),
+                    KODI_VERSIONS.NAME,
+                ]);
+            }
+            return "OK";
+        } catch (err) {
+            if ("notFound" === err.type) {
+                const fix = await Kodi.fix(address);
+                if (undefined !== fix) {
+                    throw new PebkacError("notFound", address, {
+                        cause: err,
+                        details: { fix },
+                    });
+                }
+            }
+            throw err;
         }
-        return "OK";
+    }
+
+    /**
+     * Essaie de se connecter à Kodi avec seulement l'adresse IP (ou le nom de
+     * domaine) car plusieurs personnes ajoutent des éléments inutiles (le
+     * protocole HTTP, un mauvais port...).
+     *
+     * @param {string} address L'adresse IP ou l'adresse complète du service de
+     *                         Kodi.
+     * @returns {Promise<string|undefined>} Une promesse contenant un adresse
+     *                                      alternative valide ; ou
+     *                                      <code>undefined</code> si aucune
+     *                                      adresse alternative a été trouvée.
+     */
+    static async fix(address) {
+        try {
+            const hostname = new URL(address).hostname;
+            const kodi = new Kodi(hostname);
+            await kodi.jsonrpc.ping();
+            kodi.close();
+            return hostname;
+        } catch {
+            // Si une erreur se produit, indiquer que l'essai n'a pas trouvé
+            // d'adresse alternative.
+            return undefined;
+        }
     }
 
     /**
