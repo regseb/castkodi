@@ -5,6 +5,7 @@
  */
 
 import "../polyfill/browser.js";
+import "../polyfill/clipboard.js";
 // eslint-disable-next-line import/no-unassigned-import
 import "../core/css.js";
 import { cast } from "../core/index.js";
