@@ -231,4 +231,18 @@ describe("Scraper: YouTube", function () {
                 "?video_id=rP34nI3E3bc&incognito=false",
         );
     });
+
+    it("should return video id from live", async function () {
+        const url = new URL(
+            "https://www.youtube.com/live/K5JSRGhB-nM?si=du3rf1NbvbAdtTEW",
+        );
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.equal(
+            file,
+            "plugin://plugin.video.youtube/play/" +
+                "?video_id=K5JSRGhB-nM&incognito=false",
+        );
+    });
 });

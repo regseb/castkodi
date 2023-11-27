@@ -203,8 +203,7 @@ describe("core/scraper/ldjson.js", function () {
                           "@context": "http://schema.org/",
                           "@type": "VideoObject",
                           embedUrl:
-                              "https://www.dailymotion.com/embed" +
-                              "/video/baz",
+                              "https://www.dailymotion.com/embed/video/baz",
                       })}</script>
                     </body></html>`,
                             "text/html",
@@ -223,7 +222,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should ignore embedUrl in depther", async function () {
+        it("should ignore embedUrl when it's depth", async function () {
             const url = new URL("http://foo.com");
             const metadata = {
                 html: () =>
@@ -235,8 +234,7 @@ describe("core/scraper/ldjson.js", function () {
                           "@context": "http://schema.org/",
                           "@type": "VideoObject",
                           embedUrl:
-                              "https://www.dailymotion.com/embed" +
-                              "/video/baz",
+                              "https://www.dailymotion.com/embed/video/baz",
                       })}</script>
                     </body></html>`,
                             "text/html",

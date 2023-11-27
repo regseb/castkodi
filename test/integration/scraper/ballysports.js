@@ -6,8 +6,16 @@
 
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
+import { config } from "../config.js";
 
 describe("Scraper: Bally Sports", function () {
+    before(function () {
+        if (undefined !== config.country && "us" !== config.country) {
+            // eslint-disable-next-line no-invalid-this
+            this.skip();
+        }
+    });
+
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.ballysports.com/watch/vod/");
         const context = { depth: false, incognito: false };
