@@ -4,7 +4,6 @@
  * @see https://kodi.wiki/view/Add-on:Vimeo
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
 
@@ -18,9 +17,9 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      <code>undefined</code>.
  */
-const action = async function ({ searchParams }, { metaExtract }) {
+const action = function ({ searchParams }, { metaExtract }) {
     if (!searchParams.has("video_id")) {
-        return undefined;
+        return Promise.resolve(undefined);
     }
 
     const [videoId, hash] = searchParams.get("video_id").split(":");

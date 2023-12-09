@@ -4,7 +4,6 @@
  * @see https://www.dailymotion.com/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as dailymotionPlugin from "../plugin/dailymotion.js";
@@ -21,15 +20,15 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (videoId) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.dailymotion_com")) {
-        return dailymotionPlugin.generateUrl(videoId);
+        return await dailymotionPlugin.generateUrl(videoId);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(`https://www.dailymotion.com/video/${videoId}`),
         );
     }
     // Envoyer par défaut au plugin Dailymotion
-    return dailymotionPlugin.generateUrl(videoId);
+    return await dailymotionPlugin.generateUrl(videoId);
 };
 
 /**
@@ -39,7 +38,7 @@ const dispatch = async function (videoId) {
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionVideo = async function ({ pathname }) {
+const actionVideo = function ({ pathname }) {
     return dispatch(pathname.slice(7));
 };
 export const extractVideo = matchPattern(
@@ -54,7 +53,7 @@ export const extractVideo = matchPattern(
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionMinify = async function ({ pathname }) {
+const actionMinify = function ({ pathname }) {
     return dispatch(pathname.slice(1));
 };
 export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
@@ -66,7 +65,7 @@ export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionEmbed = async function ({ pathname }) {
+const actionEmbed = function ({ pathname }) {
     return dispatch(pathname.slice(13));
 };
 export const extractEmbed = matchPattern(
@@ -99,7 +98,7 @@ const actionPlayerScript = async function (_url, metadata) {
     if (null === script) {
         return undefined;
     }
-    return dispatch(script.dataset.video);
+    return await dispatch(script.dataset.video);
 };
 export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
 
@@ -112,10 +111,10 @@ export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
  *                                      <code>undefined</code>.
  * @see https://developers.dailymotion.com/player/#player-iframe-embed
  */
-const actionPlayerIframe = async function ({ searchParams }) {
+const actionPlayerIframe = function ({ searchParams }) {
     return searchParams.has("video")
         ? dispatch(searchParams.get("video"))
-        : undefined;
+        : Promise.resolve(undefined);
 };
 export const extractPlayerIframe = matchPattern(
     actionPlayerIframe,

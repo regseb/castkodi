@@ -31,7 +31,7 @@ describe("Scraper: Rumble", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.equal(file, "https://sp.rmbl.ws/s8/2/2/5/p/N/25pNf.haa.mp4");
+        assert.equal(file, "https://ak2.rmbl.ws/s8/2/2/5/p/N/25pNf.haa.mp4");
     });
 
     it("should return video URL from embed", async function () {
@@ -39,6 +39,6 @@ describe("Scraper: Rumble", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.equal(file, "https://sp.rmbl.ws/s8/2/-/p/1/G/-p1Gf.haa.mp4");
+        assert.equal(file, "https://ak2.rmbl.ws/s8/2/-/p/1/G/-p1Gf.haa.mp4");
     });
 });

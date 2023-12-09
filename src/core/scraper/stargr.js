@@ -65,7 +65,10 @@ const actionVideo = async function (_url, metadata, context) {
     // avant le scraper ldjson.
     const iframe = doc.querySelector("iframe#yt-player");
     if (null !== iframe && !context.depth) {
-        return metaExtract(new URL(iframe.src), { ...context, depth: true });
+        return await metaExtract(new URL(iframe.src), {
+            ...context,
+            depth: true,
+        });
     }
 
     for (const script of doc.querySelectorAll("script:not([src])")) {

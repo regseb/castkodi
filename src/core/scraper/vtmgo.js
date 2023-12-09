@@ -4,7 +4,6 @@
  * @see https://vtm.be/vtmgo
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
@@ -21,15 +20,15 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatchEpisode = async function (episodeUuid) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vtm.go")) {
-        return vtmgoPlugin.generateEpisodeUrl(episodeUuid);
+        return await vtmgoPlugin.generateEpisodeUrl(episodeUuid);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(`https://www.vtm.be/vtmgo/afspelen/e${episodeUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
-    return vtmgoPlugin.generateEpisodeUrl(episodeUuid);
+    return await vtmgoPlugin.generateEpisodeUrl(episodeUuid);
 };
 
 /**
@@ -42,15 +41,15 @@ const dispatchEpisode = async function (episodeUuid) {
 const dispatchMovie = async function (movieUuid) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vtm.go")) {
-        return vtmgoPlugin.generateMovieUrl(movieUuid);
+        return await vtmgoPlugin.generateMovieUrl(movieUuid);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(`https://www.vtm.be/vtmgo/afspelen/m${movieUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
-    return vtmgoPlugin.generateMovieUrl(movieUuid);
+    return await vtmgoPlugin.generateMovieUrl(movieUuid);
 };
 
 /**
@@ -63,15 +62,15 @@ const dispatchMovie = async function (movieUuid) {
 const dispatchChannel = async function (channelUuid) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vtm.go")) {
-        return vtmgoPlugin.generateChannelUrl(channelUuid);
+        return await vtmgoPlugin.generateChannelUrl(channelUuid);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(`https://www.vtm.be/vtmgo/live-kijken/${channelUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
-    return vtmgoPlugin.generateChannelUrl(channelUuid);
+    return await vtmgoPlugin.generateChannelUrl(channelUuid);
 };
 
 /**
@@ -81,7 +80,7 @@ const dispatchChannel = async function (channelUuid) {
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionEpisode = async function ({ pathname }) {
+const actionEpisode = function ({ pathname }) {
     return dispatchEpisode(pathname.slice(17));
 };
 
@@ -98,7 +97,7 @@ export const extractEpisode = matchPattern(
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionMovie = async function ({ pathname }) {
+const actionMovie = function ({ pathname }) {
     return dispatchMovie(pathname.slice(17));
 };
 
@@ -115,7 +114,7 @@ export const extractMovie = matchPattern(
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionMoviePage = async function ({ pathname }) {
+const actionMoviePage = function ({ pathname }) {
     return dispatchMovie(pathname.slice(pathname.indexOf("~m") + 2));
 };
 
@@ -139,7 +138,7 @@ export const extractMoviePage = matchPattern(
 const actionChannel = async function (_url, metadata) {
     const doc = await metadata.html();
     const div = doc.querySelector("div.fjs-player[data-id]");
-    return null === div ? undefined : dispatchChannel(div.dataset.id);
+    return null === div ? undefined : await dispatchChannel(div.dataset.id);
 };
 export const extractChannel = matchPattern(
     actionChannel,

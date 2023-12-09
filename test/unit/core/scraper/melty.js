@@ -24,11 +24,13 @@ describe("core/scraper/melty.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
-                               <meta itemprop="contentUrl"
-                                     content="http://www.dailymotion.com` +
-                                `/embed/video/bar" />
-                             </head></html>`,
+                            `<html><body>
+                               <script>
+                                 jQuery(document).ready(function (){
+                                     init_nouveau_player_dailymotion(` +
+                                `"player_bar","baz", params);
+                               </script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -45,9 +47,9 @@ describe("core/scraper/melty.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
-                               <meta name="description" content="bar" />
-                             </head></html>`,
+                            `<html><body>
+                               <script src="bar.js"></script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -66,13 +68,17 @@ describe("core/scraper/melty.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
-                               <meta itemprop="contentUrl"
-                                     content="http://foo.com/bar.html" />
-                               <meta itemprop="contentUrl"
-                                     content="http://www.dailymotion.com` +
-                                `/embed/video/bar" />
-                             </head></html>`,
+                            `<html><body>
+                               <script>
+                                 jQuery(document).ready(function (){
+                                     console.log("bar");
+                               </script>
+                               <script>
+                                 jQuery(document).ready(function (){
+                                     init_nouveau_player_dailymotion(` +
+                                `"player_baz","qux", params);
+                               </script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -82,7 +88,7 @@ describe("core/scraper/melty.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
-                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=qux",
             );
 
             assert.equal(stub.callCount, 1);

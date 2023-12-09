@@ -4,7 +4,6 @@
  * @see https://www.aparat.com/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../tools/matchpattern.js";
 
@@ -15,11 +14,11 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ pathname }) {
+const action = function ({ pathname }) {
     const id = pathname.slice(3);
-    return (
+    return Promise.resolve(
         `https://www.aparat.com/video/hls/manifest/videohash/${id}/f/${id}` +
-        ".m3u8"
+            ".m3u8",
     );
 };
 export const extract = matchPattern(action, "*://www.aparat.com/v/*");

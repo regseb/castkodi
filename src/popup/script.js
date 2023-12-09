@@ -5,6 +5,7 @@
  */
 
 import "../polyfill/browser.js";
+import "../polyfill/clipboard.js";
 // eslint-disable-next-line import/no-unassigned-import
 import "../core/css.js";
 import { cast } from "../core/index.js";
@@ -625,6 +626,11 @@ const clear = async function () {
 
 const play = async function (event) {
     const li = event.target.closest("li");
+    // Annuler l'action (venant du double-clic) si le bouton est désactivé.
+    if (li.querySelector(".play").disabled) {
+        return;
+    }
+
     const index = Array.from(li.parentNode.children).indexOf(li);
     try {
         await kodi.player.open(index);
@@ -665,7 +671,7 @@ const rate = async function () {
     switch (name) {
         case "Chromium":
             url =
-                "https://chrome.google.com/webstore/detail/cast-kodi" +
+                "https://chromewebstore.google.com/detail/cast-kodi" +
                 "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
             break;
         case "Firefox":
@@ -1065,19 +1071,7 @@ const seek = async function () {
 
 const load = async function () {
     try {
-        await handlePropertyChanged(
-            await kodi.player.getProperties([
-                "position",
-                "repeat",
-                "shuffled",
-                "speed",
-                "time",
-                "totaltime",
-            ]),
-        );
-        await handlePropertyChanged(
-            await kodi.application.getProperties(["muted", "volume"]),
-        );
+        await kodi.jsonrpc.ping();
 
         document.querySelector("#send").disabled = false;
         document.querySelector("#insert").disabled = false;
@@ -1107,11 +1101,30 @@ const load = async function () {
 
         document.querySelector("#clear").disabled = false;
 
-        document.querySelector("#loading").style.display = "none";
+        await handlePropertyChanged(
+            await kodi.player.getProperties([
+                "position",
+                "repeat",
+                "speed",
+                "time",
+                "totaltime",
+            ]),
+        );
+        await handlePropertyChanged(
+            await kodi.application.getProperties(["muted", "volume"]),
+        );
+        // Récupérer la propriété "shuffled" à la fin, car elle prend du temps
+        // à récupérer les éléments de la liste de lecture.
+        await handlePropertyChanged(
+            await kodi.player.getProperties(["shuffled"]),
+        );
+
         document.querySelector("#web").disabled = false;
         document.querySelector("#feedback").disabled = false;
         document.querySelector("#donate").disabled = false;
         document.querySelector("#rate").disabled = false;
+
+        document.querySelector("#loading").style.display = "none";
 
         // Afficher le bouton vers l'interface Web de Kodi seulement si
         // celle-ci est accessible.

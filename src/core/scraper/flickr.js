@@ -38,19 +38,18 @@ const API_URL =
  */
 const action = async function (_url, metadata) {
     const doc = await metadata.html();
-    const video = doc.querySelector("video");
-    if (null === video) {
-        return undefined;
-    }
 
-    const parts = new URL(video.poster).pathname.split(/[./_]/u);
+    const meta = doc.querySelector('meta[property="og:image"]');
+    const parts = new URL(meta.content).pathname.split(/[./_]/u);
     const photoId = parts[2];
     const secret = parts[3];
-    const key = KEY_REGEXP.exec(doc.documentElement.innerHTML).groups.key;
+
+    const apiKey = KEY_REGEXP.exec(doc.documentElement.innerHTML).groups.key;
+
     const response = await fetch(
-        `${API_URL}&photo_id=${photoId}&secret=${secret}&api_key=${key}`,
+        `${API_URL}&photo_id=${photoId}&secret=${secret}&api_key=${apiKey}`,
     );
     const json = await response.json();
-    return json.streams.stream[0]["_content"];
+    return json.streams?.stream[0]["_content"];
 };
 export const extract = matchPattern(action, "*://www.flickr.com/photos/*");

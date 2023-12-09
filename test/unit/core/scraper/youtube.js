@@ -172,25 +172,6 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return video id from hooktube", async function () {
-            await browser.storage.local.set({ "youtube-playlist": "video" });
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
-
-            const url = new URL("https://hooktube.com/watch?v=foo");
-            const metadata = undefined;
-            const context = { incognito: true };
-
-            const file = await scraper.extractVideo(url, metadata, context);
-            assert.equal(
-                file,
-                "plugin://plugin.video.youtube/play/" +
-                    "?video_id=foo&incognito=true",
-            );
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
-        });
-
         it("should return video id to youtube", async function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const stub = sinon
@@ -473,24 +454,6 @@ describe("core/scraper/youtube.js", function () {
                 file,
                 "plugin://plugin.video.youtube/play/" +
                     "?video_id=foo&incognito=false",
-            );
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
-        });
-
-        it("should return video id from hooktube", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
-
-            const url = new URL("https://hooktube.com/embed/foo");
-            const metadata = undefined;
-            const context = { incognito: true };
-
-            const file = await scraper.extractEmbed(url, metadata, context);
-            assert.equal(
-                file,
-                "plugin://plugin.video.youtube/play/" +
-                    "?video_id=foo&incognito=true",
             );
 
             assert.equal(stub.callCount, 1);

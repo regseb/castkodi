@@ -4,7 +4,6 @@
  * @see https://kodi.wiki/view/Add-on:Twitch
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
 
@@ -18,7 +17,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      <code>undefined</code>.
  */
-const action = async function ({ searchParams }, { metaExtract }) {
+const action = function ({ searchParams }, { metaExtract }) {
     if (searchParams.has("channel_name")) {
         return metaExtract(
             new URL(
@@ -38,6 +37,6 @@ const action = async function ({ searchParams }, { metaExtract }) {
             new URL("https://www.twitch.tv/clip/" + searchParams.get("slug")),
         );
     }
-    return undefined;
+    return Promise.resolve(undefined);
 };
 export const extract = matchPattern(action, "plugin://plugin.video.twitch/*");

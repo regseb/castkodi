@@ -18,7 +18,7 @@ Cast&nbsp;Kodi geeft de mogelijkheid om video's en muziek door te sturen naar <s
       <li>🇮🇷&nbsp;Iran: آپارات<!-- Aparat -->;</li>
       <li>🇳🇱&nbsp;Nederland: Dumpert;</li>
       <li>🇬🇧&nbsp;United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
-      <li>🇺🇸&nbsp;United States: Bally&nbsp;Sports, KCAA&nbsp;Radio;</li>
+      <li>🇺🇸&nbsp;United States: KCAA&nbsp;Radio;</li>
       <li>🇨🇭&nbsp;Zwitserland: Play SRF.</li>
     </ul>
   </li>

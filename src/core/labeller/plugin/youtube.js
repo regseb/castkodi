@@ -4,7 +4,6 @@
  * @see https://kodi.wiki/view/Add-on:YouTube
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../../tools/matchpattern.js";
 
@@ -18,7 +17,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      <code>undefined</code>.
  */
-const action = async function ({ searchParams }, { metaExtract }) {
+const action = function ({ searchParams }, { metaExtract }) {
     if (searchParams.has("video_id")) {
         return metaExtract(
             new URL(
@@ -35,7 +34,7 @@ const action = async function ({ searchParams }, { metaExtract }) {
             ),
         );
     }
-    return undefined;
+    return Promise.resolve(undefined);
 };
 export const extract = matchPattern(
     action,

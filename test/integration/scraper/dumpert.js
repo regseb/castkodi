@@ -42,8 +42,8 @@ describe("Scraper: Dumpert", function () {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://media.dumpert.nl/tablet" +
-                "/47066e59_This_is_some_impressive_douchebaggery.mp4.mp4.mp4",
+            "https://media.dumpert.nl/dmp/media/video/8/a/d" +
+                "/8adef26e-1e1b-c12b-1cb9-57e6bf34912c/270/index.m3u8",
         );
     });
 });

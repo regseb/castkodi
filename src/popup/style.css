@@ -125,6 +125,7 @@ dialog {
 #server {
     height: initial;
     margin: 8px 16px 8px auto;
+    overflow: hidden;
     padding: 0;
     visibility: hidden;
     width: initial;

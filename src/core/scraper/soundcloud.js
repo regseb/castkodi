@@ -4,7 +4,6 @@
  * @see https://soundcloud.com/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
@@ -28,13 +27,13 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (url) {
     const addons = new Set(await kodi.addons.getAddons("audio", "video"));
     if (addons.has("plugin.audio.soundcloud")) {
-        return soundcloudPlugin.generateUrl(url);
+        return await soundcloudPlugin.generateUrl(url);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(url);
+        return await sendtokodiPlugin.generateUrl(url);
     }
     // Envoyer par défaut au plugin SoundCloud.
-    return soundcloudPlugin.generateUrl(url);
+    return await soundcloudPlugin.generateUrl(url);
 };
 
 /**
@@ -44,7 +43,7 @@ const dispatch = async function (url) {
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ href }) {
+const action = function ({ href }) {
     return dispatch(new URL(href.replace("://mobi.", "://")));
 };
 export const extract = matchPattern(

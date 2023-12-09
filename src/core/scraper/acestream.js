@@ -4,7 +4,6 @@
  * @see https://www.acestream.org/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import * as plugin from "../plugin/plexus.js";
 import { matchPattern } from "../tools/matchpattern.js";
@@ -16,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function (url) {
-    return plugin.generateUrl(url);
+const action = function (url) {
+    return Promise.resolve(plugin.generateUrl(url));
 };
 export const extract = matchPattern(action, "acestream://*");

@@ -10,9 +10,17 @@ import { extract as metaExtract } from "../scrapers.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
+ * L'expression rationnelle pour extraire les données de la vidéo.
+ *
+ * @type {RegExp}
+ */
+const DATA_REGEXP =
+    /init_nouveau_player_dailymotion\("[^"]+","(?<id>[^"]+)", params\);/u;
+
+/**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      url               L'URL d'un article de Melty.
+ * @param {URL}      _url              L'URL d'un article de Melty.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -25,19 +33,27 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const action = async function (url, metadata, context) {
+const action = async function (_url, metadata, context) {
     if (context.depth) {
         return undefined;
     }
 
     const doc = await metadata.html();
-    for (const meta of doc.querySelectorAll('meta[itemprop="contentUrl"]')) {
-        const file = await metaExtract(new URL(meta.content, url), {
-            ...context,
-            depth: true,
-        });
-        if (undefined !== file) {
-            return file;
+    for (const script of doc.querySelectorAll("script:not([src])")) {
+        const result = DATA_REGEXP.exec(script.text);
+        if (null !== result) {
+            const file = await metaExtract(
+                new URL(
+                    `https://www.dailymotion.com/video/${result.groups.id}`,
+                ),
+                {
+                    ...context,
+                    depth: true,
+                },
+            );
+            if (undefined !== file) {
+                return file;
+            }
         }
     }
     return undefined;

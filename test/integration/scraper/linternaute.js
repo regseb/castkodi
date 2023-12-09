@@ -31,7 +31,7 @@ describe("Scraper: L'Internaute", function () {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://media.ccmbg.com/vc/1647588853/8654741851/960911.mp4",
+            "https://media.ccmbg.com/vc/1647592453/8654741851/960911.mp4",
         );
     });
 

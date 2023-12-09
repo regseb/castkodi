@@ -6,7 +6,7 @@
 
 export const mochaHooks = {
     beforeAll: () => {
-        globalThis.fetch = function () {
+        globalThis.fetch = () => {
             throw new Error("do not use real fetch for unit tests");
         };
     },

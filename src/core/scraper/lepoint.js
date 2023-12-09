@@ -41,7 +41,7 @@ const action = async function (_url, metadata, context) {
     );
     return null === blockquote
         ? undefined
-        : metaExtract(
+        : await metaExtract(
               new URL(
                   "https://www.dailymotion.com/embed/video/" +
                       blockquote.dataset.videoid,
