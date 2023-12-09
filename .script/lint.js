@@ -3,6 +3,7 @@
  * @license MIT
  * @author Sébastien Règne
  */
+/* eslint-disable n/no-sync */
 
 import { spawnSync } from "node:child_process";
 import fs from "node:fs/promises";

@@ -4,7 +4,6 @@
  * @see https://www.twitch.tv/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
@@ -21,15 +20,15 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatchLive = async function (channelName) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
-        return twitchPlugin.generateLiveUrl(channelName);
+        return await twitchPlugin.generateLiveUrl(channelName);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(`https://www.twitch.com/${channelName}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
-    return twitchPlugin.generateLiveUrl(channelName);
+    return await twitchPlugin.generateLiveUrl(channelName);
 };
 
 /**
@@ -42,15 +41,15 @@ const dispatchLive = async function (channelName) {
 const dispatchVideo = async function (videoId) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
-        return twitchPlugin.generateVideoUrl(videoId);
+        return await twitchPlugin.generateVideoUrl(videoId);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(`https://www.twitch.com/videos/${videoId}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
-    return twitchPlugin.generateVideoUrl(videoId);
+    return await twitchPlugin.generateVideoUrl(videoId);
 };
 
 /**
@@ -63,15 +62,15 @@ const dispatchVideo = async function (videoId) {
 const dispatchClip = async function (clipId) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
-        return twitchPlugin.generateClipUrl(clipId);
+        return await twitchPlugin.generateClipUrl(clipId);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(
+        return await sendtokodiPlugin.generateUrl(
             new URL(`https://www.twitch.com/clip/${clipId}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
-    return twitchPlugin.generateClipUrl(clipId);
+    return await twitchPlugin.generateClipUrl(clipId);
 };
 
 /**
@@ -82,11 +81,11 @@ const dispatchClip = async function (clipId) {
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionClip = async function ({ pathname, searchParams }) {
+const actionClip = function ({ pathname, searchParams }) {
     if ("/embed" === pathname) {
         return searchParams.has("clip")
             ? dispatchClip(searchParams.get("clip"))
-            : undefined;
+            : Promise.resolve(undefined);
     }
     return dispatchClip(pathname.slice(1));
 };
@@ -101,14 +100,14 @@ export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionEmbed = async function ({ searchParams }) {
+const actionEmbed = function ({ searchParams }) {
     if (searchParams.has("channel")) {
         return dispatchLive(searchParams.get("channel"));
     }
     if (searchParams.has("video")) {
         return dispatchVideo(searchParams.get("video"));
     }
-    return undefined;
+    return Promise.resolve(undefined);
 };
 export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
 
@@ -120,7 +119,7 @@ export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function ({ pathname }) {
+const action = function ({ pathname }) {
     if (pathname.startsWith("/videos/")) {
         return dispatchVideo(pathname.slice(8));
     }

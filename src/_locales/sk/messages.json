@@ -311,6 +311,12 @@
     "options_serverRemove_alt": {
         "message": "Odstrániť"
     },
+    "options_serverFix_title": {
+        "message": "Opravte adresa"
+    },
+    "options_serverFix_alt": {
+        "message": "Opravte"
+    },
     "options_generalTitle_textcontent": {
         "message": "Všeobecné"
     },

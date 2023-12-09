@@ -63,7 +63,10 @@ const actionVideo = async function (_url, metadata, context) {
         return meta.content;
     }
     if ("text/html" === type.content && !context.depth) {
-        return metaExtract(new URL(meta.content), { ...context, depth: true });
+        return await metaExtract(new URL(meta.content), {
+            ...context,
+            depth: true,
+        });
     }
     return undefined;
 };

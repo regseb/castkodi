@@ -51,8 +51,8 @@ describe("Scraper: StarGR", function () {
 
     it("should return video URL", async function () {
         const url = new URL(
-            "https://www.star.gr/video/lifestyle/viral/527838" +
-                "/to-megalytero-festibal-pagoy-einai-sthn-kina",
+            "https://www.star.gr/video/lifestyle/viral/630859" +
+                "/islandia-h-kayth-laba-reei-katw-se-xeimarroys",
         );
         const context = { depth: false, incognito: false };
 
@@ -60,8 +60,8 @@ describe("Scraper: StarGR", function () {
         assert.equal(
             file,
             "https://cdnapisec.siliconweb.com/p/713821/sp/0/playManifest" +
-                "/entryId/1_ppyp3x8c/format/applehttp/protocol/https" +
-                "/flavorParamId/0/manifest.m3u8",
+                "/entryId/1_v1t4vt5b/format/applehttp/protocol/https" +
+                "/flavorParamId/0/video.mp4",
         );
     });
 

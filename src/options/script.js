@@ -42,7 +42,7 @@ const ask = async function (input) {
         permissions: [/** @type {string} */ (input.dataset.permissions)],
     };
     if (input.checked) {
-        return browser.permissions.request(permissions);
+        return await browser.permissions.request(permissions);
     }
     await browser.permissions.remove(permissions);
     return false;
@@ -59,6 +59,10 @@ const check = async function (input) {
         input.removeAttribute("title");
         input.style.backgroundImage = 'url("/design/icon/loading-gray.svg")';
         const address = input.value;
+
+        const button = input.closest("div, td").querySelector("button");
+        button.dataset.fix = undefined;
+        button.disable = true;
         try {
             await Kodi.check(address);
             // Indiquer la réussite si la valeur testée est toujours la valeur
@@ -67,6 +71,8 @@ const check = async function (input) {
             if (address === input.value) {
                 input.style.backgroundImage =
                     'url("/design/icon/connected-green.svg")';
+                button.style.display = "none";
+                input.classList.remove("fixable");
             }
         } catch (err) {
             // Afficher l'erreur si la valeur testée est toujours la valeur
@@ -81,6 +87,16 @@ const check = async function (input) {
                     input.setCustomValidity(err.message);
                     input.style.backgroundImage =
                         'url("/design/icon/invalid-red.svg")';
+                }
+
+                if (undefined === err.details.fix) {
+                    button.style.display = "none";
+                    input.classList.remove("fixable");
+                } else {
+                    button.dataset.fix = err.details.fix;
+                    button.disable = false;
+                    input.classList.add("fixable");
+                    button.style.display = "inline-block";
                 }
             }
         }
@@ -159,9 +175,24 @@ const save = async function () {
 };
 
 /**
+ * Corrige l'adresse renseignée.
+ *
+ * @param {MouseEvent} event L'évènement du clic sur le bouton de correction de
+ *                           l'adresse.
+ */
+const fix = async function (event) {
+    const button = event.target.closest("button");
+    const input = button.closest("div, td").querySelector("input");
+    input.value = button.dataset.fix;
+    // Enregistrer la nouvelle configuration.
+    await save.apply(input);
+};
+
+/**
  * Enlève un serveur.
  *
- * @param {MouseEvent} event L'évènement du clic sur le bouton de la ligne.
+ * @param {MouseEvent} event L'évènement du clic sur le bouton de suppression de
+ *                           la ligne.
  */
 const remove = async function (event) {
     const tbody = document.querySelector("tbody");
@@ -213,9 +244,9 @@ const add = function (server) {
         const single = document.querySelector('[name="address_0"]');
         single.value = server.address;
         check(single);
-        tr.querySelector("button").disabled = true;
+        tr.querySelector("button.remove").disabled = true;
     } else {
-        document.querySelector("tbody button").disabled = false;
+        document.querySelector("tbody button.remove").disabled = false;
     }
 
     const name = tr.querySelector('[name="name_"]');
@@ -225,7 +256,8 @@ const add = function (server) {
     name.name += index.toString();
     name.addEventListener("input", save);
 
-    tr.querySelector("button").addEventListener("click", remove);
+    tr.querySelector("button.fix").addEventListener("click", fix);
+    tr.querySelector("button.remove").addEventListener("click", remove);
 
     document.querySelector("tbody").append(tr);
 
@@ -322,6 +354,7 @@ for (const input of document.querySelectorAll("[name]")) {
     input.addEventListener("input", save);
 }
 document.querySelector("#server-add").addEventListener("click", add);
+document.querySelector("button.fix").addEventListener("click", fix);
 
 // Surveiller des changements de permissions (pour le droit de requêter les
 // sites Internet).

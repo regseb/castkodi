@@ -7,25 +7,21 @@
 >
   <defs>
     <mask id="wave">
-      <g fill="none" stroke="white">
-        <!-- Regrouper tous les éléments, car Inkscape utilise seulement le
-             premier enfant pour le masque.
-             https://bugs.launchpad.net/inkscape/+bug/794472 -->
-        <circle cx="0" cy="50" r="5" stroke-width="10" />
-        <circle cx="0" cy="50" r="25" stroke-width="10" />
-        <circle cx="0" cy="50" r="45" stroke-width="10" />
-        <circle cx="0" cy="50" r="80" stroke-width="40" />
+      <rect x="0" y="0" width="100" height="100" fill="white" />
+      <g fill="none" stroke="black" stroke-width="10">
+        <circle cx="0" cy="50" r="15" />
+        <circle cx="0" cy="50" r="35" />
+        <circle cx="0" cy="50" r="55" />
       </g>
     </mask>
   </defs>
 
-  <g mask="url(#wave)">
-    <polygon
-      points="5,50 50,5 95,50 50,95"
-      fill="#0a84ff"
-      stroke="#0a84ff"
-      stroke-width="10"
-      stroke-linejoin="round"
-    />
-  </g>
+  <polygon
+    points="5,50 50,5 95,50 50,95"
+    fill="#0a84ff"
+    stroke="#0a84ff"
+    stroke-width="10"
+    stroke-linejoin="round"
+    mask="url(#wave)"
+  />
 </svg>

@@ -35,7 +35,8 @@ const search = function (doc) {
  * Recherche les attributs liés à la localisation dans des éléments
  * <code>&lt;template&gt;</code>.
  *
- * @param {Document|DocumentFragment} doc Le document HTML.
+ * @param {Document|DocumentFragment} doc Le document HTML ou un fragment de
+ *                                        document dans un template.
  * @returns {Attr[]} La liste des attributs.
  */
 const searchInTemplate = function (doc) {

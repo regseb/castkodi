@@ -4,7 +4,6 @@
  * @see https://www.srf.ch/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../tools/matchpattern.js";
 
@@ -38,9 +37,9 @@ const getVideoUrl = async function (urn) {
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionVideo = async function ({ searchParams }) {
+const actionVideo = function ({ searchParams }) {
     if (!searchParams.has("urn")) {
-        return undefined;
+        return Promise.resolve(undefined);
     }
 
     return getVideoUrl(searchParams.get("urn"));
@@ -58,7 +57,7 @@ export const extractVideo = matchPattern(
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionRedirect = async function ({ pathname }) {
+const actionRedirect = function ({ pathname }) {
     return getVideoUrl("urn:srf:video:" + pathname.slice(25));
 };
 export const extractRedirect = matchPattern(

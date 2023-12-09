@@ -19,6 +19,7 @@ const PATHS = [
     "node_modules/",
     "src/manifest.json",
     // Supprimer les autres lockfiles.
+    "bun.lockb",
     "pnpm-lock.yaml",
     "yarn.lock",
 ];

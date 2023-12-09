@@ -3451,6 +3451,7 @@ const NODE_END = -1;
 const ELEMENT_NODE = 1;
 const ATTRIBUTE_NODE = 2;
 const TEXT_NODE = 3;
+const CDATA_SECTION_NODE = 4;
 const COMMENT_NODE = 8;
 const DOCUMENT_NODE = 9;
 const DOCUMENT_TYPE_NODE = 10;
@@ -3463,6 +3464,7 @@ const BLOCK_ELEMENTS = new Set(['ARTICLE', 'ASIDE', 'BLOCKQUOTE', 'BODY', 'BR', 
 const SHOW_ALL = -1;
 const SHOW_ELEMENT = 1;
 const SHOW_TEXT = 4;
+const SHOW_CDATA_SECTION = 8;
 const SHOW_COMMENT = 128;
 
 // Document position
@@ -3740,6 +3742,7 @@ const parseFromString = (document, isHTML, markupLanguage) => {
 
   let node = document;
   let ownerSVGElement = null;
+  let parsingCData = false;
 
   const content = new Parser({
     // <!DOCTYPE ...>
@@ -3783,7 +3786,17 @@ const parseFromString = (document, isHTML, markupLanguage) => {
 
     // #text, #comment
     oncomment(data) { append$1(node, document.createComment(data), active); },
-    ontext(text) { append$1(node, document.createTextNode(text), active); },
+    ontext(text) {
+      if (parsingCData) {
+        append$1(node, document.createCDATASection(text), active);
+      } else {
+        append$1(node, document.createTextNode(text), active);
+      }
+    },
+
+    // #cdata
+    oncdatastart() { parsingCData = true; },
+    oncdataend() { parsingCData = false; },
 
     // </tagName>
     onclosetag() {
@@ -3822,6 +3835,7 @@ const loopSegment = ({[NEXT]: next, [END]: end}, json) => {
         break;
       case TEXT_NODE:
       case COMMENT_NODE:
+      case CDATA_SECTION_NODE:
         characterDataAsJSON(next, json);
         break;
       case ELEMENT_NODE:
@@ -4257,6 +4271,7 @@ let Node$1 = class Node extends DOMEventTarget {
   static get ELEMENT_NODE() { return ELEMENT_NODE; }
   static get ATTRIBUTE_NODE() { return ATTRIBUTE_NODE; }
   static get TEXT_NODE() { return TEXT_NODE; }
+  static get CDATA_SECTION_NODE() { return CDATA_SECTION_NODE; }
   static get COMMENT_NODE() { return COMMENT_NODE; }
   static get DOCUMENT_NODE() { return DOCUMENT_NODE; }
   static get DOCUMENT_FRAGMENT_NODE() { return DOCUMENT_FRAGMENT_NODE; }
@@ -4275,6 +4290,7 @@ let Node$1 = class Node extends DOMEventTarget {
   get ELEMENT_NODE() { return ELEMENT_NODE; }
   get ATTRIBUTE_NODE() { return ATTRIBUTE_NODE; }
   get TEXT_NODE() { return TEXT_NODE; }
+  get CDATA_SECTION_NODE() { return CDATA_SECTION_NODE; }
   get COMMENT_NODE() { return COMMENT_NODE; }
   get DOCUMENT_NODE() { return DOCUMENT_NODE; }
   get DOCUMENT_FRAGMENT_NODE() { return DOCUMENT_FRAGMENT_NODE; }
@@ -4425,7 +4441,7 @@ const QUOTE = /"/g;
  */
 let Attr$1 = class Attr extends Node$1 {
   constructor(ownerDocument, name, value = '') {
-    super(ownerDocument, '#attribute', ATTRIBUTE_NODE);
+    super(ownerDocument, name, ATTRIBUTE_NODE);
     this.ownerElement = null;
     this.name = $String(name);
     this[VALUE] = $String(value);
@@ -4487,6 +4503,7 @@ const previousSibling = ({[PREV]: prev}) => {
       return prev[START];
     case TEXT_NODE:
     case COMMENT_NODE:
+    case CDATA_SECTION_NODE:
       return prev;
   }
   return null;
@@ -4637,6 +4654,22 @@ let CharacterData$1 = class CharacterData extends Node$1 {
     characterDataAsJSON(this, json);
     return json;
   }
+};
+
+/**
+ * @implements globalThis.CDATASection
+ */
+let CDATASection$1 = class CDATASection extends CharacterData$1 {
+  constructor(ownerDocument, data = '') {
+    super(ownerDocument, '#cdatasection', CDATA_SECTION_NODE, data);
+  }
+
+  cloneNode() {
+    const {ownerDocument, [VALUE]: data} = this;
+    return new CDATASection(ownerDocument, data);
+  }
+
+  toString() { return `<![CDATA[${this[VALUE]}]]>`; }
 };
 
 /**
@@ -6427,7 +6460,7 @@ const insert = (parentNode, child, nodes) => {
     [typeof NEXT]: NodeStruct,
     [typeof PREV]: NodeStruct,
     [typeof START]: NodeStruct,
-    nodeType: typeof ATTRIBUTE_NODE | typeof DOCUMENT_FRAGMENT_NODE | typeof ELEMENT_NODE | typeof TEXT_NODE | typeof NODE_END | typeof COMMENT_NODE,
+    nodeType: typeof ATTRIBUTE_NODE | typeof DOCUMENT_FRAGMENT_NODE | typeof ELEMENT_NODE | typeof TEXT_NODE | typeof NODE_END | typeof COMMENT_NODE | typeof CDATA_SECTION_NODE,
     ownerDocument: Document,
     parentNode: ParentNode,
 }} NodeStruct */
@@ -6634,6 +6667,7 @@ class ParentNode extends Node$1 {
       }
       case TEXT_NODE:
       case COMMENT_NODE:
+      case CDATA_SECTION_NODE:
         node.remove();
       /* eslint no-fallthrough:0 */
       // this covers DOCUMENT_TYPE_NODE too
@@ -7238,7 +7272,7 @@ let Element$1 = class Element extends ParentNode {
   set className(value) {
     const {classList} = this;
     classList.clear();
-    classList.add(...value.split(/\s+/));
+    classList.add(...($String(value).split(/\s+/)));
   }
 
   get nodeName() { return localCase(this); }
@@ -7256,6 +7290,19 @@ let Element$1 = class Element extends ParentNode {
     );
   }
 
+  getBoundingClientRect() {
+    return {
+      x: 0,
+      y: 0,
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 0,
+      top: 0,
+      width: 0
+    };
+  }
+
   get nonce() { return stringAttribute.get(this, 'nonce'); }
   set nonce(value) { stringAttribute.set(this, 'nonce', value); }
 
@@ -7267,6 +7314,9 @@ let Element$1 = class Element extends ParentNode {
 
   get tabIndex() { return numericAttribute.get(this, 'tabindex') || -1; }
   set tabIndex(value) { numericAttribute.set(this, 'tabindex', value); }
+
+  get slot() { return stringAttribute.get(this, 'slot'); }
+  set slot(value) { stringAttribute.set(this, 'slot', value); }
   // </specialGetters>
 
 
@@ -7304,7 +7354,7 @@ let Element$1 = class Element extends ParentNode {
 
   set textContent(text) {
     this.replaceChildren();
-    if (text)
+    if (text != null)
       this.appendChild(new Text$1(this.ownerDocument, text));
   }
 
@@ -7536,6 +7586,7 @@ let Element$1 = class Element extends ParentNode {
         }
         case TEXT_NODE:
         case COMMENT_NODE:
+        case CDATA_SECTION_NODE:
           addNext(next.cloneNode(deep));
           break;
       }
@@ -7596,6 +7647,7 @@ let Element$1 = class Element extends ParentNode {
           break;
         case TEXT_NODE:
         case COMMENT_NODE:
+        case CDATA_SECTION_NODE:
           out.push((isOpened ? '>' : '') + next);
           isOpened = false;
           break;
@@ -7653,7 +7705,7 @@ let SVGElement$1 = class SVGElement extends Element$1 {
   set className(value) {
     const {classList} = this;
     classList.clear();
-    classList.add(...value.split(/\s+/));
+    classList.add(...($String(value).split(/\s+/)));
   }
   /* c8 ignore stop */
 
@@ -7686,6 +7738,10 @@ const illegalConstructor = () => {
 function Attr() { illegalConstructor(); }
 setPrototypeOf(Attr, Attr$1);
 Attr.prototype = Attr$1.prototype;
+
+function CDATASection() { illegalConstructor(); }
+setPrototypeOf(CDATASection, CDATASection$1);
+CDATASection.prototype = CDATASection$1.prototype;
 
 function CharacterData() { illegalConstructor(); }
 setPrototypeOf(CharacterData, CharacterData$1);
@@ -7726,6 +7782,7 @@ SVGElement.prototype = SVGElement$1.prototype;
 
 const Facades = {
   Attr,
+  CDATASection,
   CharacterData,
   Comment,
   DocumentFragment,
@@ -8045,14 +8102,14 @@ class HTMLElement extends Element$1 {
 
 }
 
-const tagName$g = 'template';
+const tagName$h = 'template';
 
 /**
  * @implements globalThis.HTMLTemplateElement
  */
 class HTMLTemplateElement extends HTMLElement {
   constructor(ownerDocument) {
-    super(ownerDocument, tagName$g);
+    super(ownerDocument, tagName$h);
     const content = this.ownerDocument.createDocumentFragment();
     (this[CONTENT] = content)[PRIVATE] = this;
   }
@@ -8066,7 +8123,7 @@ class HTMLTemplateElement extends HTMLElement {
   }
 }
 
-registerHTMLClass(tagName$g, HTMLTemplateElement);
+registerHTMLClass(tagName$h, HTMLTemplateElement);
 
 /**
  * @implements globalThis.HTMLHtmlElement
@@ -8090,13 +8147,13 @@ class TextElement extends HTMLElement {
   }
 }
 
-const tagName$f = 'script';
+const tagName$g = 'script';
 
 /**
  * @implements globalThis.HTMLScriptElement
  */
 class HTMLScriptElement extends TextElement {
-  constructor(ownerDocument, localName = tagName$f) {
+  constructor(ownerDocument, localName = tagName$g) {
     super(ownerDocument, localName);
   }
 
@@ -8161,7 +8218,7 @@ class HTMLScriptElement extends TextElement {
   set text(content) { this.textContent = content; }
 }
 
-registerHTMLClass(tagName$f, HTMLScriptElement);
+registerHTMLClass(tagName$g, HTMLScriptElement);
 
 /**
  * @implements globalThis.HTMLFrameElement
@@ -8172,13 +8229,13 @@ class HTMLFrameElement extends HTMLElement {
   }
 }
 
-const tagName$e = 'iframe';
+const tagName$f = 'iframe';
 
 /**
  * @implements globalThis.HTMLIFrameElement
  */
 class HTMLIFrameElement extends HTMLElement {
-  constructor(ownerDocument, localName = tagName$e) {
+  constructor(ownerDocument, localName = tagName$f) {
     super(ownerDocument, localName);
   }
 
@@ -8206,7 +8263,7 @@ class HTMLIFrameElement extends HTMLElement {
   /* c8 ignore stop */
 }
 
-registerHTMLClass(tagName$e, HTMLIFrameElement);
+registerHTMLClass(tagName$f, HTMLIFrameElement);
 
 /**
  * @implements globalThis.HTMLObjectElement
@@ -10316,13 +10373,13 @@ requireCSSStyleSheet().CSSStyleSheet;
 requireCSSKeyframeRule().CSSKeyframeRule;
 var parse$1 = requireParse().parse;
 
-const tagName$d = 'style';
+const tagName$e = 'style';
 
 /**
  * @implements globalThis.HTMLStyleElement
  */
 class HTMLStyleElement extends TextElement {
-  constructor(ownerDocument, localName = tagName$d) {
+  constructor(ownerDocument, localName = tagName$e) {
     super(ownerDocument, localName);
     this[SHEET] = null;
   }
@@ -10358,7 +10415,7 @@ class HTMLStyleElement extends TextElement {
   }
 }
 
-registerHTMLClass(tagName$d, HTMLStyleElement);
+registerHTMLClass(tagName$e, HTMLStyleElement);
 
 /**
  * @implements globalThis.HTMLTimeElement
@@ -10459,13 +10516,13 @@ class HTMLDataListElement extends HTMLElement {
   }
 }
 
-const tagName$c = 'input';
+const tagName$d = 'input';
 
 /**
  * @implements globalThis.HTMLInputElement
  */
 class HTMLInputElement extends HTMLElement {
-  constructor(ownerDocument, localName = tagName$c) {
+  constructor(ownerDocument, localName = tagName$d) {
     super(ownerDocument, localName);
   }
 
@@ -10490,7 +10547,7 @@ class HTMLInputElement extends HTMLElement {
   /* c8 ignore stop */
 }
 
-registerHTMLClass(tagName$c, HTMLInputElement);
+registerHTMLClass(tagName$d, HTMLInputElement);
 
 /**
  * @implements globalThis.HTMLParamElement
@@ -10519,18 +10576,18 @@ class HTMLAudioElement extends HTMLElement {
   }
 }
 
-const tagName$b = 'h1';
+const tagName$c = 'h1';
 
 /**
  * @implements globalThis.HTMLHeadingElement
  */
 class HTMLHeadingElement extends HTMLElement {
-  constructor(ownerDocument, localName = tagName$b) {
+  constructor(ownerDocument, localName = tagName$c) {
     super(ownerDocument, localName);
   }
 }
 
-registerHTMLClass([tagName$b, 'h2', 'h3', 'h4', 'h5', 'h6'], HTMLHeadingElement);
+registerHTMLClass([tagName$c, 'h2', 'h3', 'h4', 'h5', 'h6'], HTMLHeadingElement);
 
 /**
  * @implements globalThis.HTMLDirectoryElement
@@ -10562,13 +10619,13 @@ class Canvas {
 
 const {createCanvas} = Canvas$1;
 
-const tagName$a = 'canvas';
+const tagName$b = 'canvas';
 
 /**
  * @implements globalThis.HTMLCanvasElement
  */
 class HTMLCanvasElement extends HTMLElement {
-  constructor(ownerDocument, localName = tagName$a) {
+  constructor(ownerDocument, localName = tagName$b) {
     super(ownerDocument, localName);
     this[IMAGE] = createCanvas(300, 150);
   }
@@ -10600,7 +10657,7 @@ class HTMLCanvasElement extends HTMLElement {
   }
 }
 
-registerHTMLClass(tagName$a, HTMLCanvasElement);
+registerHTMLClass(tagName$b, HTMLCanvasElement);
 
 /**
  * @implements globalThis.HTMLLegendElement
@@ -10611,13 +10668,13 @@ class HTMLLegendElement extends HTMLElement {
   }
 }
 
-const tagName$9 = 'option';
+const tagName$a = 'option';
 
 /**
  * @implements globalThis.HTMLOptionElement
  */
 class HTMLOptionElement extends HTMLElement {
-  constructor(ownerDocument, localName = tagName$9) {
+  constructor(ownerDocument, localName = tagName$a) {
     super(ownerDocument, localName);
   }
 
@@ -10635,7 +10692,7 @@ class HTMLOptionElement extends HTMLElement {
   }
 }
 
-registerHTMLClass(tagName$9, HTMLOptionElement);
+registerHTMLClass(tagName$a, HTMLOptionElement);
 
 /**
  * @implements globalThis.HTMLSpanElement
@@ -10673,18 +10730,18 @@ class HTMLTableCellElement extends HTMLElement {
   }
 }
 
-const tagName$8 = 'title';
+const tagName$9 = 'title';
 
 /**
  * @implements globalThis.HTMLTitleElement
  */
 class HTMLTitleElement extends TextElement {
-  constructor(ownerDocument, localName = tagName$8) {
+  constructor(ownerDocument, localName = tagName$9) {
     super(ownerDocument, localName);
   }
 }
 
-registerHTMLClass(tagName$8, HTMLTitleElement);
+registerHTMLClass(tagName$9, HTMLTitleElement);
 
 /**
  * @implements globalThis.HTMLOutputElement
@@ -10722,13 +10779,13 @@ class HTMLMenuElement extends HTMLElement {
   }
 }
 
-const tagName$7 = 'select';
+const tagName$8 = 'select';
 
 /**
  * @implements globalThis.HTMLSelectElement
  */
 class HTMLSelectElement extends HTMLElement {
-  constructor(ownerDocument, localName = tagName$7) {
+  constructor(ownerDocument, localName = tagName$8) {
     super(ownerDocument, localName);
   }
 
@@ -10756,7 +10813,7 @@ class HTMLSelectElement extends HTMLElement {
   get value() { return this.querySelector('option[selected]')?.value; }
 }
 
-registerHTMLClass(tagName$7, HTMLSelectElement);
+registerHTMLClass(tagName$8, HTMLSelectElement);
 
 /**
  * @implements globalThis.HTMLBRElement
@@ -10767,13 +10824,13 @@ class HTMLBRElement extends HTMLElement {
   }
 }
 
-const tagName$6 = 'button';
+const tagName$7 = 'button';
 
 /**
  * @implements globalThis.HTMLButtonElement
  */
 class HTMLButtonElement extends HTMLElement {
-  constructor(ownerDocument, localName = tagName$6) {
+  constructor(ownerDocument, localName = tagName$7) {
     super(ownerDocument, localName);
   }
 
@@ -10789,7 +10846,7 @@ class HTMLButtonElement extends HTMLElement {
   /* c8 ignore stop */
 }
 
-registerHTMLClass(tagName$6, HTMLButtonElement);
+registerHTMLClass(tagName$7, HTMLButtonElement);
 
 /**
  * @implements globalThis.HTMLMapElement
@@ -10818,13 +10875,13 @@ class HTMLDListElement extends HTMLElement {
   }
 }
 
-const tagName$5 = 'textarea';
+const tagName$6 = 'textarea';
 
 /**
  * @implements globalThis.HTMLTextAreaElement
  */
 class HTMLTextAreaElement extends TextElement {
-  constructor(ownerDocument, localName = tagName$5) {
+  constructor(ownerDocument, localName = tagName$6) {
     super(ownerDocument, localName);
   }
 
@@ -10846,7 +10903,7 @@ class HTMLTextAreaElement extends TextElement {
   /* c8 ignore stop */
 }
 
-registerHTMLClass(tagName$5, HTMLTextAreaElement);
+registerHTMLClass(tagName$6, HTMLTextAreaElement);
 
 /**
  * @implements globalThis.HTMLFontElement
@@ -10866,13 +10923,13 @@ class HTMLDivElement extends HTMLElement {
   }
 }
 
-const tagName$4 = 'link';
+const tagName$5 = 'link';
 
 /**
  * @implements globalThis.HTMLLinkElement
  */
 class HTMLLinkElement extends HTMLElement {
-  constructor(ownerDocument, localName = tagName$4) {
+  constructor(ownerDocument, localName = tagName$5) {
     super(ownerDocument, localName);
   }
 
@@ -10898,16 +10955,64 @@ class HTMLLinkElement extends HTMLElement {
 
 }
 
-registerHTMLClass(tagName$4, HTMLLinkElement);
+registerHTMLClass(tagName$5, HTMLLinkElement);
+
+const tagName$4 = 'slot';
 
 /**
  * @implements globalThis.HTMLSlotElement
  */
 class HTMLSlotElement extends HTMLElement {
-  constructor(ownerDocument, localName = 'slot') {
+  constructor(ownerDocument, localName = tagName$4) {
     super(ownerDocument, localName);
   }
+
+  /* c8 ignore start */
+  get name() { return this.getAttribute('name'); }
+  set name(value) { this.setAttribute('name', value); }
+
+  assign() {}
+
+  assignedNodes(options) {
+    const isNamedSlot = !!this.name;
+    const hostChildNodes = this.getRootNode().host?.childNodes ?? [];
+    let slottables;
+
+    if (isNamedSlot) {
+      slottables = [...hostChildNodes].filter(node => node.slot === this.name);
+    } else {
+      slottables = [...hostChildNodes].filter(node => !node.slot);
+    }
+
+    if (options?.flatten) {
+      const result = [];
+
+      // Element and Text nodes are slottables. A slot can be a slottable.
+      for (let slottable of slottables) {
+        if (slottable.localName === 'slot') {
+          result.push(...slottable.assignedNodes({ flatten: true }));
+        } else {
+          result.push(slottable);
+        }
+      }
+
+      slottables = result;
+    }
+
+    // If no assigned nodes are found, it returns the slot's fallback content.
+    return slottables.length ? slottables : [...this.childNodes];
+  }
+
+  assignedElements(options) {
+    const slottables = this.assignedNodes(options).filter(n => n.nodeType === 1);
+
+    // If no assigned elements are found, it returns the slot's fallback content.
+    return slottables.length ? slottables : [...this.children];
+  }
+  /* c8 ignore stop */
 }
+
+registerHTMLClass(tagName$4, HTMLSlotElement);
 
 /**
  * @implements globalThis.HTMLFormElement
@@ -11049,10 +11154,10 @@ class HTMLAnchorElement extends HTMLElement {
   }
 
   /* c8 ignore start */ // copy paste from img.src, already covered
-  get href() { return encodeURI(stringAttribute.get(this, 'href')); }
+  get href() { return encodeURI(decodeURI(stringAttribute.get(this, 'href'))); }
   set href(value) { stringAttribute.set(this, 'href', decodeURI(value)); }
 
-  get download() { return encodeURI(stringAttribute.get(this, 'download')); }
+  get download() { return encodeURI(decodeURI(stringAttribute.get(this, 'download'))); }
   set download(value) { stringAttribute.set(this, 'download', decodeURI(value)); }
 
   get target() { return stringAttribute.get(this, 'target'); }
@@ -11345,6 +11450,13 @@ class Range {
     this[END] = getEnd(node);
   }
 
+  // TODO: SVG elements should then create contextual fragments
+  //       that return SVG nodes
+  selectNodeContents(node) {
+    this.selectNode(node);
+    this.commonAncestorContainer = node;
+  }
+
   surroundContents(parentNode) {
     parentNode.replaceChildren(this.extractContents());
   }
@@ -11388,10 +11500,26 @@ class Range {
   }
 
   createContextualFragment(html) {
-    const template = this.commonAncestorContainer.createElement('template');
+    const { commonAncestorContainer: doc } = this;
+    const isSVG = 'ownerSVGElement' in doc;
+    const document = isSVG ? doc.ownerDocument : doc;
+    const template = document.createElement('template');
     template.innerHTML = html;
-    this.selectNode(template.content);
-    return template.content;
+    let {content} = template;
+    if (isSVG) {
+      const childNodes = [...content.childNodes];
+      content = document.createDocumentFragment();
+      Object.setPrototypeOf(content, SVGElement$1.prototype);
+      content.ownerSVGElement = document;
+      for (const child of childNodes) {
+        Object.setPrototypeOf(child, SVGElement$1.prototype);
+        child.ownerSVGElement = document;
+        content.appendChild(child);
+      }
+    }
+    else
+      this.selectNode(content);
+    return content;
   }
 
   cloneRange() {
@@ -11410,6 +11538,8 @@ const isOK = ({nodeType}, mask) => {
       return mask & SHOW_TEXT;
     case COMMENT_NODE:
       return mask & SHOW_COMMENT;
+    case CDATA_SECTION_NODE:
+      return mask & SHOW_CDATA_SECTION;
   }
   return 0;
 };
@@ -11580,6 +11710,7 @@ let Document$1 = class Document extends NonElementParentNode {
   }
 
   createAttribute(name) { return new Attr$1(this, name); }
+  createCDATASection(data) { return new CDATASection$1(this, data); }
   createComment(textContent) { return new Comment$1(this, textContent); }
   createDocumentFragment() { return new DocumentFragment$1(this); }
   createDocumentType(name, publicId, systemId) { return new DocumentType$1(this, name, publicId, systemId); }
@@ -11901,6 +12032,9 @@ const parseJSON = value => {
       case COMMENT_NODE:
         append(parentNode, new Comment$1(document, array[i++]), end);
         break;
+      case CDATA_SECTION_NODE:
+        append(parentNode, new CDATASection$1(document, array[i++]), end);
+        break;
       case DOCUMENT_TYPE_NODE: {
         const args = [document];
         while (typeof array[i] === 'string')
@@ -11947,6 +12081,7 @@ class NodeFilter {
   static get SHOW_ALL() { return SHOW_ALL; }
   static get SHOW_ELEMENT() { return SHOW_ELEMENT; }
   static get SHOW_COMMENT() { return SHOW_COMMENT; }
+  static get SHOW_CDATA_SECTION() { return SHOW_CDATA_SECTION; }
   static get SHOW_TEXT() { return SHOW_TEXT; }
 }
 
@@ -11960,4 +12095,4 @@ function Document() {
 
 setPrototypeOf(Document, Document$1).prototype = Document$1.prototype;
 
-export { Attr, CharacterData, Comment, CustomEvent, DOMParser, Document, DocumentFragment, DocumentType, Element, GlobalEvent as Event, DOMEventTarget as EventTarget, Facades, HTMLAnchorElement, HTMLAreaElement, HTMLAudioElement, HTMLBRElement, HTMLBaseElement, HTMLBodyElement, HTMLButtonElement, HTMLCanvasElement, HTMLClasses, HTMLDListElement, HTMLDataElement, HTMLDataListElement, HTMLDetailsElement, HTMLDirectoryElement, HTMLDivElement, HTMLElement, HTMLEmbedElement, HTMLFieldSetElement, HTMLFontElement, HTMLFormElement, HTMLFrameElement, HTMLFrameSetElement, HTMLHRElement, HTMLHeadElement, HTMLHeadingElement, HTMLHtmlElement, HTMLIFrameElement, HTMLImageElement, HTMLInputElement, HTMLLIElement, HTMLLabelElement, HTMLLegendElement, HTMLLinkElement, HTMLMapElement, HTMLMarqueeElement, HTMLMediaElement, HTMLMenuElement, HTMLMetaElement, HTMLMeterElement, HTMLModElement, HTMLOListElement, HTMLObjectElement, HTMLOptGroupElement, HTMLOptionElement, HTMLOutputElement, HTMLParagraphElement, HTMLParamElement, HTMLPictureElement, HTMLPreElement, HTMLProgressElement, HTMLQuoteElement, HTMLScriptElement, HTMLSelectElement, HTMLSlotElement, HTMLSourceElement, HTMLSpanElement, HTMLStyleElement, HTMLTableCaptionElement, HTMLTableCellElement, HTMLTableElement, HTMLTableRowElement, HTMLTemplateElement, HTMLTextAreaElement, HTMLTimeElement, HTMLTitleElement, HTMLTrackElement, HTMLUListElement, HTMLUnknownElement, HTMLVideoElement, InputEvent, Node, NodeFilter, NodeList, SVGElement, ShadowRoot, Text, illegalConstructor, parseHTML, parseJSON, toJSON };
+export { Attr, CDATASection, CharacterData, Comment, CustomEvent, DOMParser, Document, DocumentFragment, DocumentType, Element, GlobalEvent as Event, DOMEventTarget as EventTarget, Facades, HTMLAnchorElement, HTMLAreaElement, HTMLAudioElement, HTMLBRElement, HTMLBaseElement, HTMLBodyElement, HTMLButtonElement, HTMLCanvasElement, HTMLClasses, HTMLDListElement, HTMLDataElement, HTMLDataListElement, HTMLDetailsElement, HTMLDirectoryElement, HTMLDivElement, HTMLElement, HTMLEmbedElement, HTMLFieldSetElement, HTMLFontElement, HTMLFormElement, HTMLFrameElement, HTMLFrameSetElement, HTMLHRElement, HTMLHeadElement, HTMLHeadingElement, HTMLHtmlElement, HTMLIFrameElement, HTMLImageElement, HTMLInputElement, HTMLLIElement, HTMLLabelElement, HTMLLegendElement, HTMLLinkElement, HTMLMapElement, HTMLMarqueeElement, HTMLMediaElement, HTMLMenuElement, HTMLMetaElement, HTMLMeterElement, HTMLModElement, HTMLOListElement, HTMLObjectElement, HTMLOptGroupElement, HTMLOptionElement, HTMLOutputElement, HTMLParagraphElement, HTMLParamElement, HTMLPictureElement, HTMLPreElement, HTMLProgressElement, HTMLQuoteElement, HTMLScriptElement, HTMLSelectElement, HTMLSlotElement, HTMLSourceElement, HTMLSpanElement, HTMLStyleElement, HTMLTableCaptionElement, HTMLTableCellElement, HTMLTableElement, HTMLTableRowElement, HTMLTemplateElement, HTMLTextAreaElement, HTMLTimeElement, HTMLTitleElement, HTMLTrackElement, HTMLUListElement, HTMLUnknownElement, HTMLVideoElement, InputEvent, Node, NodeFilter, NodeList, SVGElement, ShadowRoot, Text, illegalConstructor, parseHTML, parseJSON, toJSON };

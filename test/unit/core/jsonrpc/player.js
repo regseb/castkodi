@@ -34,7 +34,14 @@ describe("core/jsonrpc/player.js", function () {
             const stub = sinon.stub(kodi, "send").resolves([]);
 
             const player = new Player(kodi);
-            const properties = ["foo", "baz", "quz", "time", "totaltime"];
+            const properties = [
+                "position",
+                "repeat",
+                "shuffled",
+                "speed",
+                "time",
+                "totaltime",
+            ];
             const result = await player.getProperties(properties);
             assert.deepEqual(result, {
                 position: -1,
@@ -57,20 +64,29 @@ describe("core/jsonrpc/player.js", function () {
                 .resolves([{ playerid: 1 }])
                 .onSecondCall()
                 .resolves({
-                    foo: "bar",
-                    baz: 42,
-                    qux: true,
+                    position: 42,
+                    repeat: "all",
+                    shuffled: true,
+                    speed: 2,
                     time: { hours: 1, minutes: 2, seconds: 3 },
                     totaltime: { hours: 0, minutes: 0, seconds: 0 },
                 });
 
             const player = new Player(kodi);
-            const properties = ["foo", "baz", "quz", "time", "totaltime"];
+            const properties = [
+                "position",
+                "repeat",
+                "shuffled",
+                "speed",
+                "time",
+                "totaltime",
+            ];
             const result = await player.getProperties(properties);
             assert.deepEqual(result, {
-                foo: "bar",
-                baz: 42,
-                qux: true,
+                position: 42,
+                repeat: "all",
+                shuffled: true,
+                speed: 2,
                 time: 3723,
                 totaltime: 0,
             });
@@ -81,7 +97,14 @@ describe("core/jsonrpc/player.js", function () {
                 "Player.GetProperties",
                 {
                     playerid: 1,
-                    properties: ["foo", "baz", "quz", "time", "totaltime"],
+                    properties: [
+                        "position",
+                        "repeat",
+                        "shuffled",
+                        "speed",
+                        "time",
+                        "totaltime",
+                    ],
                 },
             ]);
         });
@@ -91,15 +114,12 @@ describe("core/jsonrpc/player.js", function () {
             const stub = sinon.stub(kodi, "send").resolves([{ playerid: 0 }]);
 
             const player = new Player(kodi);
-            const properties = ["foo"];
+            const properties = ["position", "repeat", "shuffled"];
             const result = await player.getProperties(properties);
             assert.deepEqual(result, {
                 position: -1,
                 repeat: "off",
                 shuffled: false,
-                speed: 0,
-                time: 0,
-                totaltime: 0,
             });
 
             assert.equal(stub.callCount, 1);

@@ -4,7 +4,6 @@
  * @see https://www.vrt.be/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
@@ -21,13 +20,13 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (url) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vrt.nu")) {
-        return vrtnuPlugin.generateUrl(url);
+        return await vrtnuPlugin.generateUrl(url);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return sendtokodiPlugin.generateUrl(url);
+        return await sendtokodiPlugin.generateUrl(url);
     }
     // Envoyer par défaut au plugin VRT NU.
-    return vrtnuPlugin.generateUrl(url);
+    return await vrtnuPlugin.generateUrl(url);
 };
 
 /**
@@ -37,7 +36,7 @@ const dispatch = async function (url) {
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const action = async function (url) {
+const action = function (url) {
     return dispatch(url);
 };
 export const extract = matchPattern(

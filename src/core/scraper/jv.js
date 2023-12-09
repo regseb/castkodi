@@ -38,7 +38,7 @@ const action = async function (url, metadata, context) {
 
     const response = await fetch(new URL(div.dataset.srcVideo, url));
     const json = await response.json();
-    return metaExtract(
+    return await metaExtract(
         new URL(
             `https://www.dailymotion.com/embed/video/${json.options.video}`,
         ),

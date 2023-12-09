@@ -84,6 +84,9 @@ input[type="checkbox"] {
     border-radius: 2px;
     height: 16px;
     margin: 3px;
+    /* Ajouter "min-width" pour empêcher le navigateur d'écraser la case à
+       cocher. */
+    min-width: 16px;
     width: 16px;
 }
 input[type="checkbox"]:hover:not(:disabled),
@@ -117,6 +120,9 @@ input[type="radio"] {
     border-radius: 100%;
     height: 16px;
     margin: 3px;
+    /* Ajouter "min-width" pour empêcher le navigateur d'écraser la case à
+       cocher. */
+    min-width: 16px;
     width: 16px;
 }
 input[type="radio"]:hover:not(:disabled),
@@ -289,7 +295,9 @@ select {
     cursor: pointer;
     font-size: 13px;
     justify-content: center;
+    overflow-x: hidden;
     padding: 8px 28px 8px 8px;
+    text-overflow: ellipsis;
 }
 select:hover:not(:disabled) {
     background-color: var(--button-hover-background-color);
@@ -315,6 +323,7 @@ dialog::backdrop {
 }
 dialog menu {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     margin: 0;
     padding-left: 0;
@@ -322,6 +331,7 @@ dialog menu {
 dialog menu button,
 dialog menu select {
     flex: 1 1 0;
+    max-width: 100%;
     min-width: auto;
 }
 

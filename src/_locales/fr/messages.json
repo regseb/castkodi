@@ -61,7 +61,7 @@
         "message": "Kodi non trouvé"
     },
     "notifications_notFound_message": {
-        "message": "L'adresse du serveur Web de Kodi $ADDRESS$ est invalide ; ou le contrôle à distance n'est pas activé dans Kodi.",
+        "message": "L'adresse du serveur Web de Kodi $ADDRESS$ est invalide ; ou le contrôle à distance n'est pas activé dans Kodi.",
         "placeholders": {
             "address": {
                 "content": "$1"
@@ -136,7 +136,7 @@
         "message": "Passer au suivant [Pg.Suiv]"
     },
     "popup_volume_title": {
-        "message": "$VALUE$ % [-/+]",
+        "message": "$VALUE$ % [-/+]",
         "placeholders": {
             "value": {
                 "content": "$1"
@@ -261,7 +261,7 @@
         "message": "Configurer"
     },
     "popup_text_textcontent": {
-        "message": "Changer de serveur :"
+        "message": "Changer de serveur :"
     },
     "options_permissionDescription_textcontent": {
         "message": "L'accès aux sites Internet n'est pas autorisé. L'extension ne peut pas analyser les pages pour y trouver des vidéos ou de la musique."
@@ -273,16 +273,16 @@
         "message": "Connexion"
     },
     "options_serverIntro_textcontent": {
-        "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez Autoriser le contrôle à distance par des programmes sur d'autres systèmes. Ce règlage se fait dans Kodi à la page Paramètres / Services / Contrôle. Puis renseignez l'adresse de Kodi ci-dessous. Cette adresse IP est disponible dans la page Paramètres / Infos sur le système / Résumé."
+        "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez Autoriser le contrôle à distance par des programmes sur d'autres systèmes. Ce réglage se fait dans Kodi à la page Paramètres / Services / Contrôle. Puis renseignez l'adresse de Kodi ci-dessous. Cette adresse IP est disponible dans la page Paramètres / Infos sur le système / Résumé."
     },
     "options_serverModeSingle_textcontent": {
         "message": "Configurer un seul serveur"
     },
     "options_serverAddress_textcontent": {
-        "message": "Adresse :"
+        "message": "Adresse :"
     },
     "options_serverAddress_title": {
-        "message": "Adresse IP ou adresse complète (par exemple : 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
+        "message": "Adresse IP ou adresse complète (par exemple : 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, etc.)"
     },
     "options_serverModeMulti_textcontent": {
         "message": "Configurer plusieurs serveurs"
@@ -306,10 +306,16 @@
         "message": "Le nom du serveur n'est pas renseigné."
     },
     "options_serverRemove_title": {
-        "message": "Supprimer le server"
+        "message": "Supprimer le serveur"
     },
     "options_serverRemove_alt": {
         "message": "Supprimer"
+    },
+    "options_serverFix_title": {
+        "message": "Corriger l'adresse"
+    },
+    "options_serverFix_alt": {
+        "message": "Corriger"
     },
     "options_generalTitle_textcontent": {
         "message": "Général"
@@ -324,7 +330,7 @@
         "message": "Pré-remplir le champ de saisie dans la popup avec le contenu du presse-papier"
     },
     "options_popupWheelDescription_textcontent": {
-        "message": "Contrôle du volume avec la molette :"
+        "message": "Contrôle du volume avec la molette :"
     },
     "options_popupWheelNormal_textcontent": {
         "message": "Normal"
@@ -339,7 +345,7 @@
         "message": "Menu contextuel"
     },
     "options_menuActionsDescription_textcontent": {
-        "message": "Sélectionnez les options ajoutées dans le menu contextuel :"
+        "message": "Sélectionnez les options ajoutées dans le menu contextuel :"
     },
     "options_menuActionsSend_textcontent": {
         "message": "Lire maintenant"
@@ -351,7 +357,7 @@
         "message": "Placer en file d'attente"
     },
     "options_menuContextsDescription_textcontent": {
-        "message": "Indiquez les éléments où le menu contextuel est ajouté :"
+        "message": "Indiquez les éléments où le menu contextuel est ajouté :"
     },
     "options_menuContextsAudio_textcontent": {
         "message": "Audio"
@@ -381,7 +387,7 @@
         "message": "YouTube"
     },
     "options_youtubePlaylistDescription_textcontent": {
-        "message": "Pour les liens vers une vidéo dans une playlist :"
+        "message": "Pour les liens vers une vidéo dans une playlist :"
     },
     "options_youtubePlaylistPlaylist_textcontent": {
         "message": "Diffuser toutes les vidéos de la playlist"
@@ -390,7 +396,7 @@
         "message": "Diffuser seulement la vidéo"
     },
     "options_youtubeOrderDescription_textcontent": {
-        "message": "Sélectionnez l'ordre des playlists :"
+        "message": "Sélectionnez l'ordre des playlists :"
     },
     "options_youtubeOrderAsk_textcontent": {
         "message": "Demander"

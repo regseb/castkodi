@@ -8,48 +8,30 @@
     </style>
 
     <radialGradient id="radial">
-      <stop offset="0%" stop-color="#09b4e8" />
+      <stop offset="0%" stop-color="#0a84ff" />
       <stop offset="100%" stop-color="#0a84ff" stop-opacity="0.5" />
     </radialGradient>
 
     <mask id="line">
-      <g>
-        <!-- Regrouper tous les éléments car Inkscape utilise seulement le
-             premier enfant pour le masque.
-             https://bugs.launchpad.net/inkscape/+bug/794472 -->
-        <rect x="0" y="0" width="200" height="200" fill="white" />
-        <rect x="0" y="95" width="200" height="10" fill="black" />
-        <rect x="0" y="45" width="200" height="10" fill="black" />
-        <rect x="0" y="145" width="200" height="10" fill="black" />
-        <rect x="95" y="0" width="10" height="200" fill="black" />
-        <circle
-          cx="30"
-          cy="100"
-          r="125"
-          fill="none"
-          stroke="black"
-          stroke-width="10"
-        />
-        <circle
-          cx="170"
-          cy="100"
-          r="125"
-          fill="none"
-          stroke="black"
-          stroke-width="10"
-        />
+      <rect x="0" y="0" width="200" height="200" fill="white" />
+      <g stroke="black" stroke-width="10">
+        <line x1="0" y1="50" x2="200" y2="50" />
+        <line x1="0" y1="100" x2="200" y2="100" />
+        <line x1="0" y1="150" x2="200" y2="150" />
+        <line x1="100" y1="0" x2="100" y2="200" />
+      </g>
+      <g fill="none" stroke="black" stroke-width="10">
+        <circle cx="30" cy="100" r="125" />
+        <circle cx="170" cy="100" r="125" />
       </g>
     </mask>
 
     <mask id="wave">
-      <g fill="none" stroke="white">
-        <!-- Regrouper tous les éléments car Inkscape utilise seulement le
-             premier enfant pour le masque.
-             https://bugs.launchpad.net/inkscape/+bug/794472 -->
-        <circle cx="0" cy="50" r="5" stroke-width="10" />
-        <circle cx="0" cy="50" r="25" stroke-width="10" />
-        <circle cx="0" cy="50" r="45" stroke-width="10" />
-        <circle cx="0" cy="50" r="80" stroke-width="40" />
+      <rect x="0" y="0" width="100" height="100" fill="white" />
+      <g fill="none" stroke="black" stroke-width="10">
+        <circle cx="0" cy="50" r="15" />
+        <circle cx="0" cy="50" r="35" />
+        <circle cx="0" cy="50" r="55" />
       </g>
     </mask>
   </defs>
@@ -57,19 +39,25 @@
   <rect width="100%" height="100%" fill="black" />
   <rect width="100%" height="100%" fill="url(#radial)" />
 
-  <g mask="url(#line)" transform="translate(50 90) scale(0.5)">
-    <circle cx="100" cy="100" r="100" fill="white" opacity="0.5" />
-  </g>
+  <circle
+    cx="100"
+    cy="100"
+    r="100"
+    fill="white"
+    opacity="0.5"
+    mask="url(#line)"
+    transform="translate(50 90) scale(0.5)"
+  />
 
-  <g mask="url(#wave)" transform="translate(170 90)">
-    <polygon
-      points="5,50 50,5 95,50 50,95"
-      fill="white"
-      stroke="white"
-      stroke-width="10"
-      stroke-linejoin="round"
-    />
-  </g>
+  <polygon
+    points="5,50 50,5 95,50 50,95"
+    fill="white"
+    stroke="white"
+    stroke-width="10"
+    stroke-linejoin="round"
+    mask="url(#wave)"
+    transform="translate(170 90)"
+  />
 
   <g transform="translate(290 90) scale(0.5)" fill="white" opacity="0.5">
     <path

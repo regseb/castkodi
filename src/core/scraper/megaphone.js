@@ -4,7 +4,6 @@
  * @see https://megaphone.spotify.com/
  * @author Sébastien Règne
  */
-/* eslint-disable require-await */
 
 import { matchPattern } from "../tools/matchpattern.js";
 
@@ -15,8 +14,8 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du
  *                            <em>fichier</em>.
  */
-const actionPlayer = async function ({ pathname }) {
-    return `https://dcs.megaphone.fm${pathname}.mp3`;
+const actionPlayer = function ({ pathname }) {
+    return Promise.resolve(`https://dcs.megaphone.fm${pathname}.mp3`);
 };
 export const extractPlayer = matchPattern(
     actionPlayer,
@@ -31,10 +30,12 @@ export const extractPlayer = matchPattern(
  *                                      <em>fichier</em> ou
  *                                      <code>undefined</code>.
  */
-const actionPlaylist = async function ({ searchParams }) {
-    return searchParams.has("e")
-        ? `https://dcs.megaphone.fm/${searchParams.get("e")}.mp3`
-        : undefined;
+const actionPlaylist = function ({ searchParams }) {
+    return Promise.resolve(
+        searchParams.has("e")
+            ? `https://dcs.megaphone.fm/${searchParams.get("e")}.mp3`
+            : undefined,
+    );
 };
 export const extractPlaylist = matchPattern(
     actionPlaylist,
