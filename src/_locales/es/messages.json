@@ -312,10 +312,10 @@
         "message": "Eliminar"
     },
     "options_serverFix_title": {
-        "message": "Corregir dirección"
+        "message": "Fijar la dirección"
     },
     "options_serverFix_alt": {
-        "message": "Corregir"
+        "message": "Arreglar"
     },
     "options_generalTitle_textcontent": {
         "message": "General"
