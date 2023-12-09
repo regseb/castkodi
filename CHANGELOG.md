@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.5.0](https://github.com/regseb/castkodi/compare/v7.4.1...v7.5.0) (2023-12-09)
+
+
+### Features
+
+* Ajouter un bouton pour corriger les adresses. ([a57e907](https://github.com/regseb/castkodi/commit/a57e90715b117e07d22be63ba435fe5ae23422f7))
+* Gérer les petits écrans. ([00ca3ea](https://github.com/regseb/castkodi/commit/00ca3eae1dbf745559bc7fbc8d7021ff5786864a))
+
+
+### Bug Fixes
+
+* Actualiser le scraper de Melty. ([075d9f4](https://github.com/regseb/castkodi/commit/075d9f4f592b91522b1ce0089df0cd632e1851ae))
+* Corriger la lecture dans le presse-papier sous Chromium. ([79e872a](https://github.com/regseb/castkodi/commit/79e872a63f94e76282e98830cbad02192ed03c47))
+* Corriger le scraper pour Arte. ([5b9b710](https://github.com/regseb/castkodi/commit/5b9b710d99193c970417b0faef500809eb73cc81))
+* Corriger le scraper pour Flickr. ([c6fa8d3](https://github.com/regseb/castkodi/commit/c6fa8d3de54b053f6eabde3922a0e3f967663828))
+* Désactiver le double-clic si le bouton est désactivé. ([2f1dfe3](https://github.com/regseb/castkodi/commit/2f1dfe338f24bd65fe53b764b42255ed75063579))
+* Enlever Hooktube qui n'existe plus. ([5e22f0b](https://github.com/regseb/castkodi/commit/5e22f0bc7a2f8c996168bf96f940912e484fc531))
+* Enlever le support de Bally Sports. ([543dd00](https://github.com/regseb/castkodi/commit/543dd007e27f821786db50a1fa632ced1bd5574d))
+* Optimiser l'ouverture de la popup. ([d04d8ae](https://github.com/regseb/castkodi/commit/d04d8ae6e7a8d4e97a42584af17d73f99312863a))
+* Remplacer les "&nbsp;" par des espaces insécables ([#114](https://github.com/regseb/castkodi/issues/114)) ([79c13f2](https://github.com/regseb/castkodi/commit/79c13f2c3c71c611b6c43cffdacf6fdc7bd07e32))
+* Translations update from Hosted Weblate ([#105](https://github.com/regseb/castkodi/issues/105)) ([ae07c9e](https://github.com/regseb/castkodi/commit/ae07c9ee6c7942000c4da278af7a462cad22275d))
+* Utiliser le nouveau Chrome Web Store. ([a3fabda](https://github.com/regseb/castkodi/commit/a3fabdaed7eb1cea7e3b1f0a74df31e4087f8323))
+
 ## [7.4.1](https://github.com/regseb/castkodi/compare/v7.4.0...v7.4.1) (2023-09-05)
 
 
