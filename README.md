@@ -26,7 +26,7 @@ et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
   Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo ;
   - 🇩🇪 Allemagne : Arte, Chaos Computer Club, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
-  - 🇺🇸 États-Unis : Bally Sports, KCAA Radio ;
+  - 🇺🇸 États-Unis : KCAA Radio ;
   - 🇫🇷 France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
     Sciences, Gamekult, JV, Konbini, Le Monde, Le Point, L'Internaute, Melty,
     Ouest-France ;
