@@ -177,7 +177,7 @@
         "message": "Go to home"
     },
     "popup_fullscreen_title": {
-        "message": "Toogle fullscreen [Tab]"
+        "message": "Toggle fullscreen [Tab]"
     },
     "popup_opensendtext_title": {
         "message": "Send text…"
