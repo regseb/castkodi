@@ -4,7 +4,6 @@
  * @author Sébastien Règne
  */
 
-import "../polyfill/url.js";
 import { kodi } from "./jsonrpc/kodi.js";
 import { extract } from "./scrapers.js";
 import { PebkacError } from "./tools/pebkac.js";

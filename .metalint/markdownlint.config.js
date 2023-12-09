@@ -52,6 +52,7 @@ export default {
             "JSON",
             "Markdown",
             "Shell",
+            "YAML",
         ],
         // eslint-disable-next-line camelcase
         language_only: true,
@@ -69,4 +70,6 @@ export default {
     "link-fragments": true,
     "reference-links-images": true,
     "link-image-reference-definitions": true,
+    // eslint-disable-next-line camelcase
+    "link-image-style": { shortcut: false, url_inline: false },
 };

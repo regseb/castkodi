@@ -7,20 +7,6 @@
 import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
-if (undefined === import.meta.resolve) {
-    /**
-     * Résous un chemin relatif à partir du module.
-     *
-     * @param {string} specifier Le chemin relatif vers un fichier ou un
-     *                           répertoire.
-     * @returns {string} L'URL absolue vers le fichier ou le répertoire.
-     * @see https://nodejs.org/api/esm.html#importmetaresolvespecifier-parent
-     */
-    import.meta.resolve = (specifier) => {
-        return new URL(specifier, import.meta.url).href;
-    };
-}
-
 const MESSAGES = JSON.parse(
     await fs.readFile(
         fileURLToPath(import.meta.resolve("../../locales/en/messages.json")),
@@ -189,7 +175,7 @@ export const browser = {
         /**
          * Crée une notification.
          *
-         * @param {string} _id      L'identifiant de la notification.
+         * @param {string} [_id]    L'éventuel identifiant de la notification.
          * @param {Object} _options Les options de la notification.
          * @returns {Promise<string>} Une promesse contenant l'identifiant de
          *                            la notification.
@@ -238,7 +224,10 @@ export const browser = {
          *                             permissions ; sinon <code>false</code>.
          */
         remove({ origins = [], permissions = [] }) {
-            const changes = { origins: [], permissions: [] };
+            const changes = {
+                origins: /** @type {string[]} */ ([]),
+                permissions: /** @type {string[]} */ ([]),
+            };
             for (const origin of origins) {
                 const deleted = data.permissions.data.origins.delete(origin);
                 if (deleted) {

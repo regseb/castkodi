@@ -14,7 +14,3 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
-          package-name: castkodi
-          # Définir les extra-files dans le fichier release-please-config.json,
-          # car le type et le jsonpath ne sont pas configurables en YAML.
-          # https://github.com/google-github-actions/release-please-action/issues/797

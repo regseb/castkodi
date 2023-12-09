@@ -37,6 +37,7 @@ export default {
         "require-repository-directory": "off",
         "require-repository": "error",
         "require-scripts": "error",
+        "require-type": "error",
         "require-types": "off",
         "require-typings": "off",
         "require-version": "error",
@@ -65,6 +66,7 @@ export default {
         "private-type": "error",
         "repository-type": "error",
         "scripts-type": "error",
+        "type-type": "error",
         "version-type": "error",
 
         // Valid value rules.
@@ -74,6 +76,7 @@ export default {
         "valid-values-name-scope": "off",
         "valid-values-private": "off",
         "valid-values-publishConfig": "off",
+        "valid-values-type": ["error", ["module"]],
 
         // Dependency rules.
         "no-repeated-dependencies": "error",
