@@ -41,7 +41,7 @@
     "clean": "node .script/clean.js"
   },
   "dependencies": {
-    "linkedom": "0.16.4"
+    "linkedom": "0.16.8"
   },
   "devDependencies": {
     "@prantlf/jsonlint": "14.0.3",
