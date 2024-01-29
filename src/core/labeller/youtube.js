@@ -19,7 +19,9 @@ const actionVideo = async function (url) {
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
         return (
-            doc.querySelector('meta[property="og:title"]')?.content ??
+            /** @type {HTMLMetaElement|null} */ (
+                doc.querySelector('meta[property="og:title"]')
+            )?.content ??
             browser.i18n.getMessage("labeller_youtube_unavailable")
         );
     }

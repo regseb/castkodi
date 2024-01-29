@@ -72,4 +72,6 @@ export default {
     "link-image-reference-definitions": true,
     // eslint-disable-next-line camelcase
     "link-image-style": { shortcut: false, url_inline: false },
+    "table-pipe-style": { style: "leading_and_trailing" },
+    "table-column-count": true,
 };

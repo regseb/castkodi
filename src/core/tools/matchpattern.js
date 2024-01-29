@@ -38,8 +38,8 @@ export const compile = function (pattern) {
 /**
  * Ajoute un filtre sur l'URL en paramètre d'une fonction.
  *
- * @param {Function} func     La fonction qui sera filtrée.
- * @param {string[]} patterns Les modèles de correspondance pour filtrer l'URL.
+ * @param {Function}  func     La fonction qui sera filtrée.
+ * @param {...string} patterns Les modèles de correspondance pour filtrer l'URL.
  * @returns {Function} La fonction filtrée.
  * @see https://developer.mozilla.org/Add-ons/WebExtensions/Match_patterns
  */
@@ -49,8 +49,8 @@ export const matchPattern = function (func, ...patterns) {
     /**
      * Enrobe la fonction avec un filtre.
      *
-     * @param {URL}   url    L'URL qui sera filtrée.
-     * @param {any[]} others Les autres paramètres.
+     * @param {URL}    url    L'URL qui sera filtrée.
+     * @param {...any} others Les autres paramètres.
      * @returns {Promise<any|undefined>} Une promesse contenant le retour de la
      *                                   fonction ; ou <code>undefined</code> si
      *                                   l'URL ne respecte pas un des modèles de

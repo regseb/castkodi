@@ -246,5 +246,34 @@ describe("core/scraper/ldjson.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
+
+        it("should ignore incomplete node", async function () {
+            const url = new URL("http://foo.com");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `
+                    <html><body>
+                      <script type="application/ld+json">${JSON.stringify({
+                          "@context": "http://schema.org/",
+                          // Le nœud MusicVideoObject devrait avoir un
+                          // "contentUrl" ou un "embedUrl".
+                          "@type": "MusicVideoObject",
+                          clip: {
+                              "@type": "VideoObject",
+                              contentUrl: "https://bar.com/baz.mp4",
+                          },
+                      })}</script>
+                    </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+            const context = { depth: false };
+
+            const file = await scraper.extract(url, metadata, context);
+            assert.equal(file, "https://bar.com/baz.mp4");
+        });
     });
 });
