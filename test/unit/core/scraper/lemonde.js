@@ -207,13 +207,20 @@ describe("core/scraper/lemonde.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
                     `<html><body>
-                       <script id="SIGI_STATE">${JSON.stringify({
-                           AppContext: {},
-                           ItemModule: [
-                               {
-                                   video: { playAddr: "http://foo.io/bar.mp4" },
+                       <script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"
+                       >${JSON.stringify({
+                           __DEFAULT_SCOPE__: {
+                               "webapp.video-detail": {
+                                   itemInfo: {
+                                       itemStruct: {
+                                           video: {
+                                               playAddr:
+                                                   "http://foo.io/bar.mp4",
+                                           },
+                                       },
+                                   },
                                },
-                           ],
+                           },
                        })}</script>
                      </body></html>`,
                     { headers: { "Content-Type": "text/html" } },

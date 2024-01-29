@@ -20,14 +20,15 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, metadata) {
     const doc = await metadata.html();
-    const script = doc.querySelector("script#SIGI_STATE");
+    const script = doc.querySelector(
+        "script#__UNIVERSAL_DATA_FOR_REHYDRATION__",
+    );
     if (null === script) {
         return undefined;
     }
 
     const json = JSON.parse(script.text);
-    return "ItemModule" in json
-        ? Object.values(json.ItemModule)[0].video.playAddr
-        : undefined;
+    return json["__DEFAULT_SCOPE__"]["webapp.video-detail"]?.itemInfo.itemStruct
+        .video.playAddr;
 };
 export const extract = matchPattern(action, "*://www.tiktok.com/*");
