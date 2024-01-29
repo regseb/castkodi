@@ -40,10 +40,11 @@ describe("Scraper: Ouest-France", function () {
 
         const file = await extract(url, context);
         assert.ok(
-            file?.endsWith(
-                "/cd/be/cdbeda603ae5805ab0561403d5e1afabcd685162.mp4",
-            ),
-            `"${file}"?.endsWith(...)`,
+            undefined !== file &&
+                new URL(file).pathname.endsWith(
+                    "/cd/be/cdbeda603ae5805ab0561403d5e1afabcd685162.mp4",
+                ),
+            `new URL(${file}).pathname.endsWith(...)`,
         );
     });
 
@@ -60,10 +61,11 @@ describe("Scraper: Ouest-France", function () {
 
             const file = await extract(url, context);
             assert.ok(
-                file?.endsWith(
-                    "/d7/5d/d75df81c7abb517d514bff22ab74816fa86a3850.mp4",
-                ),
-                `"${file}"?.endsWith(...)`,
+                undefined !== file &&
+                    new URL(file).pathname.endsWith(
+                        "/d7/5d/d75df81c7abb517d514bff22ab74816fa86a3850.mp4",
+                    ),
+                `new URL(${file}).pathname.endsWith(...)`,
             );
         },
     );
