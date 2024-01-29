@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.5.1](https://github.com/regseb/castkodi/compare/v7.5.0...v7.5.1) (2024-01-29)
+
+
+### Bug Fixes
+
+* Actualiser le scraper de Melty. ([f425f6a](https://github.com/regseb/castkodi/commit/f425f6af271feb2322793fd76a6e89e74db3f21a))
+* Actualiser le scraper de TikTok. ([80b0556](https://github.com/regseb/castkodi/commit/80b0556b7bf9437482eb29c7a398c6d77a88167f))
+* Playlist YouTube "Mix". ([9bee8b7](https://github.com/regseb/castkodi/commit/9bee8b7211145321518603a310012d074bab2ac5))
+* Translations update from Hosted Weblate ([#118](https://github.com/regseb/castkodi/issues/118)) ([13459e0](https://github.com/regseb/castkodi/commit/13459e066b9649da30b183df2fafbc81278e2a62))
+
 ## [7.5.0](https://github.com/regseb/castkodi/compare/v7.4.1...v7.5.0) (2023-12-09)
 
 ### Features
