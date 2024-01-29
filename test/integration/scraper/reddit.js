@@ -6,6 +6,7 @@
 
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
+import { config } from "../config.js";
 
 describe("Scraper: Reddit", function () {
     before(function () {
