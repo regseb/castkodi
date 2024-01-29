@@ -219,16 +219,6 @@ dialog {
     scrollbar-width: thin;
     width: 100vw;
 }
-/* Utiliser des pseudo-éléments spécifiques, car la propriété scrollbar-width
-   n'est pas implémentée dans Chromium. https://crbug.com/891944 */
-#playlist-items::-webkit-scrollbar {
-    background-color: black;
-    width: 5px;
-}
-#playlist-items::-webkit-scrollbar-thumb {
-    background-color: var(--range-track-background-color);
-    border-radius: 2.5px;
-}
 
 #playlist-items ol {
     display: flex;

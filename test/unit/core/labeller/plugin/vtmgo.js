@@ -28,11 +28,11 @@ describe("core/labeller/plugin/vtmgo.js", function () {
             ]);
         });
 
-        it("should return label in Firefox", async function () {
+        it("should return label in Chromium", async function () {
             const fake = sinon.fake.resolves("foo");
 
-            // Simuler un mauvais découpage d'une URL par Firefox.
-            // https://bugzil.la/1374505
+            // Simuler un mauvais découpage d'une URL par Chromium.
+            // https://crbug.com/1416006
             const url = {
                 href: "plugin://plugin.video.vtm.go/play/catalog/episodes/bar",
                 pathname: "//plugin.video.vtm.go/play/catalog/episodes/bar",
@@ -69,11 +69,11 @@ describe("core/labeller/plugin/vtmgo.js", function () {
             ]);
         });
 
-        it("should return label in Firefox", async function () {
+        it("should return label in Chromium", async function () {
             const fake = sinon.fake.resolves("foo");
 
-            // Simuler un mauvais découpage d'une URL par Firefox.
-            // https://bugzil.la/1374505
+            // Simuler un mauvais découpage d'une URL par Chromium.
+            // https://crbug.com/1416006
             const url = {
                 href: "plugin://plugin.video.vtm.go/play/catalog/movies/bar",
                 pathname: "//plugin.video.vtm.go/play/catalog/movies/bar",

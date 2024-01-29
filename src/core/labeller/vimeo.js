@@ -16,6 +16,8 @@ const action = async function (url) {
     const response = await fetch(url);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
-    return doc.querySelector('meta[property="og:title"]').content;
+    return /** @type {HTMLMetaElement} */ (
+        doc.querySelector('meta[property="og:title"]')
+    ).content;
 };
 export const extract = matchPattern(action, "*://vimeo.com/*");
