@@ -72,8 +72,6 @@ cloné](https://docs.github.com/get-started/quickstart/fork-a-repo) Cast Kodi,
 exécutez `npm ci` pour télécharger les dépendances. Voici d'autres
 commandes utiles :
 
-- `npm run switch:chromium` : basculer sur le `manifest.json` pour Chromium ;
-- `npm run switch:firefox` : basculer sur le `manifest.json` pour Firefox ;
 - `npm run lint` : faire une analyse statique des fichiers ;
 - `npm test` : lancer les tests (avec [Mocha](https://mochajs.org/)) ;
 - `npm run start:chromium` : déployer l'extension dans Chromium ;
