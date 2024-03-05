@@ -40,8 +40,6 @@ import * as lemonde from "./scraper/lemonde.js";
 import * as lepoint from "./scraper/lepoint.js";
 import * as media from "./scraper/media.js";
 import * as megaphone from "./scraper/megaphone.js";
-// eslint-disable-next-line import/no-cycle
-import * as melty from "./scraper/melty.js";
 import * as mixcloud from "./scraper/mixcloud.js";
 import * as noscript from "./scraper/noscript.js";
 // eslint-disable-next-line import/no-cycle
@@ -113,7 +111,6 @@ const SCRAPERS = [
     lemonde,
     lepoint,
     megaphone,
-    melty,
     mixcloud,
     ouestfrance,
     peertube,

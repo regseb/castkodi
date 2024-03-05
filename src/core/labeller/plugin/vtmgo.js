@@ -18,8 +18,8 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *                                      <code>undefined</code>.
  */
 const actionEpisode = function ({ pathname }, { metaExtract }) {
-    // Enlever le nom de domaine, car un bogue dans Firefox le déplace dans le
-    // chemin. https://bugzil.la/1374505
+    // Enlever le nom de domaine, car un bogue dans Chromium le déplace dans le
+    // chemin. https://crbug.com/1416006
     const episodeId = pathname.replace("//plugin.video.vtm.go", "").slice(23);
     return metaExtract(new URL(`https://vtm.be/vtmgo/afspelen/e${episodeId}`));
 };
@@ -39,8 +39,8 @@ export const extractEpisode = matchPattern(
  *                                      <code>undefined</code>.
  */
 const actionMovie = function ({ pathname }, { metaExtract }) {
-    // Enlever le nom de domaine, car un bogue dans Firefox le déplace dans le
-    // chemin. https://bugzil.la/1374505
+    // Enlever le nom de domaine, car un bogue dans Chromium le déplace dans le
+    // chemin. https://crbug.com/1416006
     const movieId = pathname.replace("//plugin.video.vtm.go", "").slice(21);
     return metaExtract(new URL(`https://vtm.be/vtmgo/afspelen/m${movieId}`));
 };

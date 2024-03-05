@@ -86,7 +86,7 @@ describe("core/labeller/youtube.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
                     `<html><head>
-                       <meta property="og:title" content="null" />
+                       <meta property="og:title" content="undefined" />
                      </head></html>`,
                 ),
             );

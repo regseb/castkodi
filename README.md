@@ -66,14 +66,12 @@ dans la page _Paramètres_ / _Infos sur le système_ / _Résumé_.
 ## Contribuer
 
 [Node.js et
-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) sont
+npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) sont
 nécessaires pour contribuer au projet. Après avoir [forké et
-cloné](https://docs.github.com/get-started/quickstart/fork-a-repo) Cast Kodi,
-exécutez `npm ci` pour télécharger les dépendances. Voici d'autres
+cloné](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
+Cast Kodi, exécutez `npm ci` pour télécharger les dépendances. Voici d'autres
 commandes utiles :
 
-- `npm run switch:chromium` : basculer sur le `manifest.json` pour Chromium ;
-- `npm run switch:firefox` : basculer sur le `manifest.json` pour Firefox ;
 - `npm run lint` : faire une analyse statique des fichiers ;
 - `npm test` : lancer les tests (avec [Mocha](https://mochajs.org/)) ;
 - `npm run start:chromium` : déployer l'extension dans Chromium ;

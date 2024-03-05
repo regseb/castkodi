@@ -7,10 +7,9 @@
 export default {
     patterns: [
         "**",
-        // Ignorer les répertoires et les fichiers générés.
+        // Ignorer les répertoires générés.
         "!/.git/**",
         "!/.stryker/**",
-        "!/CHANGELOG.md",
         "!/jsdocs/**",
         "!/node_modules/**",
         "!/src/polyfill/lib/**",
@@ -27,7 +26,7 @@ export default {
     ],
     checkers: [
         {
-            patterns: ["/build/firefox/*.zip", "/src/"],
+            patterns: ["/build/*.zip", "/src/"],
             linters: "addons-linter",
         },
         {
@@ -79,6 +78,10 @@ export default {
         {
             patterns: "*.md",
             linters: ["prettier", "markdownlint"],
+            overrides: {
+                patterns: "/CHANGELOG.md",
+                linters: "markdownlint_changelog",
+            },
         },
         {
             patterns: "*.json",

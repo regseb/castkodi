@@ -29,10 +29,11 @@ describe("Scraper: 20 Minutes", function () {
 
         const file = await extract(url, context);
         assert.ok(
-            file?.endsWith(
-                "/59/6b/596b282e57e592e47df9a6f0434f3281f82b79df.mp4",
-            ),
-            `"${file}"?.endsWith(...)`,
+            undefined !== file &&
+                new URL(file).pathname.endsWith(
+                    "/59/6b/596b282e57e592e47df9a6f0434f3281f82b79df.mp4",
+                ),
+            `"new URL(${file}).pathname.endsWith(...)`,
         );
     });
 });

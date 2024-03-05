@@ -12,5 +12,48 @@ jobs:
     steps:
       - name: Run Release Please
         uses: google-github-actions/release-please-action@v4
+        id: release
         with:
-          release-type: node
+          config-file: .release-please/config.json
+          manifest-file: .release-please/manifest.json
+
+      # Formatter les fichiers modifiés par release-please, car ils ne
+      # respectent plus le formatage de Prettier (via Metalint).
+      # https://github.com/googleapis/release-please/issues/1802
+      - name: Checkout repository
+        if: ${{ steps.release.outputs.pr }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ fromJson(steps.release.outputs.pr).headBranchName }}
+
+      - name: Configure Git user
+        if: ${{ steps.release.outputs.pr }}
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Setup Node.js
+        if: ${{ steps.release.outputs.pr }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        if: ${{ steps.release.outputs.pr }}
+        run: npm ci
+
+      - name: Format files
+        if: ${{ steps.release.outputs.pr }}
+        run: >
+          npm run lint:fix --
+          .release-please/manifest.json
+          CHANGELOG.md
+          package.json
+          package-lock.json
+          src/manifest.json
+
+      - name: Commit and push
+        if: ${{ steps.release.outputs.pr }}
+        run: |
+          git commit --all --message 'chore: format files'
+          git push

@@ -58,24 +58,22 @@ const plain = function (html) {
     return extract(doc).trim();
 };
 
+// Créer l'archive de l'extension.
+await webExt.cmd.build({
+    sourceDir: SOURCE_DIR,
+    artifactsDir: BUILD_DIR,
+    overwriteDest: true,
+});
+
+// Déplacer et générer les fichiers pour les textes dans les boutiques.
 for (const browser of ["chromium", "firefox"]) {
-    // Utiliser le manifest lié au navigateur.
-    await fs.cp(`src/manifest-${browser}.json`, "src/manifest.json");
+    const buildBrowserDir = path.join(BUILD_DIR, browser);
+    fs.mkdir(buildBrowserDir, { recursive: true });
 
-    const buildDir = path.join(BUILD_DIR, browser);
-
-    // Créer l'archive de l'extension.
-    await webExt.cmd.build({
-        sourceDir: SOURCE_DIR,
-        artifactsDir: buildDir,
-        overwriteDest: true,
-    });
-
-    // Déplacer et générer les fichiers pour les textes dans les boutiques.
     for (const lang of await fs.readdir(LOCALES_DIR)) {
         if ("chromium" === browser) {
             await fs.writeFile(
-                path.join(buildDir, `description-${lang}.txt`),
+                path.join(buildBrowserDir, `description-${lang}.txt`),
                 plain(
                     await fs.readFile(
                         path.join(LOCALES_DIR, lang, "description.tpl"),
@@ -86,12 +84,12 @@ for (const browser of ["chromium", "firefox"]) {
         } else if ("firefox" === browser) {
             await fs.cp(
                 path.join(LOCALES_DIR, lang, "summary.txt"),
-                path.join(buildDir, `summary-${lang}.txt`),
+                path.join(buildBrowserDir, `summary-${lang}.txt`),
             );
 
             await fs.cp(
                 path.join(LOCALES_DIR, lang, "description.tpl"),
-                path.join(buildDir, `description-${lang}.tpl`),
+                path.join(buildBrowserDir, `description-${lang}.tpl`),
             );
         }
     }

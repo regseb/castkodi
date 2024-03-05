@@ -1,9 +1,8 @@
-# Ignorer les répertoires et les fichiers générés.
+# Ignorer les répertoires générés.
 /.stryker/
 /build/
 /jsdocs/
 /node_modules/
-/src/manifest.json
 
 # Ignorer les fichiers de configuration de Visual Studio Code.
 /.vscode/

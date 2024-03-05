@@ -95,7 +95,7 @@ export const JSONRPC = class extends EventTarget {
                 JSON.stringify({
                     jsonrpc: "2.0",
                     method,
-                    ...(undefined === params ? {} : { params }),
+                    params,
                     id: this.#id,
                 }),
             );
