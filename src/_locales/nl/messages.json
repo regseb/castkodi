@@ -312,10 +312,10 @@
         "message": "Verwijderen"
     },
     "options_serverFix_title": {
-        "message": "Adres corrigeren"
+        "message": "Adres configureren"
     },
     "options_serverFix_alt": {
-        "message": "Corrigeren"
+        "message": "Repareer"
     },
     "options_generalTitle_textcontent": {
         "message": "Algemeen"
