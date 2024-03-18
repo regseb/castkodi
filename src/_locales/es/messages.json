@@ -273,7 +273,7 @@
         "message": "Conexión"
     },
     "options_serverIntro_textcontent": {
-        "message": "Para transmitir videos/música a Kodi, debes Permitir control remoto desde aplicaciones en otros equipos. Esta opción está en la página Ajustes / Servicios / Control en Kodi. Luego rellene abajo con la dirección de Kodi. Esta dirección IP está disponible en la página Ajustes / Información del sistema / Resumen."
+        "message": "Para conectar la extensión a Kodi, debes Permitir control remoto desde aplicaciones en otros equipos. Esta opción está en la página Ajustes / Servicios / Control en Kodi. También debes recuperar la Dirección IP de Kodi. Esta información se muestra en la página Ajustes / Información del sistema / Resumen. A continuación, introduzca esta dirección IP en el campo de abajo."
     },
     "options_serverModeSingle_textcontent": {
         "message": "Configurar un servidor"
