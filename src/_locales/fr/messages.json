@@ -273,7 +273,7 @@
         "message": "Connexion"
     },
     "options_serverIntro_textcontent": {
-        "message": "Pour envoyer des vidéos / musiques sur Kodi, vous devez Autoriser le contrôle à distance par des programmes sur d'autres systèmes. Ce réglage se fait dans Kodi à la page Paramètres / Services / Contrôle. Puis renseignez l'adresse de Kodi ci-dessous. Cette adresse IP est disponible dans la page Paramètres / Infos sur le système / Résumé."
+        "message": "Pour connecter l'extension à Kodi, vous devez Autoriser le contrôle à distance par des programmes sur d'autres systèmes. Ce réglage se fait dans Kodi à la page Paramètres / Services / Contrôle. Vous devez aussi récupérer l'Adresse IP de Kodi. Cette information est affichée dans la page Paramètres / Infos sur le système / Résumé. Puis renseignez cette adresse IP dans le champ ci-dessous."
     },
     "options_serverModeSingle_textcontent": {
         "message": "Configurer un seul serveur"

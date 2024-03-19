@@ -273,7 +273,7 @@
         "message": "Spojenie"
     },
     "options_serverIntro_textcontent": {
-        "message": "Aby ste mohli poslať videá/hudbu do Kodi, musíte najprv aplikáciam na iných systémoch povoliť diaľkové ovládanie. Táto voľba je v Kodi v sekcii Nastavenia / Servery / Ovládanie. Potom vyplňte adresu Kodi nižšie. Túto adresu nájdete v sekcii Nastavenia / Systémové informácie / Súhrn v Kodi."
+        "message": "Ak chcete rozšírenie pripojiť ku Kodi, musíte Povoliť diaľkové ovládanie z aplikácií v iných systémoch. Táto voľba je v Kodi v sekcii Nastavenia / Servery / Ovládanie. Musíte tiež načítať IP adresu Kodi. Táto informácia sa zobrazuje na stránke Nastavenia / Systémové informácie / Súhrn. Potom túto IP adresu zadajte do nižšie uvedeného poľa."
     },
     "options_serverModeSingle_textcontent": {
         "message": "Nastaviť jeden server"
