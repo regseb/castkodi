@@ -23,14 +23,7 @@ describe("core/scraper/radio.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <script id="__NEXT_DATA__">${JSON.stringify({
-                                   props: { pageProps: { data: {} } },
-                               })}</script>
-                               <script>
-                                 var require = {
-                                   'components/station/stationService': {}
-                                 };
-                               </script>
+                               <script>const bar = [1,"baz"];</script>
                              </body></html>`,
                             "text/html",
                         ),
@@ -47,38 +40,19 @@ describe("core/scraper/radio.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script id="__NEXT_DATA__">${JSON.stringify({
-                          props: {
-                              pageProps: {
-                                  data: {
-                                      broadcast: {
-                                          streams: [
-                                              {
-                                                  url:
-                                                      "https://bar.net" +
-                                                      "/baz.mp3",
-                                              },
-                                              {
-                                                  url:
-                                                      "https://qux.net" +
-                                                      "/quux.mp3",
-                                              },
-                                          ],
-                                      },
-                                  },
-                              },
-                          },
-                      })}</script>
-                    </body></html>`,
+                            `<html><body>
+                               <script></script>
+                               <script>
+                                 const bar = "[1,\\"streams\\":[{\\"url\\":\\"https://baz.net/qux.aac\\",2]";
+                               </script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
             };
 
             const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://bar.net/baz.mp3");
+            assert.equal(file, "https://baz.net/qux.aac");
         });
     });
 });

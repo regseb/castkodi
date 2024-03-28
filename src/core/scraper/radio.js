@@ -8,6 +8,13 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
+ * L'expression rationnelle pour extraire l'URL de la radio.
+ *
+ * @type {RegExp}
+ */
+const REGEXP = /,\\"streams\\":\[\{\\"url\\":\\"(?<url>.+?)\\",/u;
+
+/**
  * Extrait les informations nécessaires pour lire une radio sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une radio de Radio.
@@ -20,14 +27,19 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, metadata) {
     const doc = await metadata.html();
-    const script = doc.querySelector("script#__NEXT_DATA__");
-    const json = JSON.parse(script.text);
-    return json.props.pageProps.data.broadcast?.streams[0].url;
+    for (const script of doc.querySelectorAll("script:not([src])")) {
+        const result = REGEXP.exec(script.text);
+        if (null === result) {
+            continue;
+        }
+        return result.groups.url;
+    }
+    return undefined;
 };
 export const extract = matchPattern(
     action,
-    // Liste des noms de domaines récupérés sur la page
-    // https://www.radio.net/country-selector.
+    // Lister les noms de domaines (récupérés de la page
+    // https://www.radio.net/country-selector).
     "*://*.radio.net/s/*",
     "*://www.radio.dk/s/*",
     "*://www.radio.de/s/*",
