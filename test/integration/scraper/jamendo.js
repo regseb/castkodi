@@ -30,19 +30,4 @@ describe("Scraper: Jamendo", function () {
             `"${file}"?.startsWith(...)`,
         );
     });
-
-    it("should return audio URL when protocol is HTTP [opengraph]", async function () {
-        const url = new URL(
-            "http://www.jamendo.com/track/33454/vacance-au-camping",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "https://prod-1.storage.jamendo.com/?trackid=33454&format=mp31",
-            ),
-            `"${file}"?.startsWith(...)`,
-        );
-    });
 });

@@ -25,28 +25,28 @@ describe("Scraper: Vudeo", function () {
     });
 
     it("should return video URL", async function () {
-        const url = new URL("https://vudeo.co/jduhrrwxf6ro.html");
+        const url = new URL("https://vudeo.co/coyo0r55r5xj.html");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 file.endsWith(
-                    "/v.mp4|Referer=https://vudeo.co/jduhrrwxf6ro.html",
+                    "/v.mp4|Referer=https://vudeo.co/coyo0r55r5xj.html",
                 ),
             `"${file}".endsWith(...)`,
         );
     });
 
     it("should return video URL from embed", async function () {
-        const url = new URL("https://vudeo.co/embed-jduhrrwxf6ro.html");
+        const url = new URL("https://vudeo.co/embed-coyo0r55r5xj.html");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 file.endsWith(
-                    "/v.mp4|Referer=https://vudeo.co/embed-jduhrrwxf6ro.html",
+                    "/v.mp4|Referer=https://vudeo.co/embed-coyo0r55r5xj.html",
                 ),
             `"${file}".endsWith(...)`,
         );
