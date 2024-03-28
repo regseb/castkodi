@@ -18,9 +18,7 @@ describe("Scraper: France tv", function () {
 
     it("should return video URL", async function () {
         const url = new URL(
-            "https://www.france.tv/france-3/des-racines-et-des-ailes" +
-                "/2487199-sur-les-sentiers-du-littoral-du-cap-d-antibes-aux" +
-                "-calanques.html",
+            "https://www.france.tv/france-2/journal-20h00/5727696-edition-du-lundi-4-mars-2024.html",
         );
         const context = { depth: false, incognito: false };
 

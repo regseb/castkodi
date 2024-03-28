@@ -43,7 +43,7 @@ describe("core/scraper/francetv.js", function () {
                 .onFirstCall()
                 .resolves(
                     Response.json({
-                        video: { token: "https://foo.fr/" },
+                        video: { url: "https://foo.fr/" },
                     }),
                 )
                 .onSecondCall()
@@ -76,10 +76,13 @@ describe("core/scraper/francetv.js", function () {
 
             assert.equal(stub.callCount, 2);
             assert.deepEqual(stub.firstCall.args, [
-                "https://player.webservices.francetelevisions.fr/v1/videos" +
-                    "/123-abc?device_type=desktop&browser=firefox",
+                "https://k7.ftven.fr/videos/123-abc" +
+                    "?domain=www.france.tv&browser=chrome",
             ]);
-            assert.deepEqual(stub.secondCall.args, ["https://foo.fr/"]);
+            assert.deepEqual(stub.secondCall.args, [
+                "https://hdfauth.ftven.fr/esi/TA" +
+                    "?format=json&url=https%3A%2F%2Ffoo.fr%2F",
+            ]);
         });
     });
 });

@@ -15,13 +15,6 @@ import { matchPattern } from "../tools/matchpattern.js";
 const UUID_REGEXP = /"videoId":"(?<videoId>[-0-9a-f]+)"/u;
 
 /**
- * L'URL de l'API de France tv.
- *
- * @type {string}
- */
-const API_URL = "https://player.webservices.francetelevisions.fr/v1/videos/";
-
-/**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une page de France tv.
@@ -40,14 +33,16 @@ const action = async function (_url, metadata) {
             continue;
         }
 
-        const url =
-            API_URL +
-            result.groups.videoId +
-            "?device_type=desktop&browser=firefox";
+        let url =
+            `https://k7.ftven.fr/videos/${result.groups.videoId}` +
+            "?domain=www.france.tv&browser=chrome";
         let response = await fetch(url);
         let json = await response.json();
 
-        response = await fetch(json.video.token);
+        url =
+            "https://hdfauth.ftven.fr/esi/TA?format=json&url=" +
+            encodeURIComponent(json.video.url);
+        response = await fetch(url);
         json = await response.json();
         return json.url;
     }
