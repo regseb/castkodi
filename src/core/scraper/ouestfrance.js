@@ -36,11 +36,11 @@ const action = async function (url, metadata, context) {
         return undefined;
     }
 
-    for (const iframe of doc.querySelectorAll("iframe[data-embed-src]")) {
-        const file = await metaExtract(new URL(iframe.dataset.embedSrc, url), {
-            ...context,
-            depth: true,
-        });
+    for (const iframe of doc.querySelectorAll("iframe[data-ofiframe-src]")) {
+        const file = await metaExtract(
+            new URL(iframe.dataset.ofiframeSrc, url),
+            { ...context, depth: true },
+        );
         if (undefined !== file) {
             return file;
         }
