@@ -62,4 +62,26 @@ describe("core/plugin/youtube.js", function () {
             );
         });
     });
+
+    describe("generateClipUrl()", function () {
+        it("should return YouTube URL", function () {
+            const label = plugin.generateClipUrl("foo", false);
+            assert.equal(
+                label,
+                "plugin://plugin.video.youtube/uri2addon/" +
+                    "?uri=https%3A%2F%2Fwww.youtube.com%2Fclip%2Ffoo" +
+                    "&incognito=false",
+            );
+        });
+
+        it("should return YouTube URL with incognito", function () {
+            const label = plugin.generateClipUrl("foo", true);
+            assert.equal(
+                label,
+                "plugin://plugin.video.youtube/uri2addon/" +
+                    "?uri=https%3A%2F%2Fwww.youtube.com%2Fclip%2Ffoo" +
+                    "&incognito=true",
+            );
+        });
+    });
 });

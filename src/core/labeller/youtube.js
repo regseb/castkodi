@@ -56,3 +56,20 @@ export const extractPlaylist = matchPattern(
     actionPlaylist,
     "*://www.youtube.com/playlist*",
 );
+
+/**
+ * Extrait le titre d'un clip YouTube.
+ *
+ * @param {URL} url L'URL du clip YouTube.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre.
+ */
+const actionClip = async function (url) {
+    const response = await fetch(url);
+    const text = await response.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
+    return doc.querySelector('meta[property="og:title"]').content;
+};
+export const extractClip = matchPattern(
+    actionClip,
+    "*://www.youtube.com/clip/*",
+);

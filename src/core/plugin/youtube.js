@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
+const PLUGIN_URL = "plugin://plugin.video.youtube";
 
 /**
  * Génère l'URL d'une vidéo dans l'extension YouTube.
@@ -22,7 +22,7 @@ const PLUGIN_URL = "plugin://plugin.video.youtube/play/";
  */
 export const generateVideoUrl = function (videoId, incognito) {
     return (
-        `${PLUGIN_URL}?video_id=${videoId}` +
+        `${PLUGIN_URL}/play/?video_id=${videoId}` +
         `&incognito=${incognito.toString()}`
     );
 };
@@ -39,8 +39,24 @@ export const generateVideoUrl = function (videoId, incognito) {
 export const generatePlaylistUrl = async function (playlistId, incognito) {
     const config = await browser.storage.local.get(["youtube-order"]);
     return (
-        `${PLUGIN_URL}?playlist_id=${playlistId}` +
+        `${PLUGIN_URL}/play/?playlist_id=${playlistId}` +
         `&order=${config["youtube-order"]}&play=1` +
+        `&incognito=${incognito.toString()}`
+    );
+};
+
+/**
+ * Génère l'URL d'un clip dans l'extension YouTube.
+ *
+ * @param {string}  clipId    L'identifiant du clip YouTube.
+ * @param {boolean} incognito La marque indiquant s'il faut lire le clip en
+ *                            navigation privée.
+ * @returns {string} Le lien du <em>fichier</em>.
+ */
+export const generateClipUrl = function (clipId, incognito) {
+    return (
+        `${PLUGIN_URL}/uri2addon/?uri=` +
+        encodeURIComponent(`https://www.youtube.com/clip/${clipId}`) +
         `&incognito=${incognito.toString()}`
     );
 };

@@ -40,3 +40,23 @@ export const extract = matchPattern(
     action,
     "plugin://plugin.video.youtube/play/*",
 );
+
+/**
+ * Extrait le titre à partir d'une URL de YouTube.
+ *
+ * @param {URL}      url                 L'URL utilisant le plugin YouTube.
+ * @param {Object}   context             Le contexte du labellisateur.
+ * @param {Function} context.metaExtract La fonction parente pour extraire un
+ *                                       label.
+ * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
+ *                                      <code>undefined</code>.
+ */
+const actionUri = function ({ searchParams }, { metaExtract }) {
+    return searchParams.has("uri")
+        ? metaExtract(new URL(searchParams.get("uri")))
+        : Promise.resolve(undefined);
+};
+export const extractUri = matchPattern(
+    actionUri,
+    "plugin://plugin.video.youtube/uri2addon/*",
+);

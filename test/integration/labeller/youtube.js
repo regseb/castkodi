@@ -186,4 +186,27 @@ describe("Labeller: YouTube", function () {
             type: "unknown",
         });
     });
+
+    it("should return clip label", async function () {
+        const url = new URL(
+            "https://www.youtube.com/clip/UgkxI0KsdOZA-Pq3tUjucaib8b1tbixLMXhz",
+        );
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        const item = await complete({
+            file,
+            label: "",
+            position: 0,
+            title: "",
+            type: "unknown",
+        });
+        assert.deepEqual(item, {
+            file,
+            label: "✂️ zyw000",
+            position: 0,
+            title: "",
+            type: "unknown",
+        });
+    });
 });

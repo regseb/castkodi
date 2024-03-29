@@ -66,6 +66,30 @@ const dispatchPlaylist = async function (playlistId, { incognito }) {
 };
 
 /**
+ * Répartit un clip YouTube à un plugin de Kodi.
+ *
+ * @param {string}  clipId            L'identifiant du clip YouTube.
+ * @param {Object}  context           Le contexte du clip.
+ * @param {boolean} context.incognito La marque indiquant si l'utilisateur est
+ *                                    en navigation privée.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
+ */
+const dispatchClip = async function (clipId, { incognito }) {
+    const addons = new Set(await kodi.addons.getAddons("video"));
+    if (addons.has("plugin.video.youtube")) {
+        return youtubePlugin.generateClipUrl(clipId, incognito);
+    }
+    if (addons.has("plugin.video.sendtokodi")) {
+        return sendtokodiPlugin.generateUrl(
+            new URL(`https://www.youtube.com/clip/${clipId}`),
+        );
+    }
+    // Envoyer par défaut au plugin YouTube.
+    return youtubePlugin.generateClipUrl(clipId, incognito);
+};
+
+/**
  * Extrait les informations nécessaires pour lire une vidéo / playlist sur Kodi.
  *
  * @param {URL}      url               L'URL d'une vidéo / playlist YouTube (ou
@@ -158,7 +182,28 @@ export const extractEmbed = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaire pour lire une vidéo sur Kodi.
+ * Extrait les informations nécessaires pour lire un clip sur Kodi.
+ *
+ * @param {URL}      url               L'URL d'un clip YouTube.
+ * @param {Object}   _metadata         Les métadonnées de l'URL.
+ * @param {Function} _metadata.html    La fonction retournant la promesse
+ *                                     contenant le document HTML.
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
+ * @returns {Promise<string>} Une promesse contenant le lien du
+ *                            <em>fichier</em>.
+ */
+const actionClip = function ({ pathname }, _metadata, { incognito }) {
+    return dispatchClip(pathname.slice(6), { incognito });
+};
+export const extractClip = matchPattern(
+    actionClip,
+    "*://www.youtube.com/clip/*",
+);
+
+/**
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      url               L'URL minifiée d'une vidéo YouTube.
  * @param {Object}   _metadata         Les métadonnées de l'URL.

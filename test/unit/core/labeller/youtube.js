@@ -109,4 +109,26 @@ describe("core/labeller/youtube.js", function () {
             assert.equal(label, undefined);
         });
     });
+
+    describe("actionClip()", function () {
+        it("should return label", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                new Response(
+                    `<html><head>
+                       <meta property="og:title" content="foo" />
+                     </head></html>`,
+                ),
+            );
+
+            const url = new URL("https://www.youtube.com/clip/bar");
+
+            const label = await labeller.extractClip(url);
+            assert.equal(label, "foo");
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
+                new URL("https://www.youtube.com/clip/bar"),
+            ]);
+        });
+    });
 });

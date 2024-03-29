@@ -479,6 +479,73 @@ describe("core/scraper/youtube.js", function () {
         });
     });
 
+    describe("extractClip()", function () {
+        it("should return clip id", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+            const url = new URL("https://www.youtube.com/clip/foo");
+            const metadata = undefined;
+            const context = { incognito: true };
+
+            const file = await scraper.extractClip(url, metadata, context);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/uri2addon/" +
+                    "?uri=https%3A%2F%2Fwww.youtube.com%2Fclip%2Ffoo" +
+                    "&incognito=true",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return clip id to youtube", async function () {
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves([
+                    "plugin.video.sendtokodi",
+                    "plugin.video.tubed",
+                    "plugin.video.youtube",
+                ]);
+
+            const url = new URL("https://www.youtube.com/clip/foo");
+            const metadata = undefined;
+            const context = { incognito: false };
+
+            const file = await scraper.extractClip(url, metadata, context);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/uri2addon/" +
+                    "?uri=https%3A%2F%2Fwww.youtube.com%2Fclip%2Ffoo" +
+                    "&incognito=false",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return clip id to sendtokodi", async function () {
+            await browser.storage.local.set({ "youtube-order": "" });
+            const stub = sinon
+                .stub(kodi.addons, "getAddons")
+                .resolves(["plugin.video.sendtokodi"]);
+
+            const url = new URL("https://www.youtube.com/clip/foo");
+            const metadata = undefined;
+            const context = { incognito: false };
+
+            const file = await scraper.extractClip(url, metadata, context);
+            assert.equal(
+                file,
+                "plugin://plugin.video.sendtokodi/?" +
+                    "https://www.youtube.com/clip/foo",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+    });
+
     describe("extractMinify()", function () {
         it("should return video id", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);

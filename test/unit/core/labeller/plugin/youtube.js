@@ -54,4 +54,36 @@ describe("core/labeller/plugin/youtube.js", function () {
             assert.equal(fake.callCount, 0);
         });
     });
+
+    describe("extractUri()", function () {
+        it("should return label", async function () {
+            const fake = sinon.fake.resolves("foo");
+
+            const url = new URL(
+                "plugin://plugin.video.youtube/uri2addon/" +
+                    "?uri=https%3A%2F%2Fwww.youtube.com%2Fclip%2Fbar",
+            );
+
+            const label = await labeller.extractUri(url, { metaExtract: fake });
+            assert.equal(label, "foo");
+
+            assert.equal(fake.callCount, 1);
+            assert.deepEqual(fake.firstCall.args, [
+                new URL("https://www.youtube.com/clip/bar"),
+            ]);
+        });
+
+        it("should return undefined when there isn't 'uri' parameter", async function () {
+            const fake = sinon.fake.resolves("foo");
+
+            const url = new URL(
+                "plugin://plugin.video.youtube/uri2addon/?bar=baz",
+            );
+
+            const label = await labeller.extractUri(url, { metaExtract: fake });
+            assert.equal(label, undefined);
+
+            assert.equal(fake.callCount, 0);
+        });
+    });
 });
