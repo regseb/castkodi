@@ -13,7 +13,6 @@ import * as arte from "./scraper/arte.js";
 import * as arteradio from "./scraper/arteradio.js";
 import * as ausha from "./scraper/ausha.js";
 import * as bigo from "./scraper/bigo.js";
-import * as blogtalkradio from "./scraper/blogtalkradio.js";
 import * as castbox from "./scraper/castbox.js";
 import * as dailymotion from "./scraper/dailymotion.js";
 import * as dmax from "./scraper/dmax.js";
@@ -41,6 +40,7 @@ import * as lemonde from "./scraper/lemonde.js";
 import * as lepoint from "./scraper/lepoint.js";
 import * as media from "./scraper/media.js";
 import * as megaphone from "./scraper/megaphone.js";
+import * as microdata from "./scraper/microdata.js";
 import * as mixcloud from "./scraper/mixcloud.js";
 import * as noscript from "./scraper/noscript.js";
 // eslint-disable-next-line import/no-cycle
@@ -96,7 +96,6 @@ const SCRAPERS = [
     arteradio,
     ausha,
     bigo,
-    blogtalkradio,
     castbox,
     dailymotion,
     dmax,
@@ -143,6 +142,7 @@ const SCRAPERS = [
     // Utiliser les extracteurs génériques en dernier recours.
     media,
     ldjson,
+    microdata,
     opengraph,
     iframe,
     embed,
