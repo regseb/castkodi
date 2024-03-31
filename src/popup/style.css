@@ -55,11 +55,11 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"] ~ img:last-of-type,
-input[type="checkbox"]:checked ~ img:first-of-type {
+input[type="checkbox"]:checked:not(:disabled) ~ img:first-of-type {
     display: none;
 }
 input[type="checkbox"] ~ img:first-of-type,
-input[type="checkbox"]:checked ~ img:last-of-type {
+input[type="checkbox"]:checked:not(:disabled) ~ img:last-of-type {
     display: inline-block;
 }
 
