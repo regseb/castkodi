@@ -18,8 +18,9 @@ input[type="text"] {
     width: 100%;
 }
 input[type="text"]:invalid {
-    /* Ajouter du rembourrage à droite pour y mettre l'icône d'erreur. */
+    /* Ajouter du rembourrage à droite pour y mettre une icône. */
     padding-right: 32px;
+    width: 100%;
 }
 input[name^="address_"] {
     background-image: url("/design/icon/loading-gray.svg");
@@ -129,10 +130,24 @@ td button {
     flex-direction: column;
 }
 
+#menu-contexts {
+    container-type: inline-size;
+}
 #menu-contexts div {
     display: grid;
     grid-template-columns: repeat(auto-fill, 150px);
     max-width: 450px;
+}
+@container (width < 450px) {
+    #menu-contexts div {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@container (width < 300px) {
+    #menu-contexts div {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 #youtube-playlist div {
