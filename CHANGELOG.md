@@ -1,5 +1,22 @@
 # Changelog
 
+## [7.6.0](https://github.com/regseb/castkodi/compare/v7.5.1...v7.6.0) (2024-03-31)
+
+### Features
+
+- Gérer les clips YouTube. ([d8277d6](https://github.com/regseb/castkodi/commit/d8277d6f085165c0bd77d2e83a36f3f53d6e954c))
+- Gérer les microdata. ([ccd4e56](https://github.com/regseb/castkodi/commit/ccd4e56bee185f8ebeb7570c3fdb880708d455d2))
+
+### Bug Fixes
+
+- Afficher correctement les options sur les petits écrans. ([97ed8c0](https://github.com/regseb/castkodi/commit/97ed8c0e4b16a5ef90849e14e1dda6e8f026642b))
+- Corriger le scraper de Castbox. ([ec4ea44](https://github.com/regseb/castkodi/commit/ec4ea44c7e2972fe08ce407d8c09e9857c7c47d2))
+- Corriger le scraper France tv. ([988d9c8](https://github.com/regseb/castkodi/commit/988d9c87d401809a57ecd9f4f5fab583b477db04))
+- Corriger le scraper Ouest-France. ([be24a33](https://github.com/regseb/castkodi/commit/be24a33f79cdfe27946e0e98fb5db411555c712f))
+- Corriger le scraper Radio. ([dd5bbf9](https://github.com/regseb/castkodi/commit/dd5bbf97bcc648e92d3d53e9680de7bec82683ca))
+- Corriger les checkboxes actives et verrouillées. ([2bf00ba](https://github.com/regseb/castkodi/commit/2bf00bab3c21f8f293a2ef5614cf7860a1dd227e))
+- Enlever le support de Pokémon TV. ([7af313b](https://github.com/regseb/castkodi/commit/7af313b930e0351bfb44255388ac2d650ae87693))
+
 ## [7.5.1](https://github.com/regseb/castkodi/compare/v7.5.0...v7.5.1) (2024-01-29)
 
 ### Bug Fixes
