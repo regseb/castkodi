@@ -1,7 +1,5 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-
 ## [7.5.1](https://github.com/regseb/castkodi/compare/v7.5.0...v7.5.1) (2024-01-29)
 
 ### Bug Fixes

@@ -4,6 +4,9 @@
  * @author Sébastien Règne
  */
 
+/**
+ * @type {import("eslint").Linter.Config}
+ */
 export default {
     rules: {
         // Plugin eslint-plugin-unicorn.

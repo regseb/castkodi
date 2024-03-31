@@ -92,16 +92,21 @@ export const browser = {
          * Crée un élément dans le menu contextuel.
          *
          * @param {Object} item Les données de l'élément.
+         * @returns {number|string} L'identifiant de l'élément.
          */
         create(item) {
             data.contextMenus.push(item);
+            return item.id;
         },
 
         /**
          * Enlève tous les éléments du menu contextuel.
+         *
+         * @returns {Promise<void>} Une promesse vide.
          */
         removeAll() {
             data.contextMenus.length = 0;
+            return Promise.resolve();
         },
     },
 
@@ -119,16 +124,11 @@ export const browser = {
          * Ajoute une page dans l'historique.
          *
          * @param {Object} details Les données de la page.
+         * @returns {Promise<void>} Une promesse vide.
          */
         addUrl(details) {
             data.histories.push(details);
-        },
-
-        /**
-         * Supprime toutes les pages de l'historique.
-         */
-        deleteAll() {
-            data.histories.length = 0;
+            return Promise.resolve();
         },
 
         /**
@@ -260,7 +260,7 @@ export const browser = {
          *                                             l'hôte.
          * @param {string[]} [permissions.permissions] Les permissions d'API.
          * @returns {Promise<boolean>} Une promesse contenant
-         *                             <code>true</code>0.
+         *                             <code>true</code>.
          */
         request({ origins = [], permissions = [] }) {
             for (const origin of origins) {

@@ -112,7 +112,6 @@ describe("core/jsonrpc/application.js", function () {
                     // Utiliser un espace de 11 caractères pour avoir la même
                     // longueur que le mot "Application".
                     method: "12345678901.OnVolumeChanged",
-                    // eslint-disable-next-line unicorn/no-null
                     params: { data: null },
                 }),
             );

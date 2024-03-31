@@ -20,15 +20,15 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatchLive = async function (channelName) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
-        return await twitchPlugin.generateLiveUrl(channelName);
+        return twitchPlugin.generateLiveUrl(channelName);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return await sendtokodiPlugin.generateUrl(
+        return sendtokodiPlugin.generateUrl(
             new URL(`https://www.twitch.com/${channelName}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
-    return await twitchPlugin.generateLiveUrl(channelName);
+    return twitchPlugin.generateLiveUrl(channelName);
 };
 
 /**
@@ -41,15 +41,15 @@ const dispatchLive = async function (channelName) {
 const dispatchVideo = async function (videoId) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
-        return await twitchPlugin.generateVideoUrl(videoId);
+        return twitchPlugin.generateVideoUrl(videoId);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return await sendtokodiPlugin.generateUrl(
+        return sendtokodiPlugin.generateUrl(
             new URL(`https://www.twitch.com/videos/${videoId}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
-    return await twitchPlugin.generateVideoUrl(videoId);
+    return twitchPlugin.generateVideoUrl(videoId);
 };
 
 /**
@@ -62,15 +62,15 @@ const dispatchVideo = async function (videoId) {
 const dispatchClip = async function (clipId) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
-        return await twitchPlugin.generateClipUrl(clipId);
+        return twitchPlugin.generateClipUrl(clipId);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return await sendtokodiPlugin.generateUrl(
+        return sendtokodiPlugin.generateUrl(
             new URL(`https://www.twitch.com/clip/${clipId}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
-    return await twitchPlugin.generateClipUrl(clipId);
+    return twitchPlugin.generateClipUrl(clipId);
 };
 
 /**
@@ -93,7 +93,7 @@ export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
 
 /**
  * Extrait les informations nécessaires pour lire un <em>live</em> ou une vidéo
- * intégré sur Kodi.
+ * intégrée sur Kodi.
  *
  * @param {URL} url L'URL d'un <em>live</em> ou d'une vidéo intégré.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du

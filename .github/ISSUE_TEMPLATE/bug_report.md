@@ -28,10 +28,10 @@ Steps to reproduce the behavior:
 
 ### Environment
 
-- Cast Kodi version<!-- e.g. 7.5.1 -->:
-- Browser version<!-- e.g. Chrome 121.0.6167.85, Firefox 122.0 -->:
-- Kodi version<!-- e.g. 20.2 -->:
-- Kodi add-on version (if appropriate)<!-- e.g. YouTube 7.0.2.2 -->:
+- Cast Kodi version<!-- e.g. 7.6.0 -->:
+- Browser version<!-- e.g. Chrome 123.0.6312.86, Firefox 124.0 -->:
+- Kodi version<!-- e.g. 20.3 -->:
+- Kodi add-on version (if appropriate)<!-- e.g. YouTube 7.0.3.2 -->:
 
 ### Additional context
 

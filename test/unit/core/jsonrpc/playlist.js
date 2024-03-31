@@ -257,7 +257,6 @@ describe("core/jsonrpc/playlist.js", function () {
                     // Utiliser un espace de 9 caractères pour avoir la même
                     // longueur que le mot "Playlist".
                     method: "123456789.OnAdd",
-                    // eslint-disable-next-line unicorn/no-null
                     params: { data: null },
                 }),
             );

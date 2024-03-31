@@ -2,7 +2,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "castkodi@regseb.github.io",
-      "strict_min_version": "122.0"
+      "strict_min_version": "124.0"
     }
   },
   "manifest_version": 3,
@@ -45,7 +45,7 @@
   "homepage_url": "https://github.com/regseb/castkodi",
   "host_permissions": ["<all_urls>"],
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuCQFiB1W7Ezlz7s+wEURQkCPdOA8LHSM0mRNXUvSG2wpQXUO5c8Svwi2CTny2ryE79lGrIZv6SN/KYd9Zw/5SoPfYFqVXawN+JB1jUbRXARWCL2B8AJAFvZYzOoRxmojJvuXoth4gN+XfJ5Ua6fqtwis2nDiiich6dNcg9RpZ4MRVCjSDRrcNCYoO9jv5qvNhdA69QMeofp7KlCpGMzoZ3LWvu3RlQkbgNO8DkufSBQCBO6bgP74/bjhI0VNacUXNGznGRKl32h7MFrCz1T061/n2EUKdgMjznJLWSVUJ6qmYO7RfxYckRFlHTZCNYB/2miSspR0mLJgKNca9kTUhwIDAQAB",
-  "minimum_chrome_version": "121",
+  "minimum_chrome_version": "123",
   "optional_permissions": ["bookmarks", "clipboardRead", "history"],
   "options_ui": {
     "page": "options/index.html"

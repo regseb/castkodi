@@ -20,13 +20,13 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (url) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vrt.nu")) {
-        return await vrtnuPlugin.generateUrl(url);
+        return vrtnuPlugin.generateUrl(url);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return await sendtokodiPlugin.generateUrl(url);
+        return sendtokodiPlugin.generateUrl(url);
     }
     // Envoyer par défaut au plugin VRT NU.
-    return await vrtnuPlugin.generateUrl(url);
+    return vrtnuPlugin.generateUrl(url);
 };
 
 /**

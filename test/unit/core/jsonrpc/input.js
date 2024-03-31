@@ -210,7 +210,6 @@ describe("core/jsonrpc/input.js", function () {
                     // Utiliser un espace de 5 caractères pour avoir la même
                     // longueur que le mot "Input".
                     method: "12345.OnInputRequested",
-                    // eslint-disable-next-line unicorn/no-null
                     params: { data: null },
                 }),
             );

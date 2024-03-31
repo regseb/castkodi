@@ -83,7 +83,7 @@ export const Kodi = class {
      *
      * @param {string} address L'adresse IP ou l'adresse complète du service de
      *                         Kodi.
-     * @returns {Promise<string|undefined>} Une promesse contenant un adresse
+     * @returns {Promise<string|undefined>} Une promesse contenant une adresse
      *                                      alternative valide ; ou
      *                                      <code>undefined</code> si aucune
      *                                      adresse alternative a été trouvée.
@@ -105,7 +105,7 @@ export const Kodi = class {
     /**
      * Construit une URL vers le service de Kodi.
      *
-     * @param {string} address L'adresse IP ou l'adresse complête du service de
+     * @param {string} address L'adresse IP ou l'adresse complète du service de
      *                         Kodi.
      * @returns {URL} L'URL vers le service de Kodi.
      * @throws {PebkacError} Si l'adresse du service de Kodi est invalide.

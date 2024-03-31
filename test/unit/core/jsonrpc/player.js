@@ -361,7 +361,6 @@ describe("core/jsonrpc/player.js", function () {
                     // Utiliser un espace de 6 caractères pour avoir la même
                     // longueur que le mot "Player".
                     method: "123456.OnAVStart",
-                    // eslint-disable-next-line unicorn/no-null
                     params: { data: null },
                 }),
             );

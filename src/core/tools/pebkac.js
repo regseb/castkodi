@@ -46,7 +46,7 @@ export const PebkacError = class extends Error {
             {
                 ...(undefined === options?.cause
                     ? {}
-                    : { cause: options?.cause }),
+                    : { cause: options.cause }),
             },
         );
         this.name = "PebkacError";

@@ -20,15 +20,15 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (path) {
     const addons = new Set(await kodi.addons.getAddons("audio", "video"));
     if (addons.has("plugin.audio.mixcloud")) {
-        return await mixcloudPlugin.generateUrl(path);
+        return mixcloudPlugin.generateUrl(path);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return await sendtokodiPlugin.generateUrl(
+        return sendtokodiPlugin.generateUrl(
             new URL(`https://www.mixcloud.com${path}`),
         );
     }
     // Envoyer par défaut au plugin Mixcloud.
-    return await mixcloudPlugin.generateUrl(path);
+    return mixcloudPlugin.generateUrl(path);
 };
 
 /**

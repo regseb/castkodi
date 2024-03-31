@@ -4,6 +4,9 @@
  * @author Sébastien Règne
  */
 
+/**
+ * @type {import("stylelint").Config}
+ */
 export default {
     plugins: ["stylelint-order"],
 

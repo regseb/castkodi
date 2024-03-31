@@ -138,7 +138,6 @@ describe("core/scraper/ldjson.js", function () {
                       <script type="application/ld+json">${JSON.stringify({
                           "@context": "https://schema.org",
                           "@type": "RadioEpisode",
-                          // eslint-disable-next-line unicorn/no-null
                           bar: null,
                           audio: {
                               "@type": "AudioObject",

@@ -66,14 +66,14 @@ await webExt.cmd.build({
 });
 
 // Déplacer et générer les fichiers pour les textes dans les boutiques.
-for (const browser of ["chromium", "firefox"]) {
-    const buildBrowserDir = path.join(BUILD_DIR, browser);
-    fs.mkdir(buildBrowserDir, { recursive: true });
+for (const store of ["chrome", "firefox"]) {
+    const buildStoreDir = path.join(BUILD_DIR, store);
+    await fs.mkdir(buildStoreDir, { recursive: true });
 
     for (const lang of await fs.readdir(LOCALES_DIR)) {
-        if ("chromium" === browser) {
+        if ("chrome" === store) {
             await fs.writeFile(
-                path.join(buildBrowserDir, `description-${lang}.txt`),
+                path.join(buildStoreDir, `description-${lang}.txt`),
                 plain(
                     await fs.readFile(
                         path.join(LOCALES_DIR, lang, "description.tpl"),
@@ -81,15 +81,15 @@ for (const browser of ["chromium", "firefox"]) {
                     ),
                 ),
             );
-        } else if ("firefox" === browser) {
+        } else if ("firefox" === store) {
             await fs.cp(
                 path.join(LOCALES_DIR, lang, "summary.txt"),
-                path.join(buildBrowserDir, `summary-${lang}.txt`),
+                path.join(buildStoreDir, `summary-${lang}.txt`),
             );
 
             await fs.cp(
                 path.join(LOCALES_DIR, lang, "description.tpl"),
-                path.join(buildBrowserDir, `description-${lang}.tpl`),
+                path.join(buildStoreDir, `description-${lang}.tpl`),
             );
         }
     }

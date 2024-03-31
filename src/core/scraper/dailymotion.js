@@ -20,15 +20,15 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (videoId) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.dailymotion_com")) {
-        return await dailymotionPlugin.generateUrl(videoId);
+        return dailymotionPlugin.generateUrl(videoId);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return await sendtokodiPlugin.generateUrl(
+        return sendtokodiPlugin.generateUrl(
             new URL(`https://www.dailymotion.com/video/${videoId}`),
         );
     }
     // Envoyer par défaut au plugin Dailymotion
-    return await dailymotionPlugin.generateUrl(videoId);
+    return dailymotionPlugin.generateUrl(videoId);
 };
 
 /**

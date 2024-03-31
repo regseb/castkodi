@@ -38,7 +38,7 @@ const action = async function (url, _metadata, context) {
     // qu'il essaie d'en extraire une vidéo ou une musique.
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.sendtokodi")) {
-        return await plugin.generateUrl(url);
+        return plugin.generateUrl(url);
     }
 
     return undefined;

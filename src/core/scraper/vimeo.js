@@ -22,10 +22,10 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (videoId, hash) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vimeo")) {
-        return await vimeoPlugin.generateUrl(videoId, hash);
+        return vimeoPlugin.generateUrl(videoId, hash);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return await sendtokodiPlugin.generateUrl(
+        return sendtokodiPlugin.generateUrl(
             new URL(
                 `https://vimeo.com/${videoId}` +
                     (undefined === hash ? "" : `/${hash}`),
@@ -33,7 +33,7 @@ const dispatch = async function (videoId, hash) {
         );
     }
     // Envoyer par défaut au plugin Vimeo.
-    return await vimeoPlugin.generateUrl(videoId, hash);
+    return vimeoPlugin.generateUrl(videoId, hash);
 };
 
 /**

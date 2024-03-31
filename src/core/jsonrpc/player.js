@@ -12,6 +12,15 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
+ * @typedef {Object} GlobalTime
+ * @property {number} hours        L'heure du temps.
+ * @property {number} minutes      La minute du temps.
+ * @property {number} seconds      La seconde du temps.
+ * @property {number} milliseconds La milliseconde du temps.
+ * @see https://kodi.wiki/view/JSON-RPC_API/v13#Global.Time
+ */
+
+/**
  * Les valeurs par défaut des propriétés de l'espace de nom <em>Player</em>.
  *
  * @type {Record<string, any>}
@@ -29,8 +38,8 @@ const DEFAULT_PROPERTIES = {
  * Convertit un horodatage vers un temps au format objet.
  *
  * @param {number} timestamp L'horodatage en secondes.
- * @returns {Object} Le temps au format objet contenant l'heure, les minutes,
- *                   les secondes et les millisecondes.
+ * @returns {GlobalTime} Le temps au format objet contenant l'heure,
+ *                       les minutes, les secondes et les millisecondes.
  */
 const toTime = function (timestamp) {
     return {
@@ -44,13 +53,8 @@ const toTime = function (timestamp) {
 /**
  * Convertit un temps au format objet vers un horodatage.
  *
- * @param {Object} time              Le temps au format objet contenant l'heure,
- *                                   les minutes, les secondes et les
- *                                   millisecondes.
- * @param {number} time.hours        L'heure du temps.
- * @param {number} time.minutes      La minute du temps.
- * @param {number} time.seconds      La seconde du temps.
- * @param {number} time.milliseconds La milliseconde du temps.
+ * @param {GlobalTime} time Le temps au format objet contenant l'heure, les
+ *                          minutes, les secondes et les millisecondes.
  * @returns {number} L'horodatage en secondes.
  */
 const toTimestamp = function (time) {
@@ -248,7 +252,8 @@ export const Player = class {
      */
     async handleNotification({ method, params: { data } }) {
         // Analyser seulement les notifications venant de l'espace Player, si
-        // des auditeurs sont présents et si elles viennent du lecteur de vidéo.
+        // des auditeurs sont présents et si elles viennent du lecteur des
+        // vidéos.
         if (
             !method.startsWith("Player.") ||
             0 === this.onPropertyChanged.length ||

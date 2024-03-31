@@ -4,6 +4,9 @@
  * @author Sébastien Règne
  */
 
+/**
+ * @type {import("eslint").Linter.Config}
+ */
 export default {
     rules: {
         // Suggestions.
@@ -88,5 +91,13 @@ export default {
         "n/prefer-global/url": "off",
         "n/prefer-promises/dns": "error",
         "n/prefer-promises/fs": "error",
+
+        // Plugin eslint-plugin-unicorn.
+        // Désactiver les règles suivantes, car elles s'appliquent seulement au
+        // DOM et sont donc inutiles dans les scripts Node.js.
+        "unicorn/prefer-dom-node-append": "off",
+        "unicorn/prefer-dom-node-dataset": "off",
+        "unicorn/prefer-dom-node-remove": "off",
+        "unicorn/prefer-dom-node-text-content": "off",
     },
 };

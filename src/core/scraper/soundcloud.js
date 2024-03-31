@@ -27,17 +27,17 @@ import { matchPattern } from "../tools/matchpattern.js";
 const dispatch = async function (url) {
     const addons = new Set(await kodi.addons.getAddons("audio", "video"));
     if (addons.has("plugin.audio.soundcloud")) {
-        return await soundcloudPlugin.generateUrl(url);
+        return soundcloudPlugin.generateUrl(url);
     }
     if (addons.has("plugin.video.sendtokodi")) {
-        return await sendtokodiPlugin.generateUrl(url);
+        return sendtokodiPlugin.generateUrl(url);
     }
     // Envoyer par défaut au plugin SoundCloud.
-    return await soundcloudPlugin.generateUrl(url);
+    return soundcloudPlugin.generateUrl(url);
 };
 
 /**
- * Extrait les informations nécessaire pour lire un son sur Kodi.
+ * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son SoundCloud.
  * @returns {Promise<string>} Une promesse contenant le lien du

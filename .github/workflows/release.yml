@@ -17,8 +17,9 @@ jobs:
           config-file: .release-please/config.json
           manifest-file: .release-please/manifest.json
 
-      # Formatter les fichiers modifiés par release-please, car ils ne
-      # respectent plus le formatage de Prettier (via Metalint).
+      # Si la PR (pull request) a été créée ou modifiée : formatter les fichiers
+      # modifiés par release-please, car ils ne respectent plus le formatage de
+      # Prettier (via Metalint).
       # https://github.com/googleapis/release-please/issues/1802
       - name: Checkout repository
         if: ${{ steps.release.outputs.pr }}
