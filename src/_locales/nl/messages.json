@@ -273,7 +273,7 @@
         "message": "Verbinding"
     },
     "options_serverIntro_textcontent": {
-        "message": "Om video's/muziek te sturen naar Kodi moet je \"Externe controle toestaan vanuit programma's van andere systemen\". Deze optie vind je in de \"Instellingen / Services / Controle\" pagina. Vul daar Kodi's adres in. Dit IP-adres staat op de \"Instellingen / Systeeminformatie / Overzicht\" pagina."
+        "message": "Om de extensie met Kodi te verbinden, moet je Externe controle toestaan vanuit programma's van andere systemen. Deze optie vind je in de Instellingen / Services / Controle pagina. Je moet ook het IP-adres van Kodi achterhalen. Deze informatie wordt weergegeven in Instellingen / Systeeminformatie / Overzicht pagina. Voer vervolgens dit IP-adres in het onderstaande veld in."
     },
     "options_serverModeSingle_textcontent": {
         "message": "Configureer een server"
@@ -312,10 +312,10 @@
         "message": "Verwijderen"
     },
     "options_serverFix_title": {
-        "message": "Adres corrigeren"
+        "message": "Repareer adres"
     },
     "options_serverFix_alt": {
-        "message": "Corrigeren"
+        "message": "Repareer"
     },
     "options_generalTitle_textcontent": {
         "message": "Algemeen"
