@@ -4,20 +4,20 @@
  * @author Sébastien Règne
  */
 
-import * as dailymotion from "./labeller/dailymotion.js";
-import * as pluginDailymotion from "./labeller/plugin/dailymotion.js";
-import * as pluginSendtokodi from "./labeller/plugin/sendtokodi.js";
-import * as pluginSoundcloud from "./labeller/plugin/soundcloud.js";
-import * as pluginTubed from "./labeller/plugin/tubed.js";
-import * as pluginTwitch from "./labeller/plugin/twitch.js";
-import * as pluginVimeo from "./labeller/plugin/vimeo.js";
-import * as pluginVtmgo from "./labeller/plugin/vtmgo.js";
-import * as pluginYoutube from "./labeller/plugin/youtube.js";
-import * as soundcloud from "./labeller/soundcloud.js";
-import * as twitch from "./labeller/twitch.js";
-import * as vimeo from "./labeller/vimeo.js";
-import * as vtmgo from "./labeller/vtmgo.js";
-import * as youtube from "./labeller/youtube.js";
+import * as dailymotion from "./labeler/dailymotion.js";
+import * as pluginDailymotion from "./labeler/plugin/dailymotion.js";
+import * as pluginSendtokodi from "./labeler/plugin/sendtokodi.js";
+import * as pluginSoundcloud from "./labeler/plugin/soundcloud.js";
+import * as pluginTubed from "./labeler/plugin/tubed.js";
+import * as pluginTwitch from "./labeler/plugin/twitch.js";
+import * as pluginVimeo from "./labeler/plugin/vimeo.js";
+import * as pluginVtmgo from "./labeler/plugin/vtmgo.js";
+import * as pluginYoutube from "./labeler/plugin/youtube.js";
+import * as soundcloud from "./labeler/soundcloud.js";
+import * as twitch from "./labeler/twitch.js";
+import * as vimeo from "./labeler/vimeo.js";
+import * as vtmgo from "./labeler/vtmgo.js";
+import * as youtube from "./labeler/youtube.js";
 import { strip } from "./tools/sanitizer.js";
 
 /**
@@ -26,7 +26,7 @@ import { strip } from "./tools/sanitizer.js";
  *
  * @type {Function[]}
  */
-const LABELLERS = [
+const LABELERS = [
     // Lister les labellisateurs des plugins (triées par ordre alphabétique).
     pluginDailymotion,
     pluginSendtokodi,
@@ -53,8 +53,8 @@ const LABELLERS = [
  *                                      <code>undefined</code>.
  */
 export const extract = async function (url) {
-    for (const labeller of LABELLERS) {
-        const label = await labeller(url, { metaExtract: extract });
+    for (const labeler of LABELERS) {
+        const label = await labeler(url, { metaExtract: extract });
         if (undefined !== label) {
             return label;
         }

@@ -21,8 +21,7 @@ const actionVideo = async function (url) {
         return (
             /** @type {HTMLMetaElement|null} */ (
                 doc.querySelector('meta[property="og:title"]')
-            )?.content ??
-            browser.i18n.getMessage("labeller_youtube_unavailable")
+            )?.content ?? browser.i18n.getMessage("labeler_youtube_unavailable")
         );
     }
     return undefined;
@@ -47,7 +46,7 @@ const actionPlaylist = async function (url) {
         const doc = new DOMParser().parseFromString(text, "text/html");
         const label = doc.querySelector('meta[property="og:title"]').content;
         return "undefined" === label
-            ? browser.i18n.getMessage("labeller_youtube_mix")
+            ? browser.i18n.getMessage("labeler_youtube_mix")
             : label;
     }
     return undefined;

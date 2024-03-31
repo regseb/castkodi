@@ -6,9 +6,9 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import * as labeller from "../../../../../src/core/labeller/plugin/twitch.js";
+import * as labeler from "../../../../../src/core/labeler/plugin/twitch.js";
 
-describe("core/labeller/plugin/twitch.js", function () {
+describe("core/labeler/plugin/twitch.js", function () {
     describe("extract()", function () {
         it("should return live label", async function () {
             const fake = sinon.fake.resolves("foo");
@@ -17,7 +17,7 @@ describe("core/labeller/plugin/twitch.js", function () {
                 "plugin://plugin.video.twitch/?channel_name=bar",
             );
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
@@ -31,7 +31,7 @@ describe("core/labeller/plugin/twitch.js", function () {
 
             const url = new URL("plugin://plugin.video.twitch/?video_id=bar");
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
@@ -45,7 +45,7 @@ describe("core/labeller/plugin/twitch.js", function () {
 
             const url = new URL("plugin://plugin.video.twitch/?slug=bar");
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
@@ -59,7 +59,7 @@ describe("core/labeller/plugin/twitch.js", function () {
 
             const url = new URL("plugin://plugin.video.twitch/");
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, undefined);
 
             assert.equal(fake.callCount, 0);

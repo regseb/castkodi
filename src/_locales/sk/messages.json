@@ -410,10 +410,10 @@
     "options_youtubeOrderShuffle_textcontent": {
         "message": "Náhodne"
     },
-    "labeller_youtube_unavailable": {
+    "labeler_youtube_unavailable": {
         "message": "(Video nie je k dispozícii)"
     },
-    "labeller_youtube_mix": {
+    "labeler_youtube_mix": {
         "message": "Mix"
     }
 }

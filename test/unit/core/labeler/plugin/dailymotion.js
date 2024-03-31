@@ -6,9 +6,9 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import * as labeller from "../../../../../src/core/labeller/plugin/dailymotion.js";
+import * as labeler from "../../../../../src/core/labeler/plugin/dailymotion.js";
 
-describe("core/labeller/plugin/dailymotion.js", function () {
+describe("core/labeler/plugin/dailymotion.js", function () {
     describe("extract()", function () {
         it("should return label", async function () {
             const fake = sinon.fake.resolves("foo");
@@ -17,7 +17,7 @@ describe("core/labeller/plugin/dailymotion.js", function () {
                 "plugin://plugin.video.dailymotion_com/?url=bar",
             );
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
@@ -33,7 +33,7 @@ describe("core/labeller/plugin/dailymotion.js", function () {
                 "plugin://plugin.video.dailymotion_com/?bar=baz",
             );
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, undefined);
 
             assert.equal(fake.callCount, 0);

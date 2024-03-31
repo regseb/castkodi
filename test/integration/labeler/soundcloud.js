@@ -5,12 +5,12 @@
  */
 
 import assert from "node:assert/strict";
-import { complete } from "../../../src/core/labellers.js";
+import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Labeller: Vimeo", function () {
-    it("should return video label", async function () {
-        const url = new URL("https://vimeo.com/265045525");
+describe("Labeler: SoundCloud", function () {
+    it("should return audio label", async function () {
+        const url = new URL("https://soundcloud.com/esa/hear-the-lightning");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
@@ -23,15 +23,15 @@ describe("Labeller: Vimeo", function () {
         });
         assert.deepEqual(item, {
             file,
-            label: "Looking For Something",
+            label: "Hear the lightning",
             position: 0,
             title: "",
             type: "unknown",
         });
     });
 
-    it("should return video label from unlisted video", async function () {
-        const url = new URL("https://vimeo.com/304887422/34c51f7a09");
+    it("should return set label", async function () {
+        const url = new URL("https://soundcloud.com/esa/sets/news-views");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
@@ -44,32 +44,32 @@ describe("Labeller: Vimeo", function () {
         });
         assert.deepEqual(item, {
             file,
-            label: "Shaking",
+            label: "News & Views",
             position: 0,
             title: "",
             type: "unknown",
         });
     });
 
-    it("should return video title", async function () {
-        // Tester le cas quand la lecture de la vidéo a commencé et que
-        // l'extension a modifié le fichier et le titre.
+    it("should return dynamic set label", async function () {
+        const url = new URL(
+            "https://soundcloud.com/discover/sets/charts-top:alternativerock",
+        );
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
         const item = await complete({
-            file:
-                "plugin://plugin.video.vimeo/play/" +
-                "?uri=%2Fvideos%2F43241044&texttracks=",
-            label: "M83 | Fleur & Manu I DIVISION",
-            position: 1,
-            title: "M83 | Fleur & Manu I DIVISION",
+            file,
+            label: "play",
+            position: 0,
+            title: "",
             type: "unknown",
         });
         assert.deepEqual(item, {
-            file:
-                "plugin://plugin.video.vimeo/play/" +
-                "?uri=%2Fvideos%2F43241044&texttracks=",
-            label: "M83 | Fleur & Manu I DIVISION",
-            position: 1,
-            title: "M83 | Fleur & Manu I DIVISION",
+            file,
+            label: "Top 50: Alternative Rock",
+            position: 0,
+            title: "",
             type: "unknown",
         });
     });

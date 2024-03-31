@@ -6,9 +6,9 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import * as labeller from "../../../../../src/core/labeller/plugin/sendtokodi.js";
+import * as labeler from "../../../../../src/core/labeler/plugin/sendtokodi.js";
 
-describe("core/labeller/plugin/sendtokodi.js", function () {
+describe("core/labeler/plugin/sendtokodi.js", function () {
     describe("extract()", function () {
         it("should return label", async function () {
             const fake = sinon.fake.resolves("foo");
@@ -17,7 +17,7 @@ describe("core/labeller/plugin/sendtokodi.js", function () {
                 "plugin://plugin.video.sendtokodi/?https://bar.com",
             );
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
@@ -31,7 +31,7 @@ describe("core/labeller/plugin/sendtokodi.js", function () {
                 "plugin://plugin.video.sendtokodi/?https://foo.io",
             );
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "https://foo.io");
 
             assert.equal(fake.callCount, 1);

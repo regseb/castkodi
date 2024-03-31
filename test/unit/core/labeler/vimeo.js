@@ -6,14 +6,14 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import * as labeller from "../../../../src/core/labeller/vimeo.js";
+import * as labeler from "../../../../src/core/labeler/vimeo.js";
 
-describe("core/labeller/vimeo.js", function () {
+describe("core/labeler/vimeo.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://developer.vimeo.com/");
 
-            const file = await labeller.extract(url);
+            const file = await labeler.extract(url);
             assert.equal(file, undefined);
         });
 
@@ -28,7 +28,7 @@ describe("core/labeller/vimeo.js", function () {
 
             const url = new URL("https://vimeo.com/bar");
 
-            const label = await labeller.extract(url);
+            const label = await labeler.extract(url);
             assert.equal(label, "foo");
 
             assert.equal(stub.callCount, 1);

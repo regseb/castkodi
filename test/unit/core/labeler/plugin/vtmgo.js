@@ -6,9 +6,9 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import * as labeller from "../../../../../src/core/labeller/plugin/vtmgo.js";
+import * as labeler from "../../../../../src/core/labeler/plugin/vtmgo.js";
 
-describe("core/labeller/plugin/vtmgo.js", function () {
+describe("core/labeler/plugin/vtmgo.js", function () {
     describe("extractEpisode()", function () {
         it("should return label", async function () {
             const fake = sinon.fake.resolves("foo");
@@ -17,7 +17,7 @@ describe("core/labeller/plugin/vtmgo.js", function () {
                 "plugin://plugin.video.vtm.go/play/catalog/episodes/bar",
             );
 
-            const label = await labeller.extractEpisode(url, {
+            const label = await labeler.extractEpisode(url, {
                 metaExtract: fake,
             });
             assert.equal(label, "foo");
@@ -38,7 +38,7 @@ describe("core/labeller/plugin/vtmgo.js", function () {
                 pathname: "//plugin.video.vtm.go/play/catalog/episodes/bar",
             };
 
-            const label = await labeller.extractEpisode(url, {
+            const label = await labeler.extractEpisode(url, {
                 metaExtract: fake,
             });
             assert.equal(label, "foo");
@@ -58,7 +58,7 @@ describe("core/labeller/plugin/vtmgo.js", function () {
                 "plugin://plugin.video.vtm.go/play/catalog/movies/bar",
             );
 
-            const label = await labeller.extractMovie(url, {
+            const label = await labeler.extractMovie(url, {
                 metaExtract: fake,
             });
             assert.equal(label, "foo");
@@ -79,7 +79,7 @@ describe("core/labeller/plugin/vtmgo.js", function () {
                 pathname: "//plugin.video.vtm.go/play/catalog/movies/bar",
             };
 
-            const label = await labeller.extractMovie(url, {
+            const label = await labeler.extractMovie(url, {
                 metaExtract: fake,
             });
             assert.equal(label, "foo");

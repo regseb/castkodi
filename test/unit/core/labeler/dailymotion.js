@@ -6,14 +6,14 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import * as labeller from "../../../../src/core/labeller/dailymotion.js";
+import * as labeler from "../../../../src/core/labeler/dailymotion.js";
 
-describe("core/labeller/dailymotion.js", function () {
+describe("core/labeler/dailymotion.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://careers.dailymotion.com/video/foo");
 
-            const file = await labeller.extract(url);
+            const file = await labeler.extract(url);
             assert.equal(file, undefined);
         });
 
@@ -28,7 +28,7 @@ describe("core/labeller/dailymotion.js", function () {
 
             const url = new URL("https://www.dailymotion.com/video/qux");
 
-            const label = await labeller.extract(url);
+            const label = await labeler.extract(url);
             assert.equal(label, "foo - bar");
 
             assert.equal(stub.callCount, 1);

@@ -7,10 +7,10 @@
 import assert from "node:assert/strict";
 import sinon from "sinon";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
-import { complete } from "../../../src/core/labellers.js";
+import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Labeller: YouTube", function () {
+describe("Labeler: YouTube", function () {
     it("should return video label", async function () {
         await browser.storage.local.set({ "youtube-playlist": "video" });
 

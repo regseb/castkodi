@@ -6,14 +6,14 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import * as labeller from "../../../../src/core/labeller/vtmgo.js";
+import * as labeler from "../../../../src/core/labeler/vtmgo.js";
 
-describe("core/labeller/vtmgo.js", function () {
+describe("core/labeler/vtmgo.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://vtm.be/vtmgo/regarder/foo");
 
-            const label = await labeller.extract(url);
+            const label = await labeler.extract(url);
             assert.equal(label, undefined);
         });
 
@@ -28,7 +28,7 @@ describe("core/labeller/vtmgo.js", function () {
 
             const url = new URL("https://vtm.be/vtmgo/afspelen/bar");
 
-            const label = await labeller.extract(url);
+            const label = await labeler.extract(url);
             assert.equal(label, "foo");
 
             assert.equal(stub.callCount, 1);
@@ -48,7 +48,7 @@ describe("core/labeller/vtmgo.js", function () {
 
             const url = new URL("https://vtm.be/vtmgo/afspelen/bar");
 
-            const label = await labeller.extract(url);
+            const label = await labeler.extract(url);
             assert.equal(label, undefined);
 
             assert.equal(stub.callCount, 1);

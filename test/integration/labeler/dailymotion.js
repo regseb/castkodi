@@ -5,10 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import { complete } from "../../../src/core/labellers.js";
+import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Labeller: Dailymotion", function () {
+describe("Labeler: Dailymotion", function () {
     it("should return video label", async function () {
         const url = new URL("https://www.dailymotion.com/video/x2knr9t");
         const context = { depth: false, incognito: false };

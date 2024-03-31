@@ -5,10 +5,10 @@
  */
 
 import assert from "node:assert/strict";
-import { complete } from "../../../src/core/labellers.js";
+import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Labeller: Twitch", function () {
+describe("Labeler: Twitch", function () {
     it("should return channel label", async function () {
         // Récupérer l'URL d'une chaine en live en passant par la version
         // mobile, car la version classique charge le contenu de la page en

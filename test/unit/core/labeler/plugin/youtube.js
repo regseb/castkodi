@@ -6,9 +6,9 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import * as labeller from "../../../../../src/core/labeller/plugin/youtube.js";
+import * as labeler from "../../../../../src/core/labeler/plugin/youtube.js";
 
-describe("core/labeller/plugin/youtube.js", function () {
+describe("core/labeler/plugin/youtube.js", function () {
     describe("extract()", function () {
         it("should return video label", async function () {
             const fake = sinon.fake.resolves("foo");
@@ -17,7 +17,7 @@ describe("core/labeller/plugin/youtube.js", function () {
                 "plugin://plugin.video.youtube/play/?video_id=bar",
             );
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
@@ -34,7 +34,7 @@ describe("core/labeller/plugin/youtube.js", function () {
                     "?playlist_id=bar&order=&play=1&incognito=false",
             );
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
@@ -48,7 +48,7 @@ describe("core/labeller/plugin/youtube.js", function () {
 
             const url = new URL("plugin://plugin.video.youtube/play/?bar=baz");
 
-            const label = await labeller.extract(url, { metaExtract: fake });
+            const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, undefined);
 
             assert.equal(fake.callCount, 0);
@@ -64,7 +64,7 @@ describe("core/labeller/plugin/youtube.js", function () {
                     "?uri=https%3A%2F%2Fwww.youtube.com%2Fclip%2Fbar",
             );
 
-            const label = await labeller.extractUri(url, { metaExtract: fake });
+            const label = await labeler.extractUri(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
@@ -80,7 +80,7 @@ describe("core/labeller/plugin/youtube.js", function () {
                 "plugin://plugin.video.youtube/uri2addon/?bar=baz",
             );
 
-            const label = await labeller.extractUri(url, { metaExtract: fake });
+            const label = await labeler.extractUri(url, { metaExtract: fake });
             assert.equal(label, undefined);
 
             assert.equal(fake.callCount, 0);

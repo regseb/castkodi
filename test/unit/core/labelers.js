@@ -6,9 +6,9 @@
 
 import assert from "node:assert/strict";
 import sinon from "sinon";
-import { complete, extract } from "../../../src/core/labellers.js";
+import { complete, extract } from "../../../src/core/labelers.js";
 
-describe("core/labellers.js", function () {
+describe("core/labelers.js", function () {
     describe("extract()", function () {
         it("should return label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
@@ -79,7 +79,7 @@ describe("core/labellers.js", function () {
             });
         });
 
-        it("should return 'label' when no labeller", async function () {
+        it("should return 'label' when no labeler", async function () {
             const item = {
                 file: "https://foo.com/",
                 label: "bar",
@@ -98,7 +98,7 @@ describe("core/labellers.js", function () {
             });
         });
 
-        it("should return 'file' when no labeller and no 'label'", async function () {
+        it("should return 'file' when no labeler and no 'label'", async function () {
             const item = {
                 file: "https://foo.com/",
                 label: "",
@@ -117,7 +117,7 @@ describe("core/labellers.js", function () {
             });
         });
 
-        it("should return 'label' from labeller", async function () {
+        it("should return 'label' from labeler", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
                     `<html><head>

@@ -410,10 +410,10 @@
     "options_youtubeOrderShuffle_textcontent": {
         "message": "Mezclar"
     },
-    "labeller_youtube_unavailable": {
+    "labeler_youtube_unavailable": {
         "message": "(El vídeo no está disponible)"
     },
-    "labeller_youtube_mix": {
+    "labeler_youtube_mix": {
         "message": "Mix"
     }
 }
