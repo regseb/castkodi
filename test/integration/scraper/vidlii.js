@@ -7,7 +7,8 @@
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Scraper: VidLii", function () {
+// Désactiver ces tests car VidLii est protégé par Cloudflare.
+describe.skip("Scraper: VidLii", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://www.vidlii.com/help");
         const context = { depth: false, incognito: false };
