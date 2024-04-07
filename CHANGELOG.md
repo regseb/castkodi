@@ -1,5 +1,18 @@
 # Changelog
 
+## [7.7.0](https://github.com/regseb/castkodi/compare/v7.6.0...v7.7.0) (2024-04-07)
+
+
+### Features
+
+* Gérer Prime Video. ([#104](https://github.com/regseb/castkodi/issues/104)) ([4ea2bd8](https://github.com/regseb/castkodi/commit/4ea2bd8cf9751ede83f87aa51813ef8562fea821))
+
+
+### Bug Fixes
+
+* Corriger le scraper de Pime Video. ([1ec66e4](https://github.com/regseb/castkodi/commit/1ec66e4b2046e48c08ca75c8584e5c50e213eee3))
+* Translated using Weblate. ([56dc020](https://github.com/regseb/castkodi/commit/56dc020a6b474b34641f461391d6e471cbcb266b))
+
 ## [7.6.0](https://github.com/regseb/castkodi/compare/v7.5.1...v7.6.0) (2024-03-31)
 
 ### Features
