@@ -273,7 +273,7 @@
         "message": "Connection"
     },
     "options_serverIntro_textcontent": {
-        "message": "To connect the extension to Kodi, you must Allow remote control from applications on other systems. This option is in Settings / Services / Control page in Kodi. You must also retrieve Kodi's IP Address. This information is displayed in Settings / System Information / Summary page. Then enter this IP address in the field below."
+        "message": "To connect the extension to Kodi, you must Allow remote control from applications on other systems. This option is in Settings / Services / Control page in Kodi. You must also retrieve Kodi's IP address. This information is displayed in Settings / System information / Summary page. Then enter this IP address in the field below."
     },
     "options_serverModeSingle_textcontent": {
         "message": "Configure one server"

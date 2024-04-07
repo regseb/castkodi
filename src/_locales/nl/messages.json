@@ -273,7 +273,7 @@
         "message": "Verbinding"
     },
     "options_serverIntro_textcontent": {
-        "message": "Om de extensie met Kodi te verbinden, moet je Externe controle toestaan vanuit programma's van andere systemen. Deze optie vind je in de Instellingen / Services / Controle pagina. Je moet ook het IP-adres van Kodi achterhalen. Deze informatie wordt weergegeven in Instellingen / Systeeminformatie / Overzicht pagina. Voer vervolgens dit IP-adres in het onderstaande veld in."
+        "message": "Om de extensie met Kodi te verbinden, moet Toestaan besturing op afstand door applicaties op andere systemen. Deze optie vind je in de Instellingen / Diensten / Beheer pagina. Je moet ook het IP-adres van Kodi achterhalen. Deze informatie wordt weergegeven in Instellingen / Systeeminformatie / Overzicht pagina. Voer vervolgens dit IP-adres in het onderstaande veld in."
     },
     "options_serverModeSingle_textcontent": {
         "message": "Configureer een server"
