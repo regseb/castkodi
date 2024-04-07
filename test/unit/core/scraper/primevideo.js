@@ -5,7 +5,6 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
 import * as scraper from "../../../../src/core/scraper/primevideo.js";
 
 describe("core/scraper/primevideo.js", function () {
@@ -34,24 +33,21 @@ describe("core/scraper/primevideo.js", function () {
         });
 
         it("should return video id", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(
-                    new Response(
-                        "<html><head><title>Prime Video: Foo</title></head></html>",
-                    ),
-                );
-
             const url = new URL("https://www.primevideo.com/detail/bar");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <div id="dv-action-box">
-                                 <form>
-                                   <input name="titleId" value="baz" />
-                                 </form>
+                               <div id="a-page">
+                                 <script type="text/template">${JSON.stringify({
+                                     props: {
+                                         body: [{ args: { titleID: "foo" } }],
+                                         metadata: {
+                                             pageTitle: "Prime Video: Bar",
+                                         },
+                                     },
+                                 })}</script>
                                </div>
                              </body></html>`,
                             "text/html",
@@ -63,13 +59,8 @@ describe("core/scraper/primevideo.js", function () {
             assert.equal(
                 file,
                 "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo&asin=baz&name=Foo",
+                    "?mode=PlayVideo&asin=foo&name=Bar",
             );
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
-                "https://www.primevideo.com/detail/baz",
-            ]);
         });
     });
 });

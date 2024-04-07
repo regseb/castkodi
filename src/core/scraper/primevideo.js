@@ -21,22 +21,17 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, metadata) {
     const doc = await metadata.html();
-    const input = doc.querySelector('#dv-action-box input[name="titleId"]');
-    if (null === input) {
+    const script = doc.querySelector('#a-page > script[type="text/template"]');
+    if (null === script) {
         return undefined;
     }
-    const id = input.value;
-
-    const response = await fetch(`https://www.primevideo.com/detail/${id}`);
-    const text = await response.text();
-    const subdoc = new DOMParser().parseFromString(text, "text/html");
-    const title = subdoc.querySelector("title").textContent.slice(13);
-
+    const json = JSON.parse(script.text);
+    const id = json.props.body[0].args.titleID;
+    const title = json.props.metadata.pageTitle.slice(13);
     return primevideoPlugin.generateUrl(id, title);
 };
 export const extract = matchPattern(
     action,
     "https://www.primevideo.com/detail/*",
     "https://www.primevideo.com/region/*/detail/*",
-    "https://www.amazon.de/gp/video/detail/*",
 );
