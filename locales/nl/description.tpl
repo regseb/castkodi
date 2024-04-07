@@ -19,7 +19,7 @@ Cast&nbsp;Kodi geeft de mogelijkheid om video's en muziek door te sturen naar <s
       <li>🇳🇱&nbsp;Nederland: Dumpert;</li>
       <li>🇬🇧&nbsp;United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
       <li>🇺🇸&nbsp;United States: KCAA&nbsp;Radio;</li>
-      <li>🇨🇭&nbsp;Zwitserland: Play SRF.</li>
+      <li>🇨🇭&nbsp;Zwitserland: Play&nbsp;SRF.</li>
     </ul>
   </li>
 </ul>
@@ -28,6 +28,5 @@ Cast&nbsp;Kodi analyseert ook de pagina's voor video's, music of externe platfor
 
 Om video's / muziek te casten kunnen 3 items toegevoegd worden aan het contextmenu van de link/pagina/video- of audioselectie: <em>Nu afspelen met Kodi</em>, <em>Hierna afspelen met Kodi</em> and <em>Aan afspeellijst toevoegen naar Kodi</em>. Een afstandsbediening (te gebruiken met de toolbarknoppen) is ook beschikbaar om de huidige tab naar Kodi te sturen, alsook te pauzeren, een volgend item te kiezen, volume aan te passen,…
 
-In Kodi moet <em>Toestaan besturing op afstand door applicaties op andere systemen</em> ingeschakeld zijn. Deze optie bevindt zich in <em>Instellingen</em> / <em>Diensten</em> / <em>Beheer</em>.
 
-Dan moet je Cast&nbsp;Kodi configureren middels <em>Opties</em> door het <em>IP-adres</em> te kopiëren van de server die Kodi draait; deze informatie wordt getoond op Kodi's <em>Instellingen</em> / <em>Systeeminformatie</em> / <em>Overzicht</em> pagina.
+Om de extensie met Kodi te verbinden, moet <em>Toestaan besturing op afstand door applicaties op andere systemen</em>. Deze optie vind je in de <em>Instellingen</em> / <em>Diensten</em> / <em>Beheer</em> pagina. Je moet ook het <em>IP-adres</em> van Kodi achterhalen. Deze informatie wordt weergegeven in <em>Instellingen</em> / <em>Systeeminformatie</em> / <em>Overzicht</em> pagina. Voer vervolgens dit IP-adres in bij Cast&nbsp;Kodi <em>Opties</em>.

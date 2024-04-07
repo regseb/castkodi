@@ -5,7 +5,7 @@
 Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur <strong>Kodi</strong>&nbsp;:
 <ul>
   <li>
-    liens directs : <em>avi</em>, <em>mkv</em>, <em>mp3</em>, <em>flac</em>… et torrent / magnet&nbsp;;
+    liens directs&nbsp;: <em>avi</em>, <em>mkv</em>, <em>mp3</em>, <em>flac</em>… et torrent / magnet&nbsp;;
   </li>
   <li>
     YouTube, Twitch, Vimeo, SoundCloud ainsi que Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo&nbsp;;
@@ -29,4 +29,4 @@ Cast&nbsp;Kodi analyse aussi les pages pour y trouver des vidéos, de la musique
 Pour diffuser les vidéos / musiques, trois options peuvent être ajoutées dans le menu contextuel des liens / pages / sélections de vidéos ou de musiques&nbsp;: <em>Lire maintenant avec Kodi</em>, <em>Lire ensuite avec Kodi</em> et <em>Placer en file d'attente de Kodi</em>. Une télécommande (accessible depuis un bouton de la barre d'outils) est aussi présente pour diffuser l'onglet courant sur Kodi et pour&nbsp;: mettre en pause, passer au prochain élément, régler le volume…
 
 
-Dans Kodi, il faut <em>Autoriser le contrôle à distance par des programmes sur d'autres systèmes</em>. Ce réglage se fait dans Kodi à la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em>. Vous devez aussi récupérer l'<em>Adresse IP</em> de Kodi. Cette information est affichée dans la page <em>Paramètres</em> / <em>Infos sur le système</em> / <em>Résumé</em>. Puis renseignez cette adresse IP dans les <em>Préférences</em> de Cast&nbsp;Kodi.
+Pour connecter l'extension à Kodi, vous devez <em>Autoriser le contrôle à distance par des programmes sur d'autres systèmes</em>. Ce réglage se fait dans Kodi à la page <em>Paramètres</em> / <em>Services</em> / <em>Contrôle</em>. Vous devez aussi récupérer l'<em>Adresse IP</em> de Kodi. Cette information est affichée dans la page <em>Paramètres</em> / <em>Infos sur le système</em> / <em>Résumé</em>. Puis renseignez cette adresse IP dans les <em>Options</em> de Cast&nbsp;Kodi.

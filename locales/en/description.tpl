@@ -17,7 +17,7 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
       <li>🇮🇸&nbsp;Iceland: Útvarp&nbsp;Saga;</li>
       <li>🇮🇷&nbsp;Iran: آپارات<!-- Aparat -->;</li>
       <li>🇳🇱&nbsp;Netherlands: Dumpert;</li>
-      <li>🇨🇭&nbsp;Switzerland: Play SRF;</li>
+      <li>🇨🇭&nbsp;Switzerland: Play&nbsp;SRF;</li>
       <li>🇬🇧&nbsp;United Kingdom: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
       <li>🇺🇸&nbsp;United States: KCAA&nbsp;Radio.</li>
     </ul>
@@ -29,6 +29,4 @@ Cast&nbsp;Kodi also analyzes the pages for videos, music or external platforms i
 To cast videos / music, three items can be added on context menu of link / page / selection of videos or audio: <em>Play now to Kodi</em>, <em>Play next to Kodi</em> and <em>Queue item to Kodi</em>. A remote (accessible with toolbar button) is also present to cast current tab to Kodi and to: pause, go to next element, adjust the volume, …
 
 
-In Kodi, you must <em>Allow remote control from applications on other systems</em>. This option is on <em>Settings</em> / <em>Services</em> / <em>Control</em>.
-
-Then you must configure Cast&nbsp;Kodi <em>Options</em> by copying <em>IP address</em> of the server hosting Kodi; this information is displayed on Kodi's <em>Settings</em> / <em>System information</em> / <em>Summary</em> page.
+To connect the extension to Kodi, you must <em>Allow remote control from applications on other systems</em>. This option is in <em>Settings</em> / <em>Services</em> / <em>Control</em> page in Kodi. You must also retrieve Kodi's <em>IP address</em>. This information is displayed in <em>Settings</em> / <em>System information</em> / <em>Summary</em> page. Then enter this IP address in Cast&nbsp;Kodi <em>Options</em>.

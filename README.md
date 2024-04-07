@@ -14,8 +14,8 @@
 
 ## Description
 
-Cast Kodi est une extension pour les navigateurs Chromium (Chrome, Edge, Opera)
-et Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
+Cast Kodi est une extension pour les navigateurs Chromium (Chrome, Edge) et
+Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
 
 - liens directs : _avi_, _mkv_, _mp3_, _flac_… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Acast, Ace Stream, Apple
@@ -52,16 +52,30 @@ lecture…
 ## Installation
 
 L'extension est disponible sur [**Chrome Web Store**][link-chrome] (pour
-Chromium, Chrome, Edge et Opera) ainsi que sur [**Firefox Browser
+Chromium, Chrome et Edge) ainsi que sur [**Firefox Browser
 Add-ons**][link-firefox].
 
-Dans Kodi, il faut _Autoriser le contrôle à distance par des programmes sur
-d'autres systèmes_. Ce réglage se fait dans la page _Paramètres_ / _Services_ /
-_Contrôle_.
+Pour connecter l'extension à Kodi, vous devez _Autoriser le contrôle à distance
+par des programmes sur d'autres systèmes_. Ce réglage se fait dans Kodi à la
+page _Paramètres_ / _Services_ / _Contrôle_. Vous devez aussi récupérer
+l'_Adresse IP_ de Kodi. Cette information est affichée dans la page _Paramètres_
+/ _Infos sur le système_ / _Résumé_. Puis renseignez cette adresse IP dans les
+_Options_ de Cast Kodi.
 
-Vous devez ensuite configurer les _Préférences_ de Cast Kodi en copiant
-l'_Adresse_ IP du serveur hébergeant Kodi ; cette information est disponible
-dans la page _Paramètres_ / _Infos sur le système_ / _Résumé_.
+Pour certains sites Internet, les add-ons suivantes sont nécessaires dans
+Kodi :
+[Dailymotion](https://kodi.tv/addons/nexus/plugin.video.dailymotion_com/),
+[Elementum](https://github.com/elgatito/plugin.video.elementum),
+[Mixcloud](https://kodi.tv/addons/nexus/plugin.audio.mixcloud/),
+[Plexus](https://github.com/enen92/program.plexus),
+[SendToKodi](https://github.com/firsttris/plugin.video.sendtokodi),
+[SoundCloud](https://kodi.tv/addons/nexus/plugin.audio.soundcloud/),
+[Tubed](https://kodi.tv/addons/nexus/plugin.video.tubed/),
+[Twitch](https://kodi.tv/addons/nexus/plugin.video.twitch/),
+[Vimeo](https://kodi.tv/addons/nexus/plugin.video.vimeo/),
+[VRT MAX](https://kodi.tv/addons/nexus/plugin.video.vrt.nu/),
+[VTM GO](https://kodi.tv/addons/nexus/plugin.video.vtm.go/),
+[YouTube](https://kodi.tv/addons/nexus/plugin.video.youtube/).
 
 ## Contribuer
 
