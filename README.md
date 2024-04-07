@@ -22,8 +22,8 @@ Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
   Podcasts, Ausha, Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion,
   DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter,
   Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast Addict,
-  podCloud, Radio, Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload,
-  Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo ;
+  podCloud, Prime Video, Radio, Reddit, Rumble, Steam, Streamable, TikTok,
+  Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo ;
   - 🇩🇪 Allemagne : Arte, Chaos Computer Club, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
   - 🇺🇸 États-Unis : KCAA Radio ;
@@ -64,6 +64,7 @@ _Options_ de Cast Kodi.
 
 Pour certains sites Internet, les add-ons suivantes sont nécessaires dans
 Kodi :
+[Amazon VOD](https://github.com/Sandmann79/xbmc),
 [Dailymotion](https://kodi.tv/addons/nexus/plugin.video.dailymotion_com/),
 [Elementum](https://github.com/elgatito/plugin.video.elementum),
 [Mixcloud](https://kodi.tv/addons/nexus/plugin.audio.mixcloud/),

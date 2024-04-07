@@ -6,6 +6,7 @@
 
 import * as dailymotion from "./labeler/dailymotion.js";
 import * as pluginDailymotion from "./labeler/plugin/dailymotion.js";
+import * as pluginPrimeVideo from "./labeler/plugin/primevideo.js";
 import * as pluginSendtokodi from "./labeler/plugin/sendtokodi.js";
 import * as pluginSoundcloud from "./labeler/plugin/soundcloud.js";
 import * as pluginTubed from "./labeler/plugin/tubed.js";
@@ -29,6 +30,7 @@ import { strip } from "./tools/sanitizer.js";
 const LABELERS = [
     // Lister les labellisateurs des plugins (triées par ordre alphabétique).
     pluginDailymotion,
+    pluginPrimeVideo,
     pluginSendtokodi,
     pluginSoundcloud,
     pluginTubed,

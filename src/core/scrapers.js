@@ -49,6 +49,7 @@ import * as opengraph from "./scraper/opengraph.js";
 import * as ouestfrance from "./scraper/ouestfrance.js";
 import * as peertube from "./scraper/peertube.js";
 import * as podcloud from "./scraper/podcloud.js";
+import * as primevideo from "./scraper/primevideo.js";
 import * as radio from "./scraper/radio.js";
 import * as reddit from "./scraper/reddit.js";
 import * as rumble from "./scraper/rumble.js";
@@ -115,6 +116,7 @@ const SCRAPERS = [
     ouestfrance,
     peertube,
     podcloud,
+    primevideo,
     radio,
     reddit,
     rumble,
