@@ -20,9 +20,9 @@ export const notify = function (err) {
     return browser.notifications.create({
         type: "basic",
         // Ne pas utiliser un fichier SVG pour l'icône, car depuis le Manifest
-        // V3 : Chromium ne le gère plus. https://crbug.com/1353252
+        // V3 : Chromium ne le gère plus. https://issues.chromium.org/40235125
         // L'icône n'est pas affichée dans Chromium sous Linux.
-        // https://crbug.com/1164769
+        // https://issues.chromium.org/40740971
         iconUrl: "/img/icon128.png",
         title:
             err instanceof PebkacError

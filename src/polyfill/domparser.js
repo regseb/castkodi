@@ -7,7 +7,7 @@
 import * as linkedom from "./lib/linkedom.js";
 
 // Utiliser LinkeDOM pour simuler DOMParser dans le service worker.
-// https://crbug.com/1056354
+// https://issues.chromium.org/40120299
 if (!("DOMParser" in globalThis)) {
     globalThis.DOMParser = linkedom.DOMParser;
 

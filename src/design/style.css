@@ -170,7 +170,7 @@ input[type="range"]:not([orient="vertical"]) {
     height: 32px;
     /* Les sliders verticaux ne peuvent pas être stylisés dans Chromium, il faut
        donc les faire pivoter manuellement pour ensuite pouvoir les styliser.
-       https://crbug.com/341071 */
+       https://issues.chromium.org/41088035 */
     transform: rotate(270deg);
 }
 input[type="range"]:focus:not(:disabled) {

@@ -32,7 +32,7 @@ describe("core/labeler/plugin/vtmgo.js", function () {
             const fake = sinon.fake.resolves("foo");
 
             // Simuler un mauvais découpage d'une URL par Chromium.
-            // https://crbug.com/1416006
+            // https://issues.chromium.org/40063064
             const url = {
                 href: "plugin://plugin.video.vtm.go/play/catalog/episodes/bar",
                 pathname: "//plugin.video.vtm.go/play/catalog/episodes/bar",
@@ -73,7 +73,7 @@ describe("core/labeler/plugin/vtmgo.js", function () {
             const fake = sinon.fake.resolves("foo");
 
             // Simuler un mauvais découpage d'une URL par Chromium.
-            // https://crbug.com/1416006
+            // https://issues.chromium.org/40063064
             const url = {
                 href: "plugin://plugin.video.vtm.go/play/catalog/movies/bar",
                 pathname: "//plugin.video.vtm.go/play/catalog/movies/bar",

@@ -6,8 +6,9 @@
 
 // La méthode navigator.clipboard.readText() (pour lire dans le presse-papier)
 // ne fonctionne pas dans Chromium car la permission "clipboardRead" s'applique
-// seulement à document.execCommand("paste"). https://crbug.com/1425583
-// https://crbug.com/1063219 (ce bogue n'est plus accessible)
+// seulement à document.execCommand("paste").
+// https://issues.chromium.org/40898797
+// https://issues.chromium.org/40680588 (ce problème n'est plus accessible)
 const { name } = await browser.runtime.getBrowserInfo();
 if ("Chromium" === name) {
     navigator.clipboard.readText = () => {

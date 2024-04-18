@@ -6,13 +6,13 @@
 
 // Copier la variable "chrome" (qui contient les APIs pour les WebExtensions)
 // dans la variable "browser", car Chromium fournit seulement "chrome".
-// https://crbug.com/798169
+// https://issues.chromium.org/40556351
 if (!("browser" in globalThis)) {
     globalThis.browser = chrome;
 }
 
 // Ajouter une prothèse pour la méthode browser.runtime.getBrowserInfo() qui
-// n'est pas implémentée dans Chromium. https://crbug.com/1047907
+// n'est pas implémentée dans Chromium. https://issues.chromium.org/40671645
 if (!("getBrowserInfo" in browser.runtime)) {
     browser.runtime.getBrowserInfo = () => {
         const { protocol } = new URL(browser.runtime.getURL(""));

@@ -8,8 +8,8 @@
  * La liste des contextes par défaut pour chaque navigateur. Sous Chromium, les
  * contextes <code>bookmark</code> et <code>tab</code> n'existent pas. Et dans
  * Firefox le contexte <code>bookmark</code> n'est pas activé par défaut, car il
- * nécessite la permission <code>bookmarks</code>. https://crbug.com/825443
- * https://crbug.com/1385529
+ * nécessite la permission <code>bookmarks</code>.
+ * https://issues.chromium.org/41378677 https://issues.chromium.org/40246822
  *
  * @type {Object<string, string[]>}
  */
