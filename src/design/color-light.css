@@ -4,6 +4,9 @@
 
     --label-color: rgb(21 20 26);
 
+    --a-color: rgb(0 97 224);
+    --a-hover-color: rgb(2 80 187);
+
     --button-color: rgb(21 20 26);
     --button-background-color: rgba(207 207 216 / 33%);
     --button-hover-background-color: rgba(207 207 216 / 66%);

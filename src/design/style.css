@@ -11,6 +11,12 @@ p {
     font-size: 15px;
     font-weight: normal;
 }
+a {
+    color: var(--a-color);
+}
+a:hover {
+    color: var(--a-hover-color);
+}
 
 label {
     align-items: center;

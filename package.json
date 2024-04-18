@@ -20,7 +20,10 @@
   },
   "license": "MIT",
   "author": "Sébastien Règne <regseb@gmail.com> (https://github.com/regseb)",
-  "funding": "https://www.paypal.me/sebastienregne",
+  "funding": [
+    "https://buymeacoffee.com/regseb",
+    "https://www.paypal.me/sebastienregne"
+  ],
   "repository": "regseb/castkodi",
   "type": "module",
   "scripts": {

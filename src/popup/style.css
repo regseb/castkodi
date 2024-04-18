@@ -100,6 +100,25 @@ dialog {
     flex-direction: column;
 }
 
+#dialogdonate {
+    margin-bottom: 64px;
+}
+#dialogdonate ul {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    row-gap: 8px;
+}
+#dialogdonate a {
+    align-items: center;
+    column-gap: 4px;
+    display: flex;
+    font-size: 14px;
+}
+
 #cast {
     border-bottom: 1px solid var(--input-border-color);
     display: flex;

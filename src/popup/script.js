@@ -660,9 +660,11 @@ const feedback = async function () {
     close();
 };
 
-const donate = async function () {
-    await browser.tabs.create({ url: "https://www.paypal.me/sebastienregne" });
-    close();
+const openDonate = function () {
+    const dialog = document.querySelector("#dialogdonate");
+    if (!dialog.open) {
+        dialog.showModal();
+    }
 };
 
 const rate = async function () {
@@ -1121,7 +1123,7 @@ const load = async function () {
 
         document.querySelector("#web").disabled = false;
         document.querySelector("#feedback").disabled = false;
-        document.querySelector("#donate").disabled = false;
+        document.querySelector("#opendonate").disabled = false;
         document.querySelector("#rate").disabled = false;
 
         document.querySelector("#loading").style.display = "none";
@@ -1204,7 +1206,7 @@ document.querySelector("#clear").addEventListener("click", clear);
 
 document.querySelector("#web").addEventListener("click", web);
 document.querySelector("#feedback").addEventListener("click", feedback);
-document.querySelector("#donate").addEventListener("click", donate);
+document.querySelector("#opendonate").addEventListener("click", openDonate);
 document.querySelector("#rate").addEventListener("click", rate);
 document.querySelector("#preferences").addEventListener("click", preferences);
 
@@ -1213,19 +1215,26 @@ document.querySelector("#dialogerror").addEventListener("cancel", (event) => {
 });
 document.querySelector("#dialogsendtext").addEventListener("close", sendText);
 document
-    .querySelector("#dialogsendtext")
-    .addEventListener("click", closeDialog);
-document
     .querySelector("#dialogsubtitle")
     .addEventListener("close", addSubtitle);
-document
-    .querySelector("#dialogsubtitle")
-    .addEventListener("click", closeDialog);
-
 document.querySelector("#dialogquit").addEventListener("close", quit);
-document.querySelector("#dialogquit").addEventListener("click", closeDialog);
+// Fermer les boites de dialogue en cliquant en dehors (sauf pour celles
+// affichant des erreurs).
+for (const dialog of document.querySelectorAll("dialog:not(.error)")) {
+    dialog.addEventListener("click", closeDialog);
+}
 
 document.querySelector("#configure").addEventListener("click", preferences);
+
+// Modifier le comportement des liens pour les ouvrir dans un nouvel onglet et
+// fermer la popup.
+for (const a of document.querySelectorAll("a")) {
+    a.addEventListener("click", async (event) => {
+        event.preventDefault();
+        await browser.tabs.create({ url: event.target.href });
+        close();
+    });
+}
 
 /**
  * Liste des raccourcis clavier avec leur fonction associée.
