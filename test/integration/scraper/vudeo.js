@@ -7,7 +7,8 @@
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Scraper: Vudeo", function () {
+// Désactiver les tests car Vudeo n'est plus accessible.
+describe.skip("Scraper: Vudeo", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://vudeo.co/faq");
         const context = { depth: false, incognito: false };
