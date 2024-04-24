@@ -62,7 +62,7 @@ l'_Adresse IP_ de Kodi. Cette information est affichée dans la page _Paramètre
 / _Infos sur le système_ / _Résumé_. Puis renseignez cette adresse IP dans les
 _Options_ de Cast Kodi.
 
-Pour certains sites Internet, les add-ons suivantes sont nécessaires dans
+Pour certains sites Internet, les add-ons suivants sont nécessaires dans
 Kodi :
 [Amazon VOD](https://github.com/Sandmann79/xbmc),
 [Dailymotion](https://kodi.tv/addons/nexus/plugin.video.dailymotion_com/),

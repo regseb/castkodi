@@ -42,7 +42,7 @@ describe("core/tools/jsonrpc.js", function () {
             const server = new Server("ws://localhost/", { mock: false });
             const promise = new Promise((resolve) => {
                 server.on("connection", (socket) => {
-                    socket.on("close", resolve);
+                    socket.on("close", /** @type {() => void} */ (resolve));
                 });
             });
 
@@ -61,7 +61,7 @@ describe("core/tools/jsonrpc.js", function () {
             const server = new Server("ws://localhost/", { mock: false });
             const promise = new Promise((resolve) => {
                 server.on("connection", (socket) => {
-                    socket.on("close", resolve);
+                    socket.on("close", /** @type {() => void} */ (resolve));
                 });
             });
 
@@ -80,7 +80,7 @@ describe("core/tools/jsonrpc.js", function () {
             const server = new Server("ws://localhost/", { mock: false });
             const promise = new Promise((resolve) => {
                 server.on("connection", (socket) => {
-                    socket.on("close", resolve);
+                    socket.on("close", /** @type {() => void} */ (resolve));
                 });
             });
 

@@ -58,6 +58,9 @@ const plain = function (html) {
     return extract(doc).trim();
 };
 
+// Supprimer l'éventuel répertoire de la précédente construction.
+await fs.rm(BUILD_DIR, { force: true, recursive: true });
+
 // Créer l'archive de l'extension.
 await webExt.cmd.build({
     sourceDir: SOURCE_DIR,
@@ -82,12 +85,12 @@ for (const store of ["chrome", "firefox"]) {
                 ),
             );
         } else if ("firefox" === store) {
-            await fs.cp(
+            await fs.copyFile(
                 path.join(LOCALES_DIR, lang, "summary.txt"),
                 path.join(buildStoreDir, `summary-${lang}.txt`),
             );
 
-            await fs.cp(
+            await fs.copyFile(
                 path.join(LOCALES_DIR, lang, "description.tpl"),
                 path.join(buildStoreDir, `description-${lang}.tpl`),
             );

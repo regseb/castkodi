@@ -196,7 +196,9 @@ describe("core/index.js", function () {
 
             await cast("add", ["http://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
-            assert.deepEqual(histories, [{ url: "http://foo.com/bar" }]);
+            assert.deepEqual(histories, [
+                { id: "1", url: "http://foo.com/bar" },
+            ]);
 
             assert.equal(stubGetAddons.callCount, 1);
             assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);

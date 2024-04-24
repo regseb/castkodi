@@ -652,6 +652,7 @@ export default {
         "regexp/sort-character-class-elements": "error",
         "regexp/sort-flags": "error",
         "regexp/unicode-escape": "error",
+        "regexp/unicode-property": "error",
 
         // Plugin eslint-plugin-unicorn.
         "unicorn/better-regex": "error",
@@ -745,7 +746,8 @@ export default {
         "unicorn/prefer-module": "error",
         "unicorn/prefer-native-coercion-functions": "error",
         "unicorn/prefer-negative-index": "error",
-        "unicorn/prefer-node-protocol": "error",
+        // Désactiver cette règle et préférer la règle "n/prefer-node-protocol".
+        "unicorn/prefer-node-protocol": "off",
         "unicorn/prefer-number-properties": "error",
         "unicorn/prefer-object-from-entries": "error",
         "unicorn/prefer-optional-catch-binding": "error",

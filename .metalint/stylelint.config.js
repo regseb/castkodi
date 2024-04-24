@@ -62,6 +62,7 @@ export default {
         "media-feature-name-no-unknown": true,
         "media-feature-name-value-no-unknown": true,
         "no-unknown-animations": true,
+        "no-unknown-custom-media": true,
         // Désactiver cette règle, car les variables sont déclarées dans
         // d'autres fichiers.
         "no-unknown-custom-properties": null,

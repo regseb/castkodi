@@ -19,16 +19,19 @@ const MESSAGES = JSON.parse(
  */
 const data = {
     bookmarks: {
-        /** @type {Object[]} */
+        /** @type {browser.bookmarks.BookmarkTreeNode[]} */
         data: [],
         index: 0,
     },
 
-    /** @type {Object[]} */
+    /** @type {browser.contextMenus._CreateCreateProperties[]} */
     contextMenus: [],
 
-    /** @type {Object[]} */
-    histories: [],
+    histories: {
+        /** @type {browser.history.HistoryItem[]} */
+        data: [],
+        index: 0,
+    },
 
     permissions: {
         data: {
@@ -41,7 +44,12 @@ const data = {
     },
 
     runtime: {
-        browserInfo: { name: "" },
+        browserInfo: {
+            name: "",
+            vendor: "",
+            version: "",
+            buildID: "",
+        },
     },
 
     storage: {
@@ -65,13 +73,14 @@ export const browser = {
          * Crée un marque-page.
          *
          * @param {Object} options Les données du marque-page.
-         * @returns {Object} Le marque-page créé.
+         * @returns {browser.bookmarks.BookmarkTreeNode} Le marque-page créé.
          */
         create(options) {
-            const bookmark = {
-                id: (++data.bookmarks.index).toString(),
-                ...options,
-            };
+            const bookmark =
+                /** @type {browser.bookmarks.BookmarkTreeNode} */ ({
+                    id: (++data.bookmarks.index).toString(),
+                    ...options,
+                });
             data.bookmarks.data.push(bookmark);
             return bookmark;
         },
@@ -80,7 +89,8 @@ export const browser = {
          * Récupère des marque-pages.
          *
          * @param {string} id L'identifiant des marque-pages.
-         * @returns {Object[]} Les marque-pages ayant l'identifiant.
+         * @returns {browser.bookmarks.BookmarkTreeNode[]} Les marque-pages
+         *                                                 ayant l'identifiant.
          */
         get(id) {
             return data.bookmarks.data.filter((b) => id === b.id);
@@ -91,7 +101,9 @@ export const browser = {
         /**
          * Crée un élément dans le menu contextuel.
          *
-         * @param {Object} item Les données de l'élément.
+         * @param {browser.contextMenus._CreateCreateProperties} item Les
+         *                                                            données de
+         *                                                            l'élément.
          * @returns {number|string} L'identifiant de l'élément.
          */
         create(item) {
@@ -123,25 +135,31 @@ export const browser = {
         /**
          * Ajoute une page dans l'historique.
          *
-         * @param {Object} details Les données de la page.
+         * @param {browser.history._AddUrlDetails} details Les données de la
+         *                                                 page.
          * @returns {Promise<void>} Une promesse vide.
          */
         addUrl(details) {
-            data.histories.push(details);
+            data.histories.data.push({
+                id: (++data.histories.index).toString(),
+                ...details,
+            });
             return Promise.resolve();
         },
 
         /**
          * Cherche des pages dans l'historique.
          *
-         * @param {Object} query      Les filtres de la recherche.
-         * @param {string} query.text Le texte cherché dans les URLs des pages.
-         * @returns {Promise<Object[]>} Une promesse contenant les pages
-         *                              respectant les filtres.
+         * @param {browser.history._SearchQuery} query Les filtres de la
+         *                                             recherche.
+         * @returns {Promise<browser.history.HistoryItem[]>} Une promesse
+         *                                                   contenant les pages
+         *                                                   respectant les
+         *                                                   filtres.
          */
         search({ text }) {
             return Promise.resolve(
-                data.histories.filter((h) => h.url.includes(text)),
+                data.histories.data.filter((h) => h.url.includes(text)),
             );
         },
     },
@@ -193,11 +211,9 @@ export const browser = {
         /**
          * Vérifie si l'extension a des permissions.
          *
-         * @param {Object}   permissions               Les permissions
-         *                                             vérifiées.
-         * @param {string[]} [permissions.origins]     Les permissions de
-         *                                             l'hôte.
-         * @param {string[]} [permissions.permissions] Les permissions d'API.
+         * @param {browser.permissions.AnyPermissions} permissions Les
+         *                                                         permissions
+         *                                                         vérifiées.
          * @returns {Promise<boolean>} Une promesse contenant <code>true</code>
          *                             si l'extension a toutes les
          *                             permissions ; sinon <code>false</code>.
@@ -214,11 +230,8 @@ export const browser = {
         /**
          * Renonce à des permissions.
          *
-         * @param {Object}   permissions               Les permissions
-         *                                             renoncées.
-         * @param {string[]} [permissions.origins]     Les permissions de
-         *                                             l'hôte.
-         * @param {string[]} [permissions.permissions] Les permissions d'API.
+         * @param {browser.permissions.Permissions} permissions Les permissions
+         *                                                      renoncées.
          * @returns {Promise<boolean>} Une promesse contenant <code>true</code>
          *                             si l'extension a renoncé à toutes les
          *                             permissions ; sinon <code>false</code>.
@@ -254,11 +267,8 @@ export const browser = {
         /**
          * Demande des permissions.
          *
-         * @param {Object}   permissions               Les permissions
-         *                                             demandées.
-         * @param {string[]} [permissions.origins]     Les permissions de
-         *                                             l'hôte.
-         * @param {string[]} [permissions.permissions] Les permissions d'API.
+         * @param {browser.permissions.Permissions} permissions Les permissions
+         *                                                      demandées.
          * @returns {Promise<boolean>} Une promesse contenant
          *                             <code>true</code>.
          */
@@ -288,8 +298,10 @@ export const browser = {
         /**
          * Renvoie les informations sur le navigateur.
          *
-         * @returns {Promise<Object>} Une promesse contenant les informations
-         *                            sur le navigateur.
+         * @returns {Promise<browser.runtime.BrowserInfo>} Une promesse
+         *                                                 contenant les
+         *                                                 informations sur le
+         *                                                 navigateur.
          */
         getBrowserInfo() {
             return Promise.resolve(data.runtime.browserInfo);
@@ -375,11 +387,17 @@ export const clear = function () {
     data.bookmarks.data.length = 0;
     data.bookmarks.index = 0;
     data.contextMenus.length = 0;
-    data.histories.length = 0;
+    data.histories.data.length = 0;
+    data.histories.index = 0;
     data.permissions.data.origins.clear();
     data.permissions.data.permissions.clear();
     data.permissions.listeners.length = 0;
-    data.runtime.browserInfo = { name: "" };
+    data.runtime.browserInfo = {
+        name: "",
+        vendor: "",
+        version: "",
+        buildID: "",
+    };
     Object.keys(data.storage.local.data).forEach((property) => {
         delete data.storage.local.data[property];
     });

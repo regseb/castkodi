@@ -611,12 +611,6 @@ const shuffle = async function () {
 };
 
 const clear = async function () {
-    // Annuler l'action (venant d'un raccourci clavier) si le bouton est
-    // désactivé.
-    if (document.querySelector("#clear").disabled) {
-        return;
-    }
-
     try {
         await kodi.playlist.clear();
     } catch (err) {

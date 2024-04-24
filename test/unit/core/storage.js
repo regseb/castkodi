@@ -13,7 +13,12 @@ describe("core/storage.js", function () {
         it("should create config in Chromium", async function () {
             const stub = sinon
                 .stub(browser.runtime, "getBrowserInfo")
-                .resolves({ name: "Chromium" });
+                .resolves({
+                    name: "Chromium",
+                    vendor: "",
+                    version: "",
+                    buildID: "",
+                });
 
             await storage.initialize();
             const config = await browser.storage.local.get();
@@ -45,7 +50,12 @@ describe("core/storage.js", function () {
         it("should create config in Firefox", async function () {
             const stub = sinon
                 .stub(browser.runtime, "getBrowserInfo")
-                .resolves({ name: "Firefox" });
+                .resolves({
+                    name: "Firefox",
+                    vendor: "Mozilla",
+                    version: "100.0",
+                    buildID: "20240101120000",
+                });
 
             await storage.initialize();
             const config = await browser.storage.local.get();
