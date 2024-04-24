@@ -19,8 +19,7 @@ describe("Scraper: Bigo Live", function () {
     it("should return video URL", async function () {
         // Récupérer l'URL d'une vidéo avec l'API de Bigo Live.
         const response = await fetch(
-            "https://www.bigo.tv/OInterfaceWeb/vedioList/11" +
-                "?tabType=00&fetchNum=1",
+            "https://ta.bigo.tv/official_website/OInterfaceWeb/vedioList/11",
         );
         const json = await response.json();
 
@@ -37,8 +36,7 @@ describe("Scraper: Bigo Live", function () {
     it("should return video URL from french version", async function () {
         // Récupérer l'URL d'une vidéo avec l'API de Bigo Live.
         const response = await fetch(
-            "https://www.bigo.tv/OInterfaceWeb/vedioList/11" +
-                "?tabType=00&fetchNum=1",
+            "https://ta.bigo.tv/official_website/OInterfaceWeb/vedioList/11",
         );
         const json = await response.json();
 
@@ -54,8 +52,16 @@ describe("Scraper: Bigo Live", function () {
         );
     });
 
-    it("should return URL when it isn't a live", async function () {
+    it("should return URL when it's offline", async function () {
         const url = new URL("https://www.bigo.tv/0");
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.equal(file, undefined);
+    });
+
+    it("should return URL when it isn't a channel", async function () {
+        const url = new URL("https://www.bigo.tv/0123456789876543210");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);

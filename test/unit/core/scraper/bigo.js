@@ -50,7 +50,8 @@ describe("core/scraper/bigo.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://www.bigo.tv/studio/getInternalStudioInfo",
+                "https://ta.bigo.tv/official_website/studio" +
+                    "/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);
         });
@@ -70,7 +71,8 @@ describe("core/scraper/bigo.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://www.bigo.tv/studio/getInternalStudioInfo",
+                "https://ta.bigo.tv/official_website/studio" +
+                    "/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);
         });
@@ -90,7 +92,50 @@ describe("core/scraper/bigo.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://www.bigo.tv/studio/getInternalStudioInfo",
+                "https://ta.bigo.tv/official_website/studio" +
+                    "/getInternalStudioInfo",
+                { method: "POST", body: new URLSearchParams("siteId=123") },
+            ]);
+        });
+
+        it("should return undefined when it's offline", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
+                    // eslint-disable-next-line camelcase
+                    data: { hls_src: "" },
+                }),
+            );
+
+            const url = new URL("http://www.bigo.tv/ab/123");
+
+            const file = await scraper.extract(url);
+            assert.equal(file, undefined);
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
+                "https://ta.bigo.tv/official_website/studio" +
+                    "/getInternalStudioInfo",
+                { method: "POST", body: new URLSearchParams("siteId=123") },
+            ]);
+        });
+
+        it("should return undefined when  it isn't a channel", async function () {
+            const stub = sinon.stub(globalThis, "fetch").resolves(
+                Response.json({
+                    // eslint-disable-next-line camelcase
+                    data: { hls_src: null },
+                }),
+            );
+
+            const url = new URL("http://www.bigo.tv/ab/123");
+
+            const file = await scraper.extract(url);
+            assert.equal(file, undefined);
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, [
+                "https://ta.bigo.tv/official_website/studio" +
+                    "/getInternalStudioInfo",
                 { method: "POST", body: new URLSearchParams("siteId=123") },
             ]);
         });

@@ -12,7 +12,8 @@ import { matchPattern } from "../tools/matchpattern.js";
  *
  * @type {string}
  */
-const API_URL = "https://www.bigo.tv/studio/getInternalStudioInfo";
+const API_URL =
+    "https://ta.bigo.tv/official_website/studio/getInternalStudioInfo";
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
@@ -32,6 +33,8 @@ const action = async function ({ pathname }) {
         body: new URLSearchParams({ siteId: result.groups.id }),
     });
     const json = await response.json();
-    return json.data.hls_src;
+    return "" === json.data.hls_src
+        ? undefined
+        : json.data.hls_src ?? undefined;
 };
 export const extract = matchPattern(action, "*://www.bigo.tv/*");
