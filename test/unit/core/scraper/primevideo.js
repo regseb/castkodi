@@ -33,7 +33,7 @@ describe("core/scraper/primevideo.js", function () {
         });
 
         it("should return video id", async function () {
-            const url = new URL("https://www.primevideo.com/detail/bar");
+            const url = new URL("https://www.primevideo.com/detail/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -42,10 +42,26 @@ describe("core/scraper/primevideo.js", function () {
                                <div id="a-page">
                                  <script type="text/template">${JSON.stringify({
                                      props: {
-                                         body: [{ args: { titleID: "foo" } }],
-                                         metadata: {
-                                             pageTitle: "Prime Video: Bar",
-                                         },
+                                         body: [
+                                             {
+                                                 args: { titleID: "bar" },
+                                                 props: {
+                                                     atf: {
+                                                         state: {
+                                                             detail: {
+                                                                 headerDetail: {
+                                                                     bar: {
+                                                                         catalogId:
+                                                                             "baz",
+                                                                         title: "Qux",
+                                                                     },
+                                                                 },
+                                                             },
+                                                         },
+                                                     },
+                                                 },
+                                             },
+                                         ],
                                      },
                                  })}</script>
                                </div>
@@ -59,7 +75,7 @@ describe("core/scraper/primevideo.js", function () {
             assert.equal(
                 file,
                 "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo&asin=foo&name=Bar",
+                    "?mode=PlayVideo&asin=baz&name=Qux",
             );
         });
     });

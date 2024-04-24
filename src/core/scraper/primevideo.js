@@ -26,12 +26,18 @@ const action = async function (_url, metadata) {
         return undefined;
     }
     const json = JSON.parse(script.text);
-    const id = json.props.body[0].args.titleID;
-    const title = json.props.metadata.pageTitle.slice(13);
-    return primevideoPlugin.generateUrl(id, title);
+    const body = json.props.body[0];
+    const details = body.props.atf.state.detail.headerDetail[body.args.titleID];
+    return primevideoPlugin.generateUrl(details.catalogId, details.title);
 };
 export const extract = matchPattern(
     action,
     "https://www.primevideo.com/detail/*",
     "https://www.primevideo.com/region/*/detail/*",
+    "https://www.amazon.com/gp/video/detail/*",
+    "https://www.amazon.co.uk/gp/video/detail/*",
+    "https://www.amazon.de/gp/video/detail/*",
+    "https://www.amazon.de/-/*/gp/video/detail/*",
+    "https://www.amazon.co.jp/gp/video/detail/*",
+    "https://www.amazon.co.jp/-/*/gp/video/detail/*",
 );
