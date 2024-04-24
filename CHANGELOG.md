@@ -2,16 +2,14 @@
 
 ## [7.8.0](https://github.com/regseb/castkodi/compare/v7.7.0...v7.8.0) (2024-04-24)
 
-
 ### Features
 
-* Ajouter les dons avec "Buy Me a Coffee". ([8cb6adf](https://github.com/regseb/castkodi/commit/8cb6adfc074d7c5d00decd40bd8847dfde4bd60e))
-* Gérer les adresses Amazon de Prime Video. ([a334d82](https://github.com/regseb/castkodi/commit/a334d82b3e7609fa382057a7361ef1a581acc2bd))
-
+- Ajouter les dons avec "Buy Me a Coffee". ([8cb6adf](https://github.com/regseb/castkodi/commit/8cb6adfc074d7c5d00decd40bd8847dfde4bd60e))
+- Gérer les adresses Amazon de Prime Video. ([a334d82](https://github.com/regseb/castkodi/commit/a334d82b3e7609fa382057a7361ef1a581acc2bd))
 
 ### Bug Fixes
 
-* Corriger le scraper Bigo. ([3f56031](https://github.com/regseb/castkodi/commit/3f5603174a3adfc4b43eae370ad9dc9327e0e7be))
+- Corriger le scraper Bigo. ([3f56031](https://github.com/regseb/castkodi/commit/3f5603174a3adfc4b43eae370ad9dc9327e0e7be))
 
 ## [7.7.0](https://github.com/regseb/castkodi/compare/v7.6.0...v7.7.0) (2024-04-07)
 
