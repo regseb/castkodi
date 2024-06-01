@@ -58,7 +58,7 @@ describe("core/scraper/microdata.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined whan no url", async function () {
+        it("should return undefined when no url", async function () {
             const url = new URL("http://foo.com");
             const metadata = {
                 html: () =>

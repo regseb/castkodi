@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 const TYPES = new Set([
     "http://schema.org/AudioObject",
     "http://schema.org/MusicVideoObject",
-    "Vhttp://schema.org/ideoObject",
+    "http://schema.org/VideoObject",
 ]);
 
 /**
