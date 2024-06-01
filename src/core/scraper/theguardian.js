@@ -31,13 +31,19 @@ const actionVideo = async function (_url, metadata, context) {
     }
 
     const doc = await metadata.html();
-    const div = doc.querySelector("div.youtube-media-atom__iframe");
-    return null === div
-        ? undefined
-        : await metaExtract(
-              new URL(`https://www.youtube.com/embed/${div.dataset.assetId}`),
-              { ...context, depth: true },
-          );
+    const div = doc.querySelector(
+        'div[data-testid^="youtube-sticky-"][data-testid$="-server"]',
+    );
+    if (null === div) {
+        return undefined;
+    }
+
+    return await metaExtract(
+        new URL(
+            `https://www.youtube.com/embed/${div.dataset.testid.slice(15, -7)}`,
+        ),
+        { ...context, depth: true },
+    );
 };
 export const extractVideo = matchPattern(
     actionVideo,
