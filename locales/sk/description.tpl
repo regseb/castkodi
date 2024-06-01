@@ -17,6 +17,7 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
       <li>🇮🇷&nbsp;Irán: آپارات<!-- Aparat -->;</li>
       <li>🇮🇸&nbsp;Island: Útvarp&nbsp;Saga;</li>
       <li>🇩🇪&nbsp;Nemecko: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;</li>
+      <li>🇷🇺&nbsp;Rusko: OK;</li>
       <li>🇬🇧&nbsp;Spojené kráľovstvo: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
       <li>🇨🇭&nbsp;Švajčiarsko: Play&nbsp;SRF;</li>
       <li>🇺🇸&nbsp;USA: KCAA&nbsp;Radio.</li>

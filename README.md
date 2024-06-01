@@ -35,6 +35,7 @@ Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
   - 🇮🇸 Islande : Útvarp Saga ;
   - 🇳🇱 Pays-Bas : Dumpert ;
   - 🇬🇧 Royaume-Uni : Daily Mail, The Guardian ;
+  - 🇷🇺 Russie : OK ;
   - 🇨🇭 Suisse : Play SRF.
 
 Cast Kodi analyse aussi les pages pour y trouver des vidéos, de la musique ou

@@ -43,6 +43,7 @@ import * as megaphone from "./scraper/megaphone.js";
 import * as microdata from "./scraper/microdata.js";
 import * as mixcloud from "./scraper/mixcloud.js";
 import * as noscript from "./scraper/noscript.js";
+import * as ok from "./scraper/ok.js";
 // eslint-disable-next-line import/no-cycle
 import * as opengraph from "./scraper/opengraph.js";
 // eslint-disable-next-line import/no-cycle
@@ -113,6 +114,7 @@ const SCRAPERS = [
     lepoint,
     megaphone,
     mixcloud,
+    ok,
     ouestfrance,
     peertube,
     podcloud,

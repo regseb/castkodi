@@ -19,6 +19,7 @@ Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur <strong>Kodi</
       <li>🇮🇸&nbsp;Islande&nbsp;: Útvarp&nbsp;Saga&nbsp;;</li>
       <li>🇳🇱&nbsp;Pays-Bas&nbsp;: Dumpert&nbsp;;</li>
       <li>🇬🇧&nbsp;Royaume-Uni&nbsp;: Daily&nbsp;Mail, The&nbsp;Guardian&nbsp;;</li>
+      <li>🇷🇺&nbsp;Russie&nbsp;: OK&nbsp;;</li>
       <li>🇨🇭&nbsp;Suisse&nbsp;: Play&nbsp;SRF.</li>
     </ul>
   </li>

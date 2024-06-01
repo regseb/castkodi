@@ -19,6 +19,7 @@ Cast&nbsp;Kodi añade la posibilidad de emitir vídeos y música a <strong>Kodi<
       <li>🇮🇷&nbsp;Iran: آپارات<!-- Aparat -->;</li>
       <li>🇮🇸&nbsp;Islandia: Útvarp&nbsp;Saga;</li>
       <li>🇬🇧&nbsp;Reino Unido: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
+      <li>🇷🇺&nbsp;Rusia: OK;</li>
       <li>🇨🇭&nbsp;Suiza: Play&nbsp;SRF.</li>
     </ul>
   </li>
