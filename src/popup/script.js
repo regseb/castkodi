@@ -868,11 +868,14 @@ const handlePositionChanged = function (value) {
         document.querySelector("#opensubtitle").disabled = true;
 
         // Ne pas activer les boutons pour répéter et mélanger la liste de
-        // lecture des vidéos quand le lecteur vidéo est inactif.
+        // lecture des vidéos quand le lecteur vidéo est inactif. Et mettre les
+        // valeurs par défaut pour ne pas afficher les boutons comme actifs.
         // https://github.com/xbmc/xbmc/issues/17896
+        handleRepeatChanged("off");
         for (const input of document.querySelectorAll("#repeat input")) {
             input.disabled = true;
         }
+        handleShuffledChanged(false);
         document.querySelector("#shuffle input").disabled = true;
     } else {
         document.querySelector("#time").disabled = false;
