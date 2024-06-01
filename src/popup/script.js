@@ -853,6 +853,38 @@ const handleInputRequested = function ({ type, value }) {
     }
 };
 
+const handleRepeatChanged = function (value) {
+    document.querySelector(`[name="repeat"][value="${value}"]`).checked = true;
+    document.querySelector("#repeat-off").classList.remove("checked");
+    document.querySelector("#repeat-all").classList.remove("checked");
+    document.querySelector("#repeat-one").classList.remove("checked");
+    document.querySelector(`#repeat-${value}`).classList.add("checked");
+};
+
+const handleShuffledChanged = async function (value) {
+    document.querySelector("#shuffle input").checked = value;
+
+    const items = await kodi.playlist.getItems();
+    const ol = document.querySelector("#playlist-items ol");
+    if (0 === ol.children.length) {
+        for await (const item of items.map(complete)) {
+            handleAdd(item);
+        }
+        document.querySelector("#playlist-items").classList.remove("waiting");
+    } else {
+        for (const item of items) {
+            const li = Array.from(ol.children).find(
+                (l) => item.file === l.dataset.file,
+            );
+            if (li.querySelector("span").classList.contains("active")) {
+                position = item.position;
+            }
+            li.remove();
+            ol.append(li);
+        }
+    }
+};
+
 const handlePositionChanged = function (value) {
     position = value;
     if (-1 === value) {
@@ -919,38 +951,6 @@ const handleSpeedChanged = function (value) {
     } else {
         document.querySelector("#pause").style.display = "none";
         document.querySelector("#play").style.display = "flex";
-    }
-};
-
-const handleRepeatChanged = function (value) {
-    document.querySelector(`[name="repeat"][value="${value}"]`).checked = true;
-    document.querySelector("#repeat-off").classList.remove("checked");
-    document.querySelector("#repeat-all").classList.remove("checked");
-    document.querySelector("#repeat-one").classList.remove("checked");
-    document.querySelector(`#repeat-${value}`).classList.add("checked");
-};
-
-const handleShuffledChanged = async function (value) {
-    document.querySelector("#shuffle input").checked = value;
-
-    const items = await kodi.playlist.getItems();
-    const ol = document.querySelector("#playlist-items ol");
-    if (0 === ol.children.length) {
-        for await (const item of items.map(complete)) {
-            handleAdd(item);
-        }
-        document.querySelector("#playlist-items").classList.remove("waiting");
-    } else {
-        for (const item of items) {
-            const li = Array.from(ol.children).find(
-                (l) => item.file === l.dataset.file,
-            );
-            if (li.querySelector("span").classList.contains("active")) {
-                position = item.position;
-            }
-            li.remove();
-            ol.append(li);
-        }
     }
 };
 

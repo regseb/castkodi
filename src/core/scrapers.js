@@ -51,7 +51,6 @@ import * as ouestfrance from "./scraper/ouestfrance.js";
 import * as peertube from "./scraper/peertube.js";
 import * as podcloud from "./scraper/podcloud.js";
 import * as primevideo from "./scraper/primevideo.js";
-import * as radio from "./scraper/radio.js";
 import * as reddit from "./scraper/reddit.js";
 import * as rumble from "./scraper/rumble.js";
 import * as soundcloud from "./scraper/soundcloud.js";
@@ -119,7 +118,6 @@ const SCRAPERS = [
     peertube,
     podcloud,
     primevideo,
-    radio,
     reddit,
     rumble,
     soundcloud,

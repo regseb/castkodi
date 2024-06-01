@@ -22,7 +22,7 @@ Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
   Podcasts, Ausha, Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion,
   DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter,
   Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast Addict,
-  podCloud, Prime Video, Radio, Reddit, Rumble, Steam, Streamable, TikTok,
+  podCloud, Prime Video (Amazon), Reddit, Rumble, Steam, Streamable, TikTok,
   Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo ;
   - 🇩🇪 Allemagne : Arte, Chaos Computer Club, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
