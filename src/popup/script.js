@@ -20,6 +20,13 @@ import { ping } from "../core/tools/ping.js";
 locate(document, "popup");
 
 /**
+ * Le statut du lecteur vidéo.
+ *
+ * @type {boolean}
+ */
+let active = false;
+
+/**
  * La position de l'élément courant dans la liste de lecture ; ou
  * <code>-1</code>.
  *
@@ -813,23 +820,6 @@ const handleRemove = function (value) {
         .remove();
 };
 
-const handleVolumeChanged = function (value) {
-    const volume = document.querySelector("#volume");
-    volume.valueAsNumber = value;
-    volume.title = browser.i18n.getMessage(
-        "popup_volume_title",
-        value.toString(),
-    );
-};
-
-const handleMutedChanged = function (value) {
-    const mute = document.querySelector("#mute input");
-    mute.checked = value;
-
-    const volume = document.querySelector("#volume");
-    volume.classList.toggle("disabled", value);
-};
-
 const handleInputRequested = function ({ type, value }) {
     const dialog = document.querySelector("#dialogsendtext");
     if (!dialog.open) {
@@ -853,17 +843,12 @@ const handleInputRequested = function ({ type, value }) {
     }
 };
 
-const handleRepeatChanged = function (value) {
-    document.querySelector(`[name="repeat"][value="${value}"]`).checked = true;
-    document.querySelector("#repeat-off").classList.remove("checked");
-    document.querySelector("#repeat-all").classList.remove("checked");
-    document.querySelector("#repeat-one").classList.remove("checked");
-    document.querySelector(`#repeat-${value}`).classList.add("checked");
-};
-
-const handleShuffledChanged = async function (value) {
+const handleShuffledChanged = async function (value, only = false) {
     document.querySelector("#shuffle input").checked = value;
 
+    if (only) {
+        return;
+    }
     const items = await kodi.playlist.getItems();
     const ol = document.querySelector("#playlist-items ol");
     if (0 === ol.children.length) {
@@ -885,73 +870,12 @@ const handleShuffledChanged = async function (value) {
     }
 };
 
-const handlePositionChanged = function (value) {
-    position = value;
-    if (-1 === value) {
-        document.querySelector("#time").disabled = true;
-
-        document.querySelector("#previous").disabled = true;
-        document.querySelector("#rewind").disabled = true;
-        document.querySelector("#stop").disabled = true;
-        document.querySelector("#play").dataset.action = "open";
-        document.querySelector("#forward").disabled = true;
-        document.querySelector("#next").disabled = true;
-
-        document.querySelector("#opensubtitle").disabled = true;
-
-        // Ne pas activer les boutons pour répéter et mélanger la liste de
-        // lecture des vidéos quand le lecteur vidéo est inactif. Et mettre les
-        // valeurs par défaut pour ne pas afficher les boutons comme actifs.
-        // https://github.com/xbmc/xbmc/issues/17896
-        handleRepeatChanged("off");
-        for (const input of document.querySelectorAll("#repeat input")) {
-            input.disabled = true;
-        }
-        handleShuffledChanged(false);
-        document.querySelector("#shuffle input").disabled = true;
-    } else {
-        document.querySelector("#time").disabled = false;
-
-        document.querySelector("#previous").disabled = false;
-        document.querySelector("#rewind").disabled = false;
-        document.querySelector("#stop").disabled = false;
-        document.querySelector("#play").dataset.action = "resume";
-        document.querySelector("#forward").disabled = false;
-        document.querySelector("#next").disabled = false;
-
-        document.querySelector("#opensubtitle").disabled = false;
-
-        for (const input of document.querySelectorAll("#repeat input")) {
-            input.disabled = false;
-        }
-        document.querySelector("#shuffle input").disabled = false;
-    }
-
-    for (const li of document.querySelectorAll("#playlist-items li")) {
-        li.querySelector("span").classList.remove("active");
-        for (const button of li.querySelectorAll("button")) {
-            button.disabled = false;
-        }
-    }
-    for (const li of document.querySelectorAll(
-        `#playlist-items li:nth-child(${value + 1})`,
-    )) {
-        li.querySelector("span").classList.add("active");
-        for (const button of li.querySelectorAll("button")) {
-            button.disabled = true;
-        }
-    }
-};
-
-const handleSpeedChanged = function (value) {
-    speed = value;
-    if (1 === speed) {
-        document.querySelector("#play").style.display = "none";
-        document.querySelector("#pause").style.display = "flex";
-    } else {
-        document.querySelector("#pause").style.display = "none";
-        document.querySelector("#play").style.display = "flex";
-    }
+const handleRepeatChanged = function (value) {
+    document.querySelector(`[name="repeat"][value="${value}"]`).checked = true;
+    document.querySelector("#repeat-off").classList.remove("checked");
+    document.querySelector("#repeat-all").classList.remove("checked");
+    document.querySelector("#repeat-one").classList.remove("checked");
+    document.querySelector(`#repeat-${value}`).classList.add("checked");
 };
 
 const handleTimeChanged = function (value) {
@@ -1013,6 +937,96 @@ const handleTotaltimeChanged = function (value) {
     }
 };
 
+const handleSpeedChanged = function (value) {
+    speed = value;
+    if (1 === speed) {
+        document.querySelector("#play").style.display = "none";
+        document.querySelector("#pause").style.display = "flex";
+    } else {
+        document.querySelector("#pause").style.display = "none";
+        document.querySelector("#play").style.display = "flex";
+    }
+};
+
+const handlePositionChanged = function (value) {
+    position = value;
+    for (const li of document.querySelectorAll("#playlist-items li")) {
+        li.querySelector("span").classList.remove("active");
+        for (const button of li.querySelectorAll("button")) {
+            button.disabled = false;
+        }
+    }
+    const li = document.querySelector(
+        `#playlist-items li:nth-child(${value + 1})`,
+    );
+    if (null !== li) {
+        li.querySelector("span").classList.add("active");
+        for (const button of li.querySelectorAll("button")) {
+            button.disabled = true;
+        }
+    }
+};
+
+const handleActiveChanged = async function (value) {
+    active = value;
+    if (active) {
+        document.querySelector("#time").disabled = false;
+
+        document.querySelector("#previous").disabled = false;
+        document.querySelector("#rewind").disabled = false;
+        document.querySelector("#stop").disabled = false;
+        document.querySelector("#play").dataset.action = "resume";
+        document.querySelector("#forward").disabled = false;
+        document.querySelector("#next").disabled = false;
+
+        document.querySelector("#opensubtitle").disabled = false;
+
+        for (const input of document.querySelectorAll("#repeat input")) {
+            input.disabled = false;
+        }
+        document.querySelector("#shuffle input").disabled = false;
+    } else {
+        document.querySelector("#time").disabled = true;
+
+        document.querySelector("#previous").disabled = true;
+        document.querySelector("#rewind").disabled = true;
+        document.querySelector("#stop").disabled = true;
+        document.querySelector("#play").dataset.action = "open";
+        document.querySelector("#forward").disabled = true;
+        document.querySelector("#next").disabled = true;
+
+        document.querySelector("#opensubtitle").disabled = true;
+
+        // Ne pas activer les boutons pour répéter et mélanger la liste de
+        // lecture des vidéos quand le lecteur vidéo est inactif. Et mettre les
+        // valeurs par défaut pour ne pas afficher les boutons comme actifs.
+        // https://github.com/xbmc/xbmc/issues/17896
+        handleRepeatChanged("off");
+        for (const input of document.querySelectorAll("#repeat input")) {
+            input.disabled = true;
+        }
+        await handleShuffledChanged(false, true);
+        document.querySelector("#shuffle input").disabled = true;
+    }
+};
+
+const handleMutedChanged = function (value) {
+    const mute = document.querySelector("#mute input");
+    mute.checked = value;
+
+    const volume = document.querySelector("#volume");
+    volume.classList.toggle("disabled", value);
+};
+
+const handleVolumeChanged = function (value) {
+    const volume = document.querySelector("#volume");
+    volume.valueAsNumber = value;
+    volume.title = browser.i18n.getMessage(
+        "popup_volume_title",
+        value.toString(),
+    );
+};
+
 const handlePropertyChanged = async function (properties) {
     if ("volume" in properties) {
         handleVolumeChanged(properties.volume);
@@ -1020,14 +1034,11 @@ const handlePropertyChanged = async function (properties) {
     if ("muted" in properties) {
         handleMutedChanged(properties.muted);
     }
+    if ("active" in properties) {
+        await handleActiveChanged(properties.active);
+    }
     if ("position" in properties) {
         handlePositionChanged(properties.position);
-    }
-    if ("repeat" in properties) {
-        handleRepeatChanged(properties.repeat);
-    }
-    if ("shuffled" in properties) {
-        await handleShuffledChanged(properties.shuffled);
     }
     if ("speed" in properties) {
         handleSpeedChanged(properties.speed);
@@ -1039,6 +1050,13 @@ const handlePropertyChanged = async function (properties) {
     }
     if ("time" in properties) {
         handleTimeChanged(properties.time);
+    }
+    if ("repeat" in properties) {
+        handleRepeatChanged(properties.repeat);
+    }
+    // Actualiser "shuffled" à la fin, car le traitement prend du temps.
+    if ("shuffled" in properties) {
+        await handleShuffledChanged(properties.shuffled);
     }
 };
 
@@ -1101,21 +1119,18 @@ const load = async function () {
         document.querySelector("#clear").disabled = false;
 
         await handlePropertyChanged(
-            await kodi.player.getProperties([
-                "position",
-                "repeat",
-                "speed",
-                "time",
-                "totaltime",
-            ]),
-        );
-        await handlePropertyChanged(
             await kodi.application.getProperties(["muted", "volume"]),
         );
-        // Récupérer la propriété "shuffled" à la fin, car elle prend du temps
-        // à récupérer les éléments de la liste de lecture.
         await handlePropertyChanged(
-            await kodi.player.getProperties(["shuffled"]),
+            await kodi.player.getProperties([
+                "active",
+                "position",
+                "speed",
+                "totaltime",
+                "time",
+                "repeat",
+                "shuffled",
+            ]),
         );
 
         document.querySelector("#web").disabled = false;

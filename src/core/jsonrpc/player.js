@@ -26,6 +26,7 @@ import { NotificationListener } from "./notificationlistener.js";
  * @type {Record<string, any>}
  */
 const DEFAULT_PROPERTIES = {
+    active: false,
     position: -1,
     repeat: "off",
     shuffled: false,
@@ -110,15 +111,22 @@ export const Player = class {
      */
     async getProperties(properties) {
         const players = await this.#kodi.send("Player.GetActivePlayers");
-        // Ne pas demander les propriétés du lecteur vidéo quand un autre
-        // lecteur est actif. https://github.com/xbmc/xbmc/issues/17897
+        // Ne pas demander les propriétés du lecteur vidéo quand :
+        // - aucun lecteur est actif, car le changeent des propriétés "shuffle"
+        //   et "repeat" ne sont plus remontés ;
+        // - un autre lecteur est actif, car la méthode échoue.
+        // https://github.com/xbmc/xbmc/issues/17896
+        // https://github.com/xbmc/xbmc/issues/17897
         if (players.some((p) => 1 === p.playerid)) {
             const results = await this.#kodi.send("Player.GetProperties", {
                 playerid: 1,
-                properties,
+                properties: properties.filter((p) => "active" !== p),
             });
             return Object.fromEntries(
-                Object.entries(results).map(([key, value]) => {
+                Object.entries({
+                    ...(properties.includes("active") ? { active: true } : {}),
+                    ...results,
+                }).map(([key, value]) => {
                     return "time" === key || "totaltime" === key
                         ? [key, toTimestamp(value)]
                         : [key, value];
@@ -264,6 +272,8 @@ export const Player = class {
         switch (method.slice(7)) {
             case "OnAVStart":
                 this.onPropertyChanged.dispatch({
+                    active: true,
+                    speed: data.player.speed,
                     ...(await this.getProperties([
                         "position",
                         "repeat",
@@ -271,7 +281,6 @@ export const Player = class {
                         "time",
                         "totaltime",
                     ])),
-                    speed: data.player.speed,
                 });
                 break;
             case "OnPause":
@@ -293,6 +302,7 @@ export const Player = class {
                 break;
             case "OnStop":
                 this.onPropertyChanged.dispatch({
+                    active: false,
                     position: -1,
                     speed: 0,
                     time: 0,

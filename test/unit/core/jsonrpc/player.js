@@ -35,6 +35,7 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const properties = [
+                "active",
                 "position",
                 "repeat",
                 "shuffled",
@@ -44,6 +45,7 @@ describe("core/jsonrpc/player.js", function () {
             ];
             const result = await player.getProperties(properties);
             assert.deepEqual(result, {
+                active: false,
                 position: -1,
                 repeat: "off",
                 shuffled: false,
@@ -74,6 +76,7 @@ describe("core/jsonrpc/player.js", function () {
 
             const player = new Player(kodi);
             const properties = [
+                "active",
                 "position",
                 "repeat",
                 "shuffled",
@@ -83,6 +86,7 @@ describe("core/jsonrpc/player.js", function () {
             ];
             const result = await player.getProperties(properties);
             assert.deepEqual(result, {
+                active: true,
                 position: 42,
                 repeat: "all",
                 shuffled: true,
@@ -114,9 +118,10 @@ describe("core/jsonrpc/player.js", function () {
             const stub = sinon.stub(kodi, "send").resolves([{ playerid: 0 }]);
 
             const player = new Player(kodi);
-            const properties = ["position", "repeat", "shuffled"];
+            const properties = ["active", "position", "repeat", "shuffled"];
             const result = await player.getProperties(properties);
             assert.deepEqual(result, {
+                active: false,
                 position: -1,
                 repeat: "off",
                 shuffled: false,
@@ -124,6 +129,28 @@ describe("core/jsonrpc/player.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["Player.GetActivePlayers"]);
+        });
+
+        it('shouldn\'t return "active"', async function () {
+            const kodi = new Kodi();
+            const stub = sinon
+                .stub(kodi, "send")
+                .onFirstCall()
+                .resolves([{ playerid: 1 }])
+                .onSecondCall()
+                .resolves({ position: 42 });
+
+            const player = new Player(kodi);
+            const properties = ["position"];
+            const result = await player.getProperties(properties);
+            assert.deepEqual(result, { position: 42 });
+
+            assert.equal(stub.callCount, 2);
+            assert.deepEqual(stub.firstCall.args, ["Player.GetActivePlayers"]);
+            assert.deepEqual(stub.secondCall.args, [
+                "Player.GetProperties",
+                { playerid: 1, properties: ["position"] },
+            ]);
         });
     });
 
@@ -443,6 +470,7 @@ describe("core/jsonrpc/player.js", function () {
             assert.equal(fake.callCount, 1);
             assert.deepEqual(fake.firstCall.args, [
                 {
+                    active: true,
                     position: 42,
                     repeat: false,
                     shuffled: true,
@@ -578,6 +606,7 @@ describe("core/jsonrpc/player.js", function () {
             assert.equal(fake.callCount, 1);
             assert.deepEqual(fake.firstCall.args, [
                 {
+                    active: false,
                     position: -1,
                     speed: 0,
                     time: 0,
