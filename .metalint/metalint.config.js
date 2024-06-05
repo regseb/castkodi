@@ -5,7 +5,7 @@
  */
 
 /**
- * @type {import("metalint/types/config")}
+ * @type {import("metalint/types").Config}
  */
 export default {
     patterns: [

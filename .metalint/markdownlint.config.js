@@ -46,13 +46,13 @@ export default {
     "fenced-code-language": {
         // eslint-disable-next-line camelcase
         allowed_languages: [
-            "CSS",
-            "HTML",
-            "JavaScript",
-            "JSON",
-            "Markdown",
-            "Shell",
-            "YAML",
+            "css",
+            "html",
+            "javascript",
+            "json",
+            "markdown",
+            "shell",
+            "yaml",
         ],
         // eslint-disable-next-line camelcase
         language_only: true,

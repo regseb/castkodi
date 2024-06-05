@@ -13,7 +13,7 @@ describe("core/tools/sanitizer.js", function () {
             const quoted = quote("foo[.*+?^${}()|[]\\bar");
             assert.equal(
                 quoted,
-                "foo\\[\\.\\*\\+\\?\\^\\$\\{\\}\\(\\)\\|\\[\\]\\\\bar",
+                String.raw`foo\[\.\*\+\?\^\$\{\}\(\)\|\[\]\\bar`,
             );
         });
 

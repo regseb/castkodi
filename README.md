@@ -63,21 +63,20 @@ l'_Adresse IP_ de Kodi. Cette information est affichée dans la page _Paramètre
 / _Infos sur le système_ / _Résumé_. Puis renseignez cette adresse IP dans les
 _Options_ de Cast Kodi.
 
-Pour certains sites Internet, les add-ons suivants sont nécessaires dans
-Kodi :
+Pour certains sites Internet, les add-ons suivants sont nécessaires dans Kodi :
 [Amazon VOD](https://github.com/Sandmann79/xbmc),
-[Dailymotion](https://kodi.tv/addons/nexus/plugin.video.dailymotion_com/),
+[Dailymotion](https://kodi.tv/addons/omega/plugin.video.dailymotion_com/),
 [Elementum](https://github.com/elgatito/plugin.video.elementum),
-[Mixcloud](https://kodi.tv/addons/nexus/plugin.audio.mixcloud/),
+[Mixcloud](https://kodi.tv/addons/omega/plugin.audio.mixcloud/),
 [Plexus](https://github.com/enen92/program.plexus),
 [SendToKodi](https://github.com/firsttris/plugin.video.sendtokodi),
-[SoundCloud](https://kodi.tv/addons/nexus/plugin.audio.soundcloud/),
-[Tubed](https://kodi.tv/addons/nexus/plugin.video.tubed/),
-[Twitch](https://kodi.tv/addons/nexus/plugin.video.twitch/),
-[Vimeo](https://kodi.tv/addons/nexus/plugin.video.vimeo/),
-[VRT MAX](https://kodi.tv/addons/nexus/plugin.video.vrt.nu/),
-[VTM GO](https://kodi.tv/addons/nexus/plugin.video.vtm.go/),
-[YouTube](https://kodi.tv/addons/nexus/plugin.video.youtube/).
+[SoundCloud](https://kodi.tv/addons/omega/plugin.audio.soundcloud/),
+[Tubed](https://kodi.tv/addons/omega/plugin.video.tubed/),
+[Twitch](https://kodi.tv/addons/omega/plugin.video.twitch/),
+[Vimeo](https://kodi.tv/addons/omega/plugin.video.vimeo/),
+[VRT MAX](https://kodi.tv/addons/omega/plugin.video.vrt.nu/),
+[VTM GO](https://kodi.tv/addons/omega/plugin.video.vtm.go/),
+[YouTube](https://kodi.tv/addons/omega/plugin.video.youtube/).
 
 ## Contribuer
 

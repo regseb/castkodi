@@ -15,49 +15,49 @@ describe("core/tools/matchpattern.js", function () {
     describe("compile()", function () {
         it("should compile magnet pattern", function () {
             const regexp = compile("magnet:?*");
-            assert.equal(regexp.source, "^magnet:\\?.*$");
+            assert.equal(regexp.source, String.raw`^magnet:\?.*$`);
             assert.ok(regexp.test("magnet:?foo=bar"));
             assert.ok(!regexp.test("qux:?quux"));
         });
 
         it("should compile acestream pattern", function () {
             const regexp = compile("acestream://*");
-            assert.equal(regexp.source, "^acestream:\\/\\/.*$");
+            assert.equal(regexp.source, String.raw`^acestream:\/\/.*$`);
             assert.ok(regexp.test("acestream://foo"));
             assert.ok(!regexp.test("baz://qux"));
         });
 
         it("should compile '*' scheme", function () {
             const regexp = compile("*://foo.com/");
-            assert.equal(regexp.source, "^https?:\\/\\/foo\\.com\\/$");
+            assert.equal(regexp.source, String.raw`^https?:\/\/foo\.com\/$`);
             assert.ok(regexp.test("http://foo.com/"));
             assert.ok(!regexp.test("bar://baz.com/"));
         });
 
         it("should compile custom scheme", function () {
             const regexp = compile("ws://foo.com/");
-            assert.equal(regexp.source, "^ws:\\/\\/foo\\.com\\/$");
+            assert.equal(regexp.source, String.raw`^ws:\/\/foo\.com\/$`);
             assert.ok(regexp.test("ws://foo.com/"));
             assert.ok(!regexp.test("bar://foo.com/"));
         });
 
         it("should compile '*' host", function () {
             const regexp = compile("http://*/");
-            assert.equal(regexp.source, "^http:\\/\\/[^/]+\\/$");
+            assert.equal(regexp.source, String.raw`^http:\/\/[^/]+\/$`);
             assert.ok(regexp.test("http://foo.com/"));
             assert.ok(!regexp.test("bar://foo.com/"));
         });
 
         it("should compile '*' in host", function () {
             const regexp = compile("http://*.com/");
-            assert.equal(regexp.source, "^http:\\/\\/[^./]+\\.com\\/$");
+            assert.equal(regexp.source, String.raw`^http:\/\/[^./]+\.com\/$`);
             assert.ok(regexp.test("http://foo.com/"));
             assert.ok(!regexp.test("http://foo.fr/"));
         });
 
         it("should compile custom host", function () {
             const regexp = compile("https://foo.com/");
-            assert.equal(regexp.source, "^https:\\/\\/foo\\.com\\/$");
+            assert.equal(regexp.source, String.raw`^https:\/\/foo\.com\/$`);
             assert.ok(regexp.test("https://foo.com/"));
             assert.ok(!regexp.test("https://bar.com/"));
         });
@@ -66,7 +66,7 @@ describe("core/tools/matchpattern.js", function () {
             const regexp = compile("https://foo.com/bar/*/baz/*");
             assert.equal(
                 regexp.source,
-                "^https:\\/\\/foo\\.com\\/bar\\/.*\\/baz\\/.*$",
+                String.raw`^https:\/\/foo\.com\/bar\/.*\/baz\/.*$`,
             );
             assert.ok(regexp.test("https://foo.com/bar/qux/baz/quux"));
             assert.ok(!regexp.test("https://foo.com/bar/corge/"));
@@ -74,14 +74,17 @@ describe("core/tools/matchpattern.js", function () {
 
         it("should be case-insensitive in special schema", function () {
             const regexp = compile("magnet:?foo=bar");
-            assert.equal(regexp.source, "^magnet:\\?foo=bar$");
+            assert.equal(regexp.source, String.raw`^magnet:\?foo=bar$`);
             assert.ok(regexp.test("MAGNET:?FOO=BAR"));
             assert.ok(!regexp.test("MAGNET:?BAZ=QUX"));
         });
 
         it("should be case-insensitive in standard schema", function () {
             const regexp = compile("https://*.fr/foo/*");
-            assert.equal(regexp.source, "^https:\\/\\/[^./]+\\.fr\\/foo\\/.*$");
+            assert.equal(
+                regexp.source,
+                String.raw`^https:\/\/[^./]+\.fr\/foo\/.*$`,
+            );
             assert.ok(regexp.test("HTTPS://BAR.FR/FOO/BAZ"));
             assert.ok(!regexp.test("HTTPS://QUX.FR/QUUX/CORGE"));
         });

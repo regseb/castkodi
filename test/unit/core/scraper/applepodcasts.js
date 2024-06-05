@@ -54,7 +54,7 @@ describe("core/scraper/applepodcasts.js", function () {
                                       },
                                   },
                               ],
-                          }).replaceAll('"', '\\"')}"
+                          }).replaceAll('"', String.raw`\"`)}"
                         }
                       </script>
                     </body></html>`,

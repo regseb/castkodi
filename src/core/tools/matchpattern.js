@@ -16,7 +16,7 @@ import { quote } from "./sanitizer.js";
 export const compile = function (pattern) {
     if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
         return new RegExp(
-            "^" + quote(pattern).replaceAll("\\*", ".*") + "$",
+            "^" + quote(pattern).replaceAll(String.raw`\*`, ".*") + "$",
             "iu",
         );
     }
@@ -27,9 +27,11 @@ export const compile = function (pattern) {
         "^" +
             ("*" === scheme ? "https?" : quote(scheme)) +
             "://" +
-            ("*" === host ? "[^/]+" : quote(host).replace("\\*", "[^./]+")) +
+            ("*" === host
+                ? "[^/]+"
+                : quote(host).replace(String.raw`\*`, "[^./]+")) +
             "/" +
-            quote(path).replaceAll("\\*", ".*") +
+            quote(path).replaceAll(String.raw`\*`, ".*") +
             "$",
         "iu",
     );

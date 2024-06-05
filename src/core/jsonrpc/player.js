@@ -13,10 +13,10 @@ import { NotificationListener } from "./notificationlistener.js";
 
 /**
  * @typedef {Object} GlobalTime
- * @property {number} hours        L'heure du temps.
- * @property {number} minutes      La minute du temps.
- * @property {number} seconds      La seconde du temps.
- * @property {number} milliseconds La milliseconde du temps.
+ * @prop {number} hours        L'heure du temps.
+ * @prop {number} minutes      La minute du temps.
+ * @prop {number} seconds      La seconde du temps.
+ * @prop {number} milliseconds La milliseconde du temps.
  * @see https://kodi.wiki/view/JSON-RPC_API/v13#Global.Time
  */
 

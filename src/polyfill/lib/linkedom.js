@@ -4886,7 +4886,7 @@ let Attr$1 = class Attr extends Node$1 {
     if (emptyAttributes.has(name) && !value) {
       return ignoreCase(this) ? name : `${name}=""`;
     }
-    const escapedValue = ignoreCase(this) ? value.replace(QUOTE, '&quot;') : escape(value);
+    const escapedValue = (ignoreCase(this) ? value : escape(value)).replace(QUOTE, '&quot;');
     return `${name}="${escapedValue}"`;
   }
 
@@ -11589,6 +11589,9 @@ class HTMLAnchorElement extends HTMLElement {
 
   get type() { return stringAttribute.get(this, 'type'); }
   set type(value) { stringAttribute.set(this, 'type', value); }
+
+  get rel() { return stringAttribute.get(this, 'rel'); }
+  set rel(value) { stringAttribute.set(this, 'rel', value); }
   /* c8 ignore stop */
 
 }

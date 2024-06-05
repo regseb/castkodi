@@ -12,13 +12,13 @@ Cast&nbsp;Kodi añade la posibilidad de emitir vídeos y música a <strong>Kodi<
     <ul>
       <li>🇩🇪&nbsp;Alemania: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;</li>
       <li>🇧🇪&nbsp;Belgica: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
-      <li>🇺🇸&nbsp;Estados Unidos: KCAA&nbsp;Radio;</li>
+      <li>🇺🇸&nbsp;Estados&nbsp;Unidos: KCAA&nbsp;Radio;</li>
       <li>🇫🇷&nbsp;Francia: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
       <li>🇬🇷&nbsp;Grecia: StarGR;</li>
       <li>🇳🇱&nbsp;Holanda: Dumpert;</li>
       <li>🇮🇷&nbsp;Iran: آپارات<!-- Aparat -->;</li>
       <li>🇮🇸&nbsp;Islandia: Útvarp&nbsp;Saga;</li>
-      <li>🇬🇧&nbsp;Reino Unido: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
+      <li>🇬🇧&nbsp;Reino&nbsp;Unido: Daily&nbsp;Mail, The&nbsp;Guardian;</li>
       <li>🇷🇺&nbsp;Rusia: OK;</li>
       <li>🇨🇭&nbsp;Suiza: Play&nbsp;SRF.</li>
     </ul>

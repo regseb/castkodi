@@ -17,9 +17,9 @@ import { System } from "./system.js";
 
 /**
  * @typedef {Object} KodiVersions Les versions de Kodi.
- * @property {number} API_VERSION La version de l'API JSON-RPC.
- * @property {number} VERSION     La version de Kodi.
- * @property {string} NAME        Le nom de la version de Kodi.
+ * @prop {number} API_VERSION La version de l'API JSON-RPC.
+ * @prop {number} VERSION     La version de Kodi.
+ * @prop {string} NAME        Le nom de la version de Kodi.
  */
 
 /**

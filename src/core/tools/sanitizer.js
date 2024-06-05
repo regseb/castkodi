@@ -14,7 +14,7 @@
  * @see https://developer.mozilla.org/Web/JavaScript/Guide/Regular_expressions
  */
 export const quote = function (pattern) {
-    return pattern.replaceAll(/[$()*+.?[\\\]^{|}]/gu, "\\$&");
+    return pattern.replaceAll(/[$()*+.?[\\\]^{|}]/gu, String.raw`\$&`);
 };
 
 /**

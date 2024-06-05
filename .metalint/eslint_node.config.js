@@ -55,13 +55,15 @@ export default {
         "n/no-unpublished-import": "off",
         "n/no-unpublished-require": "error",
         "n/no-unsupported-features/es-builtins": "error",
-        "n/no-unsupported-features/es-syntax": [
+        "n/no-unsupported-features/es-syntax": "error",
+        "n/no-unsupported-features/node-builtins": [
             "error",
             {
-                ignores: ["dynamicImport", "modules"],
+                // Ignorer la vérification de fetch() et Response qui est bien
+                // disponible dans Node v20, mais en expérimental.
+                ignores: ["fetch", "Response"],
             },
         ],
-        "n/no-unsupported-features/node-builtins": "error",
         "n/process-exit-as-throw": "error",
 
         // Best Practices.
