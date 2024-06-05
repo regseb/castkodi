@@ -31,17 +31,13 @@ describe("Scraper: Arte", function () {
     });
 
     it("should return french video URL", async function () {
-        // Récupérer l'URL d'une vidéo parmi les vidéos les plus vues.
-        const response = await fetch(
-            "https://www.arte.tv/api/rproxy/emac/v4/fr/web/data/VIDEO_LISTING" +
-                "/?videoType=MOST_VIEWED&authorizedAreas=ALL",
-        );
-        const json = await response.json();
-        // Garder les éléments pointant vers une seule vidéo (et non vers une
-        // liste de vidéos).
-        const video = json.value.data.find((d) => !d.kind.isCollection);
+        // Récupérer l'URL d'une vidéo affichée sur la page d'accueil.
+        const response = await fetch("https://www.arte.tv/fr/");
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        const a = doc.querySelector('a[href*="/videos/"]');
 
-        const url = new URL(video.url, "https://www.arte.tv/");
+        const url = new URL(a.getAttribute("href"), "https://www.arte.tv/fr/");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
@@ -52,17 +48,13 @@ describe("Scraper: Arte", function () {
     });
 
     it("should return german video URL", async function () {
-        // Récupérer l'URL d'une vidéo parmi les vidéos les plus vues.
-        const response = await fetch(
-            "https://www.arte.tv/api/rproxy/emac/v4/de/web/data/VIDEO_LISTING" +
-                "/?videoType=MOST_VIEWED&authorizedAreas=ALL",
-        );
-        const json = await response.json();
-        // Garder les éléments pointant vers une seule vidéo (et non vers une
-        // liste de vidéos).
-        const video = json.value.data.find((d) => !d.kind.isCollection);
+        // Récupérer l'URL d'une vidéo affichée sur la page d'accueil.
+        const response = await fetch("https://www.arte.tv/de/");
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        const a = doc.querySelector('a[href*="/videos/"]');
 
-        const url = new URL(video.url, "https://www.arte.tv/");
+        const url = new URL(a.getAttribute("href"), "https://www.arte.tv/de/");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
