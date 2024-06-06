@@ -1,5 +1,19 @@
 # Changelog
 
+## [7.9.0](https://github.com/regseb/castkodi/compare/v7.8.0...v7.9.0) (2024-06-06)
+
+### Features
+
+- Gérer le site OK. ([833bf53](https://github.com/regseb/castkodi/commit/833bf5321026600c368d3cdcc1605ecf562c0734))
+
+### Bug Fixes
+
+- Actualiser le scraper du Guardian. ([746bf2c](https://github.com/regseb/castkodi/commit/746bf2c46a1f9b84d9b53c527956acb750888e52))
+- Corriger l'activation des boutons des vidéos hors-playlist. ([0efb8a8](https://github.com/regseb/castkodi/commit/0efb8a8189f5b57a5f4f8d8537b294792c4b1e44))
+- Corriger le scraper Microdata. ([6b27add](https://github.com/regseb/castkodi/commit/6b27addb95cf463895d0ac1fd6cb69d32d057bd2))
+- Corriger le statut bouton "repeat". ([bd34f2e](https://github.com/regseb/castkodi/commit/bd34f2ea8df5b9f6524f856ee14f56d720501bfb))
+- Enlever le scraper de Radio. ([bbaef9d](https://github.com/regseb/castkodi/commit/bbaef9db1c0216c4ed4163c37b65e834dd8d03fd))
+
 ## [7.8.0](https://github.com/regseb/castkodi/compare/v7.7.0...v7.8.0) (2024-04-24)
 
 ### Features
