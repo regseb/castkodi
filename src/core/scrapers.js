@@ -14,6 +14,7 @@ import * as arteradio from "./scraper/arteradio.js";
 import * as ausha from "./scraper/ausha.js";
 import * as bigo from "./scraper/bigo.js";
 import * as castbox from "./scraper/castbox.js";
+import * as cbclisten from "./scraper/cbclisten.js";
 import * as dailymotion from "./scraper/dailymotion.js";
 import * as dmax from "./scraper/dmax.js";
 import * as dumpert from "./scraper/dumpert.js";
@@ -98,6 +99,7 @@ const SCRAPERS = [
     ausha,
     bigo,
     castbox,
+    cbclisten,
     dailymotion,
     dmax,
     dumpert,

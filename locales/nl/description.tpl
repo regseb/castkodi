@@ -11,6 +11,7 @@ Cast&nbsp;Kodi geeft de mogelijkheid om video's en muziek door te sturen naar <s
     YouTube, Twitch, Vimeo, SoundCloud alsook Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Prime&nbsp;Video&nbsp;(Amazon), Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo;
     <ul>
       <li>🇧🇪&nbsp;België: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
+      <li>🇨🇦&nbsp;Canada: CBC&nbsp;Listen;</li>
       <li>🇩🇪&nbsp;Duitsland: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;</li>
       <li>🇫🇷&nbsp;Frankrijk: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;</li>
       <li>🇬🇷&nbsp;Griekenland: StarGR;</li>
