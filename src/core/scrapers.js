@@ -20,6 +20,7 @@ import * as dmax from "./scraper/dmax.js";
 import * as dumpert from "./scraper/dumpert.js";
 // eslint-disable-next-line import/no-cycle
 import * as embed from "./scraper/embed.js";
+import * as facebook from "./scraper/facebook.js";
 import * as flickr from "./scraper/flickr.js";
 import * as francetv from "./scraper/francetv.js";
 // eslint-disable-next-line import/no-cycle
@@ -103,6 +104,7 @@ const SCRAPERS = [
     dailymotion,
     dmax,
     dumpert,
+    facebook,
     flickr,
     francetv,
     futurasciences,
@@ -173,11 +175,12 @@ const SCRAPERS = [
  */
 export const extract = async function (url, context) {
     const metadata = {
-        html: cacheable(async () => {
+        html: cacheable(async (options) => {
             try {
                 const controller = new AbortController();
                 const response = await fetch(url, {
                     signal: controller.signal,
+                    ...options,
                 });
                 const contentType = response.headers.get("Content-Type");
                 if (

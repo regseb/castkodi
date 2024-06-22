@@ -30,8 +30,10 @@ const nativeFetch = fetch;
  */
 export const stealthFetch = function (input, init) {
     const headers = {
-        // Remplacer l'agent utilisateur "fetch" par la valeur d'un vrai
-        // navigateur ; pour ne pas être bloqué par des sites.
+        // Remplacer des entêtes pour se rapprocher du comportement des valeurs
+        // des navigateurs.
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Site": "same-origin",
         "User-Agent": USER_AGENT,
         ...init?.headers,
     };

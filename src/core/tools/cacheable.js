@@ -12,30 +12,27 @@
  */
 export const cacheable = function (func) {
     /**
-     * La marque indicant si une valeur est déjà en cache.
+     * Les résultats déjà mis en cache selon les paramètres reçus.
      *
-     * @type {boolean}
+     * @type {Map}
      */
-    let cached = false;
-
-    /**
-     * La valeur de retour en cache.
-     *
-     * @type {any}
-     */
-    let value;
+    const cache = new Map();
 
     /**
      * Enrobe la fonction avec le cache.
      *
+     * @param {any[]} args Les paramètres retransmits à la fonction.
      * @returns {any} Le retour de la fonction (éventuellement récupéré dans le
      *                cache).
      */
-    const wrapped = function () {
-        if (!cached) {
-            value = func();
-            cached = true;
+    const wrapped = function (...args) {
+        const key = JSON.stringify(args);
+        if (cache.has(key)) {
+            return cache.get(key);
         }
+
+        const value = func(...args);
+        cache.set(key, value);
         return value;
     };
 

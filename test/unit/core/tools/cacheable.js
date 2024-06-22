@@ -23,5 +23,20 @@ describe("core/tools/cacheable.js", function () {
 
             assert.equal(fake.callCount, 1);
         });
+
+        it("should support arguments", function () {
+            const fake = sinon.fake((...args) => JSON.stringify(args));
+            const cached = cacheable(fake);
+
+            assert.equal(cached(true), "[true]");
+            assert.equal(cached(1, 2), "[1,2]");
+            assert.equal(cached(1, 2), "[1,2]");
+            assert.equal(cached([1, 2]), "[[1,2]]");
+
+            assert.equal(fake.callCount, 3);
+            assert.deepEqual(fake.firstCall.args, [true]);
+            assert.deepEqual(fake.secondCall.args, [1, 2]);
+            assert.deepEqual(fake.thirdCall.args, [[1, 2]]);
+        });
     });
 });
