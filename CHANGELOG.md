@@ -1,5 +1,15 @@
 # Changelog
 
+## [7.10.0](https://github.com/regseb/castkodi/compare/v7.9.0...v7.10.0) (2024-06-22)
+
+### Features
+
+- Gérer CBC Listen. ([2de5908](https://github.com/regseb/castkodi/commit/2de590847a73a367ab93ff0d71223689dfa457c5))
+
+### Bug Fixes
+
+- Corriger le scraper de Facebook. ([feef2b2](https://github.com/regseb/castkodi/commit/feef2b268adf262cfbfe097f3b0080d90fad191a))
+
 ## [7.9.0](https://github.com/regseb/castkodi/compare/v7.8.0...v7.9.0) (2024-06-06)
 
 ### Features
