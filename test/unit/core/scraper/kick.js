@@ -11,7 +11,7 @@ import * as scraper from "../../../../src/core/scraper/kick.js";
 describe("core/scraper/kick.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("ihttps://help.kick.com/");
+            const url = new URL("https://help.kick.com/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);

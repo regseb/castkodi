@@ -83,7 +83,7 @@ describe("core/scraper/template.js", function () {
                         new DOMParser().parseFromString(
                             `<html><body>
                                <template>
-                                 <a href="http://baz.org/">link</a>
+                                 <a href="https://baz.org/">link</a>
                                </template>
                                <template>
                                  <audio src="https://qux.org/quux.mp3" />

@@ -101,7 +101,7 @@ describe("core/scraper/futurasciences.js", function () {
                             `
                     <html><body>
                       <iframe src="//dai.ly/bar"></iframe>
-                      <iframe data-src="http://baz.com/qux.zip"></iframe>
+                      <iframe data-src="https://baz.com/qux.zip"></iframe>
                       <iframe data-src="//dai.ly/quux"></iframe>
                     </body></html>`,
                             "text/html",

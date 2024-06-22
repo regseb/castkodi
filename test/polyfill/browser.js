@@ -89,11 +89,15 @@ export const browser = {
          * Récupère des marque-pages.
          *
          * @param {string} id L'identifiant des marque-pages.
-         * @returns {browser.bookmarks.BookmarkTreeNode[]} Les marque-pages
-         *                                                 ayant l'identifiant.
+         * @returns {Promise<browser.bookmarks.BookmarkTreeNode[]>} Les
+         *                                                          marque-pages
+         *                                                          ayant
+         *                                                          l'identifiant.
          */
         get(id) {
-            return data.bookmarks.data.filter((b) => id === b.id);
+            return Promise.resolve(
+                data.bookmarks.data.filter((b) => id === b.id),
+            );
         },
     },
 

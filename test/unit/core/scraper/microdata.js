@@ -36,7 +36,7 @@ describe("core/scraper/microdata.js", function () {
         });
 
         it("should return undefined for unsupported type", async function () {
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -59,7 +59,7 @@ describe("core/scraper/microdata.js", function () {
         });
 
         it("should return undefined when no url", async function () {
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -82,7 +82,7 @@ describe("core/scraper/microdata.js", function () {
         });
 
         it("should return URL", async function () {
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(

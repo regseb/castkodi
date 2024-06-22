@@ -13,12 +13,12 @@ describe("core/tools/ping.js", function () {
         it("should return true", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves();
 
-            const ok = await ping("http://foo.com/");
+            const ok = await ping("https://foo.com/");
             assert.equal(ok, true);
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "http://foo.com/",
+                "https://foo.com/",
                 {
                     method: "HEAD",
                     headers: { Authorization: "" },
@@ -29,12 +29,12 @@ describe("core/tools/ping.js", function () {
         it("should return false", async function () {
             const stub = sinon.stub(globalThis, "fetch").rejects();
 
-            const ok = await ping("http://foo.com/");
+            const ok = await ping("https://foo.com/");
             assert.equal(ok, false);
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "http://foo.com/",
+                "https://foo.com/",
                 {
                     method: "HEAD",
                     headers: { Authorization: "" },

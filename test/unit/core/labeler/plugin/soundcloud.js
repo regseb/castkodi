@@ -15,14 +15,14 @@ describe("core/labeler/plugin/soundcloud.js", function () {
 
             const url = new URL(
                 "plugin://plugin.audio.soundcloud/play/" +
-                    "?url=http%3A%2F%2Fbar.com%2F",
+                    "?url=https%3A%2F%2Fbar.io%2F",
             );
 
             const label = await labeler.extract(url, { metaExtract: fake });
             assert.equal(label, "foo");
 
             assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [new URL("http://bar.com/")]);
+            assert.deepEqual(fake.firstCall.args, [new URL("https://bar.io/")]);
         });
 
         it("should return undefined when there isn't 'url' parameter", async function () {

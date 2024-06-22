@@ -5,7 +5,7 @@
  */
 
 /**
- * @typedef {import("./kodi.js").Kodi} Kodi
+ * @import { Kodi } from "./kodi.js"
  */
 
 /**

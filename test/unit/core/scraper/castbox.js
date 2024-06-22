@@ -20,14 +20,14 @@ describe("core/scraper/castbox.js", function () {
         it("should return audio URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
-                    data: { url: "http://foo.tv/bar.mp3" },
+                    data: { url: "https://foo.tv/bar.mp3" },
                 }),
             );
 
             const url = new URL("https://castbox.fm/episode/foo-id123-id456");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "http://foo.tv/bar.mp3");
+            assert.equal(file, "https://foo.tv/bar.mp3");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [

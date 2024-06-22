@@ -122,7 +122,7 @@ describe("core/scrapers.js", function () {
                 .stub(kodi.addons, "getAddons")
                 .resolves([]);
 
-            const url = new URL("http://www.dailymotion.com/video/foo");
+            const url = new URL("https://www.dailymotion.com/video/foo");
             const context = { depth: false, incognito: false };
 
             const file = await extract(url, context);
@@ -137,12 +137,7 @@ describe("core/scrapers.js", function () {
         });
 
         it("should support uppercase URL", async function () {
-            const stubFetch = sinon
-                .stub(globalThis, "fetch")
-                .resolves(new Response(""));
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("HTTPS://PLAYER.VIMEO.COM/VIDEO/FOO");
             const context = { depth: false, incognito: false };
@@ -153,9 +148,8 @@ describe("core/scrapers.js", function () {
                 `"${file}"?.startsWith(...)`,
             );
 
-            assert.equal(stubFetch.callCount, 1);
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

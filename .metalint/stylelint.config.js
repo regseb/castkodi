@@ -5,7 +5,11 @@
  */
 
 /**
- * @type {import("stylelint").Config}
+ * @import { Config } from "stylelint"
+ */
+
+/**
+ * @type {Config}
  */
 export default {
     plugins: ["stylelint-order"],

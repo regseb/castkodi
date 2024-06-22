@@ -259,7 +259,7 @@ describe("core/scraper/twitch.js", function () {
         it("should return channel name from moderator URL", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            const url = new URL("http://www.twitch.tv/moderator/foo");
+            const url = new URL("https://www.twitch.tv/moderator/foo");
 
             const file = await scraper.extract(url);
             assert.equal(

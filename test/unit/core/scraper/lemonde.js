@@ -215,7 +215,7 @@ describe("core/scraper/lemonde.js", function () {
                                        itemStruct: {
                                            video: {
                                                playAddr:
-                                                   "http://foo.io/bar.mp4",
+                                                   "https://foo.io/bar.mp4",
                                            },
                                        },
                                    },
@@ -243,7 +243,7 @@ describe("core/scraper/lemonde.js", function () {
             const context = { depth: false, incognito: false };
 
             const file = await scraper.extract(url, metadata, context);
-            assert.equal(file, "http://foo.io/bar.mp4");
+            assert.equal(file, "https://foo.io/bar.mp4");
 
             assert.equal(stub.callCount, 1);
             assert.equal(stub.firstCall.args.length, 2);

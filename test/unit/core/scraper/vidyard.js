@@ -67,7 +67,7 @@ describe("core/scraper/vidyard.js", function () {
                         chapters: [
                             {
                                 sources: {
-                                    hls: [{ url: "http://foo.com/bar.hls" }],
+                                    hls: [{ url: "https://foo.com/bar.hls" }],
                                 },
                             },
                         ],
@@ -80,7 +80,7 @@ describe("core/scraper/vidyard.js", function () {
             const file = await scraper.extract(url);
             assert.equal(
                 file,
-                "http://foo.com/bar.hls|Referer=https://play.vidyard.com/",
+                "https://foo.com/bar.hls|Referer=https://play.vidyard.com/",
             );
 
             assert.equal(stub.callCount, 1);
@@ -96,7 +96,7 @@ describe("core/scraper/vidyard.js", function () {
                         chapters: [
                             {
                                 sources: {
-                                    hls: [{ url: "http://foo.com/bar.hls" }],
+                                    hls: [{ url: "https://foo.com/bar.hls" }],
                                 },
                             },
                         ],
@@ -111,7 +111,7 @@ describe("core/scraper/vidyard.js", function () {
             const file = await scraper.extract(url);
             assert.equal(
                 file,
-                "http://foo.com/bar.hls|Referer=https://play.vidyard.com/",
+                "https://foo.com/bar.hls|Referer=https://play.vidyard.com/",
             );
 
             assert.equal(stub.callCount, 1);

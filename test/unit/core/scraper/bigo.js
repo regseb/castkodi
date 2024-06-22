@@ -60,14 +60,14 @@ describe("core/scraper/bigo.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
                     // eslint-disable-next-line camelcase
-                    data: { hls_src: "http://foo.tv/bar.m3u8" },
+                    data: { hls_src: "https://foo.tv/bar.m3u8" },
                 }),
             );
 
-            const url = new URL("http://www.bigo.tv/123");
+            const url = new URL("https://www.bigo.tv/123");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "http://foo.tv/bar.m3u8");
+            assert.equal(file, "https://foo.tv/bar.m3u8");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -81,14 +81,14 @@ describe("core/scraper/bigo.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
                     // eslint-disable-next-line camelcase
-                    data: { hls_src: "http://foo.tv/bar.m3u8" },
+                    data: { hls_src: "https://foo.tv/bar.m3u8" },
                 }),
             );
 
-            const url = new URL("http://www.bigo.tv/ab/123");
+            const url = new URL("https://www.bigo.tv/ab/123");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "http://foo.tv/bar.m3u8");
+            assert.equal(file, "https://foo.tv/bar.m3u8");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -106,7 +106,7 @@ describe("core/scraper/bigo.js", function () {
                 }),
             );
 
-            const url = new URL("http://www.bigo.tv/ab/123");
+            const url = new URL("https://www.bigo.tv/ab/123");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
@@ -119,7 +119,7 @@ describe("core/scraper/bigo.js", function () {
             ]);
         });
 
-        it("should return undefined when  it isn't a channel", async function () {
+        it("should return undefined when it isn't a channel", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
                     // eslint-disable-next-line camelcase
@@ -127,7 +127,7 @@ describe("core/scraper/bigo.js", function () {
                 }),
             );
 
-            const url = new URL("http://www.bigo.tv/ab/123");
+            const url = new URL("https://www.bigo.tv/ab/123");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);

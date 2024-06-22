@@ -10,7 +10,7 @@ import * as scraper from "../../../../src/core/scraper/dumpert.js";
 describe("core/scraper/dumpert.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("http://www.dumpert.nl/toppers/");
+            const url = new URL("https://www.dumpert.nl/toppers/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
@@ -40,7 +40,7 @@ describe("core/scraper/dumpert.js", function () {
                         new DOMParser().parseFromString(
                             `<html><head>
                                <meta name="og:video"
-                                     content="http://bar.nl/baz.mp4" />
+                                     content="https://bar.nl/baz.mp4" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -48,7 +48,7 @@ describe("core/scraper/dumpert.js", function () {
             };
 
             const file = await scraper.extract(url, metadata);
-            assert.equal(file, "http://bar.nl/baz.mp4");
+            assert.equal(file, "https://bar.nl/baz.mp4");
         });
     });
 });

@@ -7,8 +7,8 @@
 import { NotificationListener } from "./notificationlistener.js";
 
 /**
- * @typedef {import("../tools/notificationevent.js").NotificationEvent} NotificationEvent
- * @typedef {import("./kodi.js").Kodi} Kodi
+ * @import { NotificationEvent } from "../tools/notificationevent.js"
+ * @import { Kodi } from "./kodi.js"
  */
 
 /**

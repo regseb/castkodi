@@ -36,7 +36,7 @@ describe("core/scraper/goplay.js", function () {
         it("should return video URL", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
-                    manifestUrls: { hls: "http://foo.be/bar.m3u8" },
+                    manifestUrls: { hls: "https://foo.be/bar.m3u8" },
                 }),
             );
 
@@ -56,7 +56,7 @@ describe("core/scraper/goplay.js", function () {
             };
 
             const file = await scraper.extract(url, metadata);
-            assert.equal(file, "http://foo.be/bar.m3u8");
+            assert.equal(file, "https://foo.be/bar.m3u8");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [

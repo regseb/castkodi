@@ -70,7 +70,7 @@ describe("core/scraper/zdf.js", function () {
                       <button class="download-btn"
                               data-dialog="${JSON.stringify({
                                   contentUrl:
-                                      "http://qux.de/{playerId}/quux.json",
+                                      "https://qux.de/{playerId}/quux.json",
                                   apiToken: "corge",
                               }).replaceAll('"', "&quot;")}"></button>
                     </body></html>`,
@@ -84,7 +84,7 @@ describe("core/scraper/zdf.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "http://qux.de/ngplayer_2_4/quux.json",
+                "https://qux.de/ngplayer_2_4/quux.json",
                 { headers: { "Api-Auth": "Bearer corge" } },
             ]);
         });

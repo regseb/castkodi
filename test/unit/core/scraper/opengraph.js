@@ -71,7 +71,7 @@ describe("core/scraper/opengraph.js", function () {
                                <meta property="og:video:type"
                                      content="video/web" />
                                <meta property="og:video"
-                                     content="http://bar.com/baz.mkv" />
+                                     content="https://bar.com/baz.mkv" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -80,7 +80,7 @@ describe("core/scraper/opengraph.js", function () {
             const context = { depth: false, incognito: false };
 
             const file = await scraper.extractVideo(url, metadata, context);
-            assert.equal(file, "http://bar.com/baz.mkv");
+            assert.equal(file, "https://bar.com/baz.mkv");
         });
 
         it("should return undefined when type isn't supported", async function () {
@@ -95,7 +95,7 @@ describe("core/scraper/opengraph.js", function () {
                                <meta property="og:video:type"
                                      content="application/pdf" />
                                <meta property="og:video"
-                                     content="http://bar.com/baz.pdf" />
+                                     content="https://bar.com/baz.pdf" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -119,7 +119,7 @@ describe("core/scraper/opengraph.js", function () {
                                <meta property="og:video:type"
                                      content="text/html" />
                                <meta property="og:video"
-                                     content="http://bar.com/baz.html" />
+                                     content="https://bar.com/baz.html" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -141,7 +141,7 @@ describe("core/scraper/opengraph.js", function () {
                                <meta property="og:video:type"
                                      content="text/html" />
                                <meta property="og:video"
-                                     content="http://bar.com/baz.html" />
+                                     content="https://bar.com/baz.html" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -245,7 +245,7 @@ describe("core/scraper/opengraph.js", function () {
                                <meta property="og:audio:type"
                                      content="audio/x-wav" />
                                <meta property="og:audio:secure_url"
-                                     content="http://bar.com/baz.wav" />
+                                     content="https://bar.com/baz.wav" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -254,7 +254,7 @@ describe("core/scraper/opengraph.js", function () {
             const context = { depth: false, incognito: false };
 
             const file = await scraper.extractAudio(url, metadata, context);
-            assert.equal(file, "http://bar.com/baz.wav");
+            assert.equal(file, "https://bar.com/baz.wav");
         });
 
         it("should return undefined when type isn't supported", async function () {
@@ -269,7 +269,7 @@ describe("core/scraper/opengraph.js", function () {
                                <meta property="og:audio:type"
                                      content="bar/baz" />
                                <meta property="og:audio"
-                                     content="http://qux.com/" />
+                                     content="https://qux.com/" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -293,7 +293,7 @@ describe("core/scraper/opengraph.js", function () {
                                <meta property="og:audio:type"
                                      content="text/html" />
                                <meta property="og:audio"
-                                     content="http://bar.com/baz.html" />
+                                     content="https://bar.com/baz.html" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -315,7 +315,7 @@ describe("core/scraper/opengraph.js", function () {
                                <meta property="og:audio:type"
                                      content="text/html" />
                                <meta property="og:audio"
-                                     content="http://bar.com/baz.html" />
+                                     content="https://bar.com/baz.html" />
                              </head></html>`,
                             "text/html",
                         ),

@@ -101,7 +101,6 @@ const SCRAPERS = [
     bigo,
     castbox,
     cbclisten,
-    dailymotion,
     dmax,
     dumpert,
     facebook,
@@ -145,6 +144,9 @@ const SCRAPERS = [
     vudeo,
     youtube,
     zdf,
+    // Mettre Dailymotion à la fin, car un de ses extracteurs analyse toutes les
+    // pages.
+    dailymotion,
     // Utiliser les extracteurs génériques en dernier recours.
     media,
     ldjson,

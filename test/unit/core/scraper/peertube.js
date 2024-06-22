@@ -38,7 +38,7 @@ describe("core/scraper/peertube.js", function () {
                 Response.json({
                     streamingPlaylists: [
                         {
-                            playlistUrl: "http://foo.fr/bar.avi",
+                            playlistUrl: "https://foo.fr/bar.avi",
                             files: [],
                         },
                     ],
@@ -48,7 +48,7 @@ describe("core/scraper/peertube.js", function () {
             const url = new URL("https://baz.com/w/qux");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "http://foo.fr/bar.avi");
+            assert.equal(file, "https://foo.fr/bar.avi");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -60,14 +60,14 @@ describe("core/scraper/peertube.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
                     streamingPlaylists: [],
-                    files: [{ fileUrl: "http://foo.io/bar.avi" }],
+                    files: [{ fileUrl: "https://foo.io/bar.avi" }],
                 }),
             );
 
             const url = new URL("https://baz.com/videos/watch/qux");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "http://foo.io/bar.avi");
+            assert.equal(file, "https://foo.io/bar.avi");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -79,14 +79,14 @@ describe("core/scraper/peertube.js", function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 Response.json({
                     streamingPlaylists: [],
-                    files: [{ fileUrl: "http://foo.fr/bar.avi" }],
+                    files: [{ fileUrl: "https://foo.fr/bar.avi" }],
                 }),
             );
 
             const url = new URL("https://baz.com/videos/embed/qux");
 
             const file = await scraper.extract(url);
-            assert.equal(file, "http://foo.fr/bar.avi");
+            assert.equal(file, "https://foo.fr/bar.avi");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [

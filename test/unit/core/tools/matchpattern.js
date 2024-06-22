@@ -42,17 +42,17 @@ describe("core/tools/matchpattern.js", function () {
         });
 
         it("should compile '*' host", function () {
-            const regexp = compile("http://*/");
-            assert.equal(regexp.source, String.raw`^http:\/\/[^/]+\/$`);
-            assert.ok(regexp.test("http://foo.com/"));
+            const regexp = compile("https://*/");
+            assert.equal(regexp.source, String.raw`^https:\/\/[^/]+\/$`);
+            assert.ok(regexp.test("https://foo.com/"));
             assert.ok(!regexp.test("bar://foo.com/"));
         });
 
         it("should compile '*' in host", function () {
-            const regexp = compile("http://*.com/");
-            assert.equal(regexp.source, String.raw`^http:\/\/[^./]+\.com\/$`);
-            assert.ok(regexp.test("http://foo.com/"));
-            assert.ok(!regexp.test("http://foo.fr/"));
+            const regexp = compile("https://*.com/");
+            assert.equal(regexp.source, String.raw`^https:\/\/[^./]+\.com\/$`);
+            assert.ok(regexp.test("https://foo.com/"));
+            assert.ok(!regexp.test("https://foo.fr/"));
         });
 
         it("should compile custom host", function () {
@@ -94,19 +94,19 @@ describe("core/tools/matchpattern.js", function () {
         it("should support one pattern", async function () {
             const fake = sinon.fake.resolves("foo");
 
-            const wrapped = matchPattern(fake, "*://bar.com/");
+            const wrapped = matchPattern(fake, "*://bar.fr/");
             assert.deepEqual(
                 Object.getOwnPropertyDescriptor(wrapped, "name"),
                 Object.getOwnPropertyDescriptor(fake, "name"),
             );
 
-            let result = await wrapped(new URL("http://bar.com/"));
+            let result = await wrapped(new URL("https://bar.fr/"));
             assert.equal(result, "foo");
-            result = await wrapped(new URL("http://baz.org/"));
+            result = await wrapped(new URL("https://baz.org/"));
             assert.equal(result, undefined);
 
             assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [new URL("http://bar.com/")]);
+            assert.deepEqual(fake.firstCall.args, [new URL("https://bar.fr/")]);
         });
 
         it("should support many patterns", async function () {
@@ -114,39 +114,41 @@ describe("core/tools/matchpattern.js", function () {
 
             const wrapped = matchPattern(
                 fake,
-                "*://bar.com/",
-                "http://baz.io/",
+                "*://bar.io/",
+                "https://baz.com/",
             );
-            let result = await wrapped(new URL("http://bar.com/"));
+            let result = await wrapped(new URL("https://bar.io/"));
             assert.equal(result, "foo");
-            result = await wrapped(new URL("http://baz.io/"));
+            result = await wrapped(new URL("https://baz.com/"));
             assert.equal(result, "foo");
-            result = await wrapped(new URL("http://qux.org/"));
+            result = await wrapped(new URL("https://qux.org/"));
             assert.equal(result, undefined);
 
             assert.equal(fake.callCount, 2);
-            assert.deepEqual(fake.firstCall.args, [new URL("http://bar.com/")]);
-            assert.deepEqual(fake.secondCall.args, [new URL("http://baz.io/")]);
+            assert.deepEqual(fake.firstCall.args, [new URL("https://bar.io/")]);
+            assert.deepEqual(fake.secondCall.args, [
+                new URL("https://baz.com/"),
+            ]);
         });
 
         it("should support others parameters", async function () {
             const fake = sinon.fake.resolves("foo");
 
             const wrapped = matchPattern(fake, "*://bar.com/");
-            let result = await wrapped(new URL("http://bar.com/"), "baz");
+            let result = await wrapped(new URL("https://bar.com/"), "baz");
             assert.equal(result, "foo");
-            result = await wrapped(new URL("http://bar.com/"), "baz", "qux");
+            result = await wrapped(new URL("https://bar.com/"), "baz", "qux");
             assert.equal(result, "foo");
-            result = await wrapped(new URL("http://quux.org/"), "corge");
+            result = await wrapped(new URL("https://quux.org/"), "corge");
             assert.equal(result, undefined);
 
             assert.equal(fake.callCount, 2);
             assert.deepEqual(fake.firstCall.args, [
-                new URL("http://bar.com/"),
+                new URL("https://bar.com/"),
                 "baz",
             ]);
             assert.deepEqual(fake.secondCall.args, [
-                new URL("http://bar.com/"),
+                new URL("https://bar.com/"),
                 "baz",
                 "qux",
             ]);

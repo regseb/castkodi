@@ -20,7 +20,7 @@ describe("Scraper: Dailymotion", function () {
     });
 
     it("should return tiny video id", async function () {
-        const url = new URL("http://dai.ly/x5riqme");
+        const url = new URL("https://dai.ly/x5riqme");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);

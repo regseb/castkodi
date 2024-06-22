@@ -7,8 +7,8 @@
 import { NotificationListener } from "./notificationlistener.js";
 
 /**
- * @typedef {import("../tools/notificationevent.js").NotificationEvent} NotificationEvent
- * @typedef {import("./kodi.js").Kodi} Kodi
+ * @import { NotificationEvent } from "../tools/notificationevent.js"
+ * @import { Kodi } from "./kodi.js"
  */
 
 /**
@@ -112,8 +112,8 @@ export const Player = class {
     async getProperties(properties) {
         const players = await this.#kodi.send("Player.GetActivePlayers");
         // Ne pas demander les propriétés du lecteur vidéo quand :
-        // - aucun lecteur est actif, car le changeent des propriétés "shuffle"
-        //   et "repeat" ne sont plus remontés ;
+        // - aucun lecteur n'est actif, car le changement des propriétés
+        //   "shuffle" et "repeat" ne sont plus remontés ;
         // - un autre lecteur est actif, car la méthode échoue.
         // https://github.com/xbmc/xbmc/issues/17896
         // https://github.com/xbmc/xbmc/issues/17897

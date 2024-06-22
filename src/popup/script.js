@@ -1396,7 +1396,7 @@ if ("multi" === config["server-mode"]) {
                 : server.name;
             input[index] = new Option(
                 name,
-                index,
+                index.toString(),
                 index === config["server-active"],
                 index === config["server-active"],
             );

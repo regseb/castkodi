@@ -96,7 +96,7 @@ describe("core/scraper/iframe.js", function () {
                         new DOMParser().parseFromString(
                             `
                     <html><body>
-                      <iframe src="http://exemple.com/data.zip"></iframe>
+                      <iframe src="https://exemple.com/data.zip"></iframe>
                       <iframe src="/embed/video/foo"></iframe>
                     </body></html>`,
                             "text/html",

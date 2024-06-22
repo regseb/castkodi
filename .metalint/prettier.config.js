@@ -7,7 +7,11 @@
 import pluginXML from "@prettier/plugin-xml";
 
 /**
- * @type {import("prettier").Config}
+ * @import { Config } from "prettier"
+ */
+
+/**
+ * @type {Config}
  */
 export default {
     plugins: [pluginXML],

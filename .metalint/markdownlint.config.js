@@ -5,7 +5,11 @@
  */
 
 /**
- * @type {import("markdownlint").Configuration}
+ * @import { Configuration } from "markdownlint"
+ */
+
+/**
+ * @type {Configuration}
  */
 export default {
     "heading-increment": true,
@@ -19,7 +23,7 @@ export default {
     "no-multiple-blanks": true,
     // eslint-disable-next-line camelcase
     "line-length": { code_blocks: false, headings: false, stern: true },
-    "commonds-show-output": true,
+    "commands-show-output": true,
     "no-missing-space-atx": true,
     "no-multiple-space-atx": true,
     "no-missing-space-closed-atx": true,

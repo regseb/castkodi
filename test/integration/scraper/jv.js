@@ -17,7 +17,7 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
     });
 
     it("should return undefined when it isn't a video", async function () {
-        const url = new URL("http://www.jeuxvideo.com/videos-de-jeux.htm");
+        const url = new URL("https://www.jeuxvideo.com/videos-de-jeux.htm");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
@@ -26,7 +26,7 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
 
     it("should return video URL from videos-editors page", async function () {
         const url = new URL(
-            "http://www.jeuxvideo.com/videos-editeurs/0000/00007335" +
+            "https://www.jeuxvideo.com/videos-editeurs/0000/00007335" +
                 "/half-life-2-pc-trailer-00004956.htm",
         );
         const context = { depth: false, incognito: false };
@@ -40,7 +40,7 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
 
     it("should return video URL from extracts-videos page", async function () {
         const url = new URL(
-            "http://www.jeuxvideo.com/extraits-videos-jeux/0002/00023827" +
+            "https://www.jeuxvideo.com/extraits-videos-jeux/0002/00023827" +
                 "/portal-2-pc-meet-wheatley-00008311.htm",
         );
         const context = { depth: false, incognito: false };
@@ -54,7 +54,7 @@ describe("Scraper: JV (Jeuxvideo.com)", function () {
 
     it("should return video URL", async function () {
         const url = new URL(
-            "http://www.jeuxvideo.com/videos/461728" +
+            "https://www.jeuxvideo.com/videos/461728" +
                 "/superhot-notre-avis-en-deux-minutes-sur-ce-fps-original.htm",
         );
         const context = { depth: false, incognito: false };

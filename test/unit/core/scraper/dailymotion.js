@@ -12,7 +12,7 @@ import * as scraper from "../../../../src/core/scraper/dailymotion.js";
 describe("core/scraper/dailymotion.js", function () {
     describe("extractVideo()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("http://www.dailymotion.com/fr/feed");
+            const url = new URL("https://www.dailymotion.com/fr/feed");
 
             const file = await scraper.extractVideo(url);
             assert.equal(file, undefined);
@@ -76,7 +76,7 @@ describe("core/scraper/dailymotion.js", function () {
         it("should return tiny video id", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            const url = new URL("http://dai.ly/foo");
+            const url = new URL("https://dai.ly/foo");
 
             const file = await scraper.extractMinify(url);
             assert.equal(
@@ -171,7 +171,7 @@ describe("core/scraper/dailymotion.js", function () {
 
     describe("extractPlayerIframe()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("http://www.dailymotion.com/player/foo");
+            const url = new URL("https://www.dailymotion.com/player/foo");
 
             const file = await scraper.extractPlayerIframe(url);
             assert.equal(file, undefined);

@@ -50,7 +50,7 @@ describe("core/scraper/applepodcasts.js", function () {
                               d: [
                                   {
                                       attributes: {
-                                          assetUrl: "http://qux.fr/quux.mp3",
+                                          assetUrl: "https://qux.fr/quux.mp3",
                                       },
                                   },
                               ],
@@ -64,7 +64,7 @@ describe("core/scraper/applepodcasts.js", function () {
             };
 
             const file = await scraper.extract(url, metadata);
-            assert.equal(file, "http://qux.fr/quux.mp3");
+            assert.equal(file, "https://qux.fr/quux.mp3");
         });
     });
 });

@@ -174,7 +174,7 @@ describe("core/scraper/embed.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <embed src="http://exemple.com/data.zip" />
+                               <embed src="https://exemple.com/data.zip" />
                                <embed src="/embed/video/foo" />
                              </body></html>`,
                             "text/html",

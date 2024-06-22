@@ -33,10 +33,10 @@ describe("core/labeler/plugin/vtmgo.js", function () {
 
             // Simuler un mauvais découpage d'une URL par Chromium.
             // https://issues.chromium.org/40063064
-            const url = {
+            const url = /** @type {URL} */ ({
                 href: "plugin://plugin.video.vtm.go/play/catalog/episodes/bar",
                 pathname: "//plugin.video.vtm.go/play/catalog/episodes/bar",
-            };
+            });
 
             const label = await labeler.extractEpisode(url, {
                 metaExtract: fake,
@@ -74,10 +74,10 @@ describe("core/labeler/plugin/vtmgo.js", function () {
 
             // Simuler un mauvais découpage d'une URL par Chromium.
             // https://issues.chromium.org/40063064
-            const url = {
+            const url = /** @type {URL} */ ({
                 href: "plugin://plugin.video.vtm.go/play/catalog/movies/bar",
                 pathname: "//plugin.video.vtm.go/play/catalog/movies/bar",
-            };
+            });
 
             const label = await labeler.extractMovie(url, {
                 metaExtract: fake,

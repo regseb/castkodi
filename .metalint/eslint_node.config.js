@@ -5,7 +5,11 @@
  */
 
 /**
- * @type {import("eslint").Linter.Config}
+ * @import { Linter } from "eslint"
+ */
+
+/**
+ * @type {Linter.Config}
  */
 export default {
     rules: {
@@ -52,15 +56,17 @@ export default {
         "n/no-path-concat": "error",
         "n/no-process-exit": "error",
         "n/no-unpublished-bin": "error",
-        "n/no-unpublished-import": "off",
-        "n/no-unpublished-require": "error",
+        "n/no-unpublished-import": "error",
+        // Ne pas vérifier les require(), car ils ne sont pas utilisés (en
+        // faveur des imports).
+        "n/no-unpublished-require": "off",
         "n/no-unsupported-features/es-builtins": "error",
         "n/no-unsupported-features/es-syntax": "error",
         "n/no-unsupported-features/node-builtins": [
             "error",
             {
-                // Ignorer la vérification de fetch() et Response qui est bien
-                // disponible dans Node v20, mais en expérimental.
+                // Ignorer les vérifications de fetch() et Response qui sont
+                // bien disponible dans Node v20, mais en expérimental.
                 ignores: ["fetch", "Response"],
             },
         ],

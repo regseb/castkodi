@@ -10,7 +10,7 @@ import { JSDOM } from "jsdom";
 import webExt from "web-ext";
 
 /**
- * @typedef {import("jsdom").Node} Node
+ * @import { Node } from "jsdom"
  */
 
 const LOCALES_DIR = "locales";
@@ -61,7 +61,7 @@ const plain = function (html) {
 // Supprimer l'éventuel répertoire de la précédente construction.
 await fs.rm(BUILD_DIR, { force: true, recursive: true });
 
-// Créer l'archive de l'extension.
+// Créer l'archive zippée de l'extension.
 await webExt.cmd.build({
     sourceDir: SOURCE_DIR,
     artifactsDir: BUILD_DIR,

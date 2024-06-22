@@ -52,7 +52,7 @@ describe("core/scraper/srf.js", function () {
                                 {
                                     analyticsMetadata: {
                                         // eslint-disable-next-line camelcase
-                                        media_url: "http://foo.ch/bar.m3u8",
+                                        media_url: "https://foo.ch/bar.m3u8",
                                     },
                                 },
                             ],
@@ -66,7 +66,7 @@ describe("core/scraper/srf.js", function () {
             );
 
             const file = await scraper.extractVideo(url);
-            assert.equal(file, "http://foo.ch/bar.m3u8");
+            assert.equal(file, "https://foo.ch/bar.m3u8");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
@@ -112,7 +112,7 @@ describe("core/scraper/srf.js", function () {
                                 {
                                     analyticsMetadata: {
                                         // eslint-disable-next-line camelcase
-                                        media_url: "http://foo.ch/bar.m3u8",
+                                        media_url: "https://foo.ch/bar.m3u8",
                                     },
                                 },
                             ],
@@ -126,7 +126,7 @@ describe("core/scraper/srf.js", function () {
             );
 
             const file = await scraper.extractRedirect(url);
-            assert.equal(file, "http://foo.ch/bar.m3u8");
+            assert.equal(file, "https://foo.ch/bar.m3u8");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [

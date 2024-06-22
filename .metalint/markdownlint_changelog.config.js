@@ -5,7 +5,11 @@
  */
 
 /**
- * @type {import("markdownlint").Configuration}
+ * @import { Configuration } from "markdownlint"
+ */
+
+/**
+ * @type {Configuration}
  */
 export default {
     // Ne pas vérifier la longueur des lignes du CHANGELOG, car celui-ci est

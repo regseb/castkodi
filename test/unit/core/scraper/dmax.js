@@ -157,7 +157,7 @@ describe("core/scraper/dmax.js", function () {
                                 streaming: [
                                     {
                                         type: "baz",
-                                        url: "http://qux.com",
+                                        url: "https://qux.com",
                                     },
                                 ],
                             },

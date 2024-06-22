@@ -57,7 +57,7 @@ describe("core/scraper/ldjson.js", function () {
         });
 
         it("should return undefined when there isn't type", async function () {
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -81,7 +81,7 @@ describe("core/scraper/ldjson.js", function () {
         });
 
         it("should return undefined when there isn't content", async function () {
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -104,7 +104,7 @@ describe("core/scraper/ldjson.js", function () {
         });
 
         it("should return contentUrl", async function () {
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -186,7 +186,7 @@ describe("core/scraper/ldjson.js", function () {
         it("should return embedUrl", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -222,7 +222,7 @@ describe("core/scraper/ldjson.js", function () {
         });
 
         it("should ignore embedUrl when it's depth", async function () {
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
@@ -247,7 +247,7 @@ describe("core/scraper/ldjson.js", function () {
         });
 
         it("should ignore incomplete node", async function () {
-            const url = new URL("http://foo.com");
+            const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(

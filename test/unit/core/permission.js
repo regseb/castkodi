@@ -18,7 +18,7 @@ describe("core/permission.js", function () {
         });
 
         it("should throw error", async function () {
-            await browser.permissions.request({ origins: ["http://foo.com/"] });
+            await browser.permissions.request({ origins: ["https://foo.tv/"] });
 
             await assert.rejects(() => permission.checkHosts(), {
                 name: "PebkacError",

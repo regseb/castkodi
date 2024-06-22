@@ -83,7 +83,7 @@ describe("core/scraper/noscript.js", function () {
                         new DOMParser().parseFromString(
                             `<html><body>
                                <noscript>
-                                 <a href="http://baz.org/">link</a>
+                                 <a href="https://baz.org/">link</a>
                                </noscript>
                                <noscript>
                                  <audio src="https://qux.org/quux.mp3" />

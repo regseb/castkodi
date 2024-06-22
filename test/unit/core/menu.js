@@ -232,7 +232,7 @@ describe("core/menu.js", function () {
 
     describe("aggregate()", function () {
         it("should return bookmark url", async function () {
-            const { id } = browser.bookmarks.create({ url: "http://foo.com/" });
+            const { id } = browser.bookmarks.create({ url: "https://foo.fr/" });
 
             const urls = await menu.aggregate({
                 menuItemId: "send",
@@ -240,7 +240,7 @@ describe("core/menu.js", function () {
                 editable: false,
                 bookmarkId: id,
             });
-            assert.deepEqual(urls, ["http://foo.com/"]);
+            assert.deepEqual(urls, ["https://foo.fr/"]);
         });
 
         it("should return bookmark title", async function () {
@@ -355,7 +355,7 @@ describe("core/menu.js", function () {
                 menuItemId: "add",
                 modifiers: [],
                 editable: false,
-                linkUrl: "http://bar.com/",
+                linkUrl: "https://bar.com/",
             });
 
             assert.equal(stub.callCount, 1);
@@ -384,13 +384,13 @@ describe("core/menu.js", function () {
                 menuItemId: "add",
                 modifiers: [],
                 editable: false,
-                linkUrl: "http://foo.com/",
+                linkUrl: "https://foo.com/",
             });
 
             assert.equal(stubGetAddons.callCount, 1);
             assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
             assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/"]);
+            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/"]);
         });
 
         it("should notify bad link", async function () {

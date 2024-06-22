@@ -5,7 +5,11 @@
  */
 
 /**
- * @type {import("eslint").Linter.Config}
+ * @import { Linter } from "eslint"
+ */
+
+/**
+ * @type {Linter.Config}
  */
 export default {
     rules: {

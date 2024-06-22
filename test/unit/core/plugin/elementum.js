@@ -11,12 +11,12 @@ describe("core/plugin/elementum.js", function () {
     describe("generateUrl()", function () {
         it("should return URL with torrent URL", function () {
             const label = plugin.generateUrl(
-                new URL("http://foo.fr/bar.torrent"),
+                new URL("https://foo.fr/bar.torrent"),
             );
             assert.equal(
                 label,
                 "plugin://plugin.video.elementum/play" +
-                    "?uri=http%3A%2F%2Ffoo.fr%2Fbar.torrent",
+                    "?uri=https%3A%2F%2Ffoo.fr%2Fbar.torrent",
             );
         });
     });

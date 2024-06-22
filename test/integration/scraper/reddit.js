@@ -10,7 +10,7 @@ import { config } from "../config.js";
 
 describe("Scraper: Reddit", function () {
     before(function () {
-        // Désactiver les tests de Reddit au États-Unis, car la récupération ne
+        // Désactiver les tests de Reddit aux États-Unis, car la récupération ne
         // semble pas fonctionner.
         if (undefined !== config.country && "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this

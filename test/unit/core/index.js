@@ -16,9 +16,9 @@ describe("core/index.js", function () {
                 "",
                 " ",
                 // Tester une URL invalide, mais avec un préfixe valide.
-                "http://:/",
+                "https://:/",
                 // Tester des URLs valides, mais avec des préfixes invalide.
-                "prefix-http://bar.com/",
+                "prefix-https://bar.com/",
                 "prefix-magnet://baz",
                 "prefix-acestream://qux",
                 "prefix-plugin://plugin.video.quux/",
@@ -44,10 +44,10 @@ describe("core/index.js", function () {
         });
 
         it("should trim space", function () {
-            const urls = ["\thttp://www.foo.fr \n"];
+            const urls = ["\thttps://www.foo.fr \n"];
 
             const url = mux(urls);
-            assert.equal(url, "http://www.foo.fr");
+            assert.equal(url, "https://www.foo.fr");
         });
 
         it("should return URL with port", function () {
@@ -115,7 +115,7 @@ describe("core/index.js", function () {
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
             const stubOpen = sinon.stub(kodi.player, "open").resolves("OK");
 
-            await cast("send", ["http://foo.com/bar"]);
+            await cast("send", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
@@ -124,7 +124,7 @@ describe("core/index.js", function () {
             assert.equal(stubClear.callCount, 1);
             assert.deepEqual(stubClear.firstCall.args, []);
             assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
+            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
             assert.equal(stubOpen.callCount, 1);
             assert.deepEqual(stubOpen.firstCall.args, []);
         });
@@ -141,7 +141,7 @@ describe("core/index.js", function () {
                 .stub(kodi.playlist, "insert")
                 .resolves("OK");
 
-            await cast("insert", ["http://foo.com/bar"]);
+            await cast("insert", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
@@ -151,7 +151,7 @@ describe("core/index.js", function () {
             assert.deepEqual(stubGetProperty.firstCall.args, ["position"]);
             assert.equal(stubInsert.callCount, 1);
             assert.deepEqual(stubInsert.firstCall.args, [
-                "http://foo.com/bar",
+                "https://foo.com/bar",
                 43,
             ]);
         });
@@ -163,20 +163,20 @@ describe("core/index.js", function () {
                 .resolves([]);
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
-            await cast("add", ["http://foo.com/bar"]);
+            await cast("add", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);
             assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
             assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
+            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
         });
 
         it("should reject invalid action", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            await assert.rejects(() => cast("foo", ["http://foo.com/bar"]), {
+            await assert.rejects(() => cast("foo", ["https://foo.com/bar"]), {
                 name: "Error",
                 message: "foo is not supported",
             });
@@ -194,16 +194,16 @@ describe("core/index.js", function () {
                 .resolves([]);
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
-            await cast("add", ["http://foo.com/bar"]);
+            await cast("add", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.deepEqual(histories, [
-                { id: "1", url: "http://foo.com/bar" },
+                { id: "1", url: "https://foo.com/bar" },
             ]);
 
             assert.equal(stubGetAddons.callCount, 1);
             assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
             assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
+            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
         });
 
         it("shouldn't add in history", async function () {
@@ -213,14 +213,14 @@ describe("core/index.js", function () {
                 .resolves([]);
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
-            await cast("add", ["http://foo.com/bar"]);
+            await cast("add", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);
             assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
             assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
+            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
         });
 
         it("shouldn't add in history in incognito", async function () {
@@ -231,14 +231,14 @@ describe("core/index.js", function () {
                 .resolves([]);
             const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
 
-            await cast("add", ["http://foo.com/bar"]);
+            await cast("add", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
             assert.equal(stubGetAddons.callCount, 1);
             assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
             assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["http://foo.com/bar"]);
+            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
         });
 
         it("should pass incognito on scrapers", async function () {
@@ -251,7 +251,7 @@ describe("core/index.js", function () {
                 .stub(kodi.playlist, "add")
                 .resolves("OK");
 
-            await cast("add", ["http://youtu.be/foo"]);
+            await cast("add", ["https://youtu.be/foo"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 

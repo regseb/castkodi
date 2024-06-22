@@ -5,7 +5,11 @@
  */
 
 /**
- * @type {import("eslint").Linter.Config}
+ * @import { Linter } from "eslint"
+ */
+
+/**
+ * @type {Linter.Config}
  */
 export default {
     plugins: [
@@ -497,7 +501,10 @@ export default {
         "jsdoc/no-restricted-syntax": "off",
         "jsdoc/no-types": "off",
         "jsdoc/no-undefined-types": [
-            "error",
+            // Désactiver cette règle qui remonte des faux-positifs avec les
+            // tags "@import".
+            // https://github.com/gajus/eslint-plugin-jsdoc/issues/1244
+            "off",
             // Ajouter RequestInit (le type du deuxième paramètre de la fonction
             // fetch) qui est connu de TypeScript, mais qui n'existe pas dans
             // globales (car il n'est pas dans Node.js, ni dans les
@@ -692,6 +699,7 @@ export default {
         // Utiliser la règle no-negated-condition d'ESLint, car celle d'unicorn
         // apporte seulement la correction automatique.
         "unicorn/no-negated-condition": "off",
+        "unicorn/no-negation-in-equality-check": "error",
         "unicorn/no-nested-ternary": "off",
         "unicorn/no-new-array": "error",
         "unicorn/no-new-buffer": "error",
@@ -722,7 +730,7 @@ export default {
         "unicorn/number-literal-case": "off",
         "unicorn/numeric-separators-style": "error",
         "unicorn/prefer-add-event-listener": "error",
-        "unicorn/prefer-array-find": ["error", { checkFromLast: true }],
+        "unicorn/prefer-array-find": "error",
         "unicorn/prefer-array-flat": "error",
         "unicorn/prefer-array-flat-map": "error",
         "unicorn/prefer-array-index-of": "error",

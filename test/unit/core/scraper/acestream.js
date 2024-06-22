@@ -10,7 +10,7 @@ import * as scraper from "../../../../src/core/scraper/acestream.js";
 describe("core/scraper/acestream.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("http://www.acestream.org/");
+            const url = new URL("https://www.acestream.org/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);

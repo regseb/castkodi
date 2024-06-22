@@ -12,7 +12,7 @@ import * as scraper from "../../../../src/core/scraper/gamekult.js";
 describe("core/scraper/gamekult.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("http://www.gameblog.fr/");
+            const url = new URL("https://www.gameblog.fr/");
             const metadata = undefined;
             const context = { depth: false, incognito: false };
 
