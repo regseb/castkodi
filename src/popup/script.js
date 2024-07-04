@@ -656,9 +656,11 @@ const web = async function () {
     close();
 };
 
-const feedback = async function () {
-    await browser.tabs.create({ url: "https://github.com/regseb/castkodi" });
-    close();
+const openFeedback = function () {
+    const dialog = document.querySelector("#dialogfeedback");
+    if (!dialog.open) {
+        dialog.showModal();
+    }
 };
 
 const openDonate = function () {
@@ -1134,7 +1136,7 @@ const load = async function () {
         );
 
         document.querySelector("#web").disabled = false;
-        document.querySelector("#feedback").disabled = false;
+        document.querySelector("#openfeedback").disabled = false;
         document.querySelector("#opendonate").disabled = false;
         document.querySelector("#rate").disabled = false;
 
@@ -1217,7 +1219,7 @@ document.querySelector("#shuffle input").addEventListener("change", shuffle);
 document.querySelector("#clear").addEventListener("click", clear);
 
 document.querySelector("#web").addEventListener("click", web);
-document.querySelector("#feedback").addEventListener("click", feedback);
+document.querySelector("#openfeedback").addEventListener("click", openFeedback);
 document.querySelector("#opendonate").addEventListener("click", openDonate);
 document.querySelector("#rate").addEventListener("click", rate);
 document.querySelector("#preferences").addEventListener("click", preferences);
@@ -1419,4 +1421,12 @@ try {
     await load();
 } catch (err) {
     openError(err);
+}
+
+// Activer les éléments spécifiques à certains navigateurs.
+const { name } = await browser.runtime.getBrowserInfo();
+for (const element of document.querySelectorAll(
+    `*[data-supported-browser="${name}"]`,
+)) {
+    delete element.dataset.supportedBrowser;
 }

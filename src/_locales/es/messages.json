@@ -215,7 +215,7 @@
     "popup_web_title": {
         "message": "Ir a la interfaz web de Kodi…"
     },
-    "popup_feedback_title": {
+    "popup_openfeedback_title": {
         "message": "Informar de un error... / Solicitar una función…"
     },
     "popup_opendonate_title": {

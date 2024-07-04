@@ -10,6 +10,10 @@ body {
     min-width: 325px;
 }
 
+*[data-supported-browser] {
+    display: none;
+}
+
 button.ghost,
 label.checkbox,
 label.radio {
@@ -98,6 +102,25 @@ dialog {
 
 #dialogquit menu {
     flex-direction: column;
+}
+
+#dialogfeedback {
+    margin-bottom: 64px;
+}
+#dialogfeedback ul {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    row-gap: 8px;
+}
+#dialogfeedback a {
+    align-items: center;
+    column-gap: 4px;
+    display: flex;
+    font-size: 14px;
 }
 
 #dialogdonate {
