@@ -49,7 +49,7 @@ describe("Scraper: StarGR", function () {
         );
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL [ldjson]", async function () {
         const url = new URL(
             "https://www.star.gr/video/lifestyle/viral/630859" +
                 "/islandia-h-kayth-laba-reei-katw-se-xeimarroys",
@@ -65,7 +65,7 @@ describe("Scraper: StarGR", function () {
         );
     });
 
-    it("should return video id", async function () {
+    it("should return video id [stargr-youtube]", async function () {
         const url = new URL(
             "https://www.star.gr/video/lifestyle/viral/165501" +
                 "/teleio_papagaloi_chorevoun_se_rap_rythmous",

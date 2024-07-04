@@ -171,32 +171,5 @@ describe("core/scraper/stargr.js", function () {
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
-
-        it("should return video URL", async function () {
-            const url = new URL("https://www.star.gr/video/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html><body>
-                               <script>
-                                 // ...
-                                 source: [{
-                                   name: 'Bar',
-                                   type: 'hls',
-                                   url: 'https://baz.gr/qux/quux/manifest.m3u8'
-                                 }],
-                                 // ...
-                               </script>
-                             </body></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
-            const context = { depth: false, incognito: false };
-
-            const file = await scraper.extractVideo(url, metadata, context);
-            assert.equal(file, "https://baz.gr/qux/quux/manifest.m3u8");
-        });
     });
 });

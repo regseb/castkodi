@@ -10,13 +10,6 @@ import { extract as metaExtract } from "../scrapers.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * L'expression rationnelle pour extraire l'URL de la vidéo.
- *
- * @type {RegExp}
- */
-const URL_REGEXP = /url: '(?<url>https:\/\/.*\/manifest.m3u8)'/u;
-
-/**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL}      _url          L'URL d'une vidéo de StarGR.
@@ -71,12 +64,6 @@ const actionVideo = async function (_url, metadata, context) {
         });
     }
 
-    for (const script of doc.querySelectorAll("script:not([src])")) {
-        const result = URL_REGEXP.exec(script.text);
-        if (null !== result) {
-            return result.groups.url;
-        }
-    }
     return undefined;
 };
 export const extractVideo = matchPattern(
