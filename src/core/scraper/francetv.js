@@ -33,9 +33,14 @@ const action = async function (_url, metadata) {
             continue;
         }
 
+        // Demander la vidéo pour Safari sur mobile, car l'API retourne une
+        // vidéo au format HLS qui fonctionne dans Kodi. Avec Chrome sur un
+        // ordinateur, la vidéo est au format DASH qui ne fonctionne pas dans
+        // Kodi.
+        // https://github.com/yt-dlp/yt-dlp/blob/master/yt_dlp/extractor/francetv.py
         let url =
             `https://k7.ftven.fr/videos/${result.groups.videoId}` +
-            "?domain=www.france.tv&browser=chrome";
+            "?domain=www.france.tv&device_type=mobile&browser=safari";
         let response = await fetch(url);
         let json = await response.json();
 
@@ -44,7 +49,7 @@ const action = async function (_url, metadata) {
             encodeURIComponent(json.video.url);
         response = await fetch(url);
         json = await response.json();
-        return json.url;
+        return `${json.url}|User-Agent=${encodeURIComponent(navigator.userAgent)}`;
     }
     return undefined;
 };

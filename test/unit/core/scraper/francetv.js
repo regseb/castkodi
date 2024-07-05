@@ -72,12 +72,16 @@ describe("core/scraper/francetv.js", function () {
             };
 
             const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://bar.fr/baz.mpd");
+            assert.equal(
+                file,
+                "https://bar.fr/baz.mpd|User-Agent=" +
+                    encodeURIComponent(navigator.userAgent),
+            );
 
             assert.equal(stub.callCount, 2);
             assert.deepEqual(stub.firstCall.args, [
                 "https://k7.ftven.fr/videos/123-abc" +
-                    "?domain=www.france.tv&browser=chrome",
+                    "?domain=www.france.tv&device_type=mobile&browser=safari",
             ]);
             assert.deepEqual(stub.secondCall.args, [
                 "https://hdfauth.ftven.fr/esi/TA" +

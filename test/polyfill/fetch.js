@@ -5,15 +5,6 @@
  */
 
 /**
- * L'agent utilisateur de Chromium sous Ubuntu.
- *
- * @type {string}
- */
-const USER_AGENT =
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)" +
-    " Chrome/126.0.0.0 Safari/537.36";
-
-/**
  * La méthode <code>fetch()</code> native dans Node.js.
  *
  * @type {fetch}
@@ -34,7 +25,9 @@ export const stealthFetch = function (input, init) {
         // des navigateurs.
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Site": "same-origin",
-        "User-Agent": USER_AGENT,
+        // Remettre l'agent utilisateur, car la valeur dans le navigator a été
+        // écrasée.
+        "User-Agent": navigator.userAgent,
         ...init?.headers,
     };
     return nativeFetch(input, { ...init, headers });
