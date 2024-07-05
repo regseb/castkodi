@@ -7,7 +7,7 @@
   },
   "manifest_version": 3,
   "name": "Cast Kodi",
-  "version": "7.10.0",
+  "version": "7.11.0",
   "action": {
     "default_icon": {
       "16": "img/icon16.png",
@@ -29,7 +29,9 @@
   "author": "Sébastien Règne",
   "background": {
     "service_worker": "background.js",
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "type": "module"
   },
   "commands": {
@@ -43,12 +45,23 @@
     "extension_pages": "script-src 'self'"
   },
   "homepage_url": "https://github.com/regseb/castkodi",
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuCQFiB1W7Ezlz7s+wEURQkCPdOA8LHSM0mRNXUvSG2wpQXUO5c8Svwi2CTny2ryE79lGrIZv6SN/KYd9Zw/5SoPfYFqVXawN+JB1jUbRXARWCL2B8AJAFvZYzOoRxmojJvuXoth4gN+XfJ5Ua6fqtwis2nDiiich6dNcg9RpZ4MRVCjSDRrcNCYoO9jv5qvNhdA69QMeofp7KlCpGMzoZ3LWvu3RlQkbgNO8DkufSBQCBO6bgP74/bjhI0VNacUXNGznGRKl32h7MFrCz1T061/n2EUKdgMjznJLWSVUJ6qmYO7RfxYckRFlHTZCNYB/2miSspR0mLJgKNca9kTUhwIDAQAB",
   "minimum_chrome_version": "126",
-  "optional_permissions": ["bookmarks", "clipboardRead", "history"],
+  "optional_permissions": [
+    "bookmarks",
+    "clipboardRead",
+    "history"
+  ],
   "options_ui": {
     "page": "options/index.html"
   },
-  "permissions": ["activeTab", "contextMenus", "notifications", "storage"]
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "notifications",
+    "storage"
+  ]
 }
