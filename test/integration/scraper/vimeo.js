@@ -7,7 +7,9 @@
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Scraper: Vimeo", function () {
+// Désactiver les tests, car Vimeo détecte que la requête provient d'un robot et
+// il affiche une page de vérification.
+describe.skip("Scraper: Vimeo", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://vimeo.com/channels");
         const context = { depth: false, incognito: false };
@@ -16,7 +18,7 @@ describe("Scraper: Vimeo", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video id [opengraph-vimeo]", async function () {
+    it("should return video id [ldjson-vimeo]", async function () {
         const url = new URL("https://vimeo.com/228786490");
         const context = { depth: false, incognito: false };
 
@@ -27,7 +29,7 @@ describe("Scraper: Vimeo", function () {
         );
     });
 
-    it("should return video id when protocol is HTTP [opengraph-vimeo]", async function () {
+    it("should return video id when protocol is HTTP [ldjson-vimeo]", async function () {
         const url = new URL("http://vimeo.com/228786490");
         const context = { depth: false, incognito: false };
 
@@ -38,7 +40,7 @@ describe("Scraper: Vimeo", function () {
         );
     });
 
-    it("should return video id from groups video [opengraph-vimeo]", async function () {
+    it("should return video id from groups video [ldjson-vimeo]", async function () {
         const url = new URL("https://vimeo.com/groups/motion/videos/93206523");
         const context = { depth: false, incognito: false };
 
@@ -49,7 +51,7 @@ describe("Scraper: Vimeo", function () {
         );
     });
 
-    it("should return video id from unlisted video [opengraph-vimeo]", async function () {
+    it("should return video id from unlisted video [ldjson-vimeo]", async function () {
         const url = new URL("https://vimeo.com/304887422/34c51f7a09");
         const context = { depth: false, incognito: false };
 

@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
-describe("Scraper: DMAX", function () {
+describe("Scraper: DMAX [de]", function () {
     before(function () {
         if (undefined !== config.country && "de" !== config.country) {
             // eslint-disable-next-line no-invalid-this

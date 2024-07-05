@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
-describe("Scraper: Reddit", function () {
+describe("Scraper: Reddit [fr]", function () {
     before(function () {
         // Désactiver les tests de Reddit aux États-Unis, car la récupération ne
         // semble pas fonctionner.

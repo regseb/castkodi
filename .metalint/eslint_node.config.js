@@ -65,9 +65,9 @@ export default {
         "n/no-unsupported-features/node-builtins": [
             "error",
             {
-                // Ignorer les vérifications de fetch() et Response qui sont
-                // bien disponible dans Node v20, mais en expérimental.
-                ignores: ["fetch", "Response"],
+                // Ignorer les vérifications de navigator qui est en
+                // expérimental dans Node v22.
+                ignores: ["navigator"],
             },
         ],
         "n/process-exit-as-throw": "error",

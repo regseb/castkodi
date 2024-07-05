@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
-describe("Scraper: Ultimedia", function () {
+describe("Scraper: Ultimedia [fr]", function () {
     before(function () {
         // Désactiver les tests d'Ultimedia en dehors de la France, car les
         // pages sont en "maintenance" dans les autres pays.

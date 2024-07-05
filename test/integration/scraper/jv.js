@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
-describe("Scraper: JV (Jeuxvideo.com)", function () {
+describe("Scraper: JV (Jeuxvideo.com) [fr]", function () {
     before(function () {
         if (undefined !== config.country && "fr" !== config.country) {
             // eslint-disable-next-line no-invalid-this

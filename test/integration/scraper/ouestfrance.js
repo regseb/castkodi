@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
-describe("Scraper: Ouest-France", function () {
+describe("Scraper: Ouest-France [fr]", function () {
     before(function () {
         // Désactiver les tests de Ouest-France en dehors de la France, car le
         // site utilise Ultimedia qui fonctionne seulement en France.

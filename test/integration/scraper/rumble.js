@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
-describe("Scraper: Rumble", function () {
+describe("Scraper: Rumble [us]", function () {
     before(function () {
         // """
         //  NOTICE TO USERS IN FRANCE

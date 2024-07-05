@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
-describe("Scraper: Arte", function () {
+describe("Scraper: Arte [de/fr]", function () {
     before(function () {
         if (
             undefined !== config.country &&

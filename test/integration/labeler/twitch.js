@@ -66,7 +66,7 @@ describe("Labeler: Twitch", function () {
         // Récupérer l'URL d'une vidéo en passant par la version mobile, car la
         // version classique charge le contenu de la page en asynchrone avec des
         // APIs.
-        const response = await fetch("https://m.twitch.tv/canardpc/profile");
+        const response = await fetch("https://m.twitch.tv/canardpc/videos");
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
 

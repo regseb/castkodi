@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 
-describe("Scraper: BitChute", function () {
+describe("Scraper: BitChute [fr]", function () {
     before(function () {
         // Désactiver les tests de BitChute en dehors de la France, car ça ne
         // fonctionne pas dans les autres pays.

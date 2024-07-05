@@ -501,10 +501,7 @@ export default {
         "jsdoc/no-restricted-syntax": "off",
         "jsdoc/no-types": "off",
         "jsdoc/no-undefined-types": [
-            // Désactiver cette règle qui remonte des faux-positifs avec les
-            // tags "@import".
-            // https://github.com/gajus/eslint-plugin-jsdoc/issues/1244
-            "off",
+            "error",
             // Ajouter RequestInit (le type du deuxième paramètre de la fonction
             // fetch) qui est connu de TypeScript, mais qui n'existe pas dans
             // globales (car il n'est pas dans Node.js, ni dans les
