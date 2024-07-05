@@ -363,8 +363,109 @@ describe("core/scraper/opengraph.js", function () {
         it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extractTwitter(url, metadata);
+            const file = await scraper.extractTwitter(url, metadata, context);
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when there isn't Open Graph", async function () {
+            const url = new URL("https://foo.com");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            "<html><head></head></html>",
+                            "text/html",
+                        ),
+                    ),
+            };
+            const context = { depth: false, incognito: false };
+
+            const file = await scraper.extractTwitter(url, metadata, context);
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when it's depth", async function () {
+            const spy = sinon.spy(kodi.addons, "getAddons");
+
+            const url = new URL("https://foo.com");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><head>
+                               <meta property="twitter:player"
+                                     content="https://www.youtube.com/embed/bar" />
+                             </head></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+            const context = { depth: true, incognito: false };
+
+            const file = await scraper.extractTwitter(url, metadata, context);
+            assert.equal(file, undefined);
+
+            assert.equal(spy.callCount, 0);
+        });
+
+        it("should return undefined when sub-page doesn't have media", async function () {
+            const url = new URL("https://foo.com");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><head>
+                               <meta property="twitter:player"
+                                     content="https://www.youtube.com/" />
+                             </head></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+            const context = { depth: false, incognito: false };
+
+            const file = await scraper.extractVideo(url, metadata, context);
+            assert.equal(file, undefined);
+        });
+
+        it("should return video URL", async function () {
+            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+
+            const url = new URL("https://foo.com");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html><head>
+                               <meta property="twitter:player"
+                                     content="https://www.youtube.com/embed/bar" />
+                             </head></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+            const context = { depth: false, incognito: false };
+
+            const file = await scraper.extractTwitter(url, metadata, context);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=bar&incognito=false",
+            );
+
+            assert.equal(stub.callCount, 1);
+            assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+    });
+
+    describe("extractTwitterStream()", function () {
+        it("should return undefined when it isn't HTML", async function () {
+            const url = new URL("https://foo.com");
+            const metadata = { html: () => Promise.resolve(undefined) };
+
+            const file = await scraper.extractTwitterStream(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -380,7 +481,7 @@ describe("core/scraper/opengraph.js", function () {
                     ),
             };
 
-            const file = await scraper.extractTwitter(url, metadata);
+            const file = await scraper.extractTwitterStream(url, metadata);
             assert.equal(file, undefined);
         });
 
@@ -399,7 +500,7 @@ describe("core/scraper/opengraph.js", function () {
                     ),
             };
 
-            const file = await scraper.extractTwitter(url, metadata);
+            const file = await scraper.extractTwitterStream(url, metadata);
             assert.equal(file, "https://bar.com/baz.avi");
         });
     });
