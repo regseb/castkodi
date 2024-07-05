@@ -2,16 +2,14 @@
 
 ## [7.11.0](https://github.com/regseb/castkodi/compare/v7.10.0...v7.11.0) (2024-07-05)
 
-
 ### Features
 
-* Fournir plusieurs liens pour les feedbacks. ([f9ccb5f](https://github.com/regseb/castkodi/commit/f9ccb5fd9ea806f1066a72c12585d3811b0e7083))
-* Gérer les métas twitter:player. ([24d4116](https://github.com/regseb/castkodi/commit/24d4116b41c5b79a6b429f77496fd350822a7e04))
-
+- Fournir plusieurs liens pour les feedbacks. ([f9ccb5f](https://github.com/regseb/castkodi/commit/f9ccb5fd9ea806f1066a72c12585d3811b0e7083))
+- Gérer les métas twitter:player. ([24d4116](https://github.com/regseb/castkodi/commit/24d4116b41c5b79a6b429f77496fd350822a7e04))
 
 ### Bug Fixes
 
-* Corriger le scraper de FranceTV. ([fb66633](https://github.com/regseb/castkodi/commit/fb666338119061c204245018ba7180f683bbed4c))
+- Corriger le scraper de FranceTV. ([fb66633](https://github.com/regseb/castkodi/commit/fb666338119061c204245018ba7180f683bbed4c))
 
 ## [7.10.0](https://github.com/regseb/castkodi/compare/v7.9.0...v7.10.0) (2024-06-22)
 
