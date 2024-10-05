@@ -14,8 +14,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Répartit une vidéo VRT NU à un plugin de Kodi.
  *
  * @param {URL} url L'URL de la vidéo VRT NU.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async function (url) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -33,8 +32,7 @@ const dispatch = async function (url) {
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo VRT NU.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = function (url) {
     return dispatch(url);

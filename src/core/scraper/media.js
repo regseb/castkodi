@@ -10,8 +10,8 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * La liste des sélecteurs retournant les éléments <code>video</code> ou
- * <code>audio</code> et leurs sources.
+ * La liste des sélecteurs retournant les éléments `video` ou `audio` et leurs
+ * sources.
  *
  * @type {string[]}
  */
@@ -24,10 +24,9 @@ const SELECTORS = ["video source", "video", "audio source", "audio"];
  * @param {URL}      url           L'URL d'une page quelconque.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
- *                                 le document HTML ou <code>undefined</code>.
+ *                                 le document HTML ou `undefined`.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function (url, metadata) {
     const doc = await metadata.html();

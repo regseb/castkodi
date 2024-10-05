@@ -10,8 +10,8 @@ import { extract as metaExtract } from "../scrapers.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * La liste des sélecteurs retournant les éléments <code>meta</code> liés aux
- * vidéos et audio d'Open Graph.
+ * La liste des sélecteurs retournant les éléments `meta` liés aux vidéos et
+ * audio d'Open Graph.
  *
  * @type {Object<string, string[]>}
  */
@@ -35,15 +35,14 @@ const SELECTORS = {
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
- *                                     <code>undefined</code>.
+ *                                     `undefined`.
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionVideo = async function (_url, metadata, context) {
     const doc = await metadata.html();
@@ -80,15 +79,14 @@ export const extractVideo = matchPattern(actionVideo, "*://*/*");
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
- *                                     <code>undefined</code>.
+ *                                     _undefined_.
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionAudio = async function (_url, metadata, context) {
     const doc = await metadata.html();
@@ -123,15 +121,14 @@ export const extractAudio = matchPattern(actionAudio, "*://*/*");
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
- *                                     <code>undefined</code>.
+ *                                     `undefined`.
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  * @see https://developer.x.com/en/docs/twitter-for-websites/cards/overview/markup
  */
 const actionTwitter = async function (_url, metadata, context) {
@@ -159,10 +156,9 @@ export const extractTwitter = matchPattern(actionTwitter, "*://*/*");
  *                                 des données Open Graph « à la Twitter ».
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
- *                                 le document HTML ou <code>undefined</code>.
+ *                                 le document HTML ou `undefined`.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  * @see https://developer.x.com/en/docs/twitter-for-websites/cards/overview/markup
  */
 const actionTwitterStream = async function (_url, metadata) {
@@ -186,10 +182,9 @@ export const extractTwitterStream = matchPattern(
  *                                 des données Open Graph « à la Yandex ».
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
- *                                 le document HTML ou <code>undefined</code>.
+ *                                 le document HTML ou `undefined`.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  * @see https://yandex.com/support/video/partners/open-graph.html
  */
 const actionYandex = async function (_url, metadata) {

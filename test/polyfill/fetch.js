@@ -1,11 +1,10 @@
 /**
- * @module
  * @license MIT
  * @author Sébastien Règne
  */
 
 /**
- * La méthode <code>fetch()</code> native dans Node.js.
+ * La méthode `fetch()` native dans Node.js.
  *
  * @type {fetch}
  */

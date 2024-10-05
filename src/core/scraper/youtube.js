@@ -18,8 +18,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {Object}  context           Le contexte de la vidéo.
  * @param {boolean} context.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchVideo = async function (videoId, { incognito }) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -45,8 +44,7 @@ const dispatchVideo = async function (videoId, { incognito }) {
  * @param {Object}  context           Le contexte de la playlist.
  * @param {boolean} context.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchPlaylist = async function (playlistId, { incognito }) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -72,8 +70,7 @@ const dispatchPlaylist = async function (playlistId, { incognito }) {
  * @param {Object}  context           Le contexte du clip.
  * @param {boolean} context.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchClip = async function (clipId, { incognito }) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -101,8 +98,7 @@ const dispatchClip = async function (clipId, { incognito }) {
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionVideo = async function (
     { searchParams },
@@ -139,8 +135,7 @@ export const extractVideo = matchPattern(
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionPlaylist = function ({ searchParams }, _metadata, { incognito }) {
     return searchParams.has("list")
@@ -153,8 +148,8 @@ export const extractPlaylist = matchPattern(
 );
 
 /**
- * Extrait les informations nécessaires pour lire une vidéo intégrée (un
- * <em>short</em> ou depuis une frontale alternative) sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo intégrée (un _short_
+ * ou depuis une frontale alternative) sur Kodi.
  *
  * @param {URL}      url               L'URL d'une vidéo YouTube intégrée.
  * @param {Object}   _metadata         Les métadonnées de l'URL.
@@ -163,8 +158,7 @@ export const extractPlaylist = matchPattern(
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const actionEmbed = function ({ pathname }, _metadata, { incognito }) {
     return dispatchVideo(pathname.slice(pathname.indexOf("/", 1) + 1), {
@@ -191,8 +185,7 @@ export const extractEmbed = matchPattern(
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const actionClip = function ({ pathname }, _metadata, { incognito }) {
     return dispatchClip(pathname.slice(6), { incognito });
@@ -212,8 +205,7 @@ export const extractClip = matchPattern(
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const actionMinify = function ({ pathname }, _metadata, { incognito }) {
     return dispatchVideo(pathname.slice(1), { incognito });

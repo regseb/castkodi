@@ -12,7 +12,7 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
- * Le client JSON-RPC pour contacter l'espace de nom <em>Application</em> de
+ * Le client JSON-RPC pour contacter l'espace de nom _Application_ de
  * Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
@@ -34,7 +34,7 @@ export const Application = class {
     onPropertyChanged = new NotificationListener();
 
     /**
-     * Crée un client JSON-RPC pour l'espace de nom <em>Application</em>.
+     * Crée un client JSON-RPC pour l'espace de nom _Application_.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
@@ -43,7 +43,7 @@ export const Application = class {
     }
 
     /**
-     * Récupère des propriétés de l'espace de nom <em>Application</em> de Kodi.
+     * Récupère des propriétés de l'espace de nom _Application_ de Kodi.
      *
      * @param {string[]} properties Les noms des propriétés demandées.
      * @returns {Promise<Object>} Une promesse contenant les valeurs des
@@ -65,11 +65,9 @@ export const Application = class {
     /**
      * Change le volume et remet le son.
      *
-     * @param {number|string} volume Le nouveau volume (entre <code>0</code> et
-     *                               <code>100</code>) ; ou
-     *                               <code>"increment"</code> /
-     *                               <code>"decrement"</code> pour augmenter ou
-     *                               diminuer le volume d'un cran.
+     * @param {number|string} volume Le nouveau volume (entre `0` et `100`) ; ou
+     *                               `"increment"` / `"decrement"` pour
+     *                               augmenter ou diminuer le volume d'un cran.
      * @returns {Promise<number>} Une promesse contenant la nouvelle valeur du
      *                            son.
      */
@@ -83,7 +81,7 @@ export const Application = class {
 
     /**
      * Appelle les auditeurs d'une notification liée à l'espace de nom
-     * <em>Application</em>.
+     * _Application_.
      *
      * @param {NotificationEvent} notification L'évènement de la notification
      *                                         reçu de Kodi.

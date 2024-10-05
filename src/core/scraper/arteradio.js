@@ -22,8 +22,7 @@ const BASE_URL =
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = async function (_url, metadata) {
     const doc = await metadata.html();

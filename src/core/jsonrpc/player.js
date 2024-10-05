@@ -21,7 +21,7 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
- * Les valeurs par défaut des propriétés de l'espace de nom <em>Player</em>.
+ * Les valeurs par défaut des propriétés de l'espace de nom _Player_.
  *
  * @type {Record<string, any>}
  */
@@ -63,7 +63,7 @@ const toTimestamp = function (time) {
 };
 
 /**
- * Le client JSON-RPC pour contacter l'espace de nom <em>Player</em> de Kodi.
+ * Le client JSON-RPC pour contacter l'espace de nom _Player_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
@@ -84,7 +84,7 @@ export const Player = class {
     onPropertyChanged = new NotificationListener();
 
     /**
-     * Crée un client JSON-RPC pour l'espace de nom <em>Player</em>.
+     * Crée un client JSON-RPC pour l'espace de nom _Player_.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
@@ -96,14 +96,14 @@ export const Player = class {
      * Ajoute des sous-titres.
      *
      * @param {string} subtitle Le lien des sous-titres.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     addSubtitle(subtitle) {
         return this.#kodi.send("Player.AddSubtitle", { playerid: 1, subtitle });
     }
 
     /**
-     * Récupère des propriétés de l'espace de nom <em>Player</em> de Kodi.
+     * Récupère des propriétés de l'espace de nom _Player_ de Kodi.
      *
      * @param {string[]} properties Les noms des propriétés demandées.
      * @returns {Promise<Object>} Une promesse contenant les valeurs des
@@ -140,7 +140,7 @@ export const Player = class {
     }
 
     /**
-     * Récupère une propriété de l'espace de nom <em>Player</em> de Kodi.
+     * Récupère une propriété de l'espace de nom _Player_ de Kodi.
      *
      * @param {string} property Le nom de la propriété demandée.
      * @returns {Promise<any>} Une promesse contenant la valeur de la propriété.
@@ -153,9 +153,9 @@ export const Player = class {
     /**
      * Passe au prochain ou précédent élément dans la liste de lecture.
      *
-     * @param {string} to <code>"next"</code> pour le prochain élément ;
-     *                    <code>"previous"</code> pour le précédent.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @param {string} to `"next"` pour le prochain élément ; `"previous"` pour
+     *                    le précédent.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     goTo(to) {
         return this.#kodi.send("Player.GoTo", { playerid: 1, to });
@@ -166,7 +166,7 @@ export const Player = class {
      *
      * @param {number} [position] La position dans la liste de lecture (ou par
      *                            défaut le premier élément).
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     open(position = 0) {
         return this.#kodi.send("Player.Open", {
@@ -204,7 +204,7 @@ export const Player = class {
     /**
      * Répète la liste de lecture ou un élément de la liste.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     setRepeat() {
         return this.#kodi.send("Player.SetRepeat", {
@@ -216,7 +216,7 @@ export const Player = class {
     /**
      * Mélange (ou trie) la liste de lecture.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     setShuffle() {
         return this.#kodi.send("Player.SetShuffle", {
@@ -228,9 +228,8 @@ export const Player = class {
     /**
      * Change la vitesse de lecture.
      *
-     * @param {string} speed La variation de la vitesse :
-     *                       <code>"increment"</code> ou
-     *                       <code>"decrement"</code>.
+     * @param {string} speed La variation de la vitesse : `"increment"` ou
+     *                       `"decrement"`.
      * @returns {Promise<number>} Une promesse contenant la nouvelle vitesse de
      *                            lecture.
      */
@@ -245,15 +244,14 @@ export const Player = class {
     /**
      * Arrête la lecture.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     stop() {
         return this.#kodi.send("Player.Stop", { playerid: 1 });
     }
 
     /**
-     * Appelle les auditeurs d'une notification liée à l'espace de nom
-     * <em>Player</em>.
+     * Appelle les auditeurs d'une notification liée à l'espace de nom _Player_.
      *
      * @param {NotificationEvent} notification L'évènement d'une notification
      *                                         reçu de Kodi.
@@ -261,7 +259,7 @@ export const Player = class {
     async handleNotification({ method, params: { data } }) {
         // Analyser seulement les notifications venant de l'espace Player, si
         // des auditeurs sont présents et si elles viennent du lecteur des
-        // vidéos.
+        // vidéos (ou d'un lecteur non-défini).
         if (
             !method.startsWith("Player.") ||
             0 === this.onPropertyChanged.length ||

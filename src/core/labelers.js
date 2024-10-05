@@ -23,7 +23,7 @@ import { strip } from "./tools/sanitizer.js";
 
 /**
  * La liste des fonctions des labellisateurs (retournant le label d'une URL ou
- * <code>undefined</code>).
+ * `undefined`).
  *
  * @type {Function[]}
  */
@@ -50,9 +50,9 @@ const LABELERS = [
 /**
  * Extrait le label d'une URL.
  *
- * @param {URL} url L'URL du <em>fichier</em> lu dans Kodi.
+ * @param {URL} url L'URL du _fichier_ lu dans Kodi.
  * @returns {Promise<string|undefined>} Une promesse contenant le label ou
- *                                      <code>undefined</code>.
+ *                                      `undefined`.
  */
 export const extract = async function (url) {
     for (const labeler of LABELERS) {

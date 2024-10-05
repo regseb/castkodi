@@ -12,8 +12,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *
  * @param {URL} url L'URL d'une vidéo PeerTube.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ href }) {
     const url = href

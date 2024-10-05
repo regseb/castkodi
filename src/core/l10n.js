@@ -33,7 +33,7 @@ const search = function (doc) {
 
 /**
  * Recherche les attributs liés à la localisation dans des éléments
- * <code>&lt;template&gt;</code>.
+ * `<template>`.
  *
  * @param {Document|DocumentFragment} doc Le document HTML ou un fragment de
  *                                        document dans un template.
@@ -55,8 +55,7 @@ const searchInTemplate = function (doc) {
 };
 
 /**
- * Insère les textes dans les éléments marqués par des attributs
- * <code>data-l10n-*</code>.
+ * Insère les textes dans les éléments marqués par des attributs `data-l10n-*`.
  *
  * @param {Document} doc  Le document HTML.
  * @param {string}   page Le nom de la page (utilisé pour récupérer les

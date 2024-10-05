@@ -15,15 +15,13 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://kick.com/api/v1/channels";
 
 /**
- * Parse le JSON d'une réponse HTTP et retourne <code>undefined</code> en cas
- * d'erreur.
+ * Parse le JSON d'une réponse HTTP et retourne `undefined` en cas d'erreur.
  *
  * @param {Response} response La réponse HTTP.
  * @returns {Promise<Record<string, any>|undefined>} Une promesse contenant
- *                                                   l'objet JSON ou
- *                                                   <code>undefined</code> si
- *                                                   la réponse ne contient pas
- *                                                   du JSON.
+ *                                                   l'objet JSON ou `undefined`
+ *                                                   si la réponse ne contient
+ *                                                   pas du JSON.
  */
 const parse = async function (response) {
     try {
@@ -39,8 +37,7 @@ const parse = async function (response) {
  *
  * @param {URL} url L'URL d'un live Kick.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ pathname }) {
     const response = await fetch(API_URL + pathname);

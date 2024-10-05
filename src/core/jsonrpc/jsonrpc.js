@@ -9,7 +9,7 @@
  */
 
 /**
- * Le client JSON-RPC pour contacter l'espace de nom <em>JSONRPC</em> de Kodi.
+ * Le client JSON-RPC pour contacter l'espace de nom _JSONRPC_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
@@ -22,7 +22,7 @@ export const JSONRPC = class {
     #kodi;
 
     /**
-     * Crée un client JSON-RPC pour l'espace de nom <em>JSONRPC</em>.
+     * Crée un client JSON-RPC pour l'espace de nom _JSONRPC_.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
@@ -33,8 +33,8 @@ export const JSONRPC = class {
     /**
      * Ping l'API de Kodi.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code> si
-     *                            l'API de Kodi répond.
+     * @returns {Promise<string>} Une promesse contenant `"OK"` si l'API de Kodi
+     *                            répond.
      */
     ping() {
         return this.#kodi.send("JSONRPC.Ping");
@@ -44,8 +44,7 @@ export const JSONRPC = class {
      * Récupère la version de l'API de Kodi.
      *
      * @returns {Promise<Object>} Une promesse contenant les éléments de la
-     *                            version (<code>major</code>,
-     *                            <code>minor</code> et <code>patch</code>).
+     *                            version (`major`, `minor` et `patch`).
      */
     async version() {
         const result = await this.#kodi.send("JSONRPC.Version");

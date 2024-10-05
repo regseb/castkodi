@@ -1,5 +1,4 @@
 /**
- * @module
  * @license MIT
  * @author Sébastien Règne
  */
@@ -17,7 +16,7 @@ describe("Labeler: YouTube", function () {
         const url = new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "play",
@@ -66,7 +65,7 @@ describe("Labeler: YouTube", function () {
         const url = new URL("https://www.youtube.com/watch?v=v_cwYv4K2vo");
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "",
@@ -90,7 +89,7 @@ describe("Labeler: YouTube", function () {
         const url = new URL("https://www.youtube.com/watch?v=4fVLxS3BMpQ");
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "",
@@ -116,7 +115,7 @@ describe("Labeler: YouTube", function () {
         );
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "",
@@ -145,7 +144,7 @@ describe("Labeler: YouTube", function () {
         );
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "",
@@ -170,7 +169,7 @@ describe("Labeler: YouTube", function () {
         );
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "",
@@ -193,7 +192,7 @@ describe("Labeler: YouTube", function () {
         );
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "",

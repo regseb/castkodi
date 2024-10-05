@@ -11,8 +11,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URL} url L'URL d'une vidéo de Vidyard.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = async function ({ pathname }) {
     // Enlever la première barre oblique et éventuellement l'extension ".html".

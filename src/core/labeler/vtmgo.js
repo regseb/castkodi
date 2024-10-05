@@ -11,7 +11,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *
  * @param {URL} url L'URL de la vidéo VTM GO.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
- *                                      <code>undefined</code>.
+ *                                      `undefined`.
  */
 const action = async function (url) {
     const response = await fetch(url);

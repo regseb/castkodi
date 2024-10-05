@@ -7,9 +7,9 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Extrait le titre d'un <em>live</em> ou d'une vidéo Twitch.
+ * Extrait le titre d'un _live_ ou d'une vidéo Twitch.
  *
- * @param {URL} url L'URL du <em>live</em> ou de la vidéo Twitch.
+ * @param {URL} url L'URL du _live_ ou de la vidéo Twitch.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
 const action = async function ({ href }) {

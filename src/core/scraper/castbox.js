@@ -20,8 +20,7 @@ const API_URL = "https://everest.castbox.fm/data/episode/v4?eid=";
  *
  * @param {URL} url L'URL d'un épisode d'un podcast sur Castbox.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ pathname }) {
     const id = pathname.slice(pathname.lastIndexOf("-id") + 3);

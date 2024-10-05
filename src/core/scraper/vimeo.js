@@ -14,10 +14,9 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Répartit une vidéo Vimeo à un plugin de Kodi.
  *
  * @param {string}           videoId L'identifiant de la vidéo Vimeo.
- * @param {string|undefined} hash    L'éventuel <em>hash</em> pour accéder à une
- *                                   vidéo non-listée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @param {string|undefined} hash    L'éventuel _hash_ pour accéder à une vidéo
+ *                                   non-listée.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async function (videoId, hash) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -39,12 +38,11 @@ const dispatch = async function (videoId, hash) {
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi. Seules les
  * URLs des vidéos intégrées sont gérées, car pour les URLs vers les vidéos : le
- * scraper <em>opengraph</em> va extrait l'URL de la vidéo intégrée depuis la
- * méta-donnée <code>og:video:secure_url</code>.
+ * scraper _opengraph_ va extrait l'URL de la vidéo intégrée depuis la
+ * méta-donnée `og:video:secure_url`.
  *
  * @param {URL} url L'URL d'une vidéo Vimeo intégrée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = function ({ pathname, searchParams }) {
     return dispatch(pathname.slice(7), searchParams.get("h") ?? undefined);

@@ -20,8 +20,7 @@ const API_URL =
  *
  * @param {URL} url L'URL d'une vidéo de Bigo Live.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ pathname }) {
     const result = /^\/(?:[a-z]{2}\/)?(?<id>\d+)$/iu.exec(pathname);

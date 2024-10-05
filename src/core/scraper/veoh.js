@@ -19,8 +19,7 @@ const API_URL = "https://www.veoh.com/watch/getVideo/";
  *
  * @param {URL} url L'URL d'une vidéo Veoh.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ pathname }) {
     const response = await fetch(API_URL + pathname.slice(7));

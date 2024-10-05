@@ -16,7 +16,7 @@ const PLUGIN_URL = "plugin://plugin.video.vrt.nu/play/url/";
  * Génère l'URL d'une vidéo dans l'extension VRT NU.
  *
  * @param {URL} videoUrl L'URL de la vidéo VRT NU.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = function ({ href }) {
     return PLUGIN_URL + href;

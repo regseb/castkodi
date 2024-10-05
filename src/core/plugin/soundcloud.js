@@ -16,7 +16,7 @@ const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?url=";
  * Génère l'URL d'une musique dans l'extension SoundCloud.
  *
  * @param {URL} audioUrl L'URL de la musique SoundCloud.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = function ({ href }) {
     return PLUGIN_URL + encodeURIComponent(href);

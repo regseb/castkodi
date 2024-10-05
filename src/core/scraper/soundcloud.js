@@ -14,15 +14,13 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son SoundCloud.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 /**
  * Répartit une musique SoundCloud à un plugin de Kodi.
  *
  * @param {URL} url L'URL de la musique SoundCloud.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async function (url) {
     const addons = new Set(await kodi.addons.getAddons("audio", "video"));
@@ -40,8 +38,7 @@ const dispatch = async function (url) {
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son SoundCloud.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = function ({ href }) {
     return dispatch(new URL(href.replace("://mobi.", "://")));

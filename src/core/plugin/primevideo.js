@@ -17,7 +17,7 @@ const PLUGIN_URL = "plugin://plugin.video.amazon-test/?mode=PlayVideo";
  *
  * @param {string} id    L'identifiant de la vidéo.
  * @param {string} title Le titre de la vidéo.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = function (id, title) {
     return `${PLUGIN_URL}&asin=${id}&name=${encodeURIComponent(title)}`;

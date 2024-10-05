@@ -27,8 +27,7 @@ locate(document, "popup");
 let active = false;
 
 /**
- * La position de l'élément courant dans la liste de lecture ; ou
- * <code>-1</code>.
+ * La position de l'élément courant dans la liste de lecture ; ou `-1`.
  *
  * @type {number}
  */

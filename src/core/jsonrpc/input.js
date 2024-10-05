@@ -12,7 +12,7 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
- * Le client JSON-RPC pour contacter l'espace de nom <em>Input</em> de Kodi.
+ * Le client JSON-RPC pour contacter l'espace de nom _Input_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
@@ -33,7 +33,7 @@ export const Input = class {
     onInputRequested = new NotificationListener();
 
     /**
-     * Crée un client JSON-RPC pour l'espace de nom <em>Input</em>.
+     * Crée un client JSON-RPC pour l'espace de nom _Input_.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
@@ -44,7 +44,7 @@ export const Input = class {
     /**
      * Retourne en arrière dans l'interface.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     back() {
         return this.#kodi.send("Input.Back");
@@ -53,7 +53,7 @@ export const Input = class {
     /**
      * Affiche le menu contextuel.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     contextMenu() {
         return this.#kodi.send("Input.ContextMenu");
@@ -62,7 +62,7 @@ export const Input = class {
     /**
      * Navigue vers le bas dans l'interface.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     down() {
         return this.#kodi.send("Input.Down");
@@ -71,7 +71,7 @@ export const Input = class {
     /**
      * Affiche la page d'accueil de Kodi.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     home() {
         return this.#kodi.send("Input.Home");
@@ -80,7 +80,7 @@ export const Input = class {
     /**
      * Affiche les informations.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"̀`.
      */
     info() {
         return this.#kodi.send("Input.Info");
@@ -89,7 +89,7 @@ export const Input = class {
     /**
      * Navigue vers la gauche dans l'interface.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     left() {
         return this.#kodi.send("Input.Left");
@@ -98,7 +98,7 @@ export const Input = class {
     /**
      * Navigue vers la droite dans l'interface.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     right() {
         return this.#kodi.send("Input.Right");
@@ -107,7 +107,7 @@ export const Input = class {
     /**
      * Sélectionne l'élément courant.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     select() {
         return this.#kodi.send("Input.Select");
@@ -119,17 +119,16 @@ export const Input = class {
      * @param {string}  text Le texte envoyé.
      * @param {boolean} done La marque indiquant s'il faut fermer la boite de
      *                       saisie.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     sendText(text, done) {
         return this.#kodi.send("Input.SendText", { text, done });
     }
 
     /**
-     * Affiche le <em>menu à l'écran</em> (<em>On Screen Display</em>) du
-     * lecteur courant.
+     * Affiche le _menu à l'écran_ (_On Screen Display_) du lecteur courant.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     showOSD() {
         return this.#kodi.send("Input.ShowOSD");
@@ -138,7 +137,7 @@ export const Input = class {
     /**
      * Affiche les informations sur le processus de lecture.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     showPlayerProcessInfo() {
         return this.#kodi.send("Input.ShowPlayerProcessInfo");
@@ -147,15 +146,14 @@ export const Input = class {
     /**
      * Navigue vers le haut dans l'interface.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     up() {
         return this.#kodi.send("Input.Up");
     }
 
     /**
-     * Appelle les auditeurs d'une notification liée à l'espace de nom
-     * <em>Input</em>.
+     * Appelle les auditeurs d'une notification liée à l'espace de nom _Input_.
      *
      * @param {NotificationEvent} notification L'évènement d'une notification
      *                                         reçu de Kodi.

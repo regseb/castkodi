@@ -20,8 +20,7 @@ const API_URL =
  *
  * @param {string} urn L'URN (Uniform Resource Name) d'une vidéo de Play SRF.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const getVideoUrl = async function (urn) {
     const response = await fetch(API_URL + urn);
@@ -34,8 +33,7 @@ const getVideoUrl = async function (urn) {
  *
  * @param {URL} url L'URL d'une vidéo de Play SRF.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionVideo = function ({ searchParams }) {
     if (!searchParams.has("urn")) {
@@ -54,8 +52,7 @@ export const extractVideo = matchPattern(
  *
  * @param {URL} url L'URL d'une page de redirection vers une vidéo de Play SRF.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionRedirect = function ({ pathname }) {
     return getVideoUrl("urn:srf:video:" + pathname.slice(25));

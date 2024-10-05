@@ -14,7 +14,7 @@ export const cacheable = function (func) {
     /**
      * Les résultats déjà mis en cache selon les paramètres reçus.
      *
-     * @type {Map}
+     * @type {Map<string, any>}
      */
     const cache = new Map();
 

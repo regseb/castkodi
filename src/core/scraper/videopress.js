@@ -19,8 +19,7 @@ const API_URL = "https://public-api.wordpress.com/rest/v1.1/videos/";
  *
  * @param {URL} url L'URL d'une vidéo de VideoPress.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ pathname }) {
     // Enlever le préfixe "/v/" ou "/embed/".

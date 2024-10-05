@@ -1,5 +1,4 @@
 /**
- * @module
  * @license MIT
  * @author Sébastien Règne
  */
@@ -13,7 +12,7 @@ describe("Labeler: Vimeo", function () {
         const url = new URL("https://vimeo.com/265045525");
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "play",
@@ -34,7 +33,7 @@ describe("Labeler: Vimeo", function () {
         const url = new URL("https://vimeo.com/304887422/34c51f7a09");
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "play",

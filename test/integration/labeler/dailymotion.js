@@ -1,5 +1,4 @@
 /**
- * @module
  * @license MIT
  * @author Sébastien Règne
  */
@@ -13,7 +12,7 @@ describe("Labeler: Dailymotion", function () {
         const url = new URL("https://www.dailymotion.com/video/x2knr9t");
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "",

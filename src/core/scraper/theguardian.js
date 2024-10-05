@@ -22,8 +22,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionVideo = async function (_url, metadata, context) {
     if (context.depth) {
@@ -58,8 +57,7 @@ export const extractVideo = matchPattern(
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionAudio = async function (_url, metadata) {
     const doc = await metadata.html();

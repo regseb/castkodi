@@ -11,11 +11,10 @@ import * as twitchPlugin from "../plugin/twitch.js";
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * Répartit un <em>live</em> Twitch à un plugin de Kodi.
+ * Répartit un _live_ Twitch à un plugin de Kodi.
  *
- * @param {string} channelName L'identifiant du <em>live</em> Twitch.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @param {string} channelName L'identifiant du _live_ Twitch.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchLive = async function (channelName) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -35,8 +34,7 @@ const dispatchLive = async function (channelName) {
  * Répartit une vidéo Twitch à un plugin de Kodi.
  *
  * @param {string} videoId L'identifiant de la vidéo Twitch.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchVideo = async function (videoId) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -56,8 +54,7 @@ const dispatchVideo = async function (videoId) {
  * Répartit un clip Twitch à un plugin de Kodi.
  *
  * @param {string} clipId L'identifiant du clip Twitch.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchClip = async function (clipId) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -78,8 +75,7 @@ const dispatchClip = async function (clipId) {
  *
  * @param {URL} url L'URL d'un clip Twitch.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionClip = function ({ pathname, searchParams }) {
     if ("/embed" === pathname) {
@@ -92,13 +88,12 @@ const actionClip = function ({ pathname, searchParams }) {
 export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
 
 /**
- * Extrait les informations nécessaires pour lire un <em>live</em> ou une vidéo
+ * Extrait les informations nécessaires pour lire un _live_ ou une vidéo
  * intégrée sur Kodi.
  *
- * @param {URL} url L'URL d'un <em>live</em> ou d'une vidéo intégré.
+ * @param {URL} url L'URL d'un _live_ ou d'une vidéo intégré.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionEmbed = function ({ searchParams }) {
     if (searchParams.has("channel")) {
@@ -112,12 +107,11 @@ const actionEmbed = function ({ searchParams }) {
 export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
 
 /**
- * Extrait les informations nécessaires pour lire un <em>live</em> ou un clip
+ * Extrait les informations nécessaires pour lire un _live_ ou un clip
  * sur Kodi.
  *
- * @param {URL} url L'URL d'un <em>live</em> ou d'un clip Twitch.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @param {URL} url L'URL d'un _live_ ou d'un clip Twitch.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = function ({ pathname }) {
     if (pathname.startsWith("/videos/")) {

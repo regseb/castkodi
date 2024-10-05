@@ -18,7 +18,7 @@ const PLUGIN_URL = "plugin://plugin.video.youtube";
  * @param {string}  videoId   L'identifiant de la vidéo YouTube.
  * @param {boolean} incognito La marque indiquant s'il faut lire la vidéo en
  *                            navigation privée.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateVideoUrl = function (videoId, incognito) {
     return (
@@ -33,8 +33,7 @@ export const generateVideoUrl = function (videoId, incognito) {
  * @param {string}  playlistId L'identifiant de la playlist YouTube.
  * @param {boolean} incognito  La marque indiquant s'il faut lire la playlist en
  *                             navigation privée.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 export const generatePlaylistUrl = async function (playlistId, incognito) {
     const config = await browser.storage.local.get(["youtube-order"]);
@@ -51,7 +50,7 @@ export const generatePlaylistUrl = async function (playlistId, incognito) {
  * @param {string}  clipId    L'identifiant du clip YouTube.
  * @param {boolean} incognito La marque indiquant s'il faut lire le clip en
  *                            navigation privée.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateClipUrl = function (clipId, incognito) {
     return (

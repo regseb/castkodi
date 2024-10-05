@@ -13,10 +13,10 @@
 const PLUGIN_URL = "plugin://plugin.video.twitch/?mode=play";
 
 /**
- * Génère l'URL d'un <em>live</em> dans l'extension Twitch.
+ * Génère l'URL d'un _live_ dans l'extension Twitch.
  *
- * @param {string} channelName L'identifiant du <em>live</em> Twitch.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @param {string} channelName L'identifiant du _live_ Twitch.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateLiveUrl = function (channelName) {
     return `${PLUGIN_URL}&channel_name=${channelName}`;
@@ -26,7 +26,7 @@ export const generateLiveUrl = function (channelName) {
  * Génère l'URL d'une vidéo dans l'extension Twitch.
  *
  * @param {string} videoId L'identifiant de la vidéo Twitch.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateVideoUrl = function (videoId) {
     return `${PLUGIN_URL}&video_id=${videoId}`;
@@ -36,7 +36,7 @@ export const generateVideoUrl = function (videoId) {
  * Génère l'URL d'un clip dans l'extension Twitch.
  *
  * @param {string} clipId L'identifiant du clip Twitch.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateClipUrl = function (clipId) {
     return `${PLUGIN_URL}&slug=${clipId}`;

@@ -19,8 +19,7 @@ const API_URL = "https://rumble.com/embedJS/u3/?request=video";
  *
  * @param {URL} url L'URL d'une vidéo embarquée de Rumble.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ pathname }) {
     const response = await fetch(`${API_URL}&v=${pathname.slice(7)}`);

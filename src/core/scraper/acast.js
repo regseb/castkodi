@@ -26,8 +26,7 @@ const API_URL = "https://feeder.acast.com/api/v1";
  *
  * @param {URL} url L'URL d'un son de Acast.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ pathname }) {
     const result = REGEXP.exec(pathname);

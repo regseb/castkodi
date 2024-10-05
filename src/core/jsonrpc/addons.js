@@ -9,7 +9,7 @@
  */
 
 /**
- * Le client JSON-RPC pour contacter l'espace de nom <em>Addons</em> de Kodi.
+ * Le client JSON-RPC pour contacter l'espace de nom _Addons_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
@@ -22,7 +22,7 @@ export const Addons = class {
     #kodi;
 
     /**
-     * Crée un client JSON-RPC pour l'espace de nom <em>Addons</em>.
+     * Crée un client JSON-RPC pour l'espace de nom _Addons_.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
@@ -34,10 +34,8 @@ export const Addons = class {
      * Retourne une liste d'addons gérant un type de contenu.
      *
      * @param {...string} contents Le type de contenu géré par les addons à
-     *                             retourner (<code>"unknown"</code>,
-     *                             <code>"video"</code>, <code>"audio"</code>,
-     *                             <code>"image"</code> ou
-     *                             <code>"executable"</code>).
+     *                             retourner (`"unknown"`, `"video"`, `"audio"`,
+     *                             `"image"` ou `"executable"`).
      * @returns {Promise<string[]>} Une promesse contenant les identifiants des
      *                              addons.
      */

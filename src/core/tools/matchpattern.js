@@ -54,8 +54,8 @@ export const matchPattern = function (func, ...patterns) {
      * @param {URL}    url    L'URL qui sera filtrée.
      * @param {...any} others Les autres paramètres.
      * @returns {Promise<any|undefined>} Une promesse contenant le retour de la
-     *                                   fonction ; ou <code>undefined</code> si
-     *                                   l'URL ne respecte pas un des modèles de
+     *                                   fonction ; ou `undefined` si l'URL ne
+     *                                   respecte pas un des modèles de
      *                                   correspondance.
      */
     const wrapped = (url, ...others) => {

@@ -11,8 +11,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URL} url L'URL d'un son de Megaphone.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const actionPlayer = function ({ pathname }) {
     return Promise.resolve(`https://dcs.megaphone.fm${pathname}.mp3`);
@@ -27,8 +26,7 @@ export const extractPlayer = matchPattern(
  *
  * @param {URL} url L'URL d'un son (d'une liste de lecture) de Megaphone.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionPlaylist = function ({ searchParams }) {
     return Promise.resolve(

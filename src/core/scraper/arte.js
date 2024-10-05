@@ -19,8 +19,7 @@ const API_URL = "https://api.arte.tv/api/player/v2/config";
  *
  * @param {URL} url L'URL d'une vidéo Arte.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function ({ pathname }) {
     const [, lang, , id] = pathname.split("/");

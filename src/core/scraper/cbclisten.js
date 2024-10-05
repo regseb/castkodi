@@ -36,8 +36,7 @@ const PODCAST_ID_REGEXP =
  *
  * @param {URL} url L'URL d'un clip de CBC Listen.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionClip = async function ({ pathname }) {
     const result = CLIP_ID_REGEXP.exec(pathname);
@@ -61,8 +60,7 @@ export const extractClip = matchPattern(
  *
  * @param {URL} url L'URL d'un podcast de CBC Listen.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionPodcast = async function ({ pathname }) {
     const result = PODCAST_ID_REGEXP.exec(pathname);

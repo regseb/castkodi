@@ -14,8 +14,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Répartit un épisode VTM GO à un plugin de Kodi.
  *
  * @param {string} episodeUuid L'UUID de l'épisode VTM GO.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchEpisode = async function (episodeUuid) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -35,8 +34,7 @@ const dispatchEpisode = async function (episodeUuid) {
  * Répartit un film VTM GO à un plugin de Kodi.
  *
  * @param {string} movieUuid L'UUID du film VTM GO.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchMovie = async function (movieUuid) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -56,8 +54,7 @@ const dispatchMovie = async function (movieUuid) {
  * Répartit une chaine VTM GO à un plugin de Kodi.
  *
  * @param {string} channelUuid L'UUID de la chaine VTM GO.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchChannel = async function (channelUuid) {
     const addons = new Set(await kodi.addons.getAddons("video"));
@@ -77,8 +74,7 @@ const dispatchChannel = async function (channelUuid) {
  * Extrait les informations nécessaires pour lire un épisode sur Kodi.
  *
  * @param {URL} url L'URL d'un épisode de VTM GO.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const actionEpisode = function ({ pathname }) {
     return dispatchEpisode(pathname.slice(17));
@@ -94,8 +90,7 @@ export const extractEpisode = matchPattern(
  * Extrait les informations nécessaires pour lire un film sur Kodi.
  *
  * @param {URL} url L'URL d'un film de VTM GO.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const actionMovie = function ({ pathname }) {
     return dispatchMovie(pathname.slice(17));
@@ -111,8 +106,7 @@ export const extractMovie = matchPattern(
  * Extrait les informations nécessaires pour lire un film sur Kodi.
  *
  * @param {URL} url L'URL d'une page d'un film de VTM GO.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const actionMoviePage = function ({ pathname }) {
     return dispatchMovie(pathname.slice(pathname.indexOf("~m") + 2));
@@ -132,8 +126,7 @@ export const extractMoviePage = matchPattern(
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionChannel = async function (_url, metadata) {
     const doc = await metadata.html();

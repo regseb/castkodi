@@ -16,15 +16,14 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
- *                                     <code>undefined</code>.
+ *                                     `undefined`.
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.depth     La marque indiquant si l'extraction est
  *                                     en profondeur.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = async function (url, metadata, context) {
     if (context.depth) {

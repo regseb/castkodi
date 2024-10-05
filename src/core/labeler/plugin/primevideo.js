@@ -12,7 +12,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *
  * @param {URL} url L'URL utilisant le plugin Amazon Prime Video.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
- *                                      <code>undefined</code>.
+ *                                      `undefined`.
  */
 const action = function ({ searchParams }) {
     return Promise.resolve(searchParams.get("name") ?? undefined);

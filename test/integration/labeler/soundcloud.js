@@ -1,5 +1,4 @@
 /**
- * @module
  * @license MIT
  * @author Sébastien Règne
  */
@@ -13,7 +12,7 @@ describe("Labeler: SoundCloud", function () {
         const url = new URL("https://soundcloud.com/esa/hear-the-lightning");
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "play",
@@ -34,7 +33,7 @@ describe("Labeler: SoundCloud", function () {
         const url = new URL("https://soundcloud.com/esa/sets/news-views");
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "play",
@@ -57,7 +56,7 @@ describe("Labeler: SoundCloud", function () {
         );
         const context = { depth: false, incognito: false };
 
-        const file = await extract(url, context);
+        const file = /** @type {string} */ (await extract(url, context));
         const item = await complete({
             file,
             label: "play",

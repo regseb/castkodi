@@ -46,9 +46,9 @@ export const Kodi = class {
      *
      * @param {string} address L'adresse IP ou l'adresse complète du service de
      *                         Kodi.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code> si
-     *                            Kodi est accessible et a une version gérée ;
-     *                            sinon une promesse rompue.
+     * @returns {Promise<string>} Une promesse contenant `"OK"` si Kodi est
+     *                            accessible et a une version gérée ; sinon une
+     *                            promesse rompue.
      */
     static async check(address) {
         try {
@@ -84,9 +84,9 @@ export const Kodi = class {
      * @param {string} address L'adresse IP ou l'adresse complète du service de
      *                         Kodi.
      * @returns {Promise<string|undefined>} Une promesse contenant une adresse
-     *                                      alternative valide ; ou
-     *                                      <code>undefined</code> si aucune
-     *                                      adresse alternative a été trouvée.
+     *                                      alternative valide ; ou `undefined`
+     *                                      si aucune adresse alternative a été
+     *                                      trouvée.
      */
     static async fix(address) {
         try {
@@ -136,86 +136,80 @@ export const Kodi = class {
     }
 
     /**
-     * L'adresse IP ou l'adresse complète du service de Kodi ; ou
-     * <code>undefined</code> pour récupérer l'adresse dans la configuration.
+     * L'adresse IP ou l'adresse complète du service de Kodi ; ou `undefined`
+     * pour récupérer l'adresse dans la configuration.
      *
      * @type {string|undefined}
      */
     #address;
 
     /**
-     * L'URL du service de Kodi ; ou <code>undefined</code> si l'URL n'a pas
-     * encore été déterminée.
+     * L'URL du service de Kodi ; ou `undefined` si l'URL n'a pas encore été
+     * déterminée.
      *
      * @type {URL|undefined}
      */
     #url;
 
     /**
-     * Le client connecté au service de Kodi ; ou <code>undefined</code> si le
-     * client n'est pas connecté.
+     * Le client connecté au service de Kodi ; ou `undefined` si le client n'est
+     * pas connecté.
      *
      * @type {JSONRPCClient|undefined}
      */
     #client;
 
     /**
-     * Le client JSON-RPC pour contacter l'espace de nom <em>Addons</em> de
-     * Kodi.
+     * Le client JSON-RPC pour contacter l'espace de nom _Addons_ de Kodi.
      *
      * @type {Addons}
      */
     #addons = new Addons(this);
 
     /**
-     * Le client JSON-RPC pour contacter l'espace de nom <em>Application</em> de
-     * Kodi.
+     * Le client JSON-RPC pour contacter l'espace de nom _Application_ de Kodi.
      *
      * @type {Application}
      */
     #application = new Application(this);
 
     /**
-     * Le client JSON-RPC pour contacter l'espace de nom <em>GUI</em> de Kodi.
+     * Le client JSON-RPC pour contacter l'espace de nom _GUI_ de Kodi.
      *
      * @type {GUI}
      */
     #gui = new GUI(this);
 
     /**
-     * Le client JSON-RPC pour contacter l'espace de nom <em>Input</em> de Kodi.
+     * Le client JSON-RPC pour contacter l'espace de nom _Input_ de Kodi.
      *
      * @type {Input}
      */
     #input = new Input(this);
 
     /**
-     * Le client JSON-RPC pour contacter l'espace de nom <em>JSONRPC</em> de
-     * Kodi.
+     * Le client JSON-RPC pour contacter l'espace de nom _JSONRPC_ de Kodi.
      *
      * @type {JSONRPC}
      */
     #jsonrpc = new JSONRPC(this);
 
     /**
-     * Le client JSON-RPC pour contacter l'espace de nom <em>Player</em> de
-     * Kodi.
+     * Le client JSON-RPC pour contacter l'espace de nom _Player_ de Kodi.
      *
      * @type {Player}
      */
     #player = new Player(this);
 
     /**
-     * Le client JSON-RPC pour contacter l'espace de nom <em>Playlist</em> de
-     * Kodi.
+     * Le client JSON-RPC pour contacter l'espace de nom _Playlist_ de Kodi.
      *
      * @type {Playlist}
      */
     #playlist = new Playlist(this);
 
     /**
-     * Le client JSON-RPC pour contacter l'espace de nom <em>System</em> de
-     * Kodi.
+     * Le client JSON-RPC pour contacter l'espace de nom _System_ de Kodi.
      *
      * @type {System}
      */
@@ -233,100 +227,98 @@ export const Kodi = class {
     }
 
     /**
-     * Retourne l'URL du service de Kodi ; ou <code>undefined</code> si l'URL
-     * n'a pas encore été déterminée.
+     * Retourne l'URL du service de Kodi ; ou `undefined` si l'URL n'a pas
+     * encore été déterminée.
      *
-     * @returns {URL|undefined} L'URL du service de Kodi ; ou
-     *                          <code>undefined</code> si l'URL n'a pas encore
-     *                          été déterminée.
+     * @returns {URL|undefined} L'URL du service de Kodi ; ou `undefined` si
+     *                          l'URL n'a pas encore été déterminée.
      */
     get url() {
         return this.#url;
     }
 
     /**
-     * Retourne le client JSON-RPC pour contacter l'espace de nom
-     * <em>Addons</em> de Kodi.
+     * Retourne le client JSON-RPC pour contacter l'espace de nom _Addons_ de
+     * Kodi.
      *
      * @returns {Addons} Le client JSON-RPC pour contacter l'espace de nom
-     *                   <em>Addons</em> de Kodi.
+     *                   _Addons_ de Kodi.
      */
     get addons() {
         return this.#addons;
     }
 
     /**
-     * Retourne le client JSON-RPC pour contacter l'espace de nom
-     * <em>Application</em> de Kodi.
+     * Retourne le client JSON-RPC pour contacter l'espace de nom _Application_
+     * de Kodi.
      *
      * @returns {Application} Le client JSON-RPC pour contacter l'espace de nom
-     *                        <em>Application</em> de Kodi.
+     *                        _Application_ de Kodi.
      */
     get application() {
         return this.#application;
     }
 
     /**
-     * Retourne le client JSON-RPC pour contacter l'espace de nom <em>GUI</em>
-     * de Kodi.
+     * Retourne le client JSON-RPC pour contacter l'espace de nom _GUI_ de Kodi.
      *
-     * @returns {GUI} Le client JSON-RPC pour contacter l'espace de nom
-     *                <em>GUI</em> de Kodi.
+     * @returns {GUI} Le client JSON-RPC pour contacter l'espace de nom _GUI_ de
+     *                Kodi.
      */
     get gui() {
         return this.#gui;
     }
 
     /**
-     * Retourne le client JSON-RPC pour contacter l'espace de nom <em>Input</em>
-     * de Kodi.
+     * Retourne le client JSON-RPC pour contacter l'espace de nom _Input_ de
+     * Kodi.
      *
      * @returns {Input} Le client JSON-RPC pour contacter l'espace de nom
-     *                  <em>Input</em> de Kodi.
+     *                  _Input_ de Kodi.
      */
     get input() {
         return this.#input;
     }
 
     /**
-     * Retourne le client JSON-RPC pour contacter l'espace de nom
-     * <em>JSONRPC</em> de Kodi.
+     * Retourne le client JSON-RPC pour contacter l'espace de nom _JSONRPC_ de
+     * Kodi.
      *
      * @returns {JSONRPC} Le client JSON-RPC pour contacter l'espace de nom
-     *                    <em>JSONRPC</em> de Kodi.
+     *                    _JSONRPC_ de Kodi.
      */
     get jsonrpc() {
         return this.#jsonrpc;
     }
 
     /**
-     * Retourne le client JSON-RPC pour contacter l'espace de nom
-     * <em>Player</em> de Kodi.
+     * Retourne le client JSON-RPC pour contacter l'espace de nom _Player_ de
+     * Kodi.
      *
      * @returns {Player} Le client JSON-RPC pour contacter l'espace de nom
-     *                   <em>Player</em> de Kodi.
+     *                   _Player_ de Kodi.
      */
     get player() {
         return this.#player;
     }
 
     /**
-     * Retourne le client JSON-RPC pour contacter l'espace de nom
-     * <em>Playlist</em> de Kodi.
+     * Retourne le client JSON-RPC pour contacter l'espace de nom _Playlist_ de
+     * Kodi.
      *
      * @returns {Playlist} Le client JSON-RPC pour contacter l'espace de nom
-     *                     <em>Playlist</em> de Kodi.
+     *                     _Playlist_ de Kodi.
      */
     get playlist() {
         return this.#playlist;
     }
 
     /**
-     * Retourne le client JSON-RPC pour contacter l'espace de nom
-     * <em>System</em> de Kodi.
+     * Retourne le client JSON-RPC pour contacter l'espace de nom _System_ de
+     * Kodi.
      *
      * @returns {System} Le client JSON-RPC pour contacter l'espace de nom
-     *                   <em>System</em> de Kodi.
+     *                   _System_ de Kodi.
      */
     get system() {
         return this.#system;

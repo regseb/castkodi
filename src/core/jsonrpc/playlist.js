@@ -12,7 +12,7 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
- * Le client JSON-RPC pour contacter l'espace de nom <em>Playlist</em> de Kodi.
+ * Le client JSON-RPC pour contacter l'espace de nom _Playlist_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
@@ -49,7 +49,7 @@ export const Playlist = class {
     onRemove = new NotificationListener();
 
     /**
-     * Crée un client JSON-RPC pour l'espace de nom <em>Playlist</em>.
+     * Crée un client JSON-RPC pour l'espace de nom _Playlist_.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
@@ -61,7 +61,7 @@ export const Playlist = class {
      * Ajoute un média à la liste de lecture.
      *
      * @param {string} file L'URL envoyée à Kodi.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     add(file) {
         return this.#kodi.send("Playlist.Add", {
@@ -73,7 +73,7 @@ export const Playlist = class {
     /**
      * Vide la liste de lecture.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     clear() {
         // Attention ! Le vidage de la liste de lecture interrompt la continuité
@@ -100,8 +100,7 @@ export const Playlist = class {
      *
      * @param {number} position La position de l'élément.
      * @returns {Promise<Object|undefined>} Une promesse contenant l'élément de
-     *                                      la liste de lecture ou
-     *                                      <code>undefined</code>.
+     *                                      la liste de lecture ou `undefined`.
      */
     async getItem(position) {
         const results = await this.#kodi.send("Playlist.GetItems", {
@@ -117,7 +116,7 @@ export const Playlist = class {
      *
      * @param {string} file     L'URL envoyée à Kodi.
      * @param {number} position La position où l'élément sera inséré.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     insert(file, position) {
         return this.#kodi.send("Playlist.Insert", {
@@ -131,7 +130,7 @@ export const Playlist = class {
      * Enlève un élément de la liste de lecture.
      *
      * @param {number} position La position de l'élément qui sera enlevé.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     remove(position) {
         return this.#kodi.send("Playlist.Remove", { playlistid: 1, position });
@@ -143,7 +142,7 @@ export const Playlist = class {
      * @param {number} position1 La position de l'élément qui sera échangé.
      * @param {number} position2 La position de l'autre élément qui sera
      *                           échangé.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     swap(position1, position2) {
         return this.#kodi.send("Playlist.Swap", {
@@ -158,7 +157,7 @@ export const Playlist = class {
      *
      * @param {number} position    La position de l'élément qui sera déplacé.
      * @param {number} destination La future position de l'élément.
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     async move(position, destination) {
         if (position < destination) {
@@ -175,7 +174,7 @@ export const Playlist = class {
 
     /**
      * Appelle les auditeurs d'une notification liée à l'espace de nom
-     * <em>Playlist</em>.
+     * _Playlist_.
      *
      * @param {NotificationEvent} notification L'évènement d'une notification
      *                                         reçu de Kodi.

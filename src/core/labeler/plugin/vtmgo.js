@@ -15,7 +15,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
- *                                      <code>undefined</code>.
+ *                                      `undefined`.
  */
 const actionEpisode = function ({ pathname }, { metaExtract }) {
     // Enlever le nom de domaine, car un bogue dans Chromium le déplace dans le
@@ -36,7 +36,7 @@ export const extractEpisode = matchPattern(
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
- *                                      <code>undefined</code>.
+ *                                      `undefined`.
  */
 const actionMovie = function ({ pathname }, { metaExtract }) {
     // Enlever le nom de domaine, car un bogue dans Chromium le déplace dans le

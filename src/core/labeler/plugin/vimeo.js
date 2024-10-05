@@ -15,7 +15,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
- *                                      <code>undefined</code>.
+ *                                      `undefined`.
  */
 const action = function ({ searchParams }, { metaExtract }) {
     if (!searchParams.has("video_id")) {

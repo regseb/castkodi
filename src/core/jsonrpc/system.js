@@ -9,7 +9,7 @@
  */
 
 /**
- * Le client JSON-RPC pour contacter l'espace de nom <em>System</em> de Kodi.
+ * Le client JSON-RPC pour contacter l'espace de nom _System_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
@@ -22,7 +22,7 @@ export const System = class {
     #kodi;
 
     /**
-     * Crée un client JSON-RPC pour l'espace de nom <em>System</em>.
+     * Crée un client JSON-RPC pour l'espace de nom _System_.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
@@ -31,7 +31,7 @@ export const System = class {
     }
 
     /**
-     * Récupère des propriétés de l'espace de nom <em>System</em> de Kodi.
+     * Récupère des propriétés de l'espace de nom _System_ de Kodi.
      *
      * @param {string[]} properties Les noms des propriétés demandées.
      * @returns {Promise<Object>} Une promesse contenant les valeurs des
@@ -44,7 +44,7 @@ export const System = class {
     /**
      * Met en veille le système.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     hibernate() {
         return this.#kodi.send("System.Hibernate");
@@ -53,7 +53,7 @@ export const System = class {
     /**
      * Redémarre le système.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     reboot() {
         return this.#kodi.send("System.Reboot");
@@ -62,7 +62,7 @@ export const System = class {
     /**
      * Éteint le système.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     shutdown() {
         return this.#kodi.send("System.Shutdown");
@@ -71,7 +71,7 @@ export const System = class {
     /**
      * Suspend le système.
      *
-     * @returns {Promise<string>} Une promesse contenant <code>"OK"</code>.
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     suspend() {
         return this.#kodi.send("System.Suspend");

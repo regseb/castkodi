@@ -14,8 +14,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * Répartit une musique Mixcloud à un plugin de Kodi.
  *
  * @param {string} path Le chemin (artiste / musique) de la musique Mixcloud.
- * @returns {Promise<string>} Une promesse contenant le lien du
- *                            <em>fichier</em>.
+ * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async function (path) {
     const addons = new Set(await kodi.addons.getAddons("audio", "video"));
@@ -36,8 +35,7 @@ const dispatch = async function (path) {
  *
  * @param {URL} url L'URL d'une musique Mixcloud.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 const action = function ({ pathname }) {
     return pathname.startsWith("/discover/")

@@ -83,8 +83,8 @@ import * as zdf from "./scraper/zdf.js";
 import { cacheable } from "./tools/cacheable.js";
 
 /**
- * La liste des fonctions des extracteurs (retournant le <em>fichier</em>
- * extrait ou <code>undefined</code>).
+ * La liste des fonctions des extracteurs (retournant le _fichier_ extrait ou
+ * `undefined`).
  *
  * @type {Function[]}
  */
@@ -163,7 +163,7 @@ const SCRAPERS = [
 ].flatMap((s) => Object.values(s));
 
 /**
- * Extrait le <em>fichier</em> d'une URL.
+ * Extrait le _fichier_ d'une URL.
  *
  * @param {URL}     url               L'URL d'une page Internet.
  * @param {Object}  context           Le contexte de l'extraction.
@@ -172,8 +172,7 @@ const SCRAPERS = [
  * @param {boolean} context.incognito La marque indiquant si l'utilisateur est
  *                                    en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      <em>fichier</em> ou
- *                                      <code>undefined</code>.
+ *                                      _fichier_ ou `undefined`.
  */
 export const extract = async function (url, context) {
     const metadata = {

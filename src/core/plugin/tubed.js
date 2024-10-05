@@ -16,7 +16,7 @@ const PLUGIN_URL = "plugin://plugin.video.tubed/?mode=play";
  * Génère l'URL d'une vidéo dans l'extension Tubed.
  *
  * @param {string} videoId L'identifiant de la vidéo YouTube.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generateVideoUrl = function (videoId) {
     return `${PLUGIN_URL}&video_id=${videoId}`;
@@ -26,7 +26,7 @@ export const generateVideoUrl = function (videoId) {
  * Génère l'URL d'une playlist dans l'extension Tubed.
  *
  * @param {string} playlistId L'identifiant de la playlist YouTube.
- * @returns {string} Le lien du <em>fichier</em>.
+ * @returns {string} Le lien du _fichier_.
  */
 export const generatePlaylistUrl = function (playlistId) {
     return `${PLUGIN_URL}&playlist_id=${playlistId}`;

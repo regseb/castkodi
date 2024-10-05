@@ -1,5 +1,4 @@
 /**
- * @module
  * @license MIT
  * @author Sébastien Règne
  */
@@ -54,6 +53,7 @@ const data = {
 
     storage: {
         local: {
+            /** @type {Record<string, any>} */
             data: {},
 
             /** @type {Function[]} */
@@ -218,9 +218,9 @@ export const browser = {
          * @param {browser.permissions.AnyPermissions} permissions Les
          *                                                         permissions
          *                                                         vérifiées.
-         * @returns {Promise<boolean>} Une promesse contenant <code>true</code>
-         *                             si l'extension a toutes les
-         *                             permissions ; sinon <code>false</code>.
+         * @returns {Promise<boolean>} Une promesse contenant `true` si
+         *                             l'extension a toutes les permissions ;
+         *                             sinon `false`.
          */
         contains({ origins = [], permissions = [] }) {
             return Promise.resolve(
@@ -236,9 +236,9 @@ export const browser = {
          *
          * @param {browser.permissions.Permissions} permissions Les permissions
          *                                                      renoncées.
-         * @returns {Promise<boolean>} Une promesse contenant <code>true</code>
-         *                             si l'extension a renoncé à toutes les
-         *                             permissions ; sinon <code>false</code>.
+         * @returns {Promise<boolean>} Une promesse contenant `true` si
+         *                             l'extension a renoncé à toutes les
+         *                             permissions ; sinon `false`.
          */
         remove({ origins = [], permissions = [] }) {
             const changes = {
@@ -273,8 +273,7 @@ export const browser = {
          *
          * @param {browser.permissions.Permissions} permissions Les permissions
          *                                                      demandées.
-         * @returns {Promise<boolean>} Une promesse contenant
-         *                             <code>true</code>.
+         * @returns {Promise<boolean>} Une promesse contenant `true`.
          */
         request({ origins = [], permissions = [] }) {
             for (const origin of origins) {
@@ -318,7 +317,8 @@ export const browser = {
              * Récupère des éléments de la zone de stockage.
              *
              * @param {string[]} [properties] Les clés des éléments récupérés.
-             * @returns {Promise<Object>} Les éléments de la zone de stockage.
+             * @returns {Promise<Record<string, any>>} Les éléments de la zone
+             *                                         de stockage.
              */
             get(properties) {
                 if (undefined === properties) {
@@ -336,7 +336,7 @@ export const browser = {
             /**
              * Modifie des éléments de la zone de stockage.
              *
-             * @param {Object} values Les éléments modifiés.
+             * @param {Record<string, any>} values Les éléments modifiés.
              * @returns {Promise<void>} Une promesse vide.
              */
             set(values) {

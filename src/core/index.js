@@ -13,8 +13,8 @@ import { PebkacError } from "./tools/pebkac.js";
  *
  * @param {string[]} urls La liste des liens récupérés par le menu contextuel ou
  *                        dans la zone de saisie de la popup.
- * @returns {string|undefined} Le lien à analyser ou <code>undefined</code> si
- *                             aucun lien n'est valide.
+ * @returns {string|undefined} Le lien à analyser ou `undefined` si aucun lien
+ *                             n'est valide.
  */
 export const mux = function (urls) {
     return urls
@@ -40,8 +40,8 @@ export const mux = function (urls) {
 /**
  * Diffuse un média sur Kodi.
  *
- * @param {string}   action L'action à effectuer (<code>"send"</code>,
- *                          <code>"insert"</code> ou <code>"add"</code>).
+ * @param {string}   action L'action à effectuer (`"send"`, `"insert"` ou
+ *                          `"add"`).
  * @param {string[]} urls   La liste des éventuelles URLs.
  * @returns {Promise<void>} Une promesse tenue vide.
  */

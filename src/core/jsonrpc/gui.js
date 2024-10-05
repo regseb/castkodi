@@ -9,7 +9,7 @@
  */
 
 /**
- * Le client JSON-RPC pour contacter l'espace de nom <em>GUI</em> de Kodi.
+ * Le client JSON-RPC pour contacter l'espace de nom _GUI_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
  */
@@ -22,7 +22,7 @@ export const GUI = class {
     #kodi;
 
     /**
-     * Crée un client JSON-RPC pour l'espace de nom <em>GUI/em>.
+     * Crée un client JSON-RPC pour l'espace de nom _GUI_.
      *
      * @param {Kodi} kodi Le client pour contacter Kodi.
      */
