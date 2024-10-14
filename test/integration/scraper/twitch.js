@@ -40,15 +40,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return undefined when it isn't a clip", async function () {
-        const url = new URL("https://clips.twitch.tv/embed?noclip=Awesome");
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(file, undefined);
-    });
-
-    it("should return embed clip name", async function () {
+    it("should return embed clip slug", async function () {
         const url = new URL(
             "https://clips.twitch.tv/embed" +
                 "?clip=IncredulousAbstemiousFennelImGlitch",
@@ -63,7 +55,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return clip name", async function () {
+    it("should return clip slug", async function () {
         const url = new URL(
             "https://clips.twitch.tv/GleamingWildCougarFUNgineer",
         );
@@ -77,7 +69,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return clip name from channel", async function () {
+    it("should return clip slug from channel", async function () {
         const url = new URL(
             "https://www.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer" +
                 "?filter=clips&range=7d&sort=time",
@@ -92,7 +84,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return clip name from 'go'", async function () {
+    it("should return clip slug from 'go'", async function () {
         const url = new URL(
             "https://go.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer",
         );
@@ -106,7 +98,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return clip name from mobile version", async function () {
+    it("should return clip slug from mobile version", async function () {
         const url = new URL(
             "https://m.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer",
         );

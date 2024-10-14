@@ -10,14 +10,14 @@ import * as scraper from "../../../../src/core/scraper/twitch.js";
 
 describe("core/scraper/twitch.js", function () {
     describe("extractClip()", function () {
-        it("should return undefined when it isn't a clip", async function () {
-            const url = new URL("https://clips.twitch.tv/embed?noclip=foo");
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL("https://appeals.twitch.tv/");
 
             const file = await scraper.extractClip(url);
             assert.equal(file, undefined);
         });
 
-        it("should return embed clip name", async function () {
+        it("should return embed clip slug", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://clips.twitch.tv/embed?clip=foo");
@@ -32,7 +32,14 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return clip name", async function () {
+        it("should return undefined when it isn't a clip", async function () {
+            const url = new URL("https://clips.twitch.tv/embed?noclip=foo");
+
+            const file = await scraper.extractClip(url);
+            assert.equal(file, undefined);
+        });
+
+        it("should return clip slug", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
             const url = new URL("https://clips.twitch.tv/foo");
@@ -49,8 +56,8 @@ describe("core/scraper/twitch.js", function () {
     });
 
     describe("extractEmbed()", function () {
-        it("should return undefined when it isn't channel or video", async function () {
-            const url = new URL("https://player.twitch.tv/?other=foo");
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL("https://clips.twitch.tv/");
 
             const file = await scraper.extractEmbed(url);
             assert.equal(file, undefined);
@@ -84,6 +91,13 @@ describe("core/scraper/twitch.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
+        });
+
+        it("should return undefined when it isn't channel or video", async function () {
+            const url = new URL("https://player.twitch.tv/?other=foo");
+
+            const file = await scraper.extractEmbed(url);
+            assert.equal(file, undefined);
         });
     });
 
@@ -168,69 +182,69 @@ describe("core/scraper/twitch.js", function () {
             assert.equal(
                 file,
                 "plugin://plugin.video.sendtokodi/" +
-                    "?https://www.twitch.com/videos/foo",
+                    "?https://www.twitch.tv/videos/foo",
             );
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return clip name", async function () {
+        it("should return clip slug", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            const url = new URL("https://www.twitch.tv/twitch/clip/foo");
+            const url = new URL("https://www.twitch.tv/foo/clip/bar");
 
             const file = await scraper.extract(url);
             assert.equal(
                 file,
-                "plugin://plugin.video.twitch/?mode=play&slug=foo",
+                "plugin://plugin.video.twitch/?mode=play&slug=bar",
             );
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return clip name from 'go'", async function () {
+        it("should return clip slug from 'go'", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            const url = new URL("https://go.twitch.tv/twitch/clip/foo");
+            const url = new URL("https://go.twitch.tv/foo/clip/bar");
 
             const file = await scraper.extract(url);
             assert.equal(
                 file,
-                "plugin://plugin.video.twitch/?mode=play&slug=foo",
+                "plugin://plugin.video.twitch/?mode=play&slug=bar",
             );
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return clip name from mobile version", async function () {
+        it("should return clip slug from mobile version", async function () {
             const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
 
-            const url = new URL("https://m.twitch.tv/twitch/clip/foo");
+            const url = new URL("https://m.twitch.tv/foo/clip/bar");
 
             const file = await scraper.extract(url);
             assert.equal(
                 file,
-                "plugin://plugin.video.twitch/?mode=play&slug=foo",
+                "plugin://plugin.video.twitch/?mode=play&slug=bar",
             );
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, ["video"]);
         });
 
-        it("should return clip name to twitch", async function () {
+        it("should return clip slug to twitch", async function () {
             const stub = sinon
                 .stub(kodi.addons, "getAddons")
                 .resolves(["plugin.video.twitch", "plugin.video.sendtokodi"]);
 
-            const url = new URL("https://www.twitch.tv/twitch/clip/foo");
+            const url = new URL("https://www.twitch.tv/foo/clip/bar");
 
             const file = await scraper.extract(url);
             assert.equal(
                 file,
-                "plugin://plugin.video.twitch/?mode=play&slug=foo",
+                "plugin://plugin.video.twitch/?mode=play&slug=bar",
             );
 
             assert.equal(stub.callCount, 1);
@@ -242,13 +256,12 @@ describe("core/scraper/twitch.js", function () {
                 .stub(kodi.addons, "getAddons")
                 .resolves(["plugin.video.sendtokodi"]);
 
-            const url = new URL("https://www.twitch.tv/twitch/clip/foo");
+            const url = new URL("https://www.twitch.tv/foo/clip/bar");
 
             const file = await scraper.extract(url);
             assert.equal(
                 file,
-                "plugin://plugin.video.sendtokodi/" +
-                    "?https://www.twitch.com/clip/foo",
+                "plugin://plugin.video.sendtokodi/?https://clips.twitch.tv/bar",
             );
 
             assert.equal(stub.callCount, 1);
@@ -342,7 +355,7 @@ describe("core/scraper/twitch.js", function () {
             const file = await scraper.extract(url);
             assert.equal(
                 file,
-                "plugin://plugin.video.sendtokodi/?https://www.twitch.com/foo",
+                "plugin://plugin.video.sendtokodi/?https://www.twitch.tv/foo",
             );
 
             assert.equal(stub.callCount, 1);

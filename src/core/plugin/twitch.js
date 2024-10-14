@@ -35,9 +35,9 @@ export const generateVideoUrl = function (videoId) {
 /**
  * Génère l'URL d'un clip dans l'extension Twitch.
  *
- * @param {string} clipId L'identifiant du clip Twitch.
+ * @param {string} slug L'identifiant du clip Twitch.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateClipUrl = function (clipId) {
-    return `${PLUGIN_URL}&slug=${clipId}`;
+export const generateClipUrl = function (slug) {
+    return `${PLUGIN_URL}&slug=${slug}`;
 };

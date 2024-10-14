@@ -23,7 +23,7 @@ const dispatchLive = async function (channelName) {
     }
     if (addons.has("plugin.video.sendtokodi")) {
         return sendtokodiPlugin.generateUrl(
-            new URL(`https://www.twitch.com/${channelName}`),
+            new URL(`https://www.twitch.tv/${channelName}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
@@ -43,7 +43,7 @@ const dispatchVideo = async function (videoId) {
     }
     if (addons.has("plugin.video.sendtokodi")) {
         return sendtokodiPlugin.generateUrl(
-            new URL(`https://www.twitch.com/videos/${videoId}`),
+            new URL(`https://www.twitch.tv/videos/${videoId}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
@@ -53,21 +53,21 @@ const dispatchVideo = async function (videoId) {
 /**
  * Répartit un clip Twitch à un plugin de Kodi.
  *
- * @param {string} clipId L'identifiant du clip Twitch.
+ * @param {string} slug L'identifiant du clip Twitch.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchClip = async function (clipId) {
+const dispatchClip = async function (slug) {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
-        return twitchPlugin.generateClipUrl(clipId);
+        return twitchPlugin.generateClipUrl(slug);
     }
     if (addons.has("plugin.video.sendtokodi")) {
         return sendtokodiPlugin.generateUrl(
-            new URL(`https://www.twitch.com/clip/${clipId}`),
+            new URL(`https://clips.twitch.tv/${slug}`),
         );
     }
     // Envoyer par défaut au plugin Twitch.
-    return twitchPlugin.generateClipUrl(clipId);
+    return twitchPlugin.generateClipUrl(slug);
 };
 
 /**
