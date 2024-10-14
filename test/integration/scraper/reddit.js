@@ -43,4 +43,19 @@ describe("Scraper: Reddit [fr]", function () {
             `"${file}"?.startsWith(...)`,
         );
     });
+
+    it("should return video URL embed [reddit-iframe-youtube]", async function () {
+        const url = new URL(
+            "https://www.reddit.com/r/TMNT/comments/1e1nkk8" +
+                "/every_tmnt_movie_ever/",
+        );
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.equal(
+            file,
+            "plugin://plugin.video.youtube/play/" +
+                "?video_id=s91Hs241YS4&incognito=false",
+        );
+    });
 });
