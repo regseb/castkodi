@@ -56,7 +56,8 @@ describe("core/scraper/theguardian.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <div data-testid="youtube-sticky-bar-server" />
+                               <div data-component="youtube-atom"
+                                    data-video-id="bar" />
                              </body></html>`,
                             "text/html",
                         ),
@@ -84,7 +85,8 @@ describe("core/scraper/theguardian.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <div data-testid="youtube-sticky-bar-server" />
+                               <div data-component="youtube-atom"
+                                    data-video-id="bar" />
                              </body></html>`,
                             "text/html",
                         ),

@@ -31,16 +31,14 @@ const actionVideo = async function (_url, metadata, context) {
 
     const doc = await metadata.html();
     const div = doc.querySelector(
-        'div[data-testid^="youtube-sticky-"][data-testid$="-server"]',
+        'div[data-component="youtube-atom"][data-video-id]',
     );
     if (null === div) {
         return undefined;
     }
 
     return await metaExtract(
-        new URL(
-            `https://www.youtube.com/embed/${div.dataset.testid.slice(15, -7)}`,
-        ),
+        new URL(`https://www.youtube.com/embed/${div.dataset.videoId}`),
         { ...context, depth: true },
     );
 };
