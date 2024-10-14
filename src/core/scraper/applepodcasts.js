@@ -19,12 +19,13 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async function (_url, metadata) {
     const doc = await metadata.html();
-    const script = doc.querySelector("#shoebox-media-api-cache-amp-podcasts");
+    const script = doc.querySelector("#serialized-server-data");
     if (null === script) {
         return undefined;
     }
-    const json = JSON.parse(Object.values(JSON.parse(script.text))[0]);
-    return json.d[0].attributes.assetUrl;
+    const json = JSON.parse(script.text);
+    return json[0].data.shelves[0].items[0].contextAction.episodeOffer
+        ?.streamUrl;
 };
 export const extract = matchPattern(
     action,

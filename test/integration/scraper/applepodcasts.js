@@ -9,7 +9,8 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Apple Podcasts", function () {
     it("should return undefined when it isn't an audio", async function () {
         const url = new URL(
-            "https://podcasts.apple.com/us/podcast/culture-1999/id",
+            "https://podcasts.apple.com/fr/podcast/la-derni%C3%A8re" +
+                "/id1766744611",
         );
         const context = { depth: false, incognito: false };
 
@@ -26,7 +27,7 @@ describe("Scraper: Apple Podcasts", function () {
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
 
-        const url = new URL(doc.querySelector(".tracks a").href);
+        const url = new URL(doc.querySelector(".episode a").href);
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);

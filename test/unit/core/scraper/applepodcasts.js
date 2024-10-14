@@ -17,13 +17,38 @@ describe("core/scraper/applepodcasts.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't an audio", async function () {
+        it("should return undefined when there isn't data", async function () {
             const url = new URL("https://podcasts.apple.com/us/podcast/foo/id");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             "<html><body></body></html>",
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extract(url, metadata);
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when it isn't an audio", async function () {
+            const url = new URL("https://podcasts.apple.com/us/podcast/foo/id");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `
+                    <html><body>
+                      <script id="serialized-server-data">${JSON.stringify([
+                          {
+                              data: {
+                                  shelves: [{ items: [{ contextAction: {} }] }],
+                              },
+                          },
+                      ])}</script>
+                    </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -43,19 +68,27 @@ describe("core/scraper/applepodcasts.js", function () {
                         new DOMParser().parseFromString(
                             `
                     <html><body>
-                      <script id="shoebox-media-api-cache-amp-podcasts">
-                        {
-                          "baz": "${JSON.stringify({
-                              d: [
-                                  {
-                                      attributes: {
-                                          assetUrl: "https://qux.fr/quux.mp3",
+                      <script id="serialized-server-data">${JSON.stringify([
+                          {
+                              data: {
+                                  shelves: [
+                                      {
+                                          items: [
+                                              {
+                                                  contextAction: {
+                                                      episodeOffer: {
+                                                          streamUrl:
+                                                              "https://baz.fr" +
+                                                              "/qux.mp3",
+                                                      },
+                                                  },
+                                              },
+                                          ],
                                       },
-                                  },
-                              ],
-                          }).replaceAll('"', String.raw`\"`)}"
-                        }
-                      </script>
+                                  ],
+                              },
+                          },
+                      ])}</script>
                     </body></html>`,
                             "text/html",
                         ),
@@ -63,7 +96,7 @@ describe("core/scraper/applepodcasts.js", function () {
             };
 
             const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://qux.fr/quux.mp3");
+            assert.equal(file, "https://baz.fr/qux.mp3");
         });
     });
 });
