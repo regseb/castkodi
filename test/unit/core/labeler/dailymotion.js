@@ -17,22 +17,18 @@ describe("core/labeler/dailymotion.js", function () {
         });
 
         it("should return video label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <meta property="og:title" content="foo - bar - baz" />
-                     </head></html>`,
-                ),
-            );
+            const stub = sinon
+                .stub(globalThis, "fetch")
+                .resolves(Response.json({ title: "foo" }));
 
-            const url = new URL("https://www.dailymotion.com/video/qux");
+            const url = new URL("https://www.dailymotion.com/video/bar");
 
             const label = await labeler.extract(url);
-            assert.equal(label, "foo - bar");
+            assert.equal(label, "foo");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                new URL("https://www.dailymotion.com/video/qux"),
+                "https://www.dailymotion.com/player/metadata/video/bar",
             ]);
         });
     });
