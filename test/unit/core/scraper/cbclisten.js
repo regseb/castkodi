@@ -41,7 +41,8 @@ describe("core/scraper/cbclisten.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://www.cbc.ca/listen/api/v1/shows/1/42/clips",
+                "https://www.cbc.ca/listen/api/v1/shows/1/42/clips" +
+                    "?pageSize=2147483647",
             ]);
         });
 
@@ -68,7 +69,8 @@ describe("core/scraper/cbclisten.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://www.cbc.ca/listen/api/v1/shows/1/43/clips",
+                "https://www.cbc.ca/listen/api/v1/shows/1/43/clips" +
+                    "?pageSize=2147483647",
             ]);
         });
 
@@ -95,7 +97,8 @@ describe("core/scraper/cbclisten.js", function () {
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                "https://www.cbc.ca/listen/api/v1/shows/1/43/clips",
+                "https://www.cbc.ca/listen/api/v1/shows/1/43/clips" +
+                    "?pageSize=2147483647",
             ]);
         });
     });

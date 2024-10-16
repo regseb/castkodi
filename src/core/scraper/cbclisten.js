@@ -15,6 +15,14 @@ import { matchPattern } from "../tools/matchpattern.js";
 const API_URL = "https://www.cbc.ca/listen/api/v1";
 
 /**
+ * Le nombre maximum qu'on peut demander à l'API retournant les clips. Cette
+ * valeur est égale à la valeur maximum pour un nombre entier signé sur 32 bits.
+ *
+ * @type {number}
+ */
+const MAX_PAGE_SIZE = 2_147_483_647;
+
+/**
  * L'expression rationnelle pour extraire les identifiants du show et du clip.
  *
  * @type {RegExp}
@@ -46,7 +54,9 @@ const actionClip = async function ({ pathname }) {
     const type = Number(result.groups.type);
     const show = Number(result.groups.show);
     const clip = Number(result.groups.clip);
-    const response = await fetch(`${API_URL}/shows/${type}/${show}/clips`);
+    const response = await fetch(
+        `${API_URL}/shows/${type}/${show}/clips?pageSize=${MAX_PAGE_SIZE}`,
+    );
     const json = await response.json();
     return json.data?.clips.find((e) => e.clipID === clip)?.src;
 };
