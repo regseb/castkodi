@@ -14,8 +14,8 @@ describe("Scraper: Dumpert", function () {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://media.dumpert.nl/tablet" +
-                "/3a727e30_d9d8ccbfaeef83c3.mp4.mp4.mp4",
+            "https://media.dumpert.nl/dmp/media/video/a/1/6" +
+                "/a167015b-93df-5ead-e5c6-c3768463966e/270/index.m3u8",
         );
     });
 
@@ -26,8 +26,8 @@ describe("Scraper: Dumpert", function () {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://media.dumpert.nl/tablet" +
-                "/3a727e30_d9d8ccbfaeef83c3.mp4.mp4.mp4",
+            "https://media.dumpert.nl/dmp/media/video/a/1/6" +
+                "/a167015b-93df-5ead-e5c6-c3768463966e/270/index.m3u8",
         );
     });
 

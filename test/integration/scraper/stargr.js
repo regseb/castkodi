@@ -42,9 +42,8 @@ describe("Scraper: StarGR", function () {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://cdnapisec.siliconweb.com/p/713821/sp/0/playManifest" +
-                "/entryId/1_p9vdk3nq/format/applehttp/protocol/https" +
-                "/flavorParamId/0/manifest.m3u8",
+            "https://deliver2.siliconweb.com/kwik/star.m3u8" +
+                "?key=bJD0eU0GwsGMMg5dgYDa6Q",
         );
     });
 

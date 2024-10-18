@@ -7,7 +7,18 @@ import assert from "node:assert/strict";
 import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Labeler: Vimeo", function () {
+// Désactiver les tests, car Vimeo détecte que la requête provient d'un robot et
+// il affiche une page de vérification.
+//
+// """
+//  Verify to continue
+//
+//  To continue, please confirm that you're a human (and not a spambot).
+//  Checking if the site connection is secure
+//
+//  vimeo.com needs to review the security of your connection before proceeding.
+// """
+describe.skip("Labeler: Vimeo", function () {
     it("should return video label", async function () {
         const url = new URL("https://vimeo.com/265045525");
         const context = { depth: false, incognito: false };

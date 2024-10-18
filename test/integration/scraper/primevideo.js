@@ -81,8 +81,8 @@ describe("Scraper: Prime Video", function () {
             file?.startsWith(
                 "plugin://plugin.video.amazon-test/" +
                     "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.026cbf6c-0d46-4128-85a0-6e6c882af0ed" +
-                    "&name=Jack%20Ryan%20%E2%80%93%20Season%204",
+                    "&asin=amzn1.dv.gti.a3f19de4-9ec3-4428-a3ea-a7aa4a0792d8" +
+                    "&name=Tom%20Clancy%26%2339%3Bs%20Jack%20Ryan",
             ),
             `"${file}"?.startsWith(...)`,
         );

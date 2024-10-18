@@ -28,7 +28,7 @@ describe("Scraper: Podcast Addict", function () {
         assert.equal(
             file,
             "https://sphinx.acast.com/p/open/s/5b7ac427c6a58e726f576cff/e" +
-                "/62b5812411883600129b5886/media.mp3?from=PodcastAddict",
+                "/62b5812411883600129b5886/media.mp3",
         );
     });
 });

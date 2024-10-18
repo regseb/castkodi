@@ -38,12 +38,10 @@ describe("Scraper: Ouest-France [fr]", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            undefined !== file &&
-                new URL(file).pathname.endsWith(
-                    "/cd/be/cdbeda603ae5805ab0561403d5e1afabcd685162.mp4",
-                ),
-            `new URL(${file}).pathname.endsWith(...)`,
+        assert.equal(
+            file,
+            "https://assets.digiteka.com/encoded/ngs-5e1bea72/mp4" +
+                "/ac6ff5d1f0924ed0748739b3db3100a8d707dae8.mp4",
         );
     });
 
@@ -59,12 +57,10 @@ describe("Scraper: Ouest-France [fr]", function () {
             const context = { depth: false, incognito: false };
 
             const file = await extract(url, context);
-            assert.ok(
-                undefined !== file &&
-                    new URL(file).pathname.endsWith(
-                        "/d7/5d/d75df81c7abb517d514bff22ab74816fa86a3850.mp4",
-                    ),
-                `new URL(${file}).pathname.endsWith(...)`,
+            assert.equal(
+                file,
+                "https://assets.digiteka.com/encoded/ngs-60e0a434/mp4" +
+                    "/d75df81c7abb517d514bff22ab74816fa86a3850.mp4",
             );
         },
     );
