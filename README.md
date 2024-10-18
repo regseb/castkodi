@@ -5,10 +5,8 @@
 <!-- markdownlint-disable-next-line no-inline-html-->
 <img src="src/img/icon.svg" align="right" alt="">
 
-[![chrome][img-chrome]][link-chrome]
-[![firefox][img-firefox]][link-firefox]
-[![build][img-build]][link-build]
-[![coverage][img-coverage]][link-coverage]
+[![chrome][img-chrome]][link-chrome] [![firefox][img-firefox]][link-firefox]
+[![build][img-build]][link-build] [![coverage][img-coverage]][link-coverage]
 
 > WebExtension pour diffuser des vidéos et des musiques sur Kodi.
 
@@ -81,10 +79,9 @@ Pour certains sites Internet, les add-ons suivants sont nécessaires dans Kodi :
 
 ## Contribuer
 
-[Node.js et
-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) sont
-nécessaires pour contribuer au projet. Après avoir [forké et
-cloné](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
+[Node.js et npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+sont nécessaires pour contribuer au projet. Après avoir
+[forké et cloné](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
 Cast Kodi, exécutez `npm ci` pour télécharger les dépendances. Voici d'autres
 commandes utiles :
 
@@ -98,11 +95,18 @@ commandes utiles :
 Les traductions dans les différentes langues se font avec
 [Weblate](https://hosted.weblate.org/engage/castkodi/).
 
-[img-chrome]: https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=chrome&logo=googlechrome&logoColor=whitesmoke
-[img-firefox]: https://img.shields.io/amo/stars/castkodi.svg?label=firefox&logo=firefox-browser&logoColor=whitesmoke
-[img-build]: https://img.shields.io/github/actions/workflow/status/regseb/castkodi/ci.yml?branch=main&logo=github&logoColor=whitesmoke
-[img-coverage]: https://img.shields.io/endpoint?label=coverage&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fregseb%2Fcastkodi%2Fmain
-[link-chrome]: https://chromewebstore.google.com/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
+[img-chrome]:
+  https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=chrome&logo=googlechrome&logoColor=whitesmoke
+[img-firefox]:
+  https://img.shields.io/amo/stars/castkodi.svg?label=firefox&logo=firefox-browser&logoColor=whitesmoke
+[img-build]:
+  https://img.shields.io/github/actions/workflow/status/regseb/castkodi/ci.yml?branch=main&logo=github&logoColor=whitesmoke
+[img-coverage]:
+  https://img.shields.io/endpoint?label=coverage&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fregseb%2Fcastkodi%2Fmain
+[link-chrome]:
+  https://chromewebstore.google.com/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
 [link-firefox]: https://addons.mozilla.org/addon/castkodi/
-[link-build]: https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain
-[link-coverage]: https://dashboard.stryker-mutator.io/reports/github.com/regseb/castkodi/main
+[link-build]:
+  https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain
+[link-coverage]:
+  https://dashboard.stryker-mutator.io/reports/github.com/regseb/castkodi/main

@@ -3,6 +3,8 @@
  * @author Sébastien Règne
  */
 
+import n from "eslint-plugin-n";
+
 /**
  * @import { Linter } from "eslint"
  */
@@ -11,6 +13,8 @@
  * @type {Linter.Config}
  */
 export default {
+    plugins: { n },
+
     rules: {
         // Suggestions.
         "no-restricted-properties": [

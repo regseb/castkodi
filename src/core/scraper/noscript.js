@@ -5,7 +5,6 @@
  * @author Sébastien Règne
  */
 
-import { cacheable } from "../tools/cacheable.js";
 import { matchPattern } from "../tools/matchpattern.js";
 /* eslint-disable import/no-cycle */
 import { extract as embedExtract } from "./embed.js";
@@ -49,18 +48,17 @@ const action = async function (url, metadata, context) {
     }
 
     for (const noscript of doc.querySelectorAll("noscript")) {
-        const metametadata = {
-            html: cacheable(() => {
-                return Promise.resolve(
+        const subMetadata = {
+            html: () =>
+                Promise.resolve(
                     new DOMParser().parseFromString(
                         noscript.innerHTML,
                         "text/html",
                     ),
-                );
-            }),
+                ),
         };
         for (const genericExtract of GENERIC_EXTRACTS) {
-            const file = await genericExtract(url, metametadata, context);
+            const file = await genericExtract(url, subMetadata, context);
             if (undefined !== file) {
                 return file;
             }

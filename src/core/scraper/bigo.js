@@ -34,6 +34,6 @@ const action = async function ({ pathname }) {
     const json = await response.json();
     return "" === json.data.hls_src
         ? undefined
-        : json.data.hls_src ?? undefined;
+        : (json.data.hls_src ?? undefined);
 };
 export const extract = matchPattern(action, "*://www.bigo.tv/*");

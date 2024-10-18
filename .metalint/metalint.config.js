@@ -84,10 +84,6 @@ export default {
         {
             patterns: "*.md",
             linters: ["prettier", "markdownlint"],
-            overrides: {
-                patterns: "/CHANGELOG.md",
-                linters: "markdownlint_changelog",
-            },
         },
         {
             patterns: "*.json",

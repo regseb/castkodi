@@ -4,44 +4,46 @@
  */
 
 /**
- * @import { Configuration } from "markdownlint"
+ * @import { ConfigurationStrict } from "markdownlint"
  */
 
 /**
- * @type {Configuration}
+ * @type {ConfigurationStrict}
  */
 export default {
     "heading-increment": true,
-    "heading-style": { style: "atx" },
-    "ul-style": { style: "dash" },
-    "list-indent": true,
-    "ul-indent": true,
-    "no-trailing-spaces": true,
-    "no-hard-tabs": true,
+    // Désactiver les règles de style et laisser Prettier formatter les
+    // fichiers.
+    // https://github.com/DavidAnson/markdownlint/blob/main/doc/Prettier.md
+    "heading-style": false,
+    "ul-style": false,
+    "list-indent": false,
+    "ul-indent": false,
+    "no-trailing-spaces": false,
+    "no-hard-tabs": false,
     "no-reversed-links": true,
-    "no-multiple-blanks": true,
-    // eslint-disable-next-line camelcase
-    "line-length": { code_blocks: false, headings: false, stern: true },
+    "no-multiple-blanks": false,
+    "line-length": false,
     "commands-show-output": true,
-    "no-missing-space-atx": true,
-    "no-multiple-space-atx": true,
-    "no-missing-space-closed-atx": true,
-    "no-multiple-space-closed-atx": true,
-    "blanks-around-headings": true,
-    "heading-start-left": true,
+    "no-missing-space-atx": false,
+    "no-multiple-space-atx": false,
+    "no-missing-space-closed-atx": false,
+    "no-multiple-space-closed-atx": false,
+    "blanks-around-headings": false,
+    "heading-start-left": false,
     // eslint-disable-next-line camelcase
     "no-duplicate-heading": { siblings_only: true },
     "single-title": true,
     "no-trailing-punctuation": true,
-    "no-multiple-space-blockquote": true,
-    "no-blanks-blockquote": true,
-    "ol-prefix": { style: "ordered" },
-    "list-marker-space": true,
-    "blanks-around-fences": true,
-    "blanks-around-lists": true,
+    "no-multiple-space-blockquote": false,
+    "no-blanks-blockquote": false,
+    "ol-prefix": false,
+    "list-marker-space": false,
+    "blanks-around-fences": false,
+    "blanks-around-lists": false,
     "no-inline-html": true,
     "no-bare-urls": true,
-    "hr-style": { style: "---" },
+    "hr-style": false,
     "no-emphasis-as-heading": true,
     "no-space-in-emphasis": true,
     "no-space-in-code": true,
@@ -63,13 +65,14 @@ export default {
     "first-line-heading": true,
     "no-empty-links": true,
     "required-headings": true,
+    // Désactiver cette règle, car il n'y a pas de mots à vérifier.
     "proper-names": false,
     "no-alt-text": true,
     "code-block-style": { style: "fenced" },
     "single-trailing-newline": true,
-    "code-fence-style": { style: "backtick" },
-    "emphasis-style": { style: "underscore" },
-    "strong-style": { style: "asterisk" },
+    "code-fence-style": false,
+    "emphasis-style": false,
+    "strong-style": false,
     "link-fragments": true,
     "reference-links-images": true,
     "link-image-reference-definitions": true,
@@ -77,4 +80,5 @@ export default {
     "link-image-style": { shortcut: false, url_inline: false },
     "table-pipe-style": { style: "leading_and_trailing" },
     "table-column-count": true,
+    "blanks-around-tables": false,
 };

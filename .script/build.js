@@ -6,6 +6,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { JSDOM } from "jsdom";
+// @ts-expect-error -- L'outil ne fournit pas de types.
 import webExt from "web-ext";
 
 /**
@@ -46,7 +47,7 @@ const plain = function (html) {
                 }
                 return "";
             case "#text":
-                return enabled ? node?.nodeValue ?? "" : "";
+                return enabled ? (node?.nodeValue ?? "") : "";
             default:
                 return Array.from(node.childNodes).map(extract).join("");
         }

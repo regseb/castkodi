@@ -4,40 +4,79 @@ Cette documentation vous guide pour contribuer au projet Cast Kodi.
 
 ## Pré-requis
 
-Les outils suivants sont nécessaire pour utiliser ce projet :
+Les outils suivants sont nécessaires pour utiliser ce projet :
 
 - [Git](https://git-scm.com/downloads)
-- [Node.js et
-  npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Node.js](https://nodejs.org/) et
+  [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 ## Installation
 
 - [Dupliquez](https://docs.github.com/get-started/quickstart/fork-a-repo)
   (_forker_) le dépôt [`castkodi`](https://github.com/regseb/castkodi).
-- Clonez votre dépôt dupliqué : `git clone
-https://github.com/YOUR-USERNAME/castkodi.git`
+- Clonez votre dépôt dupliqué :
+  `git clone https://github.com/YOUR-USERNAME/castkodi.git`
+- Déplacez vous dans le répertoire du projet : `cd castkodi`
 - Installez les dépendances : `npm ci`
 
 ## Développement
 
 ### Scraper
 
-Créez un fichier dans src/core/scraper
-Ajouter votre fichier dans src/core/scrapers.js
-Ajouter le nouveau site supporté dans le README et dans les fichier locales.
+- Créez un fichier dans le répertoire `src/core/scraper/`
+- Implémentez votre scraper pour un site Internet dans ce fichier.
+- Importez votre fichier dans `src/core/scrapers.js` et ajoutez le dans la liste
+  `SCRAPERS`
+- Ajoutez le nouveau site supporté dans le `README` et dans les fichiers
+  `locales/*/description.tpl`
+- Écrivez des tests unitaires dans `test/unit/core/scraper/` et des tests
+  d'intégration dans `test/integration/scraper/`
 
 ## Déploiement
 
-Expliquer comment déployer dans les navigateurs.
+Vous pouvez installer l'extension dans les navigateurs avec les commandes
+suivantes :
+
+- `npm run start:chromium` : déployer l'extension dans Chromium.
+- `npm run start:firefox` : déployer l'extension dans Firefox.
+
+Vous pouvez aussi installer manuellement l'extension :
+
+- [_Temporary installation in Firefox_](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/).
+- [_Load an unpacked extension_ in Chrome](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked).
 
 ## Qualité
 
-Exlpliquer les linters.
+Pour vérifier la qualité de votre développement, trois commandes sont
+disponibles :
+
+- `npm run lint` : exécuter les linters (avec
+  [Metalint](https://github.com/regseb/metalint)) pour faire une analyse
+  statique du code source.
+- `npm run lint:fix` : exécuter les linters et corriger certains problèmes (dont
+  le formatage).
+- `npm run lint:types` : vérifier les types avec
+  [TypeScript](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html)
+  (et la JSDoc).
 
 ## Tests
 
-Expliquer comment écrire un test et comment les lancé
+Deux types de tests sont exécutables : les tests unitaires et les tests
+d'intégration.
 
-## "Commit"
+- `npm run test:unit` : lancer les tests unitaires (avec
+  [Mocha](https://mochajs.org/)).
+- `npm run test:unit -- --grep foo` : lancer seulement les tests unitaires dont
+  leur titre contient `foo` (par exemple :
+  `npm run test:unit -- --grep core/scraper/twitch.js`).
+- `npm run test:coverage` : calculer la couverture des tests unitaires (avec
+  [Stryker Mutator](https://stryker-mutator.io/)).
+- `npm run test:integration` : lancer les tests d'intégration.
+- `npm run test:integration -- --grep foo` : lancer seulement les tests
+  d'intégration dont leur titre contient `foo` (par exemple :
+  `npm run test:integration -- --grep YouTube`).
 
-Expliquer la convention des messages de commit.
+## Commit
+
+Le message de commit doit suivre la spécification des
+[Commits Conventionnels](https://www.conventionalcommits.org/en/v1.0.0/).

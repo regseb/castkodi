@@ -15,6 +15,8 @@ import pluginXML from "@prettier/plugin-xml";
 export default {
     plugins: [pluginXML],
 
+    proseWrap: "always",
+
     // Options spécifiques du plugin XML.
     xmlQuoteAttributes: "double",
 };

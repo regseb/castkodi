@@ -41,7 +41,7 @@ export const update = async function () {
             title: browser.i18n.getMessage(key),
         });
     } else {
-        browser.contextMenus.create({
+        const parentId = browser.contextMenus.create({
             contexts,
             id: "parent",
             title: browser.i18n.getMessage("menus_firstParent"),
@@ -54,7 +54,7 @@ export const update = async function () {
                 // pas affichée).
                 contexts,
                 id: action,
-                parentId: "parent",
+                parentId,
                 title: browser.i18n.getMessage(key),
             });
         }
@@ -66,7 +66,7 @@ export const update = async function () {
                 // pas affichée).
                 contexts,
                 id: "separator",
-                parentId: "parent",
+                parentId,
                 type: "separator",
             });
             for (const [index, server] of config["server-list"].entries()) {
@@ -83,7 +83,7 @@ export const update = async function () {
                     // n'est pas affichée).
                     contexts,
                     id: index.toString(),
-                    parentId: "parent",
+                    parentId,
                     title: name,
                     type: "radio",
                 });
@@ -100,7 +100,7 @@ export const update = async function () {
  * @returns {Promise<string[]>} Une promesse contenant les liens récupérés.
  */
 export const aggregate = async function (info) {
-    if ("bookmarkId" in info) {
+    if (undefined !== info.bookmarkId) {
         const bookmarks = await browser.bookmarks.get(info.bookmarkId);
         return bookmarks.map((b) => b.url ?? b.title);
     }

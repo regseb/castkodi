@@ -3,6 +3,8 @@
  * @author Sébastien Règne
  */
 
+import globals from "globals";
+
 /**
  * @import { Linter } from "eslint"
  */
@@ -11,8 +13,10 @@
  * @type {Linter.Config}
  */
 export default {
-    env: {
-        browser: true,
-        webextensions: true,
+    languageOptions: {
+        globals: {
+            ...globals.browser,
+            ...globals.webextensions,
+        },
     },
 };
