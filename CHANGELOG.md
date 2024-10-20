@@ -1,5 +1,25 @@
 # Changelog
 
+## [7.12.0](https://github.com/regseb/castkodi/compare/v7.11.0...v7.12.0) (2024-10-20)
+
+### Features
+
+- Gérer les vidéos embarquées dans Reddit.
+  ([800d01b](https://github.com/regseb/castkodi/commit/800d01b471699c45604e76a93d48baee9d7c59ba))
+
+### Bug Fixes
+
+- Actualiser le scraper de Apple Podcast.
+  ([1186958](https://github.com/regseb/castkodi/commit/1186958df4e2a58bea6614a98b31746da0349ca2))
+- Actualiser le scraper de The Guardian.
+  ([2f5c88b](https://github.com/regseb/castkodi/commit/2f5c88b4be0e1175c6834d36f112980cf00b2fea))
+- Corriger le labeler de Dailymotion.
+  ([8166b25](https://github.com/regseb/castkodi/commit/8166b25d7834a5f6f6bee7a06864943998910991))
+- Corriger le scraper de CBC Listen.
+  ([d0709b8](https://github.com/regseb/castkodi/commit/d0709b8ee90c58bd43eb89e75ec9f63ae38e1c9a))
+- Corriger le scraper et le labeler de Twitch.
+  ([a7dc643](https://github.com/regseb/castkodi/commit/a7dc643cd56fc5e821cc9f6f9d42c74b35037ca7))
+
 ## [7.11.0](https://github.com/regseb/castkodi/compare/v7.10.0...v7.11.0) (2024-07-05)
 
 ### Features
