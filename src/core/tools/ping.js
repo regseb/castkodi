@@ -14,11 +14,11 @@ export const ping = async function (url) {
     try {
         await fetch(url, {
             method: "HEAD",
-            // Fournir des « identifiants » vides dans les entêtes pour que si
-            // la page demande une authentification : celle-ci échoue
-            // directement sans demander à l'utilisateur de saisir son
-            // identifiant et son mot de passe.
-            headers: { Authorization: "" },
+            // Omettre les "credentials" pour que la popup de connexion ne
+            // s'affiche pas. Si une authentification est nécessaire, le serveur
+            // répondra qu'il manque les informations. Mais on saura qu'il y a
+            // bien un serveur derrière le lien.
+            credentials: "omit",
         });
         return true;
     } catch {
