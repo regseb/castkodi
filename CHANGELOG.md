@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.12.1](https://github.com/regseb/castkodi/compare/v7.12.0...v7.12.1) (2024-11-20)
+
+
+### Bug Fixes
+
+* Enlever Veoh qui a fermé. ([825ea17](https://github.com/regseb/castkodi/commit/825ea172f07c7d4f9897d784ac1a116668ec0ab4))
+* Ne pas afficher la popup de connexion (dans la popup). ([27c7823](https://github.com/regseb/castkodi/commit/27c7823d2db95a3d0f1a5f2f2a5cb85aa8d596d2))
+
 ## [7.12.0](https://github.com/regseb/castkodi/compare/v7.11.0...v7.12.0) (2024-10-20)
 
 ### Features
