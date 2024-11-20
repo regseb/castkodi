@@ -117,10 +117,15 @@ export const Kodi = class {
         let url;
         try {
             url = new URL(address);
+            // Ne pas vérifier si l'adresse a été corrigée par le constructeur
+            // (par exemple "ws://192" devient "ws://0.0.0.192/"), car il a pu
+            // aussi modifier la casse du protocol et de l'host ; ou ajouter une
+            // barre oblique à la fin de l'URL ("HTTP://EXAMPLE.COM" devient
+            // "http://example.com/).
         } catch {
-            // Si la connexion avec l'adresse complète n'a pas fonctionné :
-            // essayer avec l'adresse IP (en y ajoutant le protocole, le port et
-            // le chemin).
+            // Si la création d'une URL avec l'adresse complète n'a pas
+            // fonctionné : essayer avec l'adresse IP (en y ajoutant le
+            // protocole, le port et le chemin).
             try {
                 url = new URL(`ws://${address}:9090/jsonrpc`);
             } catch {

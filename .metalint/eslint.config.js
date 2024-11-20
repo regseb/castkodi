@@ -317,9 +317,7 @@ export default {
         "prefer-template": "off",
         radix: "error",
         "require-await": "error",
-        // Ne pas encore utiliser le drapeau "v", car Add-ons Linter ne le
-        // supporte pas. https://github.com/mozilla/addons-linter/issues/5462
-        "require-unicode-regexp": ["error", { requireFlag: "u" }],
+        "require-unicode-regexp": ["error", { requireFlag: "v" }],
         "require-yield": "error",
         "sort-imports": [
             "error",
@@ -638,7 +636,10 @@ export default {
         "regexp/prefer-regexp-exec": "error",
         "regexp/prefer-regexp-test": "error",
         "regexp/prefer-set-operation": "error",
-        "regexp/require-unicode-regexp": "error",
+        // Désactiver cette règle qui est quasi-identique à la règle
+        // "require-unicode-regexp" (seule la position de la notification est
+        // différente).
+        "regexp/require-unicode-regexp": "off",
         "regexp/simplify-set-operations": "error",
         "regexp/sort-alternatives": "error",
         "regexp/use-ignore-case": "error",
@@ -675,7 +676,7 @@ export default {
 
         // Plugin eslint-plugin-unicorn.
         "unicorn/better-regex": "error",
-        "unicorn/catch-error-name": ["error", { ignore: [/^err$/u, /^e$/u] }],
+        "unicorn/catch-error-name": ["error", { ignore: [/^err$/v, /^e$/v] }],
         "unicorn/consistent-destructuring": "error",
         "unicorn/consistent-empty-array-spread": "error",
         "unicorn/consistent-existence-index-check": "error",

@@ -4,7 +4,7 @@
  * @author Sébastien Règne
  */
 
-import { quote } from "./sanitizer.js";
+import "../../polyfill/regexp.js";
 
 /**
  * Convertis un modèle de correspondance en expression rationnelle.
@@ -16,7 +16,7 @@ import { quote } from "./sanitizer.js";
 export const compile = function (pattern) {
     if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
         return new RegExp(
-            "^" + quote(pattern).replaceAll(String.raw`\*`, ".*") + "$",
+            "^" + RegExp.escape(pattern).replaceAll(String.raw`\*`, ".*") + "$",
             "iu",
         );
     }
@@ -25,13 +25,13 @@ export const compile = function (pattern) {
     const { scheme, host, path } = RE.exec(pattern).groups;
     return new RegExp(
         "^" +
-            ("*" === scheme ? "https?" : quote(scheme)) +
+            ("*" === scheme ? "https?" : RegExp.escape(scheme)) +
             "://" +
             ("*" === host
                 ? "[^/]+"
-                : quote(host).replace(String.raw`\*`, "[^./]+")) +
+                : RegExp.escape(host).replace(String.raw`\*`, "[^./]+")) +
             "/" +
-            quote(path).replaceAll(String.raw`\*`, ".*") +
+            RegExp.escape(path).replaceAll(String.raw`\*`, ".*") +
             "$",
         "iu",
     );

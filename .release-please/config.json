@@ -1,6 +1,7 @@
 {
   "release-type": "node",
   "include-component-in-tag": false,
+  "always-update": true,
   "extra-files": ["src/manifest.json"],
   "packages": {
     ".": {}

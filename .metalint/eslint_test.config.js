@@ -44,8 +44,14 @@ export default {
         "mocha/no-exclusive-tests": "error",
         "mocha/no-exports": "error",
         "mocha/no-global-tests": "error",
-        "mocha/no-hooks": ["error", { allow: ["before"] }],
-        "mocha/no-hooks-for-single-case": "error",
+        // Autoriser les hooks "afterEach", car ils sont toujours exécuter après
+        // les tests (pour nettoyer l'environnement) même si les tests ont
+        // échoués. Et autoriser les "before" pour désactiver les tests selon
+        // dans quel pays ils sont exécutés.
+        "mocha/no-hooks": ["error", { allow: ["afterEach", "before"] }],
+        // Désactiver cette règle, car il n'y a pas de condition différente avec
+        // la règle "no-hook".
+        "mocha/no-hooks-for-single-case": "off",
         "mocha/no-identical-title": "error",
         "mocha/no-mocha-arrows": "error",
         "mocha/no-nested-tests": "error",

@@ -20,7 +20,7 @@ describe("core/tools/ping.js", function () {
                 "https://foo.com/",
                 {
                     method: "HEAD",
-                    headers: { Authorization: "" },
+                    credentials: "omit",
                 },
             ]);
         });
@@ -36,7 +36,7 @@ describe("core/tools/ping.js", function () {
                 "https://foo.com/",
                 {
                     method: "HEAD",
-                    headers: { Authorization: "" },
+                    credentials: "omit",
                 },
             ]);
         });

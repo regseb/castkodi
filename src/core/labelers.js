@@ -19,7 +19,6 @@ import * as twitch from "./labeler/twitch.js";
 import * as vimeo from "./labeler/vimeo.js";
 import * as vtmgo from "./labeler/vtmgo.js";
 import * as youtube from "./labeler/youtube.js";
-import { strip } from "./tools/sanitizer.js";
 
 /**
  * La liste des fonctions des labellisateurs (retournant le label d'une URL ou
@@ -46,6 +45,36 @@ const LABELERS = [
     vtmgo,
     youtube,
 ].flatMap((l) => Object.values(l));
+
+/**
+ * Enlève les balises utilisées par Kodi pour mettre en forme des textes.
+ *
+ * @param {string} text Le texte qui sera nettoyé.
+ * @returns {string} Le texte nettoyé.
+ * @see https://kodi.wiki/view/Label_Formatting
+ */
+export const strip = function (text) {
+    return text
+        .replaceAll(/\[B\](?<t>.*?)\[\/B\]/gu, "$<t>")
+        .replaceAll(/\[I\](?<t>.*?)\[\/I\]/gu, "$<t>")
+        .replaceAll(/\[LIGHT\](?<t>.*?)\[\/LIGHT\]/gu, "$<t>")
+        .replaceAll(/\[COLOR [^\]]+\](?<t>.*?)\[\/COLOR\]/gu, "$<t>")
+        .replaceAll(/\[UPPERCASE\](?<t>.*?)\[\/UPPERCASE\]/gu, (_, t) =>
+            t.toUpperCase(),
+        )
+        .replaceAll(/\[LOWERCASE\](?<t>.*?)\[\/LOWERCASE\]/gu, (_, t) =>
+            t.toLowerCase(),
+        )
+        .replaceAll(
+            /\[CAPITALIZE\](?<t>.*?)\[\/CAPITALIZE\]/gu,
+            (_, t) => t.charAt(0).toUpperCase() + t.slice(1),
+        )
+        .replaceAll("[CR]", " ")
+        .replaceAll(/\[TABS\](?<n>\d+)\[\/TABS\]/gu, (_, n) =>
+            "\t".repeat(Number(n)),
+        )
+        .trim();
+};
 
 /**
  * Extrait le label d'une URL.

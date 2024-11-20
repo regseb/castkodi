@@ -8,7 +8,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Vudeo", function () {
     it("should return undefined when it isn't a video", async function () {
-        const url = new URL("https://vudeo.co/faq");
+        const url = new URL("https://vudeo.ws/faq");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
@@ -16,7 +16,7 @@ describe("Scraper: Vudeo", function () {
     });
 
     it("should return undefined when there isn't video", async function () {
-        const url = new URL("https://vudeo.co/xr7um5Ieoo5i.html");
+        const url = new URL("https://vudeo.ws/xr7um5Ieoo5i.html");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
@@ -24,28 +24,28 @@ describe("Scraper: Vudeo", function () {
     });
 
     it("should return video URL", async function () {
-        const url = new URL("https://vudeo.co/coyo0r55r5xj.html");
+        const url = new URL("https://vudeo.ws/kuapcw7r6uzz.html");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 file.endsWith(
-                    "/v.mp4|Referer=https://vudeo.co/coyo0r55r5xj.html",
+                    "/v.mp4|Referer=https://vudeo.ws/kuapcw7r6uzz.html",
                 ),
             `"${file}".endsWith(...)`,
         );
     });
 
     it("should return video URL from embed", async function () {
-        const url = new URL("https://vudeo.co/embed-coyo0r55r5xj.html");
+        const url = new URL("https://vudeo.ws/embed-kuapcw7r6uzz.html");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 file.endsWith(
-                    "/v.mp4|Referer=https://vudeo.co/embed-coyo0r55r5xj.html",
+                    "/v.mp4|Referer=https://vudeo.ws/embed-kuapcw7r6uzz.html",
                 ),
             `"${file}".endsWith(...)`,
         );
