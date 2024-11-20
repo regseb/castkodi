@@ -69,7 +69,6 @@ import * as twitch from "./scraper/twitch.js";
 import * as ultimedia from "./scraper/ultimedia.js";
 import * as unknown from "./scraper/unknown.js";
 import * as uqload from "./scraper/uqload.js";
-import * as veoh from "./scraper/veoh.js";
 import * as videopress from "./scraper/videopress.js";
 import * as vidlox from "./scraper/vidlox.js";
 import * as vidyard from "./scraper/vidyard.js";
@@ -133,7 +132,6 @@ const SCRAPERS = [
     twitch,
     ultimedia,
     uqload,
-    veoh,
     videopress,
     vidlox,
     vidyard,

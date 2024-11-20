@@ -8,7 +8,7 @@ Cast&nbsp;Kodi, pridá možnosť posielania videí a hudby do <strong>Kodi</stro
     priame odkazy: <em>avi</em>, <em>mkv</em>, <em>mp3</em>, <em>flac</em>, … a torrent / magnet;
   </li>
   <li>
-    YouTube, Twitch, Vimeo, SoundCloud a tiež Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasty, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, Jamendo, ItemFix, Kick, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Prime&nbsp;Video&nbsp;(Amazon), Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, Veoh, VideoPress, VidLii, Vidyard, Viously, Vudeo;
+    YouTube, Twitch, Vimeo, SoundCloud a tiež Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasty, Ausha, Bigo&nbsp;Live, BitChute, Blog&nbsp;Talk&nbsp;Radio, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, Jamendo, ItemFix, Kick, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Prime&nbsp;Video&nbsp;(Amazon), Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, VideoPress, VidLii, Vidyard, Viously, Vudeo;
     <ul>
       <li>🇧🇪&nbsp;Belgicko: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;</li>
       <li>🇨🇦&nbsp;Kanada: CBC&nbsp;Listen;</li>
