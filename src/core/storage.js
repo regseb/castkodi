@@ -5,24 +5,34 @@
  */
 
 /**
- * La liste des contextes par défaut pour chaque navigateur. Sous Chromium, les
- * contextes `bookmark` et `tab` n'existent pas. Et dans Firefox le contexte
- * `bookmark` n'est pas activé par défaut, car il nécessite la permission
- * `bookmarks`. https://issues.chromium.org/41378677
- * https://issues.chromium.org/40246822
+ * La liste des contextes par défaut. Le contexte `"bookmark"` n'est pas activé
+ * par défaut, car il nécessite la permission `"bookmarks"`.
  *
- * @type {Object<string, string[]>}
+ * @type {string[]}
+ * @see https://developer.mozilla.org/Add-ons/WebExtensions/API/menus/ContextType
  */
-const DEFAULT_MENU_CONTEXTS = {
-    Chromium: ["audio", "frame", "link", "page", "selection", "video"],
-    Firefox: ["audio", "frame", "link", "page", "selection", "tab", "video"],
-};
+const DEFAULT_MENU_CONTEXTS = [
+    "audio",
+    "frame",
+    "link",
+    "page",
+    "selection",
+    "tab",
+    "video",
+];
 
 /**
  * Initialise la configuration.
  */
 export const initialize = async function () {
-    const { name } = await browser.runtime.getBrowserInfo();
+    // Enlever les contextes non-disponibles dans certains navigateurs ("tab"
+    // dans Chromium). https://issues.chromium.org/40246822
+    const contextTypes = new Set(
+        Object.values(browser.contextMenus.ContextType),
+    );
+    const menuContexts = DEFAULT_MENU_CONTEXTS.filter((c) =>
+        contextTypes.has(c),
+    );
 
     await browser.storage.local.set({
         "config-version": 6,
@@ -33,7 +43,7 @@ export const initialize = async function () {
         "popup-clipboard": false,
         "popup-wheel": "normal",
         "menu-actions": ["send", "insert", "add"],
-        "menu-contexts": DEFAULT_MENU_CONTEXTS[name],
+        "menu-contexts": menuContexts,
         "youtube-playlist": "playlist",
         "youtube-order": "default",
     });
@@ -128,9 +138,9 @@ export const remove = async function (permissions) {
 
     if (permissions.includes("bookmarks")) {
         const config = await browser.storage.local.get(["menu-contexts"]);
-        const contexts = config["menu-contexts"];
+        const menuContexts = config["menu-contexts"];
         await browser.storage.local.set({
-            "menu-contexts": contexts.filter((c) => "bookmark" !== c),
+            "menu-contexts": menuContexts.filter((c) => "bookmark" !== c),
         });
     }
 };

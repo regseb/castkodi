@@ -5,8 +5,6 @@
  */
 
 import "../polyfill/browser.js";
-// eslint-disable-next-line import/no-unassigned-import
-import "../core/css.js";
 import { Kodi } from "../core/jsonrpc/kodi.js";
 import { locate } from "../core/l10n.js";
 import { checkHosts } from "../core/permission.js";
@@ -331,6 +329,16 @@ const handleChange = function (changes) {
     );
 };
 
+// Enlever les contextes non-disponibles dans certains navigateurs : "bookmark"
+// et "tab" dans Chromium. https://issues.chromium.org/41378677
+// https://issues.chromium.org/40246822
+const contextTypes = new Set(Object.values(browser.contextMenus.ContextType));
+for (const input of document.querySelectorAll("#menu-contexts input")) {
+    if (!contextTypes.has(input.name)) {
+        input.parentElement.remove();
+    }
+}
+
 document.querySelector("#permission button").addEventListener("click", request);
 try {
     await checkHosts();
@@ -340,14 +348,6 @@ try {
 
 // Remplir les champs du formulaire avec la configuration.
 load(await browser.storage.local.get());
-
-// Activer les contextes disponibles seulement dans certains navigateurs.
-const info = await browser.runtime.getBrowserInfo();
-for (const label of document.querySelectorAll(
-    `label[data-supported-browser="${info.name}"]`,
-)) {
-    delete label.dataset.supportedBrowser;
-}
 
 // Écouter les actions dans le formulaire.
 for (const input of document.querySelectorAll("[name]")) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="560">
-  <!-- Créer cette bannière pour le Chrome Web Store. -->
+  <!-- Créer cette bannière pour le Chrome Web Store et le Microsoft Edge
+       Add-ons. -->
   <defs>
     <style type="text/css">
 /* Utiliser la police de caractères du logo de Kodi. */

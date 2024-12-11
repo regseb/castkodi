@@ -124,6 +124,31 @@ export const browser = {
             data.contextMenus.length = 0;
             return Promise.resolve();
         },
+
+        /**
+         * La liste des types de contextes.
+         */
+        ContextType: {
+            ACTION: "action",
+            ALL: "all",
+            AUDIO: "audio",
+            // Ce contexte n'est pas disponible dans Chromium.
+            // https://issues.chromium.org/41378677
+            BOOKMARK: "bookmark",
+            EDITABLE: "editable",
+            FRAME: "frame",
+            IMAGE: "image",
+            LAUNCHER: "launcher",
+            LINK: "link",
+            PAGE: "page",
+            PASSWORD: "password",
+            SELECTION: "selection",
+            // Ce contexte n'est pas disponible dans Chromium.
+            // https://issues.chromium.org/40246822
+            TAB: "tab",
+            TOOLS_MENU: "tools_menu",
+            VIDEO: "video",
+        },
     },
 
     extension: {

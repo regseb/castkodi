@@ -10,14 +10,18 @@ import * as storage from "../../../src/core/storage.js";
 describe("core/storage.js", function () {
     describe("initialize()", function () {
         it("should create config in Chromium", async function () {
-            const stub = sinon
-                .stub(browser.runtime, "getBrowserInfo")
-                .resolves({
-                    name: "Chromium",
-                    vendor: "",
-                    version: "",
-                    buildID: "",
-                });
+            // Enlever les types de contextes non-disponibles dans Chromium.
+            // https://issues.chromium.org/41378677
+            // https://issues.chromium.org/40246822
+            sinon
+                .stub(browser.contextMenus, "ContextType")
+                .value(
+                    Object.fromEntries(
+                        Object.entries(browser.contextMenus.ContextType).filter(
+                            ([_, v]) => "bookmark" !== v && "tab" !== v,
+                        ),
+                    ),
+                );
 
             await storage.initialize();
             const config = await browser.storage.local.get();
@@ -41,21 +45,9 @@ describe("core/storage.js", function () {
                 "youtube-playlist": "playlist",
                 "youtube-order": "default",
             });
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, []);
         });
 
         it("should create config in Firefox", async function () {
-            const stub = sinon
-                .stub(browser.runtime, "getBrowserInfo")
-                .resolves({
-                    name: "Firefox",
-                    vendor: "Mozilla",
-                    version: "100.0",
-                    buildID: "20240101120000",
-                });
-
             await storage.initialize();
             const config = await browser.storage.local.get();
             assert.deepEqual(config, {
@@ -79,9 +71,6 @@ describe("core/storage.js", function () {
                 "youtube-playlist": "playlist",
                 "youtube-order": "default",
             });
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, []);
         });
     });
 

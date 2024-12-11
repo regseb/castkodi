@@ -7,10 +7,6 @@ sup {
     cursor: help;
 }
 
-label[data-supported-browser] {
-    display: none;
-}
-
 input[type="text"] {
     background-position: right 8px center;
     background-repeat: no-repeat;

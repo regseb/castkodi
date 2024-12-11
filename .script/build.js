@@ -20,10 +20,11 @@ const BUILD_DIR = "build";
 /**
  * Extrait le texte d'un document HTML.
  *
- * @param {string} html Le document HTML.
+ * @param {string} html  Le document HTML.
+ * @param {string} store Le nom de la boutique (`"chrome"` ou `"edge"`).
  * @returns {string} Le texte extrait.
  */
-const plain = function (html) {
+const plain = function (html, store) {
     let enabled = true;
 
     /**
@@ -37,7 +38,7 @@ const plain = function (html) {
             case "#comment":
                 switch (node.nodeValue?.trim()) {
                     case "disable chrome":
-                        enabled = false;
+                        enabled = "chrome" !== store;
                         break;
                     case "enable chrome":
                         enabled = true;
@@ -46,6 +47,14 @@ const plain = function (html) {
                     // Ignorer les autres commentaires.
                 }
                 return "";
+            case "LI":
+                return enabled
+                    ? "- " +
+                          Array.from(node.childNodes)
+                              .map(extract)
+                              .join("")
+                              .trim()
+                    : "";
             case "#text":
                 return enabled ? (node?.nodeValue ?? "") : "";
             default:
@@ -61,7 +70,10 @@ const plain = function (html) {
 // Supprimer l'éventuel répertoire de la précédente construction.
 await fs.rm(BUILD_DIR, { force: true, recursive: true });
 
-// Créer l'archive zippée de l'extension.
+// Créer l'archive zippée de l'extension. Pour la boutique de Edge, il faut
+// modifier le manifeste, car la boutique ne supporte pas les propriétés
+// `background.script` et `key`.
+// https://github.com/microsoft/MicrosoftEdge-Extensions/issues/136
 await webExt.cmd.build({
     sourceDir: SOURCE_DIR,
     artifactsDir: BUILD_DIR,
@@ -69,12 +81,12 @@ await webExt.cmd.build({
 });
 
 // Déplacer et générer les fichiers pour les textes dans les boutiques.
-for (const store of ["chrome", "firefox"]) {
+for (const store of ["chrome", "edge", "firefox"]) {
     const buildStoreDir = path.join(BUILD_DIR, store);
     await fs.mkdir(buildStoreDir, { recursive: true });
 
     for (const lang of await fs.readdir(LOCALES_DIR)) {
-        if ("chrome" === store) {
+        if ("chrome" === store || "edge" === store) {
             await fs.writeFile(
                 path.join(buildStoreDir, `description-${lang}.txt`),
                 plain(
@@ -82,6 +94,7 @@ for (const store of ["chrome", "firefox"]) {
                         path.join(LOCALES_DIR, lang, "description.tpl"),
                         "utf8",
                     ),
+                    store,
                 ),
             );
         } else if ("firefox" === store) {

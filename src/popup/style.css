@@ -10,10 +10,6 @@ body {
     min-width: 325px;
 }
 
-*[data-supported-browser] {
-    display: none;
-}
-
 button.ghost,
 label.checkbox,
 label.radio {
@@ -203,18 +199,12 @@ dialog {
     display: flex;
     flex-direction: column;
 }
-.Chromium #sound {
-    align-items: end;
-    width: 48px;
-}
-.Chromium #volume {
-    margin: 32px -16px 32px 0;
-    width: 80px;
-}
-.Firefox #volume {
+#volume {
+    direction: rtl;
     height: 80px;
     padding: 8px 16px;
     width: 16px;
+    writing-mode: vertical-lr;
 }
 
 #remote {

@@ -5,6 +5,9 @@
 <!-- markdownlint-disable-next-line no-inline-html-->
 <img src="src/img/icon.svg" align="right" alt="">
 
+<!-- Ne pas afficher de badge pour le Microsoft Edge Add-ons, car Shields.io ne
+     le supporte pas. https://github.com/badges/shields/issues/4690 -->
+
 [![chrome][img-chrome]][link-chrome] [![firefox][img-firefox]][link-firefox]
 [![build][img-build]][link-build] [![coverage][img-coverage]][link-coverage]
 
@@ -12,7 +15,7 @@
 
 ## Description
 
-Cast Kodi est une extension pour les navigateurs Chromium (Chrome, Edge) et
+Cast Kodi est une extension pour les navigateurs Chrome, Chromium, Edge et
 Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
 
 - liens directs : _avi_, _mkv_, _mp3_, _flac_… et torrent / magnet ;
@@ -51,8 +54,8 @@ lecture…
 
 ## Installation
 
-L'extension est disponible sur [**Chrome Web Store**][link-chrome] (pour
-Chromium, Chrome et Edge) ainsi que sur [**Firefox Browser
+L'extension est disponible sur le [**Chrome Web Store**][link-chrome], le
+[**Microsoft Edge Add-ons**][link-edge] et le [**Firefox Browser
 Add-ons**][link-firefox].
 
 Pour connecter l'extension à Kodi, vous devez _Autoriser le contrôle à distance
@@ -77,23 +80,10 @@ Pour certains sites Internet, les add-ons suivants sont nécessaires dans Kodi :
 [VTM GO](https://kodi.tv/addons/omega/plugin.video.vtm.go/),
 [YouTube](https://kodi.tv/addons/omega/plugin.video.youtube/).
 
-## Contribuer
+## Contribution
 
-[Node.js et npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-sont nécessaires pour contribuer au projet. Après avoir
-[forké et cloné](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
-Cast Kodi, exécutez `npm ci` pour télécharger les dépendances. Voici d'autres
-commandes utiles :
-
-- `npm run lint` : faire une analyse statique des fichiers ;
-- `npm test` : lancer les tests (avec [Mocha](https://mochajs.org/)) ;
-- `npm run start:chromium` : déployer l'extension dans Chromium ;
-- `npm run start:firefox` : déployer l'extension dans Firefox.
-<!-- Le déploiement ne fonctionne pas avec la version Snap de Firefox.
-     https://github.com/mozilla/web-ext/issues/1696 -->
-
-Les traductions dans les différentes langues se font avec
-[Weblate](https://hosted.weblate.org/engage/castkodi/).
+Si vous souhaitez contribuer à Cast Kodi, consultez le fichier
+[CONTRIBUTING.md](.github/CONTRIBUTING.md) pour avoir plus d'informations.
 
 [img-chrome]:
   https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=chrome&logo=googlechrome&logoColor=whitesmoke
@@ -105,6 +95,8 @@ Les traductions dans les différentes langues se font avec
   https://img.shields.io/endpoint?label=coverage&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fregseb%2Fcastkodi%2Fmain
 [link-chrome]:
   https://chromewebstore.google.com/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
+[link-edge]:
+  https://microsoftedge.microsoft.com/addons/detail/cast-kodi/jaodccnfhodnbdibkmlhogdephdlkkgh
 [link-firefox]: https://addons.mozilla.org/addon/castkodi/
 [link-build]:
   https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain

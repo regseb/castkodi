@@ -5,8 +5,7 @@
  */
 
 import "../polyfill/browser.js";
-// eslint-disable-next-line import/no-unassigned-import
-import "../core/css.js";
+import "../polyfill/useragentdata.js";
 import { cast } from "../core/index.js";
 import { kodi } from "../core/jsonrpc/kodi.js";
 import { locate } from "../core/l10n.js";
@@ -655,6 +654,16 @@ const web = async function () {
 };
 
 const openFeedback = function () {
+    // Enlever le lien vers le Chrome Web Store si le navigateur est Firefox ou
+    // Microsoft Edge (qui ont leur propre boutique).
+    const brands = new Set(navigator.userAgentData.brands.map((b) => b.brand));
+    if (brands.has("Firefox") || brands.has("Microsoft Edge")) {
+        const a = document.querySelector(
+            '#dialogfeedback a[href^="https://chromewebstore.google.com/"]',
+        );
+        a.parentElement.remove();
+    }
+
     const dialog = document.querySelector("#dialogfeedback");
     if (!dialog.open) {
         dialog.showModal();
@@ -670,18 +679,22 @@ const openDonate = function () {
 
 const rate = async function () {
     let url;
-    const { name } = await browser.runtime.getBrowserInfo();
-    switch (name) {
-        case "Chromium":
-            url =
-                "https://chromewebstore.google.com/detail/cast-kodi" +
-                "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
-            break;
-        case "Firefox":
-            url = "https://addons.mozilla.org/addon/castkodi/";
-            break;
-        default:
-            throw new Error("unknown browser");
+    const brands = new Set(navigator.userAgentData.brands.map((b) => b.brand));
+    if (brands.has("Firefox")) {
+        url = "https://addons.mozilla.org/addon/castkodi/";
+    } else if (brands.has("Microsoft Edge")) {
+        url =
+            "https://microsoftedge.microsoft.com/addons/detail/cast-kodi" +
+            "/jaodccnfhodnbdibkmlhogdephdlkkgh";
+    } else if (brands.has("Chromium")) {
+        // Pour tous les dérivés de Chromium (sauf Edge) : envoyer sur le Chrome
+        // Web Store.
+        url =
+            "https://chromewebstore.google.com/detail/cast-kodi" +
+            "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
+    } else {
+        // Si la navigateur est inconnu : envoyer sur GitHub.
+        url = "https://github.com/regseb/castkodi";
     }
     await browser.tabs.create({ url });
     close();
@@ -1419,12 +1432,4 @@ try {
     await load();
 } catch (err) {
     openError(err);
-}
-
-// Activer les éléments spécifiques à certains navigateurs.
-const { name } = await browser.runtime.getBrowserInfo();
-for (const element of document.querySelectorAll(
-    `*[data-supported-browser="${name}"]`,
-)) {
-    delete element.dataset.supportedBrowser;
 }

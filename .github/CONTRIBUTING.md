@@ -39,11 +39,14 @@ suivantes :
 
 - `npm run start:chromium` : déployer l'extension dans Chromium.
 - `npm run start:firefox` : déployer l'extension dans Firefox.
+<!-- Le déploiement ne fonctionne pas avec la version Snap de Firefox.
+     https://github.com/mozilla/web-ext/issues/1696 -->
 
 Vous pouvez aussi installer manuellement l'extension :
 
-- [_Temporary installation in Firefox_](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/).
 - [_Load an unpacked extension_ in Chrome](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked).
+- [_Sideload an extension to install and test it locally_ in Edge](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading)
+- [_Temporary installation in Firefox_](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/).
 
 ## Qualité
 
@@ -80,3 +83,8 @@ d'intégration.
 
 Le message de commit doit suivre la spécification des
 [Commits Conventionnels](https://www.conventionalcommits.org/en/v1.0.0/).
+
+## Traduction
+
+Les traductions dans les différentes langues se font avec
+[Weblate](https://hosted.weblate.org/engage/castkodi/).
