@@ -136,7 +136,7 @@
         "message": "Ga naar volgende [PageDown]"
     },
     "popup_volume_title": {
-        "message": "$VALUE$% [-/+]",
+        "message": "[+/-] $VALUE$%",
         "placeholders": {
             "value": {
                 "content": "$1"
