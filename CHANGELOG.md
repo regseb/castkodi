@@ -1,5 +1,18 @@
 # Changelog
 
+## [7.13.0](https://github.com/regseb/castkodi/compare/v7.12.1...v7.13.0) (2024-12-11)
+
+### Features
+
+- Publish in Microsoft Edge Add-ons.
+  ([a3266c6](https://github.com/regseb/castkodi/commit/a3266c66428ab05f8250947779667cc6bf8a76eb))
+
+### Bug Fixes
+
+- Translations update from Hosted Weblate
+  ([#133](https://github.com/regseb/castkodi/issues/133))
+  ([b43e3e8](https://github.com/regseb/castkodi/commit/b43e3e8cb8e9ac633f54d55a182d2f22c6cfba3c))
+
 ## [7.12.1](https://github.com/regseb/castkodi/compare/v7.12.0...v7.12.1) (2024-11-20)
 
 ### Bug Fixes
