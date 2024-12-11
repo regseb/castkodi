@@ -136,7 +136,7 @@
         "message": "Prejsť na ďalšie [PageDown]"
     },
     "popup_volume_title": {
-        "message": "$VALUE$% [-/+]",
+        "message": "[+/-] $VALUE$%",
         "placeholders": {
             "value": {
                 "content": "$1"
@@ -273,7 +273,7 @@
         "message": "Spojenie"
     },
     "options_serverIntro_textcontent": {
-        "message": "Ak chcete pripojiť rozšírenie Kodi, musíte povoliť diaľkové ovládanie od aplikácií na iných systémoch. Táto možnosť je v Nastaveniach / službách / Ovládanie stránky v Kodi. Musíte tiež získať adresu Kodi. Tieto informácie sú zobrazené v Nastaveniach / Informácie o systéme / Prehľad stránky. Potom zadajte túto IP adresu v poli nižšie."
+        "message": "Ak chcete pripojiť rozšírenie Kodi, musíte Povoliť vzdialené ovládanie z aplikácií v iných systémoch. Táto možnosť je v Nastavenia / Služby / Ovládanie stránky v Kodi. Musíte tiež získať IP adresa Kodi. Tieto informácie sú zobrazené v Nastavenia / Systémové informácie / Súhrn stránky. Potom zadajte túto IP adresa v poli nižšie."
     },
     "options_serverModeSingle_textcontent": {
         "message": "Nastaviť jeden server"
