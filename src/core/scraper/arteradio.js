@@ -8,12 +8,11 @@
 import { matchPattern } from "../tools/matchpattern.js";
 
 /**
- * L'URL du répertoire où sont les sons de Arte Radio.
+ * L'URL de l'API de Arte Radio.
  *
  * @type {string}
  */
-const BASE_URL =
-    "https://cdn.arteradio.com/permanent/arteradio/sites/default/files/sons/";
+const API_URL = "https://www.arteradio.com/_next/data";
 
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
@@ -24,11 +23,15 @@ const BASE_URL =
  *                                 le document HTML.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = async function (_url, metadata) {
+const action = async function ({ pathname }, metadata) {
+    const slug = pathname.slice(5);
     const doc = await metadata.html();
-    return (
-        BASE_URL +
-        doc.querySelector(".cover *[data-sound-href]").dataset.soundHref
-    );
+    const buildId = JSON.parse(
+        doc.querySelector("script#__NEXT_DATA__").text,
+    ).buildId;
+
+    const response = await fetch(`${API_URL}/${buildId}/son/${slug}.json`);
+    const json = await response.json();
+    return json.pageProps.sound.mp3HifiMedia.finalUrl;
 };
 export const extract = matchPattern(action, "*://www.arteradio.com/son/*");

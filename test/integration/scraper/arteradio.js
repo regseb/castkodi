@@ -8,9 +8,7 @@ import { extract } from "../../../src/core/scrapers.js";
 
 describe("Scraper: Arte Radio", function () {
     it("should return audio URL", async function () {
-        const url = new URL(
-            "https://www.arteradio.com/son/61657661/fais_moi_ouir",
-        );
+        const url = new URL("https://www.arteradio.com/son/fais_moi_ouir");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
@@ -22,9 +20,7 @@ describe("Scraper: Arte Radio", function () {
     });
 
     it("should return audio URL when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://www.arteradio.com/son/61657661/fais_moi_ouir",
-        );
+        const url = new URL("http://www.arteradio.com/son/fais_moi_ouir");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
