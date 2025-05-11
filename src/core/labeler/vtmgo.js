@@ -17,8 +17,10 @@ const action = async function (url) {
     const response = await fetch(url);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");
-    return /** @type {HTMLHeadingElement|null} */ (
-        doc.querySelector("h1.player__title")
-    )?.textContent;
+    return /** @type {HTMLTitleElement} */ (doc.querySelector("title"))
+        ?.textContent;
 };
-export const extract = matchPattern(action, "*://vtm.be/vtmgo/afspelen/*");
+export const extract = matchPattern(
+    action,
+    "*://www.vtmgo.be/vtmgo/afspelen/*",
+);

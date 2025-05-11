@@ -10,7 +10,7 @@ import * as labeler from "../../../../src/core/labeler/vtmgo.js";
 describe("core/labeler/vtmgo.js", function () {
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("https://vtm.be/vtmgo/regarder/foo");
+            const url = new URL("https://www.vtmgo.be/vtmgo/regarder/foo");
 
             const label = await labeler.extract(url);
             assert.equal(label, undefined);
@@ -19,20 +19,20 @@ describe("core/labeler/vtmgo.js", function () {
         it("should return label", async function () {
             const stub = sinon.stub(globalThis, "fetch").resolves(
                 new Response(
-                    `<html><body>
-                       <h1 class="player__title">foo</h1>
-                     </body></html>`,
+                    `<html><head>
+                       <title>foo</title>
+                     </head></html>`,
                 ),
             );
 
-            const url = new URL("https://vtm.be/vtmgo/afspelen/bar");
+            const url = new URL("https://www.vtmgo.be/vtmgo/afspelen/bar");
 
             const label = await labeler.extract(url);
             assert.equal(label, "foo");
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                new URL("https://vtm.be/vtmgo/afspelen/bar"),
+                new URL("https://www.vtmgo.be/vtmgo/afspelen/bar"),
             ]);
         });
 
@@ -45,14 +45,14 @@ describe("core/labeler/vtmgo.js", function () {
                 ),
             );
 
-            const url = new URL("https://vtm.be/vtmgo/afspelen/bar");
+            const url = new URL("https://www.vtmgo.be/vtmgo/afspelen/bar");
 
             const label = await labeler.extract(url);
             assert.equal(label, undefined);
 
             assert.equal(stub.callCount, 1);
             assert.deepEqual(stub.firstCall.args, [
-                new URL("https://vtm.be/vtmgo/afspelen/bar"),
+                new URL("https://www.vtmgo.be/vtmgo/afspelen/bar"),
             ]);
         });
     });

@@ -23,7 +23,7 @@ const dispatchEpisode = async function (episodeUuid) {
     }
     if (addons.has("plugin.video.sendtokodi")) {
         return sendtokodiPlugin.generateUrl(
-            new URL(`https://www.vtm.be/vtmgo/afspelen/e${episodeUuid}`),
+            new URL(`https://www.vtmgo.be/vtmgo/afspelen/e${episodeUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
@@ -43,7 +43,7 @@ const dispatchMovie = async function (movieUuid) {
     }
     if (addons.has("plugin.video.sendtokodi")) {
         return sendtokodiPlugin.generateUrl(
-            new URL(`https://www.vtm.be/vtmgo/afspelen/m${movieUuid}`),
+            new URL(`https://www.vtmgo.be/vtmgo/afspelen/m${movieUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
@@ -63,7 +63,7 @@ const dispatchChannel = async function (channelUuid) {
     }
     if (addons.has("plugin.video.sendtokodi")) {
         return sendtokodiPlugin.generateUrl(
-            new URL(`https://www.vtm.be/vtmgo/live-kijken/${channelUuid}`),
+            new URL(`https://www.vtmgo.be/vtmgo/live-kijken/${channelUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
@@ -82,8 +82,7 @@ const actionEpisode = function ({ pathname }) {
 
 export const extractEpisode = matchPattern(
     actionEpisode,
-    "*://vtm.be/vtmgo/afspelen/e*",
-    "*://www.vtm.be/vtmgo/afspelen/e*",
+    "*://www.vtmgo.be/vtmgo/afspelen/e*",
 );
 
 /**
@@ -98,8 +97,7 @@ const actionMovie = function ({ pathname }) {
 
 export const extractMovie = matchPattern(
     actionMovie,
-    "*://vtm.be/vtmgo/afspelen/m*",
-    "*://www.vtm.be/vtmgo/afspelen/m*",
+    "*://www.vtmgo.be/vtmgo/afspelen/m*",
 );
 
 /**
@@ -114,8 +112,7 @@ const actionMoviePage = function ({ pathname }) {
 
 export const extractMoviePage = matchPattern(
     actionMoviePage,
-    "*://vtm.be/vtmgo/*~m*",
-    "*://www.vtm.be/vtmgo/*~m*",
+    "*://www.vtmgo.be/vtmgo/*~m*",
 );
 
 /**
@@ -135,6 +132,5 @@ const actionChannel = async function (_url, metadata) {
 };
 export const extractChannel = matchPattern(
     actionChannel,
-    "*://vtm.be/vtmgo/live-kijken/*",
-    "*://www.vtm.be/vtmgo/live-kijken/*",
+    "*://www.vtmgo.be/vtmgo/live-kijken/*",
 );
