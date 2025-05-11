@@ -30,13 +30,11 @@ const action = async function (_url, metadata, context) {
     }
 
     const doc = await metadata.html();
-    const video = doc.querySelector(".js-dailymotion-video[data-id]");
-    return null === video
+    const player = doc.querySelector(".vsly-plyr[id]");
+    return null === player
         ? undefined
         : metaExtract(
-              new URL(
-                  `https://www.dailymotion.com/embed/video/${video.dataset.id}`,
-              ),
+              new URL(`https://www.viously.com/export/${player.id.slice(10)}`),
               { ...context, depth: true },
           );
 };

@@ -4,8 +4,6 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
-import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/gamekult.js";
 
 describe("core/scraper/gamekult.js", function () {
@@ -46,16 +44,13 @@ describe("core/scraper/gamekult.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
-
             const url = new URL("https://www.gamekult.com/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html><body>
-                               <div class="js-dailymotion-video"
-                                    data-id="bar"></div>
+                               <div class="vsly-plyr" id="vsly-plyr-bar"></div>
                              </body></html>`,
                             "text/html",
                         ),
@@ -66,11 +61,8 @@ describe("core/scraper/gamekult.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
-                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
+                "https://www.viously.com/video/hls/bar/index.m3u8",
             );
-
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
         });
     });
 });

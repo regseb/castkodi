@@ -17,7 +17,7 @@ describe("Scraper: Gamekult", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL [gamekult-viously]", async function () {
         const url = new URL(
             "https://www.gamekult.com/actualite" +
                 "/revivez-la-conference-bethesda-et-le-debriefing-avec-le" +
@@ -28,11 +28,11 @@ describe("Scraper: Gamekult", function () {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x7aour7",
+            "https://www.viously.com/video/hls/POsvNDA_uK8/index.m3u8",
         );
     });
 
-    it("should return video URL without 'www'", async function () {
+    it("should return video URL without 'www' [ldjson-dailymotion]", async function () {
         const url = new URL(
             "https://www.gamekult.com/jeux/tekken-7-3050301183" +
                 "/video-3052640103.html#player",
