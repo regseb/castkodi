@@ -28,7 +28,7 @@ Les outils suivants sont nécessaires pour utiliser ce projet :
 - Importez votre fichier dans `src/core/scrapers.js` et ajoutez le dans la liste
   `SCRAPERS`
 - Ajoutez le nouveau site supporté dans le `README` et dans les fichiers
-  `locales/*/description.tpl`
+  `locales/*/description.md`
 - Écrivez des tests unitaires dans `test/unit/core/scraper/` et des tests
   d'intégration dans `test/integration/scraper/`
 

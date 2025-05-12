@@ -5,66 +5,65 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import { JSDOM } from "jsdom";
+import markdownit from "markdown-it";
 // @ts-expect-error -- L'outil ne fournit pas de types.
 import webExt from "web-ext";
-
-/**
- * @import { Node } from "jsdom"
- */
 
 const LOCALES_DIR = "locales";
 const SOURCE_DIR = "src";
 const BUILD_DIR = "build";
 
 /**
- * Extrait le texte d'un document HTML.
+ * Sélectionne les lignes à conserver en fonction de la boutique.
  *
- * @param {string} html  Le document HTML.
- * @param {string} store Le nom de la boutique (`"chrome"` ou `"edge"`).
- * @returns {string} Le texte extrait.
+ * @param {string} description Le description de l'extension.
+ * @param {string} store       Le nom de la boutique (`"chrome"`, `"edge"` ou
+ *                             `"firefox"`).
+ * @returns {string} La partie du texte pour la boutique.
  */
-const plain = function (html, store) {
+const select = function (description, store) {
+    const splits = description.split(
+        /(?<command><!-- (?:disable|enable) chrome -->)\n{2}/gv,
+    );
     let enabled = true;
+    return splits
+        .filter((split) => {
+            switch (split) {
+                case "<!-- disable chrome -->":
+                    enabled = "chrome" !== store;
+                    return false;
+                case "<!-- enable chrome -->":
+                    enabled = true;
+                    return false;
+                default:
+                    return enabled;
+            }
+        })
+        .join("")
+        .replaceAll(/<!--.*?-->\n?/gsv, "");
+};
 
-    /**
-     * Extrait le texte d'un élément HTML.
-     *
-     * @param {Node} node L'élément HTML.
-     * @returns {string} Le texte extrait.
-     */
-    const extract = function (node) {
-        switch (node.nodeName) {
-            case "#comment":
-                switch (node.nodeValue?.trim()) {
-                    case "disable chrome":
-                        enabled = "chrome" !== store;
-                        break;
-                    case "enable chrome":
-                        enabled = true;
-                        break;
-                    default:
-                    // Ignorer les autres commentaires.
-                }
-                return "";
-            case "LI":
-                return enabled
-                    ? "- " +
-                          Array.from(node.childNodes)
-                              .map(extract)
-                              .join("")
-                              .trim()
-                    : "";
-            case "#text":
-                return enabled ? (node?.nodeValue ?? "") : "";
-            default:
-                return Array.from(node.childNodes).map(extract).join("");
-        }
-    };
+/**
+ * Enlève le formatage du Markdown dans la description.
+ *
+ * @param {string} description La description en Markdown.
+ * @returns {string} La description sans le formatage.
+ */
+const plain = function (description) {
+    return description
+        .replaceAll(/\*\*(?<f>\S)(?<r>.*?\S)??\*\*/gsv, "$<f>$<r>")
+        .replaceAll(/_(?<f>\S)(?<r>.*?\S)??_/gsv, "$<f>$<r>")
+        .replaceAll(/(?<b>[^\n])\n *(?<a>[^\n \-])/gv, "$<b> $<a>");
+};
 
-    const DOMParser = new JSDOM().window.DOMParser;
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return extract(doc).trim();
+/**
+ * Convertit le markdown en HTML.
+ *
+ * @param {string} description La description en Markdown.
+ * @returns {string} La description au format HTML.
+ */
+const html = function (description) {
+    return markdownit().render(description);
 };
 
 // Supprimer l'éventuel répertoire de la précédente construction.
@@ -77,7 +76,6 @@ await fs.rm(BUILD_DIR, { force: true, recursive: true });
 await webExt.cmd.build({
     sourceDir: SOURCE_DIR,
     artifactsDir: BUILD_DIR,
-    overwriteDest: true,
 });
 
 // Déplacer et générer les fichiers pour les textes dans les boutiques.
@@ -86,26 +84,32 @@ for (const store of ["chrome", "edge", "firefox"]) {
     await fs.mkdir(buildStoreDir, { recursive: true });
 
     for (const lang of await fs.readdir(LOCALES_DIR)) {
-        if ("chrome" === store || "edge" === store) {
+        const description = await fs.readFile(
+            path.join(LOCALES_DIR, lang, "description.md"),
+            "utf8",
+        );
+        if ("chrome" === store) {
             await fs.writeFile(
                 path.join(buildStoreDir, `description-${lang}.txt`),
-                plain(
-                    await fs.readFile(
-                        path.join(LOCALES_DIR, lang, "description.tpl"),
-                        "utf8",
-                    ),
-                    store,
-                ),
+                plain(select(description, store)),
+            );
+        } else if ("edge" === store) {
+            // Utiliser une description en HTML pour la boutique de Edge.
+            // https://learn.microsoft.com/en-us/partner-center/marketplace-offers/supported-html-tags
+            await fs.writeFile(
+                path.join(buildStoreDir, `description-${lang}.html`),
+                html(select(description, store)),
             );
         } else if ("firefox" === store) {
+            // Utiliser une description en Markdown pour la boutique de Firefox.
+            // https://extensionworkshop.allizom.org/documentation/develop/create-an-appealing-listing/#make-use-of-markdown
             await fs.copyFile(
                 path.join(LOCALES_DIR, lang, "summary.txt"),
                 path.join(buildStoreDir, `summary-${lang}.txt`),
             );
-
-            await fs.copyFile(
-                path.join(LOCALES_DIR, lang, "description.tpl"),
-                path.join(buildStoreDir, `description-${lang}.tpl`),
+            await fs.writeFile(
+                path.join(buildStoreDir, `description-${lang}.md`),
+                select(description, store),
             );
         }
     }

@@ -62,12 +62,6 @@ export default {
             linters: ["prettier", "htmlhint"],
         },
         {
-            patterns: "*.tpl",
-            // Ne pas formatter les fichiers templates avec Prettier, car les
-            // retours à la ligne ne sont pas gérés correctement.
-            linters: ["htmlhint", "htmlhint_tpl"],
-        },
-        {
             patterns: "*.css",
             linters: ["prettier", "prettier_css", "stylelint"],
             overrides: [
@@ -84,6 +78,12 @@ export default {
         {
             patterns: "*.md",
             linters: ["prettier", "markdownlint"],
+            overrides: {
+                // Utiliser des règles spécifiques pour les fichiers des
+                // boutiques.
+                patterns: "/locales/**",
+                linters: "markdownlint_store",
+            },
         },
         {
             patterns: "*.json",
