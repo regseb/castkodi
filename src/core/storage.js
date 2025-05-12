@@ -25,10 +25,15 @@ const DEFAULT_MENU_CONTEXTS = [
  * Initialise la configuration.
  */
 export const initialize = async function () {
-    // Enlever les contextes non-disponibles dans certains navigateurs ("tab"
-    // dans Chromium). https://issues.chromium.org/40246822
+    // Si la modification des menus contextuels est supportée : enlever les
+    // contextes non-disponibles dans certains navigateurs ("tab" dans Chromium).
+    // Si la modification n'est pas supportée (comme dans Firefox Android) :
+    // enlever tous les contextes. https://issues.chromium.org/40246822
+    // https://bugzil.la/1595822
     const contextTypes = new Set(
-        Object.values(browser.contextMenus.ContextType),
+        undefined === browser.contextMenus
+            ? []
+            : Object.values(browser.contextMenus.ContextType),
     );
     const menuContexts = DEFAULT_MENU_CONTEXTS.filter((c) =>
         contextTypes.has(c),
@@ -42,7 +47,9 @@ export const initialize = async function () {
         "general-history": false,
         "popup-clipboard": false,
         "popup-wheel": "normal",
-        "menu-actions": ["send", "insert", "add"],
+        "menu-actions":
+            // Si aucun context n'est disponible : ne pas activer les actions.
+            0 === menuContexts.length ? [] : ["send", "insert", "add"],
         "menu-contexts": menuContexts,
         "youtube-playlist": "playlist",
         "youtube-order": "default",

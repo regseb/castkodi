@@ -426,6 +426,17 @@
     </section>
 
     <section id="external">
+      <button
+        class="ghost"
+        id="openbeta"
+        type="button"
+        title="Beta version for Android"
+        disabled
+        autocomplete="off"
+      >
+        Beta
+      </button>
+
       <span id="loading" data-l10n-title>
         <img src="/design/icon/loading-white.svg" alt="loading-white" />
       </span>
@@ -576,6 +587,20 @@
           <button value="cancel" data-l10n-textcontent></button>
         </menu>
       </form>
+    </dialog>
+
+    <dialog id="dialogbeta">
+      <p>
+        The Android version of Cast Kodi is currently in beta. Some features are
+        not implemented, such as the context menu. Some interfaces may not be
+        mobile-friendly. Or bugs may be present.
+      </p>
+      <p>
+        If you have a problem, don't hesitate to open an issue on GitHub :
+        <a href="https://github.com/regseb/castkodi"
+          ><code>regseb/castkodi</code></a
+        >.
+      </p>
     </dialog>
 
     <dialog id="dialogfeedback">

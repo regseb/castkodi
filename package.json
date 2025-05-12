@@ -38,6 +38,7 @@
     "jsdocs": "typedoc --tsconfig .tsconfig_jsdocs.json",
     "start:chromium": "web-ext run --source-dir src/ --target chromium",
     "start:firefox": "web-ext run --source-dir src/ --target firefox-desktop",
+    "start:firefox-android": "web-ext run --source-dir src/ --target firefox-android --firefox-apk org.mozilla.fenix",
     "build": "node .script/build.js",
     "clean": "node .script/clean.js"
   },

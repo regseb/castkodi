@@ -41,6 +41,11 @@ suivantes :
 - `npm run start:firefox` : déployer l'extension dans Firefox.
 <!-- Le déploiement ne fonctionne pas avec la version Snap de Firefox.
      https://github.com/mozilla/web-ext/issues/1696 -->
+- `npm run start:firefox-android` : déployer l'extension dans Firefox sous
+  Android. Il faut ajouter l'option
+  [`--adb-device XXX`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#adb-device)
+  (cf.
+  [_Developing extensions for Firefox for Android_](https://extensionworkshop.com/documentation/develop/developing-extensions-for-firefox-for-android/)).
 
 Vous pouvez aussi installer manuellement l'extension :
 

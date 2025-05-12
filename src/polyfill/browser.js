@@ -26,3 +26,32 @@ if (!("getBrowserInfo" in browser.runtime)) {
         }
     };
 }
+
+// Contourner un bogue dans Firefox Nightly sous Android qui retourne "Firefox
+// Nightly" pour le nom du navigateur alors qu'il faudrait avoir seulement
+// "Firefox". https://bugzil.la/1864824
+const nativeGetBrowserInfo = browser.runtime.getBrowserInfo;
+browser.runtime.getBrowserInfo = async () => {
+    const browserInfo = await nativeGetBrowserInfo();
+    return {
+        ...browserInfo,
+        name: browserInfo.name.replace(" Nightly", ""),
+    };
+};
+
+// Contourner un bogue dans Firefox sous Android : quand la page des options est
+// ouverte avec la fonction openOptionPage(), la page reste blanche.
+// https://bugzil.la/1795449#c2
+const nativeOpenOptionsPage = browser.runtime.openOptionsPage;
+browser.runtime.openOptionsPage = async () => {
+    // Ne pas sortir la fonction getPlatformInfo(), car les service workers
+    // n'autorisent pas les top-level await.
+    const platformInfo = await browser.runtime.getPlatformInfo();
+    if ("android" === platformInfo.os) {
+        await browser.tabs.create({
+            url: browser.runtime.getManifest().options_ui.page,
+        });
+    } else {
+        await nativeOpenOptionsPage();
+    }
+};

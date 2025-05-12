@@ -36,4 +36,12 @@
     --range-hover-track-background-color: rgb(251 251 254 / 66%);
 
     --range-primary-progress-background-color: rgb(0 97 224);
+
+    --error-color: rgb(253 242 245);
+    --error-background-color: rgb(164 0 15);
+    --error-border-color: rgb(90 0 2 / 16%);
+
+    --warning-color: rgb(255 251 214);
+    --warning-background-color: rgb(113 81 0);
+    --warning-border-color: rgb(164 127 0 / 27%);
 }

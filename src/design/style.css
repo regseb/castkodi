@@ -102,7 +102,8 @@ input[type="checkbox"]:focus:not(:disabled) {
 input[type="checkbox"]:active:not(:disabled) {
     background-color: var(--checkboxradio-active-background-color);
 }
-input[type="checkbox"]:disabled {
+input[type="checkbox"]:disabled,
+label:has(input[type="checkbox"]:disabled) {
     cursor: default;
     opacity: 50%;
 }
@@ -337,19 +338,36 @@ dialog menu select {
 }
 
 .error {
-    background-color: rgb(215 0 34);
-    color: rgb(251 251 254);
+    background-color: var(--error-background-color);
+    border-color: var(--error-border-color);
+    color: var(--error-color);
+}
+.warning {
+    background-color: var(--warning-background-color);
+    border-color: var(--warning-border-color);
+    color: var(--warning-color);
+}
+.error,
+.warning {
+    border-style: solid;
+    border-width: 1px;
 }
 .error button,
 .error select {
-    background-color: rgb(91 91 102 / 33%);
-    color: rgb(251 251 254);
+    background-color: color-mix(
+        in srgb,
+        var(--error-background-color),
+        black 20%
+    );
+    color: var(--color);
 }
 .error button:hover:not(:disabled),
-.error select:hover:not(:disabled) {
-    background-color: rgb(91 91 102 / 66%);
-}
 .error button:active:not(:disabled),
+.error select:hover:not(:disabled),
 .error select:active:not(:disabled) {
-    background-color: rgb(91 91 102);
+    background-color: color-mix(
+        in srgb,
+        var(--error-background-color),
+        black 30%
+    );
 }

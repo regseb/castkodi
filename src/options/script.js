@@ -5,6 +5,7 @@
  */
 
 import "../polyfill/browser.js";
+import "../polyfill/useragentdata.js";
 import { Kodi } from "../core/jsonrpc/kodi.js";
 import { locate } from "../core/l10n.js";
 import { checkHosts } from "../core/permission.js";
@@ -329,13 +330,32 @@ const handleChange = function (changes) {
     );
 };
 
-// Enlever les contextes non-disponibles dans certains navigateurs : "bookmark"
-// et "tab" dans Chromium. https://issues.chromium.org/41378677
-// https://issues.chromium.org/40246822
-const contextTypes = new Set(Object.values(browser.contextMenus.ContextType));
-for (const input of document.querySelectorAll("#menu-contexts input")) {
-    if (!contextTypes.has(input.name)) {
-        input.parentElement.remove();
+if (navigator.userAgentData.mobile) {
+    document.querySelector("#popup-wheel").style.display = "none";
+}
+
+if (undefined === browser.contextMenus) {
+    // Si le navigateur ne supporte pas la modification des menus contextuels
+    // (comme dans Firefox Android) : désactiver toutes les cases à cocher.
+    // https://bugzil.la/1595822
+    document.querySelector(".warning").style.display = "block";
+    for (const input of document.querySelectorAll(
+        "#menu-actions input, #menu-contexts input",
+    )) {
+        input.disabled = true;
+    }
+} else {
+    // Si le navigateur supporte la modification des menus contextuels, enlever
+    // les contextes non-disponibles dans certains navigateurs : "bookmark" et
+    // "tab" dans Chromium. https://issues.chromium.org/41378677
+    // https://issues.chromium.org/40246822
+    const contextTypes = new Set(
+        Object.values(browser.contextMenus.ContextType),
+    );
+    for (const input of document.querySelectorAll("#menu-contexts input")) {
+        if (!contextTypes.has(input.name)) {
+            input.parentElement.remove();
+        }
     }
 }
 

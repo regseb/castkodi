@@ -76,15 +76,22 @@ td button {
     display: inline-block;
 }
 
-.error {
-    background-image: url("/design/icon/error-white.svg");
+.error,
+.warning {
     background-position: 8px center;
     background-repeat: no-repeat;
     border-radius: 4px;
     display: none;
     padding: 8px 8px 8px 32px;
 }
-.error button {
+.error {
+    background-image: url("/design/icon/error-white.svg");
+}
+.warning {
+    background-image: url("/design/icon/warning-yellow.svg");
+}
+.error button,
+.warning button {
     margin-top: 8px;
 }
 

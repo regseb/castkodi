@@ -647,6 +647,13 @@ const remove = async function (event) {
     }
 };
 
+const openBeta = function () {
+    const dialog = document.querySelector("#dialogbeta");
+    if (!dialog.open) {
+        dialog.showModal();
+    }
+};
+
 const web = async function () {
     const url = document.querySelector("#web").dataset.url;
     await browser.tabs.create({ url });
@@ -680,7 +687,10 @@ const openDonate = function () {
 const rate = async function () {
     let url;
     const brands = new Set(navigator.userAgentData.brands.map((b) => b.brand));
-    if (brands.has("Firefox")) {
+    if (navigator.userAgentData.mobile) {
+        // Envoyer sur GitHub pour la version Android, car elle est en beta.
+        url = "https://github.com/regseb/castkodi";
+    } else if (brands.has("Firefox")) {
         url = "https://addons.mozilla.org/addon/castkodi/";
     } else if (brands.has("Microsoft Edge")) {
         url =
@@ -1146,6 +1156,7 @@ const load = async function () {
             ]),
         );
 
+        document.querySelector("#openbeta").disabled = false;
         document.querySelector("#web").disabled = false;
         document.querySelector("#openfeedback").disabled = false;
         document.querySelector("#opendonate").disabled = false;
@@ -1229,6 +1240,7 @@ for (const input of document.querySelectorAll("#repeat input")) {
 document.querySelector("#shuffle input").addEventListener("change", shuffle);
 document.querySelector("#clear").addEventListener("click", clear);
 
+document.querySelector("#openbeta").addEventListener("click", openBeta);
 document.querySelector("#web").addEventListener("click", web);
 document.querySelector("#openfeedback").addEventListener("click", openFeedback);
 document.querySelector("#opendonate").addEventListener("click", openDonate);
@@ -1251,12 +1263,17 @@ for (const dialog of document.querySelectorAll("dialog:not(.error)")) {
 
 document.querySelector("#configure").addEventListener("click", preferences);
 
+// Afficher le bouton "Beta" sur Android.
+if (navigator.userAgentData.mobile) {
+    document.querySelector("#openbeta").style.display = "flex";
+}
+
 // Modifier le comportement des liens pour les ouvrir dans un nouvel onglet et
 // fermer la popup.
 for (const a of document.querySelectorAll("a")) {
     a.addEventListener("click", async (event) => {
         event.preventDefault();
-        await browser.tabs.create({ url: event.target.href });
+        await browser.tabs.create({ url: event.target.closest("a").href });
         close();
     });
 }
