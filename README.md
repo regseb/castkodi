@@ -20,11 +20,11 @@ Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
 
 - liens directs : _avi_, _mkv_, _mp3_, _flac_… et torrent / magnet ;
 - YouTube, Twitch, Vimeo, SoundCloud ainsi que Acast, Ace Stream, Apple
-  Podcasts, Ausha, Bigo Live, BitChute, Blog Talk Radio, Castbox, Dailymotion,
-  DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter,
-  Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast Addict,
-  podCloud, Prime Video (Amazon), Reddit, Rumble, Steam, Streamable, TikTok,
-  Ultimedia, Uqload, VideoPress, VidLii, Vidyard, Viously, Vudeo ;
+  Podcasts, Ausha, Bigo Live, BitChute, Castbox, Dailymotion, DevTube, Facebook,
+  Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter, Mastodon, Megaphone,
+  Mixcloud, Odysee, Overcast, PeerTube, Podcast Addict, podCloud, Prime Video
+  (Amazon), Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload,
+  VideoPress, VidLii, Vidyard, Viously, Vudeo ;
   - 🇩🇪 Allemagne : Arte, Chaos Computer Club, DMAX, ZDF ;
   - 🇧🇪 Belgique : GoPlay, VRT NU, VTM GO ;
   - 🇨🇦 Canada : CBC Listen ;
