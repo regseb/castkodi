@@ -64,3 +64,7 @@ browser.contextMenus.onClicked.addListener(async (info) => {
 browser.permissions.onRemoved.addListener(async ({ permissions }) => {
     await storage.remove(permissions);
 });
+
+browser.notifications.onClicked.addListener(async () => {
+    await browser.runtime.openOptionsPage();
+});
