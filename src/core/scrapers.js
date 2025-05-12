@@ -136,15 +136,15 @@ const SCRAPERS = [
     vidlox,
     vidyard,
     vimeo,
-    viously,
     vrtnu,
     vtmgo,
     vudeo,
     youtube,
     zdf,
-    // Mettre Dailymotion à la fin, car un de ses extracteurs analyse toutes les
-    // pages.
+    // Mettre Dailymotion et Viously à la fin, car un de leurs extracteurs
+    // analyse toutes les pages.
     dailymotion,
+    viously,
     // Utiliser les extracteurs génériques en dernier recours.
     media,
     ldjson,
