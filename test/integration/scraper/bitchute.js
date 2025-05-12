@@ -25,8 +25,8 @@ describe("Scraper: BitChute [fr]", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [video]", async function () {
-        const url = new URL("https://www.bitchute.com/video/dz5JcCZnJMge/");
+    it("should return video URL", async function () {
+        const url = new URL("https://www.bitchute.com/video/dz5JcCZnJMge");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
