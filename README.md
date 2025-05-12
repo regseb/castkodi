@@ -55,8 +55,8 @@ lecture…
 ## Installation
 
 L'extension est disponible sur le [**Chrome Web Store**][link-chrome], le
-[**Microsoft Edge Add-ons**][link-edge] et le [**Firefox Browser
-Add-ons**][link-firefox].
+[**Firefox Browser Add-ons**][link-firefox] et le [**Microsoft Edge
+Add-ons**][link-edge].
 
 Pour connecter l'extension à Kodi, vous devez _Autoriser le contrôle à distance
 par des programmes sur d'autres systèmes_. Ce réglage se fait dans Kodi à la

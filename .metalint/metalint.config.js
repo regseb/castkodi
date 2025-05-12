@@ -13,15 +13,18 @@
 export default {
     patterns: [
         "**",
-        // Ignorer les répertoires générés.
+        // Ignorer les répertoires et les fichiers générés.
         "!/.git/**",
         "!/.stryker/**",
+        "!/build/**",
         "!/jsdocs/**",
         "!/node_modules/**",
         "!/src/polyfill/lib/**",
+        "!/stryker.log",
         // Ignorer les fichiers de configuration de Visual Studio Code.
         "!/.vscode/**",
-        // Ignorer les fichiers de configuration de IntelliJ IDEA.
+        // Ignorer les fichiers de configuration des IDEs de JetBrains :
+        // WebStorm, IntelliJ IDEA...
         "!/.idea/**",
         // Ignorer les fichiers temporaires de Vim.
         "!*.swp",
@@ -32,7 +35,7 @@ export default {
     ],
     checkers: [
         {
-            patterns: ["/build/*.zip", "/src/"],
+            patterns: "/src/",
             linters: "addons-linter",
         },
         {

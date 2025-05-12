@@ -44,7 +44,7 @@ const SELECTORS = {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionVideo = async function (_url, metadata, context) {
+const actionVideo = async (_url, metadata, context) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
@@ -88,7 +88,7 @@ export const extractVideo = matchPattern(actionVideo, "*://*/*");
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionAudio = async function (_url, metadata, context) {
+const actionAudio = async (_url, metadata, context) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
@@ -131,7 +131,7 @@ export const extractAudio = matchPattern(actionAudio, "*://*/*");
  *                                      _fichier_ ou `undefined`.
  * @see https://developer.x.com/en/docs/twitter-for-websites/cards/overview/markup
  */
-const actionTwitter = async function (_url, metadata, context) {
+const actionTwitter = async (_url, metadata, context) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
@@ -161,7 +161,7 @@ export const extractTwitter = matchPattern(actionTwitter, "*://*/*");
  *                                      _fichier_ ou `undefined`.
  * @see https://developer.x.com/en/docs/twitter-for-websites/cards/overview/markup
  */
-const actionTwitterStream = async function (_url, metadata) {
+const actionTwitterStream = async (_url, metadata) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
@@ -187,7 +187,7 @@ export const extractTwitterStream = matchPattern(
  *                                      _fichier_ ou `undefined`.
  * @see https://yandex.com/support/video/partners/open-graph.html
  */
-const actionYandex = async function (_url, metadata) {
+const actionYandex = async (_url, metadata) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;

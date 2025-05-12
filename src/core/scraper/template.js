@@ -41,7 +41,7 @@ const GENERIC_EXTRACTS = [
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (url, metadata, context) {
+const action = async (url, metadata, context) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;

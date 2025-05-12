@@ -22,7 +22,7 @@ const API_URL =
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function ({ pathname }) {
+const action = async ({ pathname }) => {
     const result = /^\/(?:[a-z]{2}\/)?(?<id>\d+)$/iu.exec(pathname);
     if (undefined === result?.groups) {
         return undefined;

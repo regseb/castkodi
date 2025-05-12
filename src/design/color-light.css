@@ -8,8 +8,8 @@
     --a-hover-color: rgb(2 80 187);
 
     --button-color: rgb(21 20 26);
-    --button-background-color: rgba(207 207 216 / 33%);
-    --button-hover-background-color: rgba(207 207 216 / 66%);
+    --button-background-color: rgb(207 207 216 / 33%);
+    --button-hover-background-color: rgb(207 207 216 / 66%);
     --button-active-background-color: rgb(207 207 216);
 
     --button-primary-color: rgb(251 251 254);
@@ -17,14 +17,15 @@
     --button-primary-hover-background-color: rgb(2 80 187);
     --button-primary-active-background-color: rgb(5 62 148);
 
-    --input-border-color: rgba(21 20 26 / 41%);
+    --input-border-color: rgb(21 20 26 / 41%);
     --input-focus-border-color: rgb(0 97 224);
     --input-invalid-border-color: rgb(215 0 34);
-    --input-placeholder-color: rgba(21 20 26 / 41%);
+    --input-placeholder-color: rgb(21 20 26 / 41%);
 
-    --checkboxradio-background-color: rgba(207 207 216 / 33%);
-    --checkboxradio-hover-background-color: rgba(207 207 216 / 66%);
-    --checkboxradio-active-background-color: rgba(207 207 216);
+    --checkboxradio-background-color: rgb(207 207 216 / 33%);
+    --checkboxradio-hover-background-color: rgb(207 207 216 / 66%);
+    --checkboxradio-active-background-color: rgb(207 207 216);
+    --checkboxradio-disabled-background-color: rgb(207 207 216 / 10%);
 
     --checkboxradio-checked-background-color: rgb(0 97 224);
     --checkboxradio-checked-hover-background-color: rgb(2 80 187);

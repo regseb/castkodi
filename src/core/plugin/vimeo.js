@@ -20,6 +20,6 @@ const PLUGIN_URL = "plugin://plugin.video.vimeo/play/?video_id=";
  *                                   non-listée.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateUrl = function (videoId, hash) {
+export const generateUrl = (videoId, hash) => {
     return PLUGIN_URL + videoId + (undefined === hash ? "" : `:${hash}`);
 };

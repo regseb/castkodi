@@ -18,6 +18,6 @@ const PLUGIN_URL = "plugin://plugin.video.vrt.nu/play/url/";
  * @param {URL} videoUrl L'URL de la vidéo VRT NU.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateUrl = function ({ href }) {
+export const generateUrl = ({ href }) => {
     return PLUGIN_URL + href;
 };

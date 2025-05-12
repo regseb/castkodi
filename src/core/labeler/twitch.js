@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<Record<string, any>>} Une promesse contenant la réponse de
  *                                         l'API.
  */
-const requestApi = async function (operationName, variables, sha256Hash) {
+const requestApi = async (operationName, variables, sha256Hash) => {
     const response = await fetch("https://gql.twitch.tv/gql", {
         headers: { "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko" },
         body: JSON.stringify([
@@ -37,7 +37,7 @@ const requestApi = async function (operationName, variables, sha256Hash) {
  * @param {string} slug L'identifiant du clip Twitch.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
-const getClipTitle = async function (slug) {
+const getClipTitle = async (slug) => {
     const json = await requestApi(
         "ShareClipRenderStatus",
         { slug },
@@ -52,7 +52,7 @@ const getClipTitle = async function (slug) {
  * @param {string} videoId L'identifiant de la vidéo Twitch.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
-const getVideoTitle = async function (videoId) {
+const getVideoTitle = async (videoId) => {
     const json = await requestApi(
         "AdRequestHandling",
         {
@@ -74,7 +74,7 @@ const getVideoTitle = async function (videoId) {
  * @param {string} channelName L'identifiant du _live_ Twitch.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
-const getLiveTitle = async function (channelName) {
+const getLiveTitle = async (channelName) => {
     const json = await requestApi(
         "ChannelShell",
         { login: channelName },
@@ -89,7 +89,7 @@ const getLiveTitle = async function (channelName) {
  * @param {URL} url L'URL du clip Twitch.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
-const actionClip = function ({ pathname, searchParams }) {
+const actionClip = ({ pathname, searchParams }) => {
     if ("/embed" === pathname) {
         return searchParams.has("clip")
             ? getClipTitle(searchParams.get("clip"))
@@ -105,7 +105,7 @@ export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
  * @param {URL} url L'URL de la vidéo, du clip ou du _live_ Twitch.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
-const action = function ({ pathname }) {
+const action = ({ pathname }) => {
     if (pathname.startsWith("/videos/")) {
         return getVideoTitle(pathname.slice(8));
     }

@@ -18,6 +18,6 @@ const PLUGIN_URL = "plugin://program.plexus/?mode=1&name=&url=";
  * @param {URL} url L'URL de la vidéo Ace Stream.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateUrl = function ({ href }) {
+export const generateUrl = ({ href }) => {
     return PLUGIN_URL + encodeURIComponent(href);
 };

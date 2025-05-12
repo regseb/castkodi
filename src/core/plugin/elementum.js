@@ -18,6 +18,6 @@ const PLUGIN_URL = "plugin://plugin.video.elementum/play?uri=";
  * @param {URL} url L'URL du torrent ou du magnet.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateUrl = function ({ href }) {
+export const generateUrl = ({ href }) => {
     return PLUGIN_URL + encodeURIComponent(href);
 };

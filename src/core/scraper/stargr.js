@@ -19,7 +19,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionTv = async function (_url, metadata) {
+const actionTv = async (_url, metadata) => {
     const doc = await metadata.html();
     const div = doc.querySelector("div[data-plugin-bitmovinv5]");
     if (null === div) {
@@ -46,7 +46,7 @@ export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionVideo = async function (_url, metadata, context) {
+const actionVideo = async (_url, metadata, context) => {
     const doc = await metadata.html();
 
     // Ne pas utiliser le scraper iframe, car il est exécuté trop tard.

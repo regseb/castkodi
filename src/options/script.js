@@ -16,7 +16,7 @@ locate(document, "options");
 /**
  * Demande l'accès à tous les sites Internet.
  */
-const request = async function () {
+const request = async () => {
     const granted = await browser.permissions.request({
         origins: ["<all_urls>"],
     });
@@ -32,7 +32,7 @@ const request = async function () {
  * @returns {Promise<boolean>} Une promesse contenant le nouvel état de la
  *                             permission.
  */
-const ask = async function (input) {
+const ask = async (input) => {
     if (!("permissions" in input.dataset)) {
         return input.checked;
     }
@@ -52,7 +52,7 @@ const ask = async function (input) {
  *
  * @param {HTMLInputElement} input Le champ de l'adresse ou du nom.
  */
-const check = async function (input) {
+const check = async (input) => {
     input.setCustomValidity("");
     if (input.name.startsWith("address_")) {
         input.removeAttribute("title");
@@ -112,15 +112,15 @@ const check = async function (input) {
 /**
  * Enregistre un paramètre.
  *
- * @this {HTMLInputElement}
+ * @param {InputEvent} event L'évènement d'un changement d'un champ.
  */
-const save = async function () {
-    const key = this.form.id;
+const save = async (event) => {
+    const key = event.target.form.id;
     if ("server" === key) {
-        if ("server-mode" === this.name) {
-            const tab = this.closest("details");
+        if ("server-mode" === event.target.name) {
+            const tab = event.target.closest("details");
             tab.open = true;
-            if ("single" === this.value) {
+            if ("single" === event.target.value) {
                 // Modifier la configuration en une fois pour éviter d'appeler
                 // les auditeurs à chaque changement.
                 await browser.storage.local.set({
@@ -134,15 +134,17 @@ const save = async function () {
             }
         } else {
             // Synchroniser les deux champs de l'adresse du premier serveur.
-            if ("address_0" === this.name) {
-                for (const input of this.form.querySelectorAll(
+            if ("address_0" === event.target.name) {
+                for (const input of event.target.form.querySelectorAll(
                     'input[name="address_0"]',
                 )) {
-                    input.value = this.value;
+                    input.value = event.target.value;
                 }
             }
             const list = [];
-            for (const input of this.form.querySelectorAll("tbody input")) {
+            for (const input of event.target.form.querySelectorAll(
+                "tbody input",
+            )) {
                 const [type, position] = input.name.split("_");
                 const index = Number(position);
                 if (undefined === list[index]) {
@@ -152,13 +154,14 @@ const save = async function () {
                 }
             }
             await browser.storage.local.set({ "server-list": list });
-            this.form
-                .querySelectorAll(`input[name="${this.name}"]`)
+            event.target.form
+                .querySelectorAll(`input[name="${event.target.name}"]`)
                 .forEach(check);
         }
-    } else if ("checkbox" === this.type) {
-        this.checked = await ask(this);
-        const inputs = this.form.querySelectorAll("input");
+    } else if ("checkbox" === event.target.type) {
+        // eslint-disable-next-line no-param-reassign
+        event.target.checked = await ask(event.target);
+        const inputs = event.target.form.querySelectorAll("input");
         if (1 === inputs.length) {
             await browser.storage.local.set({ [key]: inputs[0].checked });
         } else {
@@ -169,7 +172,7 @@ const save = async function () {
             });
         }
     } else {
-        await browser.storage.local.set({ [key]: this.value });
+        await browser.storage.local.set({ [key]: event.target.value });
     }
 };
 
@@ -179,7 +182,7 @@ const save = async function () {
  * @param {MouseEvent} event L'évènement du clic sur le bouton de correction de
  *                           l'adresse.
  */
-const fix = async function (event) {
+const fix = async (event) => {
     const button = event.target.closest("button");
     const input = button.closest("div, td").querySelector("input");
     input.value = button.dataset.fix;
@@ -193,7 +196,7 @@ const fix = async function (event) {
  * @param {MouseEvent} event L'évènement du clic sur le bouton de suppression de
  *                           la ligne.
  */
-const remove = async function (event) {
+const remove = async (event) => {
     const tbody = document.querySelector("tbody");
     // Enlever la ligne.
     document
@@ -229,7 +232,7 @@ const remove = async function (event) {
  * @param {string} server.address L'adresse du serveur.
  * @param {string} server.name    Le nom du serveur.
  */
-const add = function (server) {
+const add = (server) => {
     const index = document.querySelectorAll("tbody tr").length;
 
     const tr = document.querySelector("template").content.cloneNode(true);
@@ -242,6 +245,7 @@ const add = function (server) {
     if (0 === index) {
         const single = document.querySelector('[name="address_0"]');
         single.value = server.address;
+        // Ne pas attendre le retour de la vérification.
         check(single);
         tr.querySelector("button.remove").disabled = true;
     } else {
@@ -260,7 +264,7 @@ const add = function (server) {
 
     document.querySelector("tbody").append(tr);
 
-    // Vérifier la connexion à Kodi.
+    // Vérifier la connexion à Kodi sans attendre le retour de la vérification.
     check(address);
 };
 
@@ -269,7 +273,7 @@ const add = function (server) {
  *
  * @param {Object} config La configuration.
  */
-const load = function (config) {
+const load = (config) => {
     for (const [key, value] of Object.entries(config)) {
         if ("server-list" === key) {
             value.forEach(add);
@@ -302,7 +306,7 @@ const load = function (config) {
  * @param {browser.permissions.Permissions} permissions Les permissions
  *                                                      supprimées.
  */
-const handleRemove = function (permissions) {
+const handleRemove = (permissions) => {
     if (permissions.origins?.includes("<all_urls>")) {
         document.querySelector("#permission").style.display = "block";
     }
@@ -314,7 +318,7 @@ const handleRemove = function (permissions) {
  * @param {browser.storage.StorageChange} changes Les paramètres modifiés dans
  *                                                la configuration.
  */
-const handleChange = function (changes) {
+const handleChange = (changes) => {
     load(
         Object.fromEntries(
             Object.entries(changes)

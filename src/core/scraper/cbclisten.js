@@ -46,7 +46,7 @@ const PODCAST_ID_REGEXP =
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionClip = async function ({ pathname }) {
+const actionClip = async ({ pathname }) => {
     const result = CLIP_ID_REGEXP.exec(pathname);
     if (null === result) {
         return undefined;
@@ -72,7 +72,7 @@ export const extractClip = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionPodcast = async function ({ pathname }) {
+const actionPodcast = async ({ pathname }) => {
     const result = PODCAST_ID_REGEXP.exec(pathname);
     if (null === result) {
         return undefined;

@@ -52,7 +52,7 @@ const find = (obj, props) => {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (_url, metadata) {
+const action = async (_url, metadata) => {
     // Définir l'entête "Accept", car par défaut : fetch() utilise "*/*" et
     // Facebook ne retourne pas l'URL de la vidéo.
     const doc = await metadata.html({ headers: { Accept: "text/html" } });

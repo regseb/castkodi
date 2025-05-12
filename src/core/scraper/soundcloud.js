@@ -22,7 +22,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL de la musique SoundCloud.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatch = async function (url) {
+const dispatch = async (url) => {
     const addons = new Set(await kodi.addons.getAddons("audio", "video"));
     if (addons.has("plugin.audio.soundcloud")) {
         return soundcloudPlugin.generateUrl(url);
@@ -40,7 +40,7 @@ const dispatch = async function (url) {
  * @param {URL} url L'URL d'un son SoundCloud.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function ({ href }) {
+const action = ({ href }) => {
     return dispatch(new URL(href.replace("://mobi.", "://")));
 };
 export const extract = matchPattern(

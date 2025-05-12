@@ -23,7 +23,7 @@ const API_URL = "https://kick.com/api/v1/channels";
  *                                                   si la réponse ne contient
  *                                                   pas du JSON.
  */
-const parse = async function (response) {
+const parse = async (response) => {
     try {
         return await response.json();
     } catch {
@@ -39,7 +39,7 @@ const parse = async function (response) {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function ({ pathname }) {
+const action = async ({ pathname }) => {
     const response = await fetch(API_URL + pathname);
     const json = await parse(response);
     if (undefined === json) {

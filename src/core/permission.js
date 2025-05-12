@@ -12,7 +12,7 @@ import { PebkacError } from "./tools/pebkac.js";
  * @returns {Promise<boolean>} Une promesse contenant `true` si l'extension a
  *                             les accès ; sinon une promesse rompue.
  */
-export const checkHosts = async function () {
+export const checkHosts = async () => {
     const granted = await browser.permissions.contains({
         origins: ["<all_urls>"],
     });

@@ -53,7 +53,7 @@ const LABELERS = [
  * @returns {string} Le texte nettoyé.
  * @see https://kodi.wiki/view/Label_Formatting
  */
-export const strip = function (text) {
+export const strip = (text) => {
     return text
         .replaceAll(/\[B\](?<t>.*?)\[\/B\]/gu, "$<t>")
         .replaceAll(/\[I\](?<t>.*?)\[\/I\]/gu, "$<t>")
@@ -83,7 +83,7 @@ export const strip = function (text) {
  * @returns {Promise<string|undefined>} Une promesse contenant le label ou
  *                                      `undefined`.
  */
-export const extract = async function (url) {
+export const extract = async (url) => {
     for (const labeler of LABELERS) {
         const label = await labeler(url, { metaExtract: extract });
         if (undefined !== label) {
@@ -105,7 +105,7 @@ export const extract = async function (url) {
  * @returns {Promise<Object>} Une promesse contenant l'élément complété de la
  *                            liste de lecture.
  */
-export const complete = async function (item) {
+export const complete = async (item) => {
     if ("" !== item.title) {
         return { ...item, label: strip(item.title) };
     }

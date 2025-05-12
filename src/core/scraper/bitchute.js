@@ -14,7 +14,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function ({ pathname }) {
+const action = async ({ pathname }) => {
     const response = await fetch(
         "https://api.bitchute.com/api/beta/video/media",
         {

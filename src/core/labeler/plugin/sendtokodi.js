@@ -16,7 +16,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  *                                       label.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
-const action = async function ({ search }, { metaExtract }) {
+const action = async ({ search }, { metaExtract }) => {
     const label = await metaExtract(new URL(search.slice(1)));
     return label ?? search.slice(1);
 };

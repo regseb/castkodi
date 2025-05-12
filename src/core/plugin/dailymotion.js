@@ -18,6 +18,6 @@ const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
  * @param {string} videoId L'identifiant de la vidéo Dailymotion.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateUrl = function (videoId) {
+export const generateUrl = (videoId) => {
     return PLUGIN_URL + videoId;
 };

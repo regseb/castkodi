@@ -23,7 +23,7 @@ const API_URL = "https://www.arteradio.com/_next/data";
  *                                 le document HTML.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = async function ({ pathname }, metadata) {
+const action = async ({ pathname }, metadata) => {
     const slug = pathname.slice(5);
     const doc = await metadata.html();
     const buildId = JSON.parse(

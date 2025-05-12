@@ -14,14 +14,14 @@ import { cast } from "./index.js";
  * @param {string} text Le texte à modifier.
  * @returns {string} Le texte avec sa première lettre en majuscule.
  */
-const capitalize = function (text) {
+const capitalize = (text) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
 /**
  * Ajoute les options dans les menus contextuels.
  */
-export const update = async function () {
+export const update = async () => {
     // Vider les options du menu contextuel, puis ajouter les options.
     await browser.contextMenus.removeAll();
 
@@ -49,7 +49,7 @@ export const update = async function () {
         for (const action of actions) {
             const key = `menus_second${capitalize(action)}`;
             browser.contextMenus.create({
-                // Passer les contextes aux enfants, car dans Chromium ils ne
+                // Passer les contextes aux enfants, car dans Chromium, ils ne
                 // sont pas hérités du parent (et sans contexte, l'option n'est
                 // pas affichée).
                 contexts,
@@ -61,7 +61,7 @@ export const update = async function () {
 
         if ("multi" === mode) {
             browser.contextMenus.create({
-                // Passer les contextes aux enfants, car dans Chromium ils ne
+                // Passer les contextes aux enfants, car dans Chromium, ils ne
                 // sont pas hérités du parent (et sans contexte, l'option n'est
                 // pas affichée).
                 contexts,
@@ -78,7 +78,7 @@ export const update = async function () {
                     : server.name;
                 browser.contextMenus.create({
                     checked: config["server-active"] === index,
-                    // Passer les contextes aux enfants, car dans Chromium ils
+                    // Passer les contextes aux enfants, car dans Chromium, ils
                     // ne sont pas hérités du parent (et sans contexte, l'option
                     // n'est pas affichée).
                     contexts,
@@ -99,7 +99,7 @@ export const update = async function () {
  *                                                le menu contextuel.
  * @returns {Promise<string[]>} Une promesse contenant les liens récupérés.
  */
-export const aggregate = async function (info) {
+export const aggregate = async (info) => {
     if (undefined !== info.bookmarkId) {
         const bookmarks = await browser.bookmarks.get(info.bookmarkId);
         return bookmarks.map((b) => b.url ?? b.title);
@@ -109,6 +109,10 @@ export const aggregate = async function (info) {
     const contexts = config["menu-contexts"];
     return /** @type {string[]} */ (
         [
+            // Dans Firefox, la propriété "selectionText" est définie même si
+            // l'utilisateur clique en dehors de la sélection. Ce problème est
+            // lié au bogue https://bugzil.la/135813 (la sélection n'est pas
+            // enlevée quand l'utilisateur clique en dehors de la sélection).
             contexts.includes("selection") ? info.selectionText : undefined,
             contexts.includes("link") ? info.linkUrl : undefined,
             "audio" === info.mediaType && contexts.includes("audio")
@@ -129,7 +133,7 @@ export const aggregate = async function (info) {
  * @param {browser.contextMenus.OnClickData} info Les informations fournies par
  *                                                le menu contextuel.
  */
-export const click = async function (info) {
+export const click = async (info) => {
     try {
         await checkHosts();
 
@@ -145,6 +149,6 @@ export const click = async function (info) {
  *
  * @param {number} server L'index du nouveau serveur actif.
  */
-export const change = async function (server) {
+export const change = async (server) => {
     await browser.storage.local.set({ "server-active": server });
 };

@@ -18,6 +18,6 @@ const PLUGIN_URL = "plugin://plugin.video.sendtokodi/?";
  * @param {URL} url L'URL d'une page quelconque.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateUrl = function ({ href }) {
+export const generateUrl = ({ href }) => {
     return PLUGIN_URL + href;
 };

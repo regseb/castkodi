@@ -130,7 +130,7 @@ describe("core/jsonrpc/player.js", function () {
             assert.deepEqual(stub.firstCall.args, ["Player.GetActivePlayers"]);
         });
 
-        it('shouldn\'t return "active"', async function () {
+        it(`shouldn't return "active"`, async function () {
             const kodi = new Kodi();
             const stub = sinon
                 .stub(kodi, "send")

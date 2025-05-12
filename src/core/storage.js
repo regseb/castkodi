@@ -24,7 +24,7 @@ const DEFAULT_MENU_CONTEXTS = [
 /**
  * Initialise la configuration.
  */
-export const initialize = async function () {
+export const initialize = async () => {
     // Si la modification des menus contextuels est supportée : enlever les
     // contextes non-disponibles dans certains navigateurs ("tab" dans Chromium).
     // Si la modification n'est pas supportée (comme dans Firefox Android) :
@@ -59,7 +59,7 @@ export const initialize = async function () {
 /**
  * Migre éventuellement la configuration vers une nouvelle version.
  */
-export const migrate = async function () {
+export const migrate = async () => {
     let config = await browser.storage.local.get();
 
     // Regrouper les propriétés des menus et des contextes dans deux
@@ -134,7 +134,7 @@ export const migrate = async function () {
  *
  * @param {string[]} permissions Les permissions supprimées.
  */
-export const remove = async function (permissions) {
+export const remove = async (permissions) => {
     if (permissions.includes("history")) {
         await browser.storage.local.set({ "general-history": false });
     }

@@ -21,7 +21,7 @@ const API_URL = "https://public-api.wordpress.com/rest/v1.1/videos/";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function ({ pathname }) {
+const action = async ({ pathname }) => {
     // Enlever le préfixe "/v/" ou "/embed/".
     const id = pathname.slice(pathname.indexOf("/", 1) + 1);
     const response = await fetch(API_URL + id);

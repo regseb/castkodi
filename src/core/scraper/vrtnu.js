@@ -16,7 +16,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL de la vidéo VRT NU.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatch = async function (url) {
+const dispatch = async (url) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vrt.nu")) {
         return vrtnuPlugin.generateUrl(url);
@@ -34,7 +34,7 @@ const dispatch = async function (url) {
  * @param {URL} url L'URL d'une vidéo VRT NU.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function (url) {
+const action = (url) => {
     return dispatch(url);
 };
 export const extract = matchPattern(

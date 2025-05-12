@@ -24,7 +24,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionVideo = async function (_url, metadata, context) {
+const actionVideo = async (_url, metadata, context) => {
     if (context.depth) {
         return undefined;
     }
@@ -57,7 +57,7 @@ export const extractVideo = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionAudio = async function (_url, metadata) {
+const actionAudio = async (_url, metadata) => {
     const doc = await metadata.html();
     const figure = doc.querySelector("figure#audio-component-container");
     return figure?.dataset.source;

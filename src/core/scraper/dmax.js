@@ -24,7 +24,7 @@ const API_URL = "https://eu1-prod.disco-api.com";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (_url, metadata) {
+const action = async (_url, metadata) => {
     const doc = await metadata.html();
     const player = doc.querySelector("hyoga-player");
     if (null === player) {

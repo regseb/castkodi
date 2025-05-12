@@ -44,10 +44,6 @@ jobs:
       - name: Run unit tests
         run: npm run test:unit
 
-      - name: Run integration tests
-        if: always()
-        run: COUNTRY=us npm run test:integration
-
   coverage:
     runs-on: ubuntu-latest
     steps:

@@ -13,7 +13,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL d'un son podCloud.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function ({ pathname }) {
+const action = ({ pathname }) => {
     const parts = pathname.split("/");
     const podcast = parts[2];
     const episode = parts[4];

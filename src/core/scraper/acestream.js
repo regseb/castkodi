@@ -14,7 +14,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL d'une vidéo Ace Stream.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function (url) {
+const action = (url) => {
     return Promise.resolve(plugin.generateUrl(url));
 };
 export const extract = matchPattern(action, "acestream://*");

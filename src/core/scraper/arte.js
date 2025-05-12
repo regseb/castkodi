@@ -21,7 +21,7 @@ const API_URL = "https://api.arte.tv/api/player/v2/config";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function ({ pathname }) {
+const action = async ({ pathname }) => {
     const [, lang, , id] = pathname.split("/");
     const response = await fetch(`${API_URL}/${lang}/${id}`);
     const json = await response.json();

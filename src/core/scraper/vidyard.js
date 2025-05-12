@@ -13,7 +13,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL d'une vidéo de Vidyard.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = async function ({ pathname }) {
+const action = async ({ pathname }) => {
     // Enlever la première barre oblique et éventuellement l'extension ".html".
     const id = pathname.slice(1).replace(/\.html$/u, "");
     const response = await fetch(`https://play.vidyard.com/player/${id}.json`);

@@ -10,7 +10,7 @@
  * @param {string} url Le lien testé.
  * @returns {Promise<boolean>} Une promesse indiquant si le lien est accessible.
  */
-export const ping = async function (url) {
+export const ping = async (url) => {
     try {
         await fetch(url, {
             method: "HEAD",

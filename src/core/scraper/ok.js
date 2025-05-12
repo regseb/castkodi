@@ -10,14 +10,14 @@ import { matchPattern } from "../tools/matchpattern.js";
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une page mobile de OK.
+ * @param {URL}      _url          L'URL d'une page mobile d'OK.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionMobile = async function (_url, metadata) {
+const actionMobile = async (_url, metadata) => {
     const doc = await metadata.html();
     const a = doc.querySelector("a.outLnk[data-video]");
     if (null === a) {
@@ -32,11 +32,11 @@ export const extractMobile = matchPattern(actionMobile, "*://m.ok.ru/video/*");
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une page de OK.
+ * @param {URL} url L'URL d'une page d'OK.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (url) {
+const action = async (url) => {
     const mobileUrl = new URL(url.href.replace("//ok.ru/", "//m.ok.ru/"));
     const response = await fetch(mobileUrl);
     const text = await response.text();

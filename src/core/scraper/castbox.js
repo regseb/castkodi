@@ -22,7 +22,7 @@ const API_URL = "https://everest.castbox.fm/data/episode/v4?eid=";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function ({ pathname }) {
+const action = async ({ pathname }) => {
     const id = pathname.slice(pathname.lastIndexOf("-id") + 3);
     const response = await fetch(API_URL + id);
     const json = await response.json();

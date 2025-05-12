@@ -20,7 +20,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                    en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchVideo = async function (videoId, { incognito }) {
+const dispatchVideo = async (videoId, { incognito }) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.youtube")) {
         return youtubePlugin.generateVideoUrl(videoId, incognito);
@@ -46,7 +46,7 @@ const dispatchVideo = async function (videoId, { incognito }) {
  *                                    en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchPlaylist = async function (playlistId, { incognito }) {
+const dispatchPlaylist = async (playlistId, { incognito }) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.youtube")) {
         return await youtubePlugin.generatePlaylistUrl(playlistId, incognito);
@@ -72,7 +72,7 @@ const dispatchPlaylist = async function (playlistId, { incognito }) {
  *                                    en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchClip = async function (clipId, { incognito }) {
+const dispatchClip = async (clipId, { incognito }) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.youtube")) {
         return youtubePlugin.generateClipUrl(clipId, incognito);
@@ -100,11 +100,7 @@ const dispatchClip = async function (clipId, { incognito }) {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionVideo = async function (
-    { searchParams },
-    _metadata,
-    { incognito },
-) {
+const actionVideo = async ({ searchParams }, _metadata, { incognito }) => {
     const config = await browser.storage.local.get(["youtube-playlist"]);
     if (
         searchParams.has("list") &&
@@ -137,7 +133,7 @@ export const extractVideo = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionPlaylist = function ({ searchParams }, _metadata, { incognito }) {
+const actionPlaylist = ({ searchParams }, _metadata, { incognito }) => {
     return searchParams.has("list")
         ? dispatchPlaylist(searchParams.get("list"), { incognito })
         : Promise.resolve(undefined);
@@ -160,7 +156,7 @@ export const extractPlaylist = matchPattern(
  *                                     en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionEmbed = function ({ pathname }, _metadata, { incognito }) {
+const actionEmbed = ({ pathname }, _metadata, { incognito }) => {
     return dispatchVideo(pathname.slice(pathname.indexOf("/", 1) + 1), {
         incognito,
     });
@@ -187,7 +183,7 @@ export const extractEmbed = matchPattern(
  *                                     en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionClip = function ({ pathname }, _metadata, { incognito }) {
+const actionClip = ({ pathname }, _metadata, { incognito }) => {
     return dispatchClip(pathname.slice(6), { incognito });
 };
 export const extractClip = matchPattern(
@@ -207,7 +203,7 @@ export const extractClip = matchPattern(
  *                                     en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionMinify = function ({ pathname }, _metadata, { incognito }) {
+const actionMinify = ({ pathname }, _metadata, { incognito }) => {
     return dispatchVideo(pathname.slice(1), { incognito });
 };
 export const extractMinify = matchPattern(actionMinify, "*://youtu.be/*");

@@ -13,7 +13,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou le
  *                                      texte pour les vidéos non-disponibles.
  */
-const actionVideo = async function (url) {
+const actionVideo = async (url) => {
     if (url.searchParams.has("v")) {
         const response = await fetch(url);
         const text = await response.text();
@@ -39,7 +39,7 @@ export const extractVideo = matchPattern(
  *                                      texte pour les playlists
  *                                      non-disponibles.
  */
-const actionPlaylist = async function (url) {
+const actionPlaylist = async (url) => {
     if (url.searchParams.has("list")) {
         const response = await fetch(url);
         const text = await response.text();
@@ -62,7 +62,7 @@ export const extractPlaylist = matchPattern(
  * @param {URL} url L'URL du clip YouTube.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre.
  */
-const actionClip = async function (url) {
+const actionClip = async (url) => {
     const response = await fetch(url);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");

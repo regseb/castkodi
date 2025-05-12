@@ -19,7 +19,7 @@ import { extract as iframeExtract } from "./iframe.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (_url, metadata) {
+const action = async (_url, metadata) => {
     const doc = await metadata.html();
     const player = doc.querySelector("shreddit-player-2[src]");
     return player?.getAttribute("src");
@@ -41,7 +41,7 @@ export const extract = matchPattern(action, "*://www.reddit.com/r/*");
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionEmbed = async function (url, metadata, context) {
+const actionEmbed = async (url, metadata, context) => {
     const doc = await metadata.html();
     for (const embed of doc.querySelectorAll("shreddit-embed[html]")) {
         const subMetadata = {

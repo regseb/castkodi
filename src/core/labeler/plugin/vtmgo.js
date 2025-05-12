@@ -17,7 +17,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
-const actionEpisode = function ({ pathname }, { metaExtract }) {
+const actionEpisode = ({ pathname }, { metaExtract }) => {
     const episodeId = pathname.slice(23);
     return metaExtract(
         new URL(`https://www.vtmgo.be/vtmgo/afspelen/${episodeId}`),
@@ -38,7 +38,7 @@ export const extractEpisode = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
-const actionMovie = function ({ pathname }, { metaExtract }) {
+const actionMovie = ({ pathname }, { metaExtract }) => {
     const movieId = pathname.slice(21);
     return metaExtract(
         new URL(`https://www.vtmgo.be/vtmgo/afspelen/${movieId}`),

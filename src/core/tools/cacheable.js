@@ -10,7 +10,7 @@
  * @param {Function} func La fonction dont le retour sera mis en cache.
  * @returns {Function} La fonction avec le cache.
  */
-export const cacheable = function (func) {
+export const cacheable = (func) => {
     /**
      * Les résultats déjà mis en cache selon les paramètres reçus.
      *
@@ -25,7 +25,7 @@ export const cacheable = function (func) {
      * @returns {any} Le retour de la fonction (éventuellement récupéré dans le
      *                cache).
      */
-    const wrapped = function (...args) {
+    const wrapped = (...args) => {
         const key = JSON.stringify(args);
         if (cache.has(key)) {
             return cache.get(key);

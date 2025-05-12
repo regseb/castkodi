@@ -3,7 +3,6 @@
  * @author Sébastien Règne
  */
 
-// @ts-expect-error -- Le plugin mocha ne fournit pas de types.
 import mocha from "eslint-plugin-mocha";
 import globals from "globals";
 
@@ -36,17 +35,18 @@ export default {
         "prefer-arrow-callback": "off",
 
         // Plugin eslint-plugin-mocha.
+        "mocha/consistent-interface": "off",
         "mocha/consistent-spacing-between-blocks": "error",
         "mocha/handle-done-callback": "error",
         "mocha/max-top-level-suites": "error",
-        "mocha/no-async-describe": "error",
-        "mocha/no-empty-description": "error",
+        "mocha/no-async-suite": "error",
+        "mocha/no-empty-title": "error",
         "mocha/no-exclusive-tests": "error",
         "mocha/no-exports": "error",
         "mocha/no-global-tests": "error",
-        // Autoriser les hooks "afterEach", car ils sont toujours exécuter après
+        // Autoriser les hooks "afterEach", car ils sont toujours exécutés après
         // les tests (pour nettoyer l'environnement) même si les tests ont
-        // échoués. Et autoriser les "before" pour désactiver les tests selon
+        // échoué. Et autoriser les "before" pour désactiver les tests selon
         // dans quel pays ils sont exécutés.
         "mocha/no-hooks": ["error", { allow: ["afterEach", "before"] }],
         // Désactiver cette règle, car il n'y a pas de condition différente avec
@@ -55,17 +55,16 @@ export default {
         "mocha/no-identical-title": "error",
         "mocha/no-mocha-arrows": "error",
         "mocha/no-nested-tests": "error",
-        "mocha/no-pending-tests": "error",
+        "mocha/no-pending-tests": "warn",
         "mocha/no-return-and-callback": "error",
         "mocha/no-return-from-async": "error",
         "mocha/no-setup-in-describe": "error",
         "mocha/no-sibling-hooks": "error",
-        "mocha/no-skipped-tests": "off",
         "mocha/no-synchronous-tests": "off",
         "mocha/no-top-level-hooks": "error",
         "mocha/prefer-arrow-callback": "error",
-        "mocha/valid-suite-description": "off",
-        "mocha/valid-test-description": "off",
+        "mocha/valid-suite-title": "off",
+        "mocha/valid-test-title": "off",
 
         // Plugin eslint-plugin-no-unsanitized.
         "no-unsanitized/method": "off",

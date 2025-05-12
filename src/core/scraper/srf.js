@@ -22,7 +22,7 @@ const API_URL =
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const getVideoUrl = async function (urn) {
+const getVideoUrl = async (urn) => {
     const response = await fetch(API_URL + urn);
     const json = await response.json();
     return json.chapterList?.[0].resourceList[0].analyticsMetadata.media_url;
@@ -35,7 +35,7 @@ const getVideoUrl = async function (urn) {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionVideo = function ({ searchParams }) {
+const actionVideo = ({ searchParams }) => {
     if (!searchParams.has("urn")) {
         return Promise.resolve(undefined);
     }
@@ -54,7 +54,7 @@ export const extractVideo = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionRedirect = function ({ pathname }) {
+const actionRedirect = ({ pathname }) => {
     return getVideoUrl("urn:srf:video:" + pathname.slice(25));
 };
 export const extractRedirect = matchPattern(

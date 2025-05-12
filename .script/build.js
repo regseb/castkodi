@@ -21,7 +21,7 @@ const BUILD_DIR = "build";
  *                             `"firefox"`).
  * @returns {string} La partie du texte pour la boutique.
  */
-const select = function (description, store) {
+const select = (description, store) => {
     const splits = description.split(
         /(?<command><!-- (?:disable|enable) chrome -->)\n{2}/gv,
     );
@@ -49,7 +49,7 @@ const select = function (description, store) {
  * @param {string} description La description en Markdown.
  * @returns {string} La description sans le formatage.
  */
-const plain = function (description) {
+const plain = (description) => {
     return description
         .replaceAll(/\*\*(?<f>\S)(?<r>.*?\S)??\*\*/gsv, "$<f>$<r>")
         .replaceAll(/_(?<f>\S)(?<r>.*?\S)??_/gsv, "$<f>$<r>")
@@ -62,7 +62,7 @@ const plain = function (description) {
  * @param {string} description La description en Markdown.
  * @returns {string} La description au format HTML.
  */
-const html = function (description) {
+const html = (description) => {
     return markdownit().render(description);
 };
 

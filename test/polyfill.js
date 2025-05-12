@@ -8,6 +8,7 @@ import { browser } from "./polyfill/browser.js";
 import { CloseEvent } from "./polyfill/closeevent.js";
 import { DOMParser, XPathResult } from "./polyfill/dom.js";
 import { stealthFetch } from "./polyfill/fetch.js";
+import { escape } from "./polyfill/regexp.js";
 import { USER_AGENT } from "./polyfill/useragent.js";
 
 globalThis.browser = browser;
@@ -26,5 +27,6 @@ Object.defineProperty(
         configurable: true,
     },
 );
+globalThis.RegExp.escape = escape;
 globalThis.WebSocket = WebSocket;
 globalThis.XPathResult = XPathResult;

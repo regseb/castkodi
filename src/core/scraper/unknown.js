@@ -25,7 +25,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (url, _metadata, context) {
+const action = async (url, _metadata, context) => {
     // Si on analyse une sous-page : retourner undefined pour indiquer que rien
     // n'a été trouvé sans faire croire qu'une vidéo ou une musique ait été
     // trouvée.

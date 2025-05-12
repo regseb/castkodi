@@ -12,7 +12,7 @@ import { matchPattern } from "../tools/matchpattern.js";
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      url               L'URL d'une page de Ouest-France.
+ * @param {URL}      url               L'URL d'une page d'Ouest-France.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
@@ -25,7 +25,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (url, metadata, context) {
+const action = async (url, metadata, context) => {
     if (context.depth) {
         return undefined;
     }

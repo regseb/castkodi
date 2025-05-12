@@ -42,7 +42,7 @@ const DEFAULT_PROPERTIES = {
  * @returns {GlobalTime} Le temps au format objet contenant l'heure,
  *                       les minutes, les secondes et les millisecondes.
  */
-const toTime = function (timestamp) {
+const toTime = (timestamp) => {
     return {
         hours: Math.trunc(timestamp / 3600),
         minutes: Math.trunc(timestamp / 60) % 60,
@@ -58,7 +58,7 @@ const toTime = function (timestamp) {
  *                          minutes, les secondes et les millisecondes.
  * @returns {number} L'horodatage en secondes.
  */
-const toTimestamp = function (time) {
+const toTimestamp = (time) => {
     return time.hours * 3600 + time.minutes * 60 + time.seconds;
 };
 
@@ -114,7 +114,7 @@ export const Player = class {
         // Ne pas demander les propriétés du lecteur vidéo quand :
         // - aucun lecteur n'est actif, car le changement des propriétés
         //   "shuffle" et "repeat" ne sont plus remontés ;
-        // - un autre lecteur est actif, car la méthode échoue.
+        // - un autre lecteur est actif, parce que la méthode échoue.
         // https://github.com/xbmc/xbmc/issues/17896
         // https://github.com/xbmc/xbmc/issues/17897
         if (players.some((p) => 1 === p.playerid)) {

@@ -16,7 +16,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                 le document HTML.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = async function (url, metadata) {
+const action = async (url, metadata) => {
     const doc = await metadata.html();
     return new URL(doc.querySelector("#show a").getAttribute("href"), url).href;
 };

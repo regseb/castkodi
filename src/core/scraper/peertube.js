@@ -14,7 +14,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function ({ href }) {
+const action = async ({ href }) => {
     const url = href
         .replace(/^http:/iu, "https:")
         .replace(/\/(?:videos\/embed|videos\/watch|w)\//iu, "/api/v1/videos/");

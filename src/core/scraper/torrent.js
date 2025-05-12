@@ -15,7 +15,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL d'un torrent ou d'un magnet.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function (url) {
+const action = (url) => {
     return Promise.resolve(plugin.generateUrl(url));
 };
 export const extract = matchPattern(action, "*://*/*.torrent", "magnet:*");

@@ -24,7 +24,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (_url, metadata, context) {
+const action = async (_url, metadata, context) => {
     if (context.depth) {
         return undefined;
     }

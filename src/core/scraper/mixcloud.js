@@ -16,7 +16,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {string} path Le chemin (artiste / musique) de la musique Mixcloud.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatch = async function (path) {
+const dispatch = async (path) => {
     const addons = new Set(await kodi.addons.getAddons("audio", "video"));
     if (addons.has("plugin.audio.mixcloud")) {
         return mixcloudPlugin.generateUrl(path);
@@ -37,7 +37,7 @@ const dispatch = async function (path) {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = function ({ pathname }) {
+const action = ({ pathname }) => {
     return pathname.startsWith("/discover/")
         ? Promise.resolve(undefined)
         : dispatch(pathname);

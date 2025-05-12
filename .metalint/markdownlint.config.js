@@ -81,4 +81,5 @@ export default {
     "table-pipe-style": { style: "leading_and_trailing" },
     "table-column-count": true,
     "blanks-around-tables": false,
+    "descriptive-link-text": true,
 };

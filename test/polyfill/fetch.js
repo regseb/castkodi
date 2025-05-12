@@ -18,7 +18,7 @@ const nativeFetch = fetch;
  * @returns {Promise<Response>} Une promesse contenant la réponse.
  * @see https://developer.mozilla.org/Web/API/fetch
  */
-export const stealthFetch = function (input, init) {
+export const stealthFetch = (input, init) => {
     const headers = {
         // Remplacer des entêtes pour se rapprocher du comportement des valeurs
         // des navigateurs.

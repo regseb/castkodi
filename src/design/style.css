@@ -169,7 +169,7 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: var(--range-thumb-background-color);
     border: 0;
     border-radius: 50%;
-    filter: drop-shadow(0 0 2px rgba(0 0 0 / 65%));
+    filter: drop-shadow(0 0 2px rgb(0 0 0 / 65%));
     height: 12px;
     width: 12px;
 }
@@ -184,7 +184,7 @@ input[type="range"].vertical::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
     background-color: var(--range-thumb-background-color);
     border: 0;
-    filter: drop-shadow(0 0 2px rgba(0 0 0 / 65%));
+    filter: drop-shadow(0 0 2px rgb(0 0 0 / 65%));
     height: 12px;
     width: 12px;
 }
@@ -316,12 +316,12 @@ dialog {
     background-color: var(--background-color);
     border: none;
     border-radius: 4px;
-    box-shadow: 0 1px 4px rgba(12 12 13 / 10%);
+    box-shadow: 0 1px 4px rgb(12 12 13 / 10%);
     box-sizing: border-box;
     padding: 16px;
 }
 dialog::backdrop {
-    background-color: rgba(0 0 0 / 50%);
+    background-color: rgb(0 0 0 / 50%);
 }
 dialog menu {
     display: flex;

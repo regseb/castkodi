@@ -10,7 +10,7 @@
  * @param {Document} doc Le document HTML.
  * @returns {Attr[]} La liste des attributs.
  */
-const search = function (doc) {
+const search = (doc) => {
     const results = doc.evaluate(
         "//@*[starts-with(name(), 'data-l10n-')]",
         doc,
@@ -39,7 +39,7 @@ const search = function (doc) {
  *                                        document dans un template.
  * @returns {Attr[]} La liste des attributs.
  */
-const searchInTemplate = function (doc) {
+const searchInTemplate = (doc) => {
     const attributes = [];
     for (const template of doc.querySelectorAll("template")) {
         attributes.push(...searchInTemplate(template.content));
@@ -62,7 +62,7 @@ const searchInTemplate = function (doc) {
  *                        messages).
  * @throws {Error} Si un attribut n'a pas de valeur.
  */
-export const locate = function (doc, page) {
+export const locate = (doc, page) => {
     const attributes = [...search(doc), ...searchInTemplate(doc)];
     for (const attribute of attributes) {
         const place = attribute.name.slice(10);

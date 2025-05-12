@@ -23,7 +23,7 @@ const URL_REGEXP = /sources: \["(?<sources>[^"]+)",/u;
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (_url, metadata) {
+const action = async (_url, metadata) => {
     const doc = await metadata.html();
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = URL_REGEXP.exec(script.text);

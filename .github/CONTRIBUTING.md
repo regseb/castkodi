@@ -16,7 +16,7 @@ Les outils suivants sont nécessaires pour utiliser ce projet :
   (_forker_) le dépôt [`castkodi`](https://github.com/regseb/castkodi).
 - Clonez votre dépôt dupliqué :
   `git clone https://github.com/YOUR-USERNAME/castkodi.git`
-- Déplacez vous dans le répertoire du projet : `cd castkodi`
+- Déplacez-vous dans le répertoire du projet : `cd castkodi`
 - Installez les dépendances : `npm ci`
 
 ## Développement

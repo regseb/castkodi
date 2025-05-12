@@ -17,7 +17,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionGame = async function (_url, metadata) {
+const actionGame = async (_url, metadata) => {
     const doc = await metadata.html();
     const div = doc.querySelector(".highlight_movie[data-mp4-hd-source]");
     return div?.dataset.mp4HdSource;
@@ -34,7 +34,7 @@ export const extractGame = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionBroadcast = async function ({ pathname }) {
+const actionBroadcast = async ({ pathname }) => {
     const id = pathname.slice(17);
     const response = await fetch(
         `https://steamcommunity.com/broadcast/getbroadcastmpd/?steamid=${id}`,

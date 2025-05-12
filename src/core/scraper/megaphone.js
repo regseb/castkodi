@@ -13,7 +13,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL d'un son de Megaphone.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionPlayer = function ({ pathname }) {
+const actionPlayer = ({ pathname }) => {
     return Promise.resolve(`https://dcs.megaphone.fm${pathname}.mp3`);
 };
 export const extractPlayer = matchPattern(
@@ -28,7 +28,7 @@ export const extractPlayer = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionPlaylist = function ({ searchParams }) {
+const actionPlaylist = ({ searchParams }) => {
     return Promise.resolve(
         searchParams.has("e")
             ? `https://dcs.megaphone.fm/${searchParams.get("e")}.mp3`

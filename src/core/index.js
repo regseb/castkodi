@@ -16,7 +16,7 @@ import { PebkacError } from "./tools/pebkac.js";
  * @returns {string|undefined} Le lien à analyser ou `undefined` si aucun lien
  *                             n'est valide.
  */
-export const mux = function (urls) {
+export const mux = (urls) => {
     return urls
         .map((u) => u.trim())
         .map((url) => {
@@ -45,7 +45,7 @@ export const mux = function (urls) {
  * @param {string[]} urls   La liste des éventuelles URLs.
  * @returns {Promise<void>} Une promesse tenue vide.
  */
-export const cast = async function (action, urls) {
+export const cast = async (action, urls) => {
     const url = mux(urls);
     if (undefined === url) {
         throw 1 === urls.length

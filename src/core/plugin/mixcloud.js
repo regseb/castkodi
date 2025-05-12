@@ -18,6 +18,6 @@ const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
  * @param {string} path Le chemin (artiste / musique) de la musique Mixcloud.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateUrl = function (path) {
+export const generateUrl = (path) => {
     return PLUGIN_URL + encodeURIComponent(path);
 };

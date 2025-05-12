@@ -4,8 +4,6 @@
  * @author Sébastien Règne
  */
 
-import "../../polyfill/regexp.js";
-
 /**
  * Convertis un modèle de correspondance en expression rationnelle.
  *
@@ -13,7 +11,7 @@ import "../../polyfill/regexp.js";
  * @returns {RegExp} L'expression rationnelle issue du modèle.
  * @see https://developer.mozilla.org/Add-ons/WebExtensions/Match_patterns
  */
-export const compile = function (pattern) {
+export const compile = (pattern) => {
     if (pattern.startsWith("magnet:") || pattern.startsWith("acestream:")) {
         return new RegExp(
             "^" + RegExp.escape(pattern).replaceAll(String.raw`\*`, ".*") + "$",
@@ -45,7 +43,7 @@ export const compile = function (pattern) {
  * @returns {Function} La fonction filtrée.
  * @see https://developer.mozilla.org/Add-ons/WebExtensions/Match_patterns
  */
-export const matchPattern = function (func, ...patterns) {
+export const matchPattern = (func, ...patterns) => {
     const regexes = patterns.map(compile);
 
     /**

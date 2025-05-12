@@ -17,7 +17,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
-const action = function ({ searchParams }, { metaExtract }) {
+const action = ({ searchParams }, { metaExtract }) => {
     if (searchParams.has("video_id")) {
         return metaExtract(
             new URL(
@@ -51,7 +51,7 @@ export const extract = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
-const actionUri = function ({ searchParams }, { metaExtract }) {
+const actionUri = ({ searchParams }, { metaExtract }) => {
     return searchParams.has("uri")
         ? metaExtract(new URL(searchParams.get("uri")))
         : Promise.resolve(undefined);

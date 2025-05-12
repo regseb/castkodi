@@ -16,7 +16,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {string} episodeUuid L'UUID de l'épisode VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchEpisode = async function (episodeUuid) {
+const dispatchEpisode = async (episodeUuid) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vtm.go")) {
         return vtmgoPlugin.generateEpisodeUrl(episodeUuid);
@@ -36,7 +36,7 @@ const dispatchEpisode = async function (episodeUuid) {
  * @param {string} movieUuid L'UUID du film VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchMovie = async function (movieUuid) {
+const dispatchMovie = async (movieUuid) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vtm.go")) {
         return vtmgoPlugin.generateMovieUrl(movieUuid);
@@ -56,7 +56,7 @@ const dispatchMovie = async function (movieUuid) {
  * @param {string} channelUuid L'UUID de la chaine VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchChannel = async function (channelUuid) {
+const dispatchChannel = async (channelUuid) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vtm.go")) {
         return vtmgoPlugin.generateChannelUrl(channelUuid);
@@ -76,7 +76,7 @@ const dispatchChannel = async function (channelUuid) {
  * @param {URL} url L'URL d'un épisode de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionEpisode = function ({ pathname }) {
+const actionEpisode = ({ pathname }) => {
     return dispatchEpisode(pathname.slice(17));
 };
 
@@ -91,7 +91,7 @@ export const extractEpisode = matchPattern(
  * @param {URL} url L'URL d'un film de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionMovie = function ({ pathname }) {
+const actionMovie = ({ pathname }) => {
     return dispatchMovie(pathname.slice(17));
 };
 
@@ -106,7 +106,7 @@ export const extractMovie = matchPattern(
  * @param {URL} url L'URL d'une page d'un film de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionMoviePage = function ({ pathname }) {
+const actionMoviePage = ({ pathname }) => {
     return dispatchMovie(pathname.slice(pathname.indexOf("~m") + 2));
 };
 
@@ -125,7 +125,7 @@ export const extractMoviePage = matchPattern(
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionChannel = async function (_url, metadata) {
+const actionChannel = async (_url, metadata) => {
     const doc = await metadata.html();
     const div = doc.querySelector("div.fjs-player[data-id]");
     return null === div ? undefined : await dispatchChannel(div.dataset.id);

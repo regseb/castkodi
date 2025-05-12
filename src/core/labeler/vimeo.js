@@ -12,7 +12,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL de la vidéo Vimeo.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
-const action = async function (url) {
+const action = async (url) => {
     const response = await fetch(url);
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/html");

@@ -16,7 +16,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {string} videoId L'identifiant de la vidéo Dailymotion.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatch = async function (videoId) {
+const dispatch = async (videoId) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.dailymotion_com")) {
         return dailymotionPlugin.generateUrl(videoId);
@@ -36,7 +36,7 @@ const dispatch = async function (videoId) {
  * @param {URL} url L'URL d'une vidéo Dailymotion.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionVideo = function ({ pathname }) {
+const actionVideo = ({ pathname }) => {
     return dispatch(pathname.slice(7));
 };
 export const extractVideo = matchPattern(
@@ -50,7 +50,7 @@ export const extractVideo = matchPattern(
  * @param {URL} url L'URL minifiée d'une vidéo Dailymotion.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionMinify = function ({ pathname }) {
+const actionMinify = ({ pathname }) => {
     return dispatch(pathname.slice(1));
 };
 export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
@@ -61,7 +61,7 @@ export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
  * @param {URL} url L'URL d'une vidéo Dailymotion intégrée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionEmbed = function ({ pathname }) {
+const actionEmbed = ({ pathname }) => {
     return dispatch(pathname.slice(13));
 };
 export const extractEmbed = matchPattern(
@@ -81,7 +81,7 @@ export const extractEmbed = matchPattern(
  *                                      _fichier_ ou `undefined`.
  * @see https://developers.dailymotion.com/player/#player-embed-script
  */
-const actionPlayerScript = async function (_url, metadata) {
+const actionPlayerScript = async (_url, metadata) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;
@@ -105,7 +105,7 @@ export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
  *                                      _fichier_ ou `undefined`.
  * @see https://developers.dailymotion.com/player/#player-iframe-embed
  */
-const actionPlayerIframe = function ({ searchParams }) {
+const actionPlayerIframe = ({ searchParams }) => {
     return searchParams.has("video")
         ? dispatch(searchParams.get("video"))
         : Promise.resolve(undefined);

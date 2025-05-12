@@ -24,7 +24,7 @@ const DATA_REGEXP = /"mp4":(?<mp4>\{[^}]+\})/u;
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (_url, metadata) {
+const action = async (_url, metadata) => {
     const doc = await metadata.html();
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = DATA_REGEXP.exec(script.text);

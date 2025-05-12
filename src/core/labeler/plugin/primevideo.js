@@ -14,7 +14,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
-const action = function ({ searchParams }) {
+const action = ({ searchParams }) => {
     return Promise.resolve(searchParams.get("name") ?? undefined);
 };
 export const extract = matchPattern(

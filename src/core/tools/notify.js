@@ -14,7 +14,7 @@ import { PebkacError } from "./pebkac.js";
  *                            notification.
  * @see https://developer.mozilla.org/Add-ons/WebExtensions/API/notifications
  */
-export const notify = function (err) {
+export const notify = (err) => {
     // Ne pas ajouter un bouton vers la configuration, car cette fonctionnalité
     // n'est pas encore implémentée dans Firefox. https://bugzil.la/1190681
     return browser.notifications.create({

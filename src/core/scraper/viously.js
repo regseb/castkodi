@@ -13,7 +13,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL d'une vidéo Viously.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function ({ pathname }) {
+const action = ({ pathname }) => {
     const id = pathname.slice(pathname.indexOf("/", 1) + 1);
     return Promise.resolve(
         `https://www.viously.com/video/hls/${id}/index.m3u8`,
@@ -37,7 +37,7 @@ export const extract = matchPattern(
  *                                      _fichier_ ou `undefined`.
  * @see https://developers.viously.com/docs/how-to-integrate-the-viously-video-player
  */
-const actionIntegrate = async function (_url, metadata) {
+const actionIntegrate = async (_url, metadata) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;

@@ -15,6 +15,10 @@ export default {
 
     rules: {
         // AVOID ERRORS.
+        // Deprecated.
+        "at-rule-no-deprecated": true,
+        "declaration-property-value-keyword-no-deprecated": true,
+
         // Descending.
         "no-descending-specificity": null,
 
@@ -32,6 +36,7 @@ export default {
         "no-empty-source": true,
 
         // Invalid.
+        "at-rule-prelude-no-invalid": true,
         "color-no-invalid-hex": true,
         "function-calc-no-unspaced-operator": true,
         "keyframe-declaration-no-important": true,
@@ -40,6 +45,7 @@ export default {
         "no-invalid-double-slash-comments": true,
         "no-invalid-position-at-import-rule": true,
         "string-no-newline": true,
+        "syntax-string-no-invalid": true,
 
         // Irregular.
         "no-irregular-whitespace": true,
@@ -59,6 +65,8 @@ export default {
 
         // Unknown.
         "annotation-no-unknown": true,
+        "at-rule-descriptor-no-unknown": true,
+        "at-rule-descriptor-value-no-unknown": true,
         "at-rule-no-unknown": true,
         "declaration-property-value-no-unknown": true,
         "function-no-unknown": true,
@@ -184,6 +192,7 @@ export default {
 
         // Notation.
         "alpha-value-notation": "percentage",
+        "color-function-alias-notation": "without-alpha",
         "color-function-notation": "modern",
         "color-hex-length": "long",
         "font-weight-notation": [
@@ -202,12 +211,13 @@ export default {
 
         // Pattern.
         "comment-pattern": null,
+        "container-name-pattern": /^[a-z][0-9a-z]*(?:-[0-9a-z]+)*$/v,
         "custom-media-pattern": null,
         "custom-property-pattern": null,
-        "keyframes-name-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
-        "selector-class-pattern":
-            "^([a-z][0-9a-z]*(-[0-9a-z]+)*|Chromium|Firefox)$",
-        "selector-id-pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+        "keyframes-name-pattern": /^[a-z][0-9a-z]*(?:-[0-9a-z]+)*$/v,
+        "layer-name-pattern": /^[a-z][0-9a-z]*(?:-[0-9a-z]+)*$/v,
+        "selector-class-pattern": /^[a-z][0-9a-z]*(?:-[0-9a-z]+)*$/v,
+        "selector-id-pattern": /^[a-z][0-9a-z]*(?:-[0-9a-z]+)*$/v,
         "selector-nested-pattern": null,
 
         // Quotes.

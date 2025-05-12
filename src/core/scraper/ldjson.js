@@ -29,7 +29,7 @@ const SELECTOR = 'script[type="application/ld+json"]';
  * @param {any} root Un élément du JSON.
  * @returns {Object[]} La liste des objets extraits.
  */
-const walk = function (root) {
+const walk = (root) => {
     return null !== root && "object" === typeof root
         ? [root, ...Object.values(root).flatMap(walk)]
         : [];
@@ -51,7 +51,7 @@ const walk = function (root) {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (url, metadata, context) {
+const action = async (url, metadata, context) => {
     const doc = await metadata.html();
     if (undefined === doc) {
         return undefined;

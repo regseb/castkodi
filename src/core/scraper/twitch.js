@@ -16,7 +16,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {string} channelName L'identifiant du _live_ Twitch.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchLive = async function (channelName) {
+const dispatchLive = async (channelName) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
         return twitchPlugin.generateLiveUrl(channelName);
@@ -36,7 +36,7 @@ const dispatchLive = async function (channelName) {
  * @param {string} videoId L'identifiant de la vidéo Twitch.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchVideo = async function (videoId) {
+const dispatchVideo = async (videoId) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
         return twitchPlugin.generateVideoUrl(videoId);
@@ -56,7 +56,7 @@ const dispatchVideo = async function (videoId) {
  * @param {string} slug L'identifiant du clip Twitch.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatchClip = async function (slug) {
+const dispatchClip = async (slug) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.twitch")) {
         return twitchPlugin.generateClipUrl(slug);
@@ -77,7 +77,7 @@ const dispatchClip = async function (slug) {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionClip = function ({ pathname, searchParams }) {
+const actionClip = ({ pathname, searchParams }) => {
     if ("/embed" === pathname) {
         return searchParams.has("clip")
             ? dispatchClip(searchParams.get("clip"))
@@ -95,7 +95,7 @@ export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionEmbed = function ({ searchParams }) {
+const actionEmbed = ({ searchParams }) => {
     if (searchParams.has("channel")) {
         return dispatchLive(searchParams.get("channel"));
     }
@@ -113,7 +113,7 @@ export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
  * @param {URL} url L'URL d'un _live_ ou d'un clip Twitch.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function ({ pathname }) {
+const action = ({ pathname }) => {
     if (pathname.startsWith("/videos/")) {
         return dispatchVideo(pathname.slice(8));
     }

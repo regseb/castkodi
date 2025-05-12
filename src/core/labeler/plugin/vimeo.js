@@ -17,7 +17,7 @@ import { matchPattern } from "../../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
-const action = function ({ searchParams }, { metaExtract }) {
+const action = ({ searchParams }, { metaExtract }) => {
     if (!searchParams.has("video_id")) {
         return Promise.resolve(undefined);
     }

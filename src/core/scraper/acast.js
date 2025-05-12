@@ -28,7 +28,7 @@ const API_URL = "https://feeder.acast.com/api/v1";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function ({ pathname }) {
+const action = async ({ pathname }) => {
     const result = REGEXP.exec(pathname);
     const response = await fetch(
         `${API_URL}/shows/${result.groups.show}` +

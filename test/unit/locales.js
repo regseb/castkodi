@@ -12,7 +12,7 @@ import fs from "node:fs/promises";
  * @param {string} lang La langue des messages.
  * @returns {Promise<Object[][]>} Une promesse contenant la liste des messages.
  */
-const read = async function (lang) {
+const read = async (lang) => {
     return Object.entries(
         JSON.parse(
             await fs.readFile(`src/_locales/${lang}/messages.json`, "utf8"),
@@ -26,7 +26,7 @@ const read = async function (lang) {
  * @param {string} lang1 La première langue des messages.
  * @param {string} lang2 La deuxième langue des messages.
  */
-const compare = async function (lang1, lang2) {
+const compare = async (lang1, lang2) => {
     const messages1 = await read(lang1);
     const messages2 = await read(lang2);
 

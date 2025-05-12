@@ -20,7 +20,7 @@ const PLUGIN_URL = "plugin://plugin.video.youtube";
  *                            navigation privée.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateVideoUrl = function (videoId, incognito) {
+export const generateVideoUrl = (videoId, incognito) => {
     return (
         `${PLUGIN_URL}/play/?video_id=${videoId}` +
         `&incognito=${incognito.toString()}`
@@ -35,7 +35,7 @@ export const generateVideoUrl = function (videoId, incognito) {
  *                             navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-export const generatePlaylistUrl = async function (playlistId, incognito) {
+export const generatePlaylistUrl = async (playlistId, incognito) => {
     const config = await browser.storage.local.get(["youtube-order"]);
     return (
         `${PLUGIN_URL}/play/?playlist_id=${playlistId}` +
@@ -52,7 +52,7 @@ export const generatePlaylistUrl = async function (playlistId, incognito) {
  *                            navigation privée.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateClipUrl = function (clipId, incognito) {
+export const generateClipUrl = (clipId, incognito) => {
     return (
         `${PLUGIN_URL}/uri2addon/?uri=` +
         encodeURIComponent(`https://www.youtube.com/clip/${clipId}`) +

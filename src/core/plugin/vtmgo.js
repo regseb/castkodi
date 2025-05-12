@@ -18,7 +18,7 @@ const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog";
  * @param {string} episodeUuid L'UUID de l'épisode VTM GO.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateEpisodeUrl = function (episodeUuid) {
+export const generateEpisodeUrl = (episodeUuid) => {
     return `${PLUGIN_URL}/episodes/${episodeUuid}`;
 };
 
@@ -28,7 +28,7 @@ export const generateEpisodeUrl = function (episodeUuid) {
  * @param {string} movieUuid L'UUID du film VTM GO.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateMovieUrl = function (movieUuid) {
+export const generateMovieUrl = (movieUuid) => {
     return `${PLUGIN_URL}/movies/${movieUuid}`;
 };
 
@@ -38,6 +38,6 @@ export const generateMovieUrl = function (movieUuid) {
  * @param {string} channelUuid L'identifiant de la chaine VTM GO.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateChannelUrl = function (channelUuid) {
+export const generateChannelUrl = (channelUuid) => {
     return `${PLUGIN_URL}/channels/${channelUuid}`;
 };

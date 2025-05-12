@@ -18,7 +18,7 @@ const PLUGIN_URL = "plugin://plugin.video.tubed/?mode=play";
  * @param {string} videoId L'identifiant de la vidéo YouTube.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateVideoUrl = function (videoId) {
+export const generateVideoUrl = (videoId) => {
     return `${PLUGIN_URL}&video_id=${videoId}`;
 };
 
@@ -28,6 +28,6 @@ export const generateVideoUrl = function (videoId) {
  * @param {string} playlistId L'identifiant de la playlist YouTube.
  * @returns {string} Le lien du _fichier_.
  */
-export const generatePlaylistUrl = function (playlistId) {
+export const generatePlaylistUrl = (playlistId) => {
     return `${PLUGIN_URL}&playlist_id=${playlistId}`;
 };

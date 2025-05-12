@@ -13,7 +13,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @param {URL} url L'URL d'une vidéo آپارات (Aparat).
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function ({ pathname }) {
+const action = ({ pathname }) => {
     const id = pathname.slice(3);
     return Promise.resolve(
         `https://www.aparat.com/video/hls/manifest/videohash/${id}/f/${id}` +

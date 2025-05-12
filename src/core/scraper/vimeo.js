@@ -18,7 +18,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  *                                   non-listée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const dispatch = async function (videoId, hash) {
+const dispatch = async (videoId, hash) => {
     const addons = new Set(await kodi.addons.getAddons("video"));
     if (addons.has("plugin.video.vimeo")) {
         return vimeoPlugin.generateUrl(videoId, hash);
@@ -44,7 +44,7 @@ const dispatch = async function (videoId, hash) {
  * @param {URL} url L'URL d'une vidéo Vimeo intégrée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = function ({ pathname, searchParams }) {
+const action = ({ pathname, searchParams }) => {
     return dispatch(pathname.slice(7), searchParams.get("h") ?? undefined);
 };
 export const extract = matchPattern(action, "*://player.vimeo.com/video/*");

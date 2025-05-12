@@ -174,7 +174,7 @@ const SCRAPERS = [
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-export const extract = async function (url, context) {
+export const extract = async (url, context) => {
     const metadata = {
         html: cacheable(async (options) => {
             try {

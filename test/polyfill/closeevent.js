@@ -6,7 +6,6 @@
 /**
  * @type {CloseEvent}
  * @see https://developer.mozilla.org/Web/API/CloseEvent
- * @see https://github.com/thoov/mock-socket/issues/380
- * @see https://github.com/nodejs/node/issues/50275
+ * @see https://nodejs.org/api/globals.html#closeevent
  */
 export const CloseEvent = class extends Event {};

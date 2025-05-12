@@ -13,7 +13,7 @@ import { locate } from "../../../src/core/l10n.js";
  * @param {NamedNodeMap} attributes La liste des attributs.
  * @returns {Object<string, string>} L'objet contenant les attributs.
  */
-const objectifyAttributes = function (attributes) {
+const objectifyAttributes = (attributes) => {
     return Object.fromEntries(Array.from(attributes, (a) => [a.name, a.value]));
 };
 

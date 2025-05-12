@@ -52,7 +52,7 @@ let interval;
  */
 let dragItem;
 
-const openError = function (err) {
+const openError = (err) => {
     const dialog = document.querySelector("#dialogerror");
     if (!dialog.open) {
         // Cacher l'indicateur de chargement (pour éviter de le voir bouger en
@@ -71,7 +71,10 @@ const openError = function (err) {
     }
 };
 
-const closeDialog = function (event) {
+// Remplacer cette méthode par l'attribut '<dialog closedby="any">' quand il
+// sera supporté dans Firefox. https://youtu.be/-s8XdFyIEeM?t=140
+// https://developer.mozilla.org/Web/HTML/Element/dialog
+const closeDialog = (event) => {
     // Fermer la boite de dialogue si l'utilisateur clique en dehors de la
     // boite.
     if ("DIALOG" === event.target.nodeName) {
@@ -87,7 +90,7 @@ const closeDialog = function (event) {
     }
 };
 
-const mux = async function () {
+const mux = async () => {
     if (document.querySelector("#paste input").checked) {
         return document.querySelector("textarea").value;
     }
@@ -99,7 +102,7 @@ const mux = async function () {
     return tabs[0].url;
 };
 
-const send = async function () {
+const send = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#send").disabled) {
@@ -115,7 +118,7 @@ const send = async function () {
     }
 };
 
-const insert = async function () {
+const insert = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#insert").disabled) {
@@ -131,7 +134,7 @@ const insert = async function () {
     }
 };
 
-const add = async function () {
+const add = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#add").disabled) {
@@ -147,7 +150,7 @@ const add = async function () {
     }
 };
 
-const paste = async function (event) {
+const paste = async (event) => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#paste input").disabled) {
@@ -182,14 +185,14 @@ const paste = async function (event) {
     }
 };
 
-const change = async function (event) {
+const change = async (event) => {
     await browser.storage.local.set({
         "server-active": event.target.selectedIndex,
     });
     document.location.reload();
 };
 
-const previous = async function () {
+const previous = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#previous").disabled) {
@@ -203,7 +206,7 @@ const previous = async function () {
     }
 };
 
-const rewind = async function () {
+const rewind = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#rewind").disabled) {
@@ -217,7 +220,7 @@ const rewind = async function () {
     }
 };
 
-const stop = async function () {
+const stop = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#stop").disabled) {
@@ -231,7 +234,7 @@ const stop = async function () {
     }
 };
 
-const playPause = async function () {
+const playPause = async () => {
     const play = document.querySelector("#play");
     if ("open" === play.dataset.action) {
         // Annuler l'action (venant d'un raccourci clavier) si le bouton est
@@ -260,7 +263,7 @@ const playPause = async function () {
     }
 };
 
-const forward = async function () {
+const forward = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#forward").disabled) {
@@ -274,7 +277,7 @@ const forward = async function () {
     }
 };
 
-const next = async function () {
+const next = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#next").disabled) {
@@ -288,7 +291,7 @@ const next = async function () {
     }
 };
 
-const setMute = async function () {
+const setMute = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#mute input").disabled) {
@@ -302,7 +305,7 @@ const setMute = async function () {
     }
 };
 
-const setVolume = async function (diff) {
+const setVolume = async (diff) => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#volume").disabled) {
@@ -321,7 +324,7 @@ const setVolume = async function (diff) {
     }
 };
 
-const contextMenu = async function () {
+const contextMenu = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#contextmenu").disabled) {
@@ -335,7 +338,7 @@ const contextMenu = async function () {
     }
 };
 
-const up = async function () {
+const up = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#up").disabled) {
@@ -349,7 +352,7 @@ const up = async function () {
     }
 };
 
-const info = async function () {
+const info = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#info").disabled) {
@@ -363,7 +366,7 @@ const info = async function () {
     }
 };
 
-const left = async function () {
+const left = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#left").disabled) {
@@ -377,7 +380,7 @@ const left = async function () {
     }
 };
 
-const select = async function () {
+const select = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#select").disabled) {
@@ -391,7 +394,7 @@ const select = async function () {
     }
 };
 
-const right = async function () {
+const right = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#right").disabled) {
@@ -405,7 +408,7 @@ const right = async function () {
     }
 };
 
-const back = async function () {
+const back = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#back").disabled) {
@@ -419,7 +422,7 @@ const back = async function () {
     }
 };
 
-const down = async function () {
+const down = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#down").disabled) {
@@ -433,7 +436,7 @@ const down = async function () {
     }
 };
 
-const showOSD = async function () {
+const showOSD = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#osd").disabled) {
@@ -447,7 +450,7 @@ const showOSD = async function () {
     }
 };
 
-const home = async function () {
+const home = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#home").disabled) {
@@ -461,7 +464,7 @@ const home = async function () {
     }
 };
 
-const setFullscreen = async function () {
+const setFullscreen = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#fullscreen").disabled) {
@@ -475,7 +478,7 @@ const setFullscreen = async function () {
     }
 };
 
-const openSendText = function () {
+const openSendText = () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#opensendtext").disabled) {
@@ -484,14 +487,16 @@ const openSendText = function () {
 
     const dialog = document.querySelector("#dialogsendtext");
     if (!dialog.open) {
-        const text = dialog.querySelector('input[name="text"]');
+        const text = /** @type {HTMLInputElement} */ (
+            dialog.querySelector('input[name="text"]')
+        );
         text.type = "text";
         text.value = "";
         dialog.showModal();
     }
 };
 
-const sendText = async function (event) {
+const sendText = async (event) => {
     const dialog = event.target;
     if ("sendtext" === dialog.returnValue) {
         const text = dialog.querySelector('input[name="text"]');
@@ -504,7 +509,7 @@ const sendText = async function (event) {
     }
 };
 
-const openSubtitle = function () {
+const openSubtitle = () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#opensubtitle").disabled) {
@@ -519,7 +524,7 @@ const openSubtitle = function () {
     }
 };
 
-const addSubtitle = async function (event) {
+const addSubtitle = async (event) => {
     const dialog = event.target;
     if ("addsubtitle" === dialog.returnValue) {
         const subtitle = dialog.querySelector('textarea[name="subtitle"]');
@@ -531,7 +536,7 @@ const addSubtitle = async function (event) {
     }
 };
 
-const showPlayerProcessInfo = async function () {
+const showPlayerProcessInfo = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#playerprocessinfo").disabled) {
@@ -545,7 +550,7 @@ const showPlayerProcessInfo = async function () {
     }
 };
 
-const openQuit = function () {
+const openQuit = () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#openquit").disabled) {
@@ -558,7 +563,7 @@ const openQuit = function () {
     }
 };
 
-const quit = async function (event) {
+const quit = async (event) => {
     const dialog = event.target;
     try {
         switch (dialog.returnValue) {
@@ -586,7 +591,7 @@ const quit = async function (event) {
     }
 };
 
-const repeat = async function () {
+const repeat = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector('[name="repeat"]').disabled) {
@@ -600,7 +605,7 @@ const repeat = async function () {
     }
 };
 
-const shuffle = async function () {
+const shuffle = async () => {
     // Annuler l'action (venant d'un raccourci clavier) si le bouton est
     // désactivé.
     if (document.querySelector("#shuffle input").disabled) {
@@ -614,7 +619,7 @@ const shuffle = async function () {
     }
 };
 
-const clear = async function () {
+const clear = async () => {
     try {
         await kodi.playlist.clear();
     } catch (err) {
@@ -622,7 +627,7 @@ const clear = async function () {
     }
 };
 
-const play = async function (event) {
+const play = async (event) => {
     const li = event.target.closest("li");
     // Annuler l'action (venant du double-clic) si le bouton est désactivé.
     if (li.querySelector(".play").disabled) {
@@ -637,7 +642,7 @@ const play = async function (event) {
     }
 };
 
-const remove = async function (event) {
+const remove = async (event) => {
     const li = event.target.closest("li");
     const index = Array.from(li.parentNode.children).indexOf(li);
     try {
@@ -647,20 +652,20 @@ const remove = async function (event) {
     }
 };
 
-const openBeta = function () {
+const openBeta = () => {
     const dialog = document.querySelector("#dialogbeta");
     if (!dialog.open) {
         dialog.showModal();
     }
 };
 
-const web = async function () {
+const web = async () => {
     const url = document.querySelector("#web").dataset.url;
     await browser.tabs.create({ url });
     close();
 };
 
-const openFeedback = function () {
+const openFeedback = () => {
     // Enlever le lien vers le Chrome Web Store si le navigateur est Firefox ou
     // Microsoft Edge (qui ont leur propre boutique).
     const brands = new Set(navigator.userAgentData.brands.map((b) => b.brand));
@@ -677,14 +682,14 @@ const openFeedback = function () {
     }
 };
 
-const openDonate = function () {
+const openDonate = () => {
     const dialog = document.querySelector("#dialogdonate");
     if (!dialog.open) {
         dialog.showModal();
     }
 };
 
-const rate = async function () {
+const rate = async () => {
     let url;
     const brands = new Set(navigator.userAgentData.brands.map((b) => b.brand));
     if (navigator.userAgentData.mobile) {
@@ -703,14 +708,14 @@ const rate = async function () {
             "https://chromewebstore.google.com/detail/cast-kodi" +
             "/gojlijimdlgjlliggedhakpefimkedmb/reviews";
     } else {
-        // Si la navigateur est inconnu : envoyer sur GitHub.
+        // Si le navigateur est inconnu : envoyer sur GitHub.
         url = "https://github.com/regseb/castkodi";
     }
     await browser.tabs.create({ url });
     close();
 };
 
-const preferences = async function () {
+const preferences = async () => {
     await browser.runtime.openOptionsPage();
     close();
 };
@@ -721,32 +726,32 @@ const preferences = async function () {
  * @param {DragEvent} event L'évènement du glissement.
  * @this {HTMLLIElement}
  */
-const handleDragStart = function (event) {
+const handleDragStart = (event) => {
     // eslint-disable-next-line no-param-reassign
     event.dataTransfer.effectAllowed = "move";
 
-    this.classList.add("drag");
-    // eslint-disable-next-line consistent-this, unicorn/no-this-assignment
-    dragItem = this;
+    const li = event.target.closest("li");
+    li.classList.add("drag");
+    dragItem = li;
 };
 
 /**
  * Gère le déplacement d'un glissement sur un élement déposable.
  *
  * @param {DragEvent} event L'évènement du glissement.
- * @this {HTMLLIElement}
  */
-const handleDragOver = function (event) {
+const handleDragOver = (event) => {
     event.preventDefault();
 
-    const section = this.closest("section");
-    const center = this.offsetTop - section.scrollTop + this.offsetHeight / 2;
+    const li = event.target.closest("li");
+    const section = li.closest("section");
+    const center = li.offsetTop - section.scrollTop + li.offsetHeight / 2;
     if (event.clientY < center) {
-        this.classList.remove("drop-after");
-        this.classList.add("drop-before");
+        li.classList.remove("drop-after");
+        li.classList.add("drop-before");
     } else {
-        this.classList.remove("drop-before");
-        this.classList.add("drop-after");
+        li.classList.remove("drop-before");
+        li.classList.add("drop-after");
     }
 
     // eslint-disable-next-line no-param-reassign
@@ -758,31 +763,32 @@ const handleDragOver = function (event) {
 /**
  * Gère la sortie d'un élement déposable d'un glissement.
  *
- * @this {HTMLLIElement}
+ * @param {DragEvent} event L'évènement de sortie.
  */
-const handleDragLeave = function () {
-    this.classList.remove("drop-before", "drop-after");
+const handleDragLeave = (event) => {
+    const li = event.target.closest("li");
+    li.classList.remove("drop-before", "drop-after");
 };
 
 /**
  * Gère le dépôt d'un élément de glissement.
  *
  * @param {DragEvent} event L'évènement du glissement.
- * @this {HTMLLIElement}
  */
-const handleDrop = async function (event) {
+const handleDrop = async (event) => {
     event.stopPropagation();
 
-    if (dragItem !== this) {
+    const li = event.target.closest("li");
+    if (dragItem !== li) {
         const items = Array.from(dragItem.parentElement.children);
         const source = items.indexOf(dragItem);
-        let destination = items.indexOf(this);
+        let destination = items.indexOf(li);
         dragItem.remove();
-        if (this.classList.contains("drop-before")) {
-            this.before(dragItem);
+        if (li.classList.contains("drop-before")) {
+            li.before(dragItem);
         } else {
             ++destination;
-            this.after(dragItem);
+            li.after(dragItem);
         }
         dragItem.scrollIntoView();
         try {
@@ -791,20 +797,21 @@ const handleDrop = async function (event) {
             openError(err);
         }
     }
-    this.classList.remove("drop-before", "drop-after");
+    li.classList.remove("drop-before", "drop-after");
     return false;
 };
 
 /**
  * Gère la fin du glissement.
  *
- * @this {HTMLLIElement}
+ * @param {DragEvent} event L'évènement de fin.
  */
-const handleDragEnd = function () {
-    this.classList.remove("drag");
+const handleDragEnd = (event) => {
+    const li = event.target.closest("li");
+    li.classList.remove("drag");
 };
 
-const handleAdd = function (item) {
+const handleAdd = (item) => {
     const template = document.querySelector("template");
     const clone = document.importNode(template.content, true);
     clone.querySelector("span").textContent = item.label;
@@ -832,21 +839,23 @@ const handleAdd = function (item) {
     ol.insertBefore(li, ol.children[item.position]);
 };
 
-const handleClear = function () {
+const handleClear = () => {
     const ol = document.querySelector("#playlist-items ol");
     ol.textContent = "";
 };
 
-const handleRemove = function (value) {
+const handleRemove = (value) => {
     document
         .querySelector(`#playlist-items li:nth-child(${value + 1})`)
         .remove();
 };
 
-const handleInputRequested = function ({ type, value }) {
+const handleInputRequested = ({ type, value }) => {
     const dialog = document.querySelector("#dialogsendtext");
     if (!dialog.open) {
-        const text = dialog.querySelector('input[name="text"]');
+        const text = /** @type {HTMLInputElement} */ (
+            dialog.querySelector('input[name="text"]')
+        );
         switch (type) {
             case "date":
                 text.type = "date";
@@ -866,7 +875,7 @@ const handleInputRequested = function ({ type, value }) {
     }
 };
 
-const handleShuffledChanged = async function (value, only = false) {
+const handleShuffledChanged = async (value, only = false) => {
     document.querySelector("#shuffle input").checked = value;
 
     if (only) {
@@ -893,7 +902,7 @@ const handleShuffledChanged = async function (value, only = false) {
     }
 };
 
-const handleRepeatChanged = function (value) {
+const handleRepeatChanged = (value) => {
     document.querySelector(`[name="repeat"][value="${value}"]`).checked = true;
     document.querySelector("#repeat-off").classList.remove("checked");
     document.querySelector("#repeat-all").classList.remove("checked");
@@ -901,7 +910,7 @@ const handleRepeatChanged = function (value) {
     document.querySelector(`#repeat-${value}`).classList.add("checked");
 };
 
-const handleTimeChanged = function (value) {
+const handleTimeChanged = (value) => {
     const time = document.querySelector("#time");
     const max = Number(time.max);
     time.valueAsNumber = Math.min(value, max);
@@ -925,7 +934,7 @@ const handleTimeChanged = function (value) {
         time.nextElementSibling.offsetWidth.toString() + "px";
 };
 
-const handleTotaltimeChanged = function (value) {
+const handleTotaltimeChanged = (value) => {
     document.querySelector("#time").max = value.toString();
     document.querySelector("#play").disabled = false;
     if (0 === value) {
@@ -960,7 +969,7 @@ const handleTotaltimeChanged = function (value) {
     }
 };
 
-const handleSpeedChanged = function (value) {
+const handleSpeedChanged = (value) => {
     speed = value;
     if (1 === speed) {
         document.querySelector("#play").style.display = "none";
@@ -971,7 +980,7 @@ const handleSpeedChanged = function (value) {
     }
 };
 
-const handlePositionChanged = function (value) {
+const handlePositionChanged = (value) => {
     position = value;
     for (const li of document.querySelectorAll("#playlist-items li")) {
         li.querySelector("span").classList.remove("active");
@@ -990,7 +999,7 @@ const handlePositionChanged = function (value) {
     }
 };
 
-const handleActiveChanged = async function (value) {
+const handleActiveChanged = async (value) => {
     active = value;
     if (active) {
         document.querySelector("#time").disabled = false;
@@ -1033,7 +1042,7 @@ const handleActiveChanged = async function (value) {
     }
 };
 
-const handleMutedChanged = function (value) {
+const handleMutedChanged = (value) => {
     const mute = document.querySelector("#mute input");
     mute.checked = value;
 
@@ -1041,7 +1050,7 @@ const handleMutedChanged = function (value) {
     volume.classList.toggle("disabled", value);
 };
 
-const handleVolumeChanged = function (value) {
+const handleVolumeChanged = (value) => {
     const volume = document.querySelector("#volume");
     volume.valueAsNumber = value;
     volume.title = browser.i18n.getMessage(
@@ -1050,7 +1059,7 @@ const handleVolumeChanged = function (value) {
     );
 };
 
-const handlePropertyChanged = async function (properties) {
+const handlePropertyChanged = async (properties) => {
     if ("volume" in properties) {
         handleVolumeChanged(properties.volume);
     }
@@ -1083,7 +1092,7 @@ const handlePropertyChanged = async function (properties) {
     }
 };
 
-const passing = function () {
+const passing = () => {
     if (0 === speed) {
         return;
     }
@@ -1092,14 +1101,14 @@ const passing = function () {
     handleTimeChanged(time.valueAsNumber + speed);
 };
 
-const move = function () {
+const move = () => {
     clearInterval(interval);
     const time = document.querySelector("#time");
 
     handleTimeChanged(time.valueAsNumber);
 };
 
-const seek = async function () {
+const seek = async () => {
     interval = setInterval(passing, 1000);
     const time = document.querySelector("#time");
     try {
@@ -1109,7 +1118,7 @@ const seek = async function () {
     }
 };
 
-const load = async function () {
+const load = async () => {
     try {
         await kodi.jsonrpc.ping();
 

@@ -17,7 +17,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async function (url, metadata) {
+const action = async (url, metadata) => {
     const doc = await metadata.html();
     const figure = doc.querySelector("figure[data-model]");
     if (null === figure) {
