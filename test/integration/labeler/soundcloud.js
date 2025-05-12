@@ -52,7 +52,7 @@ describe("Labeler: SoundCloud", function () {
 
     it("should return dynamic set label", async function () {
         const url = new URL(
-            "https://soundcloud.com/discover/sets/charts-top:alternativerock",
+            "https://soundcloud.com/trending-music-fr/sets/pop",
         );
         const context = { depth: false, incognito: false };
 
@@ -66,7 +66,7 @@ describe("Labeler: SoundCloud", function () {
         });
         assert.deepEqual(item, {
             file,
-            label: "Top 50: Alternative Rock",
+            label: "Pop",
             position: 0,
             title: "",
             type: "unknown",

@@ -23,11 +23,10 @@ describe("Scraper: ZDF", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.equal(
-            file,
-            "https://nrodlzdf-a.akamaihd.net/none/zdf/21/04" +
-                "/210427_sendung_37g/4" +
-                "/210427_sendung_37g_a1a2_2128k_p18v15.webm",
+        assert.ok(
+            undefined !== file &&
+                new URL(file).pathname.endsWith("/master.m3u8"),
+            `new URL("${file}").pathname.endsWith(...)`,
         );
     });
 });

@@ -125,7 +125,7 @@ describe("Labeler: Twitch", function () {
         const json = await requestApi(
             "ClipsCards__User",
             {
-                login: "france_tv_slash",
+                login: "slash_ftv",
                 limit: 1,
                 criteria: { filter: "ALL_TIME", isFeatured: false },
                 cursor: null,

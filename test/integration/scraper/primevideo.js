@@ -156,7 +156,7 @@ describe("Scraper: Prime Video", function () {
             file?.startsWith(
                 "plugin://plugin.video.amazon-test/" +
                     "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.5c2c1110-ccb6-4922-9690-1193f46fa535" +
+                    "&asin=amzn1.dv.gti.b552c326-3035-4910-b2d0-72b2943ea778" +
                     "&name=Reacher%20-%20Season%202",
             ),
             `"${file}"?.startsWith(...)`,

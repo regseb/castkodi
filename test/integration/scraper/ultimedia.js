@@ -29,7 +29,7 @@ describe("Scraper: Ultimedia [fr]", function () {
 
     it("should return video URL", async function () {
         const url = new URL(
-            "https://www.ultimedia.com/default/index/videogeneric/id/mvlx0f",
+            "https://www.ultimedia.com/default/index/videogeneric/id/qluruvk",
         );
         const context = { depth: false, incognito: false };
 
@@ -55,8 +55,8 @@ describe("Scraper: Ultimedia [fr]", function () {
 
     it("should return video URL from embed", async function () {
         const url = new URL(
-            "https://www.ultimedia.com/deliver/generic/iframe/mdtk/01836272" +
-                "/src/pzmpzr/zone/1/showtitle/1/",
+            "https://www.ultimedia.com/deliver/generic/iframe/mdtk" +
+                "/01836272/src/xp8303r/zone/1/showtitle/1/",
         );
         const context = { depth: false, incognito: false };
 

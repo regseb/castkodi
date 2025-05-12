@@ -6,7 +6,10 @@
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
-describe("Scraper: Podcast Addict", function () {
+// Désactiver les tests, car Podcast Addict détecte que la requête provient d'un
+// robot et il refuse d'afficher la page : "Enable JavaScript and cookies to
+// continue".
+describe.skip("Scraper: Podcast Addict", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://podcastaddict.com/app");
         const context = { depth: false, incognito: false };
@@ -17,10 +20,7 @@ describe("Scraper: Podcast Addict", function () {
 
     it("should return audio URL [media]", async function () {
         const url = new URL(
-            "https://podcastaddict.com/episode" +
-                "/https%3A%2F%2Fsphinx.acast.com%2Fp%2Fopen" +
-                "%2Fs%2F5b7ac427c6a58e726f576cff%2Fe" +
-                "%2F62b5812411883600129b5886%2Fmedia.mp3&podcastId=2238970",
+            "https://podcastaddict.com/silence-on-joue/episode/141591598",
         );
         const context = { depth: false, incognito: false };
 
