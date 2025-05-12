@@ -673,7 +673,8 @@ const openFeedback = () => {
         const a = document.querySelector(
             '#dialogfeedback a[href^="https://chromewebstore.google.com/"]',
         );
-        a.parentElement.remove();
+        // Si le lien a déjà été enlevé : ne rien faire.
+        a?.parentElement.remove();
     }
 
     const dialog = document.querySelector("#dialogfeedback");
