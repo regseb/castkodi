@@ -23,7 +23,7 @@ describe("core/scraper/template.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -40,7 +40,7 @@ describe("core/scraper/template.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <template></template>
                              </body></html>`,
                             "text/html",
@@ -59,7 +59,7 @@ describe("core/scraper/template.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <template>
                                  <video src="https://baz.org/qux.mp4" />
                                </template>
@@ -80,7 +80,7 @@ describe("core/scraper/template.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <template>
                                  <a href="https://baz.org/">link</a>
                                </template>

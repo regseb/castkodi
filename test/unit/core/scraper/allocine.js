@@ -21,7 +21,7 @@ describe("core/scraper/allocine.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="fr"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -37,20 +37,21 @@ describe("core/scraper/allocine.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body><figure data-model="${JSON.stringify({
-                                videos: [
-                                    {
-                                        sources: {
-                                            high: "https://bar.com/baz.mkv",
-                                            low: "https://bar.com/qux.wmv",
-                                            medium: "https://bar.com/quux.avi",
-                                            standard:
-                                                "https://bar.com/corge.mp4",
-                                        },
-                                    },
-                                ],
-                            }).replaceAll('"', "&quot;")}">
-                             </figure></body></html>`,
+                            `<html lang="fr"><body>
+                               <figure data-model="${JSON.stringify({
+                                   videos: [
+                                       {
+                                           sources: {
+                                               high: "https://bar.com/baz.mkv",
+                                               low: "https://bar.com/qux.wmv",
+                                               medium: "https://bar.com/quux.avi",
+                                               standard:
+                                                   "https://bar.com/corge.mp4",
+                                           },
+                                       },
+                                   ],
+                               }).replaceAll('"', "&quot;")}"></figure>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -66,19 +67,20 @@ describe("core/scraper/allocine.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body><figure data-model="${JSON.stringify({
-                                videos: [
-                                    {
-                                        sources: {
-                                            low: "https://bar.com/baz.wmv",
-                                            medium: "https://bar.com/qux.avi",
-                                            standard:
-                                                "https://bar.com/quux.mp4",
-                                        },
-                                    },
-                                ],
-                            }).replaceAll('"', "&quot;")}">
-                             </figure></body></html>`,
+                            `<html lang="fr"><body>
+                               <figure data-model="${JSON.stringify({
+                                   videos: [
+                                       {
+                                           sources: {
+                                               low: "https://bar.com/baz.wmv",
+                                               medium: "https://bar.com/qux.avi",
+                                               standard:
+                                                   "https://bar.com/quux.mp4",
+                                           },
+                                       },
+                                   ],
+                               }).replaceAll('"', "&quot;")}"></figure>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -94,17 +96,18 @@ describe("core/scraper/allocine.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body><figure data-model="${JSON.stringify({
-                                videos: [
-                                    {
-                                        sources: {
-                                            low: "https://bar.com/baz.wmv",
-                                            medium: "https://bar.com/qux.avi",
-                                        },
-                                    },
-                                ],
-                            }).replaceAll('"', "&quot;")}">
-                             </figure></body></html>`,
+                            `<html lang="fr"><body>
+                               <figure data-model="${JSON.stringify({
+                                   videos: [
+                                       {
+                                           sources: {
+                                               low: "https://bar.com/baz.wmv",
+                                               medium: "https://bar.com/qux.avi",
+                                           },
+                                       },
+                                   ],
+                               }).replaceAll('"', "&quot;")}"></figure>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -120,16 +123,17 @@ describe("core/scraper/allocine.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body><figure data-model="${JSON.stringify({
-                                videos: [
-                                    {
-                                        sources: {
-                                            low: "https://bar.com/baz.wmv",
-                                        },
-                                    },
-                                ],
-                            }).replaceAll('"', "&quot;")}">
-                             </figure></body></html>`,
+                            `<html lang="fr"><body>
+                               <figure data-model="${JSON.stringify({
+                                   videos: [
+                                       {
+                                           sources: {
+                                               low: "https://bar.com/baz.wmv",
+                                           },
+                                       },
+                                   ],
+                               }).replaceAll('"', "&quot;")}"></figure>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -145,10 +149,11 @@ describe("core/scraper/allocine.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body><figure data-model="${JSON.stringify({
-                                videos: [{ sources: {} }],
-                            }).replaceAll('"', "&quot;")}">
-                             </figure></body></html>`,
+                            `<html lang="fr"><body>
+                               <figure data-model="${JSON.stringify({
+                                   videos: [{ sources: {} }],
+                               }).replaceAll('"', "&quot;")}"></figure>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -164,14 +169,17 @@ describe("core/scraper/allocine.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body><figure data-model="${JSON.stringify({
-                                videos: [
-                                    {
-                                        sources: { high: "//bar.com/baz.mkv" },
-                                    },
-                                ],
-                            }).replaceAll('"', "&quot;")}">
-                             </figure></body></html>`,
+                            `<html lang="fr"><body>
+                               <figure data-model="${JSON.stringify({
+                                   videos: [
+                                       {
+                                           sources: {
+                                               high: "//bar.com/baz.mkv",
+                                           },
+                                       },
+                                   ],
+                               }).replaceAll('"', "&quot;")}"></figure>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),

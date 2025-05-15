@@ -4,27 +4,33 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/application.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("getProperties()", function () {
         it("should return properties", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves({
-                mute: false,
-                volume: 51,
-            });
+            const send = mock.method(kodi, "send", () =>
+                Promise.resolve({
+                    mute: false,
+                    volume: 51,
+                }),
+            );
 
             const application = new Application(kodi);
             const properties = ["mute", "volume"];
             const result = await application.getProperties(properties);
             assert.deepEqual(result, { mute: false, volume: 51 });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Application.GetProperties",
                 { properties },
             ]);
@@ -34,14 +40,16 @@ describe("core/jsonrpc/application.js", function () {
     describe("setMute()", function () {
         it("should send request", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves(false);
+            const send = mock.method(kodi, "send", () =>
+                Promise.resolve(false),
+            );
 
             const application = new Application(kodi);
             const result = await application.setMute();
             assert.equal(result, false);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Application.SetMute",
                 { mute: "toggle" },
             ]);
@@ -51,24 +59,28 @@ describe("core/jsonrpc/application.js", function () {
     describe("setVolume()", function () {
         it("should send request with number", async function () {
             const kodi = new Kodi();
-            const stub = sinon
-                .stub(kodi, "send")
-                .onFirstCall()
-                .resolves(false)
-                .onSecondCall()
-                .resolves(42);
+            const send = mock.method(kodi, "send", () => {
+                switch (send.mock.callCount()) {
+                    case 0:
+                        return false;
+                    case 1:
+                        return 42;
+                    default:
+                        throw new Error("Third unexpected call");
+                }
+            });
 
             const application = new Application(kodi);
             const volume = 42;
             const result = await application.setVolume(volume);
             assert.equal(result, volume);
 
-            assert.equal(stub.callCount, 2);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 2);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Application.SetMute",
                 { mute: false },
             ]);
-            assert.deepEqual(stub.secondCall.args, [
+            assert.deepEqual(send.mock.calls[1].arguments, [
                 "Application.SetVolume",
                 { volume },
             ]);
@@ -76,24 +88,28 @@ describe("core/jsonrpc/application.js", function () {
 
         it("should send request with string", async function () {
             const kodi = new Kodi();
-            const stub = sinon
-                .stub(kodi, "send")
-                .onFirstCall()
-                .resolves(false)
-                .onSecondCall()
-                .resolves(43);
+            const send = mock.method(kodi, "send", () => {
+                switch (send.mock.callCount()) {
+                    case 0:
+                        return false;
+                    case 1:
+                        return 43;
+                    default:
+                        throw new Error("Third unexpected call");
+                }
+            });
 
             const application = new Application(kodi);
             const volume = "increment";
             const result = await application.setVolume(volume);
             assert.equal(result, 43);
 
-            assert.equal(stub.callCount, 2);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 2);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Application.SetMute",
                 { mute: false },
             ]);
-            assert.deepEqual(stub.secondCall.args, [
+            assert.deepEqual(send.mock.calls[1].arguments, [
                 "Application.SetVolume",
                 { volume },
             ]);
@@ -102,10 +118,10 @@ describe("core/jsonrpc/application.js", function () {
 
     describe("handleNotification()", function () {
         it("should ignore others namespaces", function () {
-            const fake = sinon.fake();
+            const listener = mock.fn();
 
             const application = new Application(new Kodi());
-            application.onPropertyChanged.addListener(fake);
+            application.onPropertyChanged.addListener(listener);
             application.handleNotification(
                 new NotificationEvent("notification", {
                     // Utiliser un espace de 11 caractères pour avoir la même
@@ -115,12 +131,15 @@ describe("core/jsonrpc/application.js", function () {
                 }),
             );
 
-            assert.equal(fake.callCount, 0);
+            assert.equal(listener.mock.callCount(), 0);
         });
 
         it("should ignore when no listener", function () {
             const application = new Application(new Kodi());
-            const spy = sinon.spy(application.onPropertyChanged, "dispatch");
+            const dispatch = mock.method(
+                application.onPropertyChanged,
+                "dispatch",
+            );
             application.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Application.OnVolumeChanged",
@@ -128,14 +147,14 @@ describe("core/jsonrpc/application.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(dispatch.mock.callCount(), 0);
         });
 
         it("should handle 'OnVolumeChanged'", function () {
-            const fake = sinon.fake();
+            const listener = mock.fn();
 
             const application = new Application(new Kodi());
-            application.onPropertyChanged.addListener(fake);
+            application.onPropertyChanged.addListener(listener);
             application.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Application.OnVolumeChanged",
@@ -143,15 +162,17 @@ describe("core/jsonrpc/application.js", function () {
                 }),
             );
 
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [{ foo: "bar" }]);
+            assert.equal(listener.mock.callCount(), 1);
+            assert.deepEqual(listener.mock.calls[0].arguments, [
+                { foo: "bar" },
+            ]);
         });
 
         it("should ignore others notifications", function () {
-            const fake = sinon.fake();
+            const listener = mock.fn();
 
             const application = new Application(new Kodi());
-            application.onPropertyChanged.addListener(fake);
+            application.onPropertyChanged.addListener(listener);
             application.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Application.Other",
@@ -159,7 +180,7 @@ describe("core/jsonrpc/application.js", function () {
                 }),
             );
 
-            assert.equal(fake.callCount, 0);
+            assert.equal(listener.mock.callCount(), 0);
         });
     });
 });

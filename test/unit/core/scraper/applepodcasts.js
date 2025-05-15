@@ -23,7 +23,7 @@ describe("core/scraper/applepodcasts.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -39,16 +39,26 @@ describe("core/scraper/applepodcasts.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script id="serialized-server-data">${JSON.stringify([
-                          {
-                              data: {
-                                  shelves: [{ items: [{ contextAction: {} }] }],
-                              },
-                          },
-                      ])}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script id="serialized-server-data">${JSON.stringify(
+                                   [
+                                       {
+                                           data: {
+                                               shelves: [
+                                                   {
+                                                       items: [
+                                                           {
+                                                               contextAction:
+                                                                   {},
+                                                           },
+                                                       ],
+                                                   },
+                                               ],
+                                           },
+                                       },
+                                   ],
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -66,30 +76,31 @@ describe("core/scraper/applepodcasts.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script id="serialized-server-data">${JSON.stringify([
-                          {
-                              data: {
-                                  shelves: [
-                                      {
-                                          items: [
-                                              {
-                                                  contextAction: {
-                                                      episodeOffer: {
-                                                          streamUrl:
-                                                              "https://baz.fr" +
-                                                              "/qux.mp3",
-                                                      },
-                                                  },
-                                              },
-                                          ],
-                                      },
-                                  ],
-                              },
-                          },
-                      ])}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script id="serialized-server-data">${JSON.stringify(
+                                   [
+                                       {
+                                           data: {
+                                               shelves: [
+                                                   {
+                                                       items: [
+                                                           {
+                                                               contextAction: {
+                                                                   episodeOffer:
+                                                                       {
+                                                                           streamUrl:
+                                                                               "https://baz.fr/qux.mp3",
+                                                                       },
+                                                               },
+                                                           },
+                                                       ],
+                                                   },
+                                               ],
+                                           },
+                                       },
+                                   ],
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),

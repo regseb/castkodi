@@ -4,10 +4,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import * as labeler from "../../../../src/core/labeler/youtube.js";
 
 describe("core/labeler/youtube.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extractVideo()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://studio.youtube.com/");
@@ -17,11 +21,13 @@ describe("core/labeler/youtube.js", function () {
         });
 
         it("should return label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <meta property="og:title" content="foo" />
-                     </head></html>`,
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        `<html lang="en"><head>
+                           <meta property="og:title" content="foo" />
+                         </head></html>`,
+                    ),
                 ),
             );
 
@@ -30,24 +36,26 @@ describe("core/labeler/youtube.js", function () {
             const label = await labeler.extractVideo(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.youtube.com/watch?v=bar"),
             ]);
         });
 
         it("should return unavailable label", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(new Response("<html><head></head></html>"));
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response('<html lang="en"><head></head></html>'),
+                ),
+            );
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
 
             const label = await labeler.extractVideo(url);
             assert.equal(label, "(Video unavailable)");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.youtube.com/watch?v=foo"),
             ]);
         });
@@ -62,11 +70,13 @@ describe("core/labeler/youtube.js", function () {
 
     describe("extractPlaylist()", function () {
         it("should return label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <meta property="og:title" content="foo" />
-                     </head></html>`,
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        `<html lang="en"><head>
+                           <meta property="og:title" content="foo" />
+                         </head></html>`,
+                    ),
                 ),
             );
 
@@ -75,18 +85,20 @@ describe("core/labeler/youtube.js", function () {
             const label = await labeler.extractPlaylist(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.youtube.com/playlist?list=bar"),
             ]);
         });
 
         it("should return mix label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <meta property="og:title" content="undefined" />
-                     </head></html>`,
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        `<html lang="en"><head>
+                           <meta property="og:title" content="undefined" />
+                         </head></html>`,
+                    ),
                 ),
             );
 
@@ -95,8 +107,8 @@ describe("core/labeler/youtube.js", function () {
             const label = await labeler.extractPlaylist(url);
             assert.equal(label, "Mix");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.youtube.com/playlist?list=foo"),
             ]);
         });
@@ -111,11 +123,13 @@ describe("core/labeler/youtube.js", function () {
 
     describe("actionClip()", function () {
         it("should return label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <meta property="og:title" content="foo" />
-                     </head></html>`,
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        `<html lang="en"><head>
+                           <meta property="og:title" content="foo" />
+                         </head></html>`,
+                    ),
                 ),
             );
 
@@ -124,8 +138,8 @@ describe("core/labeler/youtube.js", function () {
             const label = await labeler.extractClip(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.youtube.com/clip/bar"),
             ]);
         });

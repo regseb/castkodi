@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/iframe.js";
 
 describe("core/scraper/iframe.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://foo.com/bar.zip");
@@ -25,10 +29,11 @@ describe("core/scraper/iframe.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <iframe src="https://www.youtube.com/embed/baz"></iframe>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <iframe
+                                 src="https://www.youtube.com/embed/baz"
+                               ></iframe>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -45,7 +50,7 @@ describe("core/scraper/iframe.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -57,18 +62,20 @@ describe("core/scraper/iframe.js", function () {
         });
 
         it("should return URL from iframe", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <iframe src="https://www.dailymotion.com/embed/video/baz"
-                              ></iframe>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <iframe
+                                 src="https://www.dailymotion.com/embed/video/baz"
+                               ></iframe>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -81,23 +88,26 @@ describe("core/scraper/iframe.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=baz",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return URL from second iframe", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.dailymotion.com/index.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <iframe src="https://exemple.com/data.zip"></iframe>
-                      <iframe src="/embed/video/foo"></iframe>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <iframe
+                                 src="https://exemple.com/data.zip"
+                               ></iframe>
+                               <iframe src="/embed/video/foo"></iframe>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -110,8 +120,8 @@ describe("core/scraper/iframe.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

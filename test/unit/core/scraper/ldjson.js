@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/ldjson.js";
 
 describe("core/scraper/ldjson.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://foo.com");
@@ -25,7 +29,7 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -42,7 +46,7 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script type="application/ld+json"></script>
                              </body></html>`,
                             "text/html",
@@ -61,14 +65,15 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "http://schema.org/",
-                          "@type": "ImageObject",
-                          contentUrl: "https://bar.com/baz.png",
-                      })}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "http://schema.org/",
+                                       "@type": "ImageObject",
+                                       contentUrl: "https://bar.com/baz.png",
+                                   },
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -85,13 +90,14 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "http://schema.org/",
-                          "@type": "MusicVideoObject",
-                      })}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "http://schema.org/",
+                                       "@type": "MusicVideoObject",
+                                   },
+                               )}</script>
+                              </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -108,14 +114,15 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "http://schema.org/",
-                          "@type": "VideoObject",
-                          contentUrl: "https://bar.com/baz.mkv",
-                      })}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "http://schema.org/",
+                                       "@type": "VideoObject",
+                                       contentUrl: "https://bar.com/baz.mkv",
+                                   },
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -132,18 +139,20 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "https://schema.org",
-                          "@type": "RadioEpisode",
-                          bar: null,
-                          audio: {
-                              "@type": "AudioObject",
-                              contentUrl: "https://baz.com/qux.flac",
-                          },
-                      })}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "https://schema.org",
+                                       "@type": "RadioEpisode",
+                                       bar: null,
+                                       audio: {
+                                           "@type": "AudioObject",
+                                           contentUrl:
+                                               "https://baz.com/qux.flac",
+                                       },
+                                   },
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -160,18 +169,20 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "https://schema.org",
-                          "@graph": [
-                              {
-                                  "@type": "AudioObject",
-                                  contentUrl: "https://bar.io/baz.mp3",
-                              },
-                          ],
-                      })}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "https://schema.org",
+                                       "@graph": [
+                                           {
+                                               "@type": "AudioObject",
+                                               contentUrl:
+                                                   "https://bar.io/baz.mp3",
+                                           },
+                                       ],
+                                   },
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -183,27 +194,34 @@ describe("core/scraper/ldjson.js", function () {
         });
 
         it("should return embedUrl", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "http://schema.org/",
-                          "@type": "VideoObject",
-                          embedUrl: "https://unknowntube.org/embed/bar",
-                      })}</script>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "http://schema.org/",
-                          "@type": "VideoObject",
-                          embedUrl:
-                              "https://www.dailymotion.com/embed/video/baz",
-                      })}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "http://schema.org/",
+                                       "@type": "VideoObject",
+                                       embedUrl:
+                                           "https://unknowntube.org/embed/bar",
+                                   },
+                               )}</script>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "http://schema.org/",
+                                       "@type": "VideoObject",
+                                       embedUrl:
+                                           "https://www.dailymotion.com/embed" +
+                                           "/video/baz",
+                                   },
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -216,8 +234,8 @@ describe("core/scraper/ldjson.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=baz",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should ignore embedUrl when it's depth", async function () {
@@ -226,15 +244,17 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "http://schema.org/",
-                          "@type": "VideoObject",
-                          embedUrl:
-                              "https://www.dailymotion.com/embed/video/baz",
-                      })}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "http://schema.org/",
+                                       "@type": "VideoObject",
+                                       embedUrl:
+                                           "https://www.dailymotion.com/embed" +
+                                           "/video/baz",
+                                   },
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -251,19 +271,21 @@ describe("core/scraper/ldjson.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script type="application/ld+json">${JSON.stringify({
-                          "@context": "http://schema.org/",
-                          // Le nœud MusicVideoObject devrait avoir un
-                          // "contentUrl" ou un "embedUrl".
-                          "@type": "MusicVideoObject",
-                          clip: {
-                              "@type": "VideoObject",
-                              contentUrl: "https://bar.com/baz.mp4",
-                          },
-                      })}</script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script type="application/ld+json">${JSON.stringify(
+                                   {
+                                       "@context": "http://schema.org/",
+                                       // Le nœud MusicVideoObject devrait avoir un
+                                       // "contentUrl" ou un "embedUrl".
+                                       "@type": "MusicVideoObject",
+                                       clip: {
+                                           "@type": "VideoObject",
+                                           contentUrl:
+                                               "https://bar.com/baz.mp4",
+                                       },
+                                   },
+                               )}</script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),

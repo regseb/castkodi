@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/embed.js";
 
 describe("core/scraper/embed.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://foo.com/bar.zip");
@@ -25,7 +29,7 @@ describe("core/scraper/embed.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -42,7 +46,7 @@ describe("core/scraper/embed.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <embed type="video/mp4" src="" />
                              </body></html>`,
                             "text/html",
@@ -61,7 +65,7 @@ describe("core/scraper/embed.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <embed type="video/mp4"
                                       src="blob:https://foo.com/baz" />
                              </body></html>`,
@@ -81,7 +85,7 @@ describe("core/scraper/embed.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <embed type="video/mp4"
                                       src="https://foo.com/baz.mp4" />
                              </body></html>`,
@@ -101,7 +105,7 @@ describe("core/scraper/embed.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <embed type="audio/mp3" src="baz.mp3" />
                              </body></html>`,
                             "text/html",
@@ -115,14 +119,16 @@ describe("core/scraper/embed.js", function () {
         });
 
         it("should return URL from other page embed", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <embed src="//player.vimeo.com/video/baz" />
                              </body></html>`,
                             "text/html",
@@ -137,19 +143,19 @@ describe("core/scraper/embed.js", function () {
                 "plugin://plugin.video.vimeo/play/?video_id=baz",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return undefined when it's depth", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <embed src="//player.vimeo.com/video/baz" />
                              </body></html>`,
                             "text/html",
@@ -161,18 +167,20 @@ describe("core/scraper/embed.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(stub.callCount, 0);
+            assert.equal(getAddons.mock.callCount(), 0);
         });
 
         it("should return URL from second embed", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.dailymotion.com/index.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <embed src="https://exemple.com/data.zip" />
                                <embed src="/embed/video/foo" />
                              </body></html>`,
@@ -185,12 +193,11 @@ describe("core/scraper/embed.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
-                "plugin://plugin.video.dailymotion_com/" +
-                    "?mode=playVideo&url=foo",
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

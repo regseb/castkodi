@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/futurasciences.js";
 
 describe("core/scraper/futurasciences.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://cdn.futura-sciences.com/");
@@ -23,7 +27,7 @@ describe("core/scraper/futurasciences.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <iframe data-src="//dai.ly/bar"></iframe>
                              </body></html>`,
                             "text/html",
@@ -51,7 +55,7 @@ describe("core/scraper/futurasciences.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="fr"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -63,14 +67,16 @@ describe("core/scraper/futurasciences.js", function () {
         });
 
         it("should return URL from iframe", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.futura-sciences.com/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <iframe data-src="//dai.ly/bar"></iframe>
                              </body></html>`,
                             "text/html",
@@ -85,24 +91,25 @@ describe("core/scraper/futurasciences.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return URL from iframe with data-src", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.futura-sciences.com/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <iframe src="//dai.ly/bar"></iframe>
-                      <iframe data-src="https://baz.com/qux.zip"></iframe>
-                      <iframe data-src="//dai.ly/quux"></iframe>
-                    </body></html>`,
+                            `<html lang="fr"><body>
+                               <iframe src="//dai.ly/bar"></iframe>
+                               <iframe data-src="https://baz.com/qux.zip"></iframe>
+                               <iframe data-src="//dai.ly/quux"></iframe>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -116,19 +123,21 @@ describe("core/scraper/futurasciences.js", function () {
                     "?mode=playVideo&url=quux",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return URL from vsly-player", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.futura-sciences.com/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <div class="vsly-player"
                                     data-iframe="//dai.ly/bar"></div>
                              </body></html>`,
@@ -144,8 +153,8 @@ describe("core/scraper/futurasciences.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

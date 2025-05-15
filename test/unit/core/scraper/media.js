@@ -22,7 +22,7 @@ describe("core/scraper/media.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -38,7 +38,7 @@ describe("core/scraper/media.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <video src />
                                <video src="" />
                                <video src="blob:https://foo.com/bar">
@@ -69,7 +69,7 @@ describe("core/scraper/media.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <video src="/bar.mp4" />
                              </body></html>`,
                             "text/html",
@@ -87,7 +87,7 @@ describe("core/scraper/media.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <video src="" />
                                <video src="/bar.mp4" />
                              </body></html>`,
@@ -106,11 +106,9 @@ describe("core/scraper/media.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <video src="/bar.mp4" />
-                               <video>
-                                 <source src="/baz.mkv" />
-                               </video>
+                               <video><source src="/baz.mkv" /></video>
                              </body></html>`,
                             "text/html",
                         ),
@@ -127,7 +125,7 @@ describe("core/scraper/media.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <audio src="/bar.mp3" />
                              </body></html>`,
                             "text/html",
@@ -145,7 +143,7 @@ describe("core/scraper/media.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <audio src="blob:https://foo.com/bar" />
                                <audio src="/baz.flac" />
                              </body></html>`,
@@ -164,11 +162,9 @@ describe("core/scraper/media.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <audio src="/bar.mp3" />
-                               <audio>
-                                 <source src="/baz.wav" />
-                               </audio>
+                               <audio><source src="/baz.wav" /></audio>
                              </body></html>`,
                             "text/html",
                         ),

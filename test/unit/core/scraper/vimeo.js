@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/vimeo.js";
 
 describe("core/scraper/vimeo.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://vimeo.com/channels");
@@ -18,7 +22,9 @@ describe("core/scraper/vimeo.js", function () {
         });
 
         it("should return video id", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://player.vimeo.com/video/foo");
 
@@ -28,12 +34,14 @@ describe("core/scraper/vimeo.js", function () {
                 "plugin://plugin.video.vimeo/play/?video_id=foo",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video id with hash", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://player.vimeo.com/video/foo?h=bar");
 
@@ -43,14 +51,17 @@ describe("core/scraper/vimeo.js", function () {
                 "plugin://plugin.video.vimeo/play/?video_id=foo:bar",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video id to vimeo", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.sendtokodi", "plugin.video.vimeo"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([
+                    "plugin.video.sendtokodi",
+                    "plugin.video.vimeo",
+                ]),
+            );
 
             const url = new URL("https://player.vimeo.com/video/foo");
 
@@ -60,14 +71,17 @@ describe("core/scraper/vimeo.js", function () {
                 "plugin://plugin.video.vimeo/play/?video_id=foo",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video id with hash to vimeo", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.sendtokodi", "plugin.video.vimeo"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([
+                    "plugin.video.sendtokodi",
+                    "plugin.video.vimeo",
+                ]),
+            );
 
             const url = new URL("https://player.vimeo.com/video/foo?h=bar");
 
@@ -77,14 +91,14 @@ describe("core/scraper/vimeo.js", function () {
                 "plugin://plugin.video.vimeo/play/?video_id=foo:bar",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video id to sendtokodi", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.sendtokodi"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve(["plugin.video.sendtokodi"]),
+            );
 
             const url = new URL("https://player.vimeo.com/video/foo");
 
@@ -94,14 +108,14 @@ describe("core/scraper/vimeo.js", function () {
                 "plugin://plugin.video.sendtokodi/?https://vimeo.com/foo",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video id with hash to sendtokodi", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.sendtokodi"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve(["plugin.video.sendtokodi"]),
+            );
 
             const url = new URL("https://player.vimeo.com/video/foo?h=bar");
 
@@ -111,8 +125,8 @@ describe("core/scraper/vimeo.js", function () {
                 "plugin://plugin.video.sendtokodi/?https://vimeo.com/foo/bar",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

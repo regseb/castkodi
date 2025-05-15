@@ -4,7 +4,7 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { locate } from "../../../src/core/l10n.js";
 
 /**
@@ -18,10 +18,14 @@ const objectifyAttributes = (attributes) => {
 };
 
 describe("core/l10n.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("locate()", function () {
         it("should do nothing when there isn't data-l10n-*", function () {
             const doc = new DOMParser().parseFromString(
-                "<html><body></body></html>",
+                '<html lang="en"><body></body></html>',
                 "text/html",
             );
             locate(doc, "foo");
@@ -32,10 +36,14 @@ describe("core/l10n.js", function () {
         });
 
         it("should insert message in attribut", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(
+                browser.i18n,
+                "getMessage",
+                () => "foo",
+            );
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
+                `<html lang="en"><body>
                    <p data-l10n-title="bar"></p>
                  </body></html>`,
                 "text/html",
@@ -50,15 +58,21 @@ describe("core/l10n.js", function () {
                 title: "foo",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["baz_bar_title"]);
+            assert.equal(getMessage.mock.callCount(), 1);
+            assert.deepEqual(getMessage.mock.calls[0].arguments, [
+                "baz_bar_title",
+            ]);
         });
 
         it("should insert message in text content", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(
+                browser.i18n,
+                "getMessage",
+                () => "foo",
+            );
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
+                `<html lang="en"><body>
                    <p data-l10n-textcontent="bar"></p>
                  </body></html>`,
                 "text/html",
@@ -72,16 +86,22 @@ describe("core/l10n.js", function () {
                 "data-l10n-textcontent": "bar",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["baz_bar_textcontent"]);
+            assert.equal(getMessage.mock.callCount(), 1);
+            assert.deepEqual(getMessage.mock.calls[0].arguments, [
+                "baz_bar_textcontent",
+            ]);
         });
 
         it("should insert message in specific position", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(
+                browser.i18n,
+                "getMessage",
+                () => "foo",
+            );
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
-                   <p data-l10n-textcontent="bar"><img> {}</p>
+                `<html lang="en"><body>
+                   <p data-l10n-textcontent="bar"><img alt=""> {}</p>
                  </body></html>`,
                 "text/html",
             );
@@ -89,20 +109,26 @@ describe("core/l10n.js", function () {
             const p = /** @type {HTMLParagraphElement} */ (
                 doc.querySelector("p")
             );
-            assert.equal(p.innerHTML.trim(), "<img> foo");
+            assert.equal(p.innerHTML.trim(), '<img alt=""> foo');
             assert.deepEqual(objectifyAttributes(p.attributes), {
                 "data-l10n-textcontent": "bar",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["quux_bar_textcontent"]);
+            assert.equal(getMessage.mock.callCount(), 1);
+            assert.deepEqual(getMessage.mock.calls[0].arguments, [
+                "quux_bar_textcontent",
+            ]);
         });
 
         it("should use id", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(
+                browser.i18n,
+                "getMessage",
+                () => "foo",
+            );
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
+                `<html lang="en"><body>
                    <p id="bar" data-l10n-title></p>
                  </body></html>`,
                 "text/html",
@@ -118,15 +144,21 @@ describe("core/l10n.js", function () {
                 title: "foo",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["baz_bar_title"]);
+            assert.equal(getMessage.mock.callCount(), 1);
+            assert.deepEqual(getMessage.mock.calls[0].arguments, [
+                "baz_bar_title",
+            ]);
         });
 
         it("should use name", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(
+                browser.i18n,
+                "getMessage",
+                () => "foo",
+            );
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
+                `<html lang="en"><body>
                    <input name="bar" data-l10n-placeholder />
                  </body></html>`,
                 "text/html",
@@ -142,15 +174,21 @@ describe("core/l10n.js", function () {
                 placeholder: "foo",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["baz_bar_placeholder"]);
+            assert.equal(getMessage.mock.callCount(), 1);
+            assert.deepEqual(getMessage.mock.calls[0].arguments, [
+                "baz_bar_placeholder",
+            ]);
         });
 
         it("should use value", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(
+                browser.i18n,
+                "getMessage",
+                () => "foo",
+            );
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
+                `<html lang="en"><body>
                    <button value="bar" data-l10n-textcontent></button>
                  </body></html>`,
                 "text/html",
@@ -165,15 +203,21 @@ describe("core/l10n.js", function () {
                 "data-l10n-textcontent": "",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["baz_bar_textcontent"]);
+            assert.equal(getMessage.mock.callCount(), 1);
+            assert.deepEqual(getMessage.mock.calls[0].arguments, [
+                "baz_bar_textcontent",
+            ]);
         });
 
         it("should convert beer-case to PascalCase", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(
+                browser.i18n,
+                "getMessage",
+                () => "foo",
+            );
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
+                `<html lang="en"><body>
                    <span data-l10n-textcontent="bar-baz-qux"></span>
                  </body></html>`,
                 "text/html",
@@ -187,17 +231,17 @@ describe("core/l10n.js", function () {
                 "data-l10n-textcontent": "bar-baz-qux",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(getMessage.mock.callCount(), 1);
+            assert.deepEqual(getMessage.mock.calls[0].arguments, [
                 "quux_barBazQux_textcontent",
             ]);
         });
 
         it("should reject if no value", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(browser.i18n, "getMessage");
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
+                `<html lang="en"><body>
                    <button data-l10n-title></button>
                  </body></html>`,
                 "text/html",
@@ -207,14 +251,18 @@ describe("core/l10n.js", function () {
                 message: "[data-l10n-*] without value",
             });
 
-            assert.equal(stub.callCount, 0);
+            assert.equal(getMessage.mock.callCount(), 0);
         });
 
         it("should insert in template", function () {
-            const stub = sinon.stub(browser.i18n, "getMessage").returns("foo");
+            const getMessage = mock.method(
+                browser.i18n,
+                "getMessage",
+                () => "foo",
+            );
 
             const doc = new DOMParser().parseFromString(
-                `<html><body>
+                `<html lang="en"><body>
                    <template>
                      <p class="bar" data-l10n-title="baz"></p>
                    </template>
@@ -235,8 +283,10 @@ describe("core/l10n.js", function () {
                 title: "foo",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["qux_baz_title"]);
+            assert.equal(getMessage.mock.callCount(), 1);
+            assert.deepEqual(getMessage.mock.calls[0].arguments, [
+                "qux_baz_title",
+            ]);
         });
     });
 });

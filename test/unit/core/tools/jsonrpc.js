@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
+import { mock } from "node:test";
 import { Server } from "mock-socket";
-import sinon from "sinon";
 import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
 
 describe("core/tools/jsonrpc.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("open()", function () {
         it("should return promise fulfilled", async function () {
             const server = new Server("ws://localhost/", { mock: false });
@@ -225,17 +229,17 @@ describe("core/tools/jsonrpc.js", function () {
 
     describe("addEventListener()", function () {
         it("should dispatch close event", async function () {
-            const fake = sinon.fake();
+            const listener = mock.fn();
             const server = new Server("ws://localhost/", { mock: false });
 
             const jsonrpc = await JSONRPC.open(new URL("ws://localhost/"));
-            jsonrpc.addEventListener("close", fake);
+            jsonrpc.addEventListener("close", listener);
 
             server.close();
 
-            assert.equal(fake.callCount, 1);
-            assert.equal(fake.firstCall.args.length, 1);
-            assert.equal(fake.firstCall.args[0].type, "close");
+            assert.equal(listener.mock.callCount(), 1);
+            assert.equal(listener.mock.calls[0].arguments.length, 1);
+            assert.equal(listener.mock.calls[0].arguments[0].type, "close");
         });
 
         it("should dispatch notification event", async function () {
@@ -265,9 +269,7 @@ describe("core/tools/jsonrpc.js", function () {
 
             assert.equal(notification.type, "notification");
             assert.equal(notification.method, "foo");
-            assert.deepEqual(notification.params, {
-                bar: "baz",
-            });
+            assert.deepEqual(notification.params, { bar: "baz" });
         });
     });
 });

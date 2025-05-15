@@ -4,13 +4,17 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import {
     compile,
     matchPattern,
 } from "../../../../src/core/tools/matchpattern.js";
 
 describe("core/tools/matchpattern.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("compile()", function () {
         it("should compile magnet pattern", function () {
             const regexp = compile("magnet:?*");
@@ -91,12 +95,12 @@ describe("core/tools/matchpattern.js", function () {
 
     describe("matchPattern()", function () {
         it("should support one pattern", async function () {
-            const fake = sinon.fake.resolves("foo");
+            const func = mock.fn(() => Promise.resolve("foo"));
 
-            const wrapped = matchPattern(fake, "*://bar.fr/");
+            const wrapped = matchPattern(func, "*://bar.fr/");
             assert.deepEqual(
                 Object.getOwnPropertyDescriptor(wrapped, "name"),
-                Object.getOwnPropertyDescriptor(fake, "name"),
+                Object.getOwnPropertyDescriptor(func, "name"),
             );
 
             let result = await wrapped(new URL("https://bar.fr/"));
@@ -104,15 +108,17 @@ describe("core/tools/matchpattern.js", function () {
             result = await wrapped(new URL("https://baz.org/"));
             assert.equal(result, undefined);
 
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [new URL("https://bar.fr/")]);
+            assert.equal(func.mock.callCount(), 1);
+            assert.deepEqual(func.mock.calls[0].arguments, [
+                new URL("https://bar.fr/"),
+            ]);
         });
 
         it("should support many patterns", async function () {
-            const fake = sinon.fake.resolves("foo");
+            const func = mock.fn(() => Promise.resolve("foo"));
 
             const wrapped = matchPattern(
-                fake,
+                func,
                 "*://bar.io/",
                 "https://baz.com/",
             );
@@ -123,17 +129,19 @@ describe("core/tools/matchpattern.js", function () {
             result = await wrapped(new URL("https://qux.org/"));
             assert.equal(result, undefined);
 
-            assert.equal(fake.callCount, 2);
-            assert.deepEqual(fake.firstCall.args, [new URL("https://bar.io/")]);
-            assert.deepEqual(fake.secondCall.args, [
+            assert.equal(func.mock.callCount(), 2);
+            assert.deepEqual(func.mock.calls[0].arguments, [
+                new URL("https://bar.io/"),
+            ]);
+            assert.deepEqual(func.mock.calls[1].arguments, [
                 new URL("https://baz.com/"),
             ]);
         });
 
         it("should support others parameters", async function () {
-            const fake = sinon.fake.resolves("foo");
+            const func = mock.fn(() => Promise.resolve("foo"));
 
-            const wrapped = matchPattern(fake, "*://bar.com/");
+            const wrapped = matchPattern(func, "*://bar.com/");
             let result = await wrapped(new URL("https://bar.com/"), "baz");
             assert.equal(result, "foo");
             result = await wrapped(new URL("https://bar.com/"), "baz", "qux");
@@ -141,12 +149,12 @@ describe("core/tools/matchpattern.js", function () {
             result = await wrapped(new URL("https://quux.org/"), "corge");
             assert.equal(result, undefined);
 
-            assert.equal(fake.callCount, 2);
-            assert.deepEqual(fake.firstCall.args, [
+            assert.equal(func.mock.callCount(), 2);
+            assert.deepEqual(func.mock.calls[0].arguments, [
                 new URL("https://bar.com/"),
                 "baz",
             ]);
-            assert.deepEqual(fake.secondCall.args, [
+            assert.deepEqual(func.mock.calls[1].arguments, [
                 new URL("https://bar.com/"),
                 "baz",
                 "qux",

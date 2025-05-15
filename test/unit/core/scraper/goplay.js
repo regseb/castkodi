@@ -4,10 +4,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/goplay.js";
 
 describe("core/scraper/goplay.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.goplay.be/profiel");
@@ -22,7 +26,7 @@ describe("core/scraper/goplay.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -33,10 +37,12 @@ describe("core/scraper/goplay.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                Response.json({
-                    manifestUrls: { hls: "https://foo.be/bar.m3u8" },
-                }),
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    Response.json({
+                        manifestUrls: { hls: "https://foo.be/bar.m3u8" },
+                    }),
+                ),
             );
 
             const url = new URL("https://www.goplay.be/video/baz");
@@ -44,7 +50,7 @@ describe("core/scraper/goplay.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div data-video="${JSON.stringify({
                                    id: "qux",
                                }).replaceAll('"', "&quot;")}"></div>
@@ -57,8 +63,8 @@ describe("core/scraper/goplay.js", function () {
             const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://foo.be/bar.m3u8");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://api.goplay.be/web/v1/videos/short-form/qux",
             ]);
         });

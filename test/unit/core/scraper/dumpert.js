@@ -21,7 +21,7 @@ describe("core/scraper/dumpert.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -37,7 +37,7 @@ describe("core/scraper/dumpert.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta name="og:video"
                                      content="https://bar.nl/baz.mp4" />
                              </head></html>`,

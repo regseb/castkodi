@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import * as menu from "../../../src/core/menu.js";
 
 describe("core/menu.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("update()", function () {
         it("shouldn't add item because no action", async function () {
             await browser.storage.local.set({
@@ -16,11 +20,11 @@ describe("core/menu.js", function () {
                 "menu-actions": [],
                 "menu-contexts": ["audio"],
             });
-            const spy = sinon.spy(browser.contextMenus, "create");
+            const create = mock.method(browser.contextMenus, "create");
 
             await menu.update();
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(create.mock.callCount(), 0);
         });
 
         it("shouldn't add item because no context", async function () {
@@ -29,11 +33,11 @@ describe("core/menu.js", function () {
                 "menu-actions": ["send"],
                 "menu-contexts": [],
             });
-            const spy = sinon.spy(browser.contextMenus, "create");
+            const create = mock.method(browser.contextMenus, "create");
 
             await menu.update();
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(create.mock.callCount(), 0);
         });
 
         it("should add one item", async function () {
@@ -42,12 +46,12 @@ describe("core/menu.js", function () {
                 "menu-actions": ["send"],
                 "menu-contexts": ["frame"],
             });
-            const spy = sinon.spy(browser.contextMenus, "create");
+            const create = mock.method(browser.contextMenus, "create");
 
             await menu.update();
 
-            assert.equal(spy.callCount, 1);
-            assert.deepEqual(spy.firstCall.args, [
+            assert.equal(create.mock.callCount(), 1);
+            assert.deepEqual(create.mock.calls[0].arguments, [
                 {
                     contexts: ["frame"],
                     id: "send",
@@ -62,19 +66,19 @@ describe("core/menu.js", function () {
                 "menu-actions": ["insert", "add"],
                 "menu-contexts": ["link"],
             });
-            const spy = sinon.spy(browser.contextMenus, "create");
+            const create = mock.method(browser.contextMenus, "create");
 
             await menu.update();
 
-            assert.equal(spy.callCount, 3);
-            assert.deepEqual(spy.firstCall.args, [
+            assert.equal(create.mock.callCount(), 3);
+            assert.deepEqual(create.mock.calls[0].arguments, [
                 {
                     contexts: ["link"],
                     id: "parent",
                     title: "Cast to Kodi",
                 },
             ]);
-            assert.deepEqual(spy.secondCall.args, [
+            assert.deepEqual(create.mock.calls[1].arguments, [
                 {
                     contexts: ["link"],
                     id: "insert",
@@ -82,7 +86,7 @@ describe("core/menu.js", function () {
                     title: "Play next",
                 },
             ]);
-            assert.deepEqual(spy.thirdCall.args, [
+            assert.deepEqual(create.mock.calls[2].arguments, [
                 {
                     contexts: ["link"],
                     id: "add",
@@ -109,19 +113,19 @@ describe("core/menu.js", function () {
                 "menu-actions": ["send"],
                 "menu-contexts": ["page"],
             });
-            const spy = sinon.spy(browser.contextMenus, "create");
+            const create = mock.method(browser.contextMenus, "create");
 
             await menu.update();
 
-            assert.equal(spy.callCount, 5);
-            assert.deepEqual(spy.getCall(0).args, [
+            assert.equal(create.mock.callCount(), 5);
+            assert.deepEqual(create.mock.calls[0].arguments, [
                 {
                     contexts: ["page"],
                     id: "parent",
                     title: "Cast to Kodi",
                 },
             ]);
-            assert.deepEqual(spy.getCall(1).args, [
+            assert.deepEqual(create.mock.calls[1].arguments, [
                 {
                     contexts: ["page"],
                     id: "send",
@@ -129,7 +133,7 @@ describe("core/menu.js", function () {
                     title: "Play now",
                 },
             ]);
-            assert.deepEqual(spy.getCall(2).args, [
+            assert.deepEqual(create.mock.calls[2].arguments, [
                 {
                     contexts: ["page"],
                     id: "separator",
@@ -137,7 +141,7 @@ describe("core/menu.js", function () {
                     type: "separator",
                 },
             ]);
-            assert.deepEqual(spy.getCall(3).args, [
+            assert.deepEqual(create.mock.calls[3].arguments, [
                 {
                     checked: false,
                     contexts: ["page"],
@@ -147,7 +151,7 @@ describe("core/menu.js", function () {
                     type: "radio",
                 },
             ]);
-            assert.deepEqual(spy.getCall(4).args, [
+            assert.deepEqual(create.mock.calls[4].arguments, [
                 {
                     checked: true,
                     contexts: ["page"],
@@ -172,19 +176,19 @@ describe("core/menu.js", function () {
                 "menu-actions": ["send", "insert", "add"],
                 "menu-contexts": ["selection", "video"],
             });
-            const spy = sinon.spy(browser.contextMenus, "create");
+            const create = mock.method(browser.contextMenus, "create");
 
             await menu.update();
 
-            assert.equal(spy.callCount, 6);
-            assert.deepEqual(spy.getCall(0).args, [
+            assert.equal(create.mock.callCount(), 6);
+            assert.deepEqual(create.mock.calls[0].arguments, [
                 {
                     contexts: ["selection", "video"],
                     id: "parent",
                     title: "Cast to Kodi",
                 },
             ]);
-            assert.deepEqual(spy.getCall(1).args, [
+            assert.deepEqual(create.mock.calls[1].arguments, [
                 {
                     contexts: ["selection", "video"],
                     id: "send",
@@ -192,7 +196,7 @@ describe("core/menu.js", function () {
                     title: "Play now",
                 },
             ]);
-            assert.deepEqual(spy.getCall(2).args, [
+            assert.deepEqual(create.mock.calls[2].arguments, [
                 {
                     contexts: ["selection", "video"],
                     id: "insert",
@@ -200,7 +204,7 @@ describe("core/menu.js", function () {
                     title: "Play next",
                 },
             ]);
-            assert.deepEqual(spy.getCall(3).args, [
+            assert.deepEqual(create.mock.calls[3].arguments, [
                 {
                     contexts: ["selection", "video"],
                     id: "add",
@@ -208,7 +212,7 @@ describe("core/menu.js", function () {
                     title: "Queue item",
                 },
             ]);
-            assert.deepEqual(spy.getCall(4).args, [
+            assert.deepEqual(create.mock.calls[4].arguments, [
                 {
                     contexts: ["selection", "video"],
                     id: "separator",
@@ -216,7 +220,7 @@ describe("core/menu.js", function () {
                     type: "separator",
                 },
             ]);
-            assert.deepEqual(spy.getCall(5).args, [
+            assert.deepEqual(create.mock.calls[5].arguments, [
                 {
                     checked: false,
                     contexts: ["selection", "video"],
@@ -344,11 +348,12 @@ describe("core/menu.js", function () {
 
     describe("click()", function () {
         it("should notify not granted", async function () {
-            // Comme il n'est pas possible de remplacer un export avec sinon,
+            // Comme il n'est pas encore possible de remplacer un export,
             // remplacer la fonction appelée par l'export.
-            const stub = sinon
-                .stub(browser.notifications, "create")
-                .resolves("foo");
+            // https://nodejs.org/api/test.html#mockmodulespecifier-options
+            const create = mock.method(browser.notifications, "create", () =>
+                Promise.resolve("foo"),
+            );
 
             await menu.click({
                 menuItemId: "add",
@@ -357,8 +362,8 @@ describe("core/menu.js", function () {
                 linkUrl: "https://bar.com/",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(create.mock.callCount(), 1);
+            assert.deepEqual(create.mock.calls[0].arguments, [
                 {
                     type: "basic",
                     iconUrl: "/img/icon128.png",
@@ -372,12 +377,15 @@ describe("core/menu.js", function () {
             await browser.permissions.request({ origins: ["<all_urls>"] });
             await browser.storage.local.set({ "menu-contexts": ["link"] });
             browser.extension.inIncognitoContext = true;
-            // Comme il n'est pas possible de remplacer un export avec sinon,
+            // Comme il n'est pas encore possible de remplacer un export,
             // remplacer la fonction appelée par l'export.
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
-            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
+            // https://nodejs.org/api/test.html#mockmodulespecifier-options
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+            const add = mock.method(kodi.playlist, "add", () =>
+                Promise.resolve("OK"),
+            );
 
             await menu.click({
                 menuItemId: "add",
@@ -386,20 +394,21 @@ describe("core/menu.js", function () {
                 linkUrl: "https://foo.com/",
             });
 
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
-            assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+            assert.equal(add.mock.callCount(), 1);
+            assert.deepEqual(add.mock.calls[0].arguments, ["https://foo.com/"]);
         });
 
         it("should notify bad link", async function () {
             await browser.permissions.request({ origins: ["<all_urls>"] });
             await browser.storage.local.set({ "menu-contexts": ["link"] });
-            // Comme il n'est pas possible de remplacer un export avec sinon,
+            // Comme il n'est pas encore possible de remplacer un export,
             // remplacer la fonction appelée par l'export.
-            const stub = sinon
-                .stub(browser.notifications, "create")
-                .resolves("foo");
+            // https://nodejs.org/api/test.html#mockmodulespecifier-options
+            const create = mock.method(browser.notifications, "create", () =>
+                Promise.resolve("foo"),
+            );
 
             await menu.click({
                 menuItemId: "add",
@@ -408,8 +417,8 @@ describe("core/menu.js", function () {
                 linkUrl: "???",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(create.mock.callCount(), 1);
+            assert.deepEqual(create.mock.calls[0].arguments, [
                 {
                     type: "basic",
                     iconUrl: "/img/icon128.png",

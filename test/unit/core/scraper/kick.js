@@ -4,10 +4,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/kick.js";
 
 describe("core/scraper/kick.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://help.kick.com/");
@@ -17,25 +21,27 @@ describe("core/scraper/kick.js", function () {
         });
 
         it("should return undefined with legal page", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(new Response("foo"));
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(new Response("foo")),
+            );
 
             const url = new URL("https://kick.com/bar");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://kick.com/api/v1/channels/bar",
             ]);
         });
 
         it("should return live URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                // eslint-disable-next-line camelcase
-                Response.json({ playback_url: "https://foo.com/bar.m3u8" }),
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    // eslint-disable-next-line camelcase
+                    Response.json({ playback_url: "https://foo.com/bar.m3u8" }),
+                ),
             );
 
             const url = new URL("https://kick.com/baz");
@@ -43,25 +49,25 @@ describe("core/scraper/kick.js", function () {
             const file = await scraper.extract(url);
             assert.equal(file, "https://foo.com/bar.m3u8");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://kick.com/api/v1/channels/baz",
             ]);
         });
 
         it("should return undefined when it isn't a live", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
+            const fetch = mock.method(globalThis, "fetch", () =>
                 // eslint-disable-next-line camelcase
-                .resolves(Response.json({ playback_url: "?foo=bar" }));
+                Promise.resolve(Response.json({ playback_url: "?foo=bar" })),
+            );
 
             const url = new URL("https://kick.com/baz");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://kick.com/api/v1/channels/baz",
             ]);
         });

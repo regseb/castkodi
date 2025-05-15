@@ -4,47 +4,50 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
 import * as storage from "../../../src/core/storage.js";
 
 describe("core/storage.js", function () {
     describe("initialize()", function () {
         it("should create config in Chromium", async function () {
-            // Enlever les types de contextes non-disponibles dans Chromium.
-            // https://issues.chromium.org/41378677
-            // https://issues.chromium.org/40246822
-            sinon
-                .stub(browser.contextMenus, "ContextType")
-                .value(
-                    Object.fromEntries(
-                        Object.entries(browser.contextMenus.ContextType).filter(
-                            ([_, v]) => "bookmark" !== v && "tab" !== v,
-                        ),
+            // Remplacer la liste des types de contextes manuellement, car
+            // Node.js n'a pas de fonction par ça.
+            // https://github.com/nodejs/node/issues/58322
+            const originalContextType = browser.contextMenus.ContextType;
+            try {
+                // Enlever les types de contextes non-disponibles dans Chromium.
+                // https://issues.chromium.org/41378677
+                // https://issues.chromium.org/40246822
+                browser.contextMenus.ContextType = Object.fromEntries(
+                    Object.entries(browser.contextMenus.ContextType).filter(
+                        ([_, v]) => "bookmark" !== v && "tab" !== v,
                     ),
                 );
 
-            await storage.initialize();
-            const config = await browser.storage.local.get();
-            assert.deepEqual(config, {
-                "config-version": 6,
-                "server-mode": "single",
-                "server-list": [{ address: "", name: "" }],
-                "server-active": 0,
-                "general-history": false,
-                "popup-clipboard": false,
-                "popup-wheel": "normal",
-                "menu-actions": ["send", "insert", "add"],
-                "menu-contexts": [
-                    "audio",
-                    "frame",
-                    "link",
-                    "page",
-                    "selection",
-                    "video",
-                ],
-                "youtube-playlist": "playlist",
-                "youtube-order": "default",
-            });
+                await storage.initialize();
+                const config = await browser.storage.local.get();
+                assert.deepEqual(config, {
+                    "config-version": 6,
+                    "server-mode": "single",
+                    "server-list": [{ address: "", name: "" }],
+                    "server-active": 0,
+                    "general-history": false,
+                    "popup-clipboard": false,
+                    "popup-wheel": "normal",
+                    "menu-actions": ["send", "insert", "add"],
+                    "menu-contexts": [
+                        "audio",
+                        "frame",
+                        "link",
+                        "page",
+                        "selection",
+                        "video",
+                    ],
+                    "youtube-playlist": "playlist",
+                    "youtube-order": "default",
+                });
+            } finally {
+                browser.contextMenus.ContextType = originalContextType;
+            }
         });
 
         it("should create config in Firefox", async function () {

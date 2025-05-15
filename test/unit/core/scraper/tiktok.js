@@ -21,7 +21,7 @@ describe("core/scraper/tiktok.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -37,11 +37,12 @@ describe("core/scraper/tiktok.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
-                               <script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"
-                               >${JSON.stringify({
-                                   __DEFAULT_SCOPE__: {},
-                               })}</script>
+                            `<html lang="en"><body>
+                               <script id="__UNIVERSAL_DATA_FOR_REHYDRATION__">${JSON.stringify(
+                                   {
+                                       __DEFAULT_SCOPE__: {},
+                                   },
+                               )}</script>
                              </body></html>`,
                             "text/html",
                         ),
@@ -58,23 +59,23 @@ describe("core/scraper/tiktok.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
-                               <script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"
-                               >${JSON.stringify({
-                                   __DEFAULT_SCOPE__: {
-                                       "webapp.video-detail": {
-                                           itemInfo: {
-                                               itemStruct: {
-                                                   video: {
-                                                       playAddr:
-                                                           "https://bar.com" +
-                                                           "/baz.mp4",
+                            `<html lang="en"><body>
+                               <script id="__UNIVERSAL_DATA_FOR_REHYDRATION__">${JSON.stringify(
+                                   {
+                                       __DEFAULT_SCOPE__: {
+                                           "webapp.video-detail": {
+                                               itemInfo: {
+                                                   itemStruct: {
+                                                       video: {
+                                                           playAddr:
+                                                               "https://bar.com/baz.mp4",
+                                                       },
                                                    },
                                                },
                                            },
                                        },
                                    },
-                               })}</script>
+                               )}</script>
                              </body></html>`,
                             "text/html",
                         ),

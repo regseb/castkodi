@@ -4,7 +4,7 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
 import { GUI } from "../../../../src/core/jsonrpc/gui.js";
 import { Input } from "../../../../src/core/jsonrpc/input.js";
@@ -18,6 +18,10 @@ import { NotificationEvent } from "../../../../src/core/tools/notificationevent.
 import { PebkacError } from "../../../../src/core/tools/pebkac.js";
 
 describe("core/jsonrpc/kodi.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("check()", function () {
         it("should return promise rejected", async function () {
             await assert.rejects(() => Kodi.check(""), {
@@ -27,13 +31,17 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return promise rejected with old version", async function () {
-            const fake = sinon.fake.resolves({ version: { major: 12 } });
-            const fixStub = sinon.stub(Kodi, "fix");
-            const openStub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: fake,
-                close: () => {},
-            });
+            const send = mock.fn(() =>
+                Promise.resolve({ version: { major: 12 } }),
+            );
+            const fix = mock.method(Kodi, "fix");
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send,
+                    close: () => {},
+                }),
+            );
 
             await assert.rejects(() => Kodi.check("foo.com"), {
                 name: "PebkacError",
@@ -41,28 +49,32 @@ describe("core/jsonrpc/kodi.js", function () {
                 type: "notSupported",
             });
 
-            assert.equal(openStub.callCount, 1);
-            assert.deepEqual(openStub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://foo.com:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "JSONRPC.Version",
                 undefined,
             ]);
             // Vérifier que la recherche d'une adresse alternative ne se fait
             // pas.
-            assert.equal(fixStub.callCount, 0);
+            assert.equal(fix.mock.callCount(), 0);
         });
 
         it("should return promise rejected with fix", async function () {
-            const fake = sinon.fake.rejects(new PebkacError("notFound", "foo"));
-            const fixStub = sinon.stub(Kodi, "fix").resolves("bar");
-            const openStub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: fake,
-                close: () => {},
-            });
+            const send = mock.fn(() =>
+                Promise.reject(new PebkacError("notFound", "foo")),
+            );
+            const fix = mock.method(Kodi, "fix", () => Promise.resolve("bar"));
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send,
+                    close: () => {},
+                }),
+            );
 
             await assert.rejects(() => Kodi.check("foo"), {
                 name: "PebkacError",
@@ -73,27 +85,33 @@ describe("core/jsonrpc/kodi.js", function () {
                 details: { fix: "bar" },
             });
 
-            assert.equal(openStub.callCount, 1);
-            assert.deepEqual(openStub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "JSONRPC.Version",
                 undefined,
             ]);
-            assert.equal(fixStub.callCount, 1);
-            assert.deepEqual(fixStub.firstCall.args, ["foo"]);
+            assert.equal(fix.mock.callCount(), 1);
+            assert.deepEqual(fix.mock.calls[0].arguments, ["foo"]);
         });
 
         it("should return promise rejected without fix", async function () {
-            const fake = sinon.fake.rejects(new PebkacError("notFound", "foo"));
-            const fixStub = sinon.stub(Kodi, "fix").resolves(undefined);
-            const openStub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: fake,
-                close: () => {},
-            });
+            const send = mock.fn(() =>
+                Promise.reject(new PebkacError("notFound", "foo")),
+            );
+            const fix = mock.method(Kodi, "fix", () =>
+                Promise.resolve(undefined),
+            );
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send,
+                    close: () => {},
+                }),
+            );
 
             await assert.rejects(() => Kodi.check("foo"), {
                 name: "PebkacError",
@@ -104,36 +122,40 @@ describe("core/jsonrpc/kodi.js", function () {
                 details: {},
             });
 
-            assert.equal(openStub.callCount, 1);
-            assert.deepEqual(openStub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "JSONRPC.Version",
                 undefined,
             ]);
-            assert.equal(fixStub.callCount, 1);
-            assert.deepEqual(fixStub.firstCall.args, ["foo"]);
+            assert.equal(fix.mock.callCount(), 1);
+            assert.deepEqual(fix.mock.calls[0].arguments, ["foo"]);
         });
 
         it("should return promise fulfilled", async function () {
-            const fake = sinon.fake.resolves({ version: { major: 13 } });
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: fake,
-                close: () => {},
-            });
+            const send = mock.fn(() =>
+                Promise.resolve({ version: { major: 13 } }),
+            );
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send,
+                    close: () => {},
+                }),
+            );
 
             const result = await Kodi.check("foo.com");
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://foo.com:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "JSONRPC.Version",
                 undefined,
             ]);
@@ -142,43 +164,53 @@ describe("core/jsonrpc/kodi.js", function () {
 
     describe("fix()", function () {
         it("should return alternative address", async function () {
-            const fake = sinon.fake.resolves("pong");
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: fake,
-                close: () => {},
-            });
+            const send = mock.fn(() => Promise.resolve("pong"));
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send,
+                    close: () => {},
+                }),
+            );
 
             const fix = await Kodi.fix("http://192.168.0.1:8080/foo");
             assert.equal(fix, "192.168.0.1");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://192.168.0.1:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, ["JSONRPC.Ping", undefined]);
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "JSONRPC.Ping",
+                undefined,
+            ]);
         });
 
         it("shouldn't return alternative address", async function () {
-            const fake = sinon.fake.rejects(
-                new PebkacError("notFound", "192.168.0.1"),
+            const send = mock.fn(() =>
+                Promise.reject(new PebkacError("notFound", "192.168.0.1")),
             );
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: fake,
-                close: () => {},
-            });
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send,
+                    close: () => {},
+                }),
+            );
 
             const fix = await Kodi.fix("http://192.168.0.1:8080/foo");
             assert.equal(fix, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://192.168.0.1:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, ["JSONRPC.Ping", undefined]);
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "JSONRPC.Ping",
+                undefined,
+            ]);
         });
     });
 
@@ -189,17 +221,19 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return URL when url is built", async function () {
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: () => Promise.resolve({}),
-            });
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send: () => Promise.resolve({}),
+                }),
+            );
 
             const kodi = new Kodi("localhost");
             await kodi.send("foo");
             assert.deepEqual(kodi.url, new URL("ws://localhost:9090/jsonrpc"));
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
         });
@@ -256,12 +290,14 @@ describe("core/jsonrpc/kodi.js", function () {
 
     describe("close()", function () {
         it("should close WebSocket", async function () {
-            const fake = sinon.fake();
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: () => Promise.resolve({}),
-                close: fake,
-            });
+            const close = mock.fn();
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send: () => Promise.resolve({}),
+                    close,
+                }),
+            );
 
             const kodi = new Kodi("localhost");
             await kodi.send("foo");
@@ -269,12 +305,12 @@ describe("core/jsonrpc/kodi.js", function () {
             // Fermer la connexion une deuxième fois (qui a aucun effet).
             kodi.close();
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, []);
+            assert.equal(close.mock.callCount(), 1);
+            assert.deepEqual(close.mock.calls[0].arguments, []);
         });
     });
 
@@ -306,9 +342,9 @@ describe("core/jsonrpc/kodi.js", function () {
         });
 
         it("should return error when receive 400", async function () {
-            const stub = sinon
-                .stub(JSONRPCClient, "open")
-                .rejects(new Error("foo"));
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.reject(new Error("foo")),
+            );
 
             const kodi = new Kodi("bar");
             await assert.rejects(() => kodi.send("Baz"), {
@@ -319,18 +355,20 @@ describe("core/jsonrpc/kodi.js", function () {
                 type: "notFound",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://bar:9090/jsonrpc"),
             ]);
         });
 
         it("should return error when receive Kodi's error", async function () {
-            const fake = sinon.fake.rejects(new Error("FooError"));
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: fake,
-            });
+            const send = mock.fn(() => Promise.reject(new Error("FooError")));
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send,
+                }),
+            );
 
             const kodi = new Kodi("localhost");
             await assert.rejects(() => kodi.send("Foo"), {
@@ -338,20 +376,22 @@ describe("core/jsonrpc/kodi.js", function () {
                 message: "FooError",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, ["Foo", undefined]);
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, ["Foo", undefined]);
         });
 
         it("should send request", async function () {
-            const fake = sinon.fake.resolves("OK");
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                send: fake,
-            });
+            const send = mock.fn(() => Promise.resolve("OK"));
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    send,
+                }),
+            );
 
             const kodi = new Kodi("foo");
             let result = await kodi.send("Bar.Baz");
@@ -359,13 +399,16 @@ describe("core/jsonrpc/kodi.js", function () {
             result = await kodi.send("Qux.Quux", 42);
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 2);
-            assert.deepEqual(fake.firstCall.args, ["Bar.Baz", undefined]);
-            assert.deepEqual(fake.secondCall.args, ["Qux.Quux", 42]);
+            assert.equal(send.mock.callCount(), 2);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "Bar.Baz",
+                undefined,
+            ]);
+            assert.deepEqual(send.mock.calls[1].arguments, ["Qux.Quux", 42]);
         });
 
         it("should send request from configuration", async function () {
@@ -376,12 +419,14 @@ describe("core/jsonrpc/kodi.js", function () {
                 ],
                 "server-active": 0,
             });
-            const fake = sinon.fake.resolves("OK");
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: () => {},
-                close: () => {},
-                send: fake,
-            });
+            const send = mock.fn(() => Promise.resolve("OK"));
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: () => {},
+                    close: () => {},
+                    send,
+                }),
+            );
 
             const kodi = new Kodi();
             let result = await kodi.send("Foo.Bar");
@@ -391,27 +436,32 @@ describe("core/jsonrpc/kodi.js", function () {
             result = await kodi.send("Baz.Qux", true);
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 2);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 2);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://localhost:9090/jsonrpc"),
             ]);
-            assert.deepEqual(stub.secondCall.args, [
+            assert.deepEqual(open.mock.calls[1].arguments, [
                 new URL("ws://127.0.0.1:9090/jsonrpc"),
             ]);
-            assert.equal(fake.callCount, 2);
-            assert.deepEqual(fake.firstCall.args, ["Foo.Bar", undefined]);
-            assert.deepEqual(fake.secondCall.args, ["Baz.Qux", true]);
+            assert.equal(send.mock.callCount(), 2);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "Foo.Bar",
+                undefined,
+            ]);
+            assert.deepEqual(send.mock.calls[1].arguments, ["Baz.Qux", true]);
         });
 
         it("should listen close event", async function () {
             const listeners = {};
-            const stub = sinon.stub(JSONRPCClient, "open").resolves({
-                addEventListener: (type, listener) => {
-                    listeners[type] = listener;
-                },
-                close: () => {},
-                send: () => Promise.resolve({ corge: true }),
-            });
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
+                    addEventListener: (type, listener) => {
+                        listeners[type] = listener;
+                    },
+                    close: () => {},
+                    send: () => Promise.resolve({ corge: true }),
+                }),
+            );
 
             const kodi = new Kodi("foo");
             let result = await kodi.send("Bar.Baz");
@@ -420,29 +470,29 @@ describe("core/jsonrpc/kodi.js", function () {
             result = await kodi.send("Qux.Quux");
             assert.deepEqual(result, { corge: true });
 
-            assert.equal(stub.callCount, 2);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(open.mock.callCount(), 2);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-            assert.deepEqual(stub.secondCall.args, [
+            assert.deepEqual(open.mock.calls[1].arguments, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
         });
 
         it("should listen notification event", async function () {
             const listeners = {};
-            const stubJSONRPCClient = sinon
-                .stub(JSONRPCClient, "open")
-                .resolves({
+            const open = mock.method(JSONRPCClient, "open", () =>
+                Promise.resolve({
                     addEventListener: (type, listener) => {
                         listeners[type] = listener;
                     },
                     close: () => {},
                     send: () => Promise.resolve({}),
-                });
+                }),
+            );
 
             const kodi = new Kodi("foo");
-            const stubApplication = sinon.stub(
+            const handleNotification = mock.method(
                 kodi.application,
                 "handleNotification",
             );
@@ -454,20 +504,26 @@ describe("core/jsonrpc/kodi.js", function () {
                 }),
             );
 
-            assert.equal(stubJSONRPCClient.callCount, 1);
-            assert.deepEqual(stubJSONRPCClient.firstCall.args, [
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, [
                 new URL("ws://foo:9090/jsonrpc"),
             ]);
-            assert.equal(stubApplication.callCount, 1);
-            assert.equal(stubApplication.firstCall.args.length, 1);
+            assert.equal(handleNotification.mock.callCount(), 1);
+            assert.equal(handleNotification.mock.calls[0].arguments.length, 1);
             assert.equal(
-                stubApplication.firstCall.args[0].type,
+                handleNotification.mock.calls[0].arguments[0].type,
                 "notification",
             );
-            assert.equal(stubApplication.firstCall.args[0].method, "Qux");
-            assert.deepEqual(stubApplication.firstCall.args[0].params, {
-                data: "Quux",
-            });
+            assert.equal(
+                handleNotification.mock.calls[0].arguments[0].method,
+                "Qux",
+            );
+            assert.deepEqual(
+                handleNotification.mock.calls[0].arguments[0].params,
+                {
+                    data: "Quux",
+                },
+            );
         });
     });
 });

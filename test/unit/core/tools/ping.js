@@ -4,19 +4,25 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { ping } from "../../../../src/core/tools/ping.js";
 
 describe("core/tools/ping.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("ping()", function () {
         it("should return true", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves();
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(),
+            );
 
             const ok = await ping("https://foo.com/");
             assert.equal(ok, true);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://foo.com/",
                 {
                     method: "HEAD",
@@ -26,14 +32,16 @@ describe("core/tools/ping.js", function () {
         });
 
         it("should return false", async function () {
-            const stub = sinon.stub(globalThis, "fetch").rejects();
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.reject(new Error("foo")),
+            );
 
-            const ok = await ping("https://foo.com/");
+            const ok = await ping("https://bar.com/");
             assert.equal(ok, false);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
-                "https://foo.com/",
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
+                "https://bar.com/",
                 {
                     method: "HEAD",
                     credentials: "omit",

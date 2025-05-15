@@ -21,7 +21,7 @@ describe("core/scraper/primevideo.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -37,7 +37,7 @@ describe("core/scraper/primevideo.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div id="a-page">
                                  <script type="text/template">${JSON.stringify({
                                      props: {

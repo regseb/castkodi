@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/jv.js";
 
 describe("core/scraper/jv.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.jvlemag.com/");
@@ -34,7 +38,7 @@ describe("core/scraper/jv.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="fr"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -46,19 +50,19 @@ describe("core/scraper/jv.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stubFetch = sinon
-                .stub(globalThis, "fetch")
-                .resolves(Response.json({ options: { video: "foo" } }));
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(Response.json({ options: { video: "foo" } })),
+            );
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.jeuxvideo.com/bar");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <div data-src-video="/baz/qux.php"></div>
                              </body></html>`,
                             "text/html",
@@ -73,12 +77,12 @@ describe("core/scraper/jv.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
             );
 
-            assert.equal(stubFetch.callCount, 1);
-            assert.deepEqual(stubFetch.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.jeuxvideo.com/baz/qux.php"),
             ]);
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

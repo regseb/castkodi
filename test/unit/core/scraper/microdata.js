@@ -23,7 +23,7 @@ describe("core/scraper/microdata.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -40,7 +40,7 @@ describe("core/scraper/microdata.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div itemscope
                                     itemtype="http://schema.org/Event">
                                  <meta itemprop="url"
@@ -63,7 +63,7 @@ describe("core/scraper/microdata.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div itemscope
                                     itemtype="http://schema.org/VideoObject">
                                  <meta itemprop="image"
@@ -86,7 +86,7 @@ describe("core/scraper/microdata.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div itemscope
                                     itemtype="http://schema.org/Person">
                                  <span itemprop="name">Bar</span>

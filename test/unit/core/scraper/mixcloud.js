@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/mixcloud.js";
 
 describe("core/scraper/mixcloud.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.mixcloud.com/upload/");
@@ -25,7 +29,9 @@ describe("core/scraper/mixcloud.js", function () {
         });
 
         it("should return audio id", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.mixcloud.com/foo/bar/");
 
@@ -35,14 +41,20 @@ describe("core/scraper/mixcloud.js", function () {
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["audio", "video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, [
+                "audio",
+                "video",
+            ]);
         });
 
         it("should return audio id to mixcloud", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.audio.mixcloud", "plugin.video.sendtokodi"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([
+                    "plugin.audio.mixcloud",
+                    "plugin.video.sendtokodi",
+                ]),
+            );
 
             const url = new URL("https://www.mixcloud.com/foo/bar/");
 
@@ -52,14 +64,17 @@ describe("core/scraper/mixcloud.js", function () {
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["audio", "video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, [
+                "audio",
+                "video",
+            ]);
         });
 
         it("should return video url to sendtokodi", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.sendtokodi"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve(["plugin.video.sendtokodi"]),
+            );
 
             const url = new URL("https://www.mixcloud.com/foo/bar/");
 
@@ -70,8 +85,11 @@ describe("core/scraper/mixcloud.js", function () {
                     "?https://www.mixcloud.com/foo/bar/",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["audio", "video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, [
+                "audio",
+                "video",
+            ]);
         });
     });
 });

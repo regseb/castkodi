@@ -4,10 +4,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import * as labeler from "../../../../src/core/labeler/twitch.js";
 
 describe("core/labeler/twitch.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extractClip()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://appeals.twitch.tv/");
@@ -17,19 +21,19 @@ describe("core/labeler/twitch.js", function () {
         });
 
         it("should return embed clip label", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
                     Response.json([{ data: { clip: { title: "foo" } } }]),
-                );
+                ),
+            );
 
             const url = new URL("https://clips.twitch.tv/embed?clip=bar");
 
             const label = await labeler.extractClip(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://gql.twitch.tv/gql",
                 {
                     headers: { "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko" },
@@ -60,19 +64,19 @@ describe("core/labeler/twitch.js", function () {
         });
 
         it("should return clip label", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
                     Response.json([{ data: { clip: { title: "foo" } } }]),
-                );
+                ),
+            );
 
             const url = new URL("https://clips.twitch.tv/bar");
 
             const label = await labeler.extractClip(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://gql.twitch.tv/gql",
                 {
                     headers: { "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko" },
@@ -105,19 +109,19 @@ describe("core/labeler/twitch.js", function () {
         });
 
         it("should return video label", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
                     Response.json([{ data: { video: { title: "foo" } } }]),
-                );
+                ),
+            );
 
             const url = new URL("https://www.twitch.tv/videos/bar");
 
             const label = await labeler.extract(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://gql.twitch.tv/gql",
                 {
                     headers: { "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko" },
@@ -148,19 +152,19 @@ describe("core/labeler/twitch.js", function () {
         });
 
         it("should return clip label", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
                     Response.json([{ data: { clip: { title: "foo" } } }]),
-                );
+                ),
+            );
 
             const url = new URL("https://www.twitch.tv/bar/clip/baz");
 
             const label = await labeler.extract(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://gql.twitch.tv/gql",
                 {
                     headers: { "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko" },
@@ -184,21 +188,21 @@ describe("core/labeler/twitch.js", function () {
         });
 
         it("should return live label", async function () {
-            const stub = sinon
-                .stub(globalThis, "fetch")
-                .resolves(
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
                     Response.json([
                         { data: { userOrError: { displayName: "foo" } } },
                     ]),
-                );
+                ),
+            );
 
             const url = new URL("https://www.twitch.tv/bar");
 
             const label = await labeler.extract(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://gql.twitch.tv/gql",
                 {
                     headers: { "Client-Id": "kimne78kx3ncx6brgo4mv6wki5h1ko" },

@@ -51,10 +51,9 @@ describe("core/scraper/viously.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                            <html lang="fr"><body>
-                              <div id="bar"></div>
-                            </body></html>`,
+                            `<html lang="fr"><body>
+                               <div id="bar"></div>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -70,10 +69,9 @@ describe("core/scraper/viously.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                            <html lang="fr"><body>
-                              <div class="vsly-player" id="bar"></div>
-                            </body></html>`,
+                            `<html lang="fr"><body>
+                               <div class="vsly-player" id="bar"></div>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),

@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/stargr.js";
 
 describe("core/scraper/stargr.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extractTv()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://disney.fr/disney-plus-star");
@@ -23,9 +27,7 @@ describe("core/scraper/stargr.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
-                               <div></div>
-                             </body></html>`,
+                            '<html lang="gr"><body><div></div></body></html>',
                             "text/html",
                         ),
                     ),
@@ -41,14 +43,14 @@ describe("core/scraper/stargr.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <div data-plugin-bitmovinv5="${JSON.stringify({
-                          BitMovin: {
-                              ConfigUrl: "https://baz.gr/manifest.m3u8",
-                          },
-                      }).replaceAll('"', "&quot;")}"></div>
-                    </body></html>`,
+                            `<html lang="gr"><body>
+                               <div data-plugin-bitmovinv5="${JSON.stringify({
+                                   BitMovin: {
+                                       ConfigUrl:
+                                           "https://baz.gr/manifest.m3u8",
+                                   },
+                               }).replaceAll('"', "&quot;")}"></div>
+                              </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -73,7 +75,7 @@ describe("core/scraper/stargr.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="gr"><body>
                                <iframe></iframe>
                                <script></script>
                              </body></html>`,
@@ -88,21 +90,21 @@ describe("core/scraper/stargr.js", function () {
         });
 
         it("should return undefined when it's depth", async function () {
-            const spy = sinon.spy(kodi.addons, "getAddons");
+            const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://www.star.gr/video/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <!-- Coller le "style" et la "src", car c'est le cas dans
-                           les pages de StarGR. -->
-                      <iframe id="yt-player"
-                              style=""src="https://www.youtube.com/embed/bar"
-                        ></iframe>
-                    </body></html>`,
+                            `<html lang="gr"><body>
+                               <!-- Coller le "style" et la "src", car c'est le
+                                    cas dans les pages de StarGR. -->
+                               <iframe
+                                 id="yt-player"
+                                 style=""src="https://www.youtube.com/embed/bar"
+                               ></iframe>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -112,7 +114,7 @@ describe("core/scraper/stargr.js", function () {
             const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(getAddons.mock.callCount(), 0);
         });
 
         it("should return undefined when sub-page doesn't have media", async function () {
@@ -121,13 +123,14 @@ describe("core/scraper/stargr.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <!-- Coller le "style" et la "src", car c'est le cas dans
-                           les pages de StarGR. -->
-                      <iframe id="yt-player"
-                              style=""src="https://www.youtube.com/"></iframe>
-                    </body></html>`,
+                            `<html lang="gr"><body>
+                               <!-- Coller le "style" et la "src", car c'est le
+                                    cas dans les pages de StarGR. -->
+                               <iframe
+                                 id="yt-player"
+                                 style=""src="https://www.youtube.com/"
+                               ></iframe>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -139,21 +142,23 @@ describe("core/scraper/stargr.js", function () {
         });
 
         it("should return video YouTube id", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.star.gr/video/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <!-- Coller le "style" et la "src", car c'est le cas dans
-                           les pages de StarGR. -->
-                      <iframe id="yt-player"
-                              style=""src="https://www.youtube.com/embed/bar"
-                        ></iframe>
-                    </body></html>`,
+                            `<html lang="gr"><body>
+                               <!-- Coller le "style" et la "src", car c'est le
+                                    cas dans les pages de StarGR. -->
+                               <iframe
+                                 id="yt-player"
+                                 style=""src="https://www.youtube.com/embed/bar"
+                               ></iframe>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -167,8 +172,8 @@ describe("core/scraper/stargr.js", function () {
                     "?video_id=bar&incognito=false",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

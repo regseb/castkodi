@@ -4,24 +4,28 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { Playlist } from "../../../../src/core/jsonrpc/playlist.js";
 import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
 
 describe("core/jsonrpc/playlist.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("add()", function () {
         it("should send request", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves("OK");
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
             const playlist = new Playlist(kodi);
             const file = "foo";
             const result = await playlist.add(file);
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.Add",
                 { playlistid: 1, item: { file } },
             ]);
@@ -31,14 +35,14 @@ describe("core/jsonrpc/playlist.js", function () {
     describe("clear()", function () {
         it("should send request", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves("OK");
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
             const playlist = new Playlist(kodi);
             const result = await playlist.clear();
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.Clear",
                 { playlistid: 1 },
             ]);
@@ -48,9 +52,9 @@ describe("core/jsonrpc/playlist.js", function () {
     describe("getItems()", function () {
         it("should return items", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves({
-                items: [{ foo: "bar" }, { foo: "baz" }],
-            });
+            const send = mock.method(kodi, "send", () =>
+                Promise.resolve({ items: [{ foo: "bar" }, { foo: "baz" }] }),
+            );
 
             const playlist = new Playlist(kodi);
             const result = await playlist.getItems();
@@ -59,8 +63,8 @@ describe("core/jsonrpc/playlist.js", function () {
                 { foo: "baz", position: 1 },
             ]);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.GetItems",
                 { playlistid: 1, properties: ["file", "title"] },
             ]);
@@ -68,14 +72,14 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should return an empty array when no items", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves({});
+            const send = mock.method(kodi, "send", () => Promise.resolve({}));
 
             const playlist = new Playlist(kodi);
             const result = await playlist.getItems();
             assert.deepEqual(result, []);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.GetItems",
                 { playlistid: 1, properties: ["file", "title"] },
             ]);
@@ -85,15 +89,17 @@ describe("core/jsonrpc/playlist.js", function () {
     describe("getItem()", function () {
         it("should return item", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves({ items: ["foo"] });
+            const send = mock.method(kodi, "send", () =>
+                Promise.resolve({ items: ["foo"] }),
+            );
 
             const playlist = new Playlist(kodi);
             const position = 42;
             const result = await playlist.getItem(position);
             assert.equal(result, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
@@ -105,15 +111,15 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should return undefined when no item", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves({});
+            const send = mock.method(kodi, "send", () => Promise.resolve({}));
 
             const playlist = new Playlist(kodi);
             const position = 42;
             const result = await playlist.getItem(position);
             assert.equal(result, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
@@ -127,7 +133,7 @@ describe("core/jsonrpc/playlist.js", function () {
     describe("insert()", function () {
         it("should send request", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves("OK");
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
             const playlist = new Playlist(kodi);
             const file = "foo";
@@ -135,8 +141,8 @@ describe("core/jsonrpc/playlist.js", function () {
             const result = await playlist.insert(file, position);
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.Insert",
                 { playlistid: 1, position, item: { file } },
             ]);
@@ -146,15 +152,15 @@ describe("core/jsonrpc/playlist.js", function () {
     describe("remove()", function () {
         it("should send request", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves("OK");
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
             const playlist = new Playlist(kodi);
             const position = 42;
             const result = await playlist.remove(position);
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.Remove",
                 { playlistid: 1, position },
             ]);
@@ -164,7 +170,7 @@ describe("core/jsonrpc/playlist.js", function () {
     describe("swap()", function () {
         it("should send request", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves("OK");
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
             const playlist = new Playlist(kodi);
             const position1 = 42;
@@ -172,8 +178,8 @@ describe("core/jsonrpc/playlist.js", function () {
             const result = await playlist.swap(position1, position2);
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.Swap",
                 { playlistid: 1, position1, position2 },
             ]);
@@ -183,7 +189,7 @@ describe("core/jsonrpc/playlist.js", function () {
     describe("move()", function () {
         it("should move before", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves("OK");
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
             const playlist = new Playlist(kodi);
             const position = 2;
@@ -191,12 +197,12 @@ describe("core/jsonrpc/playlist.js", function () {
             const result = await playlist.move(position, destination);
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 2);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 2);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 2, position2: 1 },
             ]);
-            assert.deepEqual(stub.secondCall.args, [
+            assert.deepEqual(send.mock.calls[1].arguments, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 1, position2: 0 },
             ]);
@@ -204,7 +210,7 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should move after", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves("OK");
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
             const playlist = new Playlist(kodi);
             const position = 1;
@@ -212,16 +218,16 @@ describe("core/jsonrpc/playlist.js", function () {
             const result = await playlist.move(position, destination);
             assert.equal(result, "OK");
 
-            assert.equal(stub.callCount, 3);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 3);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 1, position2: 2 },
             ]);
-            assert.deepEqual(stub.secondCall.args, [
+            assert.deepEqual(send.mock.calls[1].arguments, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 2, position2: 3 },
             ]);
-            assert.deepEqual(stub.thirdCall.args, [
+            assert.deepEqual(send.mock.calls[2].arguments, [
                 "Playlist.Swap",
                 { playlistid: 1, position1: 3, position2: 4 },
             ]);
@@ -229,28 +235,28 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should not move", async function () {
             const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
+            const send = mock.method(kodi, "send");
 
             const playlist = new Playlist(kodi);
             const result = await playlist.move(42, 42);
             assert.equal(result, "OK");
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(send.mock.callCount(), 0);
         });
     });
 
     describe("handleNotification()", function () {
         it("should ignore others namespaces", async function () {
             const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fakeAdd = sinon.fake();
-            const fakeClear = sinon.fake();
-            const fakeRemove = sinon.fake();
+            const send = mock.method(kodi, "send");
+            const addListener = mock.fn();
+            const clearListener = mock.fn();
+            const removeListener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onAdd.addListener(fakeAdd);
-            playlist.onClear.addListener(fakeClear);
-            playlist.onRemove.addListener(fakeRemove);
+            playlist.onAdd.addListener(addListener);
+            playlist.onClear.addListener(clearListener);
+            playlist.onRemove.addListener(removeListener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     // Utiliser un espace de 9 caractères pour avoir la même
@@ -260,15 +266,15 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
-            assert.equal(fakeAdd.callCount, 0);
-            assert.equal(fakeClear.callCount, 0);
-            assert.equal(fakeRemove.callCount, 0);
+            assert.equal(send.mock.callCount(), 0);
+            assert.equal(addListener.mock.callCount(), 0);
+            assert.equal(clearListener.mock.callCount(), 0);
+            assert.equal(removeListener.mock.callCount(), 0);
         });
 
         it("should ignore when no listener on add", async function () {
             const playlist = new Playlist(new Kodi());
-            const spy = sinon.spy(playlist.onAdd, "dispatch");
+            const dispatch = mock.method(playlist.onAdd, "dispatch");
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnAdd",
@@ -276,12 +282,12 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(dispatch.mock.callCount(), 0);
         });
 
         it("should ignore when no listener on clear", async function () {
             const playlist = new Playlist(new Kodi());
-            const spy = sinon.spy(playlist.onClear, "dispatch");
+            const dispatch = mock.method(playlist.onClear, "dispatch");
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnClear",
@@ -289,12 +295,12 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(dispatch.mock.callCount(), 0);
         });
 
         it("should ignore when no listener on remove", async function () {
             const playlist = new Playlist(new Kodi());
-            const spy = sinon.spy(playlist.onRemove, "dispatch");
+            const dispatch = mock.method(playlist.onRemove, "dispatch");
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnRemove",
@@ -302,20 +308,20 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(dispatch.mock.callCount(), 0);
         });
 
         it("should ignore others playlists", async function () {
             const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fakeAdd = sinon.fake();
-            const fakeClear = sinon.fake();
-            const fakeRemove = sinon.fake();
+            const send = mock.method(kodi, "send");
+            const addListener = mock.fn();
+            const clearListener = mock.fn();
+            const removeListener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onAdd.addListener(fakeAdd);
-            playlist.onClear.addListener(fakeClear);
-            playlist.onRemove.addListener(fakeRemove);
+            playlist.onAdd.addListener(addListener);
+            playlist.onClear.addListener(clearListener);
+            playlist.onRemove.addListener(removeListener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnAdd",
@@ -323,21 +329,21 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
-            assert.equal(fakeAdd.callCount, 0);
-            assert.equal(fakeClear.callCount, 0);
-            assert.equal(fakeRemove.callCount, 0);
+            assert.equal(send.mock.callCount(), 0);
+            assert.equal(addListener.mock.callCount(), 0);
+            assert.equal(clearListener.mock.callCount(), 0);
+            assert.equal(removeListener.mock.callCount(), 0);
         });
 
         it("should handle 'OnAdd'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves({
-                items: [{ foo: "bar" }],
-            });
-            const fake = sinon.fake();
+            const send = mock.method(kodi, "send", () =>
+                Promise.resolve({ items: [{ foo: "bar" }] }),
+            );
+            const listener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onAdd.addListener(fake);
+            playlist.onAdd.addListener(listener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnAdd",
@@ -345,8 +351,8 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
@@ -354,8 +360,8 @@ describe("core/jsonrpc/playlist.js", function () {
                     limits: { start: 2, end: 3 },
                 },
             ]);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [
+            assert.equal(listener.mock.callCount(), 1);
+            assert.deepEqual(listener.mock.calls[0].arguments, [
                 {
                     foo: "bar",
                     position: 2,
@@ -365,17 +371,17 @@ describe("core/jsonrpc/playlist.js", function () {
 
         it("should only handle 'OnAdd'", async function () {
             const kodi = new Kodi();
-            const stub = sinon.stub(kodi, "send").resolves({
-                items: [{ foo: "bar" }],
-            });
-            const fakeAdd = sinon.fake();
-            const fakeClear = sinon.fake();
-            const fakeRemove = sinon.fake();
+            const send = mock.method(kodi, "send", () =>
+                Promise.resolve({ items: [{ foo: "bar" }] }),
+            );
+            const addListener = mock.fn();
+            const clearListener = mock.fn();
+            const removeListener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onAdd.addListener(fakeAdd);
-            playlist.onClear.addListener(fakeClear);
-            playlist.onRemove.addListener(fakeRemove);
+            playlist.onAdd.addListener(addListener);
+            playlist.onClear.addListener(clearListener);
+            playlist.onRemove.addListener(removeListener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnAdd",
@@ -383,8 +389,8 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
                 "Playlist.GetItems",
                 {
                     playlistid: 1,
@@ -392,24 +398,21 @@ describe("core/jsonrpc/playlist.js", function () {
                     limits: { start: 2, end: 3 },
                 },
             ]);
-            assert.equal(fakeAdd.callCount, 1);
-            assert.deepEqual(fakeAdd.firstCall.args, [
-                {
-                    foo: "bar",
-                    position: 2,
-                },
+            assert.equal(addListener.mock.callCount(), 1);
+            assert.deepEqual(addListener.mock.calls[0].arguments, [
+                { foo: "bar", position: 2 },
             ]);
-            assert.equal(fakeClear.callCount, 0);
-            assert.equal(fakeRemove.callCount, 0);
+            assert.equal(clearListener.mock.callCount(), 0);
+            assert.equal(removeListener.mock.callCount(), 0);
         });
 
         it("should handle 'OnClear'", async function () {
             const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fake = sinon.fake();
+            const send = mock.method(kodi, "send");
+            const listener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onClear.addListener(fake);
+            playlist.onClear.addListener(listener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnClear",
@@ -417,22 +420,22 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [undefined]);
+            assert.equal(send.mock.callCount(), 0);
+            assert.equal(listener.mock.callCount(), 1);
+            assert.deepEqual(listener.mock.calls[0].arguments, [undefined]);
         });
 
         it("should only handle 'OnClear'", async function () {
             const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fakeAdd = sinon.fake();
-            const fakeClear = sinon.fake();
-            const fakeRemove = sinon.fake();
+            const send = mock.method(kodi, "send");
+            const addListener = mock.fn();
+            const clearListener = mock.fn();
+            const removeListener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onAdd.addListener(fakeAdd);
-            playlist.onClear.addListener(fakeClear);
-            playlist.onRemove.addListener(fakeRemove);
+            playlist.onAdd.addListener(addListener);
+            playlist.onClear.addListener(clearListener);
+            playlist.onRemove.addListener(removeListener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnClear",
@@ -440,20 +443,22 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
-            assert.equal(fakeAdd.callCount, 0);
-            assert.equal(fakeClear.callCount, 1);
-            assert.deepEqual(fakeClear.firstCall.args, [undefined]);
-            assert.equal(fakeRemove.callCount, 0);
+            assert.equal(send.mock.callCount(), 0);
+            assert.equal(addListener.mock.callCount(), 0);
+            assert.equal(clearListener.mock.callCount(), 1);
+            assert.deepEqual(clearListener.mock.calls[0].arguments, [
+                undefined,
+            ]);
+            assert.equal(removeListener.mock.callCount(), 0);
         });
 
         it("should handle 'OnRemove'", async function () {
             const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fake = sinon.fake();
+            const send = mock.method(kodi, "send");
+            const listener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onRemove.addListener(fake);
+            playlist.onRemove.addListener(listener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnRemove",
@@ -461,22 +466,22 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
-            assert.equal(fake.callCount, 1);
-            assert.deepEqual(fake.firstCall.args, [2]);
+            assert.equal(send.mock.callCount(), 0);
+            assert.equal(listener.mock.callCount(), 1);
+            assert.deepEqual(listener.mock.calls[0].arguments, [2]);
         });
 
         it("should only handle 'OnRemove'", async function () {
             const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fakeAdd = sinon.fake();
-            const fakeClear = sinon.fake();
-            const fakeRemove = sinon.fake();
+            const send = mock.method(kodi, "send");
+            const addListener = mock.fn();
+            const clearListener = mock.fn();
+            const removeListener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onAdd.addListener(fakeAdd);
-            playlist.onClear.addListener(fakeClear);
-            playlist.onRemove.addListener(fakeRemove);
+            playlist.onAdd.addListener(addListener);
+            playlist.onClear.addListener(clearListener);
+            playlist.onRemove.addListener(removeListener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.OnRemove",
@@ -484,24 +489,24 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
-            assert.equal(fakeAdd.callCount, 0);
-            assert.equal(fakeClear.callCount, 0);
-            assert.equal(fakeRemove.callCount, 1);
-            assert.deepEqual(fakeRemove.firstCall.args, [2]);
+            assert.equal(send.mock.callCount(), 0);
+            assert.equal(addListener.mock.callCount(), 0);
+            assert.equal(clearListener.mock.callCount(), 0);
+            assert.equal(removeListener.mock.callCount(), 1);
+            assert.deepEqual(removeListener.mock.calls[0].arguments, [2]);
         });
 
         it("should ignore others notifications", async function () {
             const kodi = new Kodi();
-            const spy = sinon.spy(kodi, "send");
-            const fakeAdd = sinon.fake();
-            const fakeClear = sinon.fake();
-            const fakeRemove = sinon.fake();
+            const send = mock.method(kodi, "send");
+            const addListener = mock.fn();
+            const clearListener = mock.fn();
+            const removeListener = mock.fn();
 
             const playlist = new Playlist(kodi);
-            playlist.onAdd.addListener(fakeAdd);
-            playlist.onClear.addListener(fakeClear);
-            playlist.onRemove.addListener(fakeRemove);
+            playlist.onAdd.addListener(addListener);
+            playlist.onClear.addListener(clearListener);
+            playlist.onRemove.addListener(removeListener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
                     method: "Playlist.Other",
@@ -509,10 +514,10 @@ describe("core/jsonrpc/playlist.js", function () {
                 }),
             );
 
-            assert.equal(spy.callCount, 0);
-            assert.equal(fakeAdd.callCount, 0);
-            assert.equal(fakeClear.callCount, 0);
-            assert.equal(fakeRemove.callCount, 0);
+            assert.equal(send.mock.callCount(), 0);
+            assert.equal(addListener.mock.callCount(), 0);
+            assert.equal(clearListener.mock.callCount(), 0);
+            assert.equal(removeListener.mock.callCount(), 0);
         });
     });
 });

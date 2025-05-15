@@ -21,7 +21,7 @@ describe("core/scraper/vidlox.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script></script>
                              </body></html>`,
                             "text/html",
@@ -39,7 +39,7 @@ describe("core/scraper/vidlox.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script>
                                  var player = new Clappr.Player({
                                    sources: ["https://bar.baz/qux.m3u8","QUUX"]

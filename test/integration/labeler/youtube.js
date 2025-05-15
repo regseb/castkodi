@@ -4,12 +4,16 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
 describe("Labeler: YouTube", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     it("should return video label", async function () {
         await browser.storage.local.set({ "youtube-playlist": "video" });
 
@@ -60,7 +64,9 @@ describe("Labeler: YouTube", function () {
 
     it("should return unavailable label", async function () {
         await browser.storage.local.set({ "youtube-playlist": "video" });
-        sinon.stub(kodi.addons, "getAddons").resolves(["plugin.video.tubed"]);
+        mock.method(kodi.addons, "getAddons", () =>
+            Promise.resolve(["plugin.video.tubed"]),
+        );
 
         const url = new URL("https://www.youtube.com/watch?v=v_cwYv4K2vo");
         const context = { depth: false, incognito: false };
@@ -84,7 +90,9 @@ describe("Labeler: YouTube", function () {
 
     it("should return unavailable label for private video", async function () {
         await browser.storage.local.set({ "youtube-playlist": "video" });
-        sinon.stub(kodi.addons, "getAddons").resolves(["plugin.video.tubed"]);
+        mock.method(kodi.addons, "getAddons", () =>
+            Promise.resolve(["plugin.video.tubed"]),
+        );
 
         const url = new URL("https://www.youtube.com/watch?v=4fVLxS3BMpQ");
         const context = { depth: false, incognito: false };
@@ -108,7 +116,9 @@ describe("Labeler: YouTube", function () {
 
     it("should return playlist label", async function () {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
-        sinon.stub(kodi.addons, "getAddons").resolves(["plugin.video.youtube"]);
+        mock.method(kodi.addons, "getAddons", () =>
+            Promise.resolve(["plugin.video.youtube"]),
+        );
 
         const url = new URL(
             "https://www.youtube.com/playlist?list=PL6B3937A5D230E335",
@@ -134,9 +144,9 @@ describe("Labeler: YouTube", function () {
 
     it("should return mix label", async function () {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
-        sinon
-            .stub(kodi.addons, "getAddons")
-            .resolves(["plugin.video.tubed", "plugin.video.youtube"]);
+        mock.method(kodi.addons, "getAddons", () =>
+            Promise.resolve(["plugin.video.tubed", "plugin.video.youtube"]),
+        );
 
         const url = new URL(
             "https://www.youtube.com/watch?v=Yrm_kb1d-Xc" +

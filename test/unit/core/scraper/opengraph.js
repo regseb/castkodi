@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/opengraph.js";
 
 describe("core/scraper/opengraph.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extractVideo()", function () {
         it("should return undefined when it isn't HTML", async function () {
             const url = new URL("https://foo.com");
@@ -25,7 +29,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:video:type"
                                      content="video/mp4" />
                                <meta property="og:video" content="" />
@@ -46,7 +50,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:video"
                                      content="https://bar.com/baz.hls" />
                              </head></html>`,
@@ -66,7 +70,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:video:type"
                                      content="video/web" />
                                <meta property="og:video"
@@ -83,14 +87,14 @@ describe("core/scraper/opengraph.js", function () {
         });
 
         it("should return undefined when type isn't supported", async function () {
-            const spy = sinon.stub(globalThis, "fetch");
+            const fetch = mock.method(globalThis, "fetch");
 
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:video:type"
                                      content="application/pdf" />
                                <meta property="og:video"
@@ -105,7 +109,7 @@ describe("core/scraper/opengraph.js", function () {
             const file = await scraper.extractVideo(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(fetch.mock.callCount(), 0);
         });
 
         it("should return undefined when it's depther", async function () {
@@ -114,7 +118,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:video:type"
                                      content="text/html" />
                                <meta property="og:video"
@@ -136,7 +140,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:video:type"
                                      content="text/html" />
                                <meta property="og:video"
@@ -153,14 +157,16 @@ describe("core/scraper/opengraph.js", function () {
         });
 
         it("should return plugin URL", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:video:type"
                                      content="text/html" />
                                <meta property="og:video"
@@ -178,8 +184,8 @@ describe("core/scraper/opengraph.js", function () {
                 "plugin://plugin.video.twitch/?mode=play&channel_name=foo",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 
@@ -199,7 +205,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:audio:type"
                                      content="audio/mpeg" />
                                <meta property="og:audio" content="" />
@@ -220,7 +226,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:audio"
                                      content="https://bar.com/baz.mp3" />
                              </head></html>`,
@@ -240,7 +246,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:audio:type"
                                      content="audio/x-wav" />
                                <meta property="og:audio:secure_url"
@@ -257,14 +263,14 @@ describe("core/scraper/opengraph.js", function () {
         });
 
         it("should return undefined when type isn't supported", async function () {
-            const spy = sinon.stub(globalThis, "fetch");
+            const fetch = mock.method(globalThis, "fetch");
 
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:audio:type"
                                      content="bar/baz" />
                                <meta property="og:audio"
@@ -279,7 +285,7 @@ describe("core/scraper/opengraph.js", function () {
             const file = await scraper.extractAudio(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(fetch.mock.callCount(), 0);
         });
 
         it("should return undefined when it's depther", async function () {
@@ -288,7 +294,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:audio:type"
                                      content="text/html" />
                                <meta property="og:audio"
@@ -310,7 +316,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:audio:type"
                                      content="text/html" />
                                <meta property="og:audio"
@@ -327,19 +333,20 @@ describe("core/scraper/opengraph.js", function () {
         });
 
         it("should return plugin URL", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="og:audio:type"
                                      content="text/html" />
                                <meta property="og:audio"
-                                     content="https://www.mixcloud.com/foo` +
-                                `/bar/" />
+                                     content="https://www.mixcloud.com/foo/bar/" />
                              </head></html>`,
                             "text/html",
                         ),
@@ -353,8 +360,11 @@ describe("core/scraper/opengraph.js", function () {
                 "plugin://plugin.audio.mixcloud/?mode=40&key=%2Ffoo%2Fbar%2F",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["audio", "video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, [
+                "audio",
+                "video",
+            ]);
         });
     });
 
@@ -374,7 +384,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><head></head></html>",
+                            '<html lang="en"><head></head></html>',
                             "text/html",
                         ),
                     ),
@@ -386,14 +396,14 @@ describe("core/scraper/opengraph.js", function () {
         });
 
         it("should return undefined when it's depth", async function () {
-            const spy = sinon.spy(kodi.addons, "getAddons");
+            const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="twitter:player"
                                      content="https://www.youtube.com/embed/bar" />
                              </head></html>`,
@@ -406,7 +416,7 @@ describe("core/scraper/opengraph.js", function () {
             const file = await scraper.extractTwitter(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(getAddons.mock.callCount(), 0);
         });
 
         it("should return undefined when sub-page doesn't have media", async function () {
@@ -415,7 +425,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="twitter:player"
                                      content="https://www.youtube.com/" />
                              </head></html>`,
@@ -430,14 +440,16 @@ describe("core/scraper/opengraph.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="twitter:player"
                                      content="https://www.youtube.com/embed/bar" />
                              </head></html>`,
@@ -454,8 +466,8 @@ describe("core/scraper/opengraph.js", function () {
                     "?video_id=bar&incognito=false",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 
@@ -474,7 +486,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><head></head></html>",
+                            '<html lang="en"><head></head></html>',
                             "text/html",
                         ),
                     ),
@@ -490,7 +502,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="twitter:player:stream"
                                      content="https://bar.com/baz.avi" />
                              </head></html>`,
@@ -519,7 +531,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><head></head></html>",
+                            '<html lang="en"><head></head></html>',
                             "text/html",
                         ),
                     ),
@@ -535,7 +547,7 @@ describe("core/scraper/opengraph.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><head>
+                            `<html lang="en"><head>
                                <meta property="ya:ovs:content_url"
                                      content="https://bar.com/baz.avi" />
                              </head></html>`,

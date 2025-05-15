@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/theguardian.js";
 
 describe("core/scraper/theguardian.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extractVideo()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL(
@@ -36,7 +40,7 @@ describe("core/scraper/theguardian.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -48,14 +52,16 @@ describe("core/scraper/theguardian.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.theguardian.com/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div data-component="youtube-atom"
                                     data-video-id="bar" />
                              </body></html>`,
@@ -72,19 +78,21 @@ describe("core/scraper/theguardian.js", function () {
                     "?video_id=bar&incognito=false",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video URL in incognito mode", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.theguardian.com/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div data-component="youtube-atom"
                                     data-video-id="bar" />
                              </body></html>`,
@@ -101,8 +109,8 @@ describe("core/scraper/theguardian.js", function () {
                     "?video_id=bar&incognito=true",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 
@@ -124,7 +132,7 @@ describe("core/scraper/theguardian.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -141,7 +149,7 @@ describe("core/scraper/theguardian.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <figure id="audio-component-container"
                                        data-source="https://bar.com/baz.mp3" />
                              </body></html>`,

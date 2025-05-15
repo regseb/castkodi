@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/vrtnu.js";
 
 describe("core/scraper/vrtnu.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.vrt.be/vrtnu/livestream");
@@ -18,7 +22,9 @@ describe("core/scraper/vrtnu.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.vrt.be/vrtnu/a-z/foo/");
 
@@ -29,12 +35,14 @@ describe("core/scraper/vrtnu.js", function () {
                     "/https://www.vrt.be/vrtnu/a-z/foo/",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video URL when protocol is HTTP", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("http://www.vrt.be/vrtnu/a-z/foo/");
 
@@ -45,12 +53,14 @@ describe("core/scraper/vrtnu.js", function () {
                     "/http://www.vrt.be/vrtnu/a-z/foo/",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video URL without 'www'", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://vrt.be/vrtnu/a-z/foo/");
 
@@ -61,12 +71,14 @@ describe("core/scraper/vrtnu.js", function () {
                     "/https://vrt.be/vrtnu/a-z/foo/",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video URL from 'link' page", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://vrtnu.page.link/foo");
 
@@ -77,14 +89,17 @@ describe("core/scraper/vrtnu.js", function () {
                     "/https://vrtnu.page.link/foo",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video URL to vrtnu", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.vrt.nu", "plugin.video.sendtokodi"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([
+                    "plugin.video.vrt.nu",
+                    "plugin.video.sendtokodi",
+                ]),
+            );
 
             const url = new URL("https://www.vrt.be/vrtnu/a-z/foo/");
 
@@ -95,14 +110,14 @@ describe("core/scraper/vrtnu.js", function () {
                     "/https://www.vrt.be/vrtnu/a-z/foo/",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video URL to sendtokodi", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.sendtokodi"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve(["plugin.video.sendtokodi"]),
+            );
 
             const url = new URL("https://www.vrt.be/vrtnu/a-z/foo/");
 
@@ -113,8 +128,8 @@ describe("core/scraper/vrtnu.js", function () {
                     "?https://www.vrt.be/vrtnu/a-z/foo/",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

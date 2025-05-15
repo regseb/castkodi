@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/unknown.js";
 
 describe("core/scraper/unknown.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("should return undefined when it's depth", async function () {
             const url = new URL("https://foo.com/");
@@ -20,9 +24,9 @@ describe("core/scraper/unknown.js", function () {
         });
 
         it("should use SendToKodi plugin", async function () {
-            const stub = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves(["plugin.video.sendtokodi"]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve(["plugin.video.sendtokodi"]),
+            );
 
             const url = new URL("https://foo.com/");
             const metadata = undefined;
@@ -34,12 +38,14 @@ describe("core/scraper/unknown.js", function () {
                 "plugin://plugin.video.sendtokodi/?https://foo.com/",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return undefined when there isn't plugin", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://foo.com/");
             const metadata = undefined;
@@ -48,8 +54,8 @@ describe("core/scraper/unknown.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

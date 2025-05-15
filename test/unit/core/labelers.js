@@ -4,10 +4,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { complete, extract, strip } from "../../../src/core/labelers.js";
 
 describe("core/labelers.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("strip()", function () {
         it("should strip [B] tag", function () {
             const text = "foo [B]bar[/B]";
@@ -84,11 +88,13 @@ describe("core/labelers.js", function () {
 
     describe("extract()", function () {
         it("should return label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <meta property="og:title" content="bar" />
-                     </head></html>`,
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        `<html lang="en"><head>
+                           <meta property="og:title" content="bar" />
+                         </head></html>`,
+                    ),
                 ),
             );
 
@@ -99,8 +105,8 @@ describe("core/labelers.js", function () {
             const label = await extract(url);
             assert.equal(label, "bar");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.youtube.com/watch?v=foo"),
             ]);
         });
@@ -191,11 +197,13 @@ describe("core/labelers.js", function () {
         });
 
         it("should return 'label' from labeler", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <meta property="og:title" content="bar" />
-                     </head></html>`,
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        `<html lang="en"><head>
+                           <meta property="og:title" content="bar" />
+                         </head></html>`,
+                    ),
                 ),
             );
 
@@ -216,8 +224,8 @@ describe("core/labelers.js", function () {
                 type: "",
             });
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.youtube.com/watch?v=foo"),
             ]);
         });

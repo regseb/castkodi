@@ -4,21 +4,25 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { notify } from "../../../../src/core/tools/notify.js";
 import { PebkacError } from "../../../../src/core/tools/pebkac.js";
 
 describe("core/tools/notify.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("constructor()", function () {
         it("should accept Error", async function () {
-            const stub = sinon
-                .stub(browser.notifications, "create")
-                .resolves("foo");
+            const create = mock.method(browser.notifications, "create", () =>
+                Promise.resolve("foo"),
+            );
 
             await notify(new Error("bar"));
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(create.mock.callCount(), 1);
+            assert.deepEqual(create.mock.calls[0].arguments, [
                 {
                     type: "basic",
                     iconUrl: "/img/icon128.png",
@@ -29,14 +33,14 @@ describe("core/tools/notify.js", function () {
         });
 
         it("should accept PebkacError", async function () {
-            const stub = sinon
-                .stub(browser.notifications, "create")
-                .resolves("foo");
+            const create = mock.method(browser.notifications, "create", () =>
+                Promise.resolve("foo"),
+            );
 
             await notify(new PebkacError("noLink", "bar"));
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(create.mock.callCount(), 1);
+            assert.deepEqual(create.mock.calls[0].arguments, [
                 {
                     type: "basic",
                     iconUrl: "/img/icon128.png",

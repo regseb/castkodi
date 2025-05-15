@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/lepoint.js";
 
 describe("core/scraper/lepoint.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://moncompte.lepoint.fr/");
@@ -32,7 +36,7 @@ describe("core/scraper/lepoint.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <blockquote></blockquote>
                              </body></html>`,
                             "text/html",
@@ -46,14 +50,16 @@ describe("core/scraper/lepoint.js", function () {
         });
 
         it("should return URL", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.lepoint.fr/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <blockquote class="video-dailymotion-unloaded"
                                            data-videoid="bar"></blockquote>
                              </body></html>`,
@@ -69,8 +75,8 @@ describe("core/scraper/lepoint.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

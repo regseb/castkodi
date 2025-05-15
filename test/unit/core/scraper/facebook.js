@@ -21,7 +21,7 @@ describe("core/scraper/facebook.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script type="application/json"
                                        data-sjs>{}</script>
                              </body></html>`,
@@ -40,7 +40,7 @@ describe("core/scraper/facebook.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script type="application/json"
                                        data-sjs>{}</script>
                                <script type="application/json"
@@ -68,7 +68,7 @@ describe("core/scraper/facebook.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script type="application/json"
                                        data-sjs>${JSON.stringify({
                                            // eslint-disable-next-line camelcase

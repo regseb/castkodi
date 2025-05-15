@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { cast, mux } from "../../../src/core/index.js";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 
 describe("core/index.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("mux()", function () {
         it("should ignore invalid input", function () {
             const urls = [
@@ -16,7 +20,7 @@ describe("core/index.js", function () {
                 " ",
                 // Tester une URL invalide, mais avec un préfixe valide.
                 "https://:/",
-                // Tester des URLs valides, mais avec des préfixes invalide.
+                // Tester des URLs valides, mais avec des préfixes non-gérés.
                 "prefix-https://bar.com/",
                 "prefix-magnet://baz",
                 "prefix-acestream://qux",
@@ -107,49 +111,57 @@ describe("core/index.js", function () {
 
         it("should send url", async function () {
             browser.extension.inIncognitoContext = true;
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
-            const stubClear = sinon.stub(kodi.playlist, "clear").resolves("OK");
-            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
-            const stubOpen = sinon.stub(kodi.player, "open").resolves("OK");
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+            const clear = mock.method(kodi.playlist, "clear", () =>
+                Promise.resolve("OK"),
+            );
+            const add = mock.method(kodi.playlist, "add", () =>
+                Promise.resolve("OK"),
+            );
+            const open = mock.method(kodi.player, "open", () =>
+                Promise.resolve("OK"),
+            );
 
             await cast("send", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
-            assert.equal(stubClear.callCount, 1);
-            assert.deepEqual(stubClear.firstCall.args, []);
-            assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
-            assert.equal(stubOpen.callCount, 1);
-            assert.deepEqual(stubOpen.firstCall.args, []);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+            assert.equal(clear.mock.callCount(), 1);
+            assert.deepEqual(clear.mock.calls[0].arguments, []);
+            assert.equal(add.mock.callCount(), 1);
+            assert.deepEqual(add.mock.calls[0].arguments, [
+                "https://foo.com/bar",
+            ]);
+            assert.equal(open.mock.callCount(), 1);
+            assert.deepEqual(open.mock.calls[0].arguments, []);
         });
 
         it("should insert url", async function () {
             browser.extension.inIncognitoContext = true;
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
-            const stubGetProperty = sinon
-                .stub(kodi.player, "getProperty")
-                .resolves(42);
-            const stubInsert = sinon
-                .stub(kodi.playlist, "insert")
-                .resolves("OK");
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+            const getProperty = mock.method(kodi.player, "getProperty", () =>
+                Promise.resolve(42),
+            );
+            const insert = mock.method(kodi.playlist, "insert", () =>
+                Promise.resolve("OK"),
+            );
 
             await cast("insert", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
-            assert.equal(stubGetProperty.callCount, 1);
-            assert.deepEqual(stubGetProperty.firstCall.args, ["position"]);
-            assert.equal(stubInsert.callCount, 1);
-            assert.deepEqual(stubInsert.firstCall.args, [
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+            assert.equal(getProperty.mock.callCount(), 1);
+            assert.deepEqual(getProperty.mock.calls[0].arguments, ["position"]);
+            assert.equal(insert.mock.callCount(), 1);
+            assert.deepEqual(insert.mock.calls[0].arguments, [
                 "https://foo.com/bar",
                 43,
             ]);
@@ -157,23 +169,29 @@ describe("core/index.js", function () {
 
         it("should add url", async function () {
             browser.extension.inIncognitoContext = true;
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
-            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+            const add = mock.method(kodi.playlist, "add", () =>
+                Promise.resolve("OK"),
+            );
 
             await cast("add", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
-            assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+            assert.equal(add.mock.callCount(), 1);
+            assert.deepEqual(add.mock.calls[0].arguments, [
+                "https://foo.com/bar",
+            ]);
         });
 
         it("should reject invalid action", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             await assert.rejects(() => cast("foo", ["https://foo.com/bar"]), {
                 name: "Error",
@@ -182,16 +200,18 @@ describe("core/index.js", function () {
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should add in history", async function () {
             await browser.storage.local.set({ "general-history": true });
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
-            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+            const add = mock.method(kodi.playlist, "add", () =>
+                Promise.resolve("OK"),
+            );
 
             await cast("add", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
@@ -199,65 +219,75 @@ describe("core/index.js", function () {
                 { id: "1", url: "https://foo.com/bar" },
             ]);
 
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
-            assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+            assert.equal(add.mock.callCount(), 1);
+            assert.deepEqual(add.mock.calls[0].arguments, [
+                "https://foo.com/bar",
+            ]);
         });
 
         it("shouldn't add in history", async function () {
             await browser.storage.local.set({ "general-history": false });
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
-            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+            const add = mock.method(kodi.playlist, "add", () =>
+                Promise.resolve("OK"),
+            );
 
             await cast("add", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
-            assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+            assert.equal(add.mock.callCount(), 1);
+            assert.deepEqual(add.mock.calls[0].arguments, [
+                "https://foo.com/bar",
+            ]);
         });
 
         it("shouldn't add in history in incognito", async function () {
             browser.extension.inIncognitoContext = true;
             await browser.storage.local.set({ "general-history": true });
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
-            const stubAdd = sinon.stub(kodi.playlist, "add").resolves("OK");
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+            const add = mock.method(kodi.playlist, "add", () =>
+                Promise.resolve("OK"),
+            );
 
             await cast("add", ["https://foo.com/bar"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
-            assert.equal(stubAdd.callCount, 1);
-            assert.deepEqual(stubAdd.firstCall.args, ["https://foo.com/bar"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+            assert.equal(add.mock.callCount(), 1);
+            assert.deepEqual(add.mock.calls[0].arguments, [
+                "https://foo.com/bar",
+            ]);
         });
 
         it("should pass incognito on scrapers", async function () {
             browser.extension.inIncognitoContext = true;
             await browser.storage.local.set({ "general-history": false });
-            const stubGetAddons = sinon
-                .stub(kodi.addons, "getAddons")
-                .resolves([]);
-            const stubPlaylist = sinon
-                .stub(kodi.playlist, "add")
-                .resolves("OK");
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+            const add = mock.method(kodi.playlist, "add", () =>
+                Promise.resolve("OK"),
+            );
 
             await cast("add", ["https://youtu.be/foo"]);
             const histories = await browser.history.search({ text: "" });
             assert.equal(histories.length, 0);
 
-            assert.equal(stubGetAddons.callCount, 1);
-            assert.deepEqual(stubGetAddons.firstCall.args, ["video"]);
-            assert.equal(stubPlaylist.callCount, 1);
-            assert.deepEqual(stubPlaylist.firstCall.args, [
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+            assert.equal(add.mock.callCount(), 1);
+            assert.deepEqual(add.mock.calls[0].arguments, [
                 "plugin://plugin.video.youtube/play/" +
                     "?video_id=foo&incognito=true",
             ]);

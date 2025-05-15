@@ -32,7 +32,7 @@ describe("core/scraper/gamekult.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -49,7 +49,7 @@ describe("core/scraper/gamekult.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div class="vsly-plyr" id="vsly-plyr-bar"></div>
                              </body></html>`,
                             "text/html",

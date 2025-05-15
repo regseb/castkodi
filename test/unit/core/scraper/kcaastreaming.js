@@ -21,7 +21,7 @@ describe("core/scraper/kcaastreaming.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <div id="show">
                                  <a href="///foo.com/bar.mp3">Baz</a>
                                </div>

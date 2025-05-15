@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/reddit.js";
 
 describe("core/scraper/reddit.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.redditinc.com/policies/");
@@ -23,7 +27,7 @@ describe("core/scraper/reddit.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -39,9 +43,10 @@ describe("core/scraper/reddit.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <shreddit-player-2
-                                   src="https://bar.com/baz.mp4" />
+                                 src="https://bar.com/baz.mp4"
+                               />
                              </body></html>`,
                             "text/html",
                         ),
@@ -67,7 +72,7 @@ describe("core/scraper/reddit.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -78,17 +83,20 @@ describe("core/scraper/reddit.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.reddit.com/r/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <shreddit-embed
-                                   html="&lt;iframe
-                                       src=&quot;https://www.dailymotion.com/embed/video/bar&quot;&gt;&lt;/iframe&gt;" />
+                                 html="&lt;iframe
+                                   src=&quot;https://www.dailymotion.com/embed/video/bar&quot;&gt;&lt;/iframe&gt;"
+                               />
                              </body></html>`,
                             "text/html",
                         ),
@@ -102,24 +110,28 @@ describe("core/scraper/reddit.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return video URL from second embed", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.reddit.com/r/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <shreddit-embed
-                                   html="&lt;span&gt;bar&lt;/span&gt;" />
+                                 html="&lt;span&gt;bar&lt;/span&gt;"
+                               />
                                <shreddit-embed
-                                   html="&lt;iframe
-                                       src=&quot;https://www.dailymotion.com/embed/video/baz&quot;&gt;&lt;/iframe&gt;" />
+                                 html="&lt;iframe
+                                   src=&quot;https://www.dailymotion.com/embed/video/baz&quot;&gt;&lt;/iframe&gt;"
+                               />
                              </body></html>`,
                             "text/html",
                         ),
@@ -133,8 +145,8 @@ describe("core/scraper/reddit.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=baz",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });

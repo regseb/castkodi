@@ -29,7 +29,7 @@ describe("core/scraper/uqload.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -45,7 +45,7 @@ describe("core/scraper/uqload.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script src="https://uqload.foo/baz.js"></script>
                              </body></html>`,
                             "text/html",
@@ -63,7 +63,7 @@ describe("core/scraper/uqload.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script>
                                  var player = new Clappr.Player({});
                                </script>
@@ -83,7 +83,7 @@ describe("core/scraper/uqload.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script>
                                  var player = new Clappr.Player({
                                    sources: ["https://baz.com/qux/v.mp4"],

@@ -25,7 +25,7 @@ describe("core/scraper/ultimedia.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -43,11 +43,11 @@ describe("core/scraper/ultimedia.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `
-                    <html><body>
-                      <script src="https://www.ultimedia.com/script.js"` +
-                                `></script>
-                    </body></html>`,
+                            `<html lang="en"><body>
+                               <script
+                                 src="https://www.ultimedia.com/script.js"
+                               ></script>
+                             </body></html>`,
                             "text/html",
                         ),
                     ),
@@ -65,7 +65,7 @@ describe("core/scraper/ultimedia.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script>
                                  DtkPlayer.init({});
                                </script>
@@ -87,7 +87,7 @@ describe("core/scraper/ultimedia.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <script>
                                  DtkPlayer.init({
                                    "mp4":{

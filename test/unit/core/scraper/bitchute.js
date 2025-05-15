@@ -4,10 +4,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/bitchute.js";
 
 describe("core/scraper/bitchute.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://status.bitchute.com/");
@@ -17,9 +21,11 @@ describe("core/scraper/bitchute.js", function () {
         });
 
         it("should return video URL", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                // eslint-disable-next-line camelcase
-                Response.json({ media_url: "https://foo.com/bar.mp4" }),
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    // eslint-disable-next-line camelcase
+                    Response.json({ media_url: "https://foo.com/bar.mp4" }),
+                ),
             );
 
             const url = new URL("https://www.bitchute.com/video/baz");
@@ -27,8 +33,8 @@ describe("core/scraper/bitchute.js", function () {
             const file = await scraper.extract(url);
             assert.equal(file, "https://foo.com/bar.mp4");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://api.bitchute.com/api/beta/video/media",
                 {
                     method: "POST",

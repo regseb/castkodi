@@ -21,7 +21,7 @@ describe("core/scraper/ausha.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            "<html><body></body></html>",
+                            '<html lang="en"><body></body></html>',
                             "text/html",
                         ),
                     ),
@@ -37,7 +37,7 @@ describe("core/scraper/ausha.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="en"><body>
                                <a href="https://audio.ausha.co/baz.mp3">Qux</a>
                              </body></html>`,
                             "text/html",

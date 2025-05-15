@@ -4,10 +4,14 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import * as labeler from "../../../../src/core/labeler/vtmgo.js";
 
 describe("core/labeler/vtmgo.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.vtmgo.be/vtmgo/regarder/foo");
@@ -17,11 +21,13 @@ describe("core/labeler/vtmgo.js", function () {
         });
 
         it("should return label", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><head>
-                       <title>foo</title>
-                     </head></html>`,
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        `<html lang="en"><head>
+                           <title>foo</title>
+                         </head></html>`,
+                    ),
                 ),
             );
 
@@ -30,18 +36,18 @@ describe("core/labeler/vtmgo.js", function () {
             const label = await labeler.extract(url);
             assert.equal(label, "foo");
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.vtmgo.be/vtmgo/afspelen/bar"),
             ]);
         });
 
         it("should return undefined when there isn't title", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><body>
-                       <h1>foo</h1>
-                     </body></html>`,
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        '<html lang="en"><body><h1>foo</h1></body></html>',
+                    ),
                 ),
             );
 
@@ -50,8 +56,8 @@ describe("core/labeler/vtmgo.js", function () {
             const label = await labeler.extract(url);
             assert.equal(label, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, [
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
                 new URL("https://www.vtmgo.be/vtmgo/afspelen/bar"),
             ]);
         });

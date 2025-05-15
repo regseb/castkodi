@@ -4,11 +4,15 @@
  */
 
 import assert from "node:assert/strict";
-import sinon from "sinon";
+import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/lemonde.js";
 
 describe("core/scraper/lemonde.js", function () {
+    afterEach(function () {
+        mock.reset();
+    });
+
     describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://journal.lemonde.fr/");
@@ -26,7 +30,7 @@ describe("core/scraper/lemonde.js", function () {
                     html: () =>
                         Promise.resolve(
                             new DOMParser().parseFromString(
-                                "<html><body></body></html>",
+                                '<html lang="fr"><body></body></html>',
                                 "text/html",
                             ),
                         ),
@@ -39,14 +43,14 @@ describe("core/scraper/lemonde.js", function () {
         );
 
         it("should return undefined when it's depth with youtube", async function () {
-            const spy = sinon.spy(kodi.addons, "getAddons");
+            const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://www.lemonde.fr/foo.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <video>
                                  <source type="video/youtube"
                                          src="https://youtu.be/bar" />
@@ -61,7 +65,7 @@ describe("core/scraper/lemonde.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(getAddons.mock.callCount(), 0);
         });
 
         it("should return undefined when youtube sub-page doesn't have media", async function () {
@@ -70,7 +74,7 @@ describe("core/scraper/lemonde.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <video>
                                  <source type="video/youtube"
                                          src="https://youtube.com/" />
@@ -87,14 +91,16 @@ describe("core/scraper/lemonde.js", function () {
         });
 
         it("should return URL from youtube", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.lemonde.fr/foo.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <video>
                                  <source type="video/youtube"
                                          src="https://youtu.be/bar" />
@@ -113,19 +119,21 @@ describe("core/scraper/lemonde.js", function () {
                     "?video_id=bar&incognito=true",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return URL from dailymotion", async function () {
-            const stub = sinon.stub(kodi.addons, "getAddons").resolves([]);
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
 
             const url = new URL("https://www.lemonde.fr/foo.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <div data-provider="dailymotion" data-id="bar" />
                              </body></html>`,
                             "text/html",
@@ -140,19 +148,19 @@ describe("core/scraper/lemonde.js", function () {
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
             );
 
-            assert.equal(stub.callCount, 1);
-            assert.deepEqual(stub.firstCall.args, ["video"]);
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
         it("should return undefined when it's depth with tiktok", async function () {
-            const spy = sinon.spy(globalThis, "fetch");
+            const fetch = mock.method(globalThis, "fetch");
 
             const url = new URL("https://www.lemonde.fr/foo.html");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <blockquote class="tiktok-embed"
                                            cite="https://www.tiktok.com/baz" />
                              </body></html>`,
@@ -165,14 +173,16 @@ describe("core/scraper/lemonde.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(spy.callCount, 0);
+            assert.equal(fetch.mock.callCount(), 0);
         });
 
         it("should return undefined when tiktok sub-page doesn't have media", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response("<html><body></body></html>", {
-                    headers: { "Content-Type": "text/html" },
-                }),
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response('<html lang="fr"><body></body></html>', {
+                        headers: { "Content-Type": "text/html" },
+                    }),
+                ),
             );
 
             const url = new URL("https://www.lemonde.fr/foo.html");
@@ -180,7 +190,7 @@ describe("core/scraper/lemonde.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <blockquote class="tiktok-embed"
                                            cite="https://www.tiktok.com/baz" />
                              </body></html>`,
@@ -193,36 +203,40 @@ describe("core/scraper/lemonde.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
 
-            assert.equal(stub.callCount, 1);
-            assert.equal(stub.firstCall.args.length, 2);
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.equal(fetch.mock.calls[0].arguments.length, 2);
             assert.deepEqual(
-                stub.firstCall.args[0],
+                fetch.mock.calls[0].arguments[0],
                 new URL("https://www.tiktok.com/baz"),
             );
-            assert.equal(typeof stub.firstCall.args[1], "object");
+            assert.equal(typeof fetch.mock.calls[0].arguments[1], "object");
         });
 
         it("should return URL from tiktok", async function () {
-            const stub = sinon.stub(globalThis, "fetch").resolves(
-                new Response(
-                    `<html><body>
-                       <script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"
-                       >${JSON.stringify({
-                           __DEFAULT_SCOPE__: {
-                               "webapp.video-detail": {
-                                   itemInfo: {
-                                       itemStruct: {
-                                           video: {
-                                               playAddr:
-                                                   "https://foo.io/bar.mp4",
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(
+                    new Response(
+                        `<html lang="fr"><body>
+                           <script id="__UNIVERSAL_DATA_FOR_REHYDRATION__">${JSON.stringify(
+                               {
+                                   __DEFAULT_SCOPE__: {
+                                       "webapp.video-detail": {
+                                           itemInfo: {
+                                               itemStruct: {
+                                                   video: {
+                                                       playAddr:
+                                                           "https://foo.io" +
+                                                           "/bar.mp4",
+                                                   },
+                                               },
                                            },
                                        },
                                    },
                                },
-                           },
-                       })}</script>
-                     </body></html>`,
-                    { headers: { "Content-Type": "text/html" } },
+                           )}</script>
+                         </body></html>`,
+                        { headers: { "Content-Type": "text/html" } },
+                    ),
                 ),
             );
 
@@ -231,7 +245,7 @@ describe("core/scraper/lemonde.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html><body>
+                            `<html lang="fr"><body>
                                <blockquote class="tiktok-embed"
                                            cite="https://www.tiktok.com/qux" />
                              </body></html>`,
@@ -244,13 +258,13 @@ describe("core/scraper/lemonde.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(file, "https://foo.io/bar.mp4");
 
-            assert.equal(stub.callCount, 1);
-            assert.equal(stub.firstCall.args.length, 2);
+            assert.equal(fetch.mock.callCount(), 1);
+            assert.equal(fetch.mock.calls[0].arguments.length, 2);
             assert.deepEqual(
-                stub.firstCall.args[0],
+                fetch.mock.calls[0].arguments[0],
                 new URL("https://www.tiktok.com/qux"),
             );
-            assert.equal(typeof stub.firstCall.args[1], "object");
+            assert.equal(typeof fetch.mock.calls[0].arguments[1], "object");
         });
     });
 });
