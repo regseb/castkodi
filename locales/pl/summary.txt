@@ -1,0 +1,1 @@
+Transmituj wideo i muzykę z więcej niż 50 stron (YouTube, Twitch, Vimeo, SoundCloud, torrenty, …) do Kodi z menu kontekstowym i kontrolą zdalną.

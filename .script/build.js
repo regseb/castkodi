@@ -44,12 +44,13 @@ const select = (description, store) => {
 };
 
 /**
- * Enlève le formatage du Markdown dans la description.
+ * Adapte la description pour le Chrome Web Store. Enlève le formatage du
+ * Markdown.
  *
  * @param {string} description La description en Markdown.
  * @returns {string} La description sans le formatage.
  */
-const plain = (description) => {
+const chrome = (description) => {
     return description
         .replaceAll(/\*\*(?<f>\S)(?<r>.*?\S)??\*\*/gsv, "$<f>$<r>")
         .replaceAll(/_(?<f>\S)(?<r>.*?\S)??_/gsv, "$<f>$<r>")
@@ -57,13 +58,30 @@ const plain = (description) => {
 };
 
 /**
- * Convertit le markdown en HTML.
+ * Adapte la description pour le Microsoft Edge Add-ons. Convertit le markdown
+ * en HTML.
  *
  * @param {string} description La description en Markdown.
  * @returns {string} La description au format HTML.
+ * @see https://learn.microsoft.com/en-us/partner-center/marketplace-offers/supported-html-tags
  */
-const html = (description) => {
+const edge = (description) => {
     return markdownit().render(description);
+};
+
+/**
+ * Adapte la description pour le Firefox Browser Add-ons. Indente les puces avec
+ * quatre espaces.
+ *
+ * @param {string} description La description en Markdown.
+ * @returns {string} La description en Markdown ré-indentée.
+ * @see https://extensionworkshop.allizom.org/documentation/develop/create-an-appealing-listing/#make-use-of-markdown
+ */
+const firefox = (description) => {
+    return description.replaceAll(
+        /\n *-/gv,
+        (m) => "\n" + " ".repeat((m.length - 2) * 2) + "-",
+    );
 };
 
 // Supprimer l'éventuel répertoire de la précédente construction.
@@ -91,25 +109,21 @@ for (const store of ["chrome", "edge", "firefox"]) {
         if ("chrome" === store) {
             await fs.writeFile(
                 path.join(buildStoreDir, `description-${lang}.txt`),
-                plain(select(description, store)),
+                chrome(select(description, store)),
             );
         } else if ("edge" === store) {
-            // Utiliser une description en HTML pour la boutique de Edge.
-            // https://learn.microsoft.com/en-us/partner-center/marketplace-offers/supported-html-tags
             await fs.writeFile(
                 path.join(buildStoreDir, `description-${lang}.html`),
-                html(select(description, store)),
+                edge(select(description, store)),
             );
         } else if ("firefox" === store) {
-            // Utiliser une description en Markdown pour la boutique de Firefox.
-            // https://extensionworkshop.allizom.org/documentation/develop/create-an-appealing-listing/#make-use-of-markdown
             await fs.copyFile(
                 path.join(LOCALES_DIR, lang, "summary.txt"),
                 path.join(buildStoreDir, `summary-${lang}.txt`),
             );
             await fs.writeFile(
                 path.join(buildStoreDir, `description-${lang}.md`),
-                select(description, store),
+                firefox(select(description, store)),
             );
         }
     }

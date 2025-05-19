@@ -7,6 +7,13 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 
 /**
+ * Liste des langues disponibles.
+ *
+ * @type {string[]}
+ */
+const LANGUAGES = await fs.readdir("src/_locales/");
+
+/**
  * Récupère la liste des messages d'une langue.
  *
  * @param {string} lang La langue des messages.
@@ -57,19 +64,9 @@ const compare = async (lang1, lang2) => {
 };
 
 describe("_locales", function () {
-    it("english and spanish should have same messages", async function () {
-        await compare("en", "es");
-    });
-
-    it("english and french should have same messages", async function () {
-        await compare("en", "fr");
-    });
-
-    it("english and dutch should have same messages", async function () {
-        await compare("en", "nl");
-    });
-
-    it("english and slovak should have same messages", async function () {
-        await compare("en", "sk");
-    });
+    for (const lang of LANGUAGES) {
+        it(`'en' and '${lang}' should have same messages`, async function () {
+            await compare("en", lang);
+        });
+    }
 });

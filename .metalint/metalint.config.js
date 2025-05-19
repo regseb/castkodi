@@ -85,7 +85,7 @@ export default {
                 // Utiliser des règles spécifiques pour les fichiers des
                 // boutiques.
                 patterns: "/locales/**",
-                linters: "markdownlint_store",
+                linters: ["prettier_store", "markdownlint_store"],
             },
         },
         {
