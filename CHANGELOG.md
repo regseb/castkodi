@@ -1,5 +1,40 @@
 # Changelog
 
+## [7.13.0](https://github.com/regseb/castkodi/compare/v7.12.1...v7.13.0) (2025-05-21)
+
+### Features
+
+- Add Polish translation.
+  ([f90fd0d](https://github.com/regseb/castkodi/commit/f90fd0d0fd48daa15d64611d0f22f10c74f0f560))
+- Open options page when click on notification.
+  ([d870228](https://github.com/regseb/castkodi/commit/d870228969ebb5de835c7b04637c6a22ccac0cb3))
+- Publish in Microsoft Edge Add-ons.
+  ([a3266c6](https://github.com/regseb/castkodi/commit/a3266c66428ab05f8250947779667cc6bf8a76eb))
+- Release a beta version for Firefox Android.
+  ([4053924](https://github.com/regseb/castkodi/commit/4053924d36307969492e9809eb21a7befde0445b))
+- Support Viously integrate.
+  ([9e0a74f](https://github.com/regseb/castkodi/commit/9e0a74ff370a5e53f1f7984267622a1b0700507e))
+
+### Bug Fixes
+
+- Complete Polish translation.
+  ([5e42a32](https://github.com/regseb/castkodi/commit/5e42a326d10ef336a6dc40a57fbd965ea6377b0c))
+- Fix Arte Radio scraper.
+  ([201c4dd](https://github.com/regseb/castkodi/commit/201c4dd90cf7220cebe48174ec5b9f3810a6387d))
+- Fix Bitchute scraper.
+  ([9d18ee7](https://github.com/regseb/castkodi/commit/9d18ee7fa59c19314d5aa9b074afb030745f410f))
+- Fix Gamekult scraper.
+  ([3b85da2](https://github.com/regseb/castkodi/commit/3b85da23a6efe70e7d8ebd8c1dbad329b6c1b936))
+- Fix VTM GO scraper.
+  ([c09061b](https://github.com/regseb/castkodi/commit/c09061bd498e96e342dd82aef3b14d150955b06e))
+- Re-open feedback popup.
+  ([a5da729](https://github.com/regseb/castkodi/commit/a5da729bc5e270d68c4ad5214603b2059a491d0f))
+- Remove Blog Talk Radio.
+  ([308cdb8](https://github.com/regseb/castkodi/commit/308cdb8d02792ad347d8b35471cf6ee237ca55a9))
+- Translations update from Hosted Weblate
+  ([#133](https://github.com/regseb/castkodi/issues/133))
+  ([b43e3e8](https://github.com/regseb/castkodi/commit/b43e3e8cb8e9ac633f54d55a182d2f22c6cfba3c))
+
 ## [7.12.1](https://github.com/regseb/castkodi/compare/v7.12.0...v7.12.1) (2024-11-20)
 
 ### Bug Fixes
