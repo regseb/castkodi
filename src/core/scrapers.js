@@ -77,7 +77,6 @@ import * as vimeo from "./scraper/vimeo.js";
 import * as viously from "./scraper/viously.js";
 import * as vrtnu from "./scraper/vrtnu.js";
 import * as vtmgo from "./scraper/vtmgo.js";
-import * as vudeo from "./scraper/vudeo.js";
 import * as youtube from "./scraper/youtube.js";
 import * as zdf from "./scraper/zdf.js";
 import { cacheable } from "./tools/cacheable.js";
@@ -140,7 +139,6 @@ const SCRAPERS = [
     vimeo,
     vrtnu,
     vtmgo,
-    vudeo,
     youtube,
     zdf,
     // Mettre Dailymotion et Viously à la fin, car un de leurs extracteurs
