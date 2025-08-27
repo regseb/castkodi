@@ -10,7 +10,7 @@ Cast&nbsp;Kodi geeft de mogelijkheid om video's en muziek door te sturen naar **
   - 🇧🇪&nbsp;België: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;
   - 🇨🇦&nbsp;Canada: CBC&nbsp;Listen;
   - 🇩🇪&nbsp;Duitsland: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;
-  - 🇫🇷&nbsp;Frankrijk: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;
+  - 🇫🇷&nbsp;Frankrijk: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Ouest-France;
   - 🇬🇷&nbsp;Griekenland: StarGR;
   - 🇮🇸&nbsp;IJsland: Útvarp&nbsp;Saga;
   - 🇮🇷&nbsp;Iran: آپارات<!-- Aparat -->;

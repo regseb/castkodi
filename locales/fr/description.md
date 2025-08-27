@@ -11,7 +11,7 @@ Cast&nbsp;Kodi permet de diffuser des vidéos et des musiques sur **Kodi**&nbsp;
   - 🇧🇪&nbsp;Belgique&nbsp;: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO&nbsp;;
   - 🇨🇦&nbsp;Canada&nbsp: CBC&nbsp;Listen&nbsp;;
   - 🇺🇸&nbsp;États-Unis&nbsp;: KCAA&nbsp;Radio&nbsp;;
-  - 🇫🇷&nbsp;France&nbsp;: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France&nbsp;;
+  - 🇫🇷&nbsp;France&nbsp;: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Ouest-France&nbsp;;
   - 🇬🇷&nbsp;Grèce&nbsp;: StarGR&nbsp;;
   - 🇮🇷&nbsp;Iran&nbsp;: آپارات<!-- Aparat -->&nbsp;;
   - 🇮🇸&nbsp;Islande&nbsp;: Útvarp&nbsp;Saga&nbsp;;

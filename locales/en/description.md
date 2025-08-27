@@ -9,7 +9,7 @@ Cast&nbsp;Kodi, as the name suggests, adds the ability to cast videos and music 
 - YouTube, Twitch, Vimeo, SoundCloud as well as Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Kickstarter, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Prime&nbsp;Video&nbsp;(Amazon), Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, VideoPress, VidLii, Vidyard, Viously;
   - 🇧🇪&nbsp;Belgium: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;
   - 🇨🇦&nbsp;Canada: CBC&nbsp;Listen;
-  - 🇫🇷&nbsp;France: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Melty, Ouest-France;
+  - 🇫🇷&nbsp;France: 20&nbsp;Minutes, AlloCiné, Arte, Arte&nbsp;Radio, France&nbsp;Inter, Futura&nbsp;Sciences, Gamekult, JV, Konbini, Le&nbsp;Monde, Le&nbsp;Point, L'Internaute, Ouest-France;
   - 🇩🇪&nbsp;Germany: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;
   - 🇬🇷&nbsp;Greece: StarGR;
   - 🇮🇸&nbsp;Iceland: Útvarp&nbsp;Saga;

@@ -30,7 +30,7 @@ Firefox. Elle permet de diffuser des vidéos et des musiques sur **Kodi** :
   - 🇨🇦 Canada : CBC Listen ;
   - 🇺🇸 États-Unis : KCAA Radio ;
   - 🇫🇷 France : 20 Minutes, AlloCiné, Arte, Arte Radio, France Inter, Futura
-    Sciences, Gamekult, JV, Konbini, Le Monde, Le Point, L'Internaute, Melty,
+    Sciences, Gamekult, JV, Konbini, Le Monde, Le Point, L'Internaute,
     Ouest-France ;
   - 🇬🇷 Grèce : StarGR ;
   - 🇮🇷 Iran : آپارات<!-- Aparat --> ;
