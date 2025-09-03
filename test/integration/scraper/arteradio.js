@@ -18,16 +18,4 @@ describe("Scraper: Arte Radio", function () {
                 "/files/sons/01faismoiouir_hq_fr.mp3",
         );
     });
-
-    it("should return audio URL when protocol is HTTP", async function () {
-        const url = new URL("http://www.arteradio.com/son/fais_moi_ouir");
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(
-            file,
-            "https://cdn.arteradio.com/permanent/arteradio/sites/default" +
-                "/files/sons/01faismoiouir_hq_fr.mp3",
-        );
-    });
 });

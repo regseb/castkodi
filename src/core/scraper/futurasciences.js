@@ -7,12 +7,16 @@
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      url               L'URL d'une vidéo Futura Sciences.
+ * @param {URLMatch} url               L'URL d'une vidéo Futura Sciences.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
@@ -57,4 +61,7 @@ const action = async (url, metadata, context) => {
     }
     return undefined;
 };
-export const extract = matchPattern(action, "*://www.futura-sciences.com/*");
+export const extract = matchURLPattern(
+    action,
+    "https://www.futura-sciences.com/*",
+);

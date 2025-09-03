@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
- * @param {URL}      url           L'URL du _live_ de KCAA Radio.
+ * @param {URLMatch} url           L'URL du _live_ de KCAA Radio.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -20,4 +24,7 @@ const action = async (url, metadata) => {
     const doc = await metadata.html();
     return new URL(doc.querySelector("#show a").getAttribute("href"), url).href;
 };
-export const extract = matchPattern(action, "*://live.kcaastreaming.com/");
+export const extract = matchURLPattern(
+    action,
+    "https://live.kcaastreaming.com/",
+);

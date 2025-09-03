@@ -5,14 +5,18 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
 // eslint-disable-next-line import/no-cycle
 import { extract as iframeExtract } from "./iframe.js";
 
 /**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
+
+/**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo Reddit.
+ * @param {URLMatch} _url          L'URL d'une vidéo Reddit.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -24,12 +28,12 @@ const action = async (_url, metadata) => {
     const player = doc.querySelector("shreddit-player-2[src]");
     return player?.getAttribute("src");
 };
-export const extract = matchPattern(action, "*://www.reddit.com/r/*");
+export const extract = matchURLPattern(action, "https://www.reddit.com/r/*");
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      url               L'URL d'une vidéo embarquée sur Reddit.
+ * @param {URLMatch} url               L'URL d'une vidéo embarquée sur Reddit.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -60,4 +64,7 @@ const actionEmbed = async (url, metadata, context) => {
     }
     return undefined;
 };
-export const extractEmbed = matchPattern(actionEmbed, "*://www.reddit.com/r/*");
+export const extractEmbed = matchURLPattern(
+    actionEmbed,
+    "https://www.reddit.com/r/*",
+);

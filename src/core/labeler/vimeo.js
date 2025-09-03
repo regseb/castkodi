@@ -4,12 +4,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une vidéo Vimeo.
  *
- * @param {URL} url L'URL de la vidéo Vimeo.
+ * @param {URLMatch} url L'URL de la vidéo Vimeo.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
 const action = async (url) => {
@@ -20,4 +24,4 @@ const action = async (url) => {
         doc.querySelector('meta[property="og:title"]')
     ).content;
 };
-export const extract = matchPattern(action, "*://vimeo.com/*");
+export const extract = matchURLPattern(action, "https://vimeo.com/*");

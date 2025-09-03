@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchURLPattern } from "../../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'un son SoundCloud.
  *
- * @param {URL}      url                 L'URL utilisant le plugin SoundCloud.
+ * @param {URLMatch} url                 L'URL utilisant le plugin SoundCloud.
  * @param {Object}   context             Le contexte du labellisateur.
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
@@ -22,7 +26,7 @@ const action = ({ searchParams }, { metaExtract }) => {
         ? metaExtract(new URL(decodeURIComponent(searchParams.get("url"))))
         : Promise.resolve(undefined);
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
     "plugin://plugin.audio.soundcloud/play/*",
 );

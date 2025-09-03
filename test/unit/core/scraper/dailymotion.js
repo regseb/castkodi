@@ -29,11 +29,11 @@ describe("core/scraper/dailymotion.js", function () {
         mock.reset();
     });
 
-    describe("extractVideo()", function () {
+    describe("extract()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.dailymotion.com/fr/feed");
 
-            const file = await scraper.extractVideo(url);
+            const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
@@ -44,7 +44,7 @@ describe("core/scraper/dailymotion.js", function () {
 
             const url = new URL("https://www.dailymotion.com/video/foo");
 
-            const file = await scraper.extractVideo(url);
+            const file = await scraper.extract(url);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
@@ -61,7 +61,7 @@ describe("core/scraper/dailymotion.js", function () {
 
             const url = new URL("https://www.dailymotion.com/video/foo");
 
-            const file = await scraper.extractVideo(url);
+            const file = await scraper.extract(url);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
@@ -78,7 +78,7 @@ describe("core/scraper/dailymotion.js", function () {
 
             const url = new URL("https://www.dailymotion.com/video/foo");
 
-            const file = await scraper.extractVideo(url);
+            const file = await scraper.extract(url);
             assert.equal(
                 file,
                 "plugin://plugin.video.sendtokodi/" +
@@ -96,7 +96,7 @@ describe("core/scraper/dailymotion.js", function () {
 
             const url = new URL("https://www.dailymotion.com/video/foo");
 
-            const file = await scraper.extractVideo(url);
+            const file = await scraper.extract(url);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
@@ -105,9 +105,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.equal(getAddons.mock.callCount(), 1);
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
-    });
 
-    describe("extractMinify()", function () {
         it("should return tiny video id", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -115,7 +113,7 @@ describe("core/scraper/dailymotion.js", function () {
 
             const url = new URL("https://dai.ly/foo");
 
-            const file = await scraper.extractMinify(url);
+            const file = await scraper.extract(url);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
@@ -124,9 +122,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.equal(getAddons.mock.callCount(), 1);
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
-    });
 
-    describe("extractEmbed()", function () {
         it("should return embed video id", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -134,7 +130,7 @@ describe("core/scraper/dailymotion.js", function () {
 
             const url = new URL("https://www.dailymotion.com/embed/video/foo");
 
-            const file = await scraper.extractEmbed(url);
+            const file = await scraper.extract(url);
             assert.equal(
                 file,
                 "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",

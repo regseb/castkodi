@@ -8,7 +8,11 @@
 import { kodi } from "../jsonrpc/kodi.js";
 import * as mixcloudPlugin from "../plugin/mixcloud.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Répartit une musique Mixcloud à un plugin de Kodi.
@@ -33,7 +37,7 @@ const dispatch = async (path) => {
 /**
  * Extrait les informations nécessaires pour lire une musique sur Kodi.
  *
- * @param {URL} url L'URL d'une musique Mixcloud.
+ * @param {URLMatch} url L'URL d'une musique Mixcloud.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -42,4 +46,4 @@ const action = ({ pathname }) => {
         ? Promise.resolve(undefined)
         : dispatch(pathname);
 };
-export const extract = matchPattern(action, "*://www.mixcloud.com/*/*/");
+export const extract = matchURLPattern(action, "https://www.mixcloud.com/*/*/");

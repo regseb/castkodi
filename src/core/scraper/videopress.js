@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'URL de l'API de VideoPress.
@@ -17,13 +21,12 @@ const API_URL = "https://public-api.wordpress.com/rest/v1.1/videos/";
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo de VideoPress.
+ * @param {URLMatch} urlMatch L'URL d'une vidéo de VideoPress avec
+ *                            l'identifiant.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async ({ pathname }) => {
-    // Enlever le préfixe "/v/" ou "/embed/".
-    const id = pathname.slice(pathname.indexOf("/", 1) + 1);
+const action = async ({ id }) => {
     const response = await fetch(API_URL + id);
     if (response.ok) {
         const json = await response.json();
@@ -31,8 +34,8 @@ const action = async ({ pathname }) => {
     }
     return undefined;
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://videopress.com/v/*",
-    "*://videopress.com/embed/*",
+    "https://videopress.com/v/:id",
+    "https://videopress.com/embed/:id",
 );

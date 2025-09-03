@@ -40,19 +40,6 @@ describe("Scraper: Ultimedia [fr]", function () {
         );
     });
 
-    it("should return video URL when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://www.ultimedia.com/default/index/videogeneric/id/83vr0l",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.ok(
-            undefined !== file && new URL(file).pathname.endsWith(".mp4"),
-            `new URL("${file}").pathname.endsWith(...)`,
-        );
-    });
-
     it("should return video URL from embed", async function () {
         const url = new URL(
             "https://www.ultimedia.com/deliver/generic/iframe/mdtk" +

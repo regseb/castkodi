@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo TikTok.
+ * @param {URLMatch} _url          L'URL d'une vidéo TikTok.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -30,4 +34,4 @@ const action = async (_url, metadata) => {
     return json["__DEFAULT_SCOPE__"]["webapp.video-detail"]?.itemInfo.itemStruct
         .video.playAddr;
 };
-export const extract = matchPattern(action, "*://www.tiktok.com/*");
+export const extract = matchURLPattern(action, "https://www.tiktok.com/*");

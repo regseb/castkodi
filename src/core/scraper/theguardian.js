@@ -7,12 +7,16 @@
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url              L'URL d'un article du Guardian.
+ * @param {URLMatch} _url              L'URL d'un article du Guardian.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -42,15 +46,15 @@ const actionVideo = async (_url, metadata, context) => {
         { ...context, depth: true },
     );
 };
-export const extractVideo = matchPattern(
+export const extractVideo = matchURLPattern(
     actionVideo,
-    "*://www.theguardian.com/*",
+    "https://www.theguardian.com/*",
 );
 
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
- * @param {URL}      _url          L'URL d'un article du Guardian.
+ * @param {URLMatch} _url          L'URL d'un article du Guardian.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -62,7 +66,7 @@ const actionAudio = async (_url, metadata) => {
     const figure = doc.querySelector("figure#audio-component-container");
     return figure?.dataset.source;
 };
-export const extractAudio = matchPattern(
+export const extractAudio = matchURLPattern(
     actionAudio,
-    "*://www.theguardian.com/*",
+    "https://www.theguardian.com/*",
 );

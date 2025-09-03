@@ -4,7 +4,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'expression rationnelle pour extraire l'URL de la vidéo.
@@ -16,7 +20,7 @@ const URL_REGEXP = /sources: \["(?<sources>[^"]+)",/u;
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo de Vidlox.
+ * @param {URLMatch} _url          L'URL d'une vidéo de Vidlox.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -33,4 +37,4 @@ const action = async (_url, metadata) => {
     }
     return undefined;
 };
-export const extract = matchPattern(action, "*://vidlox.me/*");
+export const extract = matchURLPattern(action, "https://vidlox.me/*");

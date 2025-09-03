@@ -5,13 +5,17 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
 /* eslint-disable import/no-cycle */
 import { extract as embedExtract } from "./embed.js";
 import { extract as iframeExtract } from "./iframe.js";
 import { extract as ldjsonExtract } from "./ldjson.js";
 /* eslint-enable import/no-cycle */
 import { extract as mediaExtract } from "./media.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * La liste des extracteurs génériques.
@@ -28,7 +32,7 @@ const GENERIC_EXTRACTS = [
 /**
  * Fouille dans les éléments `template` de la page.
  *
- * @param {URL}      url               L'URL d'une page quelconque.
+ * @param {URLMatch} url               L'URL d'une page quelconque.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
@@ -66,4 +70,4 @@ const action = async (url, metadata, context) => {
     }
     return undefined;
 };
-export const extract = matchPattern(action, "*://*/*");
+export const extract = matchURLPattern(action, "*://*/*");

@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchURLPattern } from "../../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une vidéo lue par SendToKodi.
  *
- * @param {URL}      url                 L'URL utilisant le plugin SendToKodi.
+ * @param {URLMatch} url                 L'URL utilisant le plugin SendToKodi.
  * @param {Object}   context             Le contexte du labellisateur.
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
@@ -20,7 +24,7 @@ const action = async ({ search }, { metaExtract }) => {
     const label = await metaExtract(new URL(search.slice(1)));
     return label ?? search.slice(1);
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
     "plugin://plugin.video.sendtokodi/?*",
 );

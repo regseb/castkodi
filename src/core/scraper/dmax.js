@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'URL de l'API de DMAX.
@@ -17,7 +21,7 @@ const API_URL = "https://eu1-prod.disco-api.com";
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo DMAX.
+ * @param {URLMatch} _url          L'URL d'une vidéo DMAX.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -89,4 +93,4 @@ const action = async (_url, metadata) => {
 
     return undefined;
 };
-export const extract = matchPattern(action, "*://dmax.de/sendungen/*");
+export const extract = matchURLPattern(action, "https://dmax.de/sendungen/*");

@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'URL de l'API de Arte.
@@ -17,15 +21,18 @@ const API_URL = "https://api.arte.tv/api/player/v2/config";
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo Arte.
+ * @param {URLMatch} urlMatch L'URL d'une vidéo Arte avec la langue et
+ *                            l'identifiant de la vidéo.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async ({ pathname }) => {
-    const [, lang, , id] = pathname.split("/");
+const action = async ({ lang, id }) => {
     const response = await fetch(`${API_URL}/${lang}/${id}`);
     const json = await response.json();
 
     return json.data.attributes.streams[0]?.url;
 };
-export const extract = matchPattern(action, "*://www.arte.tv/*/videos/*/*");
+export const extract = matchURLPattern(
+    action,
+    "https://www.arte.tv/:lang/videos/:id/*",
+);

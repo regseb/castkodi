@@ -5,19 +5,23 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo آپارات (Aparat).
+ * @param {URLMatch} urlMatch L'URL d'une vidéo آپارات (Aparat) avec
+ *                            l'identifiant de la vidéo.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = ({ pathname }) => {
-    const id = pathname.slice(3);
+const action = ({ id }) => {
     return Promise.resolve(
         `https://www.aparat.com/video/hls/manifest/videohash/${id}/f/${id}` +
             ".m3u8",
     );
 };
-export const extract = matchPattern(action, "*://www.aparat.com/v/*");
+export const extract = matchURLPattern(action, "https://www.aparat.com/v/:id");

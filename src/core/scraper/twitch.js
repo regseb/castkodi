@@ -8,7 +8,11 @@
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
 import * as twitchPlugin from "../plugin/twitch.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Répartit un _live_ Twitch à un plugin de Kodi.
@@ -73,7 +77,7 @@ const dispatchClip = async (slug) => {
 /**
  * Extrait les informations nécessaires pour lire un clip sur Kodi.
  *
- * @param {URL} url L'URL d'un clip Twitch.
+ * @param {URLMatch} url L'URL d'un clip Twitch.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -85,13 +89,16 @@ const actionClip = ({ pathname, searchParams }) => {
     }
     return dispatchClip(pathname.slice(1));
 };
-export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
+export const extractClip = matchURLPattern(
+    actionClip,
+    "https://clips.twitch.tv/*",
+);
 
 /**
  * Extrait les informations nécessaires pour lire un _live_ ou une vidéo
  * intégrée sur Kodi.
  *
- * @param {URL} url L'URL d'un _live_ ou d'une vidéo intégré.
+ * @param {URLMatch} url L'URL d'un _live_ ou d'une vidéo intégré.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -104,13 +111,16 @@ const actionEmbed = ({ searchParams }) => {
     }
     return Promise.resolve(undefined);
 };
-export const extractEmbed = matchPattern(actionEmbed, "*://player.twitch.tv/*");
+export const extractEmbed = matchURLPattern(
+    actionEmbed,
+    "https://player.twitch.tv/*",
+);
 
 /**
  * Extrait les informations nécessaires pour lire un _live_ ou un clip
  * sur Kodi.
  *
- * @param {URL} url L'URL d'un _live_ ou d'un clip Twitch.
+ * @param {URLMatch} url L'URL d'un _live_ ou d'un clip Twitch.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = ({ pathname }) => {
@@ -125,9 +135,9 @@ const action = ({ pathname }) => {
     }
     return dispatchLive(pathname.slice(1));
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://www.twitch.tv/*",
-    "*://go.twitch.tv/*",
-    "*://m.twitch.tv/*",
+    "https://www.twitch.tv/*",
+    "https://go.twitch.tv/*",
+    "https://m.twitch.tv/*",
 );

@@ -7,7 +7,11 @@
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi. Les pages
@@ -17,7 +21,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  * dans les balises HTML. Pour les vidéos YouTube, elles sont extraites
  * directement de l'iframe.
  *
- * @param {URL}      _url              L'URL d'une vidéo du Point.
+ * @param {URLMatch} _url              L'URL d'une vidéo du Point.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -48,4 +52,4 @@ const action = async (_url, metadata, context) => {
               { ...context, depth: true },
           );
 };
-export const extract = matchPattern(action, "*://www.lepoint.fr/*");
+export const extract = matchURLPattern(action, "https://www.lepoint.fr/*");

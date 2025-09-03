@@ -4,7 +4,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Appelle l'API de Twitch.
@@ -86,7 +90,7 @@ const getLiveTitle = async (channelName) => {
 /**
  * Extrait le titre d'un clip Twitch.
  *
- * @param {URL} url L'URL du clip Twitch.
+ * @param {URLMatch} url L'URL du clip Twitch.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
 const actionClip = ({ pathname, searchParams }) => {
@@ -97,12 +101,15 @@ const actionClip = ({ pathname, searchParams }) => {
     }
     return getClipTitle(pathname.slice(1));
 };
-export const extractClip = matchPattern(actionClip, "*://clips.twitch.tv/*");
+export const extractClip = matchURLPattern(
+    actionClip,
+    "https://clips.twitch.tv/*",
+);
 
 /**
  * Extrait le titre d'une vidéo, d'un clip ou d'un  _live_ Twitch.
  *
- * @param {URL} url L'URL de la vidéo, du clip ou du _live_ Twitch.
+ * @param {URLMatch} url L'URL de la vidéo, du clip ou du _live_ Twitch.
  * @returns {Promise<string>} Une promesse contenant le titre.
  */
 const action = ({ pathname }) => {
@@ -114,4 +121,4 @@ const action = ({ pathname }) => {
     }
     return getLiveTitle(pathname.slice(1));
 };
-export const extract = matchPattern(action, "*://www.twitch.tv/*");
+export const extract = matchURLPattern(action, "https://www.twitch.tv/*");

@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'URL de l'API de Play SRF pour obtenir des informations sur la vidéo.
@@ -31,7 +35,7 @@ const getVideoUrl = async (urn) => {
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo de Play SRF.
+ * @param {URLMatch} url L'URL d'une vidéo de Play SRF.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -42,22 +46,22 @@ const actionVideo = ({ searchParams }) => {
 
     return getVideoUrl(searchParams.get("urn"));
 };
-export const extractVideo = matchPattern(
+export const extractVideo = matchURLPattern(
     actionVideo,
-    "*://www.srf.ch/play/tv/*/video/*",
+    "https://www.srf.ch/play/tv/*/video/*",
 );
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une page de redirection vers une vidéo de Play SRF.
+ * @param {URLMatch} urlMatch L'URL d'une page de redirection vers une vidéo de Play SRF.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionRedirect = ({ pathname }) => {
-    return getVideoUrl("urn:srf:video:" + pathname.slice(25));
+const actionRedirect = ({ id }) => {
+    return getVideoUrl(`urn:srf:video:${id}`);
 };
-export const extractRedirect = matchPattern(
+export const extractRedirect = matchURLPattern(
     actionRedirect,
-    "*://www.srf.ch/play/tv/redirect/detail/*",
+    "https://www.srf.ch/play/tv/redirect/detail/:id",
 );

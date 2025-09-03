@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'expression rationnelle pour extraire les données de la vidéo.
@@ -17,7 +21,7 @@ const DATA_REGEXP = /"mp4":(?<mp4>\{[^}]+\})/u;
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo de Ultimedia.
+ * @param {URLMatch} _url          L'URL d'une vidéo de Ultimedia.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -34,7 +38,7 @@ const action = async (_url, metadata) => {
     }
     return undefined;
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://www.ultimedia.com/deliver/generic/iframe/*",
+    "https://www.ultimedia.com/deliver/generic/iframe/*",
 );

@@ -55,24 +55,6 @@ describe("core/scraper/vrtnu.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL when protocol is HTTP", async function () {
-            const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([]),
-            );
-
-            const url = new URL("http://www.vrt.be/vrtnu/a-z/foo/");
-
-            const file = await scraper.extract(url);
-            assert.equal(
-                file,
-                "plugin://plugin.video.vrt.nu/play/url" +
-                    "/http://www.vrt.be/vrtnu/a-z/foo/",
-            );
-
-            assert.equal(getAddons.mock.callCount(), 1);
-            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
-        });
-
         it("should return video URL without 'www'", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),

@@ -21,12 +21,5 @@ describe("core/scraper/podcloud.js", function () {
             const file = await scraper.extract(url);
             assert.equal(file, "https://podcloud.fr/ext/foo/bar/enclosure.mp3");
         });
-
-        it("should return audio URL when protocol is HTTP", async function () {
-            const url = new URL("http://podcloud.fr/podcast/foo/episode/bar");
-
-            const file = await scraper.extract(url);
-            assert.equal(file, "https://podcloud.fr/ext/foo/bar/enclosure.mp3");
-        });
     });
 });

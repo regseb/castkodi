@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * La liste des types pouvant contenir des URLs de son ou de vidéo.
@@ -21,7 +25,7 @@ const TYPES = new Set([
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une page quelconque.
+ * @param {URLMatch} _url          L'URL d'une page quelconque.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML ou `undefined`.
@@ -46,4 +50,4 @@ const action = async (_url, metadata) => {
     }
     return undefined;
 };
-export const extract = matchPattern(action, "*://*/*");
+export const extract = matchURLPattern(action, "*://*/*");

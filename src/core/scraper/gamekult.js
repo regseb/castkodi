@@ -7,12 +7,16 @@
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url              L'URL d'une page de Gamekult.
+ * @param {URLMatch} _url              L'URL d'une page de Gamekult.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -38,8 +42,8 @@ const action = async (_url, metadata, context) => {
               { ...context, depth: true },
           );
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://www.gamekult.com/*",
-    "*://gamekult.com/*",
+    "https://www.gamekult.com/*",
+    "https://gamekult.com/*",
 );

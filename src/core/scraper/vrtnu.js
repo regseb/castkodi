@@ -8,7 +8,11 @@
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
 import * as vrtnuPlugin from "../plugin/vrtnu.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Répartit une vidéo VRT NU à un plugin de Kodi.
@@ -31,15 +35,15 @@ const dispatch = async (url) => {
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo VRT NU.
+ * @param {URLMatch} url L'URL d'une vidéo VRT NU.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = (url) => {
     return dispatch(url);
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://www.vrt.be/vrtnu/a-z/*",
-    "*://vrt.be/vrtnu/a-z/*",
-    "*://vrtnu.page.link/*",
+    "https://www.vrt.be/vrtnu/a-z/*",
+    "https://vrt.be/vrtnu/a-z/*",
+    "https://vrtnu.page.link/*",
 );

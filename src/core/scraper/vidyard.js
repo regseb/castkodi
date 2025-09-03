@@ -5,17 +5,19 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo de Vidyard.
+ * @param {URLMatch} urlMatch L'URL d'une vidéo de Vidyard.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = async ({ pathname }) => {
-    // Enlever la première barre oblique et éventuellement l'extension ".html".
-    const id = pathname.slice(1).replace(/\.html$/u, "");
+const action = async ({ id }) => {
     const response = await fetch(`https://play.vidyard.com/player/${id}.json`);
     const { payload } = await response.json();
 
@@ -32,4 +34,8 @@ const action = async ({ pathname }) => {
         "|Referer=https://play.vidyard.com/"
     );
 };
-export const extract = matchPattern(action, "*://play.vidyard.com/*");
+export const extract = matchURLPattern(
+    action,
+    "https://play.vidyard.com/:id.html",
+    "https://play.vidyard.com/:id",
+);

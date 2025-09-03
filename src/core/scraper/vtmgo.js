@@ -8,7 +8,11 @@
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
 import * as vtmgoPlugin from "../plugin/vtmgo.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Répartit un épisode VTM GO à un plugin de Kodi.
@@ -73,52 +77,49 @@ const dispatchChannel = async (channelUuid) => {
 /**
  * Extrait les informations nécessaires pour lire un épisode sur Kodi.
  *
- * @param {URL} url L'URL d'un épisode de VTM GO.
+ * @param {URLMatch} urlmatch L'URL d'un épisode de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionEpisode = ({ pathname }) => {
-    return dispatchEpisode(pathname.slice(17));
+const actionEpisode = ({ episodeUuid }) => {
+    return dispatchEpisode(episodeUuid);
 };
-
-export const extractEpisode = matchPattern(
+export const extractEpisode = matchURLPattern(
     actionEpisode,
-    "*://www.vtmgo.be/vtmgo/afspelen/e*",
+    "https://www.vtmgo.be/vtmgo/afspelen/e:episodeUuid",
 );
 
 /**
  * Extrait les informations nécessaires pour lire un film sur Kodi.
  *
- * @param {URL} url L'URL d'un film de VTM GO.
+ * @param {URLMatch} urlMatch L'URL d'un film de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionMovie = ({ pathname }) => {
-    return dispatchMovie(pathname.slice(17));
+const actionMovie = ({ movieUuid }) => {
+    return dispatchMovie(movieUuid);
 };
-
-export const extractMovie = matchPattern(
+export const extractMovie = matchURLPattern(
     actionMovie,
-    "*://www.vtmgo.be/vtmgo/afspelen/m*",
+    "https://www.vtmgo.be/vtmgo/afspelen/m:movieUuid",
 );
 
 /**
  * Extrait les informations nécessaires pour lire un film sur Kodi.
  *
- * @param {URL} url L'URL d'une page d'un film de VTM GO.
+ * @param {URLMatch} urlMatch L'URL d'une page d'un film de VTM GO.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionMoviePage = ({ pathname }) => {
-    return dispatchMovie(pathname.slice(pathname.indexOf("~m") + 2));
+const actionMoviePage = ({ movieUuid }) => {
+    return dispatchMovie(movieUuid);
 };
-
-export const extractMoviePage = matchPattern(
+export const extractMoviePage = matchURLPattern(
     actionMoviePage,
-    "*://www.vtmgo.be/vtmgo/*~m*",
+    "https://www.vtmgo.be/vtmgo/*~m:movieUuid*",
 );
 
 /**
  * Extrait les informations nécessaires pour lire une chaine sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une chaine VTM GO.
+ * @param {URLMatch} _url          L'URL d'une chaine VTM GO.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -130,7 +131,7 @@ const actionChannel = async (_url, metadata) => {
     const div = doc.querySelector("div.fjs-player[data-id]");
     return null === div ? undefined : await dispatchChannel(div.dataset.id);
 };
-export const extractChannel = matchPattern(
+export const extractChannel = matchURLPattern(
     actionChannel,
-    "*://www.vtmgo.be/vtmgo/live-kijken/*",
+    "https://www.vtmgo.be/vtmgo/live-kijken/*",
 );

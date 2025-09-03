@@ -9,7 +9,7 @@ import { extract } from "../../../src/core/scrapers.js";
 describe("Scraper: Acast", function () {
     it("should return audio URL", async function () {
         const url = new URL(
-            "https://play.acast.com/s/cyber" +
+            "https://shows.acast.com/cyber/episodes" +
                 "/the-killer-robot-future-is-already-here",
         );
         const context = { depth: false, incognito: false };
@@ -22,25 +22,11 @@ describe("Scraper: Acast", function () {
         );
     });
 
-    it("should return audio URL from share", async function () {
-        const url = new URL(
-            "https://play.acast.com/s/5d84d37cf721f89940031fb4" +
-                "/63282b9b00922400136f2602",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(
-            file,
-            "https://sphinx.acast.com/p/open/s/5d84d37cf721f89940031fb4/e" +
-                "/63282b9b00922400136f2602/media.mp3",
-        );
-    });
-
     it("should return audio URL from embed", async function () {
         const url = new URL(
-            "https://embed.acast.com/5b7ac427c6a58e726f576cff" +
-                "/626c0242162abf00141b401b?seek=42",
+            "https://embed.acast.com/$/5b7ac427c6a58e726f576cff" +
+                "/silence-on-joue-the-stanley-parable-ultra-deluxe-tiny" +
+                "-tinas-?",
         );
         const context = { depth: false, incognito: false };
 

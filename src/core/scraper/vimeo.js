@@ -8,7 +8,11 @@
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
 import * as vimeoPlugin from "../plugin/vimeo.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Répartit une vidéo Vimeo à un plugin de Kodi.
@@ -41,10 +45,13 @@ const dispatch = async (videoId, hash) => {
  * scraper _opengraph_ va extrait l'URL de la vidéo intégrée depuis la
  * méta-donnée `og:video:secure_url`.
  *
- * @param {URL} url L'URL d'une vidéo Vimeo intégrée.
+ * @param {URLMatch} urlMatch L'URL d'une vidéo Vimeo intégrée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = ({ pathname, searchParams }) => {
-    return dispatch(pathname.slice(7), searchParams.get("h") ?? undefined);
+const action = ({ videoId, searchParams }) => {
+    return dispatch(videoId, searchParams.get("h") ?? undefined);
 };
-export const extract = matchPattern(action, "*://player.vimeo.com/video/*");
+export const extract = matchURLPattern(
+    action,
+    "https://player.vimeo.com/video/:videoId",
+);

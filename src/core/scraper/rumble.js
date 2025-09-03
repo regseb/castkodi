@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'URL de l'API de Rumble pour les vidéos.
@@ -17,13 +21,14 @@ const API_URL = "https://rumble.com/embedJS/u3/?request=video";
 /**
  * Extrait les informations nécessaires pour lire une vidéo embarquée sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo embarquée de Rumble.
+ * @param {URLMatch} urlMatch L'URL d'une vidéo embarquée de Rumble avec
+ *                            l'identifiant.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async ({ pathname }) => {
-    const response = await fetch(`${API_URL}&v=${pathname.slice(7)}`);
+const action = async ({ id }) => {
+    const response = await fetch(`${API_URL}&v=${id}`);
     const json = await response.json();
     return false === json ? undefined : Object.values(json.ua).at(-1)[0];
 };
-export const extract = matchPattern(action, "*://rumble.com/embed/*");
+export const extract = matchURLPattern(action, "https://rumble.com/embed/:id");

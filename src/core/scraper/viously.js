@@ -5,30 +5,34 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo Viously.
+ * @param {URLMatch} urlMatch L'URL d'une vidéo Viously avec l'identifiant de la
+ *                            vidéo.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const action = ({ pathname }) => {
-    const id = pathname.slice(pathname.indexOf("/", 1) + 1);
+const action = ({ id }) => {
     return Promise.resolve(
         `https://www.viously.com/video/hls/${id}/index.m3u8`,
     );
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://www.viously.com/export/*",
-    "*://www.viously.com/amp/*",
+    "https://www.viously.com/export/:id",
+    "https://www.viously.com/amp/:id",
 );
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo intégrée sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une page quelconque ayant
+ * @param {URLMatch} _url          L'URL d'une page quelconque ayant
  *                                 éventuellement un lecteur Viously.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
@@ -48,4 +52,4 @@ const actionIntegrate = async (_url, metadata) => {
         ? undefined
         : `https://www.viously.com/video/hls/${player.id}/index.m3u8`;
 };
-export const extractIntegrate = matchPattern(actionIntegrate, "*://*/*");
+export const extractIntegrate = matchURLPattern(actionIntegrate, "*://*/*");

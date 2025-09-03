@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une page mobile d'OK.
+ * @param {URLMatch} _url          L'URL d'une page d'OK.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -27,12 +31,12 @@ const actionMobile = async (_url, metadata) => {
     const data = JSON.parse(a.dataset.video);
     return data.videoSrc;
 };
-export const extractMobile = matchPattern(actionMobile, "*://m.ok.ru/video/*");
+export const extract = matchURLPattern(actionMobile, "https://m.ok.ru/video/*");
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une page d'OK.
+ * @param {URLMatch} url L'URL d'une page mobile d'OK.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -43,4 +47,4 @@ const action = async (url) => {
     const doc = new DOMParser().parseFromString(text, "text/html");
     return await actionMobile(mobileUrl, { html: () => Promise.resolve(doc) });
 };
-export const extract = matchPattern(action, "*://ok.ru/video/*");
+export const extractMobile = matchURLPattern(action, "https://ok.ru/video/*");

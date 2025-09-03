@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire la vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo PeerTube.
+ * @param {URLMatch} url L'URL d'une vidéo PeerTube.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -31,7 +35,7 @@ const action = async ({ href }) => {
         return undefined;
     }
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
     "*://*/w/*",
     "*://*/videos/watch/*",

@@ -4,6 +4,7 @@
  */
 
 import { WebSocket } from "mock-socket";
+import { URLPattern } from "urlpattern-polyfill";
 import { browser } from "./polyfill/browser.js";
 import { CloseEvent } from "./polyfill/closeevent.js";
 import { DOMParser, XPathResult } from "./polyfill/dom.js";
@@ -28,5 +29,8 @@ Object.defineProperty(
     },
 );
 globalThis.RegExp.escape = escape;
+// Utiliser une prothèse pour URLPattern, car la classe est disponible à partir
+// de Node.js v23. https://nodejs.org/api/url.html#class-urlpattern
+globalThis.URLPattern = URLPattern;
 globalThis.WebSocket = WebSocket;
 globalThis.XPathResult = XPathResult;

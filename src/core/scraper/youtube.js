@@ -10,7 +10,11 @@ import * as invidiousPlugin from "../plugin/invidious.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
 import * as tubedPlugin from "../plugin/tubed.js";
 import * as youtubePlugin from "../plugin/youtube.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Répartit une vidéo YouTube à un plugin de Kodi.
@@ -98,8 +102,7 @@ const dispatchClip = async (clipId, { incognito }) => {
 /**
  * Extrait les informations nécessaires pour lire une vidéo / playlist sur Kodi.
  *
- * @param {URL}      url               L'URL d'une vidéo / playlist YouTube (ou
- *                                     Invidious).
+ * @param {URLMatch} url               L'URL d'une vidéo / playlist YouTube.
  * @param {Object}   _metadata         Les métadonnées de l'URL.
  * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -123,17 +126,16 @@ const actionVideo = async ({ searchParams }, _metadata, { incognito }) => {
 
     return undefined;
 };
-export const extractVideo = matchPattern(
+export const extractVideo = matchURLPattern(
     actionVideo,
-    "*://youtube.com/watch*",
-    "*://*.youtube.com/watch*",
-    "*://invidio.us/watch*",
+    "https://*.youtube.com/watch",
+    "https://youtube.com/watch",
 );
 
 /**
  * Extrait les informations nécessaires pour lire une playlist sur Kodi.
  *
- * @param {URL}      url               L'URL d'une playlist YouTube.
+ * @param {URLMatch} url               L'URL d'une playlist YouTube.
  * @param {Object}   _metadata         Les métadonnées de l'URL.
  * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -148,17 +150,18 @@ const actionPlaylist = ({ searchParams }, _metadata, { incognito }) => {
         ? dispatchPlaylist(searchParams.get("list"), { incognito })
         : Promise.resolve(undefined);
 };
-export const extractPlaylist = matchPattern(
+export const extractPlaylist = matchURLPattern(
     actionPlaylist,
-    "*://youtube.com/playlist*",
-    "*://*.youtube.com/playlist*",
+    "https://*.youtube.com/playlist",
+    "https://youtube.com/playlist",
 );
 
 /**
- * Extrait les informations nécessaires pour lire une vidéo intégrée (un _short_
- * ou depuis une frontale alternative) sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo intégrée, un
+ * _short_, une URL minifiée ou depuis une frontale alternative sur Kodi.
  *
- * @param {URL}      url               L'URL d'une vidéo YouTube intégrée.
+ * @param {URLMatch} urlMatch          L'URL d'une vidéo YouTube avec
+ *                                     l'identifiant de la vidéo.
  * @param {Object}   _metadata         Les métadonnées de l'URL.
  * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -167,25 +170,24 @@ export const extractPlaylist = matchPattern(
  *                                     en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionEmbed = ({ pathname }, _metadata, { incognito }) => {
-    return dispatchVideo(pathname.slice(pathname.indexOf("/", 1) + 1), {
-        incognito,
-    });
+const actionEmbed = ({ videoId }, _metadata, { incognito }) => {
+    return dispatchVideo(videoId, { incognito });
 };
-export const extractEmbed = matchPattern(
+export const extractEmbed = matchURLPattern(
     actionEmbed,
-    "*://www.youtube.com/embed/*",
-    "*://www.youtube-nocookie.com/embed/*",
-    "*://*.youtube.com/shorts/*",
-    "*://youtube.com/shorts/*",
-    "*://invidio.us/embed/*",
-    "*://dev.tube/video/*",
+    "https://www.youtube.com/embed/:videoId",
+    "https://www.youtube-nocookie.com/embed/:videoId",
+    "https://*.youtube.com/shorts/:videoId",
+    "https://youtube.com/shorts/:videoId",
+    "https://youtu.be/:videoId",
+    "https://dev.tube/video/:videoId",
 );
 
 /**
  * Extrait les informations nécessaires pour lire un clip sur Kodi.
  *
- * @param {URL}      url               L'URL d'un clip YouTube.
+ * @param {URLMatch} urlMatch          L'URL d'un clip YouTube avec
+ *                                     l'identifiant du clip.
  * @param {Object}   _metadata         Les métadonnées de l'URL.
  * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -194,27 +196,10 @@ export const extractEmbed = matchPattern(
  *                                     en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionClip = ({ pathname }, _metadata, { incognito }) => {
-    return dispatchClip(pathname.slice(6), { incognito });
+const actionClip = ({ clipId }, _metadata, { incognito }) => {
+    return dispatchClip(clipId, { incognito });
 };
-export const extractClip = matchPattern(
+export const extractClip = matchURLPattern(
     actionClip,
-    "*://www.youtube.com/clip/*",
+    "https://www.youtube.com/clip/:clipId",
 );
-
-/**
- * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
- *
- * @param {URL}      url               L'URL minifiée d'une vidéo YouTube.
- * @param {Object}   _metadata         Les métadonnées de l'URL.
- * @param {Function} _metadata.html    La fonction retournant la promesse
- *                                     contenant le document HTML.
- * @param {Object}   context           Le contexte de l'extraction.
- * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
- *                                     en navigation privée.
- * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
- */
-const actionMinify = ({ pathname }, _metadata, { incognito }) => {
-    return dispatchVideo(pathname.slice(1), { incognito });
-};
-export const extractMinify = matchPattern(actionMinify, "*://youtu.be/*");

@@ -6,15 +6,19 @@
  */
 
 import * as plugin from "../plugin/plexus.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo Ace Stream.
+ * @param {URLMatch} url L'URL d'une vidéo Ace Stream.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = (url) => {
     return Promise.resolve(plugin.generateUrl(url));
 };
-export const extract = matchPattern(action, "acestream://*");
+export const extract = matchURLPattern(action, "acestream://*");

@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo Dumpert.
+ * @param {URLMatch} _url          L'URL d'une vidéo Dumpert.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -26,8 +30,8 @@ const action = async (_url, metadata) => {
     // "property".
     return doc.querySelector('meta[name="og:video"]')?.content;
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://www.dumpert.nl/item/*",
-    "*://www.dumpert.nl/mediabase/*",
+    "https://www.dumpert.nl/item/*",
+    "https://www.dumpert.nl/mediabase/*",
 );

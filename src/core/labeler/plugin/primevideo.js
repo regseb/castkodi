@@ -5,19 +5,23 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchURLPattern } from "../../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une vidéo Prime Video (Amazon).
  *
- * @param {URL} url L'URL utilisant le plugin Amazon Prime Video.
+ * @param {URLMatch} url L'URL utilisant le plugin Amazon Prime Video.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
 const action = ({ searchParams }) => {
     return Promise.resolve(searchParams.get("name") ?? undefined);
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
     "plugin://plugin.video.amazon-test/*",
 );

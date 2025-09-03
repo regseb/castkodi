@@ -20,22 +20,6 @@ describe("core/scraper/acast.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when id is invalid", async function () {
-            const fetch = mock.method(globalThis, "fetch", () =>
-                Promise.resolve(Response.json({})),
-            );
-
-            const url = new URL("https://play.acast.com/s/foo/bar");
-
-            const file = await scraper.extract(url);
-            assert.equal(file, undefined);
-
-            assert.equal(fetch.mock.callCount(), 1);
-            assert.deepEqual(fetch.mock.calls[0].arguments, [
-                "https://feeder.acast.com/api/v1/shows/foo/episodes/bar",
-            ]);
-        });
-
         it("should return audio URL", async function () {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
@@ -43,7 +27,7 @@ describe("core/scraper/acast.js", function () {
                 ),
             );
 
-            const url = new URL("https://play.acast.com/s/baz/qux?quux=corge");
+            const url = new URL("https://shows.acast.com/baz/episodes/qux");
 
             const file = await scraper.extract(url);
             assert.equal(file, "https://foo.com/bar.mp3");
@@ -61,7 +45,7 @@ describe("core/scraper/acast.js", function () {
                 ),
             );
 
-            const url = new URL("https://embed.acast.com/baz/qux?quux=corge");
+            const url = new URL("https://embed.acast.com/$/baz/qux");
 
             const file = await scraper.extract(url);
             assert.equal(file, "https://foo.com/bar.mp3");

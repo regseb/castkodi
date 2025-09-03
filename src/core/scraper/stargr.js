@@ -7,12 +7,16 @@
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo de StarGR.
+ * @param {URLMatch} _url          L'URL d'une vidéo de StarGR.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -29,12 +33,12 @@ const actionTv = async (_url, metadata) => {
     const json = JSON.parse(div.dataset.pluginBitmovinv5);
     return json.BitMovin.ConfigUrl;
 };
-export const extractTv = matchPattern(actionTv, "*://www.star.gr/tv/*");
+export const extractTv = matchURLPattern(actionTv, "https://www.star.gr/tv/*");
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url              L'URL d'une vidéo de StarGR.
+ * @param {URLMatch} _url              L'URL d'une vidéo de StarGR.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -64,7 +68,7 @@ const actionVideo = async (_url, metadata, context) => {
 
     return undefined;
 };
-export const extractVideo = matchPattern(
+export const extractVideo = matchURLPattern(
     actionVideo,
-    "*://www.star.gr/video/*",
+    "https://www.star.gr/video/*",
 );

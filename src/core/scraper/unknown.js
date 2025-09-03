@@ -6,13 +6,17 @@
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as plugin from "../plugin/sendtokodi.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Envoi l'URL à un éventuel plugin de Kodi pour qu'il essaie d'en extraire une
  * vidéo ou une musique.
  *
- * @param {URL}      url               L'URL d'une page quelconque.
+ * @param {URLMatch} url               L'URL d'une page quelconque.
  * @param {Object}   _metadata         Les métadonnées de l'URL.
  * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML ou
@@ -42,4 +46,4 @@ const action = async (url, _metadata, context) => {
 
     return undefined;
 };
-export const extract = matchPattern(action, "*://*/*");
+export const extract = matchURLPattern(action, "*://*/*");

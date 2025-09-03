@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
- * @param {URL}      _url          L'URL d'un son Apple Podcasts.
+ * @param {URLMatch} _url          L'URL d'un son Apple Podcasts.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -19,7 +23,7 @@ import { matchPattern } from "../tools/matchpattern.js";
  */
 const action = async (_url, metadata) => {
     const doc = await metadata.html();
-    const script = doc.querySelector("#serialized-server-data");
+    const script = doc.querySelector("script#serialized-server-data");
     if (null === script) {
         return undefined;
     }
@@ -27,7 +31,7 @@ const action = async (_url, metadata) => {
     return json[0].data.shelves[0].items[0].contextAction.episodeOffer
         ?.streamUrl;
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
     "https://podcasts.apple.com/*/podcast/*/id*",
 );

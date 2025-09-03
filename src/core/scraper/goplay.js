@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'URL de l'API de GoPlay pour obtenir des informations sur une vidéo.
@@ -17,7 +21,7 @@ const API_URL = "https://api.goplay.be/web/v1/videos/short-form/";
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo GoPlay.
+ * @param {URLMatch} _url          L'URL d'une vidéo GoPlay.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -36,4 +40,4 @@ const action = async (_url, metadata) => {
     const json = await response.json();
     return json.manifestUrls.hls;
 };
-export const extract = matchPattern(action, "*://www.goplay.be/video/*");
+export const extract = matchURLPattern(action, "https://www.goplay.be/video/*");

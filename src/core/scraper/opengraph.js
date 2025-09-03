@@ -7,7 +7,11 @@
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * La liste des sélecteurs retournant les éléments `meta` liés aux vidéos et
@@ -31,7 +35,7 @@ const SELECTORS = {
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url              L'URL d'une page quelconque.
+ * @param {URLMatch} _url              L'URL d'une page quelconque.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
@@ -69,12 +73,12 @@ const actionVideo = async (_url, metadata, context) => {
     }
     return undefined;
 };
-export const extractVideo = matchPattern(actionVideo, "*://*/*");
+export const extractVideo = matchURLPattern(actionVideo, "*://*/*");
 
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
- * @param {URL}      _url              L'URL d'une page quelconque avec
+ * @param {URLMatch} _url              L'URL d'une page quelconque avec
  *                                     peut-être des données Open Graph.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
@@ -110,12 +114,12 @@ const actionAudio = async (_url, metadata, context) => {
     }
     return undefined;
 };
-export const extractAudio = matchPattern(actionAudio, "*://*/*");
+export const extractAudio = matchURLPattern(actionAudio, "*://*/*");
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo ou un son sur Kodi.
  *
- * @param {URL}      _url              L'URL d'une page quelconque avec
+ * @param {URLMatch} _url              L'URL d'une page quelconque avec
  *                                     peut-être des données Open Graph « à la
  *                                     Twitter ».
  * @param {Object}   metadata          Les métadonnées de l'URL.
@@ -147,12 +151,12 @@ const actionTwitter = async (_url, metadata, context) => {
 
     return undefined;
 };
-export const extractTwitter = matchPattern(actionTwitter, "*://*/*");
+export const extractTwitter = matchURLPattern(actionTwitter, "*://*/*");
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo ou un son sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une page quelconque avec peut-être
+ * @param {URLMatch} _url          L'URL d'une page quelconque avec peut-être
  *                                 des données Open Graph « à la Twitter ».
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
@@ -170,7 +174,7 @@ const actionTwitterStream = async (_url, metadata) => {
     const meta = doc.querySelector('meta[property="twitter:player:stream"]');
     return meta?.content;
 };
-export const extractTwitterStream = matchPattern(
+export const extractTwitterStream = matchURLPattern(
     actionTwitterStream,
     "*://*/*",
 );
@@ -178,7 +182,7 @@ export const extractTwitterStream = matchPattern(
 /**
  * Extrait les informations nécessaires pour lire une vidéo ou un son sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une page quelconque avec peut-être
+ * @param {URLMatch} _url          L'URL d'une page quelconque avec peut-être
  *                                 des données Open Graph « à la Yandex ».
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
@@ -196,4 +200,4 @@ const actionYandex = async (_url, metadata) => {
     const meta = doc.querySelector('meta[property="ya:ovs:content_url"]');
     return meta?.content;
 };
-export const extractYandex = matchPattern(actionYandex, "*://*/*");
+export const extractYandex = matchURLPattern(actionYandex, "*://*/*");

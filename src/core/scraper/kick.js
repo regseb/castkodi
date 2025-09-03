@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'URL de l'API de Kick.
@@ -35,7 +39,7 @@ const parse = async (response) => {
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'un live Kick.
+ * @param {URLMatch} url L'URL d'un live Kick.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -48,4 +52,4 @@ const action = async ({ pathname }) => {
     const playbackUrl = json.playback_url;
     return playbackUrl.startsWith("https://") ? playbackUrl : undefined;
 };
-export const extract = matchPattern(action, "*://kick.com/*");
+export const extract = matchURLPattern(action, "https://kick.com/*");

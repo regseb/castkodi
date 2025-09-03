@@ -8,7 +8,11 @@
 import { kodi } from "../jsonrpc/kodi.js";
 import * as dailymotionPlugin from "../plugin/dailymotion.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Répartit une vidéo Dailymotion à un plugin de Kodi.
@@ -33,46 +37,24 @@ const dispatch = async (videoId) => {
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo Dailymotion.
+ * @param {URLMatch} urlMatch L'URL d'une vidéo Dailymotion avec l'identifiant
+ *                            de la vidéo.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionVideo = ({ pathname }) => {
-    return dispatch(pathname.slice(7));
+const action = ({ videoId }) => {
+    return dispatch(videoId);
 };
-export const extractVideo = matchPattern(
-    actionVideo,
-    "*://www.dailymotion.com/video/*",
+export const extract = matchURLPattern(
+    action,
+    "https://www.dailymotion.com/video/:videoId",
+    "https://dai.ly/:videoId",
+    "https://www.dailymotion.com/embed/video/:videoId",
 );
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL minifiée d'une vidéo Dailymotion.
- * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
- */
-const actionMinify = ({ pathname }) => {
-    return dispatch(pathname.slice(1));
-};
-export const extractMinify = matchPattern(actionMinify, "*://dai.ly/*");
-
-/**
- * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
- *
- * @param {URL} url L'URL d'une vidéo Dailymotion intégrée.
- * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
- */
-const actionEmbed = ({ pathname }) => {
-    return dispatch(pathname.slice(13));
-};
-export const extractEmbed = matchPattern(
-    actionEmbed,
-    "*://www.dailymotion.com/embed/video/*",
-);
-
-/**
- * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
- *
- * @param {URL}      _url          L'URL d'une page quelconque ayant
+ * @param {URLMatch} _url          L'URL d'une page quelconque ayant
  *                                 éventuellement un lecteur Dailymotion.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
@@ -95,12 +77,15 @@ const actionPlayerScript = async (_url, metadata) => {
     }
     return await dispatch(script.dataset.video);
 };
-export const extractPlayerScript = matchPattern(actionPlayerScript, "*://*/*");
+export const extractPlayerScript = matchURLPattern(
+    actionPlayerScript,
+    "*://*/*",
+);
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'un lecteur Dailymotion avec sa vidéo.
+ * @param {URLMatch} url L'URL d'un lecteur Dailymotion avec sa vidéo.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  * @see https://developers.dailymotion.com/player/#player-iframe-embed
@@ -110,7 +95,7 @@ const actionPlayerIframe = ({ searchParams }) => {
         ? dispatch(searchParams.get("video"))
         : Promise.resolve(undefined);
 };
-export const extractPlayerIframe = matchPattern(
+export const extractPlayerIframe = matchURLPattern(
     actionPlayerIframe,
-    "*://geo.dailymotion.com/player/*",
+    "https://geo.dailymotion.com/player/*",
 );

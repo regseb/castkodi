@@ -8,14 +8,12 @@
 import { kodi } from "../jsonrpc/kodi.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
 import * as soundcloudPlugin from "../plugin/soundcloud.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
- * Extrait les informations nécessaires pour lire un son sur Kodi.
- *
- * @param {URL} url L'URL d'un son SoundCloud.
- * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
+ * @import { URLMatch } from "../tools/urlmatch.js"
  */
+
 /**
  * Répartit une musique SoundCloud à un plugin de Kodi.
  *
@@ -37,14 +35,14 @@ const dispatch = async (url) => {
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
- * @param {URL} url L'URL d'un son SoundCloud.
+ * @param {URLMatch} url L'URL d'un son SoundCloud.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const action = ({ href }) => {
     return dispatch(new URL(href.replace("://mobi.", "://")));
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://soundcloud.com/*",
-    "*://mobi.soundcloud.com/*",
+    "https://soundcloud.com/*",
+    "https://mobi.soundcloud.com/*",
 );

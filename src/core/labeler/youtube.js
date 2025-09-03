@@ -4,12 +4,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une vidéo YouTube.
  *
- * @param {URL} url L'URL de la vidéo YouTube.
+ * @param {URLMatch} url L'URL de la vidéo YouTube.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou le
  *                                      texte pour les vidéos non-disponibles.
  */
@@ -26,15 +30,15 @@ const actionVideo = async (url) => {
     }
     return undefined;
 };
-export const extractVideo = matchPattern(
+export const extractVideo = matchURLPattern(
     actionVideo,
-    "*://www.youtube.com/watch*",
+    "https://www.youtube.com/watch*",
 );
 
 /**
  * Extrait le titre d'une playlist YouTube.
  *
- * @param {URL} url L'URL de la playlist YouTube.
+ * @param {URLMatch} url L'URL de la playlist YouTube.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou le
  *                                      texte pour les playlists
  *                                      non-disponibles.
@@ -51,15 +55,15 @@ const actionPlaylist = async (url) => {
     }
     return undefined;
 };
-export const extractPlaylist = matchPattern(
+export const extractPlaylist = matchURLPattern(
     actionPlaylist,
-    "*://www.youtube.com/playlist*",
+    "https://www.youtube.com/playlist*",
 );
 
 /**
  * Extrait le titre d'un clip YouTube.
  *
- * @param {URL} url L'URL du clip YouTube.
+ * @param {URLMatch} url L'URL du clip YouTube.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre.
  */
 const actionClip = async (url) => {
@@ -68,7 +72,7 @@ const actionClip = async (url) => {
     const doc = new DOMParser().parseFromString(text, "text/html");
     return doc.querySelector('meta[property="og:title"]').content;
 };
-export const extractClip = matchPattern(
+export const extractClip = matchURLPattern(
     actionClip,
-    "*://www.youtube.com/clip/*",
+    "https://www.youtube.com/clip/*",
 );

@@ -6,12 +6,16 @@
  */
 
 import * as primevideoPlugin from "../plugin/primevideo.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo Prime Video (Amazon).
+ * @param {URLMatch} _url          L'URL d'une vidéo Prime Video (Amazon).
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -29,7 +33,7 @@ const action = async (_url, metadata) => {
     const details = body.props.atf.state.detail.headerDetail[body.args.titleID];
     return primevideoPlugin.generateUrl(details.catalogId, details.title);
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
     "https://www.primevideo.com/detail/*",
     "https://www.primevideo.com/region/*/detail/*",

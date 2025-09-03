@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'URL de l'API de Bigo Live pour obtenir des informations sur la vidéo.
@@ -18,7 +22,7 @@ const API_URL =
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL} url L'URL d'une vidéo de Bigo Live.
+ * @param {URLMatch} url L'URL d'une vidéo de Bigo Live.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -36,4 +40,4 @@ const action = async ({ pathname }) => {
         ? undefined
         : (json.data.hls_src ?? undefined);
 };
-export const extract = matchPattern(action, "*://www.bigo.tv/*");
+export const extract = matchURLPattern(action, "https://www.bigo.tv/*");

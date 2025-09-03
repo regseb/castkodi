@@ -7,7 +7,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * La liste des sélecteurs retournant les éléments `video` ou `audio` et leurs
@@ -21,7 +25,7 @@ const SELECTORS = ["video source", "video", "audio source", "audio"];
  * Extrait les informations nécessaires pour lire une vidéo ou une musique sur
  * Kodi.
  *
- * @param {URL}      url           L'URL d'une page quelconque.
+ * @param {URLMatch} url           L'URL d'une page quelconque.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML ou `undefined`.
@@ -44,4 +48,4 @@ const action = async (url, metadata) => {
         ? undefined
         : new URL(media.getAttribute("src"), url).href;
 };
-export const extract = matchPattern(action, "*://*/*");
+export const extract = matchURLPattern(action, "*://*/*");

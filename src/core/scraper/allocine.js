@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      url           L'URL d'une vidéo AlloCiné.
+ * @param {URLMatch} url           L'URL d'une vidéo AlloCiné.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -30,4 +34,4 @@ const action = async (url, metadata) => {
         sources.high ?? sources.standard ?? sources.medium ?? sources.low;
     return undefined === source ? undefined : new URL(source, url).href;
 };
-export const extract = matchPattern(action, "*://www.allocine.fr/*");
+export const extract = matchURLPattern(action, "https://www.allocine.fr/*");

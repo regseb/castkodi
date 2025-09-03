@@ -24,21 +24,7 @@ describe("Scraper: Steam", function () {
         const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
-                new URL(file).pathname.endsWith("/movie_max.mp4"),
-            `new URL("${file}").pathname.endsWith(...)`,
-        );
-    });
-
-    it("should return video URL when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://store.steampowered.com/app/322500/SUPERHOT/",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.ok(
-            undefined !== file &&
-                new URL(file).pathname.endsWith("/movie_max.mp4"),
+                new URL(file).pathname.endsWith("/hls_264_master.m3u8"),
             `new URL("${file}").pathname.endsWith(...)`,
         );
     });

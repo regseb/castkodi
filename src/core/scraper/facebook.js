@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Cherche récursivement une propriété dans un objet.
@@ -45,7 +49,7 @@ const find = (obj, props) => {
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo de Facebook.
+ * @param {URLMatch} _url          L'URL d'une vidéo de Facebook.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -71,11 +75,11 @@ const action = async (_url, metadata) => {
     }
     return undefined;
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://www.facebook.com/watch/*",
-    "*://www.facebook.com/*/videos/*",
-    "*://m.facebook.com/*/videos/*",
-    "*://www.facebook.com/reel/*",
-    "*://fb.watch/*",
+    "https://www.facebook.com/watch/*",
+    "https://www.facebook.com/*/videos/*",
+    "https://m.facebook.com/*/videos/*",
+    "https://www.facebook.com/reel/*",
+    "https://fb.watch/*",
 );

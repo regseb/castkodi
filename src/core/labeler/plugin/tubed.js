@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchURLPattern } from "../../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une vidéo ou d'une playlist YouTube.
  *
- * @param {URL}      url                 L'URL utilisant le plugin Tubed.
+ * @param {URLMatch} url                 L'URL utilisant le plugin Tubed.
  * @param {Object}   context             Le contexte du labellisateur.
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
@@ -36,4 +40,4 @@ const action = ({ searchParams }, { metaExtract }) => {
     }
     return Promise.resolve(undefined);
 };
-export const extract = matchPattern(action, "plugin://plugin.video.tubed/*");
+export const extract = matchURLPattern(action, "plugin://plugin.video.tubed/*");

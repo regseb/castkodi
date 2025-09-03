@@ -21,19 +21,6 @@ describe("Scraper: Facebook", function () {
         );
     });
 
-    it("should return video URL when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://www.facebook.com/XBMC/videos/10152476888501641/",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.ok(
-            undefined !== file && new URL(file).pathname.endsWith(".mp4"),
-            `new URL("${file}").pathname.endsWith(...)`,
-        );
-    });
-
     it("should return video URL when it's mobile version", async function () {
         const url = new URL(
             "https://m.facebook.com/XBMC/videos/10152476888501641/",

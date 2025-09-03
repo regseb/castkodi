@@ -5,7 +5,11 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * L'expression rationnelle pour extraire la clé de l'API de Flickr.
@@ -28,7 +32,7 @@ const API_URL =
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      _url          L'URL d'une vidéo Flickr.
+ * @param {URLMatch} _url          L'URL d'une vidéo Flickr.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
@@ -51,4 +55,7 @@ const action = async (_url, metadata) => {
     const json = await response.json();
     return json.streams?.stream[0]["_content"];
 };
-export const extract = matchPattern(action, "*://www.flickr.com/photos/*");
+export const extract = matchURLPattern(
+    action,
+    "https://www.flickr.com/photos/*",
+);

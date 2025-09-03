@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchURLPattern } from "../../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une vidéo Vimeo.
  *
- * @param {URL}      url                 L'URL utilisant le plugin Vimeo.
+ * @param {URLMatch} url                 L'URL utilisant le plugin Vimeo.
  * @param {Object}   context             Le contexte du labellisateur.
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
@@ -30,7 +34,7 @@ const action = ({ searchParams }, { metaExtract }) => {
         ),
     );
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
     "plugin://plugin.video.vimeo/play/*",
 );

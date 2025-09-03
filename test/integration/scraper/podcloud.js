@@ -21,18 +21,4 @@ describe("Scraper: podCloud", function () {
                 "/numero-51-sa-puissance-est-maximum/enclosure.mp3",
         );
     });
-
-    it("should return audio URL when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://podcloud.fr/podcast/2-heures-de-perdues/episode/stargate",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(
-            file,
-            "https://podcloud.fr/ext/2-heures-de-perdues/stargate" +
-                "/enclosure.mp3",
-        );
-    });
 });

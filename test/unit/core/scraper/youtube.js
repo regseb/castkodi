@@ -41,7 +41,9 @@ describe("core/scraper/youtube.js", function () {
 
     describe("extractVideo()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("https://www.youtube.com/feed/trending");
+            const url = new URL(
+                "https://www.youtube.com/feed/subscriptions?v=foo",
+            );
             const metadata = undefined;
             const context = { incognito: false };
 
@@ -186,27 +188,6 @@ describe("core/scraper/youtube.js", function () {
                 file,
                 "plugin://plugin.video.youtube/play/" +
                     "?video_id=foo&incognito=true",
-            );
-
-            assert.equal(getAddons.mock.callCount(), 1);
-            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
-        });
-
-        it("should return video id from invidio.us", async function () {
-            await browser.storage.local.set({ "youtube-playlist": "video" });
-            const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([]),
-            );
-
-            const url = new URL("https://invidio.us/watch?v=foo");
-            const metadata = undefined;
-            const context = { incognito: false };
-
-            const file = await scraper.extractVideo(url, metadata, context);
-            assert.equal(
-                file,
-                "plugin://plugin.video.youtube/play/" +
-                    "?video_id=foo&incognito=false",
             );
 
             assert.equal(getAddons.mock.callCount(), 1);
@@ -558,12 +539,12 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id from invidio.us", async function () {
+        it("should return video id from URL minify", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
 
-            const url = new URL("https://invidio.us/embed/foo");
+            const url = new URL("https://youtu.be/foo");
             const metadata = undefined;
             const context = { incognito: false };
 
@@ -678,28 +659,6 @@ describe("core/scraper/youtube.js", function () {
                 "plugin://plugin.video.youtube/uri2addon/" +
                     "?uri=https%3A%2F%2Fwww.youtube.com%2Fclip%2Ffoo" +
                     "&incognito=false",
-            );
-
-            assert.equal(getAddons.mock.callCount(), 1);
-            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
-        });
-    });
-
-    describe("extractMinify()", function () {
-        it("should return video id", async function () {
-            const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([]),
-            );
-
-            const url = new URL("https://youtu.be/foo");
-            const metadata = undefined;
-            const context = { incognito: false };
-
-            const file = await scraper.extractMinify(url, metadata, context);
-            assert.equal(
-                file,
-                "plugin://plugin.video.youtube/play/" +
-                    "?video_id=foo&incognito=false",
             );
 
             assert.equal(getAddons.mock.callCount(), 1);

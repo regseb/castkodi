@@ -130,9 +130,6 @@ describe("core/scrapers.js", function () {
         });
 
         it("should support URL", async function () {
-            const fetch = mock.method(globalThis, "fetch", () =>
-                Promise.resolve(new Response("")),
-            );
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -146,20 +143,16 @@ describe("core/scrapers.js", function () {
                 `"${file}"?.startsWith(...)`,
             );
 
-            assert.equal(fetch.mock.callCount(), 1);
-            assert.equal(fetch.mock.calls[0].arguments.length, 2);
-            assert.deepEqual(fetch.mock.calls[0].arguments[0], url);
-            assert.equal(typeof fetch.mock.calls[0].arguments[1], "object");
             assert.equal(getAddons.mock.callCount(), 1);
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should support uppercase URL", async function () {
+        it("should support uppercase hostname", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
 
-            const url = new URL("HTTPS://PLAYER.VIMEO.COM/VIDEO/FOO");
+            const url = new URL("HTTPS://PLAYER.VIMEO.COM/video/foo");
             const context = { depth: false, incognito: false };
 
             const file = await extract(url, context);

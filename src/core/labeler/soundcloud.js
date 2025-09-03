@@ -4,12 +4,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une musique SoundCloud.
  *
- * @param {URL} url L'URL de la musique SoundCloud.
+ * @param {URLMatch} url L'URL de la musique SoundCloud.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
@@ -22,8 +26,8 @@ const action = async (url) => {
     );
     return meta?.content;
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://soundcloud.com/*",
-    "*://mobi.soundcloud.com/*",
+    "https://soundcloud.com/*",
+    "https://mobi.soundcloud.com/*",
 );

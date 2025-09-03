@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchURLPattern } from "../../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'un _live_, d'une vidéo ou d'un clip Twitch.
  *
- * @param {URL}      url                 L'URL utilisant le plugin Twitch.
+ * @param {URLMatch} url                 L'URL utilisant le plugin Twitch.
  * @param {Object}   context             Le contexte du labellisateur.
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
@@ -39,4 +43,7 @@ const action = ({ searchParams }, { metaExtract }) => {
     }
     return Promise.resolve(undefined);
 };
-export const extract = matchPattern(action, "plugin://plugin.video.twitch/*");
+export const extract = matchURLPattern(
+    action,
+    "plugin://plugin.video.twitch/*",
+);

@@ -28,18 +28,4 @@ describe("Scraper: Mixcloud", function () {
                 "&key=%2FLesGar%25C3%25A7onsBienElev%25C3%25A9s%2Fn101%2F",
         );
     });
-
-    it("should return audio id when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://www.mixcloud.com/LesGar%C3%A7onsBienElev%C3%A9s/n101/",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(
-            file,
-            "plugin://plugin.audio.mixcloud/?mode=40" +
-                "&key=%2FLesGar%25C3%25A7onsBienElev%25C3%25A9s%2Fn101%2F",
-        );
-    });
 });

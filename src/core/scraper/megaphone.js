@@ -5,18 +5,22 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
- * @param {URL} url L'URL d'un son de Megaphone.
+ * @param {URLMatch} url L'URL d'un son de Megaphone.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const actionPlayer = ({ pathname }) => {
     return Promise.resolve(`https://dcs.megaphone.fm${pathname}.mp3`);
 };
-export const extractPlayer = matchPattern(
+export const extractPlayer = matchURLPattern(
     actionPlayer,
     "*://player.megaphone.fm/*",
 );
@@ -24,7 +28,7 @@ export const extractPlayer = matchPattern(
 /**
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
- * @param {URL} url L'URL d'un son (d'une liste de lecture) de Megaphone.
+ * @param {URLMatch} url L'URL d'un son (d'une liste de lecture) de Megaphone.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
@@ -35,7 +39,7 @@ const actionPlaylist = ({ searchParams }) => {
             : undefined,
     );
 };
-export const extractPlaylist = matchPattern(
+export const extractPlaylist = matchURLPattern(
     actionPlaylist,
-    "*://playlist.megaphone.fm/*",
+    "https://playlist.megaphone.fm/*",
 );

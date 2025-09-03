@@ -7,12 +7,16 @@
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URL}      url               L'URL d'une page d'Ouest-France.
+ * @param {URLMatch} url               L'URL d'une page d'Ouest-France.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
@@ -46,4 +50,4 @@ const action = async (url, metadata, context) => {
     }
     return undefined;
 };
-export const extract = matchPattern(action, "*://www.ouest-france.fr/*");
+export const extract = matchURLPattern(action, "https://www.ouest-france.fr/*");

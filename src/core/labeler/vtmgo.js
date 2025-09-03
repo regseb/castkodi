@@ -4,12 +4,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une vidéo VTM GO.
  *
- * @param {URL} url L'URL de la vidéo VTM GO.
+ * @param {URLMatch} url L'URL de la vidéo VTM GO.
  * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
  *                                      `undefined`.
  */
@@ -20,7 +24,7 @@ const action = async (url) => {
     return /** @type {HTMLTitleElement} */ (doc.querySelector("title"))
         ?.textContent;
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
-    "*://www.vtmgo.be/vtmgo/afspelen/*",
+    "https://www.vtmgo.be/vtmgo/afspelen/*",
 );

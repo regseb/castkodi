@@ -5,12 +5,16 @@
  * @author Sébastien Règne
  */
 
-import { matchPattern } from "../../tools/matchpattern.js";
+import { matchURLPattern } from "../../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../../tools/urlmatch.js"
+ */
 
 /**
  * Extrait le titre d'une vidéo ou d'une playlist YouTube.
  *
- * @param {URL}      url                 L'URL utilisant le plugin YouTube.
+ * @param {URLMatch} url                 L'URL utilisant le plugin YouTube.
  * @param {Object}   context             Le contexte du labellisateur.
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
@@ -36,7 +40,7 @@ const action = ({ searchParams }, { metaExtract }) => {
     }
     return Promise.resolve(undefined);
 };
-export const extract = matchPattern(
+export const extract = matchURLPattern(
     action,
     "plugin://plugin.video.youtube/play/*",
 );
@@ -44,7 +48,7 @@ export const extract = matchPattern(
 /**
  * Extrait le titre à partir d'une URL de YouTube.
  *
- * @param {URL}      url                 L'URL utilisant le plugin YouTube.
+ * @param {URLMatch} url                 L'URL utilisant le plugin YouTube.
  * @param {Object}   context             Le contexte du labellisateur.
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
@@ -56,7 +60,7 @@ const actionUri = ({ searchParams }, { metaExtract }) => {
         ? metaExtract(new URL(searchParams.get("uri")))
         : Promise.resolve(undefined);
 };
-export const extractUri = matchPattern(
+export const extractUri = matchURLPattern(
     actionUri,
     "plugin://plugin.video.youtube/uri2addon/*",
 );

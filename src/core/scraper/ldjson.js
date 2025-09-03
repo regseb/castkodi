@@ -7,7 +7,11 @@
 
 // eslint-disable-next-line import/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
-import { matchPattern } from "../tools/matchpattern.js";
+import { matchURLPattern } from "../tools/urlmatch.js";
+
+/**
+ * @import { URLMatch } from "../tools/urlmatch.js"
+ */
 
 /**
  * La liste des types pouvant contenir des URLs de son ou de vidéo.
@@ -38,7 +42,7 @@ const walk = (root) => {
 /**
  * Extrait les informations nécessaires pour lire un média sur Kodi.
  *
- * @param {URL}      url               L'URL d'une page quelconque.
+ * @param {URLMatch} url               L'URL d'une page quelconque.
  * @param {Object}   metadata          Les métadonnées de l'URL.
  * @param {Function} metadata.html     La fonction retournant la promesse
  *                                     contenant le document HTML ou
@@ -83,4 +87,4 @@ const action = async (url, metadata, context) => {
     }
     return undefined;
 };
-export const extract = matchPattern(action, "*://*/*");
+export const extract = matchURLPattern(action, "*://*/*");

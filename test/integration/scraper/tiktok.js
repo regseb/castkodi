@@ -45,18 +45,4 @@ describe("Scraper: TikTok [us]", function () {
             `"..." === new URL("${file}").searchParams.get("mime_types")`,
         );
     });
-
-    it("should return video when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://www.tiktok.com/@the90guy/video/6710341586984635654",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.ok(
-            undefined !== file &&
-                "video_mp4" === new URL(file).searchParams.get("mime_type"),
-            `"..." === new URL("${file}").searchParams.get("mime_types")`,
-        );
-    });
 });
