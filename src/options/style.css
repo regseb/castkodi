@@ -5,6 +5,11 @@ body {
 sup {
     align-self: start;
     cursor: help;
+
+    img {
+        height: 12px;
+        width: 12px;
+    }
 }
 
 input[type="text"] {
@@ -80,6 +85,7 @@ td button {
 .warning {
     background-position: 8px center;
     background-repeat: no-repeat;
+    background-size: 16px 16px;
     border-radius: 4px;
     display: none;
     padding: 8px 8px 8px 32px;

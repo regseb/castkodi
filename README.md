@@ -3,7 +3,7 @@
 <!-- Utiliser du HTML (avec l'attribut "align" obsolète) pour faire flotter
      l'image à droite. -->
 <!-- markdownlint-disable-next-line no-inline-html-->
-<img src="src/img/icon.svg" align="right" alt="">
+<img src="src/img/icon.svg" align="right" width="100" height="100" alt="">
 
 <!-- Ne pas afficher de badge pour le Microsoft Edge Add-ons, car Shields.io ne
      le supporte pas. https://github.com/badges/shields/issues/4690 -->

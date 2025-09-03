@@ -247,6 +247,11 @@ button {
     justify-content: center;
     min-width: 132px;
     padding: 8px;
+
+    img {
+        height: 16px;
+        width: 16px;
+    }
 }
 button:hover:not(:disabled) {
     background-color: var(--button-hover-background-color);

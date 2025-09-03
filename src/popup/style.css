@@ -105,42 +105,30 @@ dialog {
     margin-bottom: 64px;
 }
 
-#dialogfeedback {
+#dialogfeedback, #dialogdonate {
     margin-bottom: 64px;
-}
-#dialogfeedback ul {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    margin: 0;
-    padding-left: 0;
-    row-gap: 8px;
-}
-#dialogfeedback a {
-    align-items: center;
-    column-gap: 4px;
-    display: flex;
-    font-size: 14px;
-}
 
-#dialogdonate {
-    margin-bottom: 64px;
-}
-#dialogdonate ul {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    margin: 0;
-    padding-left: 0;
-    row-gap: 8px;
-}
-#dialogdonate a {
-    align-items: center;
-    column-gap: 4px;
-    display: flex;
-    font-size: 14px;
+    ul {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        margin: 0;
+        padding-left: 0;
+        row-gap: 8px;
+    }
+
+    a {
+        align-items: center;
+        column-gap: 4px;
+        display: flex;
+        font-size: 14px;
+    }
+
+    img {
+        height: 16px;
+        width: 16px;
+    }
 }
 
 #cast {
@@ -341,6 +329,17 @@ dialog {
     border-top: 1px solid var(--input-border-color);
     display: flex;
     justify-content: flex-end;
+
+    span {
+        display: flex;
+        margin: 8px;
+        padding: 8px;
+
+        img {
+            height: 16px;
+            width: 16px;
+        }
+    }
 }
 #openbeta {
     background-color: var(--warning-background-color);
@@ -349,11 +348,6 @@ dialog {
        Android, car l'extension est en beta. */
     display: none;
     margin-right: auto;
-}
-#external span {
-    display: flex;
-    margin: 8px;
-    padding: 8px;
 }
 #web {
     display: none;
