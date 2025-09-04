@@ -28,6 +28,11 @@ const YOUTUBE_ADDON = {
     author: "anxdpanic, bromix, MoojMidge",
     type: "xbmc.python.pluginsource",
 };
+const INVIDIOUS_ADDON = {
+    addonid: "plugin.video.invidious",
+    author: "lekma",
+    type: "xbmc.python.pluginsource",
+};
 
 describe("core/scraper/youtube.js", function () {
     afterEach(function () {
@@ -211,7 +216,7 @@ describe("core/scraper/youtube.js", function () {
         it("should return video id to youtube", async function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON, YOUTUBE_ADDON]),
+                Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON, YOUTUBE_ADDON, INVIDIOUS_ADDON]),
             );
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
@@ -232,7 +237,7 @@ describe("core/scraper/youtube.js", function () {
         it("should return video id to tubed", async function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON]),
+                Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON, INVIDIOUS_ADDON]),
             );
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
@@ -243,6 +248,26 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(
                 file,
                 "plugin://plugin.video.tubed/?mode=play&video_id=foo",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return video id to invidious", async function () {
+            await browser.storage.local.set({ "youtube-playlist": "video" });
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([SENDTOKODI_ADDON, INVIDIOUS_ADDON]),
+            );
+
+            const url = new URL("https://www.youtube.com/watch?v=foo");
+            const metadata = undefined;
+            const context = { incognito: true };
+
+            const file = await scraper.extractVideo(url, metadata, context);
+            assert.equal(
+                file,
+                "plugin://plugin.video.invidious/?action=play&videoId=foo",
             );
 
             assert.equal(getAddons.mock.callCount(), 1);

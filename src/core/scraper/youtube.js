@@ -6,6 +6,7 @@
  */
 
 import { kodi } from "../jsonrpc/kodi.js";
+import * as invidiousPlugin from "../plugin/invidious.js";
 import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
 import * as tubedPlugin from "../plugin/tubed.js";
 import * as youtubePlugin from "../plugin/youtube.js";
@@ -27,6 +28,9 @@ const dispatchVideo = async (videoId, { incognito }) => {
     }
     if (addons.some((a) => "plugin.video.tubed" === a.addonid)) {
         return tubedPlugin.generateVideoUrl(videoId);
+    }
+    if (addons.some((a) => "plugin.video.invidious" === a.addonid && "lekma" === a.author)) {
+        return invidiousPlugin.generateVideoUrl(videoId);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
@@ -116,6 +120,7 @@ const actionVideo = async ({ searchParams }, _metadata, { incognito }) => {
 };
 export const extractVideo = matchPattern(
     actionVideo,
+    "*://youtube.com/watch*",
     "*://*.youtube.com/watch*",
     "*://invidio.us/watch*",
 );
@@ -140,6 +145,7 @@ const actionPlaylist = ({ searchParams }, _metadata, { incognito }) => {
 };
 export const extractPlaylist = matchPattern(
     actionPlaylist,
+    "*://youtube.com/playlist*",
     "*://*.youtube.com/playlist*",
 );
 
