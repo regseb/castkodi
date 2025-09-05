@@ -15,7 +15,7 @@ const PLUGIN_URL = "plugin://plugin.video.invidious";
 /**
  * Génère l'URL d'une vidéo dans l'extension Invidious.
  *
- * @param {string}  videoId   L'identifiant de la vidéo YouTube.
+ * @param {string} videoId L'identifiant de la vidéo YouTube.
  * @returns {string} Le lien du _fichier_.
  */
 export const generateVideoUrl = (videoId) => {

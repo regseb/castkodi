@@ -28,4 +28,7 @@ const action = ({ searchParams }, { metaExtract }) => {
     }
     return Promise.resolve(undefined);
 };
-export const extract = matchPattern(action, "plugin://plugin.video.invidious/*");
+export const extract = matchPattern(
+    action,
+    "plugin://plugin.video.invidious/*",
+);
