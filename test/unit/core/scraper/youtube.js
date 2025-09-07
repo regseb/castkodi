@@ -216,7 +216,12 @@ describe("core/scraper/youtube.js", function () {
         it("should return video id to youtube", async function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON, YOUTUBE_ADDON, INVIDIOUS_ADDON]),
+                Promise.resolve([
+                    SENDTOKODI_ADDON,
+                    TUBED_ADDON,
+                    YOUTUBE_ADDON,
+                    INVIDIOUS_ADDON,
+                ]),
             );
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
@@ -237,7 +242,11 @@ describe("core/scraper/youtube.js", function () {
         it("should return video id to tubed", async function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON, INVIDIOUS_ADDON]),
+                Promise.resolve([
+                    SENDTOKODI_ADDON,
+                    TUBED_ADDON,
+                    INVIDIOUS_ADDON,
+                ]),
             );
 
             const url = new URL("https://www.youtube.com/watch?v=foo");

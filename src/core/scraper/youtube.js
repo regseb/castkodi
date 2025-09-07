@@ -29,7 +29,12 @@ const dispatchVideo = async (videoId, { incognito }) => {
     if (addons.some((a) => "plugin.video.tubed" === a.addonid)) {
         return tubedPlugin.generateVideoUrl(videoId);
     }
-    if (addons.some((a) => "plugin.video.invidious" === a.addonid && "lekma" === a.author)) {
+    if (
+        addons.some(
+            (a) =>
+                "plugin.video.invidious" === a.addonid && "lekma" === a.author,
+        )
+    ) {
         return invidiousPlugin.generateVideoUrl(videoId);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
