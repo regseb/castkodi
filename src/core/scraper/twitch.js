@@ -17,11 +17,11 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchLive = async (channelName) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.twitch")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.twitch" === a.addonid)) {
         return twitchPlugin.generateLiveUrl(channelName);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.twitch.tv/${channelName}`),
         );
@@ -37,11 +37,11 @@ const dispatchLive = async (channelName) => {
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchVideo = async (videoId) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.twitch")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.twitch" === a.addonid)) {
         return twitchPlugin.generateVideoUrl(videoId);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.twitch.tv/videos/${videoId}`),
         );
@@ -57,11 +57,11 @@ const dispatchVideo = async (videoId) => {
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchClip = async (slug) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.twitch")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.twitch" === a.addonid)) {
         return twitchPlugin.generateClipUrl(slug);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://clips.twitch.tv/${slug}`),
         );

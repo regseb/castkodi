@@ -8,6 +8,22 @@ import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/dailymotion.js";
 
+const DAILYMOTION_ADDON = {
+    addonid: "plugin.video.dailymotion_com",
+    author: "gujal",
+    type: "xbmc.python.pluginsource",
+};
+const OTHER_ADDON = {
+    addonid: "plugin.video.other",
+    author: "johndoe",
+    type: "xbmc.python.pluginsource",
+};
+const SENDTOKODI_ADDON = {
+    addonid: "plugin.video.sendtokodi",
+    author: "firsttris",
+    type: "xbmc.python.pluginsource",
+};
+
 describe("core/scraper/dailymotion.js", function () {
     afterEach(function () {
         mock.reset();
@@ -40,10 +56,7 @@ describe("core/scraper/dailymotion.js", function () {
 
         it("should return video id to dailymotion", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([
-                    "plugin.video.dailymotion_com",
-                    "plugin.video.sendtokodi",
-                ]),
+                Promise.resolve([DAILYMOTION_ADDON, SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.dailymotion.com/video/foo");
@@ -60,7 +73,7 @@ describe("core/scraper/dailymotion.js", function () {
 
         it("should return video URL to sendtokodi", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve(["plugin.video.sendtokodi"]),
+                Promise.resolve([SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.dailymotion.com/video/foo");
@@ -70,6 +83,23 @@ describe("core/scraper/dailymotion.js", function () {
                 file,
                 "plugin://plugin.video.sendtokodi/" +
                     "?https://www.dailymotion.com/video/foo",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return video id to dailymotion by default", async function () {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([OTHER_ADDON]),
+            );
+
+            const url = new URL("https://www.dailymotion.com/video/foo");
+
+            const file = await scraper.extractVideo(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=foo",
             );
 
             assert.equal(getAddons.mock.callCount(), 1);

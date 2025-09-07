@@ -23,11 +23,11 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async (url) => {
-    const addons = new Set(await kodi.addons.getAddons("audio", "video"));
-    if (addons.has("plugin.audio.soundcloud")) {
+    const addons = await kodi.addons.getAddons("audio", "video");
+    if (addons.some((a) => "plugin.audio.soundcloud" === a.addonid)) {
         return soundcloudPlugin.generateUrl(url);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(url);
     }
     // Envoyer par défaut au plugin SoundCloud.

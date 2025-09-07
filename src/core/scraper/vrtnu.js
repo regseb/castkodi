@@ -17,11 +17,11 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async (url) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.vrt.nu")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.vrt.nu" === a.addonid)) {
         return vrtnuPlugin.generateUrl(url);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(url);
     }
     // Envoyer par défaut au plugin VRT NU.

@@ -21,14 +21,14 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchVideo = async (videoId, { incognito }) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.youtube")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.youtube" === a.addonid)) {
         return youtubePlugin.generateVideoUrl(videoId, incognito);
     }
-    if (addons.has("plugin.video.tubed")) {
+    if (addons.some((a) => "plugin.video.tubed" === a.addonid)) {
         return tubedPlugin.generateVideoUrl(videoId);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.youtube.com/watch?v=${videoId}`),
         );
@@ -47,14 +47,14 @@ const dispatchVideo = async (videoId, { incognito }) => {
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchPlaylist = async (playlistId, { incognito }) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.youtube")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.youtube" === a.addonid)) {
         return await youtubePlugin.generatePlaylistUrl(playlistId, incognito);
     }
-    if (addons.has("plugin.video.tubed")) {
+    if (addons.some((a) => "plugin.video.tubed" === a.addonid)) {
         return tubedPlugin.generatePlaylistUrl(playlistId);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.youtube.com/playlist?list=${playlistId}`),
         );
@@ -73,11 +73,11 @@ const dispatchPlaylist = async (playlistId, { incognito }) => {
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchClip = async (clipId, { incognito }) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.youtube")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.youtube" === a.addonid)) {
         return youtubePlugin.generateClipUrl(clipId, incognito);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.youtube.com/clip/${clipId}`),
         );

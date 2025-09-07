@@ -17,11 +17,11 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchEpisode = async (episodeUuid) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.vtm.go")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.vtm.go" === a.addonid)) {
         return vtmgoPlugin.generateEpisodeUrl(episodeUuid);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.vtmgo.be/vtmgo/afspelen/e${episodeUuid}`),
         );
@@ -37,11 +37,11 @@ const dispatchEpisode = async (episodeUuid) => {
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchMovie = async (movieUuid) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.vtm.go")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.vtm.go" === a.addonid)) {
         return vtmgoPlugin.generateMovieUrl(movieUuid);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.vtmgo.be/vtmgo/afspelen/m${movieUuid}`),
         );
@@ -57,11 +57,11 @@ const dispatchMovie = async (movieUuid) => {
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatchChannel = async (channelUuid) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.vtm.go")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.vtm.go" === a.addonid)) {
         return vtmgoPlugin.generateChannelUrl(channelUuid);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.vtmgo.be/vtmgo/live-kijken/${channelUuid}`),
         );

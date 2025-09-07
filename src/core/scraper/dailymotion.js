@@ -17,11 +17,11 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async (videoId) => {
-    const addons = new Set(await kodi.addons.getAddons("video"));
-    if (addons.has("plugin.video.dailymotion_com")) {
+    const addons = await kodi.addons.getAddons("video");
+    if (addons.some((a) => "plugin.video.dailymotion_com" === a.addonid)) {
         return dailymotionPlugin.generateUrl(videoId);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.dailymotion.com/video/${videoId}`),
         );

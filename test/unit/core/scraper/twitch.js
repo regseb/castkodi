@@ -8,6 +8,22 @@ import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/twitch.js";
 
+const OTHER_ADDON = {
+    addonid: "plugin.video.other",
+    author: "johndoe",
+    type: "xbmc.python.pluginsource",
+};
+const SENDTOKODI_ADDON = {
+    addonid: "plugin.video.sendtokodi",
+    author: "firsttris",
+    type: "xbmc.python.pluginsource",
+};
+const TWITCH_ADDON = {
+    addonid: "plugin.video.twitch",
+    author: "anxdpanic, A Talented Community",
+    type: "xbmc.python.pluginsource",
+};
+
 describe("core/scraper/twitch.js", function () {
     afterEach(function () {
         mock.reset();
@@ -174,10 +190,7 @@ describe("core/scraper/twitch.js", function () {
 
         it("should return video id to twitch", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([
-                    "plugin.video.twitch",
-                    "plugin.video.sendtokodi",
-                ]),
+                Promise.resolve([TWITCH_ADDON, SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.twitch.tv/videos/foo");
@@ -194,7 +207,7 @@ describe("core/scraper/twitch.js", function () {
 
         it("should return video URL to sendtokodi", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve(["plugin.video.sendtokodi"]),
+                Promise.resolve([SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.twitch.tv/videos/foo");
@@ -204,6 +217,23 @@ describe("core/scraper/twitch.js", function () {
                 file,
                 "plugin://plugin.video.sendtokodi/" +
                     "?https://www.twitch.tv/videos/foo",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return video id to twitch by default", async function () {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([OTHER_ADDON]),
+            );
+
+            const url = new URL("https://www.twitch.tv/videos/foo");
+
+            const file = await scraper.extract(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.twitch/?mode=play&video_id=foo",
             );
 
             assert.equal(getAddons.mock.callCount(), 1);
@@ -263,10 +293,7 @@ describe("core/scraper/twitch.js", function () {
 
         it("should return clip slug to twitch", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([
-                    "plugin.video.twitch",
-                    "plugin.video.sendtokodi",
-                ]),
+                Promise.resolve([TWITCH_ADDON, SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.twitch.tv/foo/clip/bar");
@@ -283,7 +310,7 @@ describe("core/scraper/twitch.js", function () {
 
         it("should return clip URL to sendtokodi", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve(["plugin.video.sendtokodi"]),
+                Promise.resolve([SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.twitch.tv/foo/clip/bar");
@@ -292,6 +319,23 @@ describe("core/scraper/twitch.js", function () {
             assert.equal(
                 file,
                 "plugin://plugin.video.sendtokodi/?https://clips.twitch.tv/bar",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return clip slug to twitch by default", async function () {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([OTHER_ADDON]),
+            );
+
+            const url = new URL("https://www.twitch.tv/foo/clip/bar");
+
+            const file = await scraper.extract(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.twitch/?mode=play&slug=bar",
             );
 
             assert.equal(getAddons.mock.callCount(), 1);
@@ -368,10 +412,7 @@ describe("core/scraper/twitch.js", function () {
 
         it("should return channel name to twitch", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([
-                    "plugin.video.twitch",
-                    "plugin.video.sendtokodi",
-                ]),
+                Promise.resolve([TWITCH_ADDON, SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.twitch.tv/foo");
@@ -388,7 +429,7 @@ describe("core/scraper/twitch.js", function () {
 
         it("should return channel URL to sendtokodi", async function () {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve(["plugin.video.sendtokodi"]),
+                Promise.resolve([SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.twitch.tv/foo");
@@ -397,6 +438,23 @@ describe("core/scraper/twitch.js", function () {
             assert.equal(
                 file,
                 "plugin://plugin.video.sendtokodi/?https://www.twitch.tv/foo",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return channel name to twitch by default", async function () {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([OTHER_ADDON]),
+            );
+
+            const url = new URL("https://www.twitch.tv/foo");
+
+            const file = await scraper.extract(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo",
             );
 
             assert.equal(getAddons.mock.callCount(), 1);

@@ -17,11 +17,11 @@ import { matchPattern } from "../tools/matchpattern.js";
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async (path) => {
-    const addons = new Set(await kodi.addons.getAddons("audio", "video"));
-    if (addons.has("plugin.audio.mixcloud")) {
+    const addons = await kodi.addons.getAddons("audio", "video");
+    if (addons.some((a) => "plugin.audio.mixcloud" === a.addonid)) {
         return mixcloudPlugin.generateUrl(path);
     }
-    if (addons.has("plugin.video.sendtokodi")) {
+    if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(
             new URL(`https://www.mixcloud.com${path}`),
         );

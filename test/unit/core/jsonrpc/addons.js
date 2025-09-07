@@ -19,21 +19,24 @@ describe("core/jsonrpc/addons.js", function () {
             const send = mock.method(kodi, "send", () =>
                 Promise.resolve({
                     addons: [
-                        { addonid: "foo", type: "bar" },
-                        { addonid: "baz", type: "bar" },
+                        { addonid: "foo", author: "bar", type: "baz" },
+                        { addonid: "qux", author: "quux", type: "baz" },
                     ],
                     limits: { end: 2, start: 0, total: 2 },
                 }),
             );
 
             const addons = new Addons(kodi);
-            const result = await addons.getAddons("bar");
-            assert.deepEqual(result, ["foo", "baz"]);
+            const result = await addons.getAddons("video");
+            assert.deepEqual(result, [
+                { addonid: "foo", author: "bar", type: "baz" },
+                { addonid: "qux", author: "quux", type: "baz" },
+            ]);
 
             assert.equal(send.mock.callCount(), 1);
             assert.deepEqual(send.mock.calls[0].arguments, [
                 "Addons.GetAddons",
-                { content: "bar", enabled: true },
+                { content: "video", enabled: true, properties: ["author"] },
             ]);
         });
 
@@ -44,15 +47,15 @@ describe("core/jsonrpc/addons.js", function () {
                     case 0:
                         return Promise.resolve({
                             addons: [
-                                { addonid: "foo", type: "bar" },
-                                { addonid: "baz", type: "bar" },
+                                { addonid: "foo", author: "bar", type: "baz" },
+                                { addonid: "qux", author: "quux", type: "baz" },
                             ],
                             limits: { end: 2, start: 0, total: 2 },
                         });
                     case 1:
                         return Promise.resolve({
-                            addons: [{ addonid: "qux", type: "quux" }],
-                            limits: { end: 2, start: 0, total: 2 },
+                            addons: [{ addonid: "corge", type: "grault" }],
+                            limits: { end: 1, start: 0, total: 1 },
                         });
                     default:
                         throw new Error("Third unexpected call");
@@ -60,17 +63,21 @@ describe("core/jsonrpc/addons.js", function () {
             });
 
             const addons = new Addons(kodi);
-            const result = await addons.getAddons("bar", "quux");
-            assert.deepEqual(result, ["foo", "baz", "qux"]);
+            const result = await addons.getAddons("video", "audio");
+            assert.deepEqual(result, [
+                { addonid: "foo", author: "bar", type: "baz" },
+                { addonid: "qux", author: "quux", type: "baz" },
+                { addonid: "corge", type: "grault" },
+            ]);
 
             assert.equal(send.mock.callCount(), 2);
             assert.deepEqual(send.mock.calls[0].arguments, [
                 "Addons.GetAddons",
-                { content: "bar", enabled: true },
+                { content: "video", enabled: true, properties: ["author"] },
             ]);
             assert.deepEqual(send.mock.calls[1].arguments, [
                 "Addons.GetAddons",
-                { content: "quux", enabled: true },
+                { content: "audio", enabled: true, properties: ["author"] },
             ]);
         });
 
@@ -83,13 +90,13 @@ describe("core/jsonrpc/addons.js", function () {
             );
 
             const addons = new Addons(kodi);
-            const result = await addons.getAddons("foo");
+            const result = await addons.getAddons("video");
             assert.deepEqual(result, []);
 
             assert.equal(send.mock.callCount(), 1);
             assert.deepEqual(send.mock.calls[0].arguments, [
                 "Addons.GetAddons",
-                { content: "foo", enabled: true },
+                { content: "video", enabled: true, properties: ["author"] },
             ]);
         });
     });

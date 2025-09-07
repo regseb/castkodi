@@ -9,6 +9,17 @@ import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
 
+const TUBED_ADDON = {
+    addonid: "plugin.video.tubed",
+    author: "anxdpanic",
+    type: "xbmc.python.pluginsource",
+};
+const YOUTUBE_ADDON = {
+    addonid: "plugin.video.youtube",
+    author: "anxdpanic, bromix, MoojMidge",
+    type: "xbmc.python.pluginsource",
+};
+
 describe("Labeler: YouTube", function () {
     afterEach(function () {
         mock.reset();
@@ -65,7 +76,7 @@ describe("Labeler: YouTube", function () {
     it("should return unavailable label", async function () {
         await browser.storage.local.set({ "youtube-playlist": "video" });
         mock.method(kodi.addons, "getAddons", () =>
-            Promise.resolve(["plugin.video.tubed"]),
+            Promise.resolve([TUBED_ADDON]),
         );
 
         const url = new URL("https://www.youtube.com/watch?v=v_cwYv4K2vo");
@@ -91,7 +102,7 @@ describe("Labeler: YouTube", function () {
     it("should return unavailable label for private video", async function () {
         await browser.storage.local.set({ "youtube-playlist": "video" });
         mock.method(kodi.addons, "getAddons", () =>
-            Promise.resolve(["plugin.video.tubed"]),
+            Promise.resolve([TUBED_ADDON]),
         );
 
         const url = new URL("https://www.youtube.com/watch?v=4fVLxS3BMpQ");
@@ -117,7 +128,7 @@ describe("Labeler: YouTube", function () {
     it("should return playlist label", async function () {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
         mock.method(kodi.addons, "getAddons", () =>
-            Promise.resolve(["plugin.video.youtube"]),
+            Promise.resolve([YOUTUBE_ADDON]),
         );
 
         const url = new URL(
@@ -145,7 +156,7 @@ describe("Labeler: YouTube", function () {
     it("should return mix label", async function () {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
         mock.method(kodi.addons, "getAddons", () =>
-            Promise.resolve(["plugin.video.tubed", "plugin.video.youtube"]),
+            Promise.resolve([TUBED_ADDON, YOUTUBE_ADDON]),
         );
 
         const url = new URL(

@@ -9,6 +9,13 @@
  */
 
 /**
+ * @typedef {Object} AddonDetails
+ * @prop {string} addonid L'identifiant de l'addon.
+ * @prop {string} author  L'auteur de l'addon.
+ * @prop {string} type    Le type de l'addon.
+ */
+
+/**
  * Le client JSON-RPC pour contacter l'espace de nom _Addons_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
@@ -36,8 +43,8 @@ export const Addons = class {
      * @param {...string} contents Le type de contenu géré par les addons à
      *                             retourner (`"unknown"`, `"video"`, `"audio"`,
      *                             `"image"` ou `"executable"`).
-     * @returns {Promise<string[]>} Une promesse contenant les identifiants des
-     *                              addons.
+     * @returns {Promise<AddonDetails[]>} Une promesse contenant les
+     *                                    identifiants des addons.
      */
     async getAddons(...contents) {
         const addons = [];
@@ -45,13 +52,14 @@ export const Addons = class {
             const results = await this.#kodi.send("Addons.GetAddons", {
                 content,
                 enabled: true,
+                properties: ["author"],
             });
             // Gérer le cas où la propriété "addons" n'est pas présente (quand
             // aucun addon n'est retourné).
             if (undefined !== results.addons) {
-                addons.push(results.addons.map((a) => a.addonid));
+                addons.push(...results.addons);
             }
         }
-        return addons.flat();
+        return addons;
     }
 };
