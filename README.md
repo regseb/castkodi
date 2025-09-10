@@ -69,6 +69,7 @@ Pour certains sites Internet, les add-ons suivants sont nécessaires dans Kodi :
 [Amazon VOD](https://github.com/Sandmann79/xbmc),
 [Dailymotion](https://kodi.tv/addons/omega/plugin.video.dailymotion_com/),
 [Elementum](https://github.com/elgatito/plugin.video.elementum),
+[Invidious](https://github.com/lekma/plugin.video.invidious),
 [Mixcloud](https://kodi.tv/addons/omega/plugin.audio.mixcloud/),
 [Plexus](https://github.com/enen92/program.plexus),
 [SendToKodi](https://github.com/firsttris/plugin.video.sendtokodi),
