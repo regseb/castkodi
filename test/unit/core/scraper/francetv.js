@@ -65,10 +65,7 @@ describe("core/scraper/francetv.js", function () {
                         new DOMParser().parseFromString(
                             `<html lang="fr"><body>
                                <script>
-                                 var FTVPlayerVideos = [{
-                                   "contentId":1143295,
-                                   "videoId":"123-abc"
-                                 }];
+                                 [{\\"options\\":{\\"id\\":\\"123-abc\\"}}];
                                </script>
                              </body></html>`,
                             "text/html",

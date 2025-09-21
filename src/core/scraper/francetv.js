@@ -16,7 +16,7 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *
  * @type {RegExp}
  */
-const UUID_REGEXP = /"videoId":"(?<videoId>[-0-9a-f]+)"/u;
+const UUID_REGEXP = /\\"options\\":\{\\"id\\":\\"(?<uuid>[-0-9a-f]+)\\"/u;
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
@@ -42,7 +42,7 @@ const action = async (_url, metadata) => {
         // Kodi.
         // https://github.com/yt-dlp/yt-dlp/blob/master/yt_dlp/extractor/francetv.py
         let url =
-            `https://k7.ftven.fr/videos/${result.groups.videoId}` +
+            `https://k7.ftven.fr/videos/${result.groups.uuid}` +
             "?domain=www.france.tv&device_type=mobile&browser=safari";
         let response = await fetch(url);
         let json = await response.json();
