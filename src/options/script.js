@@ -182,12 +182,12 @@ const save = async (event) => {
  * @param {MouseEvent} event L'évènement du clic sur le bouton de correction de
  *                           l'adresse.
  */
-const fix = async (event) => {
+const fix = (event) => {
     const button = event.target.closest("button");
     const input = button.closest("div, td").querySelector("input");
     input.value = button.dataset.fix;
-    // Enregistrer la nouvelle configuration.
-    await save.apply(input);
+    // Déclencher manuellement l'évènement de modification du champ.
+    input.dispatchEvent(new InputEvent("input"));
 };
 
 /**
@@ -197,15 +197,13 @@ const fix = async (event) => {
  *                           la ligne.
  */
 const remove = async (event) => {
-    const tbody = document.querySelector("tbody");
-    // Enlever la ligne.
-    document
-        .querySelector("table")
-        .deleteRow(event.target.closest("tr").rowIndex);
+    const table = document.querySelector("table");
+    // Enlever la ligne du serveur.
+    table.deleteRow(event.target.closest("tr").rowIndex);
 
-    // Recalculer les index.
+    // Recalculer les index des champs pour chaque ligne.
     let index = 0;
-    for (const tr of document.querySelectorAll("tbody tr")) {
+    for (const tr of table.querySelectorAll("tbody tr")) {
         for (const input of tr.querySelectorAll("input")) {
             input.name = input.name.replace(/_\d+$/u, `_${index.toString()}`);
         }
@@ -214,12 +212,15 @@ const remove = async (event) => {
 
     // Si un seul serveur est présent dans la liste : désactiver le bouton de
     // suppression.
-    if (1 === document.querySelectorAll("tbody tr").length) {
-        document.querySelector("tbody button").disabled = true;
+    if (1 === table.querySelectorAll("tbody tr").length) {
+        table.querySelector("button.remove").disabled = true;
     }
 
-    // Enregistrer la nouvelle configuration.
-    await save.apply(tbody.querySelector('[name="address_0"]'));
+    // Simuler une modification de la première adresse pour enregistrer la
+    // nouvelle configuration.
+    table
+        .querySelector('[name="address_0"]')
+        .dispatchEvent(new InputEvent("input"));
     // Activer le premier serveur, car c'est peut-être le serveur actif qui a
     // été supprimé.
     await browser.storage.local.set({ "server-active": 0 });
