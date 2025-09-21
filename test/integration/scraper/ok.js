@@ -22,10 +22,7 @@ describe("Scraper: OK", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith("https://m.ok.ru/dk?st.cmd=moviePlaybackRedirect"),
-            `"${file}"?.startsWith(...)`,
-        );
+        assert.equal(new URL(file).pathname, "/video.m3u8");
     });
 
     it("should return video URL from mobile", async function () {
@@ -33,9 +30,6 @@ describe("Scraper: OK", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith("https://m.ok.ru/dk?st.cmd=moviePlaybackRedirect"),
-            `"${file}"?.startsWith(...)`,
-        );
+        assert.equal(new URL(file).pathname, "/video.m3u8");
     });
 });

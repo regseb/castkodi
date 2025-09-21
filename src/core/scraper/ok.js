@@ -5,6 +5,8 @@
  * @author Sébastien Règne
  */
 
+// eslint-disable-next-line import/no-cycle
+import { extract as metaExtract } from "../scrapers.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
@@ -21,30 +23,44 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionMobile = async (_url, metadata) => {
+const action = async (_url, metadata) => {
     const doc = await metadata.html();
-    const a = doc.querySelector("a.outLnk[data-video]");
-    if (null === a) {
+    const div = doc.querySelector("*[data-options]");
+    if (null === div) {
         return undefined;
     }
 
-    const data = JSON.parse(a.dataset.video);
-    return data.videoSrc;
+    const json = JSON.parse(div.dataset.options);
+    const data = JSON.parse(json.flashvars.metadata);
+    return data.hlsManifestUrl;
 };
-export const extract = matchURLPattern(actionMobile, "https://m.ok.ru/video/*");
+export const extract = matchURLPattern(action, "https://ok.ru/video/*");
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URLMatch} url L'URL d'une page mobile d'OK.
+ * @param {URLMatch} url               L'URL d'une page mobile d'OK.
+ * @param {Object}   _metadata         Les métadonnées de l'URL.
+ * @param {Function} _metadata.html    La fonction retournant la promesse
+ *                                     contenant le document HTML ou
+ *                                     `undefined`.
+ * @param {Object}   context           Le contexte de l'extraction.
+ * @param {boolean}  context.depth     La marque indiquant si l'extraction est
+ *                                     en profondeur.
+ * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
+ *                                     en navigation privée.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const action = async (url) => {
-    const mobileUrl = new URL(url.href.replace("//ok.ru/", "//m.ok.ru/"));
-    const response = await fetch(mobileUrl);
-    const text = await response.text();
-    const doc = new DOMParser().parseFromString(text, "text/html");
-    return await actionMobile(mobileUrl, { html: () => Promise.resolve(doc) });
+const actionMobile = async ({ href }, _metadata, context) => {
+    // Ne pas utiliser l'attribut "data-options" de la page mobile, car il ne
+    // fournit pas le format HLS de la vidéo.
+    return await metaExtract(
+        new URL(href.replace("//m.ok.ru/", "//ok.ru/")),
+        context,
+    );
 };
-export const extractMobile = matchURLPattern(action, "https://ok.ru/video/*");
+export const extractMobile = matchURLPattern(
+    actionMobile,
+    "https://m.ok.ru/video/*",
+);
