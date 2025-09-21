@@ -45,7 +45,9 @@ describe("core/scraper/steam.js", function () {
                             `<html lang="en"><body>
                                <div
                                  class="highlight_movie"
-                                 data-mp4-hd-source="https://bar.com/baz.mp4"
+                                 data-props="${JSON.stringify({
+                                     hlsManifest: "https://bar.com/baz.m3u8",
+                                 }).replaceAll('"', "&quot;")}"
                                ></div>
                              </body></html>`,
                             "text/html",
@@ -54,7 +56,7 @@ describe("core/scraper/steam.js", function () {
             };
 
             const file = await scraper.extractGame(url, metadata);
-            assert.equal(file, "https://bar.com/baz.mp4");
+            assert.equal(file, "https://bar.com/baz.m3u8");
         });
     });
 
