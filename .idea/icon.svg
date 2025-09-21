@@ -1,0 +1,21 @@
+<svg role="img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="wave">
+      <rect x="0" y="0" width="100" height="100" fill="white" />
+      <g fill="none" stroke="black" stroke-width="10">
+        <circle cx="0" cy="50" r="15" />
+        <circle cx="0" cy="50" r="35" />
+        <circle cx="0" cy="50" r="55" />
+      </g>
+    </mask>
+  </defs>
+
+  <polygon
+    points="5,50 50,5 95,50 50,95"
+    fill="#0a84ff"
+    stroke="#0a84ff"
+    stroke-width="10"
+    stroke-linejoin="round"
+    mask="url(#wave)"
+  />
+</svg>

@@ -1,0 +1,9 @@
+# https://intellij-support.jetbrains.com/hc/articles/206544839
+/*
+
+!/runConfigurations/
+!/.gitignore
+!/castkodi.iml
+!/icon.svg
+!/modules.xml
+!/vcs.xml
