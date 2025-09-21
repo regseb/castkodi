@@ -6,6 +6,7 @@
 
 import * as acast from "./scraper/acast.js";
 import * as acestream from "./scraper/acestream.js";
+// eslint-disable-next-line import/no-cycle
 import * as allocine from "./scraper/allocine.js";
 import * as aparat from "./scraper/aparat.js";
 import * as applepodcasts from "./scraper/applepodcasts.js";

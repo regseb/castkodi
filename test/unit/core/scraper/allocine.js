@@ -4,6 +4,8 @@
  */
 
 import assert from "node:assert/strict";
+import { mock } from "node:test";
+import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/allocine.js";
 
 describe("core/scraper/allocine.js", function () {
@@ -12,6 +14,27 @@ describe("core/scraper/allocine.js", function () {
             const url = new URL("https://secure.allocine.fr/account");
 
             const file = await scraper.extract(url);
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when it's depth", async function () {
+            const url = new URL("https://www.allocine.fr/foo");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html lang="fr"><body>
+                               <figure data-model="${JSON.stringify({
+                                   videos: [{ idDailymotion: "bar" }],
+                               }).replaceAll('"', "&quot;")}"></figure>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+            const context = { depth: true, incognito: false };
+
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -26,12 +49,17 @@ describe("core/scraper/allocine.js", function () {
                         ),
                     ),
             };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, metadata);
+            const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
         });
 
-        it("should return high video URL", async function () {
+        it("should return video id", async function () {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+
             const url = new URL("https://www.allocine.fr/foo");
             const metadata = {
                 html: () =>
@@ -39,154 +67,23 @@ describe("core/scraper/allocine.js", function () {
                         new DOMParser().parseFromString(
                             `<html lang="fr"><body>
                                <figure data-model="${JSON.stringify({
-                                   videos: [
-                                       {
-                                           sources: {
-                                               high: "https://bar.com/baz.mkv",
-                                               low: "https://bar.com/qux.wmv",
-                                               medium: "https://bar.com/quux.avi",
-                                               standard:
-                                                   "https://bar.com/corge.mp4",
-                                           },
-                                       },
-                                   ],
+                                   videos: [{ idDailymotion: "bar" }],
                                }).replaceAll('"', "&quot;")}"></figure>
                              </body></html>`,
                             "text/html",
                         ),
                     ),
             };
+            const context = { depth: false, incognito: false };
 
-            const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://bar.com/baz.mkv");
-        });
+            const file = await scraper.extract(url, metadata, context);
+            assert.equal(
+                file,
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
+            );
 
-        it("should return standard video URL", async function () {
-            const url = new URL("https://www.allocine.fr/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html lang="fr"><body>
-                               <figure data-model="${JSON.stringify({
-                                   videos: [
-                                       {
-                                           sources: {
-                                               low: "https://bar.com/baz.wmv",
-                                               medium: "https://bar.com/qux.avi",
-                                               standard:
-                                                   "https://bar.com/quux.mp4",
-                                           },
-                                       },
-                                   ],
-                               }).replaceAll('"', "&quot;")}"></figure>
-                             </body></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
-
-            const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://bar.com/quux.mp4");
-        });
-
-        it("should return medium video URL", async function () {
-            const url = new URL("https://www.allocine.fr/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html lang="fr"><body>
-                               <figure data-model="${JSON.stringify({
-                                   videos: [
-                                       {
-                                           sources: {
-                                               low: "https://bar.com/baz.wmv",
-                                               medium: "https://bar.com/qux.avi",
-                                           },
-                                       },
-                                   ],
-                               }).replaceAll('"', "&quot;")}"></figure>
-                             </body></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
-
-            const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://bar.com/qux.avi");
-        });
-
-        it("should return low video URL", async function () {
-            const url = new URL("https://www.allocine.fr/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html lang="fr"><body>
-                               <figure data-model="${JSON.stringify({
-                                   videos: [
-                                       {
-                                           sources: {
-                                               low: "https://bar.com/baz.wmv",
-                                           },
-                                       },
-                                   ],
-                               }).replaceAll('"', "&quot;")}"></figure>
-                             </body></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
-
-            const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://bar.com/baz.wmv");
-        });
-
-        it("should return undefined when there isn't video", async function () {
-            const url = new URL("https://www.allocine.fr/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html lang="fr"><body>
-                               <figure data-model="${JSON.stringify({
-                                   videos: [{ sources: {} }],
-                               }).replaceAll('"', "&quot;")}"></figure>
-                             </body></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
-
-            const file = await scraper.extract(url, metadata);
-            assert.equal(file, undefined);
-        });
-
-        it("should return video URL with protocol", async function () {
-            const url = new URL("https://www.allocine.fr/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html lang="fr"><body>
-                               <figure data-model="${JSON.stringify({
-                                   videos: [
-                                       {
-                                           sources: {
-                                               high: "//bar.com/baz.mkv",
-                                           },
-                                       },
-                                   ],
-                               }).replaceAll('"', "&quot;")}"></figure>
-                             </body></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
-
-            const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://bar.com/baz.mkv");
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
     });
 });
