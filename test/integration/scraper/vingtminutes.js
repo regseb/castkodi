@@ -19,7 +19,7 @@ describe("Scraper: 20 Minutes", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [iframe-ultimedia]", async function () {
+    it("should return video URL [vingtminutes-ultimedia]", async function () {
         const url = new URL(
             "https://www.20minutes.fr/sciences" +
                 "/2697215-20200117-ariane-5-succes-premier-lancement-annee",

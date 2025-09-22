@@ -76,6 +76,8 @@ import * as videopress from "./scraper/videopress.js";
 import * as vidlox from "./scraper/vidlox.js";
 import * as vidyard from "./scraper/vidyard.js";
 import * as vimeo from "./scraper/vimeo.js";
+// eslint-disable-next-line import/no-cycle
+import * as vingtminutes from "./scraper/vingtminutes.js";
 import * as viously from "./scraper/viously.js";
 import * as vrtnu from "./scraper/vrtnu.js";
 import * as vtmgo from "./scraper/vtmgo.js";
@@ -139,6 +141,7 @@ const SCRAPERS = [
     vidlox,
     vidyard,
     vimeo,
+    vingtminutes,
     vrtnu,
     vtmgo,
     youtube,
