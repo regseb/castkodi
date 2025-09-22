@@ -32,7 +32,7 @@ describe("Scraper: Apple Podcasts", function () {
 
         const file = await extract(url, context);
         assert.ok(
-            file?.startsWith("https://rf.proxycast.org/"),
+            file?.startsWith("https://proxycast.radiofrance.fr/"),
             `"${file}"?.startsWith(...) from ${url}`,
         );
         assert.ok(

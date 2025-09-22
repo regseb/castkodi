@@ -6,10 +6,7 @@
 import assert from "node:assert/strict";
 import { extract } from "../../../src/core/scrapers.js";
 
-// Désactiver les tests, car Podcast Addict détecte que la requête provient d'un
-// robot et il refuse d'afficher la page : "Enable JavaScript and cookies to
-// continue".
-describe.skip("Scraper: Podcast Addict", function () {
+describe("Scraper: Podcast Addict", function () {
     it("should return undefined when it isn't a video", async function () {
         const url = new URL("https://podcastaddict.com/app");
         const context = { depth: false, incognito: false };

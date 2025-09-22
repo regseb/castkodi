@@ -22,7 +22,11 @@ describe("Scraper: BitChute [fr]", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.equal(file, undefined);
+        // Comparer avec une URL, car les propriétés Open Graph de la page sont
+        // boguées : elles sont présentes (elles sont surement ajoutées
+        // automatiquement en préfixant les URL par
+        // "https://www.bitchute.com/embed/"),
+        assert.equal(file, "https://www.bitchute.com/embed//category/science/");
     });
 
     it("should return video URL", async function () {

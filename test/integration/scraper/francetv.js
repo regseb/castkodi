@@ -16,9 +16,17 @@ describe("Scraper: France tv", function () {
     });
 
     it("should return video URL", async function () {
-        const url = new URL(
-            "https://www.france.tv/france-2/journal-20h00/7100720-edition-du-dimanche-27-avril-2025.html",
+        // Récupérer l'URL d'une vidéo du Journal 20h00.
+        const response = await fetch(
+            "https://www.france.tv/france-2/journal-20h00/",
         );
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        const a = doc.querySelector(
+            'a[aria-label^="Journal 20h00 . Édition du"]',
+        );
+
+        const url = new URL(a.getAttribute("href"), "https://www.france.tv/");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);

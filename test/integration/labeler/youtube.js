@@ -42,8 +42,8 @@ describe("Labeler: YouTube", function () {
         assert.deepEqual(item, {
             file,
             label:
-                "Rick Astley - Never Gonna Give You Up (Official Music" +
-                " Video)",
+                "Rick Astley - Never Gonna Give You Up (Official Video) (4K" +
+                " Remaster)",
             position: 0,
             title: "",
             type: "unknown",

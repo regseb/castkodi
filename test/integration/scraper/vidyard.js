@@ -33,7 +33,7 @@ describe("Scraper: Vidyard", function () {
         const file = await extract(url, context);
         assert.ok(
             file?.startsWith(
-                "https://cdn.vidyard.com/media/hls/ZoUHbEeXnQtGWB_F_LOogQ" +
+                "https://cdn.vidyard.com/media/hls/61EqSGBKBRZdArlt50MREg" +
                     "/full_hd.mp4/index.m3u8?",
             ),
             `"${file}"?.startsWith(...)`,

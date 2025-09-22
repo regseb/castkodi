@@ -22,14 +22,11 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.242f5d02-0b3e-4f4d-a89b-22da3f65f0ec" +
-                    "&name=Fallout%20-%20Season%201",
-            ),
-            `"${file}"?.startsWith(...)`,
+        assert.equal(
+            file,
+            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                "&asin=amzn1.dv.gti.242f5d02-0b3e-4f4d-a89b-22da3f65f0ec" +
+                "&name=Fallout%20-%20Season%201",
         );
     });
 
@@ -41,14 +38,11 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.5eb510bc-7578-d2dd-49d3-484070a96b52" +
-                    "&name=The%20Boys%20-%20Season%201",
-            ),
-            `"${file}"?.startsWith(...)`,
+        assert.equal(
+            file,
+            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                "&asin=amzn1.dv.gti.d9a17eaa-1a66-416a-a169-610fc3ec9f17" +
+                "&name=The%20Boys%20-%20Season%201",
         );
     });
 
@@ -59,14 +53,11 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.af316d6d-1270-4dba-882f-33fc6a17ea4f" +
-                    "&name=Mr.%20%26%2338%3B%20Mrs.%20Smith%20-%20Season%201",
-            ),
-            `"${file}"?.startsWith(...)`,
+        assert.equal(
+            file,
+            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                "&asin=amzn1.dv.gti.af316d6d-1270-4dba-882f-33fc6a17ea4f" +
+                "&name=Mr.%20%26%2338%3B%20Mrs.%20Smith%20-%20Season%201",
         );
     });
 
@@ -77,14 +68,11 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.a3f19de4-9ec3-4428-a3ea-a7aa4a0792d8" +
-                    "&name=Tom%20Clancy%26%2339%3Bs%20Jack%20Ryan",
-            ),
-            `"${file}"?.startsWith(...)`,
+        assert.equal(
+            file,
+            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                "&asin=amzn1.dv.gti.a3f19de4-9ec3-4428-a3ea-a7aa4a0792d8" +
+                "&name=Tom%20Clancy%26%2339%3Bs%20Jack%20Ryan",
         );
     });
 
@@ -95,14 +83,11 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.ff3e6df2-2fa6-4a7c-bab3-43972be660cb" +
-                    "&name=Heirate%20Meinen%20Mann%20S1",
-            ),
-            `"${file}"?.startsWith(...)`,
+        assert.equal(
+            file,
+            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                "&asin=amzn1.dv.gti.ff3e6df2-2fa6-4a7c-bab3-43972be660cb" +
+                "&name=Marry%20My%20Husband%20-%20Season%201",
         );
     });
 
@@ -113,14 +98,11 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.56ef5162-901b-4277-9bfa-c5166a89620a" +
-                    "&name=The%20Summer%20I%20Turned%20Pretty%20-%20Season%201",
-            ),
-            `"${file}"?.startsWith(...)`,
+        assert.equal(
+            file,
+            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                "&asin=amzn1.dv.gti.56ef5162-901b-4277-9bfa-c5166a89620a" +
+                "&name=The%20Summer%20I%20Turned%20Pretty%20-%20Season%201",
         );
     });
 
@@ -131,17 +113,11 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.6c51068a-ab0b-416c-a63e-9ef567371a04" +
-                    "&name=%E6%B2%88%E9%BB%99%E3%81%AE%E8%89%A6%E9%9A%8A%20" +
-                    "-%20%E3%82%B7%E3%83%BC%E3%82%BA%E3%83%B3%EF%BC%91%E3%80" +
-                    "%90%E6%9D%B1%E4%BA%AC%E6%B9%BE%E5%A4%A7%E6%B5%B7%E6%88" +
-                    "%A6%E3%80%91",
-            ),
-            `"${file}"?.startsWith(...)`,
+        assert.equal(
+            file,
+            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                "&asin=amzn1.dv.gti.6c51068a-ab0b-416c-a63e-9ef567371a04" +
+                "&name=The%20Silent%20Service%20%E2%80%93%20Season%201",
         );
     });
 
@@ -152,14 +128,11 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            file?.startsWith(
-                "plugin://plugin.video.amazon-test/" +
-                    "?mode=PlayVideo" +
-                    "&asin=amzn1.dv.gti.b552c326-3035-4910-b2d0-72b2943ea778" +
-                    "&name=Reacher%20-%20Season%202",
-            ),
-            `"${file}"?.startsWith(...)`,
+        assert.equal(
+            file,
+            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                "&asin=amzn1.dv.gti.b552c326-3035-4910-b2d0-72b2943ea778" +
+                "&name=Reacher%20-%20Season%202",
         );
     });
 });
