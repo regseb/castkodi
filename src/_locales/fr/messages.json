@@ -311,6 +311,12 @@
     "options_serverRemove_alt": {
         "message": "Supprimer"
     },
+    "options_serverResultLoading_title": {
+        "message": "Connexion en cours…"
+    },
+    "options_serverResultConnected_title": {
+        "message": "Connexion à Kodi établie avec succès."
+    },
     "options_serverFix_title": {
         "message": "Corriger l'adresse"
     },
@@ -327,7 +333,7 @@
         "message": "Popup"
     },
     "options_popupClipboardInput_textcontent": {
-        "message": "Pré-remplir le champ de saisie dans la popup avec le contenu du presse-papier"
+        "message": "Pré-remplir le champ de saisie dans le popup avec le contenu du presse-papier"
     },
     "options_popupWheelDescription_textcontent": {
         "message": "Contrôle du volume avec la molette :"

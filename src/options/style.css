@@ -12,9 +12,15 @@ sup {
     }
 }
 
+dialog {
+    position: absolute;
+}
+
+label {
+    position: relative;
+}
+
 input[type="text"] {
-    background-position: right 8px center;
-    background-repeat: no-repeat;
     max-width: 300px;
     width: 100%;
 }
@@ -24,13 +30,36 @@ input[type="text"]:invalid {
     width: 100%;
 }
 input[name^="address_"] {
-    background-image: url("/design/icon/loading-gray.svg");
     /* Ajouter du rembourrage à droite pour y mettre une icône. */
     padding-right: 32px;
 }
-input[name^="address_"].fixable {
-    max-width: min(300px, calc(100% - 40px));
+button.result {
+    height: 30px;
+    position: absolute;
+    right: 0;
+    width: 30px;
+
+    img {
+        display: none;
+    }
+
+    &.loading img[src$="loading-gray.svg"] {
+        display: inline-block;
+    }
+
+    &.connected img[src$="connected-green.svg"] {
+        display: inline-block;
+    }
+
+    &.warning img[src$="warning-yellow.svg"] {
+        display: inline-block;
+    }
+
+    &.invalid img[src$="invalid-red.svg"] {
+        display: inline-block;
+    }
 }
+
 button.fix {
     display: none;
     height: 32px;
@@ -73,16 +102,19 @@ th:not(:first-child) {
     border-inline-start-style: solid;
     border-inline-start-width: 1px;
 }
-td * {
-    /* Définir une marge automatique pour que les éléments soient centrés. */
-    margin: auto;
-}
 td button {
     display: inline-block;
 }
 
-.error,
-.warning {
+td label {
+    display: inline-flex;
+}
+td label:has(input[name^="address_"].fixable) {
+    max-width: min(300px, calc(100% - 40px));
+}
+
+p.error,
+p.warning {
     background-position: 8px center;
     background-repeat: no-repeat;
     background-size: 16px 16px;
@@ -90,14 +122,14 @@ td button {
     display: none;
     padding: 8px 8px 8px 32px;
 }
-.error {
-    background-image: url("/design/icon/error-white.svg");
+p.error {
+    background-image: url("../design/icon/error-white.svg");
 }
-.warning {
-    background-image: url("/design/icon/warning-yellow.svg");
+p.warning {
+    background-image: url("../design/icon/warning-yellow.svg");
 }
-.error button,
-.warning button {
+p.error button,
+p.warning button {
     margin-top: 8px;
 }
 

@@ -311,6 +311,12 @@
     "options_serverRemove_alt": {
         "message": "Remove"
     },
+    "options_serverResultLoading_title": {
+        "message": "Connecting…"
+    },
+    "options_serverResultConnected_title": {
+        "message": "Connection to Kodi successfully established."
+    },
     "options_serverFix_title": {
         "message": "Fix address"
     },

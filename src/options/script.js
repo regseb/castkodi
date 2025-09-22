@@ -14,6 +14,26 @@ import { checkHosts } from "../core/permission.js";
 locate(document, "options");
 
 /**
+ * Ouvre la boîte de dialogue d'aide et y affiche le texte de l'infobulle. Cette
+ * fonctionnalité est utile pour les appareils tactiles, où il n'y a pas de
+ * survol.
+ *
+ * @param {MouseEvent} event L'évènement du clic sur l'élément avec une
+ *                           infobulle.
+ */
+const openHelp = (event) => {
+    const element = event.target.closest("*[title]");
+    const dialog = /** @type {HTMLDialogElement} */ (
+        document.querySelector("#dialoghelp")
+    );
+    dialog.querySelector("p").textContent = element.title;
+    // Afficher la boîte de dialogue un peu en dessous de l'élément cliqué, pour
+    // éviter de masquer l'élément.
+    dialog.style.marginTop = `${event.pageY + 32}px`;
+    dialog.showModal();
+};
+
+/**
  * Demande l'accès à tous les sites Internet.
  */
 const request = async () => {
@@ -53,24 +73,37 @@ const ask = async (input) => {
  * @param {HTMLInputElement} input Le champ de l'adresse ou du nom.
  */
 const check = async (input) => {
+    const result = input.closest("div, td").querySelector("button.result");
     input.setCustomValidity("");
     if (input.name.startsWith("address_")) {
         input.removeAttribute("title");
-        input.style.backgroundImage = 'url("/design/icon/loading-gray.svg")';
+        result.title = browser.i18n.getMessage(
+            "options_serverResultLoading_title",
+        );
+        result.classList.remove("loading", "connected", "warning", "invalid");
+        result.classList.add("loading");
         const address = input.value;
 
-        const button = input.closest("div, td").querySelector("button");
-        button.dataset.fix = undefined;
-        button.disable = true;
+        const fix = input.closest("div, td").querySelector("button.fix");
+        fix.dataset.fix = undefined;
+        fix.disable = true;
         try {
             await Kodi.check(address);
             // Indiquer la réussite si la valeur testée est toujours la valeur
             // renseignée. Si une autre valeur est en cours de vérification :
             // ignorer cette réussite.
             if (address === input.value) {
-                input.style.backgroundImage =
-                    'url("/design/icon/connected-green.svg")';
-                button.style.display = "none";
+                result.classList.remove(
+                    "loading",
+                    "connected",
+                    "warning",
+                    "invalid",
+                );
+                result.title = browser.i18n.getMessage(
+                    "options_serverResultConnected_title",
+                );
+                result.classList.add("connected");
+                fix.style.display = "none";
                 input.classList.remove("fixable");
             }
         } catch (err) {
@@ -80,22 +113,34 @@ const check = async (input) => {
             if (address === input.value) {
                 if ("notFound" === err.type || "notSupported" === err.type) {
                     input.title = err.message;
-                    input.style.backgroundImage =
-                        'url("/design/icon/warning-yellow.svg")';
+                    result.title = err.message;
+                    result.classList.remove(
+                        "loading",
+                        "connected",
+                        "warning",
+                        "invalid",
+                    );
+                    result.classList.add("warning");
                 } else {
                     input.setCustomValidity(err.message);
-                    input.style.backgroundImage =
-                        'url("/design/icon/invalid-red.svg")';
+                    result.title = err.message;
+                    result.classList.remove(
+                        "loading",
+                        "connected",
+                        "warning",
+                        "invalid",
+                    );
+                    result.classList.add("invalid");
                 }
 
                 if (undefined === err.details.fix) {
-                    button.style.display = "none";
+                    fix.style.display = "none";
                     input.classList.remove("fixable");
                 } else {
-                    button.dataset.fix = err.details.fix;
-                    button.disable = false;
+                    fix.dataset.fix = err.details.fix;
+                    fix.disable = false;
                     input.classList.add("fixable");
-                    button.style.display = "inline-block";
+                    fix.style.display = "inline-block";
                 }
             }
         }
@@ -103,9 +148,11 @@ const check = async (input) => {
         input.setCustomValidity(
             browser.i18n.getMessage("options_serverName_error"),
         );
-        input.style.backgroundImage = 'url("/design/icon/invalid-red.svg")';
+        result.title = browser.i18n.getMessage("options_serverName_error");
+        result.classList.remove("loading", "connected", "warning", "invalid");
+        result.classList.add("invalid");
     } else {
-        input.style.backgroundImage = "none";
+        result.classList.remove("loading", "connected", "warning", "invalid");
     }
 };
 
@@ -260,6 +307,7 @@ const add = (server) => {
     name.name += index.toString();
     name.addEventListener("input", save);
 
+    tr.querySelector("button.result").addEventListener("click", openHelp);
     tr.querySelector("button.fix").addEventListener("click", fix);
     tr.querySelector("button.remove").addEventListener("click", remove);
 
@@ -379,7 +427,13 @@ for (const input of document.querySelectorAll("[name]")) {
     input.addEventListener("input", save);
 }
 document.querySelector("#server-add").addEventListener("click", add);
+document.querySelector("button.result").addEventListener("click", openHelp);
 document.querySelector("button.fix").addEventListener("click", fix);
+
+// Écouter les clics sur les aides.
+for (const sup of document.querySelectorAll("sup")) {
+    sup.addEventListener("click", openHelp);
+}
 
 // Surveiller des changements de permissions (pour le droit de requêter les
 // sites Internet).

@@ -311,6 +311,12 @@
     "options_serverRemove_alt": {
         "message": "Verwijderen"
     },
+    "options_serverResultLoading_title": {
+        "message": "Verbinding wordt gemaakt…"
+    },
+    "options_serverResultConnected_title": {
+        "message": "Verbinding met Kodi succesvol tot stand gebracht."
+    },
     "options_serverFix_title": {
         "message": "Repareer adres"
     },

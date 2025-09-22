@@ -288,6 +288,19 @@ button.ghost:active:not(:disabled) {
     background-color: var(--button-active-background-color);
 }
 
+label button {
+    background-color: transparent;
+    border-radius: 50%;
+    min-width: initial;
+
+    &:hover:not(:disabled) {
+        background-color: var(--button-hover-background-color);
+    }
+    &:active:not(:disabled) {
+        background-color: var(--button-active-background-color);
+    }
+}
+
 select {
     align-items: center;
     appearance: none;
@@ -342,37 +355,42 @@ dialog menu select {
     min-width: auto;
 }
 
-.error {
+dialog.error,
+p.error {
     background-color: var(--error-background-color);
     border-color: var(--error-border-color);
     color: var(--error-color);
+
+    button,
+    select {
+        background-color: color-mix(
+            in srgb,
+            var(--error-background-color),
+            black 20%
+        );
+        color: var(--error-color);
+    }
+    button:hover:not(:disabled),
+    button:active:not(:disabled),
+    select:hover:not(:disabled),
+    select:active:not(:disabled) {
+        background-color: color-mix(
+            in srgb,
+            var(--error-background-color),
+            black 30%
+        );
+    }
 }
-.warning {
+dialog.warning,
+p.warning {
     background-color: var(--warning-background-color);
     border-color: var(--warning-border-color);
     color: var(--warning-color);
 }
-.error,
-.warning {
+dialog.error,
+p.error,
+dialog.warning,
+p.warning {
     border-style: solid;
     border-width: 1px;
-}
-.error button,
-.error select {
-    background-color: color-mix(
-        in srgb,
-        var(--error-background-color),
-        black 20%
-    );
-    color: var(--color);
-}
-.error button:hover:not(:disabled),
-.error button:active:not(:disabled),
-.error select:hover:not(:disabled),
-.error select:active:not(:disabled) {
-    background-color: color-mix(
-        in srgb,
-        var(--error-background-color),
-        black 30%
-    );
 }

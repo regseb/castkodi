@@ -25,13 +25,10 @@
           </label>
         </summary>
         <div id="single">
-          <label
-            data-l10n-textcontent="server-address"
-            data-l10n-title="server-address"
-          >
+          <label data-l10n-textcontent="server-address">
             {}
-            <sup
-              ><img src="/design/icon/help-black.svg" alt="help-black"
+            <sup data-l10n-title="server-address"
+              ><img src="../design/icon/help-black.svg" alt="help-black"
             /></sup>
             <input
               name="address_0"
@@ -42,6 +39,18 @@
               spellcheck="false"
               data-l10n-placeholder="server-address"
             />
+            <button class="result field loading" type="button">
+              <img src="../design/icon/loading-gray.svg" alt="loading-gray" />
+              <img
+                src="../design/icon/connected-green.svg"
+                alt="connected-green"
+              />
+              <img
+                src="../design/icon/warning-yellow.svg"
+                alt="warning-yellow"
+              />
+              <img src="../design/icon/invalid-red.svg" alt="invalid-red" />
+            </button>
           </label>
           <button class="fix ghost" type="button" data-l10n-title="server-fix">
             <img
@@ -82,15 +91,32 @@
         <template>
           <tr>
             <td>
-              <input
-                name="address_"
-                type="text"
-                required
-                autocapitalize="off"
-                autocomplete="off"
-                spellcheck="false"
-                data-l10n-placeholder="server-address"
-              />
+              <label>
+                <input
+                  name="address_"
+                  type="text"
+                  autocapitalize="off"
+                  autocomplete="off"
+                  required
+                  spellcheck="false"
+                  data-l10n-placeholder="server-address"
+                />
+                <button class="result field loading" type="button">
+                  <img
+                    src="../design/icon/loading-gray.svg"
+                    alt="loading-gray"
+                  />
+                  <img
+                    src="../design/icon/connected-green.svg"
+                    alt="connected-green"
+                  />
+                  <img
+                    src="../design/icon/warning-yellow.svg"
+                    alt="warning-yellow"
+                  />
+                  <img src="../design/icon/invalid-red.svg" alt="invalid-red" />
+                </button>
+              </label>
               <button
                 class="fix ghost"
                 type="button"
@@ -104,15 +130,17 @@
               </button>
             </td>
             <td>
-              <input
-                name="name_"
-                type="text"
-                required
-                autocapitalize="off"
-                autocomplete="off"
-                spellcheck="false"
-                data-l10n-placeholder="server-name"
-              />
+              <label>
+                <input
+                  name="name_"
+                  type="text"
+                  autocapitalize="off"
+                  autocomplete="off"
+                  required
+                  spellcheck="false"
+                  data-l10n-placeholder="server-name"
+                />
+              </label>
             </td>
             <td>
               <button
@@ -248,6 +276,10 @@
         </label>
       </div>
     </form>
+
+    <dialog id="dialoghelp" closedby="any">
+      <p></p>
+    </dialog>
 
     <script src="script.js" type="module"></script>
   </body>

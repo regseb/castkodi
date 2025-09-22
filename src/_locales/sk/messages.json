@@ -311,6 +311,12 @@
     "options_serverRemove_alt": {
         "message": "Odstrániť"
     },
+    "options_serverResultLoading_title": {
+        "message": "Pripojenie prebieha…"
+    },
+    "options_serverResultConnected_title": {
+        "message": "Pripojenie k Kodi úspešne nadviazané."
+    },
     "options_serverFix_title": {
         "message": "Opravte adresu"
     },
