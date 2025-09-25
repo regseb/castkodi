@@ -10,7 +10,7 @@
   },
   "manifest_version": 3,
   "name": "Cast Kodi",
-  "version": "7.13.0",
+  "version": "7.14.0",
   "action": {
     "default_icon": {
       "16": "img/icon16.png",
