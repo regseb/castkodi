@@ -1,5 +1,36 @@
 # Changelog
 
+## [7.14.0](https://github.com/regseb/castkodi/compare/v7.13.0...v7.14.0) (2025-09-25)
+
+### Features
+
+- **plugin:** add invidious plugin
+  ([#155](https://github.com/regseb/castkodi/issues/155))
+  ([279e96b](https://github.com/regseb/castkodi/commit/279e96bd521e8efb2123477ddab2d3773713a035))
+
+### Bug Fixes
+
+- Remove Kickstarter.
+  ([bb4ab1d](https://github.com/regseb/castkodi/commit/bb4ab1d3d606fe13883518368beee553d4b5238b))
+- Remove Melty.
+  ([a8ce9e2](https://github.com/regseb/castkodi/commit/a8ce9e26e52f668c4f567286427b0de62ad9cc56))
+- Remove Vudeo which no longer works.
+  ([25f6d65](https://github.com/regseb/castkodi/commit/25f6d657a91b5c70810e1b5d9f24b77e70114f11))
+- Save config when fix and remove.
+  ([a154a6b](https://github.com/regseb/castkodi/commit/a154a6b38b243213d7a53cfb050b8e61c6f4c91b))
+- Show tooltip in dialog (for mobile).
+  ([c887f0b](https://github.com/regseb/castkodi/commit/c887f0bd9f024a3e8a3d60d1952af10c5368b1b9))
+- Update 20 Minutes scrapers.
+  ([a5a375e](https://github.com/regseb/castkodi/commit/a5a375ef43af45660f7a7c969754d251dc56d75d))
+- Update AlloCiné scraper.
+  ([afcc609](https://github.com/regseb/castkodi/commit/afcc60959ce1bceb3db451cf26c67f5a3eadcbd5))
+- Update France tv scraper.
+  ([11fdf7b](https://github.com/regseb/castkodi/commit/11fdf7bae4a828d40e9b1fd7ffdbd5a31e6ad7a0))
+- Update OK scraper.
+  ([b9c8289](https://github.com/regseb/castkodi/commit/b9c828947e187096a420af531cfd80f584e007ec))
+- Update Steam scraper.
+  ([615bcee](https://github.com/regseb/castkodi/commit/615bcee766526cf657349f3dc94f60f293244b47))
+
 ## [7.13.0](https://github.com/regseb/castkodi/compare/v7.12.1...v7.13.0) (2025-05-21)
 
 ### Features
