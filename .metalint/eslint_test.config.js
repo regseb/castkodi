@@ -1,5 +1,7 @@
 /**
  * @license MIT
+ * @see https://eslint.org/docs/latest/rules/
+ * @see https://github.com/lo1tuma/eslint-plugin-mocha#rules
  * @author Sébastien Règne
  */
 
@@ -32,7 +34,6 @@ export default {
         "max-lines": "off",
         "max-lines-per-function": "off",
         "max-statements": "off",
-        "prefer-arrow-callback": "off",
 
         // Plugin eslint-plugin-mocha.
         "mocha/consistent-interface": "off",
@@ -67,7 +68,7 @@ export default {
         "mocha/valid-test-title": "off",
 
         // Plugin eslint-plugin-no-unsanitized.
-        "no-unsanitized/method": "off",
+        "noUnsanitized/method": "off",
 
         // Plugin eslint-plugin-unicorn.
         // Ne pas obliger à sortir les fonctions des tests.

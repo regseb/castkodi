@@ -37,10 +37,11 @@ Les outils suivants sont nécessaires pour utiliser ce projet :
 Vous pouvez installer l'extension dans les navigateurs avec les commandes
 suivantes :
 
-- `npm run start:chromium` : déployer l'extension dans Chromium.
-- `npm run start:firefox` : déployer l'extension dans Firefox.
 <!-- Le déploiement ne fonctionne pas avec la version Snap de Firefox.
      https://github.com/mozilla/web-ext/issues/1696 -->
+
+- `npm run start:chromium` : déployer l'extension dans Chromium.
+- `npm run start:firefox` : déployer l'extension dans Firefox.
 - `npm run start:firefox-android` : déployer l'extension dans Firefox sous
   Android. Il faut ajouter l'option
   [`--adb-device XXX`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#adb-device)
@@ -50,7 +51,7 @@ suivantes :
 Vous pouvez aussi installer manuellement l'extension :
 
 - [_Load an unpacked extension_ in Chrome](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked).
-- [_Sideload an extension to install and test it locally_ in Edge](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading)
+- [_Sideload an extension to install and test it locally_ in Edge](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading).
 - [_Temporary installation in Firefox_](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/).
 
 ## Qualité

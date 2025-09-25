@@ -39,7 +39,7 @@ const dispatchVideo = async (videoId, { incognito }) => {
                 "plugin.video.invidious" === a.addonid && "lekma" === a.author,
         )
     ) {
-        return invidiousPlugin.generateVideoUrl(videoId);
+        return invidiousPlugin.generateUrl(videoId);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
         return sendtokodiPlugin.generateUrl(

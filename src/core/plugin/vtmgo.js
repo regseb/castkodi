@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog";
+const PLUGIN_URL = "plugin://plugin.video.vtm.go";
 
 /**
  * Génère l'URL d'un épisode dans l'extension VTM GO.
@@ -19,7 +19,7 @@ const PLUGIN_URL = "plugin://plugin.video.vtm.go/play/catalog";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateEpisodeUrl = (episodeUuid) => {
-    return `${PLUGIN_URL}/episodes/${episodeUuid}`;
+    return `${PLUGIN_URL}/play/catalog/episodes/${episodeUuid}`;
 };
 
 /**
@@ -29,7 +29,7 @@ export const generateEpisodeUrl = (episodeUuid) => {
  * @returns {string} Le lien du _fichier_.
  */
 export const generateMovieUrl = (movieUuid) => {
-    return `${PLUGIN_URL}/movies/${movieUuid}`;
+    return `${PLUGIN_URL}/play/catalog/movies/${movieUuid}`;
 };
 
 /**
@@ -39,5 +39,5 @@ export const generateMovieUrl = (movieUuid) => {
  * @returns {string} Le lien du _fichier_.
  */
 export const generateChannelUrl = (channelUuid) => {
-    return `${PLUGIN_URL}/channels/${channelUuid}`;
+    return `${PLUGIN_URL}/play/catalog/channels/${channelUuid}`;
 };

@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see https://kodi.wiki/view/Add-on:Vimeo
+ * @see https://github.com/jaylinski/kodi-addon-vimeo
  * @author Sébastien Règne
  */
 

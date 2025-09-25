@@ -5,7 +5,6 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import markdownit from "markdown-it";
 // @ts-expect-error -- L'outil ne fournit pas de types.
 import webExt from "web-ext";
 
@@ -44,29 +43,18 @@ const select = (description, store) => {
 };
 
 /**
- * Adapte la description pour le Chrome Web Store. Enlève le formatage du
- * Markdown.
+ * Adapte la description pour le Chrome Web Store et le Microsoft Edge Add-ons.
+ * Enlève le formatage du Markdown.
  *
  * @param {string} description La description en Markdown.
  * @returns {string} La description sans le formatage.
  */
-const chrome = (description) => {
+const plain = (description) => {
     return description
         .replaceAll(/\*\*(?<f>\S)(?<r>.*?\S)??\*\*/gsv, "$<f>$<r>")
         .replaceAll(/_(?<f>\S)(?<r>.*?\S)??_/gsv, "$<f>$<r>")
-        .replaceAll(/(?<b>[^\n])\n *(?<a>[^\n \-])/gv, "$<b> $<a>");
-};
-
-/**
- * Adapte la description pour le Microsoft Edge Add-ons. Convertit le markdown
- * en HTML.
- *
- * @param {string} description La description en Markdown.
- * @returns {string} La description au format HTML.
- * @see https://learn.microsoft.com/en-us/partner-center/marketplace-offers/supported-html-tags
- */
-const edge = (description) => {
-    return markdownit().render(description);
+        .replaceAll(/(?<b>[^\n])\n *(?<a>[^\n \-])/gv, "$<b> $<a>")
+        .replaceAll("&nbsp;", "\u00A0");
 };
 
 /**
@@ -106,15 +94,10 @@ for (const store of ["chrome", "edge", "firefox"]) {
             path.join(LOCALES_DIR, lang, "description.md"),
             "utf8",
         );
-        if ("chrome" === store) {
+        if ("chrome" === store || "edge" === store) {
             await fs.writeFile(
                 path.join(buildStoreDir, `description-${lang}.txt`),
-                chrome(select(description, store)),
-            );
-        } else if ("edge" === store) {
-            await fs.writeFile(
-                path.join(buildStoreDir, `description-${lang}.html`),
-                edge(select(description, store)),
+                plain(select(description, store)),
             );
         } else if ("firefox" === store) {
             await fs.copyFile(

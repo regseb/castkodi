@@ -8,10 +8,6 @@ import { mock } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/youtube.js";
 
 describe("core/labeler/plugin/youtube.js", function () {
-    afterEach(function () {
-        mock.reset();
-    });
-
     describe("extract()", function () {
         it("should return video label", async function () {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));

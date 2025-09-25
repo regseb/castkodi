@@ -1,5 +1,7 @@
 /**
  * @license MIT
+ * @see https://prettier.io/docs/options
+ * @see https://github.com/prettier/plugin-xml#configuration
  * @author Sébastien Règne
  */
 

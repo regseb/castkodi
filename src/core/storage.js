@@ -68,7 +68,7 @@ export const migrate = async () => {
         const actions = Object.entries(config)
             .filter(([k, v]) => k.startsWith("menus-") && v)
             .map(([k]) => k.slice(6))
-            .reverse();
+            .toReversed();
         const contexts = Object.entries(config)
             .filter(([k, v]) => k.startsWith("contexts-") && v)
             .map(([k]) => k.slice(9));

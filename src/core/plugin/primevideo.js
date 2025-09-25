@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.amazon-test/?mode=PlayVideo";
+const PLUGIN_URL = "plugin://plugin.video.amazon-test";
 
 /**
  * Génère l'URL d'une vidéo dans l'extension Amazon Prime Video.
@@ -20,5 +20,8 @@ const PLUGIN_URL = "plugin://plugin.video.amazon-test/?mode=PlayVideo";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = (id, title) => {
-    return `${PLUGIN_URL}&asin=${id}&name=${encodeURIComponent(title)}`;
+    return (
+        PLUGIN_URL +
+        `/?mode=PlayVideo&asin=${id}&name=${encodeURIComponent(title)}`
+    );
 };

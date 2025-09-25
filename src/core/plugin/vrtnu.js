@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.vrt.nu/play/url/";
+const PLUGIN_URL = "plugin://plugin.video.vrt.nu";
 
 /**
  * Génère l'URL d'une vidéo dans l'extension VRT NU.
@@ -19,5 +19,5 @@ const PLUGIN_URL = "plugin://plugin.video.vrt.nu/play/url/";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = ({ href }) => {
-    return PLUGIN_URL + href;
+    return `${PLUGIN_URL}/play/url/${href}`;
 };

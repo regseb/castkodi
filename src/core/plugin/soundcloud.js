@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?url=";
+const PLUGIN_URL = "plugin://plugin.audio.soundcloud";
 
 /**
  * Génère l'URL d'une musique dans l'extension SoundCloud.
@@ -19,5 +19,5 @@ const PLUGIN_URL = "plugin://plugin.audio.soundcloud/play/?url=";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = ({ href }) => {
-    return PLUGIN_URL + encodeURIComponent(href);
+    return `${PLUGIN_URL}/play/?url=${encodeURIComponent(href)}`;
 };

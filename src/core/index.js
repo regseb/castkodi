@@ -12,7 +12,7 @@ import { PebkacError } from "./tools/pebkac.js";
  * Récupère le lien à analyser parmi les données récupérées.
  *
  * @param {string[]} urls La liste des liens récupérés par le menu contextuel ou
- *                        dans la zone de saisie de la popup.
+ *                        dans la zone de saisie du popup.
  * @returns {string|undefined} Le lien à analyser ou `undefined` si aucun lien
  *                             n'est valide.
  */

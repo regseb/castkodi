@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.elementum/play?uri=";
+const PLUGIN_URL = "plugin://plugin.video.elementum";
 
 /**
  * Génère l'URL d'un torrent ou d'un magnet dans l'extension Elementum.
@@ -19,5 +19,5 @@ const PLUGIN_URL = "plugin://plugin.video.elementum/play?uri=";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = ({ href }) => {
-    return PLUGIN_URL + encodeURIComponent(href);
+    return `${PLUGIN_URL}/play?uri=${encodeURIComponent(href)}`;
 };

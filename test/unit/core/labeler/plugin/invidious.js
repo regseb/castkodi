@@ -8,10 +8,6 @@ import { mock } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/invidious.js";
 
 describe("core/labeler/plugin/invidious.js", function () {
-    afterEach(function () {
-        mock.reset();
-    });
-
     describe("extract()", function () {
         it("should return video label", async function () {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
@@ -29,7 +25,7 @@ describe("core/labeler/plugin/invidious.js", function () {
             ]);
         });
 
-        it("should return undefined when there isn't parameter from Invidious", async function () {
+        it("should return undefined when there isn't 'videoId' parameter", async function () {
             const metaExtract = mock.fn();
 
             const url = new URL(

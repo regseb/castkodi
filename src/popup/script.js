@@ -71,25 +71,6 @@ const openError = (err) => {
     }
 };
 
-// Remplacer cette méthode par l'attribut '<dialog closedby="any">' quand il
-// sera supporté dans Firefox. https://youtu.be/-s8XdFyIEeM?t=140
-// https://developer.mozilla.org/Web/HTML/Element/dialog
-const closeDialog = (event) => {
-    // Fermer la boite de dialogue si l'utilisateur clique en dehors de la
-    // boite.
-    if ("DIALOG" === event.target.nodeName) {
-        const rect = event.target.getBoundingClientRect();
-        if (
-            rect.top > event.clientY ||
-            rect.bottom < event.clientY ||
-            rect.left > event.clientX ||
-            rect.right < event.clientX
-        ) {
-            event.target.close();
-        }
-    }
-};
-
 const mux = async () => {
     if (document.querySelector("#paste input").checked) {
         return document.querySelector("textarea").value;
@@ -1265,11 +1246,6 @@ document
     .querySelector("#dialogsubtitle")
     .addEventListener("close", addSubtitle);
 document.querySelector("#dialogquit").addEventListener("close", quit);
-// Fermer les boites de dialogue en cliquant en dehors (sauf pour celles
-// affichant des erreurs).
-for (const dialog of document.querySelectorAll("dialog:not(.error)")) {
-    dialog.addEventListener("click", closeDialog);
-}
 
 document.querySelector("#configure").addEventListener("click", preferences);
 
@@ -1279,7 +1255,7 @@ if (navigator.userAgentData.mobile) {
 }
 
 // Modifier le comportement des liens pour les ouvrir dans un nouvel onglet et
-// fermer la popup.
+// fermer le popup.
 for (const a of document.querySelectorAll("a")) {
     a.addEventListener("click", async (event) => {
         event.preventDefault();
@@ -1341,7 +1317,7 @@ const SHORTCUTS = new Map([
     ["S", openQuit],
 ]);
 
-// Attention ! La popup n'a pas automatiquement le focus quand elle est ouverte
+// Attention ! Le popup n'a pas automatiquement le focus quand elle est ouverte
 // dans le menu prolongeant la barre d'outils. https://bugzil.la/1623875
 globalThis.addEventListener("keydown", async (event) => {
     // Ignorer les entrées avec une touche de modification.

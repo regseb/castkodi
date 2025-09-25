@@ -8,9 +8,19 @@ import { mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/youtube.js";
 
+const INVIDIOUS_LEKMA_ADDON = {
+    addonid: "plugin.video.invidious",
+    author: "lekma",
+    type: "xbmc.python.pluginsource",
+};
+const INVIDIOUS_PETTERREINHOLDTSEN_ADDON = {
+    addonid: "plugin.video.invidious",
+    author: "petterreinholdtsen",
+    type: "xbmc.python.pluginsource",
+};
 const OTHER_ADDON = {
     addonid: "plugin.video.other",
-    author: "johndoe",
+    author: "lekma",
     type: "xbmc.python.pluginsource",
 };
 const SENDTOKODI_ADDON = {
@@ -26,11 +36,6 @@ const TUBED_ADDON = {
 const YOUTUBE_ADDON = {
     addonid: "plugin.video.youtube",
     author: "anxdpanic, bromix, MoojMidge",
-    type: "xbmc.python.pluginsource",
-};
-const INVIDIOUS_ADDON = {
-    addonid: "plugin.video.invidious",
-    author: "lekma",
     type: "xbmc.python.pluginsource",
 };
 
@@ -198,10 +203,10 @@ describe("core/scraper/youtube.js", function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([
+                    INVIDIOUS_LEKMA_ADDON,
                     SENDTOKODI_ADDON,
                     TUBED_ADDON,
                     YOUTUBE_ADDON,
-                    INVIDIOUS_ADDON,
                 ]),
             );
 
@@ -224,9 +229,9 @@ describe("core/scraper/youtube.js", function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([
+                    INVIDIOUS_LEKMA_ADDON,
                     SENDTOKODI_ADDON,
                     TUBED_ADDON,
-                    INVIDIOUS_ADDON,
                 ]),
             );
 
@@ -247,7 +252,7 @@ describe("core/scraper/youtube.js", function () {
         it("should return video id to invidious", async function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([SENDTOKODI_ADDON, INVIDIOUS_ADDON]),
+                Promise.resolve([INVIDIOUS_LEKMA_ADDON, SENDTOKODI_ADDON]),
             );
 
             const url = new URL("https://www.youtube.com/watch?v=foo");
@@ -288,7 +293,10 @@ describe("core/scraper/youtube.js", function () {
         it("should return video id to youtube by default", async function () {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([OTHER_ADDON]),
+                Promise.resolve([
+                    INVIDIOUS_PETTERREINHOLDTSEN_ADDON,
+                    OTHER_ADDON,
+                ]),
             );
 
             const url = new URL("https://www.youtube.com/watch?v=foo");

@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
+const PLUGIN_URL = "plugin://plugin.audio.mixcloud";
 
 /**
  * Génère l'URL d'une musique dans l'extension Mixcloud.
@@ -19,5 +19,5 @@ const PLUGIN_URL = "plugin://plugin.audio.mixcloud/?mode=40&key=";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = (path) => {
-    return PLUGIN_URL + encodeURIComponent(path);
+    return `${PLUGIN_URL}/?mode=40&key=${encodeURIComponent(path)}`;
 };

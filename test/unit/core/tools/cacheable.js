@@ -8,10 +8,6 @@ import { mock } from "node:test";
 import { cacheable } from "../../../../src/core/tools/cacheable.js";
 
 describe("core/tools/cacheable.js", function () {
-    afterEach(function () {
-        mock.reset();
-    });
-
     describe("cacheable()", function () {
         it("should call one times", function () {
             const func = mock.fn(() => "foo");

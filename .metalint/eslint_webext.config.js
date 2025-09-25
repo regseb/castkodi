@@ -1,5 +1,6 @@
 /**
  * @license MIT
+ * @see https://eslint.org/docs/latest/rules/
  * @author Sébastien Règne
  */
 

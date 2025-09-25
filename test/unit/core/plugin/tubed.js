@@ -6,7 +6,7 @@
 import assert from "node:assert/strict";
 import * as plugin from "../../../../src/core/plugin/tubed.js";
 
-describe("core/plugin/youtube.js", function () {
+describe("core/plugin/tubed.js", function () {
     describe("generateVideoUrl()", function () {
         it("should return Tubed URL", function () {
             const label = plugin.generateVideoUrl("foo");

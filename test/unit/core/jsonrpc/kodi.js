@@ -37,9 +37,9 @@ describe("core/jsonrpc/kodi.js", function () {
             const fix = mock.method(Kodi, "fix");
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send,
-                    close: () => {},
+                    close: () => undefined,
                 }),
             );
 
@@ -70,9 +70,9 @@ describe("core/jsonrpc/kodi.js", function () {
             const fix = mock.method(Kodi, "fix", () => Promise.resolve("bar"));
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send,
-                    close: () => {},
+                    close: () => undefined,
                 }),
             );
 
@@ -107,9 +107,9 @@ describe("core/jsonrpc/kodi.js", function () {
             );
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send,
-                    close: () => {},
+                    close: () => undefined,
                 }),
             );
 
@@ -141,9 +141,9 @@ describe("core/jsonrpc/kodi.js", function () {
             );
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send,
-                    close: () => {},
+                    close: () => undefined,
                 }),
             );
 
@@ -167,9 +167,9 @@ describe("core/jsonrpc/kodi.js", function () {
             const send = mock.fn(() => Promise.resolve("pong"));
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send,
-                    close: () => {},
+                    close: () => undefined,
                 }),
             );
 
@@ -193,9 +193,9 @@ describe("core/jsonrpc/kodi.js", function () {
             );
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send,
-                    close: () => {},
+                    close: () => undefined,
                 }),
             );
 
@@ -223,7 +223,7 @@ describe("core/jsonrpc/kodi.js", function () {
         it("should return URL when url is built", async function () {
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send: () => Promise.resolve({}),
                 }),
             );
@@ -293,7 +293,7 @@ describe("core/jsonrpc/kodi.js", function () {
             const close = mock.fn();
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send: () => Promise.resolve({}),
                     close,
                 }),
@@ -365,7 +365,7 @@ describe("core/jsonrpc/kodi.js", function () {
             const send = mock.fn(() => Promise.reject(new Error("FooError")));
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send,
                 }),
             );
@@ -388,7 +388,7 @@ describe("core/jsonrpc/kodi.js", function () {
             const send = mock.fn(() => Promise.resolve("OK"));
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
+                    addEventListener: () => undefined,
                     send,
                 }),
             );
@@ -422,8 +422,8 @@ describe("core/jsonrpc/kodi.js", function () {
             const send = mock.fn(() => Promise.resolve("OK"));
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
-                    addEventListener: () => {},
-                    close: () => {},
+                    addEventListener: () => undefined,
+                    close: () => undefined,
                     send,
                 }),
             );
@@ -458,7 +458,7 @@ describe("core/jsonrpc/kodi.js", function () {
                     addEventListener: (type, listener) => {
                         listeners[type] = listener;
                     },
-                    close: () => {},
+                    close: () => undefined,
                     send: () => Promise.resolve({ corge: true }),
                 }),
             );
@@ -486,7 +486,7 @@ describe("core/jsonrpc/kodi.js", function () {
                     addEventListener: (type, listener) => {
                         listeners[type] = listener;
                     },
-                    close: () => {},
+                    close: () => undefined,
                     send: () => Promise.resolve({}),
                 }),
             );

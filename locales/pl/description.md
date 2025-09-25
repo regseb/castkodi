@@ -16,7 +16,7 @@ Cast&nbsp;Kodi dodaje możliwość transmitowania wideo i muzyki do **Kodi**:
   - 🇩🇪&nbsp;Niemcy: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;
   - 🇳🇱&nbsp;Niderlandy: Dumpert;
   - 🇷🇺&nbsp;Rosja: OK;
-  - 🇺🇸&nbsp;Stany&nbspZjednoczone: KCAA&nbsp;Radio;
+  - 🇺🇸&nbsp;Stany&nbsp;Zjednoczone: KCAA&nbsp;Radio;
   - 🇨🇭&nbsp;Szwajcaria: Play&nbsp;SRF;
   - 🇬🇧&nbsp;Zjednoczone&nbsp;Królestwo: Daily&nbsp;Mail, The&nbsp;Guardian.
 

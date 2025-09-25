@@ -1,5 +1,6 @@
 /**
  * @license MIT
+ * @see https://github.com/DavidAnson/markdownlint#rules--aliases
  * @author Sébastien Règne
  */
 

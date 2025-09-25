@@ -8,10 +8,6 @@ import { mock } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/vimeo.js";
 
 describe("core/labeler/plugin/vimeo.js", function () {
-    afterEach(function () {
-        mock.reset();
-    });
-
     describe("extract()", function () {
         it("should return undefined when there isn't 'video_id' parameter", async function () {
             const metaExtract = mock.fn();

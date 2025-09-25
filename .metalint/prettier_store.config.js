@@ -1,5 +1,6 @@
 /**
  * @license MIT
+ * @see https://prettier.io/docs/options
  * @author Sébastien Règne
  */
 

@@ -1,5 +1,6 @@
 /**
  * @license MIT
+ * @see https://github.com/mozilla/addons-linter
  * @author Sébastien Règne
  */
 

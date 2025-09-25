@@ -18,6 +18,6 @@ const PLUGIN_URL = "plugin://plugin.video.invidious";
  * @param {string} videoId L'identifiant de la vidéo YouTube.
  * @returns {string} Le lien du _fichier_.
  */
-export const generateVideoUrl = (videoId) => {
+export const generateUrl = (videoId) => {
     return `${PLUGIN_URL}/?action=play&videoId=${videoId}`;
 };

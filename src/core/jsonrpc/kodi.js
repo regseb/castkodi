@@ -16,17 +16,9 @@ import { Playlist } from "./playlist.js";
 import { System } from "./system.js";
 
 /**
- * @typedef {Object} KodiVersions Les versions de Kodi.
- * @prop {number} API_VERSION La version de l'API JSON-RPC.
- * @prop {number} VERSION     La version de Kodi.
- * @prop {string} NAME        Le nom de la version de Kodi.
- */
-
-/**
  * La version minimale de l'API JSON-RPC de Kodi nécessaire ; et la version
  * (ainsi que son nom) de Kodi liée à la version de l'API.
  *
- * @type {KodiVersions}
  * @see https://kodi.wiki/view/JSON-RPC_API#API_versions
  */
 const KODI_VERSIONS = {

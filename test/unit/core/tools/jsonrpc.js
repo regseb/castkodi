@@ -9,10 +9,6 @@ import { Server } from "mock-socket";
 import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
 
 describe("core/tools/jsonrpc.js", function () {
-    afterEach(function () {
-        mock.reset();
-    });
-
     describe("open()", function () {
         it("should return promise fulfilled", async function () {
             const server = new Server("ws://localhost/", { mock: false });

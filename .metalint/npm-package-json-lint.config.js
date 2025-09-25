@@ -1,5 +1,6 @@
 /**
  * @license MIT
+ * @see https://npmpackagejsonlint.org/docs/rules
  * @author Sébastien Règne
  */
 

@@ -16,7 +16,7 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *
  * @type {string}
  */
-const API_URL = "https://kick.com/api/v1/channels";
+const API_URL = "https://kick.com/api/v2/channels";
 
 /**
  * Parse le JSON d'une réponse HTTP et retourne `undefined` en cas d'erreur.

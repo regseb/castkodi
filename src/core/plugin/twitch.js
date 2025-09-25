@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.twitch/?mode=play";
+const PLUGIN_URL = "plugin://plugin.video.twitch";
 
 /**
  * Génère l'URL d'un _live_ dans l'extension Twitch.
@@ -19,7 +19,7 @@ const PLUGIN_URL = "plugin://plugin.video.twitch/?mode=play";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateLiveUrl = (channelName) => {
-    return `${PLUGIN_URL}&channel_name=${channelName}`;
+    return `${PLUGIN_URL}/?mode=play&channel_name=${channelName}`;
 };
 
 /**
@@ -29,7 +29,7 @@ export const generateLiveUrl = (channelName) => {
  * @returns {string} Le lien du _fichier_.
  */
 export const generateVideoUrl = (videoId) => {
-    return `${PLUGIN_URL}&video_id=${videoId}`;
+    return `${PLUGIN_URL}/?mode=play&video_id=${videoId}`;
 };
 
 /**
@@ -39,5 +39,5 @@ export const generateVideoUrl = (videoId) => {
  * @returns {string} Le lien du _fichier_.
  */
 export const generateClipUrl = (slug) => {
-    return `${PLUGIN_URL}&slug=${slug}`;
+    return `${PLUGIN_URL}/?mode=play&slug=${slug}`;
 };

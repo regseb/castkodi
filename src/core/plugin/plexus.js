@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://program.plexus/?mode=1&name=&url=";
+const PLUGIN_URL = "plugin://program.plexus";
 
 /**
  * Génère l'URL d'une vidéo dans l'extension Plexus.
@@ -19,5 +19,5 @@ const PLUGIN_URL = "plugin://program.plexus/?mode=1&name=&url=";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = ({ href }) => {
-    return PLUGIN_URL + encodeURIComponent(href);
+    return `${PLUGIN_URL}/?mode=1&name=&url=${encodeURIComponent(href)}`;
 };

@@ -1,5 +1,14 @@
 /**
  * @license MIT
+ * @see https://eslint.org/docs/latest/rules/
+ * @see https://github.com/freaktechnik/eslint-plugin-array-func#rules
+ * @see https://mysticatea.github.io/eslint-plugin-eslint-comments/rules/
+ * @see https://github.com/import-js/eslint-plugin-import#rules
+ * @see https://github.com/gajus/eslint-plugin-jsdoc#rules
+ * @see https://github.com/mozilla/eslint-plugin-no-unsanitized#rule-details
+ * @see https://github.com/eslint-community/eslint-plugin-promise#rules
+ * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/
+ * @see https://github.com/sindresorhus/eslint-plugin-unicorn#rules
  * @author Sébastien Règne
  */
 
@@ -7,7 +16,6 @@
 import arrayFunc from "eslint-plugin-array-func";
 // @ts-expect-error -- Le plugin eslint-comments ne fournit pas de types.
 import eslintComments from "eslint-plugin-eslint-comments";
-// @ts-expect-error -- Le plugin import ne fournit pas de types.
 import importPlugin from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 // @ts-expect-error -- Le plugin no-unsanitized ne fournit pas de types.
@@ -27,7 +35,7 @@ import globals from "globals";
  */
 export default {
     languageOptions: {
-        globals: { ...globals["shared-node-browser"] },
+        globals: globals["shared-node-browser"],
     },
 
     linterOptions: {
@@ -39,7 +47,7 @@ export default {
         "eslint-comments": eslintComments,
         import: importPlugin,
         jsdoc,
-        "no-unsanitized": noUnsanitized,
+        noUnsanitized,
         promise,
         regexp,
         unicorn,
@@ -205,7 +213,7 @@ export default {
         "no-div-regex": "error",
         "no-else-return": ["error", { allowElseIf: false }],
         "no-empty": "error",
-        "no-empty-function": ["error", { allow: ["arrowFunctions"] }],
+        "no-empty-function": "error",
         "no-empty-static-block": "error",
         "no-eq-null": "error",
         "no-eval": "error",
@@ -320,6 +328,7 @@ export default {
         "prefer-rest-params": "error",
         "prefer-spread": "error",
         "prefer-template": "off",
+        "preserve-caught-error": ["error", { requireCatchParameter: true }],
         radix: "error",
         "require-await": "error",
         "require-unicode-regexp": ["error", { requireFlag: "v" }],
@@ -411,6 +420,8 @@ export default {
 
         // Static analysis.
         "import/default": "error",
+        // Préférer la règle n/prefer-node-protocol.
+        "import/enforce-node-protocol-usage": "off",
         "import/named": "error",
         "import/namespace": "error",
         "import/no-absolute-path": "error",
@@ -473,10 +484,6 @@ export default {
         // Plugin eslint-plugin-jsdoc.
         "jsdoc/check-access": "error",
         "jsdoc/check-alignment": "error",
-        // Désactiver cette règle, car elle n'est pas pour le moment compatible
-        // avec ESLint 8.
-        // https://github.com/gajus/eslint-plugin-jsdoc/releases/tag/v37.0.0
-        "jsdoc/check-examples": "off",
         "jsdoc/check-indentation": "off",
         "jsdoc/check-line-alignment": [
             "error",
@@ -516,14 +523,10 @@ export default {
         "jsdoc/no-multi-asterisks": "error",
         "jsdoc/no-restricted-syntax": "off",
         "jsdoc/no-types": "off",
-        "jsdoc/no-undefined-types": [
-            "error",
-            // Ajouter RequestInit (le type du deuxième paramètre de la fonction
-            // fetch) qui est connu de TypeScript, mais qui n'existe pas dans
-            // globales (car il n'est pas dans Node.js, ni dans les
-            // navigateurs).
-            { definedTypes: ["RequestInit"] },
-        ],
+        "jsdoc/no-undefined-types": "error",
+        "jsdoc/prefer-import-tag": "error",
+        "jsdoc/reject-any-type": "off",
+        "jsdoc/reject-function-type": "off",
         "jsdoc/require-asterisk-prefix": "error",
         "jsdoc/require-description": "error",
         "jsdoc/require-description-complete-sentence": "off",
@@ -531,6 +534,10 @@ export default {
         "jsdoc/require-file-overview": "off",
         "jsdoc/require-hyphen-before-param-description": ["error", "never"],
         "jsdoc/require-jsdoc": "error",
+        // Désactiver ces deux règles, car l'annotation @next n'est pas
+        // standard.
+        "jsdoc/require-next-description": "off",
+        "jsdoc/require-next-type": "off",
         "jsdoc/require-param": [
             "error",
             {
@@ -551,18 +558,25 @@ export default {
         "jsdoc/require-returns-check": "error",
         "jsdoc/require-returns-description": "error",
         "jsdoc/require-returns-type": "error",
+        "jsdoc/require-tags": "off",
         "jsdoc/require-template": "error",
         "jsdoc/require-throws": "error",
+        "jsdoc/require-throws-description": "error",
+        "jsdoc/require-throws-type": "error",
         "jsdoc/require-yields": "error",
         "jsdoc/require-yields-check": "error",
+        "jsdoc/require-yields-description": "error",
+        "jsdoc/require-yields-type": "error",
         "jsdoc/sort-tags": "error",
         "jsdoc/tag-lines": ["error", "never", { startLines: 1 }],
         "jsdoc/text-escaping": "off",
+        // Désactiver cette règle qui est expérimentale.
+        "jsdoc/type-formatting": "off",
         "jsdoc/valid-types": "error",
 
         // Plugin eslint-plugin-no-unsanitized.
-        "no-unsanitized/method": "error",
-        "no-unsanitized/property": "error",
+        "noUnsanitized/method": "error",
+        "noUnsanitized/property": "error",
 
         // Plugin eslint-plugin-promise.
         "promise/always-return": "off",
@@ -706,6 +720,8 @@ export default {
         "unicorn/no-array-for-each": "off",
         "unicorn/no-array-method-this-argument": "error",
         "unicorn/no-array-reduce": "off",
+        "unicorn/no-array-reverse": "error",
+        "unicorn/no-array-sort": "error",
         "unicorn/no-await-expression-member": "error",
         "unicorn/no-await-in-promise-methods": "error",
         "unicorn/no-console-spaces": "error",
@@ -746,6 +762,7 @@ export default {
         "unicorn/no-unreadable-array-destructuring": "error",
         "unicorn/no-unreadable-iife": "error",
         "unicorn/no-unused-properties": "error",
+        "unicorn/no-useless-error-capture-stack-trace": "error",
         "unicorn/no-useless-fallback-in-spread": "error",
         "unicorn/no-useless-length-check": "error",
         "unicorn/no-useless-promise-resolve-reject": "error",
@@ -763,7 +780,10 @@ export default {
         "unicorn/prefer-array-index-of": "error",
         "unicorn/prefer-array-some": "error",
         "unicorn/prefer-at": "error",
+        "unicorn/prefer-bigint-literals": "error",
         "unicorn/prefer-blob-reading-methods": "error",
+        "unicorn/prefer-class-fields": "error",
+        "unicorn/prefer-classlist-toggle": "error",
         "unicorn/prefer-code-point": "error",
         "unicorn/prefer-date-now": "error",
         "unicorn/prefer-default-parameters": "error",
@@ -812,10 +832,12 @@ export default {
         "unicorn/prevent-abbreviations": "off",
         "unicorn/relative-url-style": "error",
         "unicorn/require-array-join-separator": "off",
+        "unicorn/require-module-attributes": "error",
+        "unicorn/require-module-specifiers": "error",
         "unicorn/require-number-to-fixed-digits-argument": "off",
-        // Désactiver cette règle, car il y a des faux-positifs avec la méthode
-        // port.postMessage() des WebExtensions.
-        // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1396
+        // Désactiver cette règle, car il y a des faux-positifs avec d'autres
+        // méthodes postMessage().
+        // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/require-post-message-target-origin.md
         "unicorn/require-post-message-target-origin": "off",
         "unicorn/string-content": "off",
         "unicorn/switch-case-braces": ["error", "avoid"],

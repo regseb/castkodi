@@ -23,9 +23,9 @@ jobs:
       # https://github.com/googleapis/release-please/issues/1802
       - name: Checkout repository
         if: ${{ steps.release.outputs.pr }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
-          ref: ${{ fromJson(steps.release.outputs.pr).headBranchName }}
+          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
           # Récupérer deux commits sinon la réparation du commit (pour le
           # formatage) rompt le lien entre la branche de la release et la
           # branche main.
@@ -39,7 +39,7 @@ jobs:
 
       - name: Setup Node.js
         if: ${{ steps.release.outputs.pr }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
 

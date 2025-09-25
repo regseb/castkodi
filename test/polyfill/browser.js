@@ -380,7 +380,7 @@ export const browser = {
                     Object.entries({
                         ...data.storage.local.data,
                         ...values,
-                    }).sort(([k1], [k2]) => k1.localeCompare(k2)),
+                    }).toSorted(([k1], [k2]) => k1.localeCompare(k2)),
                 );
                 return Promise.resolve();
             },

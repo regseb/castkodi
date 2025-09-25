@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
+const PLUGIN_URL = "plugin://plugin.video.dailymotion_com";
 
 /**
  * Génère l'URL d'une vidéo dans l'extension Dailymotion.
@@ -19,5 +19,5 @@ const PLUGIN_URL = "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = (videoId) => {
-    return PLUGIN_URL + videoId;
+    return `${PLUGIN_URL}/?mode=playVideo&url=${videoId}`;
 };

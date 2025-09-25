@@ -22,22 +22,16 @@ describe("core/scraper/futurasciences.js", function () {
         });
 
         it("should return undefined when it's depth", async function () {
+            const html = mock.fn();
+
             const url = new URL("https://www.futura-sciences.com/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html lang="fr"><body>
-                               <iframe data-src="//dai.ly/bar"></iframe>
-                             </body></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
+            const metadata = { html };
             const context = { depth: true, incognito: false };
 
             const file = await scraper.extract(url, metadata, context);
             assert.equal(file, undefined);
+
+            assert.equal(html.mock.callCount(), 0);
         });
 
         it("should return undefined when it isn't HTML", async function () {

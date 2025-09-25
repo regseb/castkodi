@@ -105,7 +105,8 @@ dialog {
     margin-bottom: 64px;
 }
 
-#dialogfeedback, #dialogdonate {
+#dialogfeedback,
+#dialogdonate {
     margin-bottom: 64px;
 
     ul {
@@ -350,5 +351,8 @@ dialog {
     margin-right: auto;
 }
 #web {
+    /* Ne pas afficher le bouton par défaut, car l'interface web de Kodi n'est
+       pas nécessairement activée. Il faut vérifier (en JavaScript) avant de
+       l'afficher. */
     display: none;
 }

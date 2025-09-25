@@ -32,7 +32,7 @@ describe("core/scraper/kick.js", function () {
 
             assert.equal(fetch.mock.callCount(), 1);
             assert.deepEqual(fetch.mock.calls[0].arguments, [
-                "https://kick.com/api/v1/channels/bar",
+                "https://kick.com/api/v2/channels/bar",
             ]);
         });
 
@@ -51,7 +51,7 @@ describe("core/scraper/kick.js", function () {
 
             assert.equal(fetch.mock.callCount(), 1);
             assert.deepEqual(fetch.mock.calls[0].arguments, [
-                "https://kick.com/api/v1/channels/baz",
+                "https://kick.com/api/v2/channels/baz",
             ]);
         });
 
@@ -68,7 +68,7 @@ describe("core/scraper/kick.js", function () {
 
             assert.equal(fetch.mock.callCount(), 1);
             assert.deepEqual(fetch.mock.calls[0].arguments, [
-                "https://kick.com/api/v1/channels/baz",
+                "https://kick.com/api/v2/channels/baz",
             ]);
         });
     });

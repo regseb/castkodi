@@ -12,7 +12,7 @@ import { matchURLPattern } from "../../tools/urlmatch.js";
  */
 
 /**
- * Extrait le titre d'une vidéo ou d'une playlist Invidious.
+ * Extrait le titre d'une vidéo Invidious.
  *
  * @param {URLMatch} url                 L'URL utilisant le plugin Invidious.
  * @param {Object}   context             Le contexte du labellisateur.

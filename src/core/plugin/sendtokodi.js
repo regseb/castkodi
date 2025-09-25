@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.sendtokodi/?";
+const PLUGIN_URL = "plugin://plugin.video.sendtokodi";
 
 /**
  * Génère l'URL d'une vidéo avec l'extension SendToKodi.
@@ -19,5 +19,5 @@ const PLUGIN_URL = "plugin://plugin.video.sendtokodi/?";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateUrl = ({ href }) => {
-    return PLUGIN_URL + href;
+    return `${PLUGIN_URL}/?${href}`;
 };

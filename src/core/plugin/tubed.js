@@ -10,7 +10,7 @@
  *
  * @type {string}
  */
-const PLUGIN_URL = "plugin://plugin.video.tubed/?mode=play";
+const PLUGIN_URL = "plugin://plugin.video.tubed";
 
 /**
  * Génère l'URL d'une vidéo dans l'extension Tubed.
@@ -19,7 +19,7 @@ const PLUGIN_URL = "plugin://plugin.video.tubed/?mode=play";
  * @returns {string} Le lien du _fichier_.
  */
 export const generateVideoUrl = (videoId) => {
-    return `${PLUGIN_URL}&video_id=${videoId}`;
+    return `${PLUGIN_URL}/?mode=play&video_id=${videoId}`;
 };
 
 /**
@@ -29,5 +29,5 @@ export const generateVideoUrl = (videoId) => {
  * @returns {string} Le lien du _fichier_.
  */
 export const generatePlaylistUrl = (playlistId) => {
-    return `${PLUGIN_URL}&playlist_id=${playlistId}`;
+    return `${PLUGIN_URL}/?mode=play&playlist_id=${playlistId}`;
 };

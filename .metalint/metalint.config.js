@@ -1,5 +1,6 @@
 /**
  * @license MIT
+ * @see https://github.com/regseb/metalint
  * @author Sébastien Règne
  */
 

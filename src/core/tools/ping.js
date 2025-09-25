@@ -14,7 +14,7 @@ export const ping = async (url) => {
     try {
         await fetch(url, {
             method: "HEAD",
-            // Omettre les "credentials" pour que la popup de connexion ne
+            // Omettre les "credentials" pour que le popup de connexion ne
             // s'affiche pas. Si une authentification est nécessaire, le serveur
             // répondra qu'il manque les informations. Mais on saura qu'il y a
             // bien un serveur derrière le lien.

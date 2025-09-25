@@ -10,8 +10,8 @@ describe("core/storage.js", function () {
     describe("initialize()", function () {
         it("should create config in Chromium", async function () {
             // Remplacer la liste des types de contextes manuellement, car
-            // Node.js n'a pas de fonction par ça.
-            // https://github.com/nodejs/node/issues/58322
+            // Node.js <v24.3.0 n'a pas de fonction par ça.
+            // https://github.com/nodejs/node/pull/58438
             const originalContextType = browser.contextMenus.ContextType;
             try {
                 // Enlever les types de contextes non-disponibles dans Chromium.
@@ -74,6 +74,36 @@ describe("core/storage.js", function () {
                 "youtube-playlist": "playlist",
                 "youtube-order": "default",
             });
+        });
+
+        it("should create config in Firefox Android", async function () {
+            // Remplacer la propriété des menus contextuels manuellement, car
+            // Node.js <v24.3.0 n'a pas de fonction par ça.
+            // https://github.com/nodejs/node/pull/58438
+            const originalContextMenus = browser.contextMenus;
+            try {
+                // Enlever la propriété qui n'existe pas dans Firefox Android.
+                // https://bugzil.la/1595822
+                browser.contextMenus = undefined;
+
+                await storage.initialize();
+                const config = await browser.storage.local.get();
+                assert.deepEqual(config, {
+                    "config-version": 6,
+                    "server-mode": "single",
+                    "server-list": [{ address: "", name: "" }],
+                    "server-active": 0,
+                    "general-history": false,
+                    "popup-clipboard": false,
+                    "popup-wheel": "normal",
+                    "menu-actions": [],
+                    "menu-contexts": [],
+                    "youtube-playlist": "playlist",
+                    "youtube-order": "default",
+                });
+            } finally {
+                browser.contextMenus = originalContextMenus;
+            }
         });
     });
 
