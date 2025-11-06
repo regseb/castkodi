@@ -12,22 +12,28 @@ describe("core/scraper/kick.js", function () {
         mock.reset();
     });
 
-    describe("extract()", function () {
+    describe("extractLive()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("https://help.kick.com/");
+            const url = new URL("https://kick.com/foo/videos/bar");
 
-            const file = await scraper.extract(url);
+            const file = await scraper.extractLive(url);
             assert.equal(file, undefined);
         });
 
         it("should return undefined with legal page", async function () {
             const fetch = mock.method(globalThis, "fetch", () =>
-                Promise.resolve(new Response("foo")),
+                Promise.resolve(
+                    Response.json({
+                        error: "Not Found",
+                        message: "Channel not found.",
+                        status: 404,
+                    }),
+                ),
             );
 
             const url = new URL("https://kick.com/bar");
 
-            const file = await scraper.extract(url);
+            const file = await scraper.extractLive(url);
             assert.equal(file, undefined);
 
             assert.equal(fetch.mock.callCount(), 1);
@@ -46,7 +52,7 @@ describe("core/scraper/kick.js", function () {
 
             const url = new URL("https://kick.com/baz");
 
-            const file = await scraper.extract(url);
+            const file = await scraper.extractLive(url);
             assert.equal(file, "https://foo.com/bar.m3u8");
 
             assert.equal(fetch.mock.callCount(), 1);
@@ -63,13 +69,61 @@ describe("core/scraper/kick.js", function () {
 
             const url = new URL("https://kick.com/baz");
 
-            const file = await scraper.extract(url);
+            const file = await scraper.extractLive(url);
             assert.equal(file, undefined);
 
             assert.equal(fetch.mock.callCount(), 1);
             assert.deepEqual(fetch.mock.calls[0].arguments, [
                 "https://kick.com/api/v2/channels/baz",
             ]);
+        });
+    });
+
+    describe("extractVideo()", function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL("https://kick.com/foo");
+
+            const file = await scraper.extractVideo(url);
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when it isn't a video", async function () {
+            const url = new URL("https://kick.com/foo/videos/bar");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html lang="en"><body>
+                               <script></script>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extractVideo(url, metadata);
+            assert.equal(file, undefined);
+        });
+
+        it("should return video URL", async function () {
+            const url = new URL("https://kick.com/foo/videos/bar");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html lang="en"><body>
+                               <script>self.__next_f.push({
+                                   \\"source\\":\\"https://stream.kick.com/baz/qux/master.m3u8\\",
+                                 })
+                               </script>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extractVideo(url, metadata);
+            assert.equal(file, "https://stream.kick.com/baz/qux/master.m3u8");
         });
     });
 });
