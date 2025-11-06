@@ -30,4 +30,25 @@ describe("Scraper: Kick", function () {
         const file = await extract(url, context);
         assert.equal(file, undefined);
     });
+
+    it("should return live URL", async function () {
+        // Récupérer l'URL d'un live dans la page Parcourir.
+        const response = await fetch("https://kick.com/browse");
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        const a = /** @type {HTMLAnchorElement} */ (
+            doc.querySelector(
+                'a:has(img[src^="https://files.kick.com/images/user/"])',
+            )
+        );
+
+        const url = new URL(a.getAttribute("href"), "https://kick.com/");
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.ok(
+            undefined !== file && new URL(file).pathname.endsWith(".m3u8"),
+            `new URL("${file}").pathname.endsWith(...)`,
+        );
+    });
 });

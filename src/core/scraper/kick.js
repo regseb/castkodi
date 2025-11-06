@@ -19,82 +19,52 @@ import { matchURLPattern } from "../tools/urlmatch.js";
 const API_URL = "https://kick.com/api/v2/channels";
 
 /**
- * L'URL du site de Kick.
+ * L'expression rationnelle pour extraire l'URL de la vidéo.
  *
- * @type {string}
+ * @type {RegExp}
  */
-const SITE_URL = "https://kick.com";
+const URL_REGEXP =
+    /\\"source\\":\\"(?<source>https:\/\/stream\.kick\.com\/[^"]+\/master\.m3u8)\\",/u;
 
 /**
- * Parse le JSON d'une réponse HTTP et retourne `undefined` en cas d'erreur.
- *
- * @param {Response} response La réponse HTTP.
- * @returns {Promise<Record<string, any>|undefined>} Une promesse contenant
- *                                                   l'objet JSON ou `undefined`
- *                                                   si la réponse ne contient
- *                                                   pas du JSON.
- */
-const parse = async (response) => {
-    try {
-        return await response.json();
-    } catch {
-        // Ignorer les réponses qui ne sont pas au format JSON.
-    }
-    return undefined;
-};
-
-/**
- * Extrait l'URL du flux d'un live Kick.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URLMatch} url L'URL d'un live Kick.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      flux ou `undefined`.
+ *                                      _fichier_ ou `undefined`.
  */
 const actionLive = async ({ pathname }) => {
     const response = await fetch(API_URL + pathname);
-    const json = await parse(response);
-    if (undefined === json) {
-        return undefined;
-    }
-
+    const json = await response.json();
     const playbackUrl = json.playback_url;
     return playbackUrl?.startsWith("https://") ? playbackUrl : undefined;
 };
-
-/**
- * Extrait l'URL du flux d'une vidéo Kick.
- *
- * @param {URLMatch} url L'URL d'une vidéo Kick.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      flux ou `undefined`.
- */
-const actionVideo = async ({ pathname }) => {
-    const response = await fetch(SITE_URL + pathname);
-    if (!response.ok) {
-        return undefined;
-    }
-
-    const html = await response.text();
-    const match = html.match(/https:\/\/stream\.kick\.com[^ "']+master\.m3u8/u);
-    return match?.[0];
-};
-
-/**
- * Extraction pour les lives Kick.
- */
 export const extractLive = matchURLPattern(
     actionLive,
-    "https://kick.com/*",
+    "https://kick.com/([^/]+)",
 );
 
 /**
- * Extraction pour les vidéos Kick.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
+ *
+ * @param {URLMatch} _url          L'URL d'une vidéo de Kick.
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      _fichier_ ou `undefined`.
  */
+const actionVideo = async (_url, metadata) => {
+    const doc = await metadata.html();
+    for (const script of doc.querySelectorAll("script:not([src])")) {
+        const result = URL_REGEXP.exec(script.text);
+        if (null !== result) {
+            return result.groups.source;
+        }
+    }
+    return undefined;
+};
 export const extractVideo = matchURLPattern(
     actionVideo,
-    {
-        protocol: "https",
-        hostname: "kick.com",
-        pathname: "/:channel/videos/*",
-    },
+    "https://kick.com/([^/]+)/videos/*",
 );
