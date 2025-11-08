@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.15.0](https://github.com/regseb/castkodi/compare/v7.14.0...v7.15.0) (2025-11-08)
+
+### Features
+
+- Support Kick video (VOD).
+  ([#162](https://github.com/regseb/castkodi/issues/162))
+  ([c33ae60](https://github.com/regseb/castkodi/commit/c33ae6037ecdd6f942df080d58d294e21f728527))
+
 ## [7.14.0](https://github.com/regseb/castkodi/compare/v7.13.0...v7.14.0) (2025-09-25)
 
 ### Features
