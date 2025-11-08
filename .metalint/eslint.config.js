@@ -150,7 +150,7 @@ export default {
             "error",
             "always",
             {
-                ignorePattern: "prettier-ignore",
+                ignorePattern: "biome-ignore|prettier-ignore",
                 ignoreConsecutiveComments: true,
             },
         ],
@@ -327,6 +327,9 @@ export default {
         "prefer-regex-literals": "error",
         "prefer-rest-params": "error",
         "prefer-spread": "error",
+        // Désactiver cette règle qui force l'utilisation des templates même
+        // quand la concaténation est sur plusieurs lignes. Préférer la règle
+        // "useTemplate" de Biome.
         "prefer-template": "off",
         "preserve-caught-error": ["error", { requireCatchParameter: true }],
         radix: "error",
@@ -505,10 +508,9 @@ export default {
         "jsdoc/check-values": "error",
         "jsdoc/convert-to-jsdoc-comments": "off",
         "jsdoc/empty-tags": "error",
+        "jsdoc/escape-inline-tags": "error",
         "jsdoc/implements-on-classes": "error",
-        // Désactiver la règle, car elle ne supporte pas la propriété "exports".
-        // https://github.com/gajus/eslint-plugin-jsdoc/issues/1114
-        "jsdoc/imports-as-dependencies": "off",
+        "jsdoc/imports-as-dependencies": "error",
         "jsdoc/informative-docs": "error",
         // Désactiver cette règle et laisser Prettier gérer le formatage.
         "jsdoc/lines-before-block": "off",
@@ -560,6 +562,7 @@ export default {
         "jsdoc/require-returns-type": "error",
         "jsdoc/require-tags": "off",
         "jsdoc/require-template": "error",
+        "jsdoc/require-template-description": "error",
         "jsdoc/require-throws": "error",
         "jsdoc/require-throws-description": "error",
         "jsdoc/require-throws-type": "error",
@@ -570,6 +573,10 @@ export default {
         "jsdoc/sort-tags": "error",
         "jsdoc/tag-lines": ["error", "never", { startLines: 1 }],
         "jsdoc/text-escaping": "off",
+        "jsdoc/ts-method-signature-style": "error",
+        "jsdoc/ts-no-empty-object-type": "error",
+        "jsdoc/ts-no-unnecessary-template-expression": "error",
+        "jsdoc/ts-prefer-function-type": "error",
         // Désactiver cette règle qui est expérimentale.
         "jsdoc/type-formatting": "off",
         "jsdoc/valid-types": "error",
@@ -729,6 +736,7 @@ export default {
         "unicorn/no-empty-file": "error",
         "unicorn/no-for-loop": "error",
         "unicorn/no-hex-escape": "error",
+        "unicorn/no-immediate-mutation": "error",
         "unicorn/no-instanceof-builtins": "error",
         "unicorn/no-invalid-fetch-options": "error",
         "unicorn/no-invalid-remove-event-listener": "error",
@@ -762,6 +770,7 @@ export default {
         "unicorn/no-unreadable-array-destructuring": "error",
         "unicorn/no-unreadable-iife": "error",
         "unicorn/no-unused-properties": "error",
+        "unicorn/no-useless-collection-argument": "error",
         "unicorn/no-useless-error-capture-stack-trace": "error",
         "unicorn/no-useless-fallback-in-spread": "error",
         "unicorn/no-useless-length-check": "error",
@@ -815,6 +824,7 @@ export default {
         "unicorn/prefer-query-selector": "error",
         "unicorn/prefer-reflect-apply": "error",
         "unicorn/prefer-regexp-test": "error",
+        "unicorn/prefer-response-static-json": "error",
         "unicorn/prefer-set-has": "error",
         "unicorn/prefer-set-size": "error",
         "unicorn/prefer-single-call": "error",

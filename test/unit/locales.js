@@ -51,11 +51,11 @@ const compare = async (lang1, lang2) => {
         if ("placeholders" in value1) {
             for (const key of Object.keys(value1.placeholders)) {
                 assert.ok(
-                    value1.message.includes("$" + key.toUpperCase() + "$"),
+                    value1.message.includes(`$${key.toUpperCase()}$`),
                     `${name1} / ${key}`,
                 );
                 assert.ok(
-                    value2.message.includes("$" + key.toUpperCase() + "$"),
+                    value2.message.includes(`$${key.toUpperCase()}$`),
                     `${name1} / ${key}`,
                 );
             }

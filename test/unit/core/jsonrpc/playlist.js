@@ -259,7 +259,7 @@ describe("core/jsonrpc/playlist.js", function () {
             playlist.onRemove.addListener(removeListener);
             await playlist.handleNotification(
                 new NotificationEvent("notification", {
-                    // Utiliser un espace de 9 caractères pour avoir la même
+                    // Utiliser un espace de neuf caractères pour avoir la même
                     // longueur que le mot "Playlist".
                     method: "123456789.OnAdd",
                     params: { data: null },

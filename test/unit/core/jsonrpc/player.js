@@ -425,7 +425,7 @@ describe("core/jsonrpc/player.js", function () {
             player.onPropertyChanged.addListener(listener);
             await player.handleNotification(
                 new NotificationEvent("notification", {
-                    // Utiliser un espace de 6 caractères pour avoir la même
+                    // Utiliser un espace de six caractères pour avoir la même
                     // longueur que le mot "Player".
                     method: "123456.OnAVStart",
                     params: { data: null },

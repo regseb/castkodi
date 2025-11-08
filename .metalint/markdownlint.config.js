@@ -83,4 +83,5 @@ export default {
     "table-column-count": true,
     "blanks-around-tables": false,
     "descriptive-link-text": true,
+    "table-column-style": false,
 };

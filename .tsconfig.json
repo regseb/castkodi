@@ -11,12 +11,12 @@
   "include": ["**/*", "**/.*", "**/.*/**/*", "**/.*/**/.*"],
   "exclude": [
     ".git/",
+    ".idea/",
     ".stryker/",
+    ".vscode/",
     "build/",
     "jsdocs/",
     "node_modules/",
-    "src/polyfill/lib/",
-    ".vscode/",
-    ".idea/"
+    "src/polyfill/lib/"
   ]
 }

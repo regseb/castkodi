@@ -119,6 +119,7 @@ export const migrate = async () => {
     if (5 === config["config-version"]) {
         config["config-version"] = 6;
         config["popup-clipboard"] = config["general-clipboard"];
+        // biome-ignore lint/performance/noDelete: Supprimer l'ancien nom.
         delete config["general-clipboard"];
         config["popup-wheel"] = "reverse";
     }

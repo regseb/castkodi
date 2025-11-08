@@ -912,8 +912,9 @@ const handleTimeChanged = (value) => {
 
     // Utiliser la taille du temps total pour que l'élément ait toujours la
     // même taille (même durant le passage à la dizaine).
-    time.previousElementSibling.style.width =
-        time.nextElementSibling.offsetWidth.toString() + "px";
+    // Cette ligne dépasse les 80 caractères, car Prettier est bogué.
+    // https://github.com/prettier/prettier/issues/12408
+    time.previousElementSibling.style.width = `${time.nextElementSibling.offsetWidth}px`;
 };
 
 const handleTotaltimeChanged = (value) => {

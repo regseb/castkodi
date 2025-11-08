@@ -212,7 +212,7 @@ describe("core/jsonrpc/input.js", function () {
             input.onInputRequested.addListener(listener);
             input.handleNotification(
                 new NotificationEvent("notification", {
-                    // Utiliser un espace de 5 caractères pour avoir la même
+                    // Utiliser un espace de cinq caractères pour avoir la même
                     // longueur que le mot "Input".
                     method: "12345.OnInputRequested",
                     params: { data: null },

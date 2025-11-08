@@ -68,7 +68,7 @@ const plain = (description) => {
 const firefox = (description) => {
     return description.replaceAll(
         /\n *-/gv,
-        (m) => "\n" + " ".repeat((m.length - 2) * 2) + "-",
+        (m) => `\n${" ".repeat((m.length - 2) * 2)}-`,
     );
 };
 

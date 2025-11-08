@@ -24,7 +24,7 @@ const action = async ({ id }) => {
     if ("vyContext" in payload) {
         for (const file of payload.vyContext.chapterAttributes[0].video_files) {
             if ("stream_master" === file.profile) {
-                return file.url + "|Referer=https://play.vidyard.com/";
+                return `${file.url}|Referer=https://play.vidyard.com/`;
             }
         }
     }

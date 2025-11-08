@@ -41,7 +41,12 @@ export default {
         },
         {
             patterns: "*.js",
-            linters: ["prettier", "prettier_javascript", "eslint"],
+            linters: [
+                "prettier",
+                "prettier_javascript",
+                "eslint",
+                "biomejs__js-api",
+            ],
             overrides: [
                 {
                     patterns: "/src/**",
@@ -49,7 +54,11 @@ export default {
                 },
                 {
                     patterns: "/test/**",
-                    linters: ["eslint_node", "eslint_test"],
+                    linters: [
+                        "eslint_node",
+                        "eslint_test",
+                        "biomejs__js-api_test",
+                    ],
                 },
                 {
                     patterns: "/.script/**",
@@ -82,16 +91,28 @@ export default {
         {
             patterns: "*.md",
             linters: ["prettier", "markdownlint"],
-            overrides: {
-                // Utiliser des règles spécifiques pour les fichiers des
-                // boutiques.
-                patterns: "/locales/**",
-                linters: ["prettier_store", "markdownlint_store"],
-            },
+            overrides: [
+                {
+                    patterns: "/.github/ISSUE_TEMPLATE/**",
+                    linters: {
+                        wrapper: "markdownlint",
+                        options: {
+                            // eslint-disable-next-line camelcase
+                            "heading-increment": { front_matter_title: "" },
+                        },
+                    },
+                },
+                {
+                    // Utiliser des règles spécifiques pour les fichiers des
+                    // boutiques.
+                    patterns: "/locales/**",
+                    linters: ["prettier_store", "markdownlint_store"],
+                },
+            ],
         },
         {
             patterns: "*.json",
-            linters: ["prettier", "prantlf__jsonlint"],
+            linters: ["prettier", "prantlf__jsonlint", "biomejs__js-api"],
             overrides: [
                 {
                     patterns: "/package.json",

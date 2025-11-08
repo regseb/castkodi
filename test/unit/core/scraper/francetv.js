@@ -63,9 +63,9 @@ describe("core/scraper/francetv.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html lang="fr"><body>
+                            String.raw`<html lang="fr"><body>
                                <script>
-                                 [{\\"options\\":{\\"id\\":\\"123-abc\\"}}];
+                                 [{\"options\":{\"id\":\"123-abc\"}}];
                                </script>
                              </body></html>`,
                             "text/html",

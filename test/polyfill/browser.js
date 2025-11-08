@@ -209,7 +209,7 @@ export const browser = {
             return Object.keys(MESSAGES[key]?.placeholders ?? {}).reduce(
                 (message, placeholder, index) => {
                     return message.replace(
-                        "$" + placeholder.toUpperCase() + "$",
+                        `$${placeholder.toUpperCase()}$`,
                         substitutions[index],
                     );
                 },

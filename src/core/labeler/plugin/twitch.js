@@ -26,20 +26,20 @@ const action = ({ searchParams }, { metaExtract }) => {
     if (searchParams.has("channel_name")) {
         return metaExtract(
             new URL(
-                "https://www.twitch.tv/" + searchParams.get("channel_name"),
+                `https://www.twitch.tv/${searchParams.get("channel_name")}`,
             ),
         );
     }
     if (searchParams.has("video_id")) {
         return metaExtract(
             new URL(
-                "https://www.twitch.tv/videos/" + searchParams.get("video_id"),
+                `https://www.twitch.tv/videos/${searchParams.get("video_id")}`,
             ),
         );
     }
     if (searchParams.has("slug")) {
         return metaExtract(
-            new URL("https://www.twitch.tv/clip/" + searchParams.get("slug")),
+            new URL(`https://www.twitch.tv/clip/${searchParams.get("slug")}`),
         );
     }
     return Promise.resolve(undefined);

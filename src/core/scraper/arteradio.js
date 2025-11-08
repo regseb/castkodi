@@ -22,7 +22,7 @@ const API_URL = "https://www.arteradio.com/_next/data";
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URLMatch} urlMatch      L'URL d'un son Arte Radio avec le _slug_ du
- *                                 son..
+ *                                 son.
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.

@@ -111,9 +111,9 @@ describe("core/scraper/kick.js", function () {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
-                            `<html lang="en"><body>
+                            String.raw`<html lang="en"><body>
                                <script>self.__next_f.push({
-                                   \\"source\\":\\"https://stream.kick.com/baz/qux/master.m3u8\\",
+                                   \"source\":\"https://stream.kick.com/baz/qux/master.m3u8\",
                                  })
                                </script>
                              </body></html>`,

@@ -37,7 +37,7 @@ const action = async ({ href }, metadata) => {
     for (const script of doc.querySelectorAll("script:not([src])")) {
         const result = DATA_REGEXP.exec(script.text);
         if (null !== result) {
-            return result.groups.source + `|Referer=${href}`;
+            return `${result.groups.source}|Referer=${href}`;
         }
     }
     return undefined;

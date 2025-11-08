@@ -14,7 +14,7 @@ import { matchURLPattern } from "../tools/urlmatch.js";
 /**
  * Extrait les informations nécessaires pour lire la vidéo sur Kodi.
  *
- * @param {URLMatch} url L'URL d'une vidéo PeerTube.
+ * @param {URLMatch} url L'URL d'une éventuelle vidéo PeerTube.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
