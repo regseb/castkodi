@@ -114,6 +114,22 @@ describe("Scraper: YouTube", function () {
         );
     });
 
+    it("should return video id from Youtube Kids", async function () {
+        await browser.storage.local.set({ "youtube-playlist": "video" });
+
+        const url = new URL(
+            "https://www.youtubekids.com/watch?v=KsCUcBK9q14&hl=fr",
+        );
+        const context = { depth: false, incognito: true };
+
+        const file = await extract(url, context);
+        assert.equal(
+            file,
+            "plugin://plugin.video.youtube/play/" +
+                "?video_id=KsCUcBK9q14&incognito=true",
+        );
+    });
+
     it("should return undefined when it isn't a playlist", async function () {
         const url = new URL("https://www.youtube.com/playlist?v=dQw4w9WgXcQ");
         const context = { depth: false, incognito: false };

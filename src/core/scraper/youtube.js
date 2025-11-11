@@ -130,6 +130,7 @@ export const extractVideo = matchURLPattern(
     actionVideo,
     "https://*.youtube.com/watch",
     "https://youtube.com/watch",
+    "https://www.youtubekids.com/watch",
 );
 
 /**
