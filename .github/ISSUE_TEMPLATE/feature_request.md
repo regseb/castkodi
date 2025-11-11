@@ -17,8 +17,8 @@ assignees: ""
 
 ### Environment
 
-- Cast Kodi version<!-- e.g. 7.14.0 -->:
-- Browser version<!-- e.g. Chrome 140.0.7339.185, Firefox 143.0, ... -->:
+- Cast Kodi version<!-- e.g. 7.16.0 -->:
+- Browser version<!-- e.g. Chrome 142.0.7444.59, Firefox 145.0, ... -->:
 - OS version<!-- e.g. Windows 11, Ubuntu 24.04, Android 16, ... -->:
 - Kodi version<!-- e.g. 21.2 -->:
 - Kodi add-on version (if appropriate)<!-- e.g. YouTube 7.2.0.3, ... -->:

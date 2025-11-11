@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@biomejs/js-api": "4.0.0",
-    "@biomejs/wasm-nodejs": "2.3.4",
+    "@biomejs/wasm-nodejs": "2.3.5",
     "@prantlf/jsonlint": "16.0.0",
     "@prettier/plugin-xml": "3.4.2",
     "@stryker-mutator/core": "9.3.0",
