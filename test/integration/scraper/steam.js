@@ -17,6 +17,16 @@ describe("Scraper: Steam", function () {
         assert.equal(file, undefined);
     });
 
+    it("should return undefined when there isn't trailer", async function () {
+        const url = new URL(
+            "https://store.steampowered.com/app/323130/HalfLife_Soundtrack/",
+        );
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.equal(file, undefined);
+    });
+
     it("should return video URL", async function () {
         const url = new URL("https://store.steampowered.com/app/620/Portal_2/");
         const context = { depth: false, incognito: false };

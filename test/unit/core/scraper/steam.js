@@ -36,6 +36,29 @@ describe("core/scraper/steam.js", function () {
             assert.equal(file, undefined);
         });
 
+        it("should return undefined when there isn't trailer", async function () {
+            const url = new URL("https://store.steampowered.com/app/foo");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html lang="en"><body>
+                               <div
+                                 class="gamehighlight_desktopcarousel"
+                                 data-props="${JSON.stringify({
+                                     trailers: [],
+                                 }).replaceAll('"', "&quot;")}"
+                               ></div>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extractGame(url, metadata);
+            assert.equal(file, undefined);
+        });
+
         it("should return video URL", async function () {
             const url = new URL("https://store.steampowered.com/app/foo");
             const metadata = {
@@ -44,10 +67,15 @@ describe("core/scraper/steam.js", function () {
                         new DOMParser().parseFromString(
                             `<html lang="en"><body>
                                <div
-                                 class="highlight_movie"
-                                 data-props="${JSON.stringify({
-                                     hlsManifest: "https://bar.com/baz.m3u8",
-                                 }).replaceAll('"', "&quot;")}"
+                                 class="gamehighlight_desktopcarousel"
+                             data-props="${JSON.stringify({
+                                 trailers: [
+                                     {
+                                         hlsManifest:
+                                             "https://bar.com/baz.m3u8",
+                                     },
+                                 ],
+                             }).replaceAll('"', "&quot;")}"
                                ></div>
                              </body></html>`,
                             "text/html",

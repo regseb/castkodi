@@ -23,12 +23,12 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  */
 const actionGame = async (_url, metadata) => {
     const doc = await metadata.html();
-    const div = doc.querySelector(".highlight_movie[data-props]");
+    const div = doc.querySelector(".gamehighlight_desktopcarousel[data-props]");
     if (null === div) {
         return undefined;
     }
     const json = JSON.parse(div.dataset.props);
-    return json.hlsManifest;
+    return json.trailers[0]?.hlsManifest;
 };
 export const extractGame = matchURLPattern(
     actionGame,
