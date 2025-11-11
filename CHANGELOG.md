@@ -1,5 +1,19 @@
 # Changelog
 
+## [7.16.0](https://github.com/regseb/castkodi/compare/v7.15.0...v7.16.0) (2025-11-11)
+
+### Features
+
+- Support YouTube Kids.
+  ([2041a55](https://github.com/regseb/castkodi/commit/2041a5559ee729d5f7db1bec5e99d923e7b18379))
+
+### Bug Fixes
+
+- Fix Kick on Chrome.
+  ([3cc1c64](https://github.com/regseb/castkodi/commit/3cc1c64b5372bbbc8437d04db0c626494de20664))
+- Fix Steam scraper.
+  ([7b9f165](https://github.com/regseb/castkodi/commit/7b9f1651250c3983c2e75364d2e6387e49cb5060))
+
 ## [7.15.0](https://github.com/regseb/castkodi/compare/v7.14.0...v7.15.0) (2025-11-08)
 
 ### Features
