@@ -41,7 +41,7 @@ const actionLive = async ({ pathname }) => {
 };
 export const extractLive = matchURLPattern(
     actionLive,
-    "https://kick.com/([^/]+)",
+    String.raw`https://kick.com/([^\/]+)`,
 );
 
 /**
@@ -66,5 +66,5 @@ const actionVideo = async (_url, metadata) => {
 };
 export const extractVideo = matchURLPattern(
     actionVideo,
-    "https://kick.com/([^/]+)/videos/*",
+    String.raw`https://kick.com/([^\/]+)/videos/*`,
 );
