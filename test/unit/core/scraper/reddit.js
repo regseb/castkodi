@@ -56,6 +56,41 @@ describe("core/scraper/reddit.js", function () {
             const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://bar.com/baz.mp4");
         });
+
+        // Cas de test pour old.reddit.com
+        it("should return undefined when it isn't a video on old.reddit", async function () {
+            const url = new URL("https://old.reddit.com/r/foo");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            '<html lang="en"><body></body></html>',
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extract(url, metadata);
+            assert.equal(file, undefined);
+        });
+
+        it("should return video URL from old.reddit.com", async function () {
+            const url = new URL("https://old.reddit.com/r/foo");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html lang="en"><body>
+                               <div data-hls-url="https://old.reddit.com/video.m3u8"></div>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extract(url, metadata);
+            assert.equal(file, "https://old.reddit.com/video.m3u8");
+        });
     });
 
     describe("extractEmbed()", function () {

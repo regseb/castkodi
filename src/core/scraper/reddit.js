@@ -25,10 +25,20 @@ import { extract as iframeExtract } from "./iframe.js";
  */
 const action = async (_url, metadata) => {
     const doc = await metadata.html();
+
+    if ("old.reddit.com" === _url.hostname) {
+        const playerDiv = doc.querySelector("div[data-hls-url]");
+        return playerDiv?.dataset.hlsUrl;
+    }
+
     const player = doc.querySelector("shreddit-player-2[src]");
     return player?.getAttribute("src");
 };
-export const extract = matchURLPattern(action, "https://www.reddit.com/r/*");
+export const extract = matchURLPattern(
+    action,
+    "https://www.reddit.com/r/*",
+    "https://old.reddit.com/r/*",
+);
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
