@@ -25,18 +25,29 @@ import { extract as iframeExtract } from "./iframe.js";
  */
 const action = async (_url, metadata) => {
     const doc = await metadata.html();
-
-    if ("old.reddit.com" === _url.hostname) {
-        const playerDiv = doc.querySelector("div[data-hls-url]");
-        return playerDiv?.dataset.hlsUrl;
-    }
-
     const player = doc.querySelector("shreddit-player-2[src]");
     return player?.getAttribute("src");
 };
-export const extract = matchURLPattern(
-    action,
-    "https://www.reddit.com/r/*",
+export const extract = matchURLPattern(action, "https://www.reddit.com/r/*");
+
+/**
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
+ *
+ * @param {URLMatch} _url          L'URL d'une vidéo Old Reddit.
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      _fichier_ ou `undefined`.
+ */
+
+const actionOld = async (_url, metadata) => {
+    const doc = await metadata.html();
+    const playerDiv = doc.querySelector("div[data-hls-url]");
+    return playerDiv?.dataset.hlsUrl;
+};
+export const extractOld = matchURLPattern(
+    actionOld,
     "https://old.reddit.com/r/*",
 );
 
