@@ -275,8 +275,8 @@ describe("core/scraper/ldjson.js", function () {
                                <script type="application/ld+json">${JSON.stringify(
                                    {
                                        "@context": "http://schema.org/",
-                                       // Le nœud MusicVideoObject devrait avoir un
-                                       // "contentUrl" ou un "embedUrl".
+                                       // Le nœud MusicVideoObject devrait avoir
+                                       // un "contentUrl" ou un "embedUrl".
                                        "@type": "MusicVideoObject",
                                        clip: {
                                            "@type": "VideoObject",

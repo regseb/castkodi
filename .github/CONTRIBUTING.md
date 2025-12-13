@@ -27,7 +27,7 @@ Les outils suivants sont nécessaires pour utiliser ce projet :
 - Implémentez votre scraper pour un site Internet dans ce fichier.
 - Importez votre fichier dans `src/core/scrapers.js` et ajoutez le dans la liste
   `SCRAPERS`
-- Ajoutez le nouveau site supporté dans le `README` et dans les fichiers
+- Ajoutez le nouveau site supporté dans le `README.md` et dans les fichiers
   `locales/*/description.md`
 - Écrivez des tests unitaires dans `test/unit/core/scraper/` et des tests
   d'intégration dans `test/integration/scraper/`

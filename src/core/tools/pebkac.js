@@ -33,7 +33,8 @@ export const PebkacError = class extends Error {
      *                                            insérées dans le message.
      * @param {Object}          [options]         Les éventuelles options de
      *                                            l'erreur.
-     * @param {any}             [options.cause]   L'éventuelle cause de l'erreur.
+     * @param {any}             [options.cause]   L'éventuelle cause de
+     *                                            l'erreur.
      * @param {Object}          [options.details] Les éventuels détails de
      *                                            l'erreur.
      */

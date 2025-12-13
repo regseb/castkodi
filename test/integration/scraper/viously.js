@@ -33,7 +33,8 @@ describe("Scraper: Viously", function () {
 
     it("should return video URL from integrate", async function () {
         const url = new URL(
-            "https://www.gamekult.com/jeux/doom-the-dark-ages-3050887706/test.html",
+            "https://www.gamekult.com/jeux/doom-the-dark-ages-3050887706" +
+                "/test.html",
         );
         const context = { depth: false, incognito: false };
 

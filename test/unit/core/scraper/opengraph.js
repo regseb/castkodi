@@ -345,8 +345,10 @@ describe("core/scraper/opengraph.js", function () {
                             `<html lang="en"><head>
                                <meta property="og:audio:type"
                                      content="text/html" />
-                               <meta property="og:audio"
-                                     content="https://www.mixcloud.com/foo/bar/" />
+                               <meta
+                                 property="og:audio"
+                                 content="https://www.mixcloud.com/foo/bar/"
+                               />
                              </head></html>`,
                             "text/html",
                         ),
@@ -404,8 +406,10 @@ describe("core/scraper/opengraph.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="en"><head>
-                               <meta property="twitter:player"
-                                     content="https://www.youtube.com/embed/bar" />
+                               <meta
+                                 property="twitter:player"
+                                 content="https://www.youtube.com/embed/bar"
+                               />
                              </head></html>`,
                             "text/html",
                         ),
@@ -450,8 +454,10 @@ describe("core/scraper/opengraph.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="en"><head>
-                               <meta property="twitter:player"
-                                     content="https://www.youtube.com/embed/bar" />
+                               <meta
+                                 property="twitter:player"
+                                 content="https://www.youtube.com/embed/bar"
+                               />
                              </head></html>`,
                             "text/html",
                         ),

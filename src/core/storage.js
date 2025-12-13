@@ -26,10 +26,10 @@ const DEFAULT_MENU_CONTEXTS = [
  */
 export const initialize = async () => {
     // Si la modification des menus contextuels est supportée : enlever les
-    // contextes non-disponibles dans certains navigateurs ("tab" dans Chromium).
-    // Si la modification n'est pas supportée (comme dans Firefox Android) :
-    // enlever tous les contextes. https://issues.chromium.org/40246822
-    // https://bugzil.la/1595822
+    // contextes non-disponibles dans certains navigateurs ("tab" dans
+    // Chromium). Si la modification n'est pas supportée (comme dans Firefox
+    // Android) : enlever tous les contextes.
+    // https://issues.chromium.org/40246822 https://bugzil.la/1595822
     const contextTypes = new Set(
         undefined === browser.contextMenus
             ? []

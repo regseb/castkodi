@@ -4,50 +4,51 @@
  */
 
 import assert from "node:assert/strict";
+import { mock } from "node:test";
 import * as storage from "../../../src/core/storage.js";
 
 describe("core/storage.js", function () {
     describe("initialize()", function () {
+        afterEach(function () {
+            mock.reset();
+        });
+
         it("should create config in Chromium", async function () {
-            // Remplacer la liste des types de contextes manuellement, car
-            // Node.js <v24.3.0 n'a pas de fonction par ça.
-            // https://github.com/nodejs/node/pull/58438
-            const originalContextType = browser.contextMenus.ContextType;
-            try {
-                // Enlever les types de contextes non-disponibles dans Chromium.
-                // https://issues.chromium.org/41378677
-                // https://issues.chromium.org/40246822
-                browser.contextMenus.ContextType = Object.fromEntries(
+            // Enlever les types de contextes non-disponibles dans Chromium.
+            // https://issues.chromium.org/41378677
+            // https://issues.chromium.org/40246822
+            mock.property(
+                browser.contextMenus,
+                "ContextType",
+                Object.fromEntries(
                     Object.entries(browser.contextMenus.ContextType).filter(
                         ([_, v]) => "bookmark" !== v && "tab" !== v,
                     ),
-                );
+                ),
+            );
 
-                await storage.initialize();
-                const config = await browser.storage.local.get();
-                assert.deepEqual(config, {
-                    "config-version": 6,
-                    "server-mode": "single",
-                    "server-list": [{ address: "", name: "" }],
-                    "server-active": 0,
-                    "general-history": false,
-                    "popup-clipboard": false,
-                    "popup-wheel": "normal",
-                    "menu-actions": ["send", "insert", "add"],
-                    "menu-contexts": [
-                        "audio",
-                        "frame",
-                        "link",
-                        "page",
-                        "selection",
-                        "video",
-                    ],
-                    "youtube-playlist": "playlist",
-                    "youtube-order": "default",
-                });
-            } finally {
-                browser.contextMenus.ContextType = originalContextType;
-            }
+            await storage.initialize();
+            const config = await browser.storage.local.get();
+            assert.deepEqual(config, {
+                "config-version": 6,
+                "server-mode": "single",
+                "server-list": [{ address: "", name: "" }],
+                "server-active": 0,
+                "general-history": false,
+                "popup-clipboard": false,
+                "popup-wheel": "normal",
+                "menu-actions": ["send", "insert", "add"],
+                "menu-contexts": [
+                    "audio",
+                    "frame",
+                    "link",
+                    "page",
+                    "selection",
+                    "video",
+                ],
+                "youtube-playlist": "playlist",
+                "youtube-order": "default",
+            });
         });
 
         it("should create config in Firefox", async function () {
@@ -77,33 +78,25 @@ describe("core/storage.js", function () {
         });
 
         it("should create config in Firefox Android", async function () {
-            // Remplacer la propriété des menus contextuels manuellement, car
-            // Node.js <v24.3.0 n'a pas de fonction par ça.
-            // https://github.com/nodejs/node/pull/58438
-            const originalContextMenus = browser.contextMenus;
-            try {
-                // Enlever la propriété qui n'existe pas dans Firefox Android.
-                // https://bugzil.la/1595822
-                browser.contextMenus = undefined;
+            // Enlever la propriété qui n'existe pas dans Firefox Android.
+            // https://bugzil.la/1595822
+            mock.property(browser, "contextMenus", undefined);
 
-                await storage.initialize();
-                const config = await browser.storage.local.get();
-                assert.deepEqual(config, {
-                    "config-version": 6,
-                    "server-mode": "single",
-                    "server-list": [{ address: "", name: "" }],
-                    "server-active": 0,
-                    "general-history": false,
-                    "popup-clipboard": false,
-                    "popup-wheel": "normal",
-                    "menu-actions": [],
-                    "menu-contexts": [],
-                    "youtube-playlist": "playlist",
-                    "youtube-order": "default",
-                });
-            } finally {
-                browser.contextMenus = originalContextMenus;
-            }
+            await storage.initialize();
+            const config = await browser.storage.local.get();
+            assert.deepEqual(config, {
+                "config-version": 6,
+                "server-mode": "single",
+                "server-list": [{ address: "", name: "" }],
+                "server-active": 0,
+                "general-history": false,
+                "popup-clipboard": false,
+                "popup-wheel": "normal",
+                "menu-actions": [],
+                "menu-contexts": [],
+                "youtube-playlist": "playlist",
+                "youtube-order": "default",
+            });
         });
     });
 

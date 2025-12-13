@@ -54,7 +54,8 @@ export const extractVideo = matchURLPattern(
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
- * @param {URLMatch} urlMatch L'URL d'une page de redirection vers une vidéo de Play SRF.
+ * @param {URLMatch} urlMatch L'URL d'une page de redirection vers une vidéo de
+ *                            Play SRF.
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */

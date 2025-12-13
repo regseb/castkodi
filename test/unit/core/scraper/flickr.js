@@ -31,8 +31,10 @@ describe("core/scraper/flickr.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="en"><head>
-                               <meta property="og:image"
-                                     content="https://live.staticflickr.com/bar/baz_qux_b.jpg">
+                               <meta
+                                 property="og:image"
+                                 content="https://live.staticflickr.com/bar/baz_qux_b.jpg"
+                               >
                              </head><body>
                                <script>
                                  root.YUI_config.flickr.api.site_key = "quux";
@@ -71,8 +73,10 @@ describe("core/scraper/flickr.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="en"><head>
-                               <meta property="og:image"
-                                     content="https://live.staticflickr.com/qux/quux_corge_b.jpg">
+                               <meta
+                                 property="og:image"
+                                 content="https://live.staticflickr.com/qux/quux_corge_b.jpg"
+                               >
                              </head><body>
                                <script>
                                  root.YUI_config.flickr.api.site_key = "grault";

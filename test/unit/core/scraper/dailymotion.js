@@ -185,9 +185,13 @@ describe("core/scraper/dailymotion.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="en"><head>
-                               <script src="https://geo.dailymotion.com/bar.js"></script>
-                               <script src="https://geo.dailymotion.com/player/baz.js"
-                                       data-video="qux"></script>
+                               <script
+                                 src="https://geo.dailymotion.com/bar.js"
+                               ></script>
+                               <script
+                                 src="https://geo.dailymotion.com/player/baz.js"
+                                 data-video="qux"
+                               ></script>
                              </head></html>`,
                             "text/html",
                         ),

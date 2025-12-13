@@ -101,7 +101,9 @@ describe("core/scraper/futurasciences.js", function () {
                         new DOMParser().parseFromString(
                             `<html lang="fr"><body>
                                <iframe src="//dai.ly/bar"></iframe>
-                               <iframe data-src="https://baz.com/qux.zip"></iframe>
+                               <iframe
+                                 data-src="https://baz.com/qux.zip"
+                               ></iframe>
                                <iframe data-src="//dai.ly/quux"></iframe>
                              </body></html>`,
                             "text/html",

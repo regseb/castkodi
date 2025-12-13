@@ -556,6 +556,8 @@ export default {
         "jsdoc/require-property-description": "error",
         "jsdoc/require-property-name": "error",
         "jsdoc/require-property-type": "error",
+        // Désactiver cette règle, car l'annotation @rejects n'est pas standard.
+        "jsdoc/require-rejects": "off",
         "jsdoc/require-returns": "off",
         "jsdoc/require-returns-check": "error",
         "jsdoc/require-returns-description": "error",

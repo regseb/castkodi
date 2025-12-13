@@ -70,9 +70,9 @@ export default {
         "n/no-unsupported-features/node-builtins": [
             "error",
             {
-                // Ignorer les vérifications de CloseEvent et navigator qui sont
-                // en expérimental dans Node v22.
-                ignores: ["CloseEvent", "navigator"],
+                // Ignorer les vérifications de navigator qui est en
+                // expérimental dans Node v24.
+                ignores: ["navigator"],
             },
         ],
         "n/process-exit-as-throw": "error",

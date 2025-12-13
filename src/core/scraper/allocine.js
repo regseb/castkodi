@@ -42,7 +42,8 @@ const action = async (_url, metadata, context) => {
     const model = JSON.parse(figure.dataset.model);
     return metaExtract(
         new URL(
-            `https://www.dailymotion.com/video/${model.videos[0].idDailymotion}`,
+            "https://www.dailymotion.com/video/" +
+                model.videos[0].idDailymotion,
         ),
         {
             ...context,

@@ -61,7 +61,8 @@ describe("core/tools/pebkac.js", function () {
             assert.equal(err.name, "PebkacError");
             assert.equal(
                 err.message,
-                "Address of Kodi Web server foo is invalid or Kodi's remote control isn't enabled.",
+                "Address of Kodi Web server foo is invalid or Kodi's remote" +
+                    " control isn't enabled.",
             );
             assert.equal(err.cause, undefined);
             assert.equal(err.type, "notFound");

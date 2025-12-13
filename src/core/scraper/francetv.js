@@ -52,6 +52,8 @@ const action = async (_url, metadata) => {
             encodeURIComponent(json.video.url);
         response = await fetch(url);
         json = await response.json();
+        // Cette ligne dépasse les 80 caractères, car Prettier est bogué.
+        // https://github.com/prettier/prettier/issues/12408
         return `${json.url}|User-Agent=${encodeURIComponent(navigator.userAgent)}`;
     }
     return undefined;

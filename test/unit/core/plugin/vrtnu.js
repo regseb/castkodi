@@ -14,7 +14,8 @@ describe("core/plugin/vrtnu.js", function () {
             );
             assert.equal(
                 label,
-                "plugin://plugin.video.vrt.nu/play/url/https://foo.com/bar.html",
+                "plugin://plugin.video.vrt.nu/play/url/" +
+                    "https://foo.com/bar.html",
             );
         });
     });
