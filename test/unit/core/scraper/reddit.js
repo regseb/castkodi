@@ -58,48 +58,6 @@ describe("core/scraper/reddit.js", function () {
         });
     });
 
-    describe("extractOld()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
-            const url = new URL("https://www.redditinc.com/policies/");
-            const file = await scraper.extractOld(url);
-            assert.equal(file, undefined);
-        });
-
-        it("should return undefined when it isn't a video on old.reddit", async function () {
-            const url = new URL("https://old.reddit.com/r/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            '<html lang="en"><body></body></html>',
-                            "text/html",
-                        ),
-                    ),
-            };
-
-            const file = await scraper.extractOld(url, metadata);
-            assert.equal(file, undefined);
-        });
-
-        it("should return video URL from old.reddit.com", async function () {
-            const url = new URL("https://old.reddit.com/r/foo");
-            const metadata = {
-                html: () =>
-                    Promise.resolve(
-                        new DOMParser().parseFromString(
-                            `<html lang="en"><body>
-                               <div data-hls-url="https://old.reddit.com/video.m3u8"></div>
-                             </body></html>`,
-                            "text/html",
-                        ),
-                    ),
-            };
-
-            const file = await scraper.extractOld(url, metadata);
-            assert.equal(file, "https://old.reddit.com/video.m3u8");
-        });
-    });
-
     describe("extractEmbed()", function () {
         it("shouldn't handle when it's a unsupported URL", async function () {
             const url = new URL("https://www.redditinc.com/policies/");
@@ -189,6 +147,50 @@ describe("core/scraper/reddit.js", function () {
 
             assert.equal(getAddons.mock.callCount(), 1);
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+    });
+
+    describe("extractOld()", function () {
+        it("shouldn't handle when it's a unsupported URL", async function () {
+            const url = new URL("https://www.redditinc.com/policies/");
+            const file = await scraper.extractOld(url);
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when it isn't a video on old.reddit", async function () {
+            const url = new URL("https://old.reddit.com/r/foo");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            '<html lang="en"><body></body></html>',
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extractOld(url, metadata);
+            assert.equal(file, undefined);
+        });
+
+        it("should return video URL from old.reddit.com", async function () {
+            const url = new URL("https://old.reddit.com/r/foo");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html lang="en"><body>
+                               <div
+                                 data-hls-url="https://old.reddit.com/video.m3u8"
+                               ></div>
+                             </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extractOld(url, metadata);
+            assert.equal(file, "https://old.reddit.com/video.m3u8");
         });
     });
 });

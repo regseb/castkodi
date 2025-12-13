@@ -58,4 +58,20 @@ describe("Scraper: Reddit [fr]", function () {
                 "?video_id=s91Hs241YS4&incognito=false",
         );
     });
+
+    it("should return old video URL", async function () {
+        const url = new URL(
+            "https://old.reddit.com/r/Unexpected/comments/1l83vph" +
+                "/fliping_each_other/",
+        );
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.ok(
+            file?.startsWith(
+                "https://v.redd.it/cs5l1nf8r46f1/HLSPlaylist.m3u8",
+            ),
+            `"${file}"?.startsWith(...)`,
+        );
+    });
 });
