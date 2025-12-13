@@ -68,3 +68,24 @@ export const extractEmbed = matchURLPattern(
     actionEmbed,
     "https://www.reddit.com/r/*",
 );
+
+/**
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
+ *
+ * @param {URLMatch} _url          L'URL d'une vidéo Old Reddit.
+ * @param {Object}   metadata      Les métadonnées de l'URL.
+ * @param {Function} metadata.html La fonction retournant la promesse contenant
+ *                                 le document HTML.
+ * @returns {Promise<string|undefined>} Une promesse contenant le lien du
+ *                                      _fichier_ ou `undefined`.
+ */
+
+const actionOld = async (_url, metadata) => {
+    const doc = await metadata.html();
+    const player = doc.querySelector("div[data-hls-url]");
+    return player?.dataset.hlsUrl;
+};
+export const extractOld = matchURLPattern(
+    actionOld,
+    "https://old.reddit.com/r/*",
+);
