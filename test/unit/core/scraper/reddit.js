@@ -44,9 +44,7 @@ describe("core/scraper/reddit.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="en"><body>
-                               <shreddit-player-2
-                                 src="https://bar.com/baz.mp4"
-                               />
+                               <shreddit-player src="https://bar.com/baz.mp4" />
                              </body></html>`,
                             "text/html",
                         ),

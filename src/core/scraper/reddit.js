@@ -25,7 +25,7 @@ import { extract as iframeExtract } from "./iframe.js";
  */
 const action = async (_url, metadata) => {
     const doc = await metadata.html();
-    const player = doc.querySelector("shreddit-player-2[src]");
+    const player = doc.querySelector("shreddit-player[src]");
     return player?.getAttribute("src");
 };
 export const extract = matchURLPattern(action, "https://www.reddit.com/r/*");
@@ -82,8 +82,8 @@ export const extractEmbed = matchURLPattern(
 
 const actionOld = async (_url, metadata) => {
     const doc = await metadata.html();
-    const player = doc.querySelector("div[data-hls-url]");
-    return player?.dataset.hlsUrl;
+    const div = doc.querySelector("div[data-hls-url]");
+    return div?.dataset.hlsUrl;
 };
 export const extractOld = matchURLPattern(
     actionOld,
