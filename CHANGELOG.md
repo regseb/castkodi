@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.17.0](https://github.com/regseb/castkodi/compare/v7.16.0...v7.17.0) (2025-12-13)
+
+### Features
+
+- Support old.reddit.com ([#165](https://github.com/regseb/castkodi/issues/165))
+  ([9d556d8](https://github.com/regseb/castkodi/commit/9d556d8c95aba1229c3683edea75412ecdbe3363))
+
+### Bug Fixes
+
+- Fix Reddit scraper.
+  ([e865f12](https://github.com/regseb/castkodi/commit/e865f120b59e10306b219870b52caa535ca8f138))
+
 ## [7.16.0](https://github.com/regseb/castkodi/compare/v7.15.0...v7.16.0) (2025-11-11)
 
 ### Features
