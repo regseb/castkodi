@@ -6,7 +6,7 @@
 Cast&nbsp;Kodi añade la posibilidad de emitir vídeos y música a **Kodi**:
 
 - enlaces directos: _avi_, _mkv_, _mp3_, _flac_, … y torrent / magnet;
-- YouTube, Twitch, Vimeo, SoundCloud y Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, ItemFix, Jamendo, Kick, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Prime&nbsp;Video&nbsp;(Amazon), Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, VideoPress, VidLii, Vidyard, Viously;
+- YouTube, Twitch, Vimeo, SoundCloud y Acast, Ace&nbsp;Stream, Apple&nbsp;Podcasts, Ausha, Bigo&nbsp;Live, BitChute, Castbox, Dailymotion, DevTube, Facebook, Flickr, Instagram, Invidious, ItemFix, Jamendo, Kick, Mastodon, Megaphone, Mixcloud, Odysee, Overcast, PeerTube, Podcast&nbsp;Addict, podCloud, Prime&nbsp;Video&nbsp;(Amazon), Reddit, Rumble, Steam, Streamable, TikTok, Ultimedia, Uqload, VideoPress, VidLii, Vidyard, Viously;
   - 🇩🇪&nbsp;Alemania: Arte, Chaos&nbsp;Computer&nbsp;Club, DMAX, ZDF;
   - 🇧🇪&nbsp;Belgica: GoPlay, VRT&nbsp;NU, VTM&nbsp;GO;
   - 🇨🇦&nbsp;Canadá: CBC&nbsp;Listen;

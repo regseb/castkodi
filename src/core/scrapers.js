@@ -33,6 +33,8 @@ import * as goplay from "./scraper/goplay.js";
 // eslint-disable-next-line import/no-cycle
 import * as iframe from "./scraper/iframe.js";
 // eslint-disable-next-line import/no-cycle
+import * as invidious from "./scraper/invidious.js";
+// eslint-disable-next-line import/no-cycle
 import * as jv from "./scraper/jv.js";
 import * as kcaastreaming from "./scraper/kcaastreaming.js";
 import * as kick from "./scraper/kick.js";
@@ -122,7 +124,6 @@ const SCRAPERS = [
     mixcloud,
     ok,
     ouestfrance,
-    peertube,
     podcloud,
     primevideo,
     reddit,
@@ -146,9 +147,10 @@ const SCRAPERS = [
     vtmgo,
     youtube,
     zdf,
-    // Mettre Dailymotion et Viously à la fin, car un de leurs extracteurs
-    // analyse toutes les pages.
+    // Mettre les extracteurs qui analysent toutes les pages à la fin.
     dailymotion,
+    invidious,
+    peertube,
     viously,
     // Utiliser les extracteurs génériques en dernier recours.
     media,
