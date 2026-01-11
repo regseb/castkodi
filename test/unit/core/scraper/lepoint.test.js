@@ -37,7 +37,7 @@ describe("core/scraper/lepoint.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="fr"><body>
-                               <blockquote></blockquote>
+                               <div id="bar"></div>
                              </body></html>`,
                             "text/html",
                         ),
@@ -60,8 +60,7 @@ describe("core/scraper/lepoint.js", function () {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="fr"><body>
-                               <blockquote class="video-dailymotion-unloaded"
-                                           data-videoid="bar"></blockquote>
+                               <div id="dailymotion-player-bar-baz-qux"></div>
                              </body></html>`,
                             "text/html",
                         ),
@@ -72,7 +71,7 @@ describe("core/scraper/lepoint.js", function () {
             const file = await scraper.extract(url, metadata, context);
             assert.equal(
                 file,
-                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=bar",
+                "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=baz",
             );
 
             assert.equal(getAddons.mock.callCount(), 1);

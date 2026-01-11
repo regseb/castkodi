@@ -39,17 +39,15 @@ const action = async (_url, metadata, context) => {
     }
 
     const doc = await metadata.html();
-    const blockquote = doc.querySelector(
-        "blockquote.video-dailymotion-unloaded[data-videoid]",
+    const div = doc.querySelector('div[id^="dailymotion-player-"]');
+    if (null === div) {
+        return undefined;
+    }
+
+    const parts = div.id.split("-");
+    return await metaExtract(
+        new URL(`https://www.dailymotion.com/embed/video/${parts[3]}`),
+        { ...context, depth: true },
     );
-    return null === blockquote
-        ? undefined
-        : await metaExtract(
-              new URL(
-                  "https://www.dailymotion.com/embed/video/" +
-                      blockquote.dataset.videoid,
-              ),
-              { ...context, depth: true },
-          );
 };
 export const extract = matchURLPattern(action, "https://www.lepoint.fr/*");

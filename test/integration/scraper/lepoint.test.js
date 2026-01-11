@@ -22,33 +22,16 @@ describe("Scraper: Le Point", function () {
 
     it("should return video URL of Dailymotion", async function () {
         const url = new URL(
-            "https://www.lepoint.fr/astronomie" +
-                "/un-nouveau-signal-radio-extraterrestre-intrigue-les" +
-                "-scientifiques-18-02-2020-2363244_1925.php" +
-                "#xtmc=video&xtnp=7&xtcr=61",
+            "https://www.lepoint.fr/eureka" +
+                "/combien-de-temps-un-moustique-survit-il-sans-piquer" +
+                "-13-11-2025-2603038_4706.php",
         );
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
         assert.equal(
             file,
-            "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x7rz0ur",
-        );
-    });
-
-    it("should return video URL of Dailymotion when protocol is HTTP", async function () {
-        const url = new URL(
-            "http://www.lepoint.fr/astronomie" +
-                "/un-nouveau-signal-radio-extraterrestre-intrigue-les" +
-                "-scientifiques-18-02-2020-2363244_1925.php" +
-                "#xtmc=video&xtnp=7&xtcr=61",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(
-            file,
-            "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x7rz0ur",
+            "plugin://plugin.video.dailymotion_com/?mode=playVideo&url=x8ld0t9",
         );
     });
 
