@@ -53,11 +53,14 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.equal(
-            file,
-            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
-                "&asin=amzn1.dv.gti.af316d6d-1270-4dba-882f-33fc6a17ea4f" +
-                "&name=Mr.%20%26%2338%3B%20Mrs.%20Smith%20-%20Season%201",
+        assert.ok(
+            file?.startsWith(
+                "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                    "&asin=amzn1.dv.gti.af316d6d-1270-4dba-882f-33fc6a17ea4f" +
+                    // Ne pas vérifier le nom qui est changeant.
+                    "&name=",
+            ),
+            `"${file}"?.startsWith(...)`,
         );
     });
 
@@ -83,11 +86,14 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.equal(
-            file,
-            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
-                "&asin=amzn1.dv.gti.ff3e6df2-2fa6-4a7c-bab3-43972be660cb" +
-                "&name=Marry%20My%20Husband%20-%20Season%201",
+        assert.ok(
+            file?.startsWith(
+                "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                    "&asin=amzn1.dv.gti.ff3e6df2-2fa6-4a7c-bab3-43972be660cb" +
+                    // Ne pas vérifier le nom qui est changeant.
+                    "&name=",
+            ),
+            `"${file}"?.startsWith(...)`,
         );
     });
 
@@ -113,11 +119,14 @@ describe("Scraper: Prime Video", function () {
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.equal(
-            file,
-            "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
-                "&asin=amzn1.dv.gti.6c51068a-ab0b-416c-a63e-9ef567371a04" +
-                "&name=The%20Silent%20Service%20%E2%80%93%20Season%201",
+        assert.ok(
+            file?.startsWith(
+                "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
+                    "&asin=amzn1.dv.gti.6c51068a-ab0b-416c-a63e-9ef567371a04" +
+                    // Ne pas vérifier le nom qui est changeant.
+                    "&name=",
+            ),
+            `"${file}"?.startsWith(...)`,
         );
     });
 
