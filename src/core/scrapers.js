@@ -26,8 +26,6 @@ import * as facebook from "./scraper/facebook.js";
 import * as flickr from "./scraper/flickr.js";
 import * as francetv from "./scraper/francetv.js";
 // eslint-disable-next-line import/no-cycle
-import * as futurasciences from "./scraper/futurasciences.js";
-// eslint-disable-next-line import/no-cycle
 import * as gamekult from "./scraper/gamekult.js";
 import * as goplay from "./scraper/goplay.js";
 // eslint-disable-next-line import/no-cycle
@@ -112,7 +110,6 @@ const SCRAPERS = [
     facebook,
     flickr,
     francetv,
-    futurasciences,
     gamekult,
     goplay,
     jv,
