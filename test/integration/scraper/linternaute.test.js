@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: L'Internaute", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: L'Internaute", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.linternaute.com/cinema/film" +
                 "/2462551-films-pixar-selection-des-meilleurs-et-liste-de" +
@@ -19,7 +21,7 @@ describe("Scraper: L'Internaute", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [ldjson]", async function () {
+    it("should return video URL [ldjson]", async () => {
         const url = new URL(
             "https://www.linternaute.com/sport/rugby" +
                 "/2617245-rugby-france-angleterre-suivez-le-match-des-6" +
@@ -34,7 +36,7 @@ describe("Scraper: L'Internaute", function () {
         );
     });
 
-    it("should return video URL [template-iframe-youtube]", async function () {
+    it("should return video URL [template-iframe-youtube]", async () => {
         const url = new URL(
             "https://www.linternaute.fr/cinema/pratique" +
                 "/2595113-alerte-rouge-a-partir-de-quel-age-voir-le-dernier" +

@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: podCloud", function () {
-    it("should return audio URL", async function () {
+describe("Scraper: podCloud", () => {
+    it("should return audio URL", async () => {
         const url = new URL(
             "https://podcloud.fr/podcast/le-cosy-corner/episode" +
                 "/numero-51-sa-puissance-est-maximum",

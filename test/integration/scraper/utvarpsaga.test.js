@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Útvarp Saga", function () {
-    it("should return video URL [audio]", async function () {
+describe("Scraper: Útvarp Saga", () => {
+    it("should return video URL [audio]", async () => {
         const url = new URL(
             "https://www.utvarpsaga.is/snjallsimarnir-eru-farnir-ad-stjorna" +
                 "-lifi-folks/",
@@ -22,7 +24,7 @@ describe("Scraper: Útvarp Saga", function () {
         );
     });
 
-    it("should return video URL without 'www' [audio]", async function () {
+    it("should return video URL without 'www' [audio]", async () => {
         const url = new URL(
             "https://utvarpsaga.is/samfelagsmidlar-mynda-nuning-milli-hopa" +
                 "-med-olikar-skodanir/",

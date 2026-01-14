@@ -4,9 +4,10 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/soundcloud.js";
+import "../../setup.js";
 
 const OTHER_ADDON = {
     addonid: "plugin.video.other",
@@ -24,20 +25,20 @@ const SOUNDCLOUD_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/soundcloud.js", function () {
-    afterEach(function () {
+describe("core/scraper/soundcloud.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://developers.soundcloud.com/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return audio URL", async function () {
+        it("should return audio URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -58,7 +59,7 @@ describe("core/scraper/soundcloud.js", function () {
             ]);
         });
 
-        it("should return audio URL from mobile version", async function () {
+        it("should return audio URL from mobile version", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -79,7 +80,7 @@ describe("core/scraper/soundcloud.js", function () {
             ]);
         });
 
-        it("should return audio URL to soundcloud", async function () {
+        it("should return audio URL to soundcloud", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON, SOUNDCLOUD_ADDON]),
             );
@@ -100,7 +101,7 @@ describe("core/scraper/soundcloud.js", function () {
             ]);
         });
 
-        it("should return audio URL to sendtokodi", async function () {
+        it("should return audio URL to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -121,7 +122,7 @@ describe("core/scraper/soundcloud.js", function () {
             ]);
         });
 
-        it("should return audio URL to soundcloud by default", async function () {
+        it("should return audio URL to soundcloud by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );

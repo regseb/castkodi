@@ -4,9 +4,10 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/twitch.js";
+import "../../setup.js";
 
 const OTHER_ADDON = {
     addonid: "plugin.video.other",
@@ -24,20 +25,20 @@ const TWITCH_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/twitch.js", function () {
-    afterEach(function () {
+describe("core/scraper/twitch.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractClip()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractClip()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://appeals.twitch.tv/");
 
             const file = await scraper.extractClip(url);
             assert.equal(file, undefined);
         });
 
-        it("should return embed clip slug", async function () {
+        it("should return embed clip slug", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -54,14 +55,14 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when it isn't a clip", async function () {
+        it("should return undefined when it isn't a clip", async () => {
             const url = new URL("https://clips.twitch.tv/embed?noclip=foo");
 
             const file = await scraper.extractClip(url);
             assert.equal(file, undefined);
         });
 
-        it("should return clip slug", async function () {
+        it("should return clip slug", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -79,15 +80,15 @@ describe("core/scraper/twitch.js", function () {
         });
     });
 
-    describe("extractEmbed()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractEmbed()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://clips.twitch.tv/");
 
             const file = await scraper.extractEmbed(url);
             assert.equal(file, undefined);
         });
 
-        it("should return channel name", async function () {
+        it("should return channel name", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -104,7 +105,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id", async function () {
+        it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -121,7 +122,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when it isn't channel or video", async function () {
+        it("should return undefined when it isn't channel or video", async () => {
             const url = new URL("https://player.twitch.tv/?other=foo");
 
             const file = await scraper.extractEmbed(url);
@@ -129,15 +130,15 @@ describe("core/scraper/twitch.js", function () {
         });
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://app.twitch.tv/download");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video id", async function () {
+        it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -154,7 +155,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id from 'go'", async function () {
+        it("should return video id from 'go'", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -171,7 +172,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id from mobile version", async function () {
+        it("should return video id from mobile version", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -188,7 +189,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to twitch", async function () {
+        it("should return video id to twitch", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([TWITCH_ADDON, SENDTOKODI_ADDON]),
             );
@@ -205,7 +206,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL to sendtokodi", async function () {
+        it("should return video URL to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -223,7 +224,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to twitch by default", async function () {
+        it("should return video id to twitch by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );
@@ -240,7 +241,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip slug", async function () {
+        it("should return clip slug", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -257,7 +258,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip slug from 'go'", async function () {
+        it("should return clip slug from 'go'", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -274,7 +275,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip slug from mobile version", async function () {
+        it("should return clip slug from mobile version", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -291,7 +292,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip slug to twitch", async function () {
+        it("should return clip slug to twitch", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([TWITCH_ADDON, SENDTOKODI_ADDON]),
             );
@@ -308,7 +309,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip URL to sendtokodi", async function () {
+        it("should return clip URL to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -325,7 +326,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip slug to twitch by default", async function () {
+        it("should return clip slug to twitch by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );
@@ -342,7 +343,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel name from moderator URL", async function () {
+        it("should return channel name from moderator URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -359,7 +360,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel name", async function () {
+        it("should return channel name", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -376,7 +377,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel name from 'go'", async function () {
+        it("should return channel name from 'go'", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -393,7 +394,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel name from mobile version", async function () {
+        it("should return channel name from mobile version", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -410,7 +411,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel name to twitch", async function () {
+        it("should return channel name to twitch", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([TWITCH_ADDON, SENDTOKODI_ADDON]),
             );
@@ -427,7 +428,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel URL to sendtokodi", async function () {
+        it("should return channel URL to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -444,7 +445,7 @@ describe("core/scraper/twitch.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel name to twitch by default", async function () {
+        it("should return channel name to twitch by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );

@@ -4,17 +4,18 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { JSONRPC } from "../../../../src/core/jsonrpc/jsonrpc.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
+import "../../setup.js";
 
-describe("core/jsonrpc/jsonrpc.js", function () {
-    afterEach(function () {
+describe("core/jsonrpc/jsonrpc.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("ping()", function () {
-        it("should ping", async function () {
+    describe("ping()", () => {
+        it("should ping", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () =>
                 Promise.resolve("pong"),
@@ -29,8 +30,8 @@ describe("core/jsonrpc/jsonrpc.js", function () {
         });
     });
 
-    describe("version()", function () {
-        it("should return version", async function () {
+    describe("version()", () => {
+        it("should return version", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () =>
                 Promise.resolve({

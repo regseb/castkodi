@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/vidyard.js";
+import "../../setup.js";
 
-describe("core/scraper/vidyard.js", function () {
-    afterEach(function () {
+describe("core/scraper/vidyard.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.vidyard.com/video-hosting/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video URL from vyContext", async function () {
+        it("should return video URL from vyContext", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({
@@ -61,7 +62,7 @@ describe("core/scraper/vidyard.js", function () {
             ]);
         });
 
-        it("should return video URL from chapters", async function () {
+        it("should return video URL from chapters", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({
@@ -98,7 +99,7 @@ describe("core/scraper/vidyard.js", function () {
             ]);
         });
 
-        it("should return video URL from pathname with extension", async function () {
+        it("should return video URL from pathname with extension", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({

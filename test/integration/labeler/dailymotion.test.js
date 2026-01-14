@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Labeler: Dailymotion", function () {
-    it("should return video label", async function () {
+describe("Labeler: Dailymotion", () => {
+    it("should return video label", async () => {
         const url = new URL("https://www.dailymotion.com/video/x2knr9t");
         const context = { depth: false, incognito: false };
 

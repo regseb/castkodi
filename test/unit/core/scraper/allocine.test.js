@@ -4,20 +4,25 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/allocine.js";
+import "../../setup.js";
 
-describe("core/scraper/allocine.js", function () {
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+describe("core/scraper/allocine.js", () => {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://secure.allocine.fr/account");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's depth", async function () {
+        it("should return undefined when it's depth", async () => {
             const url = new URL("https://www.allocine.fr/foo");
             const metadata = {
                 html: () =>
@@ -38,7 +43,7 @@ describe("core/scraper/allocine.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://www.allocine.fr/foo");
             const metadata = {
                 html: () =>
@@ -55,7 +60,7 @@ describe("core/scraper/allocine.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video id", async function () {
+        it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );

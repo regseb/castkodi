@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Vidyard", function () {
-    it("should return video URL from watch page", async function () {
+describe("Scraper: Vidyard", () => {
+    it("should return video URL from watch page", async () => {
         const url = new URL(
             "https://video.vidyard.com/watch/sZLW7HbuBytapHnaGNDRYP?",
         );
@@ -23,7 +25,7 @@ describe("Scraper: Vidyard", function () {
         );
     });
 
-    it("should return video URL from iframe", async function () {
+    it("should return video URL from iframe", async () => {
         const url = new URL(
             "https://play.vidyard.com/T3dY7vWGe3kCzH4RtSRKSD" +
                 "?disable_popouts=1&v=4.2.31&type=inline",

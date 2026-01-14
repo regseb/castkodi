@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Apple Podcasts", function () {
-    it("should return undefined when it isn't an audio", async function () {
+describe("Scraper: Apple Podcasts", () => {
+    it("should return undefined when it isn't an audio", async () => {
         const url = new URL(
             "https://podcasts.apple.com/fr/podcast/la-derni%C3%A8re" +
                 "/id1766744611",
@@ -18,7 +20,7 @@ describe("Scraper: Apple Podcasts", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return audio URL", async function () {
+    it("should return audio URL", async () => {
         // Récupérer un podcast récent, car ils ne sont pas gardés indéfiniment.
         const response = await fetch(
             "https://podcasts.apple.com/fr/podcast" +

@@ -4,20 +4,21 @@
  */
 
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: Instagram [fr]", function () {
-    before(function () {
+describe("Scraper: Instagram [fr]", () => {
+    before((t) => {
         // Désactiver les tests d'Instagram en dehors de la France, car il faut
         // être connecté pour consulter les publications dans les autres pays.
         if (undefined !== config.country && "fr" !== config.country) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
     });
 
-    it("should return undefined when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://www.instagram.com/p/6p_BDeK-8G/");
         const context = { depth: false, incognito: false };
 
@@ -25,7 +26,7 @@ describe("Scraper: Instagram [fr]", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [opengraph]", async function () {
+    it("should return video URL [opengraph]", async () => {
         const url = new URL("https://www.instagram.com/p/BpFwZ6JnYPq/");
         const context = { depth: false, incognito: false };
 
@@ -36,7 +37,7 @@ describe("Scraper: Instagram [fr]", function () {
         );
     });
 
-    it("should return video URL when protocol is HTTP [opengraph]", async function () {
+    it("should return video URL when protocol is HTTP [opengraph]", async () => {
         const url = new URL("http://www.instagram.com/p/Bpji87LiJFs/");
         const context = { depth: false, incognito: false };
 

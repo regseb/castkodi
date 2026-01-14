@@ -4,18 +4,19 @@
  */
 
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: JV (Jeuxvideo.com) [fr]", function () {
-    before(function () {
+describe("Scraper: JV (Jeuxvideo.com) [fr]", () => {
+    before((t) => {
         if (undefined !== config.country && "fr" !== config.country) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
     });
 
-    it("should return undefined when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://www.jeuxvideo.com/videos-de-jeux.htm");
         const context = { depth: false, incognito: false };
 
@@ -23,7 +24,7 @@ describe("Scraper: JV (Jeuxvideo.com) [fr]", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL from videos-editors page", async function () {
+    it("should return video URL from videos-editors page", async () => {
         const url = new URL(
             "https://www.jeuxvideo.com/videos-editeurs/0000/00007335" +
                 "/half-life-2-pc-trailer-00004956.htm",
@@ -37,7 +38,7 @@ describe("Scraper: JV (Jeuxvideo.com) [fr]", function () {
         );
     });
 
-    it("should return video URL from extracts-videos page", async function () {
+    it("should return video URL from extracts-videos page", async () => {
         const url = new URL(
             "https://www.jeuxvideo.com/extraits-videos-jeux/0002/00023827" +
                 "/portal-2-pc-meet-wheatley-00008311.htm",
@@ -51,7 +52,7 @@ describe("Scraper: JV (Jeuxvideo.com) [fr]", function () {
         );
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         const url = new URL(
             "https://www.jeuxvideo.com/videos/461728" +
                 "/superhot-notre-avis-en-deux-minutes-sur-ce-fps-original.htm",
@@ -65,7 +66,7 @@ describe("Scraper: JV (Jeuxvideo.com) [fr]", function () {
         );
     });
 
-    it("should return video URL from news", async function () {
+    it("should return video URL from news", async () => {
         const url = new URL(
             "https://www.jeuxvideo.com/news/1415571" +
                 "/doom-eternal-plus-beau-que-jamais-en-4k-ray-tracing-sur-une" +

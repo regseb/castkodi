@@ -4,7 +4,7 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
 import { GUI } from "../../../../src/core/jsonrpc/gui.js";
 import { Input } from "../../../../src/core/jsonrpc/input.js";
@@ -16,21 +16,24 @@ import { System } from "../../../../src/core/jsonrpc/system.js";
 import { JSONRPC as JSONRPCClient } from "../../../../src/core/tools/jsonrpc.js";
 import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
 import { PebkacError } from "../../../../src/core/tools/pebkac.js";
+import { restoreAll } from "../../../polyfill/browser.js";
+import "../../setup.js";
 
-describe("core/jsonrpc/kodi.js", function () {
-    afterEach(function () {
+describe("core/jsonrpc/kodi.js", () => {
+    afterEach(() => {
         mock.reset();
+        restoreAll();
     });
 
-    describe("check()", function () {
-        it("should return promise rejected", async function () {
+    describe("check()", () => {
+        it("should return promise rejected", async () => {
             await assert.rejects(() => Kodi.check(""), {
                 name: "PebkacError",
                 type: "unconfigured",
             });
         });
 
-        it("should return promise rejected with old version", async function () {
+        it("should return promise rejected with old version", async () => {
             const send = mock.fn(() =>
                 Promise.resolve({ version: { major: 12 } }),
             );
@@ -63,7 +66,7 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.equal(fix.mock.callCount(), 0);
         });
 
-        it("should return promise rejected with fix", async function () {
+        it("should return promise rejected with fix", async () => {
             const send = mock.fn(() =>
                 Promise.reject(new PebkacError("notFound", "foo")),
             );
@@ -98,7 +101,7 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepEqual(fix.mock.calls[0].arguments, ["foo"]);
         });
 
-        it("should return promise rejected without fix", async function () {
+        it("should return promise rejected without fix", async () => {
             const send = mock.fn(() =>
                 Promise.reject(new PebkacError("notFound", "foo")),
             );
@@ -135,7 +138,7 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepEqual(fix.mock.calls[0].arguments, ["foo"]);
         });
 
-        it("should return promise fulfilled", async function () {
+        it("should return promise fulfilled", async () => {
             const send = mock.fn(() =>
                 Promise.resolve({ version: { major: 13 } }),
             );
@@ -162,8 +165,8 @@ describe("core/jsonrpc/kodi.js", function () {
         });
     });
 
-    describe("fix()", function () {
-        it("should return alternative address", async function () {
+    describe("fix()", () => {
+        it("should return alternative address", async () => {
             const send = mock.fn(() => Promise.resolve("pong"));
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
@@ -187,7 +190,7 @@ describe("core/jsonrpc/kodi.js", function () {
             ]);
         });
 
-        it("shouldn't return alternative address", async function () {
+        it("shouldn't return alternative address", async () => {
             const send = mock.fn(() =>
                 Promise.reject(new PebkacError("notFound", "192.168.0.1")),
             );
@@ -214,13 +217,13 @@ describe("core/jsonrpc/kodi.js", function () {
         });
     });
 
-    describe("get url()", function () {
-        it("should return undefined when url isn't built", function () {
+    describe("get url()", () => {
+        it("should return undefined when url isn't built", () => {
             const kodi = new Kodi("localhost");
             assert.equal(kodi.url, undefined);
         });
 
-        it("should return URL when url is built", async function () {
+        it("should return URL when url is built", async () => {
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
                     addEventListener: () => undefined,
@@ -239,57 +242,57 @@ describe("core/jsonrpc/kodi.js", function () {
         });
     });
 
-    describe("get application()", function () {
-        it("should return Application object", function () {
+    describe("get application()", () => {
+        it("should return Application object", () => {
             const kodi = new Kodi("localhost");
             assert.ok(kodi.application instanceof Application);
         });
     });
 
-    describe("get gui()", function () {
-        it("should return GUI object", function () {
+    describe("get gui()", () => {
+        it("should return GUI object", () => {
             const kodi = new Kodi("localhost");
             assert.ok(kodi.gui instanceof GUI);
         });
     });
 
-    describe("get input()", function () {
-        it("should return Input object", function () {
+    describe("get input()", () => {
+        it("should return Input object", () => {
             const kodi = new Kodi("localhost");
             assert.ok(kodi.input instanceof Input);
         });
     });
 
-    describe("get jsonrpc()", function () {
-        it("should return JSONRPC object", function () {
+    describe("get jsonrpc()", () => {
+        it("should return JSONRPC object", () => {
             const kodi = new Kodi("localhost");
             assert.ok(kodi.jsonrpc instanceof JSONRPC);
         });
     });
 
-    describe("get player()", function () {
-        it("should return Player object", function () {
+    describe("get player()", () => {
+        it("should return Player object", () => {
             const kodi = new Kodi("localhost");
             assert.ok(kodi.player instanceof Player);
         });
     });
 
-    describe("get playlist()", function () {
-        it("should return Playlist object", function () {
+    describe("get playlist()", () => {
+        it("should return Playlist object", () => {
             const kodi = new Kodi("localhost");
             assert.ok(kodi.playlist instanceof Playlist);
         });
     });
 
-    describe("get system()", function () {
-        it("should return System object", function () {
+    describe("get system()", () => {
+        it("should return System object", () => {
             const kodi = new Kodi("localhost");
             assert.ok(kodi.system instanceof System);
         });
     });
 
-    describe("close()", function () {
-        it("should close WebSocket", async function () {
+    describe("close()", () => {
+        it("should close WebSocket", async () => {
             const close = mock.fn();
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
@@ -314,8 +317,8 @@ describe("core/jsonrpc/kodi.js", function () {
         });
     });
 
-    describe("send()", function () {
-        it("should return error when no address", async function () {
+    describe("send()", () => {
+        it("should return error when no address", async () => {
             const kodi = new Kodi("");
             await assert.rejects(() => kodi.send("Foo"), {
                 name: "PebkacError",
@@ -323,7 +326,7 @@ describe("core/jsonrpc/kodi.js", function () {
             });
         });
 
-        it("should return error when address is invalid", async function () {
+        it("should return error when address is invalid", async () => {
             const kodi = new Kodi("foo bar");
             await assert.rejects(() => kodi.send("Baz"), {
                 name: "PebkacError",
@@ -332,7 +335,7 @@ describe("core/jsonrpc/kodi.js", function () {
             });
         });
 
-        it("should return error when IP is invalid", async function () {
+        it("should return error when IP is invalid", async () => {
             const kodi = new Kodi("192.168");
             await assert.rejects(() => kodi.send("Foo"), {
                 name: "PebkacError",
@@ -341,7 +344,7 @@ describe("core/jsonrpc/kodi.js", function () {
             });
         });
 
-        it("should return error when receive 400", async function () {
+        it("should return error when receive 400", async () => {
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.reject(new Error("foo")),
             );
@@ -361,7 +364,7 @@ describe("core/jsonrpc/kodi.js", function () {
             ]);
         });
 
-        it("should return error when receive Kodi's error", async function () {
+        it("should return error when receive Kodi's error", async () => {
             const send = mock.fn(() => Promise.reject(new Error("FooError")));
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
@@ -384,7 +387,7 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepEqual(send.mock.calls[0].arguments, ["Foo", undefined]);
         });
 
-        it("should send request", async function () {
+        it("should send request", async () => {
             const send = mock.fn(() => Promise.resolve("OK"));
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
@@ -411,7 +414,7 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepEqual(send.mock.calls[1].arguments, ["Qux.Quux", 42]);
         });
 
-        it("should send request from configuration", async function () {
+        it("should send request from configuration", async () => {
             await browser.storage.local.set({
                 "server-list": [
                     { address: "localhost" },
@@ -451,7 +454,7 @@ describe("core/jsonrpc/kodi.js", function () {
             assert.deepEqual(send.mock.calls[1].arguments, ["Baz.Qux", true]);
         });
 
-        it("should listen close event", async function () {
+        it("should listen close event", async () => {
             const listeners = {};
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({
@@ -479,7 +482,7 @@ describe("core/jsonrpc/kodi.js", function () {
             ]);
         });
 
-        it("should listen notification event", async function () {
+        it("should listen notification event", async () => {
             const listeners = {};
             const open = mock.method(JSONRPCClient, "open", () =>
                 Promise.resolve({

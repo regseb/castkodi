@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/rumble.js";
+import "../../setup.js";
 
-describe("core/scraper/rumble.js", function () {
-    afterEach(function () {
+describe("core/scraper/rumble.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://help.rumble.com/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when id is invalid", async function () {
+        it("should return undefined when id is invalid", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(Response.json(false)),
             );
@@ -36,7 +37,7 @@ describe("core/scraper/rumble.js", function () {
             ]);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({

@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Futura Sciences", function () {
-    it("should return page undefined when there isn't video", async function () {
+describe("Scraper: Futura Sciences", () => {
+    it("should return page undefined when there isn't video", async () => {
         const url = new URL(
             "https://www.futura-sciences.com/tech/telecharger/kodi-287",
         );
@@ -17,7 +19,7 @@ describe("Scraper: Futura Sciences", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [iframe-youtube]", async function () {
+    it("should return video URL [iframe-youtube]", async () => {
         const url = new URL(
             "https://www.futura-sciences.com/sciences/actualites" +
                 "/astronomie-spectaculaire-james-webb-capture-eruption-autour" +

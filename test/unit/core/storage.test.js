@@ -4,16 +4,19 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as storage from "../../../src/core/storage.js";
+import { restoreAll } from "../../polyfill/browser.js";
+import "../setup.js";
 
-describe("core/storage.js", function () {
-    describe("initialize()", function () {
-        afterEach(function () {
-            mock.reset();
-        });
+describe("core/storage.js", () => {
+    afterEach(() => {
+        mock.reset();
+        restoreAll();
+    });
 
-        it("should create config in Chromium", async function () {
+    describe("initialize()", () => {
+        it("should create config in Chromium", async () => {
             // Enlever les types de contextes non-disponibles dans Chromium.
             // https://issues.chromium.org/41378677
             // https://issues.chromium.org/40246822
@@ -51,7 +54,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should create config in Firefox", async function () {
+        it("should create config in Firefox", async () => {
             await storage.initialize();
             const config = await browser.storage.local.get();
             assert.deepEqual(config, {
@@ -77,7 +80,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should create config in Firefox Android", async function () {
+        it("should create config in Firefox Android", async () => {
             // Enlever la propriété qui n'existe pas dans Firefox Android.
             // https://bugzil.la/1595822
             mock.property(browser, "contextMenus", undefined);
@@ -100,8 +103,8 @@ describe("core/storage.js", function () {
         });
     });
 
-    describe("migrate()", function () {
-        it("should upgrade from version '1'", async function () {
+    describe("migrate()", () => {
+        it("should upgrade from version '1'", async () => {
             await browser.storage.local.set({
                 "config-version": 1,
                 "connection-host": "foo",
@@ -137,7 +140,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should upgrade from version '2'", async function () {
+        it("should upgrade from version '2'", async () => {
             await browser.storage.local.set({
                 "config-version": 2,
                 "server-mode": "multi",
@@ -172,7 +175,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should upgrade from version '3'", async function () {
+        it("should upgrade from version '3'", async () => {
             await browser.storage.local.set({
                 "config-version": 3,
                 "server-mode": "single",
@@ -201,7 +204,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should upgrade from version '4'", async function () {
+        it("should upgrade from version '4'", async () => {
             await browser.storage.local.set({
                 "config-version": 4,
                 "server-mode": "multi",
@@ -237,7 +240,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should upgrade from version '5'", async function () {
+        it("should upgrade from version '5'", async () => {
             await browser.storage.local.set({
                 "config-version": 5,
                 "server-mode": "multi",
@@ -274,7 +277,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should do nothing from version '6'", async function () {
+        it("should do nothing from version '6'", async () => {
             await browser.storage.local.set({
                 "config-version": 6,
                 "server-mode": "multi",
@@ -313,8 +316,8 @@ describe("core/storage.js", function () {
         });
     });
 
-    describe("remove()", function () {
-        it("should support no permission", async function () {
+    describe("remove()", () => {
+        it("should support no permission", async () => {
             await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
@@ -330,7 +333,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should ignore unknown permission", async function () {
+        it("should ignore unknown permission", async () => {
             await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
@@ -348,7 +351,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should disable 'general-history'", async function () {
+        it("should disable 'general-history'", async () => {
             await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
@@ -364,7 +367,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should disable 'general-clipboard'", async function () {
+        it("should disable 'general-clipboard'", async () => {
             await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
@@ -380,7 +383,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should remove 'bookmark'", async function () {
+        it("should remove 'bookmark'", async () => {
             await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,
@@ -396,7 +399,7 @@ describe("core/storage.js", function () {
             });
         });
 
-        it("should support when 'bookmark' is removed", async function () {
+        it("should support when 'bookmark' is removed", async () => {
             await browser.storage.local.set({
                 "general-history": true,
                 "popup-clipboard": true,

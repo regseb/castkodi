@@ -4,18 +4,20 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as scraper from "../../../../src/core/scraper/dumpert.js";
+import "../../setup.js";
 
-describe("core/scraper/dumpert.js", function () {
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+describe("core/scraper/dumpert.js", () => {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.dumpert.nl/toppers/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://www.dumpert.nl/item/foo");
             const metadata = {
                 html: () =>
@@ -31,7 +33,7 @@ describe("core/scraper/dumpert.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://www.dumpert.nl/item/foo");
             const metadata = {
                 html: () =>

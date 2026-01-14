@@ -4,24 +4,29 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/ouestfrance.js";
+import "../../setup.js";
 
-describe("core/scraper/ouestfrance.js", function () {
-    afterEach(function () {
+describe("core/scraper/ouestfrance.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.sud-france.fr/foo");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't HTML", async function () {
+        it("should return undefined when it isn't HTML", async () => {
             const url = new URL("https://www.ouest-france.fr/foo");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false };
@@ -30,7 +35,7 @@ describe("core/scraper/ouestfrance.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's depth", async function () {
+        it("should return undefined when it's depth", async () => {
             const url = new URL("https://www.ouest-france.fr/foo");
             const metadata = {
                 html: () =>
@@ -51,7 +56,7 @@ describe("core/scraper/ouestfrance.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when no iframe", async function () {
+        it("should return undefined when no iframe", async () => {
             const url = new URL("https://www.ouest-france.fr/foo");
             const metadata = {
                 html: () =>
@@ -68,7 +73,7 @@ describe("core/scraper/ouestfrance.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined with iframe no video", async function () {
+        it("should return undefined with iframe no video", async () => {
             const url = new URL("https://www.ouest-france.fr/foo");
             const metadata = {
                 html: () =>
@@ -87,7 +92,7 @@ describe("core/scraper/ouestfrance.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );

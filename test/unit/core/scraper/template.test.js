@@ -4,11 +4,17 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/template.js";
+import "../../setup.js";
 
-describe("core/scraper/template.js", function () {
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+describe("core/scraper/template.js", () => {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.com/bar.zip");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false, incognito: false };
@@ -17,7 +23,7 @@ describe("core/scraper/template.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't template", async function () {
+        it("should return undefined when there isn't template", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
@@ -34,7 +40,7 @@ describe("core/scraper/template.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when template is empty", async function () {
+        it("should return undefined when template is empty", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
@@ -53,7 +59,7 @@ describe("core/scraper/template.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return URL from video in template", async function () {
+        it("should return URL from video in template", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
@@ -74,7 +80,7 @@ describe("core/scraper/template.js", function () {
             assert.equal(file, "https://baz.org/qux.mp4");
         });
 
-        it("should return URL from second template", async function () {
+        it("should return URL from second template", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>

@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: SoundCloud", function () {
-    it("should return audio url", async function () {
+describe("Scraper: SoundCloud", () => {
+    it("should return audio url", async () => {
         const url = new URL(
             "https://soundcloud.com/a-tribe-called-red/electric-pow-wow-drum",
         );
@@ -22,7 +24,7 @@ describe("Scraper: SoundCloud", function () {
         );
     });
 
-    it("should return audio url from mobile version", async function () {
+    it("should return audio url from mobile version", async () => {
         const url = new URL("https://mobi.soundcloud.com/esa/a-singing-comet");
         const context = { depth: false, incognito: false };
 

@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: StarGR", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: StarGR", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://www.star.gr/lifestyle/media");
         const context = { depth: false, incognito: false };
 
@@ -15,7 +17,7 @@ describe("Scraper: StarGR", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL from StarTV", async function () {
+    it("should return video URL from StarTV", async () => {
         const url = new URL(
             "https://www.star.gr/tv/psychagogia/dancing-with-the-stars" +
                 "/dwts-o-edouard-stergiou-gia-ti-summetohi-tou-sto-dancing" +
@@ -32,7 +34,7 @@ describe("Scraper: StarGR", function () {
         );
     });
 
-    it("should return video URL from StarTV when protocol is HTTP", async function () {
+    it("should return video URL from StarTV when protocol is HTTP", async () => {
         const url = new URL(
             "http://www.star.gr/tv/psychagogia/globetrotters" +
                 "/to-neo-taxidiotiko-paihnidi-tou-star-globetrotters-xekinaei/",
@@ -47,7 +49,7 @@ describe("Scraper: StarGR", function () {
         );
     });
 
-    it("should return video URL [ldjson]", async function () {
+    it("should return video URL [ldjson]", async () => {
         const url = new URL(
             "https://www.star.gr/video/lifestyle/viral/630859" +
                 "/islandia-h-kayth-laba-reei-katw-se-xeimarroys",
@@ -63,7 +65,7 @@ describe("Scraper: StarGR", function () {
         );
     });
 
-    it("should return video id [stargr-youtube]", async function () {
+    it("should return video id [stargr-youtube]", async () => {
         const url = new URL(
             "https://www.star.gr/video/lifestyle/viral/165501" +
                 "/teleio_papagaloi_chorevoun_se_rap_rythmous",

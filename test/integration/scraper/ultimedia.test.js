@@ -4,20 +4,21 @@
  */
 
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: Ultimedia [fr]", function () {
-    before(function () {
+describe("Scraper: Ultimedia [fr]", () => {
+    before((t) => {
         // Désactiver les tests d'Ultimedia en dehors de la France, car les
         // pages sont en "maintenance" dans les autres pays.
         if (undefined !== config.country && "fr" !== config.country) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
     });
 
-    it("should return undefined when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.ultimedia.com/default/presentation/cgu",
         );
@@ -27,7 +28,7 @@ describe("Scraper: Ultimedia [fr]", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         const url = new URL(
             "https://www.ultimedia.com/default/index/videogeneric/id/qluruvk",
         );
@@ -40,7 +41,7 @@ describe("Scraper: Ultimedia [fr]", function () {
         );
     });
 
-    it("should return video URL from embed", async function () {
+    it("should return video URL from embed", async () => {
         const url = new URL(
             "https://www.ultimedia.com/deliver/generic/iframe/mdtk" +
                 "/01836272/src/xp8303r/zone/1/showtitle/1/",

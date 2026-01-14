@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as plugin from "../../../../src/core/plugin/elementum.js";
+import "../../setup.js";
 
-describe("core/plugin/elementum.js", function () {
-    describe("generateUrl()", function () {
-        it("should return URL with torrent URL", function () {
+describe("core/plugin/elementum.js", () => {
+    describe("generateUrl()", () => {
+        it("should return URL with torrent URL", () => {
             const label = plugin.generateUrl(
                 new URL("https://foo.fr/bar.torrent"),
             );

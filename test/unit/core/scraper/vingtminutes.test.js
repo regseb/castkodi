@@ -4,24 +4,29 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/vingtminutes.js";
+import "../../setup.js";
 
-describe("core/scraper/vingtminutes.js", function () {
-    afterEach(function () {
+describe("core/scraper/vingtminutes.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.20minutes-media.com/contacts");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's depth", async function () {
+        it("should return undefined when it's depth", async () => {
             const html = mock.fn();
 
             const url = new URL("https://www.20minutes.fr/foo");
@@ -34,7 +39,7 @@ describe("core/scraper/vingtminutes.js", function () {
             assert.equal(html.mock.callCount(), 0);
         });
 
-        it("should return undefined when it isn't HTML", async function () {
+        it("should return undefined when it isn't HTML", async () => {
             const url = new URL("https://www.20minutes.fr/foo");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false, incognito: false };
@@ -43,7 +48,7 @@ describe("core/scraper/vingtminutes.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't iframe", async function () {
+        it("should return undefined when there isn't iframe", async () => {
             const url = new URL("https://www.20minutes.fr/foo");
             const metadata = {
                 html: () =>
@@ -60,7 +65,7 @@ describe("core/scraper/vingtminutes.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return URL from iframe", async function () {
+        it("should return URL from iframe", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -90,7 +95,7 @@ describe("core/scraper/vingtminutes.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return URL from iframe with data-src", async function () {
+        it("should return URL from iframe with data-src", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );

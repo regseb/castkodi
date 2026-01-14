@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Dailymotion", function () {
-    it("should return video id", async function () {
+describe("Scraper: Dailymotion", () => {
+    it("should return video id", async () => {
         const url = new URL("https://www.dailymotion.com/video/x17qw0a");
         const context = { depth: false, incognito: false };
 
@@ -18,7 +20,7 @@ describe("Scraper: Dailymotion", function () {
         );
     });
 
-    it("should return tiny video id", async function () {
+    it("should return tiny video id", async () => {
         const url = new URL("https://dai.ly/x5riqme");
         const context = { depth: false, incognito: false };
 
@@ -29,7 +31,7 @@ describe("Scraper: Dailymotion", function () {
         );
     });
 
-    it("should return embed video id", async function () {
+    it("should return embed video id", async () => {
         const url = new URL("https://www.dailymotion.com/embed/video/a12bc3d");
         const context = { depth: false, incognito: false };
 

@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: torrent", function () {
-    it("should return video URL from torrent", async function () {
+describe("Scraper: torrent", () => {
+    it("should return video URL from torrent", async () => {
         const url = new URL(
             "https://archive.org/download/Sintel/Sintel_archive.torrent",
         );

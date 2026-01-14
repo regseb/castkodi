@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as plugin from "../../../../src/core/plugin/vimeo.js";
+import "../../setup.js";
 
-describe("core/plugin/vimeo.js", function () {
-    describe("generateUrl()", function () {
-        it("should return URL with video id", function () {
+describe("core/plugin/vimeo.js", () => {
+    describe("generateUrl()", () => {
+        it("should return URL with video id", () => {
             const label = plugin.generateUrl("foo", undefined);
             assert.equal(
                 label,
@@ -16,7 +18,7 @@ describe("core/plugin/vimeo.js", function () {
             );
         });
 
-        it("should return URL with video id and hash", function () {
+        it("should return URL with video id and hash", () => {
             const label = plugin.generateUrl("foo", "bar");
             assert.equal(
                 label,

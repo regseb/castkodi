@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as labeler from "../../../../src/core/labeler/vtmgo.js";
+import "../../setup.js";
 
-describe("core/labeler/vtmgo.js", function () {
-    afterEach(function () {
+describe("core/labeler/vtmgo.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.vtmgo.be/vtmgo/regarder/foo");
 
             const label = await labeler.extract(url);
             assert.equal(label, undefined);
         });
 
-        it("should return label", async function () {
+        it("should return label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -42,7 +43,7 @@ describe("core/labeler/vtmgo.js", function () {
             ]);
         });
 
-        it("should return undefined when there isn't title", async function () {
+        it("should return undefined when there isn't title", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(

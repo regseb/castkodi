@@ -4,12 +4,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/invidious.js";
+import "../../../setup.js";
 
-describe("core/labeler/plugin/invidious.js", function () {
-    describe("extract()", function () {
-        it("should return video label", async function () {
+describe("core/labeler/plugin/invidious.js", () => {
+    describe("extract()", () => {
+        it("should return video label", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(
@@ -25,7 +26,7 @@ describe("core/labeler/plugin/invidious.js", function () {
             ]);
         });
 
-        it("should return undefined when there isn't 'videoId' parameter", async function () {
+        it("should return undefined when there isn't 'videoId' parameter", async () => {
             const metaExtract = mock.fn();
 
             const url = new URL(

@@ -4,17 +4,20 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import * as menu from "../../../src/core/menu.js";
+import { restoreAll } from "../../polyfill/browser.js";
+import "../setup.js";
 
-describe("core/menu.js", function () {
-    afterEach(function () {
+describe("core/menu.js", () => {
+    afterEach(() => {
         mock.reset();
+        restoreAll();
     });
 
-    describe("update()", function () {
-        it("shouldn't add item because no action", async function () {
+    describe("update()", () => {
+        it("shouldn't add item because no action", async () => {
             await browser.storage.local.set({
                 "server-mode": "single",
                 "menu-actions": [],
@@ -27,7 +30,7 @@ describe("core/menu.js", function () {
             assert.equal(create.mock.callCount(), 0);
         });
 
-        it("shouldn't add item because no context", async function () {
+        it("shouldn't add item because no context", async () => {
             await browser.storage.local.set({
                 "server-mode": "single",
                 "menu-actions": ["send"],
@@ -40,7 +43,7 @@ describe("core/menu.js", function () {
             assert.equal(create.mock.callCount(), 0);
         });
 
-        it("should add one item", async function () {
+        it("should add one item", async () => {
             await browser.storage.local.set({
                 "server-mode": "single",
                 "menu-actions": ["send"],
@@ -60,7 +63,7 @@ describe("core/menu.js", function () {
             ]);
         });
 
-        it("should add two items", async function () {
+        it("should add two items", async () => {
             await browser.storage.local.set({
                 "server-mode": "single",
                 "menu-actions": ["insert", "add"],
@@ -96,7 +99,7 @@ describe("core/menu.js", function () {
             ]);
         });
 
-        it("should add two servers", async function () {
+        it("should add two servers", async () => {
             await browser.storage.local.set({
                 "server-mode": "multi",
                 "server-list": [
@@ -163,7 +166,7 @@ describe("core/menu.js", function () {
             ]);
         });
 
-        it("should add three items and one multi-server", async function () {
+        it("should add three items and one multi-server", async () => {
             await browser.storage.local.set({
                 "server-mode": "multi",
                 "server-list": [
@@ -233,8 +236,8 @@ describe("core/menu.js", function () {
         });
     });
 
-    describe("aggregate()", function () {
-        it("should return bookmark url", async function () {
+    describe("aggregate()", () => {
+        it("should return bookmark url", async () => {
             const { id } = browser.bookmarks.create({ url: "https://foo.fr/" });
 
             const urls = await menu.aggregate({
@@ -246,7 +249,7 @@ describe("core/menu.js", function () {
             assert.deepEqual(urls, ["https://foo.fr/"]);
         });
 
-        it("should return bookmark title", async function () {
+        it("should return bookmark title", async () => {
             const { id } = browser.bookmarks.create({
                 url: undefined,
                 title: "foo",
@@ -261,7 +264,7 @@ describe("core/menu.js", function () {
             assert.deepEqual(urls, ["foo"]);
         });
 
-        it("should ignore URLs (with audio)", async function () {
+        it("should ignore URLs (with audio)", async () => {
             await browser.storage.local.set({ "menu-contexts": ["video"] });
 
             const urls = await menu.aggregate({
@@ -278,7 +281,7 @@ describe("core/menu.js", function () {
             assert.deepEqual(urls, []);
         });
 
-        it("should ignore URLs (with video)", async function () {
+        it("should ignore URLs (with video)", async () => {
             await browser.storage.local.set({ "menu-contexts": ["audio"] });
 
             const urls = await menu.aggregate({
@@ -295,7 +298,7 @@ describe("core/menu.js", function () {
             assert.deepEqual(urls, []);
         });
 
-        it("should return URLs (with audio)", async function () {
+        it("should return URLs (with audio)", async () => {
             await browser.storage.local.set({
                 "menu-contexts": [
                     "selection",
@@ -320,7 +323,7 @@ describe("core/menu.js", function () {
             assert.deepEqual(urls, ["foo", "bar", "baz", "qux", "quux"]);
         });
 
-        it("should return URLs (with video)", async function () {
+        it("should return URLs (with video)", async () => {
             await browser.storage.local.set({
                 "menu-contexts": [
                     "selection",
@@ -346,8 +349,8 @@ describe("core/menu.js", function () {
         });
     });
 
-    describe("click()", function () {
-        it("should notify not granted", async function () {
+    describe("click()", () => {
+        it("should notify not granted", async () => {
             // Comme il n'est pas encore possible de remplacer un export,
             // remplacer la fonction appelée par l'export.
             // https://nodejs.org/api/test.html#mockmodulespecifier-options
@@ -373,7 +376,7 @@ describe("core/menu.js", function () {
             ]);
         });
 
-        it("should cast link", async function () {
+        it("should cast link", async () => {
             await browser.permissions.request({ origins: ["<all_urls>"] });
             await browser.storage.local.set({ "menu-contexts": ["link"] });
             browser.extension.inIncognitoContext = true;
@@ -400,7 +403,7 @@ describe("core/menu.js", function () {
             assert.deepEqual(add.mock.calls[0].arguments, ["https://foo.com/"]);
         });
 
-        it("should notify bad link", async function () {
+        it("should notify bad link", async () => {
             await browser.permissions.request({ origins: ["<all_urls>"] });
             await browser.storage.local.set({ "menu-contexts": ["link"] });
             // Comme il n'est pas encore possible de remplacer un export,
@@ -429,8 +432,8 @@ describe("core/menu.js", function () {
         });
     });
 
-    describe("change()", function () {
-        it("should change server", async function () {
+    describe("change()", () => {
+        it("should change server", async () => {
             await browser.storage.local.set({ "server-active": 0 });
 
             await menu.change(1);

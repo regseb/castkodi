@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Konbini", function () {
-    it("should return URL [iframe-dailymotion]", async function () {
+describe("Scraper: Konbini", () => {
+    it("should return URL [iframe-dailymotion]", async () => {
         const url = new URL(
             "https://www.konbini.com/fr/cinema/video-8-choses-palmashow",
         );

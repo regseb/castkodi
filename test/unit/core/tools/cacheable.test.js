@@ -4,12 +4,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import { cacheable } from "../../../../src/core/tools/cacheable.js";
+import "../../setup.js";
 
-describe("core/tools/cacheable.js", function () {
-    describe("cacheable()", function () {
-        it("should call one times", function () {
+describe("core/tools/cacheable.js", () => {
+    describe("cacheable()", () => {
+        it("should call one times", () => {
             const func = mock.fn(() => "foo");
             const cached = cacheable(func);
             assert.deepEqual(
@@ -23,7 +24,7 @@ describe("core/tools/cacheable.js", function () {
             assert.equal(func.mock.callCount(), 1);
         });
 
-        it("should support arguments", function () {
+        it("should support arguments", () => {
             const func = mock.fn((...args) => JSON.stringify(args));
             const cached = cacheable(func);
 

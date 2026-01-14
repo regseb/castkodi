@@ -4,24 +4,29 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/stargr.js";
+import "../../setup.js";
 
-describe("core/scraper/stargr.js", function () {
-    afterEach(function () {
+describe("core/scraper/stargr.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractTv()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractTv()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://disney.fr/disney-plus-star");
 
             const file = await scraper.extractTv(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://www.star.gr/tv/foo");
             const metadata = {
                 html: () =>
@@ -37,7 +42,7 @@ describe("core/scraper/stargr.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://www.star.gr/tv/foo");
             const metadata = {
                 html: () =>
@@ -61,15 +66,15 @@ describe("core/scraper/stargr.js", function () {
         });
     });
 
-    describe("extractVideo()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractVideo()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://disney.fr/disney-plus-star");
 
             const file = await scraper.extractVideo(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://www.star.gr/video/foo");
             const metadata = {
                 html: () =>
@@ -89,7 +94,7 @@ describe("core/scraper/stargr.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's depth", async function () {
+        it("should return undefined when it's depth", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://www.star.gr/video/foo");
@@ -117,7 +122,7 @@ describe("core/scraper/stargr.js", function () {
             assert.equal(getAddons.mock.callCount(), 0);
         });
 
-        it("should return undefined when sub-page doesn't have media", async function () {
+        it("should return undefined when sub-page doesn't have media", async () => {
             const url = new URL("https://www.star.gr/video/foo");
             const metadata = {
                 html: () =>
@@ -141,7 +146,7 @@ describe("core/scraper/stargr.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video YouTube id", async function () {
+        it("should return video YouTube id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );

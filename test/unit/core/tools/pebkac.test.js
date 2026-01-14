@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { PebkacError } from "../../../../src/core/tools/pebkac.js";
+import "../../setup.js";
 
-describe("core/tools/pebkac.js", function () {
-    describe("constructor()", function () {
-        it("should accept only key", function () {
+describe("core/tools/pebkac.js", () => {
+    describe("constructor()", () => {
+        it("should accept only key", () => {
             const err = new PebkacError("unconfigured");
             assert.equal(err.name, "PebkacError");
             assert.equal(
@@ -21,7 +23,7 @@ describe("core/tools/pebkac.js", function () {
             assert.deepEqual(err.details, {});
         });
 
-        it("should accept one substitution", function () {
+        it("should accept one substitution", () => {
             const err = new PebkacError("badAddress", "127.0.0.1");
             assert.equal(err.name, "PebkacError");
             assert.equal(
@@ -34,7 +36,7 @@ describe("core/tools/pebkac.js", function () {
             assert.deepEqual(err.details, {});
         });
 
-        it("should accept an array of substitutions", function () {
+        it("should accept an array of substitutions", () => {
             const err = new PebkacError("notSupported", ["19", "Matrix"]);
             assert.equal(err.name, "PebkacError");
             assert.equal(err.message, "Kodi version 19 (Matrix) is required.");
@@ -44,7 +46,7 @@ describe("core/tools/pebkac.js", function () {
             assert.deepEqual(err.details, {});
         });
 
-        it("should accept a cause", function () {
+        it("should accept a cause", () => {
             const err = new PebkacError("unknown", [], { cause: "foo" });
             assert.equal(err.name, "PebkacError");
             assert.equal(err.message, "");
@@ -54,7 +56,7 @@ describe("core/tools/pebkac.js", function () {
             assert.deepEqual(err.details, {});
         });
 
-        it("should accept details", function () {
+        it("should accept details", () => {
             const err = new PebkacError("notFound", ["foo"], {
                 details: { bar: "baz" },
             });

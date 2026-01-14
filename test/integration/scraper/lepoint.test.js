@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Le Point", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: Le Point", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.lepoint.fr/economie" +
                 "/desinformation-l-ue-accentue-la-pression-sur-les-geants-d" +
@@ -20,7 +22,7 @@ describe("Scraper: Le Point", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL of Dailymotion", async function () {
+    it("should return video URL [lepoint-dailymotion]", async () => {
         const url = new URL(
             "https://www.lepoint.fr/eureka" +
                 "/combien-de-temps-un-moustique-survit-il-sans-piquer" +
@@ -35,7 +37,7 @@ describe("Scraper: Le Point", function () {
         );
     });
 
-    it("should return video URL [iframe-youtube]", async function () {
+    it("should return video URL [iframe-youtube]", async () => {
         const url = new URL(
             "https://www.lepoint.fr/pop-culture" +
                 "/tout-ce-qu-il-faut-savoir-sur-le-prochain-oss-117-" +

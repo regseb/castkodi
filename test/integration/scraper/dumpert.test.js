@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Dumpert", function () {
-    it("should return video URL [opengraph]", async function () {
+describe("Scraper: Dumpert", () => {
+    it("should return video URL [opengraph]", async () => {
         const url = new URL("https://www.dumpert.nl/item/7924631_3a727e30");
         const context = { depth: false, incognito: false };
 
@@ -19,7 +21,7 @@ describe("Scraper: Dumpert", function () {
         );
     });
 
-    it("should return video URL when protocol is HTTP [opengraph]", async function () {
+    it("should return video URL when protocol is HTTP [opengraph]", async () => {
         const url = new URL("http://www.dumpert.nl/item/7924631_3a727e30");
         const context = { depth: false, incognito: false };
 
@@ -31,7 +33,7 @@ describe("Scraper: Dumpert", function () {
         );
     });
 
-    it("should return video URL from old page [opengraph]", async function () {
+    it("should return video URL from old page [opengraph]", async () => {
         const url = new URL(
             "https://www.dumpert.nl/mediabase/7248279/47066e59" +
                 "/wheelie_in_ny.html",

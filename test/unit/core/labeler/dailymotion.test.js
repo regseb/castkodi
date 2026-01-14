@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as labeler from "../../../../src/core/labeler/dailymotion.js";
+import "../../setup.js";
 
-describe("core/labeler/dailymotion.js", function () {
-    afterEach(function () {
+describe("core/labeler/dailymotion.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://careers.dailymotion.com/video/foo");
 
             const file = await labeler.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video label", async function () {
+        it("should return video label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(Response.json({ title: "foo" })),
             );

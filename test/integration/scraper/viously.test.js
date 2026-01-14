@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Viously", function () {
-    it("should return video URL from export", async function () {
+describe("Scraper: Viously", () => {
+    it("should return video URL from export", async () => {
         const url = new URL(
             "https://www.viously.com/export/doDeMzbVkpr?wmode=transparent",
         );
@@ -20,7 +22,7 @@ describe("Scraper: Viously", function () {
         );
     });
 
-    it("should return video URL from amp", async function () {
+    it("should return video URL from amp", async () => {
         const url = new URL("https://www.viously.com/amp/3ZSdTrtt4G5");
         const context = { depth: false, incognito: false };
 
@@ -31,7 +33,7 @@ describe("Scraper: Viously", function () {
         );
     });
 
-    it("should return video URL from integrate", async function () {
+    it("should return video URL from integrate", async () => {
         const url = new URL(
             "https://www.gamekult.com/jeux/doom-the-dark-ages-3050887706" +
                 "/test.html",

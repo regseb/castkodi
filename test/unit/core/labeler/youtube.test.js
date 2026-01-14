@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as labeler from "../../../../src/core/labeler/youtube.js";
+import "../../setup.js";
 
-describe("core/labeler/youtube.js", function () {
-    afterEach(function () {
+describe("core/labeler/youtube.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractVideo()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractVideo()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://studio.youtube.com/");
 
             const file = await labeler.extractVideo(url);
             assert.equal(file, undefined);
         });
 
-        it("should return label", async function () {
+        it("should return label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -42,7 +43,7 @@ describe("core/labeler/youtube.js", function () {
             ]);
         });
 
-        it("should return unavailable label", async function () {
+        it("should return unavailable label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response('<html lang="en"><head></head></html>'),
@@ -60,7 +61,7 @@ describe("core/labeler/youtube.js", function () {
             ]);
         });
 
-        it("should return undefined when there isn't 'v' parameter", async function () {
+        it("should return undefined when there isn't 'v' parameter", async () => {
             const url = new URL("https://www.youtube.com/watch?foo=bar");
 
             const label = await labeler.extractVideo(url);
@@ -68,8 +69,8 @@ describe("core/labeler/youtube.js", function () {
         });
     });
 
-    describe("extractPlaylist()", function () {
-        it("should return label", async function () {
+    describe("extractPlaylist()", () => {
+        it("should return label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -91,7 +92,7 @@ describe("core/labeler/youtube.js", function () {
             ]);
         });
 
-        it("should return mix label", async function () {
+        it("should return mix label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -113,7 +114,7 @@ describe("core/labeler/youtube.js", function () {
             ]);
         });
 
-        it("should return undefined when there isn't 'list' parameter", async function () {
+        it("should return undefined when there isn't 'list' parameter", async () => {
             const url = new URL("https://www.youtube.com/playlist?foo=bar");
 
             const label = await labeler.extractPlaylist(url);
@@ -121,8 +122,8 @@ describe("core/labeler/youtube.js", function () {
         });
     });
 
-    describe("actionClip()", function () {
-        it("should return label", async function () {
+    describe("actionClip()", () => {
+        it("should return label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(

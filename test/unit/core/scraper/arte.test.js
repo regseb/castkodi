@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/arte.js";
+import "../../setup.js";
 
-describe("core/scraper/arte.js", function () {
-    afterEach(function () {
+describe("core/scraper/arte.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.arte.tv/fr/guide/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when video is unavailable", async function () {
+        it("should return undefined when video is unavailable", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({ data: { attributes: { streams: [] } } }),
@@ -38,7 +39,7 @@ describe("core/scraper/arte.js", function () {
             ]);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({

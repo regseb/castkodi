@@ -54,11 +54,7 @@ export default {
                 },
                 {
                     patterns: "/test/**",
-                    linters: [
-                        "eslint_node",
-                        "eslint_test",
-                        "biomejs__js-api_test",
-                    ],
+                    linters: ["eslint_node", "eslint_test"],
                 },
                 {
                     patterns: "/.script/**",

@@ -4,17 +4,18 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { System } from "../../../../src/core/jsonrpc/system.js";
+import "../../setup.js";
 
-describe("core/jsonrpc/system.js", function () {
-    afterEach(function () {
+describe("core/jsonrpc/system.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("getProperties()", function () {
-        it("should return properties", async function () {
+    describe("getProperties()", () => {
+        it("should return properties", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () =>
                 Promise.resolve({
@@ -36,8 +37,8 @@ describe("core/jsonrpc/system.js", function () {
         });
     });
 
-    describe("hibernate()", function () {
-        it("should send request", async function () {
+    describe("hibernate()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -52,8 +53,8 @@ describe("core/jsonrpc/system.js", function () {
         });
     });
 
-    describe("reboot()", function () {
-        it("should send request", async function () {
+    describe("reboot()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -66,8 +67,8 @@ describe("core/jsonrpc/system.js", function () {
         });
     });
 
-    describe("shutdown()", function () {
-        it("should send request", async function () {
+    describe("shutdown()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -80,8 +81,8 @@ describe("core/jsonrpc/system.js", function () {
         });
     });
 
-    describe("suspend()", function () {
-        it("should send request", async function () {
+    describe("suspend()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 

@@ -4,9 +4,10 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/mixcloud.js";
+import "../../setup.js";
 
 const MIXCLOUD_ADDON = {
     addonid: "plugin.audio.mixcloud",
@@ -24,27 +25,27 @@ const SENDTOKODI_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/mixcloud.js", function () {
-    afterEach(function () {
+describe("core/scraper/mixcloud.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.mixcloud.com/upload/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't an audio", async function () {
+        it("should return undefined when it isn't an audio", async () => {
             const url = new URL("https://www.mixcloud.com/discover/foo/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return audio id", async function () {
+        it("should return audio id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -64,7 +65,7 @@ describe("core/scraper/mixcloud.js", function () {
             ]);
         });
 
-        it("should return audio id to mixcloud", async function () {
+        it("should return audio id to mixcloud", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([MIXCLOUD_ADDON, SENDTOKODI_ADDON]),
             );
@@ -84,7 +85,7 @@ describe("core/scraper/mixcloud.js", function () {
             ]);
         });
 
-        it("should return video url to sendtokodi", async function () {
+        it("should return video url to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -105,7 +106,7 @@ describe("core/scraper/mixcloud.js", function () {
             ]);
         });
 
-        it("should return audio id to mixcloud by default", async function () {
+        it("should return audio id to mixcloud by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );

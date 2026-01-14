@@ -4,22 +4,23 @@
  */
 
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: Arte [de/fr]", function () {
-    before(function () {
+describe("Scraper: Arte [de/fr]", () => {
+    before((t) => {
         if (
             undefined !== config.country &&
             "de" !== config.country &&
             "fr" !== config.country
         ) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
     });
 
-    it("should return undefined when video is unavailable", async function () {
+    it("should return undefined when video is unavailable", async () => {
         const url = new URL(
             "https://www.arte.tv/fr/videos/067125-020-A/bits-top-list/",
         );
@@ -29,7 +30,7 @@ describe("Scraper: Arte [de/fr]", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return french video URL", async function () {
+    it("should return french video URL", async () => {
         // Récupérer l'URL d'une vidéo affichée sur la page d'accueil.
         const response = await fetch("https://www.arte.tv/fr/");
         const text = await response.text();
@@ -46,7 +47,7 @@ describe("Scraper: Arte [de/fr]", function () {
         );
     });
 
-    it("should return german video URL", async function () {
+    it("should return german video URL", async () => {
         // Récupérer l'URL d'une vidéo affichée sur la page d'accueil.
         const response = await fetch("https://www.arte.tv/de/");
         const text = await response.text();

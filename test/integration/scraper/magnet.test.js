@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: magnet", function () {
-    it("should return video URL from magnet [torrent]", async function () {
+describe("Scraper: magnet", () => {
+    it("should return video URL from magnet [torrent]", async () => {
         const url = new URL(
             "magnet:?xt=urn:btih:88594AAACBDE40EF3E2510C47374EC0AA396C08E" +
                 "&dn=bbb_sunflower_1080p_30fps_normal.mp4" +

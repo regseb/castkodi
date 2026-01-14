@@ -1,4 +1,0 @@
-{
-  "require": ["test/polyfill.js", "test/hook/global.js", "test/hook/fuzz.js"],
-  "spec": "test/fuzz/**/*.test.js"
-}

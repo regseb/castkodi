@@ -4,9 +4,9 @@
  */
 
 import { WebSocket } from "mock-socket";
-import { browser } from "./polyfill/browser.js";
-import { DOMParser, XPathResult } from "./polyfill/dom.js";
-import { USER_AGENT } from "./polyfill/useragent.js";
+import { browser } from "./browser.js";
+import { DOMParser, XPathResult } from "./dom.js";
+import { USER_AGENT } from "./useragent.js";
 
 globalThis.browser = browser;
 globalThis.DOMParser = DOMParser;

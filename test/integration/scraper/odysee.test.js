@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Odysee", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: Odysee", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://odysee.com/$/signin");
         const context = { depth: false, incognito: false };
 
@@ -15,7 +17,7 @@ describe("Scraper: Odysee", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [opengraph]", async function () {
+    it("should return video URL [opengraph]", async () => {
         const url = new URL(
             "https://odysee.com/@informatique:4/Mediacenter-KODI:9",
         );

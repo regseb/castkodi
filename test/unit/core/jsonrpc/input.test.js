@@ -4,18 +4,19 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { Input } from "../../../../src/core/jsonrpc/input.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
+import "../../setup.js";
 
-describe("core/jsonrpc/input.js", function () {
-    afterEach(function () {
+describe("core/jsonrpc/input.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("back()", function () {
-        it("should send request", async function () {
+    describe("back()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -28,8 +29,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("contextMenu()", function () {
-        it("should send request", async function () {
+    describe("contextMenu()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -44,8 +45,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("down()", function () {
-        it("should send request", async function () {
+    describe("down()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -58,8 +59,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("home()", function () {
-        it("should send request", async function () {
+    describe("home()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -72,8 +73,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("info()", function () {
-        it("should send request", async function () {
+    describe("info()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -86,8 +87,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("left()", function () {
-        it("should send request", async function () {
+    describe("left()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -100,8 +101,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("right()", function () {
-        it("should send request", async function () {
+    describe("right()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -114,8 +115,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("select()", function () {
-        it("should send request", async function () {
+    describe("select()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -128,8 +129,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("sendText()", function () {
-        it("should send request", async function () {
+    describe("sendText()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -144,7 +145,7 @@ describe("core/jsonrpc/input.js", function () {
             ]);
         });
 
-        it("should send request and finish", async function () {
+        it("should send request and finish", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -160,8 +161,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("showOSD()", function () {
-        it("should send request", async function () {
+    describe("showOSD()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -174,8 +175,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("showPlayerProcessInfo()", function () {
-        it("should send request", async function () {
+    describe("showPlayerProcessInfo()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -190,8 +191,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("up()", function () {
-        it("should send request", async function () {
+    describe("up()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 
@@ -204,8 +205,8 @@ describe("core/jsonrpc/input.js", function () {
         });
     });
 
-    describe("handleNotification()", function () {
-        it("should ignore others namespaces", function () {
+    describe("handleNotification()", () => {
+        it("should ignore others namespaces", () => {
             const listener = mock.fn();
 
             const input = new Input(new Kodi());
@@ -222,7 +223,7 @@ describe("core/jsonrpc/input.js", function () {
             assert.equal(listener.mock.callCount(), 0);
         });
 
-        it("should ignore when no listener", function () {
+        it("should ignore when no listener", () => {
             const input = new Input(new Kodi());
             const dispatch = mock.method(input.onInputRequested, "dispatch");
             input.handleNotification(
@@ -235,7 +236,7 @@ describe("core/jsonrpc/input.js", function () {
             assert.equal(dispatch.mock.callCount(), 0);
         });
 
-        it("should handle 'OnInputRequested'", function () {
+        it("should handle 'OnInputRequested'", () => {
             const listener = mock.fn();
 
             const input = new Input(new Kodi());
@@ -253,7 +254,7 @@ describe("core/jsonrpc/input.js", function () {
             ]);
         });
 
-        it("should ignore others notifications", function () {
+        it("should ignore others notifications", () => {
             const listener = mock.fn();
 
             const input = new Input(new Kodi());

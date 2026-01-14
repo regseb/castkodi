@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: VidLii", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: VidLii", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://www.vidlii.com/help");
         const context = { depth: false, incognito: false };
 
@@ -15,7 +17,7 @@ describe("Scraper: VidLii", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [video]", async function () {
+    it("should return video URL [video]", async () => {
         const url = new URL("https://www.vidlii.com/watch?v=2Ng8Abj2Fkl");
         const context = { depth: false, incognito: false };
 

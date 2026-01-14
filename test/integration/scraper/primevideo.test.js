@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Prime Video", function () {
-    it("should return undefined when there isn't video", async function () {
+describe("Scraper: Prime Video", () => {
+    it("should return undefined when there isn't video", async () => {
         const url = new URL("https://www.primevideo.com/storefront/");
         const context = { depth: false, incognito: false };
 
@@ -15,7 +17,7 @@ describe("Scraper: Prime Video", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         const url = new URL(
             "https://www.primevideo.com/detail/0HAQAA7JM43QWX0H6GUD3IOF70/",
         );
@@ -30,7 +32,7 @@ describe("Scraper: Prime Video", function () {
         );
     });
 
-    it('should return video URL from "region/eu"', async function () {
+    it('should return video URL from "region/eu"', async () => {
         const url = new URL(
             "https://www.primevideo.com/region/eu/detail" +
                 "/0KRGHGZCHKS920ZQGY5LBRF7MA/",
@@ -46,7 +48,7 @@ describe("Scraper: Prime Video", function () {
         );
     });
 
-    it('should return video URL from "amazon.com"', async function () {
+    it('should return video URL from "amazon.com"', async () => {
         const url = new URL(
             "https://www.amazon.com/gp/video/detail/B0CLRQ7M7Z/",
         );
@@ -64,7 +66,7 @@ describe("Scraper: Prime Video", function () {
         );
     });
 
-    it('should return video URL from "amazon.co.uk"', async function () {
+    it('should return video URL from "amazon.co.uk"', async () => {
         const url = new URL(
             "https://www.amazon.co.uk/gp/video/detail/B0BYT8W12F/",
         );
@@ -79,7 +81,7 @@ describe("Scraper: Prime Video", function () {
         );
     });
 
-    it('should return video URL from "amazon.de"', async function () {
+    it('should return video URL from "amazon.de"', async () => {
         const url = new URL(
             "https://www.amazon.de/gp/video/detail/B0CPYRVFDQ/",
         );
@@ -97,7 +99,7 @@ describe("Scraper: Prime Video", function () {
         );
     });
 
-    it('should return video URL from "amazon.de/-/en/"', async function () {
+    it('should return video URL from "amazon.de/-/en/"', async () => {
         const url = new URL(
             "https://www.amazon.de/-/en/gp/video/detail/B09NF4YDYC/",
         );
@@ -112,7 +114,7 @@ describe("Scraper: Prime Video", function () {
         );
     });
 
-    it('should return video URL from "amazon.co.jp"', async function () {
+    it('should return video URL from "amazon.co.jp"', async () => {
         const url = new URL(
             "https://www.amazon.co.jp/gp/video/detail/B0B8THG5KX/",
         );
@@ -130,7 +132,7 @@ describe("Scraper: Prime Video", function () {
         );
     });
 
-    it('should return video URL from "amazon.co.jp/-/en/"', async function () {
+    it('should return video URL from "amazon.co.jp/-/en/"', async () => {
         const url = new URL(
             "https://www.amazon.co.jp/-/en/gp/video/detail/B0CH9DQS7M/",
         );

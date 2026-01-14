@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Blender Video", function () {
-    it("should return video URL [peertube]", async function () {
+describe("Scraper: Blender Video", () => {
+    it("should return video URL [peertube]", async () => {
         const url = new URL(
             "https://video.blender.org/w/pAQiVCgv2CsLg79KKXUoMw",
         );
@@ -21,7 +23,7 @@ describe("Scraper: Blender Video", function () {
         );
     });
 
-    it("should return video embed URL [peertube]", async function () {
+    it("should return video embed URL [peertube]", async () => {
         const url = new URL(
             "https://video.blender.org/videos/embed" +
                 "/a69d68a5-a0e0-4a80-9d66-49f093c97aaf",

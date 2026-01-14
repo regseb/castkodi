@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Daily Mail", function () {
-    it("should return audio URL [opengraph]", async function () {
+describe("Scraper: Daily Mail", () => {
+    it("should return audio URL [opengraph]", async () => {
         const url = new URL(
             "https://www.dailymail.co.uk/sciencetech/article-8057229" +
                 "/Scientists-create-stunning-gifs-Mars-sand-dunes-understand" +

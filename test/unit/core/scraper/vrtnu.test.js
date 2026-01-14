@@ -4,9 +4,10 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/vrtnu.js";
+import "../../setup.js";
 
 const OTHER_ADDON = {
     addonid: "plugin.video.other",
@@ -24,20 +25,20 @@ const VRTNU_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/vrtnu.js", function () {
-    afterEach(function () {
+describe("core/scraper/vrtnu.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.vrt.be/vrtnu/livestream");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -55,7 +56,7 @@ describe("core/scraper/vrtnu.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL without 'www'", async function () {
+        it("should return video URL without 'www'", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -73,7 +74,7 @@ describe("core/scraper/vrtnu.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL from 'link' page", async function () {
+        it("should return video URL from 'link' page", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -91,7 +92,7 @@ describe("core/scraper/vrtnu.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL to vrtnu", async function () {
+        it("should return video URL to vrtnu", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON, VRTNU_ADDON]),
             );
@@ -109,7 +110,7 @@ describe("core/scraper/vrtnu.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL to sendtokodi", async function () {
+        it("should return video URL to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -127,7 +128,7 @@ describe("core/scraper/vrtnu.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL to vrtnu by default", async function () {
+        it("should return video URL to vrtnu by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );

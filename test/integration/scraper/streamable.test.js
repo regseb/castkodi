@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Streamable", function () {
-    it("should return video URL [opengraph]", async function () {
+describe("Scraper: Streamable", () => {
+    it("should return video URL [opengraph]", async () => {
         const url = new URL("https://streamable.com/5kif48");
         const context = { depth: false, incognito: false };
 

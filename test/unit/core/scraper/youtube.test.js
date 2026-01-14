@@ -4,9 +4,11 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/youtube.js";
+import { restoreAll } from "../../../polyfill/browser.js";
+import "../../setup.js";
 
 const INVIDIOUS_LEKMA_ADDON = {
     addonid: "plugin.video.invidious",
@@ -39,13 +41,14 @@ const YOUTUBE_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/youtube.js", function () {
-    afterEach(function () {
+describe("core/scraper/youtube.js", () => {
+    afterEach(() => {
         mock.reset();
+        restoreAll();
     });
 
-    describe("extractVideo()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractVideo()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL(
                 "https://www.youtube.com/feed/subscriptions?v=foo",
             );
@@ -56,7 +59,7 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             await browser.storage.local.set({ "youtube-playlist": "playlist" });
 
             const url = new URL("https://www.youtube.com/watch?x=foo");
@@ -67,7 +70,7 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return playlist id", async function () {
+        it("should return playlist id", async () => {
             await browser.storage.local.set({
                 "youtube-playlist": "playlist",
                 "youtube-order": "",
@@ -91,7 +94,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id", async function () {
+        it("should return video id", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -112,7 +115,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id even with playlist option", async function () {
+        it("should return video id even with playlist option", async () => {
             await browser.storage.local.set({ "youtube-playlist": "playlist" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -133,7 +136,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when it isn't a video from mobile", async function () {
+        it("should return undefined when it isn't a video from mobile", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
 
             const url = new URL("https://m.youtube.com/watch?a=foo");
@@ -144,7 +147,7 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video id from mobile", async function () {
+        it("should return video id from mobile", async () => {
             await browser.storage.local.set({ "youtube-playlist": "playlist" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -165,7 +168,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when it isn't a video from music", async function () {
+        it("should return undefined when it isn't a video from music", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
 
             const url = new URL("https://music.youtube.com/watch?m=foo");
@@ -176,7 +179,7 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video id from music", async function () {
+        it("should return video id from music", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -199,7 +202,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id from YouTube Kids", async function () {
+        it("should return video id from YouTube Kids", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -220,7 +223,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to youtube", async function () {
+        it("should return video id to youtube", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([
@@ -246,7 +249,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to tubed", async function () {
+        it("should return video id to tubed", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([
@@ -270,7 +273,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to invidious", async function () {
+        it("should return video id to invidious", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([INVIDIOUS_LEKMA_ADDON, SENDTOKODI_ADDON]),
@@ -290,7 +293,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to sendtokodi", async function () {
+        it("should return video id to sendtokodi", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
@@ -311,7 +314,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to youtube by default", async function () {
+        it("should return video id to youtube by default", async () => {
             await browser.storage.local.set({ "youtube-playlist": "video" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([
@@ -336,8 +339,8 @@ describe("core/scraper/youtube.js", function () {
         });
     });
 
-    describe("extractPlaylist()", function () {
-        it("should return undefined when it isn't a playlist", async function () {
+    describe("extractPlaylist()", () => {
+        it("should return undefined when it isn't a playlist", async () => {
             await browser.storage.local.set({ "youtube-order": "" });
 
             const url = new URL("https://www.youtube.com/playlist?v=foo");
@@ -348,7 +351,7 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return playlist id", async function () {
+        it("should return playlist id", async () => {
             await browser.storage.local.set({ "youtube-order": "" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -369,7 +372,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when it isn't a playlist from mobile", async function () {
+        it("should return undefined when it isn't a playlist from mobile", async () => {
             await browser.storage.local.set({ "youtube-order": "reverse" });
 
             const url = new URL(
@@ -382,7 +385,7 @@ describe("core/scraper/youtube.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return playlist id from mobile", async function () {
+        it("should return playlist id from mobile", async () => {
             await browser.storage.local.set({ "youtube-order": "reverse" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -403,7 +406,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return playlist id to youtube", async function () {
+        it("should return playlist id to youtube", async () => {
             await browser.storage.local.set({ "youtube-order": "" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON, YOUTUBE_ADDON]),
@@ -424,7 +427,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return playlist id to tubed", async function () {
+        it("should return playlist id to tubed", async () => {
             await browser.storage.local.set({ "youtube-order": "" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON]),
@@ -444,7 +447,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return playlist id to sendtokodi", async function () {
+        it("should return playlist id to sendtokodi", async () => {
             await browser.storage.local.set({ "youtube-order": "" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
@@ -465,7 +468,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return playlist id to youtube by default", async function () {
+        it("should return playlist id to youtube by default", async () => {
             await browser.storage.local.set({ "youtube-order": "" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
@@ -487,8 +490,8 @@ describe("core/scraper/youtube.js", function () {
         });
     });
 
-    describe("extractEmbed()", function () {
-        it("should return video id", async function () {
+    describe("extractEmbed()", () => {
+        it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -508,7 +511,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id without cookie", async function () {
+        it("should return video id without cookie", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -528,7 +531,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id from short", async function () {
+        it("should return video id from short", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -548,7 +551,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id from short and URL without 'www'", async function () {
+        it("should return video id from short and URL without 'www'", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -568,7 +571,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id from URL minify", async function () {
+        it("should return video id from URL minify", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -588,7 +591,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id from DevTube", async function () {
+        it("should return video id from DevTube", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -609,8 +612,8 @@ describe("core/scraper/youtube.js", function () {
         });
     });
 
-    describe("extractClip()", function () {
-        it("should return clip id", async function () {
+    describe("extractClip()", () => {
+        it("should return clip id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -631,7 +634,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip id to youtube", async function () {
+        it("should return clip id to youtube", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON, YOUTUBE_ADDON]),
             );
@@ -652,7 +655,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip id to sendtokodi", async function () {
+        it("should return clip id to sendtokodi", async () => {
             await browser.storage.local.set({ "youtube-order": "" });
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
@@ -673,7 +676,7 @@ describe("core/scraper/youtube.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return clip id to youtube by default", async function () {
+        it("should return clip id to youtube by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );

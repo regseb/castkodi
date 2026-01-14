@@ -4,9 +4,10 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/dailymotion.js";
+import "../../setup.js";
 
 const DAILYMOTION_ADDON = {
     addonid: "plugin.video.dailymotion_com",
@@ -24,20 +25,20 @@ const SENDTOKODI_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/dailymotion.js", function () {
-    afterEach(function () {
+describe("core/scraper/dailymotion.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.dailymotion.com/fr/feed");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video id", async function () {
+        it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -54,7 +55,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to dailymotion", async function () {
+        it("should return video id to dailymotion", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([DAILYMOTION_ADDON, SENDTOKODI_ADDON]),
             );
@@ -71,7 +72,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL to sendtokodi", async function () {
+        it("should return video URL to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -89,7 +90,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to dailymotion by default", async function () {
+        it("should return video id to dailymotion by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );
@@ -106,7 +107,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return tiny video id", async function () {
+        it("should return tiny video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -123,7 +124,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return embed video id", async function () {
+        it("should return embed video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -141,8 +142,8 @@ describe("core/scraper/dailymotion.js", function () {
         });
     });
 
-    describe("extractPlayerScript()", function () {
-        it("should return undefined when it isn't HTML", async function () {
+    describe("extractPlayerScript()", () => {
+        it("should return undefined when it isn't HTML", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://foo.com/");
@@ -154,7 +155,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.equal(getAddons.mock.callCount(), 0);
         });
 
-        it("should return undefined when there isn't Dailymotion player", async function () {
+        it("should return undefined when there isn't Dailymotion player", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://foo.com/");
@@ -174,7 +175,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.equal(getAddons.mock.callCount(), 0);
         });
 
-        it("should return video id", async function () {
+        it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -209,15 +210,15 @@ describe("core/scraper/dailymotion.js", function () {
         });
     });
 
-    describe("extractPlayerIframe()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractPlayerIframe()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.dailymotion.com/player/foo");
 
             const file = await scraper.extractPlayerIframe(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't video id", async function () {
+        it("should return undefined when there isn't video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://geo.dailymotion.com/player/foo");
@@ -228,7 +229,7 @@ describe("core/scraper/dailymotion.js", function () {
             assert.equal(getAddons.mock.callCount(), 0);
         });
 
-        it("should return video id", async function () {
+        it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );

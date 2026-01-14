@@ -4,17 +4,18 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { GUI } from "../../../../src/core/jsonrpc/gui.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
+import "../../setup.js";
 
-describe("core/jsonrpc/gui.js", function () {
-    afterEach(function () {
+describe("core/jsonrpc/gui.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("setFullscreen()", function () {
-        it("should send request", async function () {
+    describe("setFullscreen()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
 

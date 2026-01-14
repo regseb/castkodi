@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: France tv", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: France tv", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://www.france.tv/spectacles-et-culture/");
         const context = { depth: false, incognito: false };
 
@@ -15,7 +17,7 @@ describe("Scraper: France tv", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         // Récupérer l'URL d'une vidéo du Journal 20h00.
         const response = await fetch(
             "https://www.france.tv/france-2/journal-20h00/",

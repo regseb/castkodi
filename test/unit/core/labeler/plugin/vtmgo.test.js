@@ -4,12 +4,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/vtmgo.js";
+import "../../../setup.js";
 
-describe("core/labeler/plugin/vtmgo.js", function () {
-    describe("extract()", function () {
-        it("should return episode label", async function () {
+describe("core/labeler/plugin/vtmgo.js", () => {
+    describe("extract()", () => {
+        it("should return episode label", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(
@@ -25,7 +26,7 @@ describe("core/labeler/plugin/vtmgo.js", function () {
             ]);
         });
 
-        it("should return movie label", async function () {
+        it("should return movie label", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(

@@ -4,8 +4,9 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { locate } from "../../../src/core/l10n.js";
+import "../setup.js";
 
 /**
  * Convertit une liste d'attributs en objet.
@@ -17,13 +18,13 @@ const objectifyAttributes = (attributes) => {
     return Object.fromEntries(Array.from(attributes, (a) => [a.name, a.value]));
 };
 
-describe("core/l10n.js", function () {
-    afterEach(function () {
+describe("core/l10n.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("locate()", function () {
-        it("should do nothing when there isn't data-l10n-*", function () {
+    describe("locate()", () => {
+        it("should do nothing when there isn't data-l10n-*", () => {
             const doc = new DOMParser().parseFromString(
                 '<html lang="en"><body></body></html>',
                 "text/html",
@@ -35,7 +36,7 @@ describe("core/l10n.js", function () {
             assert.equal(body.innerHTML.trim(), "");
         });
 
-        it("should insert message in attribut", function () {
+        it("should insert message in attribut", () => {
             const getMessage = mock.method(
                 browser.i18n,
                 "getMessage",
@@ -64,7 +65,7 @@ describe("core/l10n.js", function () {
             ]);
         });
 
-        it("should insert message in text content", function () {
+        it("should insert message in text content", () => {
             const getMessage = mock.method(
                 browser.i18n,
                 "getMessage",
@@ -92,7 +93,7 @@ describe("core/l10n.js", function () {
             ]);
         });
 
-        it("should insert message in specific position", function () {
+        it("should insert message in specific position", () => {
             const getMessage = mock.method(
                 browser.i18n,
                 "getMessage",
@@ -101,7 +102,7 @@ describe("core/l10n.js", function () {
 
             const doc = new DOMParser().parseFromString(
                 `<html lang="en"><body>
-                   <p data-l10n-textcontent="bar"><img alt=""> {}</p>
+                   <p data-l10n-textcontent="bar"><img alt="" src=""> {}</p>
                  </body></html>`,
                 "text/html",
             );
@@ -109,7 +110,7 @@ describe("core/l10n.js", function () {
             const p = /** @type {HTMLParagraphElement} */ (
                 doc.querySelector("p")
             );
-            assert.equal(p.innerHTML.trim(), '<img alt=""> foo');
+            assert.equal(p.innerHTML.trim(), '<img alt="" src=""> foo');
             assert.deepEqual(objectifyAttributes(p.attributes), {
                 "data-l10n-textcontent": "bar",
             });
@@ -120,7 +121,7 @@ describe("core/l10n.js", function () {
             ]);
         });
 
-        it("should use id", function () {
+        it("should use id", () => {
             const getMessage = mock.method(
                 browser.i18n,
                 "getMessage",
@@ -150,7 +151,7 @@ describe("core/l10n.js", function () {
             ]);
         });
 
-        it("should use name", function () {
+        it("should use name", () => {
             const getMessage = mock.method(
                 browser.i18n,
                 "getMessage",
@@ -180,7 +181,7 @@ describe("core/l10n.js", function () {
             ]);
         });
 
-        it("should use value", function () {
+        it("should use value", () => {
             const getMessage = mock.method(
                 browser.i18n,
                 "getMessage",
@@ -209,7 +210,7 @@ describe("core/l10n.js", function () {
             ]);
         });
 
-        it("should convert beer-case to PascalCase", function () {
+        it("should convert beer-case to PascalCase", () => {
             const getMessage = mock.method(
                 browser.i18n,
                 "getMessage",
@@ -237,7 +238,7 @@ describe("core/l10n.js", function () {
             ]);
         });
 
-        it("should reject if no value", function () {
+        it("should reject if no value", () => {
             const getMessage = mock.method(browser.i18n, "getMessage");
 
             const doc = new DOMParser().parseFromString(
@@ -254,7 +255,7 @@ describe("core/l10n.js", function () {
             assert.equal(getMessage.mock.callCount(), 0);
         });
 
-        it("should insert in template", function () {
+        it("should insert in template", () => {
             const getMessage = mock.method(
                 browser.i18n,
                 "getMessage",

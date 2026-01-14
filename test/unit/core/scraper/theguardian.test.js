@@ -4,17 +4,22 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/theguardian.js";
+import "../../setup.js";
 
-describe("core/scraper/theguardian.js", function () {
-    afterEach(function () {
+describe("core/scraper/theguardian.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractVideo()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractVideo()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL(
                 "https://support.theguardian.com/eu/contribute",
             );
@@ -25,7 +30,7 @@ describe("core/scraper/theguardian.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's depth", async function () {
+        it("should return undefined when it's depth", async () => {
             const url = new URL("https://www.theguardian.com/foo");
             const metadata = undefined;
             const context = { depth: true, incognito: false };
@@ -34,7 +39,7 @@ describe("core/scraper/theguardian.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://www.theguardian.com/foo");
             const metadata = {
                 html: () =>
@@ -51,7 +56,7 @@ describe("core/scraper/theguardian.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -82,7 +87,7 @@ describe("core/scraper/theguardian.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL in incognito mode", async function () {
+        it("should return video URL in incognito mode", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -114,8 +119,8 @@ describe("core/scraper/theguardian.js", function () {
         });
     });
 
-    describe("extractAudio()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractAudio()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL(
                 "https://support.theguardian.com/eu/contribute",
             );
@@ -126,7 +131,7 @@ describe("core/scraper/theguardian.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't an audio", async function () {
+        it("should return undefined when it isn't an audio", async () => {
             const url = new URL("https://www.theguardian.com/foo");
             const metadata = {
                 html: () =>
@@ -143,7 +148,7 @@ describe("core/scraper/theguardian.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return audio URL", async function () {
+        it("should return audio URL", async () => {
             const url = new URL("https://www.theguardian.com/foo");
             const metadata = {
                 html: () =>

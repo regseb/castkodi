@@ -4,10 +4,17 @@
  */
 
 import assert from "node:assert/strict";
+import { afterEach, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import { restoreAll } from "../../polyfill/browser.js";
+import "../setup.js";
 
-describe("Scraper: YouTube", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: YouTube", () => {
+    afterEach(() => {
+        restoreAll();
+    });
+
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://www.youtube.com/watch?x=123456");
         const context = { depth: false, incognito: false };
 
@@ -15,7 +22,7 @@ describe("Scraper: YouTube", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return playlist id from video in playlist", async function () {
+    it("should return playlist id from video in playlist", async () => {
         await browser.storage.local.set({
             "youtube-playlist": "playlist",
             "youtube-order": "default",
@@ -36,7 +43,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return video id", async function () {
+    it("should return video id", async () => {
         await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL(
@@ -53,7 +60,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return video id even with playlist option", async function () {
+    it("should return video id even with playlist option", async () => {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
 
         const url = new URL("https://www.youtube.com/watch?v=sWfAtMQa_yo");
@@ -67,7 +74,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return undefined when it isn't a video from mobile", async function () {
+    it("should return undefined when it isn't a video from mobile", async () => {
         const url = new URL("https://m.youtube.com/watch?a=dQw4w9WgXcQ");
         const context = { depth: false, incognito: false };
 
@@ -75,7 +82,7 @@ describe("Scraper: YouTube", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video id from mobile", async function () {
+    it("should return video id from mobile", async () => {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
 
         const url = new URL("https://m.youtube.com/watch?v=dQw4w9WgXcQ");
@@ -89,7 +96,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return undefined when it isn't a video from music", async function () {
+    it("should return undefined when it isn't a video from music", async () => {
         const url = new URL("https://music.youtube.com/watch?m=abcdef");
         const context = { depth: false, incognito: false };
 
@@ -97,7 +104,7 @@ describe("Scraper: YouTube", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video id from music", async function () {
+    it("should return video id from music", async () => {
         await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL(
@@ -114,7 +121,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return video id from Youtube Kids", async function () {
+    it("should return video id from Youtube Kids", async () => {
         await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL(
@@ -130,7 +137,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return undefined when it isn't a playlist", async function () {
+    it("should return undefined when it isn't a playlist", async () => {
         const url = new URL("https://www.youtube.com/playlist?v=dQw4w9WgXcQ");
         const context = { depth: false, incognito: false };
 
@@ -138,7 +145,7 @@ describe("Scraper: YouTube", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return playlist id", async function () {
+    it("should return playlist id", async () => {
         await browser.storage.local.set({ "youtube-order": "" });
 
         const url = new URL(
@@ -156,7 +163,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return undefined when it isn't a playlist from mobile", async function () {
+    it("should return undefined when it isn't a playlist from mobile", async () => {
         const url = new URL(
             "https://m.youtube.com/playlist?video=PL3A5849BDE0581B19",
         );
@@ -166,7 +173,7 @@ describe("Scraper: YouTube", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return playlist id from mobile", async function () {
+    it("should return playlist id from mobile", async () => {
         await browser.storage.local.set({ "youtube-order": "reverse" });
 
         const url = new URL(
@@ -183,7 +190,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return embed video id", async function () {
+    it("should return embed video id", async () => {
         const url = new URL("https://www.youtube.com/embed/v3gefWEggSc");
         const context = { depth: false, incognito: true };
 
@@ -195,7 +202,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return video id without cookie", async function () {
+    it("should return video id without cookie", async () => {
         const url = new URL(
             "https://www.youtube-nocookie.com/embed/u9gVaeb9le4",
         );
@@ -209,7 +216,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return video id from tiny URL", async function () {
+    it("should return video id from tiny URL", async () => {
         const url = new URL("https://youtu.be/NSFbekvYOlI");
         const context = { depth: false, incognito: false };
 
@@ -221,7 +228,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return video id from short", async function () {
+    it("should return video id from short", async () => {
         const url = new URL("https://www.youtube.com/shorts/Oq98KDthqyk");
         const context = { depth: false, incognito: false };
 
@@ -233,7 +240,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return video id from short shared", async function () {
+    it("should return video id from short shared", async () => {
         const url = new URL(
             "https://youtube.com/shorts/rP34nI3E3bc?feature=share",
         );
@@ -247,7 +254,7 @@ describe("Scraper: YouTube", function () {
         );
     });
 
-    it("should return video id from live", async function () {
+    it("should return video id from live", async () => {
         const url = new URL(
             "https://www.youtube.com/live/K5JSRGhB-nM?si=du3rf1NbvbAdtTEW",
         );

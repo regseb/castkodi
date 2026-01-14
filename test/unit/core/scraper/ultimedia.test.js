@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as scraper from "../../../../src/core/scraper/ultimedia.js";
+import "../../setup.js";
 
-describe("core/scraper/ultimedia.js", function () {
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+describe("core/scraper/ultimedia.js", () => {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL(
                 "https://www.ultimedia.com/default/presentation/cgu",
             );
@@ -17,7 +19,7 @@ describe("core/scraper/ultimedia.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when no script", async function () {
+        it("should return undefined when no script", async () => {
             const url = new URL(
                 "https://www.ultimedia.com/deliver/generic/iframe/foo",
             );
@@ -35,7 +37,7 @@ describe("core/scraper/ultimedia.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when no inline script", async function () {
+        it("should return undefined when no inline script", async () => {
             const url = new URL(
                 "https://www.ultimedia.com/deliver/generic/iframe/foo",
             );
@@ -57,7 +59,7 @@ describe("core/scraper/ultimedia.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when no station", async function () {
+        it("should return undefined when no station", async () => {
             const url = new URL(
                 "https://www.ultimedia.com/deliver/generic/iframe/foo",
             );
@@ -79,7 +81,7 @@ describe("core/scraper/ultimedia.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL(
                 "https://www.ultimedia.com/deliver/generic/iframe/foo",
             );

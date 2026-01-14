@@ -412,7 +412,7 @@ export const browser = {
 /**
  * Réinitialise les données de la prothèse des APIs des WebExtensions.
  */
-export const clear = () => {
+export const restoreAll = () => {
     data.bookmarks.data.length = 0;
     data.bookmarks.index = 0;
     data.contextMenus.length = 0;

@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as plugin from "../../../../src/core/plugin/vrtnu.js";
+import "../../setup.js";
 
-describe("core/plugin/vrtnu.js", function () {
-    describe("generateUrl()", function () {
-        it("should return URL with video URL", function () {
+describe("core/plugin/vrtnu.js", () => {
+    describe("generateUrl()", () => {
+        it("should return URL with video URL", () => {
             const label = plugin.generateUrl(
                 new URL("https://foo.com/bar.html"),
             );

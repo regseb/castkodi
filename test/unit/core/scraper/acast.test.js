@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/acast.js";
+import "../../setup.js";
 
-describe("core/scraper/acast.js", function () {
-    afterEach(function () {
+describe("core/scraper/acast.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://play.acast.com/foo/bar");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return audio URL", async function () {
+        it("should return audio URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({ url: "https://foo.com/bar.mp3" }),
@@ -38,7 +39,7 @@ describe("core/scraper/acast.js", function () {
             ]);
         });
 
-        it("should return audio URL embed", async function () {
+        it("should return audio URL embed", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({ url: "https://foo.com/bar.mp3" }),

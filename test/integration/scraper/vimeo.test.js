@@ -4,7 +4,9 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
 // Désactiver les tests, car Vimeo détecte que la requête provient d'un robot et
 // il affiche une page de vérification.
@@ -17,8 +19,8 @@ import { extract } from "../../../src/core/scrapers.js";
 //
 //  vimeo.com needs to review the security of your connection before proceeding.
 // """
-describe.skip("Scraper: Vimeo", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe.skip("Scraper: Vimeo", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://vimeo.com/channels");
         const context = { depth: false, incognito: false };
 
@@ -26,7 +28,7 @@ describe.skip("Scraper: Vimeo", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video id [ldjson-vimeo]", async function () {
+    it("should return video id [ldjson-vimeo]", async () => {
         const url = new URL("https://vimeo.com/228786490");
         const context = { depth: false, incognito: false };
 
@@ -37,7 +39,7 @@ describe.skip("Scraper: Vimeo", function () {
         );
     });
 
-    it("should return video id when protocol is HTTP [ldjson-vimeo]", async function () {
+    it("should return video id when protocol is HTTP [ldjson-vimeo]", async () => {
         const url = new URL("http://vimeo.com/228786490");
         const context = { depth: false, incognito: false };
 
@@ -48,7 +50,7 @@ describe.skip("Scraper: Vimeo", function () {
         );
     });
 
-    it("should return video id from groups video [ldjson-vimeo]", async function () {
+    it("should return video id from groups video [ldjson-vimeo]", async () => {
         const url = new URL("https://vimeo.com/groups/motion/videos/93206523");
         const context = { depth: false, incognito: false };
 
@@ -59,7 +61,7 @@ describe.skip("Scraper: Vimeo", function () {
         );
     });
 
-    it("should return video id from unlisted video [ldjson-vimeo]", async function () {
+    it("should return video id from unlisted video [ldjson-vimeo]", async () => {
         const url = new URL("https://vimeo.com/304887422/34c51f7a09");
         const context = { depth: false, incognito: false };
 
@@ -70,7 +72,7 @@ describe.skip("Scraper: Vimeo", function () {
         );
     });
 
-    it("should return embed video id", async function () {
+    it("should return embed video id", async () => {
         const url = new URL("https://player.vimeo.com/video/228786490");
         const context = { depth: false, incognito: false };
 
@@ -81,7 +83,7 @@ describe.skip("Scraper: Vimeo", function () {
         );
     });
 
-    it("should return embed video id from unlisted video", async function () {
+    it("should return embed video id from unlisted video", async () => {
         const url = new URL(
             "https://player.vimeo.com/video/304887422?autoplay=1&h=34c51f7a09",
         );

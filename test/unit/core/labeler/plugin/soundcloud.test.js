@@ -4,12 +4,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/soundcloud.js";
+import "../../../setup.js";
 
-describe("core/labeler/plugin/soundcloud.js", function () {
-    describe("extract()", function () {
-        it("should return audio label", async function () {
+describe("core/labeler/plugin/soundcloud.js", () => {
+    describe("extract()", () => {
+        it("should return audio label", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(
@@ -26,7 +27,7 @@ describe("core/labeler/plugin/soundcloud.js", function () {
             ]);
         });
 
-        it("should return undefined when there isn't 'url' parameter", async function () {
+        it("should return undefined when there isn't 'url' parameter", async () => {
             const metaExtract = mock.fn();
 
             const url = new URL(

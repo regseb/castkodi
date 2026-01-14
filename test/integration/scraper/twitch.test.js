@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Twitch", function () {
-    it("should return video id", async function () {
+describe("Scraper: Twitch", () => {
+    it("should return video id", async () => {
         const url = new URL("https://www.twitch.tv/videos/164088111");
         const context = { depth: false, incognito: false };
 
@@ -18,7 +20,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return video id from 'go'", async function () {
+    it("should return video id from 'go'", async () => {
         const url = new URL("https://go.twitch.tv/videos/164088111");
         const context = { depth: false, incognito: false };
 
@@ -29,7 +31,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return video id from mobile version", async function () {
+    it("should return video id from mobile version", async () => {
         const url = new URL("https://m.twitch.tv/videos/164088111");
         const context = { depth: false, incognito: false };
 
@@ -40,7 +42,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return embed clip slug", async function () {
+    it("should return embed clip slug", async () => {
         const url = new URL(
             "https://clips.twitch.tv/embed" +
                 "?clip=IncredulousAbstemiousFennelImGlitch",
@@ -55,7 +57,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return clip slug", async function () {
+    it("should return clip slug", async () => {
         const url = new URL(
             "https://clips.twitch.tv/GleamingWildCougarFUNgineer",
         );
@@ -69,7 +71,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return clip slug from channel", async function () {
+    it("should return clip slug from channel", async () => {
         const url = new URL(
             "https://www.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer" +
                 "?filter=clips&range=7d&sort=time",
@@ -84,7 +86,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return clip slug from 'go'", async function () {
+    it("should return clip slug from 'go'", async () => {
         const url = new URL(
             "https://go.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer",
         );
@@ -98,7 +100,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return clip slug from mobile version", async function () {
+    it("should return clip slug from mobile version", async () => {
         const url = new URL(
             "https://m.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer",
         );
@@ -112,7 +114,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return undefined when it isn't channel or video", async function () {
+    it("should return undefined when it isn't channel or video", async () => {
         const url = new URL("https://player.twitch.tv/?other=foobar");
         const context = { depth: false, incognito: false };
 
@@ -120,7 +122,7 @@ describe("Scraper: Twitch", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return channel name from player", async function () {
+    it("should return channel name from player", async () => {
         const url = new URL(
             "https://player.twitch.tv/?channel=canardpc&muted=true",
         );
@@ -133,7 +135,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return video id from player", async function () {
+    it("should return video id from player", async () => {
         const url = new URL(
             "https://player.twitch.tv/?video=474384559&autoplay=false",
         );
@@ -146,7 +148,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return channel name from moderator URL", async function () {
+    it("should return channel name from moderator URL", async () => {
         const url = new URL("https://www.twitch.tv/moderator/artefr");
         const context = { depth: false, incognito: false };
 
@@ -157,7 +159,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return channel name", async function () {
+    it("should return channel name", async () => {
         const url = new URL("https://www.twitch.tv/nolife");
         const context = { depth: false, incognito: false };
 
@@ -168,7 +170,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return channel name from 'go'", async function () {
+    it("should return channel name from 'go'", async () => {
         const url = new URL("https://go.twitch.tv/nolife");
         const context = { depth: false, incognito: false };
 
@@ -179,7 +181,7 @@ describe("Scraper: Twitch", function () {
         );
     });
 
-    it("should return channel name from mobile version", async function () {
+    it("should return channel name from mobile version", async () => {
         const url = new URL("https://m.twitch.tv/jvtv");
         const context = { depth: false, incognito: false };
 

@@ -4,9 +4,10 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/vtmgo.js";
+import "../../setup.js";
 
 const OTHER_ADDON = {
     addonid: "plugin.video.other",
@@ -24,20 +25,20 @@ const VTMGO_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/vtmgo.js", function () {
-    afterEach(function () {
+describe("core/scraper/vtmgo.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractEpisode()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractEpisode()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.be");
 
             const file = await scraper.extractEpisode(url);
             assert.equal(file, undefined);
         });
 
-        it("should return episode UUID", async function () {
+        it("should return episode UUID", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -54,7 +55,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return episode UUID to vtmgo", async function () {
+        it("should return episode UUID to vtmgo", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([VTMGO_ADDON, SENDTOKODI_ADDON]),
             );
@@ -71,7 +72,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return episode UUID to sendtokodi", async function () {
+        it("should return episode UUID to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -89,7 +90,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return episode UUID to vtmgo by default", async function () {
+        it("should return episode UUID to vtmgo by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );
@@ -107,15 +108,15 @@ describe("core/scraper/vtmgo.js", function () {
         });
     });
 
-    describe("extractMovie()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractMovie()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.be");
 
             const file = await scraper.extractMovie(url);
             assert.equal(file, undefined);
         });
 
-        it("should return movie UUID", async function () {
+        it("should return movie UUID", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -132,7 +133,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return movie UUID to vtmgo", async function () {
+        it("should return movie UUID to vtmgo", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([VTMGO_ADDON, SENDTOKODI_ADDON]),
             );
@@ -149,7 +150,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return movie UUID to sendtokodi", async function () {
+        it("should return movie UUID to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -167,7 +168,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return movie UUID to vtmgo by default", async function () {
+        it("should return movie UUID to vtmgo by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );
@@ -185,15 +186,15 @@ describe("core/scraper/vtmgo.js", function () {
         });
     });
 
-    describe("extractMoviePage()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractMoviePage()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.be");
 
             const file = await scraper.extractMoviePage(url);
             assert.equal(file, undefined);
         });
 
-        it("should return movie UUID", async function () {
+        it("should return movie UUID", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -211,15 +212,15 @@ describe("core/scraper/vtmgo.js", function () {
         });
     });
 
-    describe("extractChannel()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractChannel()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.be");
 
             const file = await scraper.extractChannel(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when no player", async function () {
+        it("should return undefined when no player", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://www.vtmgo.be/vtmgo/live-kijken/foo");
@@ -239,7 +240,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.equal(getAddons.mock.callCount(), 0);
         });
 
-        it("should return channel UUID", async function () {
+        it("should return channel UUID", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -267,7 +268,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel UUID to vtmgo", async function () {
+        it("should return channel UUID to vtmgo", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([VTMGO_ADDON, SENDTOKODI_ADDON]),
             );
@@ -295,7 +296,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel UUID to sendtokodi", async function () {
+        it("should return channel UUID to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -324,7 +325,7 @@ describe("core/scraper/vtmgo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return channel UUID to vtmgo by default", async function () {
+        it("should return channel UUID to vtmgo by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );

@@ -4,9 +4,10 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/vimeo.js";
+import "../../setup.js";
 
 const OTHER_ADDON = {
     addonid: "plugin.video.other",
@@ -24,20 +25,20 @@ const VIMEO_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/vimeo.js", function () {
-    afterEach(function () {
+describe("core/scraper/vimeo.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://vimeo.com/channels");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video id", async function () {
+        it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -54,7 +55,7 @@ describe("core/scraper/vimeo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id with hash", async function () {
+        it("should return video id with hash", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -71,7 +72,7 @@ describe("core/scraper/vimeo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to vimeo", async function () {
+        it("should return video id to vimeo", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON, VIMEO_ADDON]),
             );
@@ -88,7 +89,7 @@ describe("core/scraper/vimeo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id with hash to vimeo", async function () {
+        it("should return video id with hash to vimeo", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON, VIMEO_ADDON]),
             );
@@ -105,7 +106,7 @@ describe("core/scraper/vimeo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to sendtokodi", async function () {
+        it("should return video id to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -122,7 +123,7 @@ describe("core/scraper/vimeo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id with hash to sendtokodi", async function () {
+        it("should return video id with hash to sendtokodi", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -139,7 +140,7 @@ describe("core/scraper/vimeo.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video id to vimeo by default", async function () {
+        it("should return video id to vimeo by default", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );

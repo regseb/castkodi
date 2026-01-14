@@ -4,18 +4,19 @@
  */
 
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: DMAX [de]", function () {
-    before(function () {
+describe("Scraper: DMAX [de]", () => {
+    before((t) => {
         if (undefined !== config.country && "de" !== config.country) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
     });
 
-    it("should return undefined when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://dmax.de/sendungen/");
         const context = { depth: false, incognito: false };
 
@@ -23,7 +24,7 @@ describe("Scraper: DMAX [de]", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL from asset", async function () {
+    it("should return video URL from asset", async () => {
         const url = new URL(
             "https://dmax.de/sendungen" +
                 "/blind-frog-ranch-die-schatzsucher-von-utah/antworten/",
@@ -39,7 +40,7 @@ describe("Scraper: DMAX [de]", function () {
         );
     });
 
-    it("should return video URL from show", async function () {
+    it("should return video URL from show", async () => {
         const url = new URL("https://dmax.de/sendungen/fast-n-loud/");
         const context = { depth: false, incognito: false };
 

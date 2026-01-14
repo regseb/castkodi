@@ -4,16 +4,21 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/ok.js";
+import "../../setup.js";
 
-describe("core/scraper/ok.js", function () {
-    afterEach(function () {
+describe("core/scraper/ok.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://ko.ru/video/42");
             const metadata = { html: () => Promise.resolve(undefined) };
 
@@ -21,7 +26,7 @@ describe("core/scraper/ok.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't options", async function () {
+        it("should return undefined when there isn't options", async () => {
             const url = new URL("https://ok.ru/video/42");
             const metadata = {
                 html: () =>
@@ -37,7 +42,7 @@ describe("core/scraper/ok.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return URL", async function () {
+        it("should return URL", async () => {
             const url = new URL("https://ok.ru/video/42");
             const metadata = {
                 html: () =>
@@ -63,15 +68,15 @@ describe("core/scraper/ok.js", function () {
         });
     });
 
-    describe("extractMobile()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractMobile()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://m.ko.ru/video/42");
 
             const file = await scraper.extractMobile(url);
             assert.equal(file, undefined);
         });
 
-        it("should return URL", async function () {
+        it("should return URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(

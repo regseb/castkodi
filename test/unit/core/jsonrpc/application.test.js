@@ -4,18 +4,19 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { Application } from "../../../../src/core/jsonrpc/application.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import { NotificationEvent } from "../../../../src/core/tools/notificationevent.js";
+import "../../setup.js";
 
-describe("core/jsonrpc/application.js", function () {
-    afterEach(function () {
+describe("core/jsonrpc/application.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("getProperties()", function () {
-        it("should return properties", async function () {
+    describe("getProperties()", () => {
+        it("should return properties", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () =>
                 Promise.resolve({
@@ -37,8 +38,8 @@ describe("core/jsonrpc/application.js", function () {
         });
     });
 
-    describe("setMute()", function () {
-        it("should send request", async function () {
+    describe("setMute()", () => {
+        it("should send request", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () =>
                 Promise.resolve(false),
@@ -56,8 +57,8 @@ describe("core/jsonrpc/application.js", function () {
         });
     });
 
-    describe("setVolume()", function () {
-        it("should send request with number", async function () {
+    describe("setVolume()", () => {
+        it("should send request with number", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => {
                 switch (send.mock.callCount()) {
@@ -86,7 +87,7 @@ describe("core/jsonrpc/application.js", function () {
             ]);
         });
 
-        it("should send request with string", async function () {
+        it("should send request with string", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => {
                 switch (send.mock.callCount()) {
@@ -116,8 +117,8 @@ describe("core/jsonrpc/application.js", function () {
         });
     });
 
-    describe("handleNotification()", function () {
-        it("should ignore others namespaces", function () {
+    describe("handleNotification()", () => {
+        it("should ignore others namespaces", () => {
             const listener = mock.fn();
 
             const application = new Application(new Kodi());
@@ -134,7 +135,7 @@ describe("core/jsonrpc/application.js", function () {
             assert.equal(listener.mock.callCount(), 0);
         });
 
-        it("should ignore when no listener", function () {
+        it("should ignore when no listener", () => {
             const application = new Application(new Kodi());
             const dispatch = mock.method(
                 application.onPropertyChanged,
@@ -150,7 +151,7 @@ describe("core/jsonrpc/application.js", function () {
             assert.equal(dispatch.mock.callCount(), 0);
         });
 
-        it("should handle 'OnVolumeChanged'", function () {
+        it("should handle 'OnVolumeChanged'", () => {
             const listener = mock.fn();
 
             const application = new Application(new Kodi());
@@ -168,7 +169,7 @@ describe("core/jsonrpc/application.js", function () {
             ]);
         });
 
-        it("should ignore others notifications", function () {
+        it("should ignore others notifications", () => {
             const listener = mock.fn();
 
             const application = new Application(new Kodi());

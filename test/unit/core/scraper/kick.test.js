@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/kick.js";
+import "../../setup.js";
 
-describe("core/scraper/kick.js", function () {
-    afterEach(function () {
+describe("core/scraper/kick.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractLive()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractLive()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://kick.com/foo/videos/bar");
 
             const file = await scraper.extractLive(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined with legal page", async function () {
+        it("should return undefined with legal page", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({
@@ -42,7 +43,7 @@ describe("core/scraper/kick.js", function () {
             ]);
         });
 
-        it("should return live URL", async function () {
+        it("should return live URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     // eslint-disable-next-line camelcase
@@ -61,7 +62,7 @@ describe("core/scraper/kick.js", function () {
             ]);
         });
 
-        it("should return undefined when it isn't a live", async function () {
+        it("should return undefined when it isn't a live", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 // eslint-disable-next-line camelcase
                 Promise.resolve(Response.json({ playback_url: "?foo=bar" })),
@@ -79,15 +80,15 @@ describe("core/scraper/kick.js", function () {
         });
     });
 
-    describe("extractVideo()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractVideo()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://kick.com/foo");
 
             const file = await scraper.extractVideo(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://kick.com/foo/videos/bar");
             const metadata = {
                 html: () =>
@@ -105,7 +106,7 @@ describe("core/scraper/kick.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://kick.com/foo/videos/bar");
             const metadata = {
                 html: () =>

@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as plugin from "../../../../src/core/plugin/primevideo.js";
+import "../../setup.js";
 
-describe("core/plugin/primevideo.js", function () {
-    describe("generateUrl()", function () {
-        it("should return URL with video id and name", function () {
+describe("core/plugin/primevideo.js", () => {
+    describe("generateUrl()", () => {
+        it("should return URL with video id and name", () => {
             const label = plugin.generateUrl("foo", "Bar");
             assert.equal(
                 label,

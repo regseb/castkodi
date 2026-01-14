@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/primevideo.js";
+import "../../../setup.js";
 
-describe("core/labeler/plugin/primevideo.js", function () {
-    describe("extract()", function () {
-        it("should return video label", async function () {
+describe("core/labeler/plugin/primevideo.js", () => {
+    describe("extract()", () => {
+        it("should return video label", async () => {
             const url = new URL(
                 "plugin://plugin.video.amazon-test/" +
                     "?mode=PlayVideo&asin=foo&name=Bar",
@@ -18,7 +20,7 @@ describe("core/labeler/plugin/primevideo.js", function () {
             assert.equal(label, "Bar");
         });
 
-        it("should return undefined when there isn't 'name' parameter", async function () {
+        it("should return undefined when there isn't 'name' parameter", async () => {
             const url = new URL(
                 "plugin://plugin.video.amazon-test/?mode=PlayVideo&asin=foo",
             );

@@ -4,13 +4,14 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import { Server } from "mock-socket";
 import { JSONRPC } from "../../../../src/core/tools/jsonrpc.js";
+import "../../setup.js";
 
-describe("core/tools/jsonrpc.js", function () {
-    describe("open()", function () {
-        it("should return promise fulfilled", async function () {
+describe("core/tools/jsonrpc.js", () => {
+    describe("open()", () => {
+        it("should return promise fulfilled", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             server.on("connection", (socket) => {
                 assert.equal(socket.url, "ws://localhost/");
@@ -22,7 +23,7 @@ describe("core/tools/jsonrpc.js", function () {
             server.close();
         });
 
-        it("should return promise rejected", async function () {
+        it("should return promise rejected", async () => {
             // Ne pas instancier de serveur pour faire échouer la connexion.
             await assert.rejects(
                 () => JSONRPC.open(new URL("ws://localhost/")),
@@ -36,8 +37,8 @@ describe("core/tools/jsonrpc.js", function () {
         });
     });
 
-    describe("close()", function () {
-        it("should close connection", async function () {
+    describe("close()", () => {
+        it("should close connection", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             const promise = new Promise((resolve) => {
                 server.on("connection", (socket) => {
@@ -56,7 +57,7 @@ describe("core/tools/jsonrpc.js", function () {
             server.close();
         });
 
-        it("should close connection with code", async function () {
+        it("should close connection with code", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             const promise = new Promise((resolve) => {
                 server.on("connection", (socket) => {
@@ -75,7 +76,7 @@ describe("core/tools/jsonrpc.js", function () {
             server.close();
         });
 
-        it("should close connection with code and reason", async function () {
+        it("should close connection with code and reason", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             const promise = new Promise((resolve) => {
                 server.on("connection", (socket) => {
@@ -95,8 +96,8 @@ describe("core/tools/jsonrpc.js", function () {
         });
     });
 
-    describe("send()", function () {
-        it("should send message", async function () {
+    describe("send()", () => {
+        it("should send message", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
@@ -125,7 +126,7 @@ describe("core/tools/jsonrpc.js", function () {
             server.close();
         });
 
-        it("should send message without params", async function () {
+        it("should send message without params", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
@@ -153,7 +154,7 @@ describe("core/tools/jsonrpc.js", function () {
             server.close();
         });
 
-        it("should dispatch error message", async function () {
+        it("should dispatch error message", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
@@ -177,7 +178,7 @@ describe("core/tools/jsonrpc.js", function () {
             server.close();
         });
 
-        it("should dispatch result", async function () {
+        it("should dispatch result", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             server.on("connection", (socket) => {
                 socket.on("message", (data) => {
@@ -223,8 +224,8 @@ describe("core/tools/jsonrpc.js", function () {
         });
     });
 
-    describe("addEventListener()", function () {
-        it("should dispatch close event", async function () {
+    describe("addEventListener()", () => {
+        it("should dispatch close event", async () => {
             const listener = mock.fn();
             const server = new Server("ws://localhost/", { mock: false });
 
@@ -238,7 +239,7 @@ describe("core/tools/jsonrpc.js", function () {
             assert.equal(listener.mock.calls[0].arguments[0].type, "close");
         });
 
-        it("should dispatch notification event", async function () {
+        it("should dispatch notification event", async () => {
             const server = new Server("ws://localhost/", { mock: false });
             server.on("connection", (socket) => {
                 // Décaler l'envoi de la notification pour laisser le temps au

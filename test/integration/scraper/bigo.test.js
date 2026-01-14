@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Bigo Live", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: Bigo Live", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://www.bigo.tv/games");
         const context = { depth: false, incognito: false };
 
@@ -15,7 +17,7 @@ describe("Scraper: Bigo Live", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         // Récupérer l'URL d'une vidéo avec l'API de Bigo Live.
         const response = await fetch(
             "https://ta.bigo.tv/official_website/OInterfaceWeb/vedioList/11",
@@ -32,7 +34,7 @@ describe("Scraper: Bigo Live", function () {
         );
     });
 
-    it("should return video URL from french version", async function () {
+    it("should return video URL from french version", async () => {
         // Récupérer l'URL d'une vidéo avec l'API de Bigo Live.
         const response = await fetch(
             "https://ta.bigo.tv/official_website/OInterfaceWeb/vedioList/11",
@@ -51,7 +53,7 @@ describe("Scraper: Bigo Live", function () {
         );
     });
 
-    it("should return URL when it's offline", async function () {
+    it("should return URL when it's offline", async () => {
         const url = new URL("https://www.bigo.tv/0");
         const context = { depth: false, incognito: false };
 
@@ -59,7 +61,7 @@ describe("Scraper: Bigo Live", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return URL when it isn't a channel", async function () {
+    it("should return URL when it isn't a channel", async () => {
         const url = new URL("https://www.bigo.tv/0123456789876543210");
         const context = { depth: false, incognito: false };
 

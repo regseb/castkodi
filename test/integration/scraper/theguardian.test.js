@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: The Guardian", function () {
-    it("should return undefined when it isn't a video / audio", async function () {
+describe("Scraper: The Guardian", () => {
+    it("should return undefined when it isn't a video / audio", async () => {
         const url = new URL(
             "https://www.theguardian.com/technology/2019/nov/17" +
                 "/firefox-mozilla-fights-back-against-google-chrome-dominance" +
@@ -19,7 +21,7 @@ describe("Scraper: The Guardian", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [theguardian-youtube]", async function () {
+    it("should return video URL [theguardian-youtube]", async () => {
         const url = new URL(
             "https://www.theguardian.com/sport/video/2021/oct/18" +
                 "/dont-let-it-drop-peru-win-the-first-ever-balloon-world-cup" +
@@ -35,7 +37,7 @@ describe("Scraper: The Guardian", function () {
         );
     });
 
-    it("should return audio URL", async function () {
+    it("should return audio URL", async () => {
         const url = new URL(
             "https://www.theguardian.com/news/audio/2020/feb/25" +
                 "/could-coronavirus-be-china-chernobyl-moment-podcast",

@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Steam", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: Steam", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://store.steampowered.com/bundle/234/Portal_Bundle/",
         );
@@ -17,7 +19,7 @@ describe("Scraper: Steam", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return undefined when there isn't trailer", async function () {
+    it("should return undefined when there isn't trailer", async () => {
         const url = new URL(
             "https://store.steampowered.com/app/323130/HalfLife_Soundtrack/",
         );
@@ -27,7 +29,7 @@ describe("Scraper: Steam", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         const url = new URL("https://store.steampowered.com/app/620/Portal_2/");
         const context = { depth: false, incognito: false };
 
@@ -39,7 +41,7 @@ describe("Scraper: Steam", function () {
         );
     });
 
-    it("should return undefined when it isn't a broadcast", async function () {
+    it("should return undefined when it isn't a broadcast", async () => {
         const url = new URL("https://steamcommunity.com/broadcast/watch/404");
         const context = { depth: false, incognito: false };
 
@@ -47,7 +49,7 @@ describe("Scraper: Steam", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return broadcast URL", async function () {
+    it("should return broadcast URL", async () => {
         // Récupérer l'URL d'une vidéo sur la page d'accueil des diffusions.
         const response = await fetch(
             "https://steamcommunity.com/apps/allcontenthome" +

@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/steam.js";
+import "../../setup.js";
 
-describe("core/scraper/steam.js", function () {
-    afterEach(function () {
+describe("core/scraper/steam.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractGame()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractGame()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://store.steampowered.com/stats/");
 
             const file = await scraper.extractGame(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://store.steampowered.com/app/foo");
             const metadata = {
                 html: () =>
@@ -36,7 +37,7 @@ describe("core/scraper/steam.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't trailer", async function () {
+        it("should return undefined when there isn't trailer", async () => {
             const url = new URL("https://store.steampowered.com/app/foo");
             const metadata = {
                 html: () =>
@@ -59,7 +60,7 @@ describe("core/scraper/steam.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://store.steampowered.com/app/foo");
             const metadata = {
                 html: () =>
@@ -88,8 +89,8 @@ describe("core/scraper/steam.js", function () {
         });
     });
 
-    describe("extractBroadcast()", function () {
-        it("should return undefined when it isn't a video", async function () {
+    describe("extractBroadcast()", () => {
+        it("should return undefined when it isn't a video", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(Response.json({})),
             );
@@ -108,7 +109,7 @@ describe("core/scraper/steam.js", function () {
             ]);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     // eslint-disable-next-line camelcase

@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: Le Monde", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: Le Monde", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.lemonde.fr/pixels/article/2015/02/27" +
                 "/on-a-teste-pour-vous-le-raspberry-pi-l-ordinateur-miniature" +
@@ -20,7 +22,7 @@ describe("Scraper: Le Monde", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video id [lemonde-youtube]", async function () {
+    it("should return video id [lemonde-youtube]", async () => {
         const url = new URL(
             "https://www.lemonde.fr/blog/unmondedejeux/2021/02/02" +
                 "/la-selection-officielle-de-las-dor-2021/",
@@ -35,7 +37,7 @@ describe("Scraper: Le Monde", function () {
         );
     });
 
-    it("should return video id [lemonde-dailymotion]", async function () {
+    it("should return video id [lemonde-dailymotion]", async () => {
         const url = new URL(
             "https://www.lemonde.fr/sciences/article/2021/02/02" +
                 "/un-prototype-de-fusee-spacex-s-ecrase-a-l-atterrissage" +
@@ -51,10 +53,9 @@ describe("Scraper: Le Monde", function () {
         );
     });
 
-    it("should return video url [lemonde-tiktok]", async function () {
+    it("should return video url [lemonde-tiktok]", async (t) => {
         if (undefined !== config.country && "us" === config.country) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
 
         const url = new URL(

@@ -4,90 +4,91 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { complete, extract, strip } from "../../../src/core/labelers.js";
+import "../setup.js";
 
-describe("core/labelers.js", function () {
-    afterEach(function () {
+describe("core/labelers.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("strip()", function () {
-        it("should strip [B] tag", function () {
+    describe("strip()", () => {
+        it("should strip [B] tag", () => {
             const text = "foo [B]bar[/B]";
             const stripped = strip(text);
             assert.equal(stripped, "foo bar");
         });
 
-        it("should strip [I] tag", function () {
+        it("should strip [I] tag", () => {
             const text = "[I]foo[/I] bar";
             const stripped = strip(text);
             assert.equal(stripped, "foo bar");
         });
 
-        it("should strip [LIGHT] tag", function () {
+        it("should strip [LIGHT] tag", () => {
             const text = "[LIGHT]foo[/LIGHT]";
             const stripped = strip(text);
             assert.equal(stripped, "foo");
         });
 
-        it("should strip [COLOR] tag", function () {
+        it("should strip [COLOR] tag", () => {
             const text = "foo [COLOR red]bar[/COLOR]";
             const stripped = strip(text);
             assert.equal(stripped, "foo bar");
         });
 
-        it("should strip [UPPERCASE] tag", function () {
+        it("should strip [UPPERCASE] tag", () => {
             const text = "[UPPERCASE]fOoBaR[/UPPERCASE] bAzQuX";
             const stripped = strip(text);
             assert.equal(stripped, "FOOBAR bAzQuX");
         });
 
-        it("should strip [LOWERCASE] tag", function () {
+        it("should strip [LOWERCASE] tag", () => {
             const text = "fOoBaR [LOWERCASE]bAzQuX[/LOWERCASE]";
             const stripped = strip(text);
             assert.equal(stripped, "fOoBaR bazqux");
         });
 
-        it("should strip [CAPITALIZE] tag", function () {
+        it("should strip [CAPITALIZE] tag", () => {
             const text = "[CAPITALIZE]fOoBaR[/CAPITALIZE] bAzQuX";
             const stripped = strip(text);
             assert.equal(stripped, "FOoBaR bAzQuX");
         });
 
-        it("should strip [CR] tag", function () {
+        it("should strip [CR] tag", () => {
             const text = "foo[CR]bar";
             const stripped = strip(text);
             assert.equal(stripped, "foo bar");
         });
 
-        it("should strip [TABS] tag", function () {
+        it("should strip [TABS] tag", () => {
             const text = "foo[TABS]13[/TABS]bar";
             const stripped = strip(text);
             assert.equal(stripped, "foo\t\t\t\t\t\t\t\t\t\t\t\t\tbar");
         });
 
-        it("should strip two same tags", function () {
+        it("should strip two same tags", () => {
             const text = "[I]foo[/I][I]bar[/I]";
             const stripped = strip(text);
             assert.equal(stripped, "foobar");
         });
 
-        it("should strip many tags", function () {
+        it("should strip many tags", () => {
             const text = "[B]foo [COLOR blue]bar[/COLOR][CR][/B]";
             const stripped = strip(text);
             assert.equal(stripped, "foo bar");
         });
 
-        it("should trim", function () {
+        it("should trim", () => {
             const text = " foo  ";
             const stripped = strip(text);
             assert.equal(stripped, "foo");
         });
     });
 
-    describe("extract()", function () {
-        it("should return label", async function () {
+    describe("extract()", () => {
+        it("should return label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -111,7 +112,7 @@ describe("core/labelers.js", function () {
             ]);
         });
 
-        it("should return undefined", async function () {
+        it("should return undefined", async () => {
             const url = new URL("https://foo.com/");
 
             const label = await extract(url);
@@ -119,8 +120,8 @@ describe("core/labelers.js", function () {
         });
     });
 
-    describe("complete()", function () {
-        it("should return 'title' when it's present", async function () {
+    describe("complete()", () => {
+        it("should return 'title' when it's present", async () => {
             const item = {
                 file: "https://foo.com/",
                 label: "bar",
@@ -139,7 +140,7 @@ describe("core/labelers.js", function () {
             });
         });
 
-        it("should return 'title' striped", async function () {
+        it("should return 'title' striped", async () => {
             const item = {
                 file: "https://foo.com/",
                 label: "bar",
@@ -158,7 +159,7 @@ describe("core/labelers.js", function () {
             });
         });
 
-        it("should return 'label' when no labeler", async function () {
+        it("should return 'label' when no labeler", async () => {
             const item = {
                 file: "https://foo.com/",
                 label: "bar",
@@ -177,7 +178,7 @@ describe("core/labelers.js", function () {
             });
         });
 
-        it("should return 'file' when no labeler and no 'label'", async function () {
+        it("should return 'file' when no labeler and no 'label'", async () => {
             const item = {
                 file: "https://foo.com/",
                 label: "",
@@ -196,7 +197,7 @@ describe("core/labelers.js", function () {
             });
         });
 
-        it("should return 'label' from labeler", async function () {
+        it("should return 'label' from labeler", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -230,7 +231,7 @@ describe("core/labelers.js", function () {
             ]);
         });
 
-        it("should support local file", async function () {
+        it("should support local file", async () => {
             const item = {
                 file: "/foo/bar.mp3",
                 label: "",
@@ -249,7 +250,7 @@ describe("core/labelers.js", function () {
             });
         });
 
-        it("should strip tags in label", async function () {
+        it("should strip tags in label", async () => {
             const item = {
                 file: "/foo.mkv",
                 label: "[B][UPPERCASE]Bar[/UPPERCASE][/B] !",

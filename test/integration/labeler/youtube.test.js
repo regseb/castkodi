@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
+import { restoreAll } from "../../polyfill/browser.js";
+import "../setup.js";
 
 const TUBED_ADDON = {
     addonid: "plugin.video.tubed",
@@ -20,12 +22,13 @@ const YOUTUBE_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("Labeler: YouTube", function () {
-    afterEach(function () {
+describe("Labeler: YouTube", () => {
+    afterEach(() => {
         mock.reset();
+        restoreAll();
     });
 
-    it("should return video label", async function () {
+    it("should return video label", async () => {
         await browser.storage.local.set({ "youtube-playlist": "video" });
 
         const url = new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
@@ -50,7 +53,7 @@ describe("Labeler: YouTube", function () {
         });
     });
 
-    it("should return video title", async function () {
+    it("should return video title", async () => {
         // Tester le cas quand la lecture de la vidéo est terminé et que
         // l'extension a modifié le titre.
         const item = await complete({
@@ -73,7 +76,7 @@ describe("Labeler: YouTube", function () {
         });
     });
 
-    it("should return unavailable label", async function () {
+    it("should return unavailable label", async () => {
         await browser.storage.local.set({ "youtube-playlist": "video" });
         mock.method(kodi.addons, "getAddons", () =>
             Promise.resolve([TUBED_ADDON]),
@@ -99,7 +102,7 @@ describe("Labeler: YouTube", function () {
         });
     });
 
-    it("should return unavailable label for private video", async function () {
+    it("should return unavailable label for private video", async () => {
         await browser.storage.local.set({ "youtube-playlist": "video" });
         mock.method(kodi.addons, "getAddons", () =>
             Promise.resolve([TUBED_ADDON]),
@@ -125,7 +128,7 @@ describe("Labeler: YouTube", function () {
         });
     });
 
-    it("should return playlist label", async function () {
+    it("should return playlist label", async () => {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
         mock.method(kodi.addons, "getAddons", () =>
             Promise.resolve([YOUTUBE_ADDON]),
@@ -153,7 +156,7 @@ describe("Labeler: YouTube", function () {
         });
     });
 
-    it("should return mix label", async function () {
+    it("should return mix label", async () => {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
         mock.method(kodi.addons, "getAddons", () =>
             Promise.resolve([TUBED_ADDON, YOUTUBE_ADDON]),
@@ -182,7 +185,7 @@ describe("Labeler: YouTube", function () {
         });
     });
 
-    it("should return mix label from YouTube Music", async function () {
+    it("should return mix label from YouTube Music", async () => {
         await browser.storage.local.set({ "youtube-playlist": "playlist" });
 
         const url = new URL(
@@ -207,7 +210,7 @@ describe("Labeler: YouTube", function () {
         });
     });
 
-    it("should return clip label", async function () {
+    it("should return clip label", async () => {
         const url = new URL(
             "https://www.youtube.com/clip/UgkxI0KsdOZA-Pq3tUjucaib8b1tbixLMXhz",
         );

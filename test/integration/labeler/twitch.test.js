@@ -4,8 +4,10 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
 /**
  * Appelle l'API de Twitch.
@@ -32,8 +34,8 @@ const requestApi = async (operationName, variables, sha256Hash) => {
     return json[0];
 };
 
-describe("Labeler: Twitch", function () {
-    it("should return channel label", async function () {
+describe("Labeler: Twitch", () => {
+    it("should return channel label", async () => {
         const json = await requestApi(
             "BrowsePage_Popular",
             {
@@ -66,7 +68,7 @@ describe("Labeler: Twitch", function () {
         });
     });
 
-    it("should return default label when channel is offline", async function () {
+    it("should return default label when channel is offline", async () => {
         const url = new URL("https://www.twitch.tv/nolife");
         const context = { depth: false, incognito: false };
 
@@ -87,7 +89,7 @@ describe("Labeler: Twitch", function () {
         });
     });
 
-    it("should return video label", async function () {
+    it("should return video label", async () => {
         const json = await requestApi(
             "FilterableVideoTower_Videos",
             {
@@ -121,7 +123,7 @@ describe("Labeler: Twitch", function () {
         });
     });
 
-    it("should return clip label", async function () {
+    it("should return clip label", async () => {
         const json = await requestApi(
             "ClipsCards__User",
             {
@@ -154,7 +156,7 @@ describe("Labeler: Twitch", function () {
         });
     });
 
-    it("should return embed clip label", async function () {
+    it("should return embed clip label", async () => {
         const json = await requestApi(
             "ClipsCards__User",
             {
@@ -187,7 +189,7 @@ describe("Labeler: Twitch", function () {
         });
     });
 
-    it("should return clip (from channel) label", async function () {
+    it("should return clip (from channel) label", async () => {
         const json = await requestApi(
             "ClipsCards__User",
             {

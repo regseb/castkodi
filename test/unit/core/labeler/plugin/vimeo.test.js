@@ -4,12 +4,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/vimeo.js";
+import "../../../setup.js";
 
-describe("core/labeler/plugin/vimeo.js", function () {
-    describe("extract()", function () {
-        it("should return undefined when there isn't 'video_id' parameter", async function () {
+describe("core/labeler/plugin/vimeo.js", () => {
+    describe("extract()", () => {
+        it("should return undefined when there isn't 'video_id' parameter", async () => {
             const metaExtract = mock.fn();
 
             const url = new URL("plugin://plugin.video.vimeo/play/?bar=baz");
@@ -20,7 +21,7 @@ describe("core/labeler/plugin/vimeo.js", function () {
             assert.equal(metaExtract.mock.callCount(), 0);
         });
 
-        it("should return label", async function () {
+        it("should return label", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(
@@ -36,7 +37,7 @@ describe("core/labeler/plugin/vimeo.js", function () {
             ]);
         });
 
-        it("should return label from unlisted", async function () {
+        it("should return label from unlisted", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(

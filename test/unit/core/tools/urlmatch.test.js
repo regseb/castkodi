@@ -4,12 +4,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import { matchURLPattern } from "../../../../src/core/tools/urlmatch.js";
+import "../../setup.js";
 
-describe("core/tools/urlmatch.js", function () {
-    describe("matchURLPattern()", function () {
-        it("should support string pattern", async function () {
+describe("core/tools/urlmatch.js", () => {
+    describe("matchURLPattern()", () => {
+        it("should support string pattern", async () => {
             const func = mock.fn(() => Promise.resolve("foo"));
 
             const wrapped = matchURLPattern(func, "*://bar.fr/");
@@ -29,7 +30,7 @@ describe("core/tools/urlmatch.js", function () {
             ]);
         });
 
-        it("should support URLPattern", async function () {
+        it("should support URLPattern", async () => {
             const func = mock.fn(() => Promise.resolve("foo"));
 
             const wrapped = matchURLPattern(
@@ -52,7 +53,7 @@ describe("core/tools/urlmatch.js", function () {
             ]);
         });
 
-        it("should support many patterns", async function () {
+        it("should support many patterns", async () => {
             const func = mock.fn(() => Promise.resolve("foo"));
 
             const wrapped = matchURLPattern(
@@ -76,7 +77,7 @@ describe("core/tools/urlmatch.js", function () {
             ]);
         });
 
-        it("should support others parameters", async function () {
+        it("should support others parameters", async () => {
             const func = mock.fn(() => Promise.resolve("foo"));
 
             const wrapped = matchURLPattern(func, "*://bar.com/");

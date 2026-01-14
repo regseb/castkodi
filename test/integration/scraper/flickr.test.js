@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Flickr", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: Flickr", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.flickr.com/photos/europeanspaceagency/48194834627/in" +
                 "/album-72157709420314132/",
@@ -18,7 +20,7 @@ describe("Scraper: Flickr", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         const url = new URL(
             "https://www.flickr.com/photos/nasahqphoto/50041655251/",
         );

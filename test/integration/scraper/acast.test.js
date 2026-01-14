@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Acast", function () {
-    it("should return audio URL", async function () {
+describe("Scraper: Acast", () => {
+    it("should return audio URL", async () => {
         const url = new URL(
             "https://shows.acast.com/cyber/episodes" +
                 "/the-killer-robot-future-is-already-here",
@@ -22,7 +24,7 @@ describe("Scraper: Acast", function () {
         );
     });
 
-    it("should return audio URL from embed", async function () {
+    it("should return audio URL from embed", async () => {
         const url = new URL(
             "https://embed.acast.com/$/5b7ac427c6a58e726f576cff" +
                 "/silence-on-joue-the-stanley-parable-ultra-deluxe-tiny" +

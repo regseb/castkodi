@@ -4,8 +4,10 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { complete } from "../../../src/core/labelers.js";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
 // Désactiver les tests, car Vimeo détecte que la requête provient d'un robot et
 // il affiche une page de vérification.
@@ -18,8 +20,8 @@ import { extract } from "../../../src/core/scrapers.js";
 //
 //  vimeo.com needs to review the security of your connection before proceeding.
 // """
-describe.skip("Labeler: Vimeo", function () {
-    it("should return video label", async function () {
+describe.skip("Labeler: Vimeo", () => {
+    it("should return video label", async () => {
         const url = new URL("https://vimeo.com/265045525");
         const context = { depth: false, incognito: false };
 
@@ -40,7 +42,7 @@ describe.skip("Labeler: Vimeo", function () {
         });
     });
 
-    it("should return video label from unlisted video", async function () {
+    it("should return video label from unlisted video", async () => {
         const url = new URL("https://vimeo.com/304887422/34c51f7a09");
         const context = { depth: false, incognito: false };
 
@@ -61,7 +63,7 @@ describe.skip("Labeler: Vimeo", function () {
         });
     });
 
-    it("should return video title", async function () {
+    it("should return video title", async () => {
         // Tester le cas quand la lecture de la vidéo a commencé et que
         // l'extension a modifié le fichier et le titre.
         const item = await complete({

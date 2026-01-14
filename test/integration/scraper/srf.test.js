@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Play SRF", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: Play SRF", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.srf.ch/hilfe/kontakt?srg_shorturl_source=kontakt",
         );
@@ -17,7 +19,7 @@ describe("Scraper: Play SRF", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return undefined when urn is invalid", async function () {
+    it("should return undefined when urn is invalid", async () => {
         const url = new URL(
             "https://www.srf.ch/play/tv/foo/video/bar" +
                 "?urn=urn:srf:video:d5cb6b79-cc9f-4e29-82fb-64e8283f02e2",
@@ -28,7 +30,7 @@ describe("Scraper: Play SRF", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         const url = new URL(
             "https://www.srf.ch/play/tv/mona-mittendrin/video" +
                 "/bei-spitzenkoechin-tanja-grandits" +
@@ -44,7 +46,7 @@ describe("Scraper: Play SRF", function () {
         );
     });
 
-    it("should return video URL from redirect", async function () {
+    it("should return video URL from redirect", async () => {
         const url = new URL(
             "https://www.srf.ch/play/tv/redirect/detail" +
                 "/074231f3-96d9-4ee5-8baa-c029e774caeb",

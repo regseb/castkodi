@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Overcast", function () {
-    it("should return audio URL [audio]", async function () {
+describe("Scraper: Overcast", () => {
+    it("should return audio URL [audio]", async () => {
         const url = new URL("https://overcast.fm/+JUKOBdbAM");
         const context = { depth: false, incognito: false };
 

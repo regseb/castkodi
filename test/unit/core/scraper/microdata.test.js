@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as scraper from "../../../../src/core/scraper/microdata.js";
+import "../../setup.js";
 
-describe("core/scraper/microdata.js", function () {
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+describe("core/scraper/microdata.js", () => {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false };
@@ -17,7 +19,7 @@ describe("core/scraper/microdata.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't microdata", async function () {
+        it("should return undefined when there isn't microdata", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -34,7 +36,7 @@ describe("core/scraper/microdata.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined for unsupported type", async function () {
+        it("should return undefined for unsupported type", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -57,7 +59,7 @@ describe("core/scraper/microdata.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when no url", async function () {
+        it("should return undefined when no url", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -80,7 +82,7 @@ describe("core/scraper/microdata.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return URL", async function () {
+        it("should return URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>

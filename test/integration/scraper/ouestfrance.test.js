@@ -4,20 +4,21 @@
  */
 
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: Ouest-France [fr]", function () {
-    before(function () {
+describe("Scraper: Ouest-France [fr]", () => {
+    before((t) => {
         // Désactiver les tests de Ouest-France en dehors de la France, car le
         // site utilise Ultimedia qui fonctionne seulement en France.
         if (undefined !== config.country && "fr" !== config.country) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
     });
 
-    it("should return undefined when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.ouest-france.fr/festivals/festival-dangouleme" +
                 "/bd-grand-prix-d-angouleme-catherine-meurisse-chris-ware-et" +
@@ -29,7 +30,7 @@ describe("Scraper: Ouest-France [fr]", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [ouestfrance-ultimedia]", async function () {
+    it("should return video URL [ouestfrance-ultimedia]", async () => {
         const url = new URL(
             "https://www.ouest-france.fr/culture/cinema/festival-cannes" +
                 "/festival-de-cannes-spike-lee-cineaste-phare-de-la-cause" +
@@ -45,23 +46,19 @@ describe("Scraper: Ouest-France [fr]", function () {
         );
     });
 
-    it(
-        "should return video URL when two iframe in page" +
-            " [ouestfrance-ultimedia]",
-        async function () {
-            const url = new URL(
-                "https://www.ouest-france.fr/sante/virus/coronavirus" +
-                    "/coronavirus-en-france-le-nombre-de-cas-detectes" +
-                    "-augmente-plus-que-le-nombre-de-tests-effectues-6930380",
-            );
-            const context = { depth: false, incognito: false };
+    it("should return video URL when two iframe in page [ouestfrance-ultimedia]", async () => {
+        const url = new URL(
+            "https://www.ouest-france.fr/sante/virus/coronavirus" +
+                "/coronavirus-en-france-le-nombre-de-cas-detectes-augmente" +
+                "-plus-que-le-nombre-de-tests-effectues-6930380",
+        );
+        const context = { depth: false, incognito: false };
 
-            const file = await extract(url, context);
-            assert.equal(
-                file,
-                "https://assets.digiteka.com/encoded/ngs-60e0a434/mp4" +
-                    "/d75df81c7abb517d514bff22ab74816fa86a3850.mp4",
-            );
-        },
-    );
+        const file = await extract(url, context);
+        assert.equal(
+            file,
+            "https://assets.digiteka.com/encoded/ngs-60e0a434/mp4" +
+                "/d75df81c7abb517d514bff22ab74816fa86a3850.mp4",
+        );
+    });
 });

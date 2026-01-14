@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Gamekult", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: Gamekult", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.gamekult.com/jeux/dead-cells-3050326015/joueurs.html",
         );
@@ -17,7 +19,7 @@ describe("Scraper: Gamekult", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [gamekult-viously]", async function () {
+    it("should return video URL [gamekult-viously]", async () => {
         const url = new URL(
             "https://www.gamekult.com/actualite" +
                 "/revivez-la-conference-bethesda-et-le-debriefing-avec-le" +
@@ -32,7 +34,7 @@ describe("Scraper: Gamekult", function () {
         );
     });
 
-    it("should return video URL without 'www' [ldjson-dailymotion]", async function () {
+    it("should return video URL without 'www' [ldjson-dailymotion]", async () => {
         const url = new URL(
             "https://www.gamekult.com/jeux/tekken-7-3050301183" +
                 "/video-3052640103.html#player",

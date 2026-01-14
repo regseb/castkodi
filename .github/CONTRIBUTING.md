@@ -73,17 +73,15 @@ disponibles :
 Deux types de tests sont exécutables : les tests unitaires et les tests
 d'intégration.
 
-- `npm run test:unit` : lancer les tests unitaires (avec
-  [Mocha](https://mochajs.org/)).
-- `npm run test:unit -- --grep foo` : lancer seulement les tests unitaires dont
-  leur titre contient `foo` (par exemple :
-  `npm run test:unit -- --grep core/scraper/twitch.js`).
+- `npm run test:unit` : lancer les tests unitaires.
+- `node --test test/unit/foo/bar.js` : lancer seulement les tests unitaires d'un
+  fichier (par exemple : `node --test test/unit/core/scraper/twitch.js`).
 - `npm run test:coverage` : calculer la couverture des tests unitaires (avec
   [Stryker Mutator](https://stryker-mutator.io/)).
 - `npm run test:integration` : lancer les tests d'intégration.
-- `npm run test:integration -- --grep foo` : lancer seulement les tests
-  d'intégration dont leur titre contient `foo` (par exemple :
-  `npm run test:integration -- --grep YouTube`).
+- `node --test test/integration/foo/bar.js` : lancer seulement les tests
+  d'intégration d'un fichier (par exemple :
+  `node --test test/integration/scraper/youtube.js`).
 
 ## Commit
 

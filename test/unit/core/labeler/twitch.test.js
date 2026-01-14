@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as labeler from "../../../../src/core/labeler/twitch.js";
+import "../../setup.js";
 
-describe("core/labeler/twitch.js", function () {
-    afterEach(function () {
+describe("core/labeler/twitch.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractClip()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractClip()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://appeals.twitch.tv/");
 
             const file = await labeler.extractClip(url);
             assert.equal(file, undefined);
         });
 
-        it("should return embed clip label", async function () {
+        it("should return embed clip label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json([{ data: { clip: { title: "foo" } } }]),
@@ -56,14 +57,14 @@ describe("core/labeler/twitch.js", function () {
             ]);
         });
 
-        it("should return undefined when it isn't a clip", async function () {
+        it("should return undefined when it isn't a clip", async () => {
             const url = new URL("https://clips.twitch.tv/embed?noclip=foo");
 
             const file = await labeler.extractClip(url);
             assert.equal(file, undefined);
         });
 
-        it("should return clip label", async function () {
+        it("should return clip label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json([{ data: { clip: { title: "foo" } } }]),
@@ -100,15 +101,15 @@ describe("core/labeler/twitch.js", function () {
         });
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://appeals.twitch.tv/");
 
             const file = await labeler.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video label", async function () {
+        it("should return video label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json([{ data: { video: { title: "foo" } } }]),
@@ -151,7 +152,7 @@ describe("core/labeler/twitch.js", function () {
             ]);
         });
 
-        it("should return clip label", async function () {
+        it("should return clip label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json([{ data: { clip: { title: "foo" } } }]),
@@ -187,7 +188,7 @@ describe("core/labeler/twitch.js", function () {
             ]);
         });
 
-        it("should return live label", async function () {
+        it("should return live label", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json([

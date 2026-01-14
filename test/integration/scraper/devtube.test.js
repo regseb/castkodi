@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: DevTube", function () {
-    it("should return video id", async function () {
+describe("Scraper: DevTube", () => {
+    it("should return video id", async () => {
         const url = new URL("https://dev.tube/video/4rWypxBwrR4");
         const context = { depth: false, incognito: false };
 

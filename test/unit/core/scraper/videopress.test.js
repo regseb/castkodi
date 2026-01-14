@@ -4,23 +4,24 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/videopress.js";
+import "../../setup.js";
 
-describe("core/scraper/videopress.js", function () {
-    afterEach(function () {
+describe("core/scraper/videopress.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://videopress.com/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({ original: "https://foo.com/bar.avi" }),
@@ -38,7 +39,7 @@ describe("core/scraper/videopress.js", function () {
             ]);
         });
 
-        it("should return video URL from embed", async function () {
+        it("should return video URL from embed", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({ original: "https://foo.com/bar.avi" }),
@@ -56,7 +57,7 @@ describe("core/scraper/videopress.js", function () {
             ]);
         });
 
-        it("should return undefined when video not found", async function () {
+        it("should return undefined when video not found", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(new Response("", { status: 404 })),
             );

@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as scraper from "../../../../src/core/scraper/media.js";
+import "../../setup.js";
 
-describe("core/scraper/media.js", function () {
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+describe("core/scraper/media.js", () => {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
 
@@ -16,7 +18,7 @@ describe("core/scraper/media.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't video or audio", async function () {
+        it("should return undefined when there isn't video or audio", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -32,7 +34,7 @@ describe("core/scraper/media.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when src is invalid", async function () {
+        it("should return undefined when src is invalid", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -63,7 +65,7 @@ describe("core/scraper/media.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -81,7 +83,7 @@ describe("core/scraper/media.js", function () {
             assert.equal(file, "https://foo.com/bar.mp4");
         });
 
-        it("should return video URL from second video", async function () {
+        it("should return video URL from second video", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -100,7 +102,7 @@ describe("core/scraper/media.js", function () {
             assert.equal(file, "https://foo.com/bar.mp4");
         });
 
-        it("should return video URL from first source", async function () {
+        it("should return video URL from first source", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -119,7 +121,7 @@ describe("core/scraper/media.js", function () {
             assert.equal(file, "https://foo.com/baz.mkv");
         });
 
-        it("should return audio URL", async function () {
+        it("should return audio URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -137,7 +139,7 @@ describe("core/scraper/media.js", function () {
             assert.equal(file, "https://foo.com/bar.mp3");
         });
 
-        it("should return audio URL from second audio", async function () {
+        it("should return audio URL from second audio", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -156,7 +158,7 @@ describe("core/scraper/media.js", function () {
             assert.equal(file, "https://foo.com/baz.flac");
         });
 
-        it("should return audio URL from first source", async function () {
+        it("should return audio URL from first source", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>

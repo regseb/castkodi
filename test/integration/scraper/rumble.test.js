@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: Rumble [us]", function () {
-    before(function () {
+describe("Scraper: Rumble [us]", () => {
+    before((t) => {
         // """
         //  NOTICE TO USERS IN FRANCE
         //  Because of French government demands to remove creators from our
@@ -17,12 +19,11 @@ describe("Scraper: Rumble [us]", function () {
         //  soon.
         // """
         if (undefined !== config.country && "us" !== config.country) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
     });
 
-    it("should return video URL [opengraph-rumble]", async function () {
+    it("should return video URL [opengraph-rumble]", async () => {
         const url = new URL(
             "https://rumble.com/v1k2hrq-nasa-gets-set-to-crash-spacecraft" +
                 "-into-asteroid.html",
@@ -36,7 +37,7 @@ describe("Scraper: Rumble [us]", function () {
         );
     });
 
-    it("should return video URL from embed", async function () {
+    it("should return video URL from embed", async () => {
         const url = new URL("https://rumble.com/embed/v1gga0u/?pub=4");
         const context = { depth: false, incognito: false };
 

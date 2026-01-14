@@ -4,17 +4,18 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { Addons } from "../../../../src/core/jsonrpc/addons.js";
 import { Kodi } from "../../../../src/core/jsonrpc/kodi.js";
+import "../../setup.js";
 
-describe("core/jsonrpc/addons.js", function () {
-    afterEach(function () {
+describe("core/jsonrpc/addons.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("getAddons()", function () {
-        it("should return addons", async function () {
+    describe("getAddons()", () => {
+        it("should return addons", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () =>
                 Promise.resolve({
@@ -40,7 +41,7 @@ describe("core/jsonrpc/addons.js", function () {
             ]);
         });
 
-        it("should return addons from two contents", async function () {
+        it("should return addons from two contents", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () => {
                 switch (send.mock.callCount()) {
@@ -81,7 +82,7 @@ describe("core/jsonrpc/addons.js", function () {
             ]);
         });
 
-        it("should return no addon", async function () {
+        it("should return no addon", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () =>
                 Promise.resolve({

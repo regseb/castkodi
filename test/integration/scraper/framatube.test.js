@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Framatube", function () {
-    it("should return undefined when UUID is invalid [peertube]", async function () {
+describe("Scraper: Framatube", () => {
+    it("should return undefined when UUID is invalid [peertube]", async () => {
         const url = new URL(
             "https://framatube.org/w/123e4567-e89b-12d3-a456-426614174000",
         );
@@ -17,7 +19,7 @@ describe("Scraper: Framatube", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video embed URL [peertube]", async function () {
+    it("should return video embed URL [peertube]", async () => {
         const url = new URL(
             "https://framatube.org/w/0900bd2e-7306-4c39-b48b-2d0cd611742e",
         );
@@ -32,7 +34,7 @@ describe("Scraper: Framatube", function () {
         );
     });
 
-    it("should return video URL when protocol is HTTP [peertube]", async function () {
+    it("should return video URL when protocol is HTTP [peertube]", async () => {
         const url = new URL(
             "http://framatube.org/videos/watch" +
                 "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44",

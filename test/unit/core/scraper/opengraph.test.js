@@ -4,17 +4,22 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/opengraph.js";
+import "../../setup.js";
 
-describe("core/scraper/opengraph.js", function () {
-    afterEach(function () {
+describe("core/scraper/opengraph.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractVideo()", function () {
-        it("should return undefined when it isn't HTML", async function () {
+    describe("extractVideo()", () => {
+        it("should return undefined when it isn't HTML", async () => {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false, incognito: false };
@@ -23,7 +28,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when content is empty", async function () {
+        it("should return undefined when content is empty", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -44,7 +49,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL when there isn't type", async function () {
+        it("should return video URL when there isn't type", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -64,7 +69,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, "https://bar.com/baz.hls");
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -86,7 +91,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, "https://bar.com/baz.mkv");
         });
 
-        it("should return undefined when type isn't supported", async function () {
+        it("should return undefined when type isn't supported", async () => {
             const fetch = mock.method(globalThis, "fetch");
 
             const url = new URL("https://foo.com");
@@ -112,7 +117,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(fetch.mock.callCount(), 0);
         });
 
-        it("should return undefined when it's depther", async function () {
+        it("should return undefined when it's depther", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -134,7 +139,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when sub-page doesn't have media", async function () {
+        it("should return undefined when sub-page doesn't have media", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -156,7 +161,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return plugin URL", async function () {
+        it("should return plugin URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -189,8 +194,8 @@ describe("core/scraper/opengraph.js", function () {
         });
     });
 
-    describe("extractAudio()", function () {
-        it("should return undefined when it isn't HTML", async function () {
+    describe("extractAudio()", () => {
+        it("should return undefined when it isn't HTML", async () => {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false, incognito: false };
@@ -199,7 +204,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when content is empty", async function () {
+        it("should return undefined when content is empty", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -220,7 +225,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return audio URL when there isn't type", async function () {
+        it("should return audio URL when there isn't type", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -240,7 +245,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, "https://bar.com/baz.mp3");
         });
 
-        it("should return audio URL", async function () {
+        it("should return audio URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -262,7 +267,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, "https://bar.com/baz.wav");
         });
 
-        it("should return undefined when type isn't supported", async function () {
+        it("should return undefined when type isn't supported", async () => {
             const fetch = mock.method(globalThis, "fetch");
 
             const url = new URL("https://foo.com");
@@ -288,7 +293,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(fetch.mock.callCount(), 0);
         });
 
-        it("should return undefined when it's depther", async function () {
+        it("should return undefined when it's depther", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -310,7 +315,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when sub-page doesn't have media", async function () {
+        it("should return undefined when sub-page doesn't have media", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -332,7 +337,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return plugin URL", async function () {
+        it("should return plugin URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -370,8 +375,8 @@ describe("core/scraper/opengraph.js", function () {
         });
     });
 
-    describe("extractTwitter()", function () {
-        it("should return undefined when it isn't HTML", async function () {
+    describe("extractTwitter()", () => {
+        it("should return undefined when it isn't HTML", async () => {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false, incognito: false };
@@ -380,7 +385,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't Open Graph", async function () {
+        it("should return undefined when there isn't Open Graph", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -397,7 +402,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it's depth", async function () {
+        it("should return undefined when it's depth", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://foo.com");
@@ -423,7 +428,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(getAddons.mock.callCount(), 0);
         });
 
-        it("should return undefined when sub-page doesn't have media", async function () {
+        it("should return undefined when sub-page doesn't have media", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -443,7 +448,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -477,8 +482,8 @@ describe("core/scraper/opengraph.js", function () {
         });
     });
 
-    describe("extractTwitterStream()", function () {
-        it("should return undefined when it isn't HTML", async function () {
+    describe("extractTwitterStream()", () => {
+        it("should return undefined when it isn't HTML", async () => {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
 
@@ -486,7 +491,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't Open Graph", async function () {
+        it("should return undefined when there isn't Open Graph", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -502,7 +507,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -522,8 +527,8 @@ describe("core/scraper/opengraph.js", function () {
         });
     });
 
-    describe("extractYandex()", function () {
-        it("should return undefined when it isn't HTML", async function () {
+    describe("extractYandex()", () => {
+        it("should return undefined when it isn't HTML", async () => {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
 
@@ -531,7 +536,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't Open Graph", async function () {
+        it("should return undefined when there isn't Open Graph", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -547,7 +552,7 @@ describe("core/scraper/opengraph.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>

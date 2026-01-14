@@ -4,17 +4,18 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { notify } from "../../../../src/core/tools/notify.js";
 import { PebkacError } from "../../../../src/core/tools/pebkac.js";
+import "../../setup.js";
 
-describe("core/tools/notify.js", function () {
-    afterEach(function () {
+describe("core/tools/notify.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("constructor()", function () {
-        it("should accept Error", async function () {
+    describe("constructor()", () => {
+        it("should accept Error", async () => {
             const create = mock.method(browser.notifications, "create", () =>
                 Promise.resolve("foo"),
             );
@@ -32,7 +33,7 @@ describe("core/tools/notify.js", function () {
             ]);
         });
 
-        it("should accept PebkacError", async function () {
+        it("should accept PebkacError", async () => {
             const create = mock.method(browser.notifications, "create", () =>
                 Promise.resolve("foo"),
             );

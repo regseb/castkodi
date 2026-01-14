@@ -4,17 +4,22 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/embed.js";
+import "../../setup.js";
 
-describe("core/scraper/embed.js", function () {
-    afterEach(function () {
+describe("core/scraper/embed.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.com/bar.zip");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false, incognito: true };
@@ -23,7 +28,7 @@ describe("core/scraper/embed.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't embed", async function () {
+        it("should return undefined when there isn't embed", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
@@ -40,7 +45,7 @@ describe("core/scraper/embed.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should ignore src empty", async function () {
+        it("should ignore src empty", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
@@ -59,7 +64,7 @@ describe("core/scraper/embed.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should ignore blob", async function () {
+        it("should ignore blob", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
@@ -79,7 +84,7 @@ describe("core/scraper/embed.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return URL from video embed", async function () {
+        it("should return URL from video embed", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
@@ -99,7 +104,7 @@ describe("core/scraper/embed.js", function () {
             assert.equal(file, "https://foo.com/baz.mp4");
         });
 
-        it("should return URL from audio embed", async function () {
+        it("should return URL from audio embed", async () => {
             const url = new URL("https://foo.com/bar.html");
             const metadata = {
                 html: () =>
@@ -118,7 +123,7 @@ describe("core/scraper/embed.js", function () {
             assert.equal(file, "https://foo.com/baz.mp3");
         });
 
-        it("should return URL from other page embed", async function () {
+        it("should return URL from other page embed", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -147,7 +152,7 @@ describe("core/scraper/embed.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when it's depth", async function () {
+        it("should return undefined when it's depth", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons");
 
             const url = new URL("https://foo.com/bar.html");
@@ -170,7 +175,7 @@ describe("core/scraper/embed.js", function () {
             assert.equal(getAddons.mock.callCount(), 0);
         });
 
-        it("should return URL from second embed", async function () {
+        it("should return URL from second embed", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );

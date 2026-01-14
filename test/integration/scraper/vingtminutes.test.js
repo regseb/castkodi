@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: 20 Minutes", function () {
-    it("should return undefined when it isn't a video", async function () {
+describe("Scraper: 20 Minutes", () => {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.20minutes.fr/high-tech" +
                 "/2694715-20200114-mozilla-devoile-son-assistant-virtuel" +
@@ -19,7 +21,7 @@ describe("Scraper: 20 Minutes", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL [vingtminutes-ultimedia]", async function () {
+    it("should return video URL [vingtminutes-ultimedia]", async () => {
         const url = new URL(
             "https://www.20minutes.fr/sciences" +
                 "/2697215-20200117-ariane-5-succes-premier-lancement-annee",

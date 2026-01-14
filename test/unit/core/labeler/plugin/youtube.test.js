@@ -4,12 +4,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import * as labeler from "../../../../../src/core/labeler/plugin/youtube.js";
+import "../../../setup.js";
 
-describe("core/labeler/plugin/youtube.js", function () {
-    describe("extract()", function () {
-        it("should return video label", async function () {
+describe("core/labeler/plugin/youtube.js", () => {
+    describe("extract()", () => {
+        it("should return video label", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(
@@ -25,7 +26,7 @@ describe("core/labeler/plugin/youtube.js", function () {
             ]);
         });
 
-        it("should return playlist label", async function () {
+        it("should return playlist label", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(
@@ -42,7 +43,7 @@ describe("core/labeler/plugin/youtube.js", function () {
             ]);
         });
 
-        it("should return undefined when there isn't parameter from YouTube", async function () {
+        it("should return undefined when there isn't parameter from YouTube", async () => {
             const metaExtract = mock.fn();
 
             const url = new URL("plugin://plugin.video.youtube/play/?bar=baz");
@@ -54,8 +55,8 @@ describe("core/labeler/plugin/youtube.js", function () {
         });
     });
 
-    describe("extractUri()", function () {
-        it("should return label", async function () {
+    describe("extractUri()", () => {
+        it("should return label", async () => {
             const metaExtract = mock.fn(() => Promise.resolve("foo"));
 
             const url = new URL(
@@ -72,7 +73,7 @@ describe("core/labeler/plugin/youtube.js", function () {
             ]);
         });
 
-        it("should return undefined when there isn't 'uri' parameter", async function () {
+        it("should return undefined when there isn't 'uri' parameter", async () => {
             const metaExtract = mock.fn();
 
             const url = new URL(

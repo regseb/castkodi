@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as plugin from "../../../../src/core/plugin/vtmgo.js";
+import "../../setup.js";
 
-describe("core/plugin/vtmgo.js", function () {
-    describe("generateEpisodeUrl()", function () {
-        it("should return URL with episode id", function () {
+describe("core/plugin/vtmgo.js", () => {
+    describe("generateEpisodeUrl()", () => {
+        it("should return URL with episode id", () => {
             const label = plugin.generateEpisodeUrl("foo");
             assert.equal(
                 label,
@@ -17,8 +19,8 @@ describe("core/plugin/vtmgo.js", function () {
         });
     });
 
-    describe("generateMovieUrl()", function () {
-        it("should return URL with movie id", function () {
+    describe("generateMovieUrl()", () => {
+        it("should return URL with movie id", () => {
             const label = plugin.generateMovieUrl("foo");
             assert.equal(
                 label,
@@ -27,8 +29,8 @@ describe("core/plugin/vtmgo.js", function () {
         });
     });
 
-    describe("generateChannelUrl()", function () {
-        it("should return URL with channel id", function () {
+    describe("generateChannelUrl()", () => {
+        it("should return URL with channel id", () => {
             const label = plugin.generateChannelUrl("foo");
             assert.equal(
                 label,

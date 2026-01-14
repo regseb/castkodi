@@ -4,24 +4,29 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/reddit.js";
+import "../../setup.js";
 
-describe("core/scraper/reddit.js", function () {
-    afterEach(function () {
+describe("core/scraper/reddit.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.redditinc.com/policies/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://www.reddit.com/r/foo");
             const metadata = {
                 html: () =>
@@ -37,7 +42,7 @@ describe("core/scraper/reddit.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const url = new URL("https://www.reddit.com/r/foo");
             const metadata = {
                 html: () =>
@@ -56,15 +61,15 @@ describe("core/scraper/reddit.js", function () {
         });
     });
 
-    describe("extractEmbed()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractEmbed()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.redditinc.com/policies/");
 
             const file = await scraper.extractEmbed(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const url = new URL("https://www.reddit.com/r/foo");
             const metadata = {
                 html: () =>
@@ -80,7 +85,7 @@ describe("core/scraper/reddit.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async function () {
+        it("should return video URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -112,7 +117,7 @@ describe("core/scraper/reddit.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return video URL from second embed", async function () {
+        it("should return video URL from second embed", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -148,14 +153,14 @@ describe("core/scraper/reddit.js", function () {
         });
     });
 
-    describe("extractOld()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractOld()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.redditinc.com/policies/");
             const file = await scraper.extractOld(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video on old.reddit", async function () {
+        it("should return undefined when it isn't a video on old.reddit", async () => {
             const url = new URL("https://old.reddit.com/r/foo");
             const metadata = {
                 html: () =>
@@ -171,7 +176,7 @@ describe("core/scraper/reddit.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL from old.reddit.com", async function () {
+        it("should return video URL from old.reddit.com", async () => {
             const url = new URL("https://old.reddit.com/r/foo");
             const metadata = {
                 html: () =>

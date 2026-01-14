@@ -4,19 +4,20 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/facebook.js";
+import "../../setup.js";
 
-describe("core/scraper/facebook.js", function () {
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+describe("core/scraper/facebook.js", () => {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://www.facebook.com/marketplace/");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when it isn't a video", async function () {
+        it("should return undefined when it isn't a video", async () => {
             const html = mock.fn(() =>
                 Promise.resolve(
                     new DOMParser().parseFromString(
@@ -40,7 +41,7 @@ describe("core/scraper/facebook.js", function () {
             ]);
         });
 
-        it("should return video HD URL", async function () {
+        it("should return video HD URL", async () => {
             const html = mock.fn(() =>
                 Promise.resolve(
                     new DOMParser().parseFromString(
@@ -73,7 +74,7 @@ describe("core/scraper/facebook.js", function () {
             ]);
         });
 
-        it("should return video SD URL", async function () {
+        it("should return video SD URL", async () => {
             const html = mock.fn(() =>
                 Promise.resolve(
                     new DOMParser().parseFromString(

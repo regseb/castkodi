@@ -4,11 +4,13 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as plugin from "../../../../src/core/plugin/twitch.js";
+import "../../setup.js";
 
-describe("core/plugin/twitch.js", function () {
-    describe("generateLiveUrl()", function () {
-        it("should return URL with channel name", function () {
+describe("core/plugin/twitch.js", () => {
+    describe("generateLiveUrl()", () => {
+        it("should return URL with channel name", () => {
             const label = plugin.generateLiveUrl("foo");
             assert.equal(
                 label,
@@ -17,8 +19,8 @@ describe("core/plugin/twitch.js", function () {
         });
     });
 
-    describe("generateVideoUrl()", function () {
-        it("should return URL with video id", function () {
+    describe("generateVideoUrl()", () => {
+        it("should return URL with video id", () => {
             const label = plugin.generateVideoUrl("foo");
             assert.equal(
                 label,
@@ -27,8 +29,8 @@ describe("core/plugin/twitch.js", function () {
         });
     });
 
-    describe("generateClipUrl()", function () {
-        it("should return URL with clip id", function () {
+    describe("generateClipUrl()", () => {
+        it("should return URL with clip id", () => {
             const label = plugin.generateClipUrl("foo");
             assert.equal(
                 label,

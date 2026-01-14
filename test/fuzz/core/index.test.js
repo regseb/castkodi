@@ -4,18 +4,19 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import fc from "fast-check";
 import { cast } from "../../../src/core/index.js";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
+import "../setup.js";
 
-describe("core/index.js", function () {
-    describe("cast()", function () {
-        afterEach(function () {
+describe("core/index.js", () => {
+    describe("cast()", () => {
+        afterEach(() => {
             mock.reset();
         });
 
-        it("should reject invalid URL", async function () {
+        it("should reject invalid URL", async () => {
             await fc.assert(
                 fc.asyncProperty(
                     fc
@@ -31,7 +32,7 @@ describe("core/index.js", function () {
             );
         });
 
-        it("should support URL", async function () {
+        it("should support URL", async () => {
             mock.method(kodi.playlist, "add", () => Promise.resolve("OK"));
 
             await fc.assert(

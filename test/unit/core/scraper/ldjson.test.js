@@ -4,17 +4,22 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
+// Importer le fichier des scrapers en premier pour contourner un problème de
+// dépendances circulaires.
+// eslint-disable-next-line import/no-unassigned-import
+import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/ldjson.js";
+import "../../setup.js";
 
-describe("core/scraper/ldjson.js", function () {
-    afterEach(function () {
+describe("core/scraper/ldjson.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://foo.com");
             const metadata = { html: () => Promise.resolve(undefined) };
             const context = { depth: false };
@@ -23,7 +28,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't microdata", async function () {
+        it("should return undefined when there isn't microdata", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -40,7 +45,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when JSON is invalid", async function () {
+        it("should return undefined when JSON is invalid", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -59,7 +64,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't type", async function () {
+        it("should return undefined when there isn't type", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -84,7 +89,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when there isn't content", async function () {
+        it("should return undefined when there isn't content", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -108,7 +113,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return contentUrl", async function () {
+        it("should return contentUrl", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -133,7 +138,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, "https://bar.com/baz.mkv");
         });
 
-        it("should return contentUrl in children object", async function () {
+        it("should return contentUrl in children object", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -163,7 +168,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, "https://baz.com/qux.flac");
         });
 
-        it("should return contentUrl in children array", async function () {
+        it("should return contentUrl in children array", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -193,7 +198,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, "https://bar.io/baz.mp3");
         });
 
-        it("should return embedUrl", async function () {
+        it("should return embedUrl", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -238,7 +243,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should ignore embedUrl when it's depth", async function () {
+        it("should ignore embedUrl when it's depth", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>
@@ -265,7 +270,7 @@ describe("core/scraper/ldjson.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should ignore incomplete node", async function () {
+        it("should ignore incomplete node", async () => {
             const url = new URL("https://foo.com");
             const metadata = {
                 html: () =>

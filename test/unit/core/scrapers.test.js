@@ -4,17 +4,18 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../src/core/jsonrpc/kodi.js";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("core/scrapers.js", function () {
-    afterEach(function () {
+describe("core/scrapers.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("should return undefined when it isn't supported", async function () {
+    describe("extract()", () => {
+        it("should return undefined when it isn't supported", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -43,7 +44,7 @@ describe("core/scrapers.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when no Content-Type", async function () {
+        it("should return undefined when no Content-Type", async () => {
             const abort = mock.fn();
             const abortController = mock.property(
                 globalThis,
@@ -80,7 +81,7 @@ describe("core/scrapers.js", function () {
             assert.equal(abort.mock.callCount(), 1);
         });
 
-        it("should return media URL", async function () {
+        it("should return media URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -108,7 +109,7 @@ describe("core/scrapers.js", function () {
             assert.equal(typeof fetch.mock.calls[0].arguments[1], "object");
         });
 
-        it("should return media URL from XHTML", async function () {
+        it("should return media URL from XHTML", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     new Response(
@@ -137,7 +138,7 @@ describe("core/scrapers.js", function () {
             assert.equal(typeof fetch.mock.calls[0].arguments[1], "object");
         });
 
-        it("should support URL", async function () {
+        it("should support URL", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -155,7 +156,7 @@ describe("core/scrapers.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should support uppercase hostname", async function () {
+        it("should support uppercase hostname", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );

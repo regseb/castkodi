@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: CBC Listen", function () {
-    it("should return undefined when clip not found", async function () {
+describe("Scraper: CBC Listen", () => {
+    it("should return undefined when clip not found", async () => {
         const url = new URL(
             "https://www.cbc.ca/listen/live-radio/1-666-foo/clip/666-bar",
         );
@@ -17,7 +19,7 @@ describe("Scraper: CBC Listen", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return audio URL from clip", async function () {
+    it("should return audio URL from clip", async () => {
         const url = new URL(
             "https://www.cbc.ca/listen/live-radio/1-429-what-on-earth/clip" +
                 "/16073468-a-climate-career-counsellor-yes-thing.",
@@ -31,7 +33,7 @@ describe("Scraper: CBC Listen", function () {
         );
     });
 
-    it("should return undefined when episode not found", async function () {
+    it("should return undefined when episode not found", async () => {
         const url = new URL(
             "https://www.cbc.ca/listen/cbc-podcasts/666-foo/episode/666-bar",
         );
@@ -41,7 +43,7 @@ describe("Scraper: CBC Listen", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return audio URL from episode", async function () {
+    it("should return audio URL from episode", async () => {
         const url = new URL(
             "https://www.cbc.ca/listen/cbc-podcasts/1401-bloodlines/episode" +
                 "/16022603-episode-5-the-crater",

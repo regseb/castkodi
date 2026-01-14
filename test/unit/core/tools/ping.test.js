@@ -4,16 +4,17 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { ping } from "../../../../src/core/tools/ping.js";
+import "../../setup.js";
 
-describe("core/tools/ping.js", function () {
-    afterEach(function () {
+describe("core/tools/ping.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("ping()", function () {
-        it("should return true", async function () {
+    describe("ping()", () => {
+        it("should return true", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(),
             );
@@ -31,7 +32,7 @@ describe("core/tools/ping.js", function () {
             ]);
         });
 
-        it("should return false", async function () {
+        it("should return false", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.reject(new Error("foo")),
             );

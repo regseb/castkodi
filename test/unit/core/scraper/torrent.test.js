@@ -4,18 +4,20 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import * as scraper from "../../../../src/core/scraper/torrent.js";
+import "../../setup.js";
 
-describe("core/scraper/torrent.js", function () {
-    describe("extract()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+describe("core/scraper/torrent.js", () => {
+    describe("extract()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL("https://fr.wikipedia.org/wiki/BitTorrent");
 
             const file = await scraper.extract(url);
             assert.equal(file, undefined);
         });
 
-        it("should return video URL from torrent", async function () {
+        it("should return video URL from torrent", async () => {
             const url = new URL("https://foo.com/bar.torrent");
 
             const file = await scraper.extract(url);
@@ -26,7 +28,7 @@ describe("core/scraper/torrent.js", function () {
             );
         });
 
-        it("should return video URL from magnet", async function () {
+        it("should return video URL from magnet", async () => {
             const url = new URL("magnet:?foo=bar:baz&qux=quux");
 
             const file = await scraper.extract(url);

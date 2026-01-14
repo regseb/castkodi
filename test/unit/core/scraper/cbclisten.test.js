@@ -4,16 +4,17 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import * as scraper from "../../../../src/core/scraper/cbclisten.js";
+import "../../setup.js";
 
-describe("core/scraper/cbclisten.js", function () {
-    afterEach(function () {
+describe("core/scraper/cbclisten.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extractClip()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractClip()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL(
                 "https://www.cbc.ca/listen/live-radio/1-42-foo",
             );
@@ -22,7 +23,7 @@ describe("core/scraper/cbclisten.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when ids not found", async function () {
+        it("should return undefined when ids not found", async () => {
             const url = new URL(
                 "https://www.cbc.ca/listen/live-radio/foo/clip/bar",
             );
@@ -31,7 +32,7 @@ describe("core/scraper/cbclisten.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when show not found", async function () {
+        it("should return undefined when show not found", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(Response.json({})),
             );
@@ -50,7 +51,7 @@ describe("core/scraper/cbclisten.js", function () {
             ]);
         });
 
-        it("should return undefined when clip not found", async function () {
+        it("should return undefined when clip not found", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({
@@ -80,7 +81,7 @@ describe("core/scraper/cbclisten.js", function () {
             ]);
         });
 
-        it("should return audio URL", async function () {
+        it("should return audio URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({
@@ -111,8 +112,8 @@ describe("core/scraper/cbclisten.js", function () {
         });
     });
 
-    describe("extractPodcast()", function () {
-        it("shouldn't handle when it's a unsupported URL", async function () {
+    describe("extractPodcast()", () => {
+        it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL(
                 "https://www.cbc.ca/listen/cbc-podcasts/42-foo",
             );
@@ -121,7 +122,7 @@ describe("core/scraper/cbclisten.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when ids not found", async function () {
+        it("should return undefined when ids not found", async () => {
             const url = new URL(
                 "https://www.cbc.ca/listen/cbc-podcasts/foo/episode/bar",
             );
@@ -130,7 +131,7 @@ describe("core/scraper/cbclisten.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should return undefined when podcast not found", async function () {
+        it("should return undefined when podcast not found", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(Response.json({})),
             );
@@ -148,7 +149,7 @@ describe("core/scraper/cbclisten.js", function () {
             ]);
         });
 
-        it("should return undefined when episode not found", async function () {
+        it("should return undefined when episode not found", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({
@@ -177,7 +178,7 @@ describe("core/scraper/cbclisten.js", function () {
             ]);
         });
 
-        it("should return audio URL", async function () {
+        it("should return audio URL", async () => {
             const fetch = mock.method(globalThis, "fetch", () =>
                 Promise.resolve(
                     Response.json({

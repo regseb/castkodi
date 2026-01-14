@@ -4,10 +4,12 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("Scraper: Castbox", function () {
-    it("should return undefined when it isn't an audio", async function () {
+describe("Scraper: Castbox", () => {
+    it("should return undefined when it isn't an audio", async () => {
         const url = new URL(
             "https://castbox.fm/channel/Par-Jupiter-!-id1018326",
         );
@@ -17,7 +19,7 @@ describe("Scraper: Castbox", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return audio URL [audio]", async function () {
+    it("should return audio URL [audio]", async () => {
         const url = new URL(
             "https://castbox.fm/episode" +
                 "/C'est-encore-classe%C2%A0!-id1018326-id592857521",

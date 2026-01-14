@@ -4,9 +4,10 @@
  */
 
 import assert from "node:assert/strict";
-import { mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 import * as scraper from "../../../../src/core/scraper/unknown.js";
+import "../../setup.js";
 
 const OTHER_ADDON = {
     addonid: "plugin.video.other",
@@ -19,13 +20,13 @@ const SENDTOKODI_ADDON = {
     type: "xbmc.python.pluginsource",
 };
 
-describe("core/scraper/unknown.js", function () {
-    afterEach(function () {
+describe("core/scraper/unknown.js", () => {
+    afterEach(() => {
         mock.reset();
     });
 
-    describe("extract()", function () {
-        it("should return undefined when it's depth", async function () {
+    describe("extract()", () => {
+        it("should return undefined when it's depth", async () => {
             const url = new URL("https://foo.com/");
             const metadata = undefined;
             const context = { depth: true, incognito: false };
@@ -34,7 +35,7 @@ describe("core/scraper/unknown.js", function () {
             assert.equal(file, undefined);
         });
 
-        it("should use SendToKodi plugin", async function () {
+        it("should use SendToKodi plugin", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([SENDTOKODI_ADDON]),
             );
@@ -53,7 +54,7 @@ describe("core/scraper/unknown.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when there isn't plugin", async function () {
+        it("should return undefined when there isn't plugin", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
             );
@@ -69,7 +70,7 @@ describe("core/scraper/unknown.js", function () {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
-        it("should return undefined when there is another plugin", async function () {
+        it("should return undefined when there is another plugin", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([OTHER_ADDON]),
             );

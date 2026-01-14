@@ -4,12 +4,14 @@
  */
 
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import fc from "fast-check";
 import { extract } from "../../../src/core/scrapers.js";
+import "../setup.js";
 
-describe("core/scrapers.js", function () {
-    describe("extract()", function () {
-        it("should support URL", async function () {
+describe("core/scrapers.js", () => {
+    describe("extract()", () => {
+        it("should support URL", async () => {
             await fc.assert(
                 fc.asyncProperty(
                     fc.webUrl({

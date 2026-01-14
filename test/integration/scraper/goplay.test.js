@@ -4,18 +4,19 @@
  */
 
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
+import "../setup.js";
 
-describe("Scraper: GoPlay [be]", function () {
-    before(function () {
+describe("Scraper: GoPlay [be]", () => {
+    before((t) => {
         if (undefined !== config.country && "be" !== config.country) {
-            // eslint-disable-next-line no-invalid-this
-            this.skip();
+            t.skip();
         }
     });
 
-    it("should return undefined when it isn't a video", async function () {
+    it("should return undefined when it isn't a video", async () => {
         const url = new URL("https://www.goplay.be/programmas");
         const context = { depth: false, incognito: false };
 
@@ -23,7 +24,7 @@ describe("Scraper: GoPlay [be]", function () {
         assert.equal(file, undefined);
     });
 
-    it("should return video URL", async function () {
+    it("should return video URL", async () => {
         const url = new URL(
             "https://www.goplay.be/video/katje-with-the-stars" +
                 "/teleurgesteld-en-fier-yemi-en-laura-moeten-dancing-with-the" +
