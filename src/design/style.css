@@ -2,6 +2,9 @@ body {
     background-color: var(--background-color);
     color: var(--color);
     font-family: system-ui;
+    /* Ré-initialiser du CSS injecté par Chromium.
+       https://issues.chromium.org/476403076 */
+    font-size: initial;
 }
 h3 {
     font-size: 22px;
