@@ -4,26 +4,46 @@
  */
 
 import assert from "node:assert/strict";
-import { before, describe, it } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
-import { config } from "../config.js";
 import "../setup.js";
 
-describe("Scraper: Rumble [us]", () => {
-    before((t) => {
-        // """
-        //  NOTICE TO USERS IN FRANCE
-        //  Because of French government demands to remove creators from our
-        //  platform, Rumble is currently unavailable in France. We are
-        //  challenging these government demands and hope to restore access
-        //  soon.
-        // """
-        if (undefined !== config.country && "us" !== config.country) {
-            t.skip();
-        }
+describe("Scraper: Rumble", () => {
+    afterEach(() => {
+        mock.reset();
     });
 
-    it("should return video URL [opengraph-rumble]", async () => {
+    it("should return video URL", async () => {
+        // Modifier la fonction fetch() pour transmettre les cookies lors des
+        // redirections (comme le font les navigateurs). Rumble fait une
+        // redirection sur la même page et y ajoute des cookies. Sans la
+        // transmission des cookies, fetch() suit les redirections indéfiniment.
+        const nativeFetch = globalThis.fetch;
+        mock.method(globalThis, "fetch", async (url, options = {}) => {
+            const response = await nativeFetch(url, {
+                ...options,
+                redirect: "manual",
+            });
+
+            if (![301, 302, 303, 307, 208].includes(response.status)) {
+                return response;
+            }
+
+            return await nativeFetch(
+                new URL(response.headers.get("Location"), url),
+                {
+                    ...options,
+                    headers: {
+                        ...options.headers,
+                        cookie: response.headers
+                            .getSetCookie()
+                            .map((c) => c.slice(0, c.indexOf(";")))
+                            .join("; "),
+                    },
+                },
+            );
+        });
+
         const url = new URL(
             "https://rumble.com/v1k2hrq-nasa-gets-set-to-crash-spacecraft" +
                 "-into-asteroid.html",
