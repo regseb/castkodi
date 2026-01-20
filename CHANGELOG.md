@@ -1,5 +1,25 @@
 # Changelog
 
+## [7.18.0](https://github.com/regseb/castkodi/compare/v7.17.0...v7.18.0) (2026-01-20)
+
+### Features
+
+- Support Invidious.
+  ([f4db137](https://github.com/regseb/castkodi/commit/f4db13744fe14af470ea84bf97940efc2be84b13))
+- Support YouTube podcasts.
+  ([6d98da7](https://github.com/regseb/castkodi/commit/6d98da73bc4d364904d40c03d2b679f570564de8))
+
+### Bug Fixes
+
+- Fix Rumble scraper.
+  ([e53d7ea](https://github.com/regseb/castkodi/commit/e53d7eaf5a66dfe248184a0f36b9f234552a595f))
+- Increase the font size in Chromium.
+  ([5c64910](https://github.com/regseb/castkodi/commit/5c649109faadd1382d6450296141d7a5b2740c1e))
+- Update Futura Sciences scraper.
+  ([d20c5f6](https://github.com/regseb/castkodi/commit/d20c5f6f466fdfa3c3ee5ae6546a83d5303e4722))
+- Update Le Point scraper.
+  ([de03667](https://github.com/regseb/castkodi/commit/de036675f9efc616b2486c469f12a8ba5836277a))
+
 ## [7.17.0](https://github.com/regseb/castkodi/compare/v7.16.0...v7.17.0) (2025-12-13)
 
 ### Features
