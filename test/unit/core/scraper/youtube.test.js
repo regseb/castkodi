@@ -47,7 +47,7 @@ describe("core/scraper/youtube.js", () => {
         restoreAll();
     });
 
-    describe("extractVideo()", () => {
+    describe("extractSearch()", () => {
         it("shouldn't handle when it's a unsupported URL", async () => {
             const url = new URL(
                 "https://www.youtube.com/feed/subscriptions?v=foo",
@@ -55,7 +55,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -66,7 +66,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -83,7 +83,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -104,7 +104,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -125,7 +125,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -143,7 +143,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -157,7 +157,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -175,7 +175,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(file, undefined);
         });
 
@@ -191,7 +191,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -212,7 +212,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -238,7 +238,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -263,7 +263,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.tubed/?mode=play&video_id=foo",
@@ -283,7 +283,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.invidious/?action=play&videoId=foo",
@@ -303,7 +303,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.sendtokodi/" +
@@ -327,7 +327,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractVideo(url, metadata, context);
+            const file = await scraper.extractSearch(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -490,7 +490,7 @@ describe("core/scraper/youtube.js", () => {
         });
     });
 
-    describe("extractEmbed()", () => {
+    describe("extractPath()", () => {
         it("should return video id", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([]),
@@ -500,7 +500,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractEmbed(url, metadata, context);
+            const file = await scraper.extractPath(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -520,7 +520,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractEmbed(url, metadata, context);
+            const file = await scraper.extractPath(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -540,7 +540,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractEmbed(url, metadata, context);
+            const file = await scraper.extractPath(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -560,7 +560,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractEmbed(url, metadata, context);
+            const file = await scraper.extractPath(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -580,7 +580,47 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: false };
 
-            const file = await scraper.extractEmbed(url, metadata, context);
+            const file = await scraper.extractPath(url, metadata, context);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=foo&incognito=false",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return video id from live", async () => {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+
+            const url = new URL("https://www.youtube.com/live/foo");
+            const metadata = undefined;
+            const context = { incognito: false };
+
+            const file = await scraper.extractPath(url, metadata, context);
+            assert.equal(
+                file,
+                "plugin://plugin.video.youtube/play/" +
+                    "?video_id=foo&incognito=false",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return video id from podcast", async () => {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+
+            const url = new URL("https://music.youtube.com/podcast/foo");
+            const metadata = undefined;
+            const context = { incognito: false };
+
+            const file = await scraper.extractPath(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +
@@ -600,7 +640,7 @@ describe("core/scraper/youtube.js", () => {
             const metadata = undefined;
             const context = { incognito: true };
 
-            const file = await scraper.extractEmbed(url, metadata, context);
+            const file = await scraper.extractPath(url, metadata, context);
             assert.equal(
                 file,
                 "plugin://plugin.video.youtube/play/" +

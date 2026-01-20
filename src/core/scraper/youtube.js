@@ -100,9 +100,11 @@ const dispatchClip = async (clipId, { incognito }) => {
 };
 
 /**
- * Extrait les informations nécessaires pour lire une vidéo / playlist sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo / playlist sur Kodi
+ * avec l'information dans les paramètres de l'URL.
  *
- * @param {URLMatch} url               L'URL d'une vidéo / playlist YouTube.
+ * @param {URLMatch} url               L'URL d'une vidéo / playlist YouTube avec
+ *                                     l'information dans les paramètres.
  * @param {Object}   _metadata         Les métadonnées de l'URL.
  * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -112,7 +114,7 @@ const dispatchClip = async (clipId, { incognito }) => {
  * @returns {Promise<string|undefined>} Une promesse contenant le lien du
  *                                      _fichier_ ou `undefined`.
  */
-const actionVideo = async ({ searchParams }, _metadata, { incognito }) => {
+const actionSearch = async ({ searchParams }, _metadata, { incognito }) => {
     const config = await browser.storage.local.get(["youtube-playlist"]);
     if (
         searchParams.has("list") &&
@@ -126,8 +128,8 @@ const actionVideo = async ({ searchParams }, _metadata, { incognito }) => {
 
     return undefined;
 };
-export const extractVideo = matchURLPattern(
-    actionVideo,
+export const extractSearch = matchURLPattern(
+    actionSearch,
     "https://*.youtube.com/watch",
     "https://youtube.com/watch",
     "https://www.youtubekids.com/watch",
@@ -158,11 +160,13 @@ export const extractPlaylist = matchURLPattern(
 );
 
 /**
- * Extrait les informations nécessaires pour lire une vidéo intégrée, un
- * _short_, une URL minifiée ou depuis une frontale alternative sur Kodi.
+ * Extrait les informations nécessaires pour lire une vidéo sur Kodi avec
+ * l'information dans le chemin de l'URL. Ce cas arrive pour une vidéo intégrée,
+ * un _short_, une URL minifiée, un _live_, un podcast ou depuis une frontale
+ * alternative.
  *
  * @param {URLMatch} urlMatch          L'URL d'une vidéo YouTube avec
- *                                     l'identifiant de la vidéo.
+ *                                     l'information dans le chemin.
  * @param {Object}   _metadata         Les métadonnées de l'URL.
  * @param {Function} _metadata.html    La fonction retournant la promesse
  *                                     contenant le document HTML.
@@ -171,16 +175,18 @@ export const extractPlaylist = matchURLPattern(
  *                                     en navigation privée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
-const actionEmbed = ({ videoId }, _metadata, { incognito }) => {
+const actionPath = ({ videoId }, _metadata, { incognito }) => {
     return dispatchVideo(videoId, { incognito });
 };
-export const extractEmbed = matchURLPattern(
-    actionEmbed,
+export const extractPath = matchURLPattern(
+    actionPath,
     "https://www.youtube.com/embed/:videoId",
     "https://www.youtube-nocookie.com/embed/:videoId",
     "https://*.youtube.com/shorts/:videoId",
     "https://youtube.com/shorts/:videoId",
     "https://youtu.be/:videoId",
+    "https://www.youtube.com/live/:videoId",
+    "https://music.youtube.com/podcast/:videoId",
     "https://dev.tube/video/:videoId",
 );
 

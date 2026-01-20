@@ -267,4 +267,16 @@ describe("Scraper: YouTube", () => {
                 "?video_id=K5JSRGhB-nM&incognito=false",
         );
     });
+
+    it("should return video id from podcast", async () => {
+        const url = new URL("https://music.youtube.com/podcast/DYYR5beGbXM");
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.equal(
+            file,
+            "plugin://plugin.video.youtube/play/" +
+                "?video_id=DYYR5beGbXM&incognito=false",
+        );
+    });
 });
