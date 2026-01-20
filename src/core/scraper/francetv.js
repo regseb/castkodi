@@ -16,7 +16,7 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *
  * @type {RegExp}
  */
-const UUID_REGEXP = /\\"options\\":\{\\"id\\":\\"(?<uuid>[-0-9a-f]+)\\"/u;
+const UUID_REGEXP = /\\"options\\":\{\\"id\\":\\"(?<uuid>[\-0-9a-f]+)\\"/v;
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.

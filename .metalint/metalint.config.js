@@ -30,11 +30,15 @@ export default {
         // Ignorer les fichiers temporaires de Vim.
         "!*.swp",
         // Ignorer les autres lockfiles.
-        "!/bun.lockb",
+        "!/bun.lock",
         "!/pnpm-lock.yaml",
         "!/yarn.lock",
     ],
     checkers: [
+        {
+            patterns: "*",
+            linters: "secretlint",
+        },
         {
             patterns: "/src/",
             linters: "addons-linter",

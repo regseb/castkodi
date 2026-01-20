@@ -21,18 +21,18 @@ export const mux = (urls) => {
         .map((u) => u.trim())
         .map((url) => {
             // Si l'URL n'a pas de schéma : ajouter le protocole HTTP.
-            return /^[-a-z]+:/iu.test(url)
+            return /^[\-a-z]+:/iv.test(url)
                 ? url
-                : url.replace(/^\/*/u, "http://");
+                : url.replace(/^\/*/v, "http://");
         })
         .find((url) => {
             // Vérifier que l'URL est valide et qu'elle utilise un schéma géré.
             return (
                 URL.canParse(url) &&
-                (/^https?:\/\//iu.test(url) ||
-                    /^magnet:/iu.test(url) ||
-                    /^acestream:/iu.test(url) ||
-                    /^plugin:/iu.test(url))
+                (/^https?:\/\//iv.test(url) ||
+                    /^magnet:/iv.test(url) ||
+                    /^acestream:/iv.test(url) ||
+                    /^plugin:/iv.test(url))
             );
         });
 };

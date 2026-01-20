@@ -106,7 +106,7 @@
 
 - Enlever Veoh qui a fermé.
   ([825ea17](https://github.com/regseb/castkodi/commit/825ea172f07c7d4f9897d784ac1a116668ec0ab4))
-- Ne pas afficher la popup de connexion (dans la popup).
+- Ne pas afficher le popup de connexion (dans le popup).
   ([27c7823](https://github.com/regseb/castkodi/commit/27c7823d2db95a3d0f1a5f2f2a5cb85aa8d596d2))
 
 ## [7.12.0](https://github.com/regseb/castkodi/compare/v7.11.0...v7.12.0) (2024-10-20)
@@ -268,7 +268,7 @@
   ([5e22f0b](https://github.com/regseb/castkodi/commit/5e22f0bc7a2f8c996168bf96f940912e484fc531))
 - Enlever le support de Bally Sports.
   ([543dd00](https://github.com/regseb/castkodi/commit/543dd007e27f821786db50a1fa632ced1bd5574d))
-- Optimiser l'ouverture de la popup.
+- Optimiser l'ouverture de le popup.
   ([d04d8ae](https://github.com/regseb/castkodi/commit/d04d8ae6e7a8d4e97a42584af17d73f99312863a))
 - Remplacer les "&nbsp;" par des espaces insécables
   ([#114](https://github.com/regseb/castkodi/issues/114))
@@ -634,7 +634,7 @@
 
 - Ajouter le support de ARD Mediathek.
   ([0e1e927](https://github.com/regseb/castkodi/commit/0e1e9274679b8883dc37b79e1e6a0627ae0871f1))
-- Améliorer le design de la popup et des options.
+- Améliorer le design de le popup et des options.
   ([c9aec32](https://github.com/regseb/castkodi/commit/c9aec32630bb5c49785a7a5e6f4767e6dd2c3241))
 
 ### Bug Fixes
@@ -910,7 +910,7 @@
 
 ### Features
 
-- Afficher les élément dans les options sur plusieurs colonnes.
+- Afficher les éléments dans les options sur plusieurs colonnes.
   ([3eeee42](https://github.com/regseb/castkodi/commit/3eeee42f2f669281c48176ff5f0fbb891c99b62a))
 - Ajouter le support de LBRY.
   ([e463d4c](https://github.com/regseb/castkodi/commit/e463d4c23ad3b8ece8392a9ba0d618f92d187ba1))
@@ -937,7 +937,7 @@
 
 ### Features
 
-- Ajouter la liste de lecture dans la popup.
+- Ajouter la liste de lecture dans le popup.
   ([550b768](https://github.com/regseb/castkodi/commit/550b768ed5dad6f97f0e9ab169989dd45d5512c8))
 - Gérer les nouvelles URLs de Dumpert.
   ([aa36c98](https://github.com/regseb/castkodi/commit/aa36c984456a944f165d568e63986b6435abe3d5))
@@ -955,7 +955,7 @@
 
 ### Bug Fixes
 
-- Gérer l'affichage de la popin quand le lecture audio est actif.
+- Gérer l'affichage de la popin quand la lecture audio est actif.
   ([0156415](https://github.com/regseb/castkodi/commit/0156415dd405bcab2ac0af787af3b3410e96f00e))
 
 ## [4.17.0](https://github.com/regseb/castkodi/compare/v4.16.0...v4.17.0) (2020-04-30)
@@ -1105,7 +1105,7 @@
 
 ### Features
 
-- Ajouter un racourci clavier pour passer en plein écran.
+- Ajouter un raccourci clavier pour passer en plein écran.
   ([f52392a](https://github.com/regseb/castkodi/commit/f52392ad2dd6b8d86b1f6848f677980f330a60de))
 - Gérer plusieurs serveurs.
   ([c398549](https://github.com/regseb/castkodi/commit/c398549ff11a6ed4aa050cf0e10a843a665cabcd))
@@ -1123,7 +1123,7 @@
 
 ### Bug Fixes
 
-- Cacher les éléments sous le message d'erreur (dans la popup).
+- Cacher les éléments sous le message d'erreur (dans le popup).
   ([9f418aa](https://github.com/regseb/castkodi/commit/9f418aa))
 
 ### Features
@@ -1189,7 +1189,7 @@
   ([9b9ecf9](https://github.com/regseb/castkodi/commit/9b9ecf9))
 - Ajouter un raccourci clavier pour ouvrir la télécommande.
   ([7ad92bb](https://github.com/regseb/castkodi/commit/7ad92bb))
-- Extraire les média dans des microdonnées.
+- Extraire les médias dans des micro-données.
   ([e964b74](https://github.com/regseb/castkodi/commit/e964b74))
 
 ## 4.3.0 (2019-07-28)

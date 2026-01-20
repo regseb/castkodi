@@ -24,7 +24,7 @@ const API_URL = "https://kick.com/api/v2/channels";
  * @type {RegExp}
  */
 const URL_REGEXP =
-    /\\"source\\":\\"(?<source>https:\/\/stream\.kick\.com\/[^"]+\/master\.m3u8)\\",/u;
+    /\\"source\\":\\"(?<source>https:\/\/stream\.kick\.com\/[^"]+\/master\.m3u8)\\",/v;
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.

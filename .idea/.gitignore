@@ -1,7 +1,9 @@
 # https://intellij-support.jetbrains.com/hc/articles/206544839
 /*
 
+!/dictionaries/
 !/runConfigurations/
+!/stylesheetLinters/
 !/.gitignore
 !/castkodi.iml
 !/icon.svg

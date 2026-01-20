@@ -137,12 +137,7 @@ export default {
         // Property.
         "property-allowed-list": undefined,
         "property-disallowed-list": undefined,
-        "property-no-vendor-prefix": [
-            true,
-            {
-                ignoreProperties: ["appearance"],
-            },
-        ],
+        "property-no-vendor-prefix": true,
 
         // Rules.
         "rule-nesting-at-rule-required-list": undefined,
@@ -191,7 +186,7 @@ export default {
         "selector-max-combinators": undefined,
         "selector-max-compound-selectors": undefined,
         "selector-max-id": 1,
-        "selector-max-pseudo-class": 3,
+        "selector-max-pseudo-class": undefined,
         "selector-max-specificity": undefined,
         "selector-max-type": undefined,
         "selector-max-universal": 1,

@@ -3,15 +3,7 @@
  * @author Sébastien Règne
  */
 
-import fs from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-
-const MESSAGES = JSON.parse(
-    await fs.readFile(
-        fileURLToPath(import.meta.resolve("../../locales/en/messages.json")),
-        "utf8",
-    ),
-);
+import messages from "../../src/_locales/en/messages.json" with { type: "json" };
 
 /**
  * Les données pour la prothèse des APIs des WebExtensions.
@@ -206,14 +198,14 @@ export const browser = {
             const substitutions = Array.isArray(substitution)
                 ? substitution
                 : [substitution];
-            return Object.keys(MESSAGES[key]?.placeholders ?? {}).reduce(
+            return Object.keys(messages[key]?.placeholders ?? {}).reduce(
                 (message, placeholder, index) => {
                     return message.replace(
                         `$${placeholder.toUpperCase()}$`,
                         substitutions[index],
                     );
                 },
-                MESSAGES[key]?.message ?? "",
+                messages[key]?.message ?? "",
             );
         },
     },

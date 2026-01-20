@@ -21,22 +21,23 @@ const LANGUAGES = await fs.readdir("src/_locales/");
  * @param {string} lang La langue des messages.
  * @returns {Promise<Object[][]>} Une promesse contenant la liste des messages.
  */
-const read = async (lang) => {
-    return Object.entries(
-        JSON.parse(
-            await fs.readFile(`src/_locales/${lang}/messages.json`, "utf8"),
-        ),
-    );
+const importMessages = async (lang) => {
+    const module = await import(`../../src/_locales/${lang}/messages.json`, {
+        with: { type: "json" },
+    });
+    return Object.entries(module.default);
 };
 
 describe("_locales", async () => {
-    const englishMessages = await read("en");
+    const englishMessages = await importMessages("en");
 
     for (const lang of LANGUAGES) {
         await it(`'en' and '${lang}' should have same messages`, async () => {
-            const messages = await read(lang);
+            const messages = await importMessages(lang);
 
             assert.equal(messages.length, englishMessages.length);
+            // Récupérer les messages avec leur indice pour vérifier que l'ordre
+            // est identique entre les deux langues.
             // eslint-disable-next-line unicorn/no-for-loop
             for (let i = 0; i < messages.length; ++i) {
                 const [name, value] = messages[i];

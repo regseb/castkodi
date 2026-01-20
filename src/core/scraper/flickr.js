@@ -16,7 +16,7 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *
  * @type {RegExp}
  */
-const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "(?<key>[^"]+)"/u;
+const KEY_REGEXP = /root\.YUI_config\.flickr\.api\.site_key = "(?<key>[^"]+)"/v;
 
 /**
  * L'URL de l'API de Flickr pour obtenir des informations sur la vidéo.
@@ -43,7 +43,7 @@ const action = async (_url, metadata) => {
     const doc = await metadata.html();
 
     const meta = doc.querySelector('meta[property="og:image"]');
-    const parts = new URL(meta.content).pathname.split(/[./_]/u);
+    const parts = new URL(meta.content).pathname.split(/[.\/_]/v);
     const photoId = parts[2];
     const secret = parts[3];
 

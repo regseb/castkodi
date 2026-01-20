@@ -144,7 +144,7 @@ const check = async (input) => {
                 }
             }
         }
-    } else if (/^\s*$/u.test(input.value)) {
+    } else if (/^\s*$/v.test(input.value)) {
         input.setCustomValidity(
             browser.i18n.getMessage("options_serverName_error"),
         );
@@ -252,7 +252,7 @@ const remove = async (event) => {
     let index = 0;
     for (const tr of table.querySelectorAll("tbody tr")) {
         for (const input of tr.querySelectorAll("input")) {
-            input.name = input.name.replace(/_\d+$/u, `_${index.toString()}`);
+            input.name = input.name.replace(/_\d+$/v, `_${index.toString()}`);
         }
         ++index;
     }

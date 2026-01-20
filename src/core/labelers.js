@@ -57,22 +57,22 @@ const LABELERS = [
  */
 export const strip = (text) => {
     return text
-        .replaceAll(/\[B\](?<t>.*?)\[\/B\]/gu, "$<t>")
-        .replaceAll(/\[I\](?<t>.*?)\[\/I\]/gu, "$<t>")
-        .replaceAll(/\[LIGHT\](?<t>.*?)\[\/LIGHT\]/gu, "$<t>")
-        .replaceAll(/\[COLOR [^\]]+\](?<t>.*?)\[\/COLOR\]/gu, "$<t>")
-        .replaceAll(/\[UPPERCASE\](?<t>.*?)\[\/UPPERCASE\]/gu, (_, t) =>
+        .replaceAll(/\[B\](?<t>.*?)\[\/B\]/gv, "$<t>")
+        .replaceAll(/\[I\](?<t>.*?)\[\/I\]/gv, "$<t>")
+        .replaceAll(/\[LIGHT\](?<t>.*?)\[\/LIGHT\]/gv, "$<t>")
+        .replaceAll(/\[COLOR [^\]]+\](?<t>.*?)\[\/COLOR\]/gv, "$<t>")
+        .replaceAll(/\[UPPERCASE\](?<t>.*?)\[\/UPPERCASE\]/gv, (_, t) =>
             t.toUpperCase(),
         )
-        .replaceAll(/\[LOWERCASE\](?<t>.*?)\[\/LOWERCASE\]/gu, (_, t) =>
+        .replaceAll(/\[LOWERCASE\](?<t>.*?)\[\/LOWERCASE\]/gv, (_, t) =>
             t.toLowerCase(),
         )
         .replaceAll(
-            /\[CAPITALIZE\](?<t>.*?)\[\/CAPITALIZE\]/gu,
+            /\[CAPITALIZE\](?<t>.*?)\[\/CAPITALIZE\]/gv,
             (_, t) => t.charAt(0).toUpperCase() + t.slice(1),
         )
         .replaceAll("[CR]", " ")
-        .replaceAll(/\[TABS\](?<n>\d+)\[\/TABS\]/gu, (_, n) =>
+        .replaceAll(/\[TABS\](?<n>\d+)\[\/TABS\]/gv, (_, n) =>
             "\t".repeat(Number(n)),
         )
         .trim();

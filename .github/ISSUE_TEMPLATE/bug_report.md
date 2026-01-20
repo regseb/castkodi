@@ -28,11 +28,11 @@ Steps to reproduce the behavior:
 
 ### Environment
 
-- Cast Kodi version<!-- e.g. 7.17.0 -->:
-- Browser version<!-- e.g. Chrome 143.0.7499.40, Firefox 146.0, ... -->:
+- Cast Kodi version<!-- e.g. 7.18.0 -->:
+- Browser version<!-- e.g. Chrome 143.0.7499.192, Firefox 147.0, ... -->:
 - OS version<!-- e.g. Windows 11, Ubuntu 24.04, Android 16, ... -->:
-- Kodi version<!-- e.g. 21.2 -->:
-- Kodi add-on version (if appropriate)<!-- e.g. YouTube 7.2.0.3, ... -->:
+- Kodi version<!-- e.g. 21.3 -->:
+- Kodi add-on version (if appropriate)<!-- e.g. YouTube 7.3.0.1, ... -->:
 
 ### Additional context
 

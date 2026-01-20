@@ -27,7 +27,7 @@ const API_URL =
  *                                      _fichier_ ou `undefined`.
  */
 const action = async ({ pathname }) => {
-    const result = /^\/(?:[a-z]{2}\/)?(?<id>\d+)$/iu.exec(pathname);
+    const result = /^\/(?:[a-z]{2}\/)?(?<id>\d+)$/iv.exec(pathname);
     if (undefined === result?.groups) {
         return undefined;
     }

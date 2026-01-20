@@ -156,7 +156,7 @@ input[type="radio"]:checked:active:not(:disabled) {
 }
 
 input[type="range"] {
-    -webkit-appearance: none;
+    appearance: none;
     background-color: transparent;
     border: 0;
     cursor: pointer;

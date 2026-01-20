@@ -7,8 +7,7 @@ Cette documentation vous guide pour contribuer au projet Cast Kodi.
 Les outils suivants sont nécessaires pour utiliser ce projet :
 
 - [Git](https://git-scm.com/downloads)
-- [Node.js](https://nodejs.org/) et
-  [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Node.js](https://nodejs.org/en/download) (et npm)
 
 ## Installation
 

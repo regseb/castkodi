@@ -78,7 +78,7 @@ export const locate = (doc, page) => {
         } else {
             throw new Error("[data-l10n-*] without value");
         }
-        key = key.replaceAll(/-./gu, (m) => m[1].toUpperCase());
+        key = key.replaceAll(/-./gv, (m) => m[1].toUpperCase());
 
         const value = browser.i18n.getMessage(`${page}_${key}_${place}`);
 

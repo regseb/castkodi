@@ -20,7 +20,7 @@ describe("Scraper: Daily Mail", () => {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://videos.dailymail.co.uk/video/mol/2019/12/12" +
+            "https://video.dailymail.com/video/mol/2019/12/12" +
                 "/4423536678317962457/1024x576_MP4_4423536678317962457.mp4",
         );
     });

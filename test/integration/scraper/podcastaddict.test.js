@@ -17,7 +17,9 @@ describe("Scraper: Podcast Addict", () => {
         assert.equal(file, undefined);
     });
 
-    it("should return audio URL [media]", async () => {
+    // Désactiver ce test, car le site a un challenge qui détecte Node.js.
+    // "Enable JavaScript and cookies to continue"
+    it.skip("should return audio URL [media]", async () => {
         const url = new URL(
             "https://podcastaddict.com/silence-on-joue/episode/141591598",
         );

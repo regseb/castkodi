@@ -16,7 +16,7 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *
  * @type {RegExp}
  */
-const DATA_REGEXP = /"mp4":(?<mp4>\{[^}]+\})/u;
+const DATA_REGEXP = /"mp4":(?<mp4>\{[^\}]+\})/v;
 
 /**
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
