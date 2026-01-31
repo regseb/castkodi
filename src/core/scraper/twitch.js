@@ -6,7 +6,7 @@
  */
 
 import { kodi } from "../jsonrpc/kodi.js";
-import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
+import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
 import * as twitchPlugin from "../plugin/twitch.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
@@ -26,7 +26,7 @@ const dispatchLive = async (channelName) => {
         return twitchPlugin.generateLiveUrl(channelName);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.twitch.tv/${channelName}`),
         );
     }
@@ -46,7 +46,7 @@ const dispatchVideo = async (videoId) => {
         return twitchPlugin.generateVideoUrl(videoId);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.twitch.tv/videos/${videoId}`),
         );
     }
@@ -66,7 +66,7 @@ const dispatchClip = async (slug) => {
         return twitchPlugin.generateClipUrl(slug);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://clips.twitch.tv/${slug}`),
         );
     }

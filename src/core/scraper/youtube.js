@@ -7,9 +7,9 @@
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as invidiousPlugin from "../plugin/invidious.js";
-import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
+import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
 import * as tubedPlugin from "../plugin/tubed.js";
-import * as youtubePlugin from "../plugin/youtube.js";
+import * as youTubePlugin from "../plugin/youtube.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
@@ -28,7 +28,7 @@ import { matchURLPattern } from "../tools/urlmatch.js";
 const dispatchVideo = async (videoId, { incognito }) => {
     const addons = await kodi.addons.getAddons("video");
     if (addons.some((a) => "plugin.video.youtube" === a.addonid)) {
-        return youtubePlugin.generateVideoUrl(videoId, incognito);
+        return youTubePlugin.generateVideoUrl(videoId, incognito);
     }
     if (addons.some((a) => "plugin.video.tubed" === a.addonid)) {
         return tubedPlugin.generateVideoUrl(videoId);
@@ -42,12 +42,12 @@ const dispatchVideo = async (videoId, { incognito }) => {
         return invidiousPlugin.generateUrl(videoId);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.youtube.com/watch?v=${videoId}`),
         );
     }
     // Envoyer par défaut au plugin YouTube.
-    return youtubePlugin.generateVideoUrl(videoId, incognito);
+    return youTubePlugin.generateVideoUrl(videoId, incognito);
 };
 
 /**
@@ -62,18 +62,18 @@ const dispatchVideo = async (videoId, { incognito }) => {
 const dispatchPlaylist = async (playlistId, { incognito }) => {
     const addons = await kodi.addons.getAddons("video");
     if (addons.some((a) => "plugin.video.youtube" === a.addonid)) {
-        return await youtubePlugin.generatePlaylistUrl(playlistId, incognito);
+        return await youTubePlugin.generatePlaylistUrl(playlistId, incognito);
     }
     if (addons.some((a) => "plugin.video.tubed" === a.addonid)) {
         return tubedPlugin.generatePlaylistUrl(playlistId);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.youtube.com/playlist?list=${playlistId}`),
         );
     }
     // Envoyer par défaut au plugin YouTube.
-    return await youtubePlugin.generatePlaylistUrl(playlistId, incognito);
+    return await youTubePlugin.generatePlaylistUrl(playlistId, incognito);
 };
 
 /**
@@ -88,15 +88,15 @@ const dispatchPlaylist = async (playlistId, { incognito }) => {
 const dispatchClip = async (clipId, { incognito }) => {
     const addons = await kodi.addons.getAddons("video");
     if (addons.some((a) => "plugin.video.youtube" === a.addonid)) {
-        return youtubePlugin.generateClipUrl(clipId, incognito);
+        return youTubePlugin.generateClipUrl(clipId, incognito);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.youtube.com/clip/${clipId}`),
         );
     }
     // Envoyer par défaut au plugin YouTube.
-    return youtubePlugin.generateClipUrl(clipId, incognito);
+    return youTubePlugin.generateClipUrl(clipId, incognito);
 };
 
 /**

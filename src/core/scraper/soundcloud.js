@@ -6,8 +6,8 @@
  */
 
 import { kodi } from "../jsonrpc/kodi.js";
-import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
-import * as soundcloudPlugin from "../plugin/soundcloud.js";
+import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
+import * as soundCloudPlugin from "../plugin/soundcloud.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
@@ -23,13 +23,13 @@ import { matchURLPattern } from "../tools/urlmatch.js";
 const dispatch = async (url) => {
     const addons = await kodi.addons.getAddons("audio", "video");
     if (addons.some((a) => "plugin.audio.soundcloud" === a.addonid)) {
-        return soundcloudPlugin.generateUrl(url);
+        return soundCloudPlugin.generateUrl(url);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(url);
+        return sendToKodiPlugin.generateUrl(url);
     }
     // Envoyer par défaut au plugin SoundCloud.
-    return soundcloudPlugin.generateUrl(url);
+    return soundCloudPlugin.generateUrl(url);
 };
 
 /**

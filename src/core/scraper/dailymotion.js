@@ -7,7 +7,7 @@
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as dailymotionPlugin from "../plugin/dailymotion.js";
-import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
+import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
@@ -26,7 +26,7 @@ const dispatch = async (videoId) => {
         return dailymotionPlugin.generateUrl(videoId);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.dailymotion.com/video/${videoId}`),
         );
     }

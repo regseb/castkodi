@@ -7,7 +7,7 @@
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as mixcloudPlugin from "../plugin/mixcloud.js";
-import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
+import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
@@ -26,7 +26,7 @@ const dispatch = async (path) => {
         return mixcloudPlugin.generateUrl(path);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.mixcloud.com${path}`),
         );
     }

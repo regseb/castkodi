@@ -6,8 +6,8 @@
  */
 
 import { kodi } from "../jsonrpc/kodi.js";
-import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
-import * as vrtnuPlugin from "../plugin/vrtnu.js";
+import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
+import * as vrtNuPlugin from "../plugin/vrtnu.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
@@ -23,13 +23,13 @@ import { matchURLPattern } from "../tools/urlmatch.js";
 const dispatch = async (url) => {
     const addons = await kodi.addons.getAddons("video");
     if (addons.some((a) => "plugin.video.vrt.nu" === a.addonid)) {
-        return vrtnuPlugin.generateUrl(url);
+        return vrtNuPlugin.generateUrl(url);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(url);
+        return sendToKodiPlugin.generateUrl(url);
     }
     // Envoyer par défaut au plugin VRT NU.
-    return vrtnuPlugin.generateUrl(url);
+    return vrtNuPlugin.generateUrl(url);
 };
 
 /**

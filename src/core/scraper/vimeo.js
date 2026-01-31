@@ -6,7 +6,7 @@
  */
 
 import { kodi } from "../jsonrpc/kodi.js";
-import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
+import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
 import * as vimeoPlugin from "../plugin/vimeo.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
@@ -28,7 +28,7 @@ const dispatch = async (videoId, hash) => {
         return vimeoPlugin.generateUrl(videoId, hash);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(
                 `https://vimeo.com/${videoId}` +
                     (undefined === hash ? "" : `/${hash}`),

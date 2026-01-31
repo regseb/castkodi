@@ -77,7 +77,7 @@ describe("core/index.js", () => {
             );
         });
 
-        it("should get acestream URL", () => {
+        it("should get Ace Stream URL", () => {
             const urls = ["acestream://foo"];
 
             const url = mux(urls);

@@ -5,18 +5,18 @@
  */
 
 import * as acast from "./scraper/acast.js";
-import * as acestream from "./scraper/acestream.js";
+import * as aceStream from "./scraper/acestream.js";
 // eslint-disable-next-line import/no-cycle
-import * as allocine from "./scraper/allocine.js";
+import * as alloCine from "./scraper/allocine.js";
 import * as aparat from "./scraper/aparat.js";
-import * as applepodcasts from "./scraper/applepodcasts.js";
+import * as applePodcasts from "./scraper/applepodcasts.js";
 import * as arte from "./scraper/arte.js";
-import * as arteradio from "./scraper/arteradio.js";
+import * as arteRadio from "./scraper/arteradio.js";
 import * as ausha from "./scraper/ausha.js";
 import * as bigo from "./scraper/bigo.js";
-import * as bitchute from "./scraper/bitchute.js";
+import * as bitChute from "./scraper/bitchute.js";
 import * as castbox from "./scraper/castbox.js";
-import * as cbclisten from "./scraper/cbclisten.js";
+import * as cbcListen from "./scraper/cbclisten.js";
 import * as dailymotion from "./scraper/dailymotion.js";
 import * as dmax from "./scraper/dmax.js";
 import * as dumpert from "./scraper/dumpert.js";
@@ -24,7 +24,7 @@ import * as dumpert from "./scraper/dumpert.js";
 import * as embed from "./scraper/embed.js";
 import * as facebook from "./scraper/facebook.js";
 import * as flickr from "./scraper/flickr.js";
-import * as francetv from "./scraper/francetv.js";
+import * as franceTv from "./scraper/francetv.js";
 // eslint-disable-next-line import/no-cycle
 import * as gamekult from "./scraper/gamekult.js";
 import * as goplay from "./scraper/goplay.js";
@@ -34,14 +34,14 @@ import * as iframe from "./scraper/iframe.js";
 import * as invidious from "./scraper/invidious.js";
 // eslint-disable-next-line import/no-cycle
 import * as jv from "./scraper/jv.js";
-import * as kcaastreaming from "./scraper/kcaastreaming.js";
+import * as kcaaStreaming from "./scraper/kcaastreaming.js";
 import * as kick from "./scraper/kick.js";
 // eslint-disable-next-line import/no-cycle
-import * as ldjson from "./scraper/ldjson.js";
+import * as ldJson from "./scraper/ldjson.js";
 // eslint-disable-next-line import/no-cycle
-import * as lemonde from "./scraper/lemonde.js";
+import * as leMonde from "./scraper/lemonde.js";
 // eslint-disable-next-line import/no-cycle
-import * as lepoint from "./scraper/lepoint.js";
+import * as lePoint from "./scraper/lepoint.js";
 import * as media from "./scraper/media.js";
 import * as megaphone from "./scraper/megaphone.js";
 import * as microdata from "./scraper/microdata.js";
@@ -50,38 +50,38 @@ import * as noscript from "./scraper/noscript.js";
 // eslint-disable-next-line import/no-cycle
 import * as ok from "./scraper/ok.js";
 // eslint-disable-next-line import/no-cycle
-import * as opengraph from "./scraper/opengraph.js";
+import * as openGraph from "./scraper/opengraph.js";
 // eslint-disable-next-line import/no-cycle
-import * as ouestfrance from "./scraper/ouestfrance.js";
-import * as peertube from "./scraper/peertube.js";
-import * as podcloud from "./scraper/podcloud.js";
-import * as primevideo from "./scraper/primevideo.js";
+import * as ouestFrance from "./scraper/ouestfrance.js";
+import * as peerTube from "./scraper/peertube.js";
+import * as podCloud from "./scraper/podcloud.js";
+import * as primeVideo from "./scraper/primevideo.js";
 import * as reddit from "./scraper/reddit.js";
 import * as rumble from "./scraper/rumble.js";
-import * as soundcloud from "./scraper/soundcloud.js";
+import * as soundCloud from "./scraper/soundcloud.js";
 import * as srf from "./scraper/srf.js";
 // eslint-disable-next-line import/no-cycle
-import * as stargr from "./scraper/stargr.js";
+import * as starGr from "./scraper/stargr.js";
 import * as steam from "./scraper/steam.js";
 import * as template from "./scraper/template.js";
 // eslint-disable-next-line import/no-cycle
-import * as theguardian from "./scraper/theguardian.js";
-import * as tiktok from "./scraper/tiktok.js";
+import * as theGuardian from "./scraper/theguardian.js";
+import * as tikTok from "./scraper/tiktok.js";
 import * as torrent from "./scraper/torrent.js";
 import * as twitch from "./scraper/twitch.js";
 import * as ultimedia from "./scraper/ultimedia.js";
 import * as unknown from "./scraper/unknown.js";
 import * as uqload from "./scraper/uqload.js";
-import * as videopress from "./scraper/videopress.js";
+import * as videoPress from "./scraper/videopress.js";
 import * as vidlox from "./scraper/vidlox.js";
 import * as vidyard from "./scraper/vidyard.js";
 import * as vimeo from "./scraper/vimeo.js";
 // eslint-disable-next-line import/no-cycle
-import * as vingtminutes from "./scraper/vingtminutes.js";
+import * as vingtMinutes from "./scraper/vingtminutes.js";
 import * as viously from "./scraper/viously.js";
-import * as vrtnu from "./scraper/vrtnu.js";
-import * as vtmgo from "./scraper/vtmgo.js";
-import * as youtube from "./scraper/youtube.js";
+import * as vrtNu from "./scraper/vrtnu.js";
+import * as vtmGo from "./scraper/vtmgo.js";
+import * as youTube from "./scraper/youtube.js";
 import * as zdf from "./scraper/zdf.js";
 import { cacheable } from "./tools/cacheable.js";
 
@@ -94,66 +94,66 @@ import { cacheable } from "./tools/cacheable.js";
 const SCRAPERS = [
     // Lister les extracteurs (triés par ordre alphabétique).
     acast,
-    acestream,
-    allocine,
+    aceStream,
+    alloCine,
     aparat,
-    applepodcasts,
+    applePodcasts,
     arte,
-    arteradio,
+    arteRadio,
     ausha,
     bigo,
-    bitchute,
+    bitChute,
     castbox,
-    cbclisten,
+    cbcListen,
     dmax,
     dumpert,
     facebook,
     flickr,
-    francetv,
+    franceTv,
     gamekult,
     goplay,
     jv,
-    kcaastreaming,
+    kcaaStreaming,
     kick,
-    lemonde,
-    lepoint,
+    leMonde,
+    lePoint,
     megaphone,
     mixcloud,
     ok,
-    ouestfrance,
-    podcloud,
-    primevideo,
+    ouestFrance,
+    podCloud,
+    primeVideo,
     reddit,
     rumble,
-    soundcloud,
+    soundCloud,
     srf,
-    stargr,
+    starGr,
     steam,
-    theguardian,
-    tiktok,
+    theGuardian,
+    tikTok,
     torrent,
     twitch,
     ultimedia,
     uqload,
-    videopress,
+    videoPress,
     vidlox,
     vidyard,
     vimeo,
-    vingtminutes,
-    vrtnu,
-    vtmgo,
-    youtube,
+    vingtMinutes,
+    vrtNu,
+    vtmGo,
+    youTube,
     zdf,
     // Mettre les extracteurs qui analysent toutes les pages à la fin.
     dailymotion,
     invidious,
-    peertube,
+    peerTube,
     viously,
     // Utiliser les extracteurs génériques en dernier recours.
     media,
-    ldjson,
+    ldJson,
     microdata,
-    opengraph,
+    openGraph,
     iframe,
     embed,
     // Chercher récursivement dans les éléments inertes.

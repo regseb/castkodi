@@ -5,7 +5,7 @@
  * @author Sébastien Règne
  */
 
-import * as primevideoPlugin from "../plugin/primevideo.js";
+import * as primeVideoPlugin from "../plugin/primevideo.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
@@ -31,7 +31,7 @@ const action = async (_url, metadata) => {
     const json = JSON.parse(script.text);
     const body = json.props.body[0];
     const details = body.props.atf.state.detail.headerDetail[body.args.titleID];
-    return primevideoPlugin.generateUrl(details.catalogId, details.title);
+    return primeVideoPlugin.generateUrl(details.catalogId, details.title);
 };
 export const extract = matchURLPattern(
     action,

@@ -6,8 +6,8 @@
  */
 
 import { kodi } from "../jsonrpc/kodi.js";
-import * as sendtokodiPlugin from "../plugin/sendtokodi.js";
-import * as vtmgoPlugin from "../plugin/vtmgo.js";
+import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
+import * as vtmGoPlugin from "../plugin/vtmgo.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
 /**
@@ -23,15 +23,15 @@ import { matchURLPattern } from "../tools/urlmatch.js";
 const dispatchEpisode = async (episodeUuid) => {
     const addons = await kodi.addons.getAddons("video");
     if (addons.some((a) => "plugin.video.vtm.go" === a.addonid)) {
-        return vtmgoPlugin.generateEpisodeUrl(episodeUuid);
+        return vtmGoPlugin.generateEpisodeUrl(episodeUuid);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.vtmgo.be/vtmgo/afspelen/e${episodeUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
-    return vtmgoPlugin.generateEpisodeUrl(episodeUuid);
+    return vtmGoPlugin.generateEpisodeUrl(episodeUuid);
 };
 
 /**
@@ -43,15 +43,15 @@ const dispatchEpisode = async (episodeUuid) => {
 const dispatchMovie = async (movieUuid) => {
     const addons = await kodi.addons.getAddons("video");
     if (addons.some((a) => "plugin.video.vtm.go" === a.addonid)) {
-        return vtmgoPlugin.generateMovieUrl(movieUuid);
+        return vtmGoPlugin.generateMovieUrl(movieUuid);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.vtmgo.be/vtmgo/afspelen/m${movieUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
-    return vtmgoPlugin.generateMovieUrl(movieUuid);
+    return vtmGoPlugin.generateMovieUrl(movieUuid);
 };
 
 /**
@@ -63,15 +63,15 @@ const dispatchMovie = async (movieUuid) => {
 const dispatchChannel = async (channelUuid) => {
     const addons = await kodi.addons.getAddons("video");
     if (addons.some((a) => "plugin.video.vtm.go" === a.addonid)) {
-        return vtmgoPlugin.generateChannelUrl(channelUuid);
+        return vtmGoPlugin.generateChannelUrl(channelUuid);
     }
     if (addons.some((a) => "plugin.video.sendtokodi" === a.addonid)) {
-        return sendtokodiPlugin.generateUrl(
+        return sendToKodiPlugin.generateUrl(
             new URL(`https://www.vtmgo.be/vtmgo/live-kijken/${channelUuid}`),
         );
     }
     // Envoyer par défaut au plugin VTM GO.
-    return vtmgoPlugin.generateChannelUrl(channelUuid);
+    return vtmGoPlugin.generateChannelUrl(channelUuid);
 };
 
 /**

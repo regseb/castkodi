@@ -5,21 +5,21 @@
  */
 
 import * as dailymotion from "./labeler/dailymotion.js";
-import * as pluginDailymotion from "./labeler/plugin/dailymotion.js";
-import * as pluginInvidious from "./labeler/plugin/invidious.js";
-import * as pluginPrimeVideo from "./labeler/plugin/primevideo.js";
-import * as pluginSendtokodi from "./labeler/plugin/sendtokodi.js";
-import * as pluginSoundcloud from "./labeler/plugin/soundcloud.js";
-import * as pluginTubed from "./labeler/plugin/tubed.js";
-import * as pluginTwitch from "./labeler/plugin/twitch.js";
-import * as pluginVimeo from "./labeler/plugin/vimeo.js";
-import * as pluginVtmgo from "./labeler/plugin/vtmgo.js";
-import * as pluginYoutube from "./labeler/plugin/youtube.js";
-import * as soundcloud from "./labeler/soundcloud.js";
+import * as dailymotionPlugin from "./labeler/plugin/dailymotion.js";
+import * as invidiousPlugin from "./labeler/plugin/invidious.js";
+import * as primeVideoPlugin from "./labeler/plugin/primevideo.js";
+import * as sendToKodiPlugin from "./labeler/plugin/sendtokodi.js";
+import * as soundCloudPlugin from "./labeler/plugin/soundcloud.js";
+import * as tubedPlugin from "./labeler/plugin/tubed.js";
+import * as twitchPlugin from "./labeler/plugin/twitch.js";
+import * as vimeoPlugin from "./labeler/plugin/vimeo.js";
+import * as vtmGoPlugin from "./labeler/plugin/vtmgo.js";
+import * as youTubePlugin from "./labeler/plugin/youtube.js";
+import * as soundCloud from "./labeler/soundcloud.js";
 import * as twitch from "./labeler/twitch.js";
 import * as vimeo from "./labeler/vimeo.js";
-import * as vtmgo from "./labeler/vtmgo.js";
-import * as youtube from "./labeler/youtube.js";
+import * as vtmGo from "./labeler/vtmgo.js";
+import * as youTube from "./labeler/youtube.js";
 
 /**
  * La liste des fonctions des labellisateurs (retournant le label d'une URL ou
@@ -29,23 +29,23 @@ import * as youtube from "./labeler/youtube.js";
  */
 const LABELERS = [
     // Lister les labellisateurs des plugins (triées par ordre alphabétique).
-    pluginDailymotion,
-    pluginInvidious,
-    pluginPrimeVideo,
-    pluginSendtokodi,
-    pluginSoundcloud,
-    pluginTubed,
-    pluginTwitch,
-    pluginVimeo,
-    pluginVtmgo,
-    pluginYoutube,
+    dailymotionPlugin,
+    invidiousPlugin,
+    primeVideoPlugin,
+    sendToKodiPlugin,
+    soundCloudPlugin,
+    tubedPlugin,
+    twitchPlugin,
+    vimeoPlugin,
+    vtmGoPlugin,
+    youTubePlugin,
     // Lister les labellisateurs (triées par ordre alphabétique).
     dailymotion,
-    soundcloud,
+    soundCloud,
     twitch,
     vimeo,
-    vtmgo,
-    youtube,
+    vtmGo,
+    youTube,
 ].flatMap((l) => Object.values(l));
 
 /**
