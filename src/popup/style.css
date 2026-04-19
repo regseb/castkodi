@@ -1,13 +1,13 @@
 html {
-    height: 100%;
+    block-size: 100%;
 }
 
 body {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-inline-size: 325px;
+    block-size: 100%;
     margin: 0;
-    min-width: 325px;
 }
 
 button.ghost,
@@ -25,15 +25,15 @@ div {
 
 label.checkbox,
 label.radio {
-    cursor: pointer;
     display: flex;
-    height: 32px;
-    width: 32px;
+    inline-size: 32px;
+    block-size: 32px;
+    cursor: pointer;
 }
 label.checkbox img,
 label.radio img {
-    border-radius: 4px;
     padding: 8px;
+    border-radius: 4px;
 }
 label.checkbox input[type="checkbox"]:not(:disabled) ~ img:hover,
 label.radio input[type="radio"]:not(:disabled) ~ img:hover {
@@ -64,37 +64,37 @@ input[type="checkbox"]:checked ~ img:last-of-type {
 }
 
 dialog {
+    inline-size: calc(100% - 36px);
     color: var(--color);
-    width: calc(100% - 36px);
 }
 
 #dialogerror h1 {
+    margin: 0;
     font-size: 22px;
     font-weight: 300;
-    margin: 0;
 }
 #dialogerror select {
     display: none;
 }
 
 #dialogsendtext p:first-child {
-    margin-top: 0;
+    margin-block-start: 0;
 }
 #dialogsendtext input[name="text"] {
-    width: 100%;
+    inline-size: 100%;
 }
 #dialogsendtext input[name="done"] {
     display: inline-block;
 }
 
 #dialogsubtitle p:first-child {
-    margin-top: 0;
+    margin-block-start: 0;
 }
 #dialogsubtitle textarea {
+    inline-size: 100%;
     /* Afficher quatre ligne dans la zone de texte. */
-    height: 90px;
+    block-size: 90px;
     resize: vertical;
-    width: 100%;
 }
 
 #dialogquit menu {
@@ -102,70 +102,70 @@ dialog {
 }
 
 #dialogbeta {
-    margin-bottom: 64px;
+    margin-block-end: 64px;
 }
 
 #dialogfeedback,
 #dialogdonate {
-    margin-bottom: 64px;
+    margin-block-end: 64px;
 
     ul {
-        align-items: flex-start;
         display: flex;
         flex-direction: column;
-        list-style-type: none;
-        margin: 0;
-        padding-left: 0;
         row-gap: 8px;
+        align-items: flex-start;
+        padding-inline-start: 0;
+        margin: 0;
+        list-style-type: none;
     }
 
     a {
-        align-items: center;
-        column-gap: 4px;
         display: flex;
+        column-gap: 4px;
+        align-items: center;
         font-size: 14px;
     }
 
     img {
-        height: 16px;
-        width: 16px;
+        inline-size: 16px;
+        block-size: 16px;
     }
 }
 
 #cast {
-    border-bottom: 1px solid var(--input-border-color);
     display: flex;
+    border-block-end: 1px solid var(--input-border-color);
 }
 
 #paste textarea {
-    bottom: 8px;
-    display: none;
-    /* Réduire de 64px (48px pour la ligne des boutons et 16px des marges). */
-    height: calc(100% - 64px);
-    left: 8px;
-    padding: 8px;
     position: fixed;
-    resize: none;
-    /* Réduire de 16px pour les marges. */
-    width: calc(100% - 16px);
+    inset-block-end: 8px;
+    inset-inline-start: 8px;
     z-index: 1;
+    display: none;
+    /* Réduire de 16px pour les marges. */
+    inline-size: calc(100% - 16px);
+    /* Réduire de 64px (48px pour la ligne des boutons et 16px des marges). */
+    block-size: calc(100% - 64px);
+    padding: 8px;
+    resize: none;
 }
 #paste input:checked ~ textarea {
     display: block;
 }
 
 #server {
-    height: initial;
+    visibility: hidden;
+    inline-size: initial;
+    block-size: initial;
+    padding: 0;
     margin: 8px 16px 8px auto;
     overflow: hidden;
-    padding: 0;
-    visibility: hidden;
-    width: initial;
 }
 
 #timing {
-    align-items: center;
     display: flex;
+    align-items: center;
 }
 #timing time {
     margin: 0 8px;
@@ -176,9 +176,9 @@ dialog {
 }
 
 #playing {
-    border-bottom: 1px solid var(--input-border-color);
     display: flex;
     justify-content: center;
+    border-block-end: 1px solid var(--input-border-color);
 }
 #pause {
     display: none;
@@ -194,42 +194,41 @@ dialog {
     flex-direction: column;
 }
 #volume {
-    direction: rtl;
-    height: 80px;
+    inline-size: 80px;
+    block-size: 16px;
     padding: 8px 16px;
-    width: 16px;
+    direction: rtl;
     writing-mode: vertical-lr;
 }
 
 #remote {
-    border-left: 1px solid var(--input-border-color);
-    border-right: 1px solid var(--input-border-color);
     display: grid;
     grid-template-columns: repeat(3, auto);
+    border-inline: 1px solid var(--input-border-color);
 }
 #up::before,
 #left::before,
 #select::before,
 #right::before,
 #down::before {
-    background-color: var(--button-background-color);
-    content: "";
-    height: 48px;
     position: absolute;
-    width: 48px;
     z-index: -1;
+    inline-size: 48px;
+    block-size: 48px;
+    content: "";
+    background-color: var(--button-background-color);
 }
 
 #various {
     display: grid;
-    grid-auto-flow: column;
     grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
 }
 
 #playlist-actions {
-    border-top: 1px solid var(--input-border-color);
     display: flex;
     justify-content: flex-end;
+    border-block-start: 1px solid var(--input-border-color);
 }
 
 #repeat label:not(.checked) {
@@ -238,22 +237,22 @@ dialog {
 
 #playlist-items {
     flex-grow: 1;
-    margin-bottom: 8px;
+    inline-size: 100vw;
     /* Afficher 4,5 éléments : (1 + 32) * 4 + (1 + 32 / 2) = 149 */
-    min-height: 149px;
-    overflow-y: scroll;
+    min-block-size: 149px;
+    margin-block-end: 8px;
+    overflow-block: scroll;
     scrollbar-width: thin;
-    width: 100vw;
 }
 
 #playlist-items ol {
     display: flex;
     flex-direction: column;
+    row-gap: 1px;
+    padding: 1px 0;
+    margin: 0;
     font-size: 14px;
     list-style-type: none;
-    margin: 0;
-    padding: 1px 0;
-    row-gap: 1px;
 }
 #playlist-items ol:empty {
     display: none;
@@ -261,7 +260,7 @@ dialog {
 
 #playlist-items li {
     display: flex;
-    height: 32px;
+    block-size: 32px;
     /* Ne pas sélectionner un mot durant un double-clic (pour lancer la
        lecture du média). */
     user-select: none;
@@ -280,16 +279,15 @@ dialog {
 }
 #playlist-items li span {
     flex-grow: 1;
-    line-height: 32px;
+    padding-inline: 8px;
     overflow: hidden;
-    padding-left: 8px;
-    padding-right: 8px;
     text-overflow: ellipsis;
-    user-select: none;
+    line-height: 32px;
     white-space: nowrap;
+    user-select: none;
 }
 #playlist-items li:hover:not(.drag) span {
-    padding-right: 0;
+    padding-inline-end: 0;
 }
 #playlist-items li span.active {
     font-weight: bold;
@@ -298,28 +296,27 @@ dialog {
     display: none;
 }
 #playlist-items li button:not(:last-of-type) {
-    margin-right: 0;
+    margin-inline-end: 0;
 }
 #playlist-items li button:not(:first-of-type) {
-    margin-left: 0;
+    margin-inline-start: 0;
 }
 #playlist-items li:hover:not(.drag) button {
     display: flex;
 }
 
 #playlist-items > span {
-    color: white;
     display: block;
+    inline-size: calc(100% - 16px);
+    padding-inline: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 14px;
     font-style: italic;
     line-height: 32px;
-    opacity: 50%;
-    overflow: hidden;
-    padding-left: 8px;
-    padding-right: 8px;
-    text-overflow: ellipsis;
+    color: white;
     white-space: nowrap;
-    width: calc(100% - 16px);
+    opacity: 50%;
 }
 #playlist-items.waiting span,
 #playlist-items ol:not(:empty) + span {
@@ -327,28 +324,28 @@ dialog {
 }
 
 #external {
-    border-top: 1px solid var(--input-border-color);
     display: flex;
     justify-content: flex-end;
+    border-block-start: 1px solid var(--input-border-color);
 
     span {
         display: flex;
-        margin: 8px;
         padding: 8px;
+        margin: 8px;
 
         img {
-            height: 16px;
-            width: 16px;
+            inline-size: 16px;
+            block-size: 16px;
         }
     }
 }
 #openbeta {
-    background-color: var(--warning-background-color);
-    color: var(--warning-color);
     /* Ne pas afficher le bouton par défaut. Il est affiché seulement sous
        Android, car l'extension est en beta. */
     display: none;
-    margin-right: auto;
+    margin-inline-end: auto;
+    color: var(--warning-color);
+    background-color: var(--warning-background-color);
 }
 #web {
     /* Ne pas afficher le bouton par défaut, car l'interface web de Kodi n'est

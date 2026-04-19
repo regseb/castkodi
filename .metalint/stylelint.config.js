@@ -2,8 +2,13 @@
  * @license MIT
  * @see https://stylelint.io/user-guide/rules
  * @see https://github.com/hudochenkov/stylelint-order#rules
+ * @see https://github.com/stormwarning/stylelint-config-recess-order
  * @author Sébastien Règne
  */
+
+// @ts-expect-error -- Le paquet ne fournit pas de types.
+// https://github.com/stormwarning/stylelint-config-recess-order/issues/470
+import propertyGroups from "stylelint-config-recess-order/groups";
 
 /**
  * @import { Config } from "stylelint"
@@ -15,6 +20,13 @@
 export default {
     plugins: ["stylelint-order"],
 
+    languageOptions: {
+        directionality: {
+            block: "top-to-bottom",
+            inline: "left-to-right",
+        },
+    },
+
     rules: {
         // AVOID ERRORS.
         // Deprecated.
@@ -22,6 +34,7 @@ export default {
         "declaration-property-value-keyword-no-deprecated": true,
         "media-type-no-deprecated": true,
         "property-no-deprecated": true,
+        "selector-no-deprecated": true,
 
         // Descending.
         "no-descending-specificity": undefined,
@@ -176,6 +189,9 @@ export default {
         "declaration-empty-line-before": true,
         "rule-empty-line-before": undefined,
 
+        // Layout mappings.
+        "property-layout-mappings": "flow-relative",
+
         // Max & min.
         "declaration-block-single-line-max-declarations": 1,
         "declaration-property-max-values": undefined,
@@ -208,6 +224,7 @@ export default {
         "keyframe-selector-notation": "keyword",
         "lightness-notation": "percentage",
         "media-feature-range-notation": "context",
+        "relative-selector-nesting-notation": "implicit",
         "selector-not-notation": "complex",
         "selector-pseudo-element-colon-notation": "double",
 
@@ -236,6 +253,7 @@ export default {
         "comment-whitespace-inside": "always",
 
         // PLUGIN STYLELINT-ORDER.
+        "order/custom-properties-alphabetical-order": undefined,
         "order/order": [
             "custom-properties",
             "dollar-variables",
@@ -244,7 +262,14 @@ export default {
             "rules",
             "at-rules",
         ],
-        "order/properties-order": undefined,
-        "order/properties-alphabetical-order": true,
+        // @ts-expect-error -- Le paquet ne fournit pas de types.
+        // https://github.com/stormwarning/stylelint-config-recess-order/issues/470
+        "order/properties-order": propertyGroups.map((group) => ({
+            ...group,
+            noEmptyLineBetween: true,
+        })),
+        // Désactiver cette règle en faveur d'un ordre prédéfini (avec la règle
+        // order/properties-order).
+        "order/properties-alphabetical-order": undefined,
     },
 };

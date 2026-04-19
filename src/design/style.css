@@ -1,10 +1,10 @@
 body {
-    background-color: var(--background-color);
-    color: var(--color);
     font-family: system-ui;
     /* Ré-initialiser du CSS injecté par Chromium.
        https://issues.chromium.org/476403076 */
     font-size: initial;
+    color: var(--color);
+    background-color: var(--background-color);
 }
 h3 {
     font-size: 22px;
@@ -22,32 +22,32 @@ a:hover {
 }
 
 label {
+    display: flex;
     align-items: center;
     color: var(--label-color);
-    display: flex;
 }
 input[type="date"],
 input[type="password"],
 input[type="number"],
 input[type="text"],
 textarea {
-    background-color: white;
-    border: 1px solid var(--input-border-color);
-    border-radius: 4px;
     box-sizing: border-box;
     font: caption;
     outline: 2px solid transparent;
     outline-offset: -1px;
+    background-color: white;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
 }
 input[type="date"],
 input[type="password"],
 input[type="number"],
 input[type="text"] {
-    height: 32px;
+    block-size: 32px;
     padding: 0 8px;
 }
 textarea {
-    min-height: 36px;
+    min-block-size: 36px;
     padding: 8px;
 }
 input[type="date"]:invalid,
@@ -55,8 +55,8 @@ input[type="password"]:invalid,
 input[type="number"]:invalid,
 input[type="text"]:invalid,
 textarea:invalid {
-    border-color: transparent;
     outline-color: var(--input-invalid-border-color);
+    border-color: transparent;
 }
 input[type="date"]:hover:not(:disabled),
 input[type="date"]:focus:not(:disabled),
@@ -87,16 +87,16 @@ textarea:disabled {
 }
 
 input[type="checkbox"] {
+    inline-size: 16px;
+    /* Ajouter "min-width" pour empêcher le navigateur d'écraser la case à
+       cocher. */
+    min-inline-size: 16px;
+    block-size: 16px;
+    margin: 3px;
     appearance: none;
     background-color: var(--checkboxradio-background-color);
     border: 1px solid var(--input-border-color);
     border-radius: 2px;
-    height: 16px;
-    margin: 3px;
-    /* Ajouter "min-width" pour empêcher le navigateur d'écraser la case à
-       cocher. */
-    min-width: 16px;
-    width: 16px;
 }
 input[type="checkbox"]:hover:not(:disabled),
 input[type="checkbox"]:focus:not(:disabled) {
@@ -124,16 +124,16 @@ input[type="checkbox"]:checked:active:not(:disabled) {
 }
 
 input[type="radio"] {
+    inline-size: 16px;
+    /* Ajouter "min-width" pour empêcher le navigateur d'écraser la case à
+       cocher. */
+    min-inline-size: 16px;
+    block-size: 16px;
+    margin: 3px;
     appearance: none;
     background-color: var(--checkboxradio-background-color);
     border: 1px solid var(--input-border-color);
     border-radius: 100%;
-    height: 16px;
-    margin: 3px;
-    /* Ajouter "min-width" pour empêcher le navigateur d'écraser la case à
-       cocher. */
-    min-width: 16px;
-    width: 16px;
 }
 input[type="radio"]:hover:not(:disabled),
 input[type="radio"]:focus:not(:disabled) {
@@ -156,40 +156,34 @@ input[type="radio"]:checked:active:not(:disabled) {
 }
 
 input[type="range"] {
+    block-size: 32px;
+    padding: 5px 0;
+    margin: 0;
     appearance: none;
+    cursor: pointer;
     background-color: transparent;
     border: 0;
-    cursor: pointer;
-    height: 32px;
-    margin: 0;
-    padding: 5px 0;
 }
 input[type="range"]:focus:not(:disabled) {
     outline: none;
 }
 input[type="range"]::-webkit-slider-thumb {
+    inline-size: 12px;
+    block-size: 12px;
+    /* Décaler le curseur pour qu'il soit centré. 5px / 2 - 12px / 2 = -3.5px */
+    margin-block-start: -3.5px;
     appearance: none;
     background-color: var(--range-thumb-background-color);
     border: 0;
     border-radius: 50%;
     filter: drop-shadow(0 0 2px rgb(0 0 0 / 65%));
-    height: 12px;
-    width: 12px;
-}
-input[type="range"]:not(.vertical)::-webkit-slider-thumb {
-    /* Remonter le curseur pour qu'il soit centré. */
-    margin-top: -3.5px;
-}
-input[type="range"].vertical::-webkit-slider-thumb {
-    /* Décaler à gauche le curseur pour qu'il soit centré. */
-    margin-left: -3px;
 }
 input[type="range"]::-moz-range-thumb {
+    inline-size: 12px;
+    block-size: 12px;
     background-color: var(--range-thumb-background-color);
     border: 0;
     filter: drop-shadow(0 0 2px rgb(0 0 0 / 65%));
-    height: 12px;
-    width: 12px;
 }
 input[type="range"]:hover:not(:disabled)::-webkit-slider-thumb {
     outline: 6px solid var(--button-hover-background-color);
@@ -206,6 +200,7 @@ input[type="range"].primary::-moz-range-progress {
     background-color: var(--range-primary-progress-background-color);
 }
 input[type="range"]::-webkit-slider-runnable-track {
+    block-size: 5px;
     background-color: var(--range-track-background-color);
     border-radius: 5px;
 }
@@ -219,19 +214,13 @@ input[type="range"]:hover:not(:disabled)::-webkit-slider-runnable-track {
 input[type="range"]:hover:not(:disabled)::-moz-range-track {
     background-color: var(--range-hover-track-background-color);
 }
-input[type="range"]:not(.vertical)::-webkit-slider-runnable-track {
-    height: 5px;
-}
-input[type="range"].vertical::-webkit-slider-runnable-track {
-    width: 5px;
-}
 input[type="range"]:not(.vertical)::-moz-range-progress,
 input[type="range"]:not(.vertical)::-moz-range-track {
-    height: 5px;
+    block-size: 5px;
 }
 input[type="range"].vertical::-moz-range-progress,
 input[type="range"].vertical::-moz-range-track {
-    width: 5px;
+    inline-size: 5px;
 }
 input[type="range"]:disabled {
     cursor: default;
@@ -239,21 +228,21 @@ input[type="range"]:disabled {
 }
 
 button {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    min-inline-size: 132px;
+    padding: 8px;
+    font-size: 13px;
+    color: var(--button-color);
+    cursor: pointer;
     background-color: var(--button-background-color);
     border: 0;
     border-radius: 4px;
-    color: var(--button-color);
-    cursor: pointer;
-    display: flex;
-    font-size: 13px;
-    justify-content: center;
-    min-width: 132px;
-    padding: 8px;
 
     img {
-        height: 16px;
-        width: 16px;
+        inline-size: 16px;
+        block-size: 16px;
     }
 }
 button:hover:not(:disabled) {
@@ -267,8 +256,8 @@ button:disabled {
     opacity: 50%;
 }
 button.primary {
-    background-color: var(--button-primary-background-color);
     color: var(--button-primary-color);
+    background-color: var(--button-primary-background-color);
 }
 button.primary:hover:not(:disabled) {
     background-color: var(--button-primary-hover-background-color);
@@ -277,12 +266,12 @@ button.primary:active:not(:disabled) {
     background-color: var(--button-primary-active-background-color);
 }
 button.micro {
-    min-width: initial;
+    min-inline-size: initial;
     padding: 4px;
 }
 button.ghost {
+    min-inline-size: initial;
     background-color: transparent;
-    min-width: initial;
 }
 button.ghost:hover:not(:disabled) {
     background-color: var(--button-hover-background-color);
@@ -292,9 +281,9 @@ button.ghost:active:not(:disabled) {
 }
 
 label button {
+    min-inline-size: initial;
     background-color: transparent;
     border-radius: 50%;
-    min-width: initial;
 
     &:hover:not(:disabled) {
         background-color: var(--button-hover-background-color);
@@ -306,21 +295,21 @@ label button {
 
 select {
     align-items: center;
+    justify-content: center;
+    padding: 8px 28px 8px 8px;
+    overflow-inline: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    color: var(--button-color);
     appearance: none;
+    cursor: pointer;
     background-color: var(--button-background-color);
     background-image: url("img/drop.svg");
-    background-position: right 8px center;
     background-repeat: no-repeat;
+    background-position: right 8px center;
     background-size: 16px 16px;
     border: 0;
     border-radius: 4px;
-    color: var(--button-color);
-    cursor: pointer;
-    font-size: 13px;
-    justify-content: center;
-    overflow-x: hidden;
-    padding: 8px 28px 8px 8px;
-    text-overflow: ellipsis;
 }
 select:hover:not(:disabled) {
     background-color: var(--button-hover-background-color);
@@ -334,12 +323,12 @@ select:disabled {
 }
 
 dialog {
+    box-sizing: border-box;
+    padding: 16px;
     background-color: var(--background-color);
     border: none;
     border-radius: 4px;
     box-shadow: 0 1px 4px rgb(12 12 13 / 10%);
-    box-sizing: border-box;
-    padding: 16px;
 }
 dialog::backdrop {
     background-color: rgb(0 0 0 / 50%);
@@ -348,30 +337,30 @@ dialog menu {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    padding-inline-start: 0;
     margin: 0;
-    padding-left: 0;
 }
 dialog menu button,
 dialog menu select {
     flex: 1 1 0;
-    max-width: 100%;
-    min-width: auto;
+    min-inline-size: auto;
+    max-inline-size: 100%;
 }
 
 dialog.error,
 p.error {
+    color: var(--error-color);
     background-color: var(--error-background-color);
     border-color: var(--error-border-color);
-    color: var(--error-color);
 
     button,
     select {
+        color: var(--error-color);
         background-color: color-mix(
             in srgb,
             var(--error-background-color),
             black 20%
         );
-        color: var(--error-color);
     }
     button:hover:not(:disabled),
     button:active:not(:disabled),
@@ -386,9 +375,9 @@ p.error {
 }
 dialog.warning,
 p.warning {
+    color: var(--warning-color);
     background-color: var(--warning-background-color);
     border-color: var(--warning-border-color);
-    color: var(--warning-color);
 }
 dialog.error,
 p.error,

@@ -83,10 +83,11 @@
     "prettier": "3.8.0",
     "purgecss": "7.0.2",
     "secretlint": "11.3.0",
-    "stylelint": "17.0.0",
-    "stylelint-order": "7.0.1",
     "typedoc": "0.28.16",
     "typescript": "5.9.3",
+    "stylelint": "17.8.0",
+    "stylelint-config-recess-order": "7.7.0",
+    "stylelint-order": "8.1.1",
     "urlpattern-polyfill": "10.1.0",
     "web-ext": "9.2.0",
     "yaml-lint": "1.7.0"
