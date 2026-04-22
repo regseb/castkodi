@@ -55,7 +55,10 @@ describe("core/jsonrpc/input.js", () => {
             assert.equal(result, "OK");
 
             assert.equal(send.mock.callCount(), 1);
-            assert.deepEqual(send.mock.calls[0].arguments, ["Input.Down"]);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "Input.ButtonEvent",
+                { button: "down", keymap: "KB" },
+            ]);
         });
     });
 
@@ -97,7 +100,10 @@ describe("core/jsonrpc/input.js", () => {
             assert.equal(result, "OK");
 
             assert.equal(send.mock.callCount(), 1);
-            assert.deepEqual(send.mock.calls[0].arguments, ["Input.Left"]);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "Input.ButtonEvent",
+                { button: "left", keymap: "KB" },
+            ]);
         });
     });
 
@@ -111,7 +117,10 @@ describe("core/jsonrpc/input.js", () => {
             assert.equal(result, "OK");
 
             assert.equal(send.mock.callCount(), 1);
-            assert.deepEqual(send.mock.calls[0].arguments, ["Input.Right"]);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "Input.ButtonEvent",
+                { button: "right", keymap: "KB" },
+            ]);
         });
     });
 
@@ -201,7 +210,10 @@ describe("core/jsonrpc/input.js", () => {
             assert.equal(result, "OK");
 
             assert.equal(send.mock.callCount(), 1);
-            assert.deepEqual(send.mock.calls[0].arguments, ["Input.Up"]);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "Input.ButtonEvent",
+                { button: "up", keymap: "KB" },
+            ]);
         });
     });
 

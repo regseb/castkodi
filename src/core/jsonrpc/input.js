@@ -65,7 +65,10 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     down() {
-        return this.#kodi.send("Input.Down");
+        return this.#kodi.send("Input.ButtonEvent", {
+            button: "down",
+            keymap: "KB",
+        });
     }
 
     /**
@@ -92,7 +95,10 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     left() {
-        return this.#kodi.send("Input.Left");
+        return this.#kodi.send("Input.ButtonEvent", {
+            button: "left",
+            keymap: "KB",
+        });
     }
 
     /**
@@ -101,7 +107,10 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     right() {
-        return this.#kodi.send("Input.Right");
+        return this.#kodi.send("Input.ButtonEvent", {
+            button: "right",
+            keymap: "KB",
+        });
     }
 
     /**
@@ -149,7 +158,10 @@ export const Input = class {
      * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     up() {
-        return this.#kodi.send("Input.Up");
+        return this.#kodi.send("Input.ButtonEvent", {
+            button: "up",
+            keymap: "KB",
+        });
     }
 
     /**
