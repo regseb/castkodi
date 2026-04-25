@@ -1,4 +1,7 @@
 {
+    "manifest_description": {
+        "message": "Putar video dan musik dari lebih dari 50 situs (YouTube, Twitch, Vimeo, SoundCloud, torrent, …) di Kodi."
+    },
     "menus_firstParent": {
         "message": "Cast ke Kodi"
     },
@@ -418,8 +421,5 @@
     },
     "labeler_youtube_mix": {
         "message": "Campur"
-    },
-    "manifest_description": {
-        "message": "Putar video dan musik dari lebih dari 50 situs (YouTube, Twitch, Vimeo, SoundCloud, torrent, …) di Kodi."
     }
 }
