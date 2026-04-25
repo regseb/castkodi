@@ -1,1 +1,425 @@
-{}
+{
+    "popup_clear_title": {
+        "message": ""
+    },
+    "notifications_notSupported_message": {
+        "message": "",
+        "placeholders": {
+            "number": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
+    },
+    "popup_shutdown_textcontent": {
+        "message": ""
+    },
+    "popup_hibernate_textcontent": {
+        "message": ""
+    },
+    "options_menuContextsBookmark_textcontent": {
+        "message": ""
+    },
+    "notifications_badAddress_message": {
+        "message": "",
+        "placeholders": {
+            "address": {
+                "content": "$1"
+            }
+        }
+    },
+    "options_serverName_error": {
+        "message": ""
+    },
+    "options_serverIntro_textcontent": {
+        "message": ""
+    },
+    "options_serverFix_title": {
+        "message": ""
+    },
+    "options_permissionDescription_textcontent": {
+        "message": ""
+    },
+    "options_youtubeOrderReverse_textcontent": {
+        "message": ""
+    },
+    "labeler_youtube_unavailable": {
+        "message": ""
+    },
+    "options_serverAddress_placeholder": {
+        "message": ""
+    },
+    "menus_noName": {
+        "message": "",
+        "placeholders": {
+            "index": {
+                "content": "$1"
+            }
+        }
+    },
+    "options_popupClipboardInput_textcontent": {
+        "message": ""
+    },
+    "popup_forward_title": {
+        "message": ""
+    },
+    "notifications_notGranted_message": {
+        "message": ""
+    },
+    "options_menuActionsAdd_textcontent": {
+        "message": ""
+    },
+    "popup_done_textcontent": {
+        "message": ""
+    },
+    "notifications_badAddress_title": {
+        "message": ""
+    },
+    "options_youtubePlaylistPlaylist_textcontent": {
+        "message": ""
+    },
+    "options_menuContextsTab_textcontent": {
+        "message": ""
+    },
+    "popup_contextmenu_title": {
+        "message": ""
+    },
+    "options_menuActionsSend_textcontent": {
+        "message": ""
+    },
+    "popup_previous_title": {
+        "message": ""
+    },
+    "options_menuContextsLink_textcontent": {
+        "message": ""
+    },
+    "popup_addsubtitle_textcontent": {
+        "message": ""
+    },
+    "options_serverRemove_alt": {
+        "message": ""
+    },
+    "popup_down_title": {
+        "message": ""
+    },
+    "notifications_unconfigured_message": {
+        "message": ""
+    },
+    "options_menuContextsAudio_textcontent": {
+        "message": ""
+    },
+    "options_permissionButton_textcontent": {
+        "message": ""
+    },
+    "options_serverAddress_textcontent": {
+        "message": ""
+    },
+    "popup_configure_textcontent": {
+        "message": ""
+    },
+    "popup_opensubtitle_title": {
+        "message": ""
+    },
+    "popup_openquit_title": {
+        "message": ""
+    },
+    "popup_preferences_title": {
+        "message": ""
+    },
+    "notifications_notFound_title": {
+        "message": ""
+    },
+    "options_youtubePlaylistDescription_textcontent": {
+        "message": ""
+    },
+    "popup_insert_title": {
+        "message": ""
+    },
+    "options_serverAdd_textcontent": {
+        "message": ""
+    },
+    "popup_suspend_textcontent": {
+        "message": ""
+    },
+    "menus_firstAdd": {
+        "message": ""
+    },
+    "options_popupWheelNormal_textcontent": {
+        "message": ""
+    },
+    "options_youtubeOrderDescription_textcontent": {
+        "message": ""
+    },
+    "popup_playItem_title": {
+        "message": ""
+    },
+    "options_youtubePlaylistVideo_textcontent": {
+        "message": ""
+    },
+    "popup_up_title": {
+        "message": ""
+    },
+    "options_menuContextsFrame_textcontent": {
+        "message": ""
+    },
+    "popup_right_title": {
+        "message": ""
+    },
+    "options_serverResultLoading_title": {
+        "message": ""
+    },
+    "menus_firstInsert": {
+        "message": ""
+    },
+    "popup_sendtext_textcontent": {
+        "message": ""
+    },
+    "menus_secondAdd": {
+        "message": ""
+    },
+    "options_youtubeOrderAsk_textcontent": {
+        "message": ""
+    },
+    "popup_cancel_textcontent": {
+        "message": ""
+    },
+    "notifications_noLinks_title": {
+        "message": ""
+    },
+    "popup_openfeedback_title": {
+        "message": ""
+    },
+    "options_popupWheelDisabled_textcontent": {
+        "message": ""
+    },
+    "popup_opensendtext_title": {
+        "message": ""
+    },
+    "popup_select_title": {
+        "message": ""
+    },
+    "menus_firstSend": {
+        "message": ""
+    },
+    "options_popupWheelDescription_textcontent": {
+        "message": ""
+    },
+    "popup_left_title": {
+        "message": ""
+    },
+    "options_serverModeMulti_textcontent": {
+        "message": ""
+    },
+    "menus_secondInsert": {
+        "message": ""
+    },
+    "popup_server_title": {
+        "message": ""
+    },
+    "popup_info_title": {
+        "message": ""
+    },
+    "notifications_notSupported_title": {
+        "message": ""
+    },
+    "popup_mute_title": {
+        "message": ""
+    },
+    "popup_back_title": {
+        "message": ""
+    },
+    "popup_osd_title": {
+        "message": ""
+    },
+    "popup_fullscreen_title": {
+        "message": ""
+    },
+    "menus_secondSend": {
+        "message": ""
+    },
+    "options_serverName_placeholder": {
+        "message": ""
+    },
+    "popup_add_title": {
+        "message": ""
+    },
+    "options_serverNames_textcontent": {
+        "message": ""
+    },
+    "options_generalTitle_textcontent": {
+        "message": ""
+    },
+    "labeler_youtube_mix": {
+        "message": ""
+    },
+    "popup_rewind_title": {
+        "message": ""
+    },
+    "options_menuActionsInsert_textcontent": {
+        "message": ""
+    },
+    "notifications_notGranted_title": {
+        "message": ""
+    },
+    "popup_loading_title": {
+        "message": ""
+    },
+    "options_youtubeOrderShuffle_textcontent": {
+        "message": ""
+    },
+    "options_popupWheelReverse_textcontent": {
+        "message": ""
+    },
+    "options_serverResultConnected_title": {
+        "message": ""
+    },
+    "popup_shuffle_title": {
+        "message": ""
+    },
+    "options_popupTitle_textcontent": {
+        "message": ""
+    },
+    "options_menuTitle_textcontent": {
+        "message": ""
+    },
+    "options_serverAddress_title": {
+        "message": ""
+    },
+    "notifications_noLink_title": {
+        "message": ""
+    },
+    "popup_home_title": {
+        "message": ""
+    },
+    "popup_repeat_title": {
+        "message": ""
+    },
+    "options_youtubeOrderDefault_textcontent": {
+        "message": ""
+    },
+    "options_serverTitle_textcontent": {
+        "message": ""
+    },
+    "notifications_unknown_title": {
+        "message": ""
+    },
+    "popup_paste_title": {
+        "message": ""
+    },
+    "notifications_notFound_message": {
+        "message": "",
+        "placeholders": {
+            "address": {
+                "content": "$1"
+            }
+        }
+    },
+    "popup_web_title": {
+        "message": ""
+    },
+    "manifest_description": {
+        "message": ""
+    },
+    "popup_rate_title": {
+        "message": ""
+    },
+    "options_menuActionsDescription_textcontent": {
+        "message": ""
+    },
+    "options_serverAddresses_textcontent": {
+        "message": ""
+    },
+    "options_serverModeSingle_textcontent": {
+        "message": ""
+    },
+    "popup_volume_title": {
+        "message": "",
+        "placeholders": {
+            "value": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifications_noLinks_message": {
+        "message": ""
+    },
+    "popup_pause_title": {
+        "message": ""
+    },
+    "popup_opendonate_title": {
+        "message": ""
+    },
+    "options_menuContextsSelection_textcontent": {
+        "message": ""
+    },
+    "popup_subtitle_placeholder": {
+        "message": ""
+    },
+    "popup_removeItem_title": {
+        "message": ""
+    },
+    "options_menuContextsPage_textcontent": {
+        "message": ""
+    },
+    "popup_send_title": {
+        "message": ""
+    },
+    "popup_next_title": {
+        "message": ""
+    },
+    "popup_text_placeholder": {
+        "message": ""
+    },
+    "options_youtubeTitle_textcontent": {
+        "message": ""
+    },
+    "popup_reboot_textcontent": {
+        "message": ""
+    },
+    "options_serverRemove_title": {
+        "message": ""
+    },
+    "options_menuContextsVideo_textcontent": {
+        "message": ""
+    },
+    "options_menuContextsDescription_textcontent": {
+        "message": ""
+    },
+    "notifications_noLink_message": {
+        "message": "",
+        "placeholders": {
+            "url": {
+                "content": "$1"
+            }
+        }
+    },
+    "menus_firstParent": {
+        "message": ""
+    },
+    "notifications_unconfigured_title": {
+        "message": ""
+    },
+    "popup_text_textcontent": {
+        "message": ""
+    },
+    "popup_empty_textcontent": {
+        "message": ""
+    },
+    "options_serverFix_alt": {
+        "message": ""
+    },
+    "popup_playerprocessinfo_title": {
+        "message": ""
+    },
+    "options_generalHistoryInput_textcontent": {
+        "message": ""
+    },
+    "popup_play_title": {
+        "message": ""
+    },
+    "popup_stop_title": {
+        "message": ""
+    }
+}
