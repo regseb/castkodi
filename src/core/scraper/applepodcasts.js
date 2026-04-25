@@ -28,7 +28,7 @@ const action = async (_url, metadata) => {
         return undefined;
     }
     const json = JSON.parse(script.text);
-    return json[0].data.shelves[0].items[0].contextAction.episodeOffer
+    return json.data[0].data.shelves[0].items[0].contextAction.episodeOffer
         ?.streamUrl;
 };
 export const extract = matchURLPattern(

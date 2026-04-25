@@ -43,22 +43,24 @@ describe("core/scraper/applepodcasts.js", () => {
                         new DOMParser().parseFromString(
                             `<html lang="en"><body>
                                <script id="serialized-server-data">${JSON.stringify(
-                                   [
-                                       {
-                                           data: {
-                                               shelves: [
-                                                   {
-                                                       items: [
-                                                           {
-                                                               contextAction:
-                                                                   {},
-                                                           },
-                                                       ],
-                                                   },
-                                               ],
+                                   {
+                                       data: [
+                                           {
+                                               data: {
+                                                   shelves: [
+                                                       {
+                                                           items: [
+                                                               {
+                                                                   contextAction:
+                                                                       {},
+                                                               },
+                                                           ],
+                                                       },
+                                                   ],
+                                               },
                                            },
-                                       },
-                                   ],
+                                       ],
+                                   },
                                )}</script>
                              </body></html>`,
                             "text/html",
@@ -80,27 +82,30 @@ describe("core/scraper/applepodcasts.js", () => {
                         new DOMParser().parseFromString(
                             `<html lang="en"><body>
                                <script id="serialized-server-data">${JSON.stringify(
-                                   [
-                                       {
-                                           data: {
-                                               shelves: [
-                                                   {
-                                                       items: [
-                                                           {
-                                                               contextAction: {
-                                                                   episodeOffer:
+                                   {
+                                       data: [
+                                           {
+                                               data: {
+                                                   shelves: [
+                                                       {
+                                                           items: [
+                                                               {
+                                                                   contextAction:
                                                                        {
-                                                                           streamUrl:
-                                                                               "https://baz.fr/qux.mp3",
+                                                                           episodeOffer:
+                                                                               {
+                                                                                   streamUrl:
+                                                                                       "https://baz.fr/qux.mp3",
+                                                                               },
                                                                        },
                                                                },
-                                                           },
-                                                       ],
-                                                   },
-                                               ],
+                                                           ],
+                                                       },
+                                                   ],
+                                               },
                                            },
-                                       },
-                                   ],
+                                       ],
+                                   },
                                )}</script>
                              </body></html>`,
                             "text/html",
