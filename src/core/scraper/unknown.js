@@ -13,7 +13,7 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  */
 
 /**
- * Envoi l'URL à un éventuel plugin de Kodi pour qu'il essaie d'en extraire une
+ * Envoie l'URL à un éventuel plugin de Kodi pour qu'il essaie d'en extraire une
  * vidéo ou une musique.
  *
  * @param {URLMatch} url               L'URL d'une page quelconque.

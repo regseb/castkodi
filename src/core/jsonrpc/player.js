@@ -79,7 +79,7 @@ export const Player = class {
      * Le gestionnaire des auditeurs pour les notifications de changement de
      * propriétés du lecteur.
      *
-     * @type {NotificationListener}
+     * @type {NotificationListener<Object>}
      */
     onPropertyChanged = new NotificationListener();
 

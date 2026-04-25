@@ -12,6 +12,17 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
+ * Le type d'un élément de la liste de lecture.
+ *
+ * @typedef {Object} Item
+ * @prop {string} file     Le fichier de l'élément.
+ * @prop {string} label    Le label de l'élément.
+ * @prop {number} position La position de l'élément.
+ * @prop {string} title    Le titre de l'élément.
+ * @prop {string} type     Le type de l'élément.
+ */
+
+/**
  * Le client JSON-RPC pour contacter l'espace de nom _Playlist_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
@@ -28,7 +39,7 @@ export const Playlist = class {
      * Le gestionnaire des auditeurs pour les notifications d'ajout d'un média
      * dans la liste de lecture.
      *
-     * @type {NotificationListener}
+     * @type {NotificationListener<Item>}
      */
     onAdd = new NotificationListener();
 
@@ -36,7 +47,7 @@ export const Playlist = class {
      * Le gestionnaire des auditeurs pour les notifications de vidage de la
      * liste de lecture.
      *
-     * @type {NotificationListener}
+     * @type {NotificationListener<void>}
      */
     onClear = new NotificationListener();
 
@@ -44,7 +55,7 @@ export const Playlist = class {
      * Le gestionnaire des auditeurs pour les notifications d'enlèvement d'un
      * média de la liste de lecture.
      *
-     * @type {NotificationListener}
+     * @type {NotificationListener<number>}
      */
     onRemove = new NotificationListener();
 
@@ -84,8 +95,8 @@ export const Playlist = class {
     /**
      * Récupère les éléments de la liste de lecture.
      *
-     * @returns {Promise<Object[]>} Une promesse contenant les élements de la
-     *                              liste de lecture.
+     * @returns {Promise<Item[]>} Une promesse contenant les élements de la
+     *                            liste de lecture.
      */
     async getItems() {
         const results = await this.#kodi.send("Playlist.GetItems", {
@@ -99,8 +110,8 @@ export const Playlist = class {
      * Récupère un élément de la liste de lecture.
      *
      * @param {number} position La position de l'élément.
-     * @returns {Promise<Object|undefined>} Une promesse contenant l'élément de
-     *                                      la liste de lecture ou `undefined`.
+     * @returns {Promise<Item|undefined>} Une promesse contenant l'élément de la
+     *                                    liste de lecture ou `undefined`.
      */
     async getItem(position) {
         const results = await this.#kodi.send("Playlist.GetItems", {
@@ -108,7 +119,9 @@ export const Playlist = class {
             properties: ["file", "title"],
             limits: { start: position, end: position + 1 },
         });
-        return results.items?.[0];
+        return undefined === results.items?.[0]
+            ? undefined
+            : { ...results.items[0], position };
     }
 
     /**
@@ -194,10 +207,7 @@ export const Playlist = class {
         }
         switch (method.slice(9)) {
             case "OnAdd":
-                this.onAdd.dispatch({
-                    ...(await this.getItem(data.position)),
-                    position: data.position,
-                });
+                this.onAdd.dispatch(await this.getItem(data.position));
                 break;
             case "OnClear":
                 this.onClear.dispatch(undefined);

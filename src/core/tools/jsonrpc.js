@@ -50,7 +50,7 @@ export const JSONRPC = class extends EventTarget {
     /**
      * La liste des promesses en attente d'être réalisées.
      *
-     * @type {Map<number, Object<string, Function>>}
+     * @type {Map<number, { resolve: Function, reject: Function }>}
      */
     #promises = new Map();
 
@@ -120,14 +120,13 @@ export const JSONRPC = class extends EventTarget {
     #handleMessage({ data }) {
         const response = JSON.parse(data);
         if ("id" in response) {
-            if ("error" in response) {
-                this.#promises
-                    .get(response.id)
-                    .reject(new Error(response.error.message));
-            } else {
-                this.#promises.get(response.id).resolve(response.result);
-            }
+            const { resolve, reject } = this.#promises.get(response.id);
             this.#promises.delete(response.id);
+            if ("error" in response) {
+                reject(new Error(response.error.message));
+            } else {
+                resolve(response.result);
+            }
         } else {
             this.dispatchEvent(new NotificationEvent("notification", response));
         }

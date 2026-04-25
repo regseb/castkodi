@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see https://kodi.wiki/view/Add-on:VTM_GO
+ * @see https://github.com/add-ons/plugin.video.vtm.go
  * @author Sébastien Règne
  */
 

@@ -91,13 +91,13 @@ describe("core/jsonrpc/playlist.js", () => {
         it("should return item", async () => {
             const kodi = new Kodi();
             const send = mock.method(kodi, "send", () =>
-                Promise.resolve({ items: ["foo"] }),
+                Promise.resolve({ items: [{ file: "foo" }] }),
             );
 
             const playlist = new Playlist(kodi);
             const position = 42;
             const result = await playlist.getItem(position);
-            assert.equal(result, "foo");
+            assert.deepEqual(result, { file: "foo", position });
 
             assert.equal(send.mock.callCount(), 1);
             assert.deepEqual(send.mock.calls[0].arguments, [

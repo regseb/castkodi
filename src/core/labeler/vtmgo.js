@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.vtmgo.be/vtmgo
  * @author Sébastien Règne
  */
 

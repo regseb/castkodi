@@ -12,6 +12,21 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
+ * Le type des types des demandes de saisie.
+ *
+ * @typedef {"keyboard" | "time" | "date" | "ip" | "password" |
+ *           "numericpassword" | "number" | "seconds"} InputRequestType
+ */
+
+/**
+ * Le type de la demande de saisie.
+ *
+ * @typedef {Object} InputRequest
+ * @prop {InputRequestType} type  Le type de la demande de saisie.
+ * @prop {string}           value La valeur par défaut.
+ */
+
+/**
  * Le client JSON-RPC pour contacter l'espace de nom _Input_ de Kodi.
  *
  * @see https://kodi.wiki/view/JSON-RPC_API
@@ -28,7 +43,7 @@ export const Input = class {
      * Le gestionnaire des auditeurs pour les notifications de demande de
      * saisie.
      *
-     * @type {NotificationListener}
+     * @type {NotificationListener<InputRequest>}
      */
     onInputRequested = new NotificationListener();
 

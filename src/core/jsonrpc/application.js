@@ -29,7 +29,7 @@ export const Application = class {
      * Le gestionnaire des auditeurs pour les notifications de changement de
      * propriétés de l'application.
      *
-     * @type {NotificationListener}
+     * @type {NotificationListener<Object>}
      */
     onPropertyChanged = new NotificationListener();
 

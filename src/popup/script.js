@@ -1339,7 +1339,7 @@ globalThis.addEventListener("keydown", async (event) => {
     }
 
     // Écrire normalement les caractères dans la zone de texte (sauf pour la
-    // touche Entrée qui envoi l'URL saisie).
+    // touche Entrée qui envoie l'URL saisie).
     if ("TEXTAREA" === event.target.nodeName) {
         if ("Enter" === event.key) {
             await send();

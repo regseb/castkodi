@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see https://kodi.wiki/view/Add-on:Tubed
+ * @see https://github.com/anxdpanic/plugin.video.tubed
  * @author Sébastien Règne
  */
 

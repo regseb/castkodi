@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see https://kodi.wiki/view/Add-on:YouTube
+ * @see https://github.com/anxdpanic/plugin.video.youtube
  * @author Sébastien Règne
  */
 

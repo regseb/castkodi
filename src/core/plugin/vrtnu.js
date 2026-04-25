@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see https://kodi.wiki/view/Add-on:VRT_NU
+ * @see https://github.com/add-ons/plugin.video.vrt.nu
  * @author Sébastien Règne
  */
 

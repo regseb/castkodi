@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see https://kodi.wiki/view/Add-on:Twitch
+ * @see https://github.com/anxdpanic/plugin.video.twitch
  * @author Sébastien Règne
  */
 

@@ -332,7 +332,7 @@ export const Kodi = class {
     }
 
     /**
-     * Envoi une requête JSON-RPC à Kodi.
+     * Envoie une requête JSON-RPC à Kodi.
      *
      * @param {string} method   La méthode appelée.
      * @param {any}    [params] Les éventuels paramètres de la méthode.

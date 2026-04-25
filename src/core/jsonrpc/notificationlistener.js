@@ -6,12 +6,14 @@
 
 /**
  * Le gestionnaire d'auditeurs pour des notifications.
+ *
+ * @template {any} T Le type des données de la notification.
  */
 export const NotificationListener = class {
     /**
      * Les auditeurs dans le gestionnaire.
      *
-     * @type {Function[]}
+     * @type {((data: T) => any)[]}
      */
     #listeners = [];
 
@@ -27,16 +29,17 @@ export const NotificationListener = class {
     /**
      * Ajoute un auditeur dans le gestionnaire.
      *
-     * @param {Function} listener La fonction appelée lors d'une notification.
+     * @param {(data: T) => any} listener La fonction de l'auditeur qui sera
+     *                                    appelée lors d'une notification.
      */
     addListener(listener) {
         this.#listeners.push(listener);
     }
 
     /**
-     * Envoi une notification aux auditeurs.
+     * Envoie une notification aux auditeurs.
      *
-     * @param {any} data Les données de la notification.
+     * @param {T} data Les données de la notification.
      */
     dispatch(data) {
         this.#listeners.map((l) => l(data));

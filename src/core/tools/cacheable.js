@@ -7,8 +7,9 @@
 /**
  * Stocke en cache le retour d'une fonction pour les prochains appels.
  *
- * @param {Function} func La fonction dont le retour sera mis en cache.
- * @returns {Function} La fonction avec le cache.
+ * @template {Function} T La signature de la fonction.
+ * @param {T} func La fonction dont le retour sera mis en cache.
+ * @returns {T} La fonction avec le cache.
  */
 export const cacheable = (func) => {
     /**

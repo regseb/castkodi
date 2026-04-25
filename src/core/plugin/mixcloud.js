@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see https://kodi.wiki/view/Add-on:MixCloud
+ * @see https://github.com/jackyNIX/xbmc-mixcloud-plugin
  * @author Sébastien Règne
  */
 

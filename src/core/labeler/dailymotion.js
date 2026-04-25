@@ -1,6 +1,7 @@
 /**
  * @module
  * @license MIT
+ * @see https://www.dailymotion.com/fr
  * @author Sébastien Règne
  */
 

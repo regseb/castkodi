@@ -162,7 +162,7 @@ const SCRAPERS = [
     // Utiliser des plugins de Kodi qui chercheront des vidéos / musiques dans
     // les pages.
     unknown,
-].flatMap((s) => Object.values(s));
+].flatMap(Object.values);
 
 /**
  * Extrait le _fichier_ d'une URL.

@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see https://kodi.wiki/view/Add-on:SoundCloud
+ * @see https://github.com/jaylinski/kodi-addon-soundcloud
  * @author Sébastien Règne
  */
 

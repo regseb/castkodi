@@ -23,6 +23,10 @@ import * as vtmGo from "./labeler/vtmgo.js";
 import * as youTube from "./labeler/youtube.js";
 
 /**
+ * @import { Item } from "./jsonrpc/playlist.js"
+ */
+
+/**
  * La liste des fonctions des labellisateurs (retournant le label d'une URL ou
  * `undefined`).
  *
@@ -48,7 +52,7 @@ const LABELERS = [
     vimeo,
     vtmGo,
     youTube,
-].flatMap((l) => Object.values(l));
+].flatMap(Object.values);
 
 /**
  * Enlève les balises utilisées par Kodi pour mettre en forme des textes.
@@ -100,14 +104,9 @@ export const extract = async (url) => {
 /**
  * Complète un élément de la liste de lecture avec un label.
  *
- * @param {Object} item          L'élément de la liste de lecture.
- * @param {string} item.file     Le fichier de l'élément.
- * @param {string} item.label    Le label de l'élément.
- * @param {number} item.position La position de l'élément.
- * @param {string} item.title    Le titre de l'élément.
- * @param {string} item.type     Le type de l'élément.
- * @returns {Promise<Object>} Une promesse contenant l'élément complété de la
- *                            liste de lecture.
+ * @param {Item} item L'élément de la liste de lecture.
+ * @returns {Promise<Item>} Une promesse contenant l'élément complété de la
+ *                          liste de lecture.
  */
 export const complete = async (item) => {
     if ("" !== item.title) {

@@ -2,6 +2,7 @@
  * @module
  * @license MIT
  * @see http://elementum.surge.sh/
+ * @see https://github.com/elgatito/plugin.video.elementum
  * @author Sébastien Règne
  */
 
