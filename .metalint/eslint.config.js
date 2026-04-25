@@ -2,7 +2,7 @@
  * @license MIT
  * @see https://eslint.org/docs/latest/rules/
  * @see https://github.com/freaktechnik/eslint-plugin-array-func#rules
- * @see https://mysticatea.github.io/eslint-plugin-eslint-comments/rules/
+ * @see https://eslint-community.github.io/eslint-plugin-eslint-comments/rules/
  * @see https://github.com/import-js/eslint-plugin-import#rules
  * @see https://github.com/gajus/eslint-plugin-jsdoc#rules
  * @see https://github.com/mozilla/eslint-plugin-no-unsanitized#rule-details
@@ -12,10 +12,11 @@
  * @author Sébastien Règne
  */
 
+import comments from "@eslint-community/eslint-plugin-eslint-comments";
+// https://github.com/freaktechnik/eslint-plugin-array-func/issues/492
 // @ts-expect-error -- Le plugin array-func ne fournit pas de types.
+// https://github.com/freaktechnik/eslint-plugin-array-func/pull/661
 import arrayFunc from "eslint-plugin-array-func";
-// @ts-expect-error -- Le plugin eslint-comments ne fournit pas de types.
-import eslintComments from "eslint-plugin-eslint-comments";
 import importPlugin from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 // @ts-expect-error -- Le plugin no-unsanitized ne fournit pas de types.
@@ -43,8 +44,8 @@ export default {
     },
 
     plugins: {
-        "array-func": arrayFunc,
-        "eslint-comments": eslintComments,
+        arrayFunc,
+        comments,
         import: importPlugin,
         jsdoc,
         noUnsanitized,
@@ -355,28 +356,24 @@ export default {
         "unicode-bom": "error",
 
         // Plugin eslint-plugin-array-func.
-        "array-func/from-map": "error",
-        "array-func/no-unnecessary-this-arg": "error",
-        "array-func/prefer-array-from": "error",
-        "array-func/avoid-reverse": "error",
-        "array-func/prefer-flat-map": "error",
-        "array-func/prefer-flat": "error",
+        "arrayFunc/from-map": "error",
+        "arrayFunc/no-unnecessary-this-arg": "error",
+        "arrayFunc/prefer-array-from": "error",
+        "arrayFunc/avoid-reverse": "error",
+        "arrayFunc/prefer-flat-map": "error",
+        "arrayFunc/prefer-flat": "error",
 
-        // Plugin eslint-plugin-eslint-comments.
+        // Plugin @eslint-community/eslint-plugin-eslint-comments.
         // Best Practices.
-        "eslint-comments/disable-enable-pair": [
-            "error",
-            { allowWholeFile: true },
-        ],
-        "eslint-comments/no-aggregating-enable": "error",
-        "eslint-comments/no-duplicate-disable": "error",
-        "eslint-comments/no-unlimited-disable": "error",
-        "eslint-comments/no-unused-disable": "error",
-        "eslint-comments/no-unused-enable": "error",
+        "comments/disable-enable-pair": ["error", { allowWholeFile: true }],
+        "comments/no-aggregating-enable": "error",
+        "comments/no-duplicate-disable": "error",
+        "comments/no-unlimited-disable": "error",
+        "comments/no-unused-enable": "error",
 
         // Stylistic Issues.
-        "eslint-comments/no-restricted-disable": "error",
-        "eslint-comments/no-use": [
+        "comments/no-restricted-disable": "error",
+        "comments/no-use": [
             "error",
             {
                 allow: [
@@ -386,7 +383,7 @@ export default {
                 ],
             },
         ],
-        "eslint-comments/require-description": "off",
+        "comments/require-description": "off",
 
         // Plugin eslint-plugin-import.
         // Helpful warnings.
@@ -404,7 +401,7 @@ export default {
             },
         ],
         "import/no-mutable-exports": "error",
-        "import/no-named-as-default": "off",
+        "import/no-named-as-default": "error",
         "import/no-named-as-default-member": "off",
         // Ne pas appliquer cette règle, car elle ne fonctionne pas quand le nom
         // du fichier de configuration de ESLint n'est pas standard.
@@ -463,11 +460,7 @@ export default {
         ],
         "import/no-anonymous-default-export": [
             "error",
-            {
-                allowArray: true,
-                allowCallExpression: false,
-                allowObject: true,
-            },
+            { allowCallExpression: false },
         ],
         "import/no-default-export": "off",
         "import/no-duplicates": "error",
@@ -712,6 +705,7 @@ export default {
         "unicorn/consistent-empty-array-spread": "error",
         "unicorn/consistent-existence-index-check": "error",
         "unicorn/consistent-function-scoping": "error",
+        "unicorn/consistent-template-literal-escape": "error",
         "unicorn/custom-error-definition": "error",
         // Laisser Prettier gérer cette règle.
         "unicorn/empty-brace-spaces": "off",
@@ -721,6 +715,7 @@ export default {
         "unicorn/explicit-length-check": "off",
         "unicorn/filename-case": "error",
         "unicorn/import-style": "error",
+        "unicorn/isolated-functions": "error",
         "unicorn/new-for-builtins": "error",
         "unicorn/no-abusive-eslint-disable": "error",
         "unicorn/no-accessor-recursion": "error",
@@ -775,6 +770,7 @@ export default {
         "unicorn/no-useless-collection-argument": "error",
         "unicorn/no-useless-error-capture-stack-trace": "error",
         "unicorn/no-useless-fallback-in-spread": "error",
+        "unicorn/no-useless-iterator-to-array": "error",
         "unicorn/no-useless-length-check": "error",
         "unicorn/no-useless-promise-resolve-reject": "error",
         "unicorn/no-useless-spread": "error",
@@ -829,6 +825,7 @@ export default {
         "unicorn/prefer-response-static-json": "error",
         "unicorn/prefer-set-has": "error",
         "unicorn/prefer-set-size": "error",
+        "unicorn/prefer-simple-condition-first": "error",
         "unicorn/prefer-single-call": "error",
         "unicorn/prefer-spread": "off",
         "unicorn/prefer-string-raw": "error",
@@ -853,6 +850,7 @@ export default {
         "unicorn/require-post-message-target-origin": "off",
         "unicorn/string-content": "off",
         "unicorn/switch-case-braces": ["error", "avoid"],
+        "unicorn/switch-case-break-position": "error",
         "unicorn/template-indent": [
             "error",
             // Configurer la règle pour qu'elle soit compatible avec Prettier.

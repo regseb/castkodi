@@ -133,7 +133,19 @@ export default {
 
         "prefer-alphabetical-optionalDependencies": "error",
 
+        "no-absolute-version-peerDependencies": "error",
+        "no-archive-peerDependencies": "error",
+        "no-caret-version-peerDependencies": "off",
+        "no-file-peerDependencies": "error",
+        "no-git-peerDependencies": "error",
+        "no-restricted-peerDependencies": "off",
+        "no-restricted-pre-release-peerDependencies": "off",
+        "no-tilde-version-peerDependencies": "error",
+        "prefer-absolute-version-peerDependencies": "off",
         "prefer-alphabetical-peerDependencies": "error",
+        "prefer-caret-version-peerDependencies": "off",
+        "prefer-no-version-zero-peerDependencies": "off",
+        "prefer-tilde-version-peerDependencies": "off",
 
         // Scripts rules.
         "prefer-alphabetical-scripts": "off",
@@ -155,10 +167,12 @@ export default {
         "no-duplicate-properties": "error",
 
         // Disallowed node rules.
+        "prefer-no-bin": "error",
         "prefer-no-contributors": "off",
         "prefer-no-dependencies": "off",
         "prefer-no-devDependencies": "off",
         "prefer-no-engineStrict": "off",
+        "prefer-no-main": "error",
         "prefer-no-optionalDependencies": "off",
         "prefer-no-peerDependencies": "off",
     },

@@ -5,11 +5,9 @@
 <!-- markdownlint-disable-next-line no-inline-html -->
 <img src="src/img/icon.svg" align="right" width="100" height="100" alt="">
 
-<!-- Ne pas afficher de badge pour le Microsoft Edge Add-ons, car Shields.io ne
-     le supporte pas. https://github.com/badges/shields/issues/4690 -->
-
 [![chrome][img-chrome]][link-chrome] [![firefox][img-firefox]][link-firefox]
-[![build][img-build]][link-build] [![coverage][img-coverage]][link-coverage]
+[![edge][img-edge]][link-edge] [![build][img-build]][link-build]
+[![coverage][img-coverage]][link-coverage]
 
 > WebExtension pour diffuser des vidéos et des musiques sur Kodi.
 
@@ -88,18 +86,26 @@ Si vous souhaitez contribuer à Cast Kodi, consultez le fichier
 [CONTRIBUTING.md](.github/CONTRIBUTING.md) pour avoir plus d'informations.
 
 [img-chrome]:
-  https://img.shields.io/chrome-web-store/stars/gojlijimdlgjlliggedhakpefimkedmb?label=chrome&logo=googlechrome&logoColor=whitesmoke
+  https://img.shields.io/chrome-web-store/users/gojlijimdlgjlliggedhakpefimkedmb?style=flat-square&label=chrome&logo=googlechrome&logoColor=whitesmoke&color=blue
 [img-firefox]:
-  https://img.shields.io/amo/stars/castkodi.svg?label=firefox&logo=firefox-browser&logoColor=whitesmoke
+  https://img.shields.io/amo/users/castkodi?style=flat-square&label=firefox&logo=firefox-browser&logoColor=whitesmoke
+
+<!-- Créer le badge manuellement, car Shields.io ne gère pas encore le Microsoft
+     Edge Add-ons. https://github.com/badges/shields/issues/4690
+     Mettre le contenu du logo, car Microsoft refuse l'ajout de ses logos dans
+     Simple Icons. https://github.com/simple-icons/simple-icons/issues/11236 -->
+
+[img-edge]:
+  https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fjaodccnfhodnbdibkmlhogdephdlkkgh&query=%24.activeInstallCount&style=flat-square&label=edge&logo=data:image/svg%2bxml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIxLjg2IDE3Ljg2cS4xNCAwIC4yNS4xMi4xLjEzLjEuMjV0LS4xMS4zM2wtLjMyLjQ2LS40My41My0uNDQuNXEtLjIxLjI1LS4zOC40MmwtLjIyLjIzcS0uNTguNTMtMS4zNCAxLjA0LS43Ni41MS0xLjYuOTEtLjg2LjQtMS43NC42NHQtMS42Ny4yNHEtLjkgMC0xLjY5LS4yOC0uOC0uMjgtMS40OC0uNzgtLjY4LS41LTEuMjItMS4xNy0uNTMtLjY2LS45Mi0xLjQ0LS4zOC0uNzctLjU4LTEuNi0uMi0uODMtLjItMS42NyAwLTEgLjMyLTEuOTYuMzMtLjk3Ljg3LTEuOC4xNC45NS41NSAxLjc3LjQxLjgyIDEuMDIgMS41LjYuNjggMS4zOCAxLjIxLjc4LjU0IDEuNjQuOS44Ni4zNiAxLjc3LjU2LjkyLjIgMS44LjIgMS4xMiAwIDIuMTgtLjI0IDEuMDYtLjIzIDIuMDYtLjcybC4yLS4xLjItLjA1em0tMTUuNS0xLjI3cTAgMS4xLjI3IDIuMTUuMjcgMS4wNi43OCAyLjAzLjUxLjk2IDEuMjQgMS43Ny43NC44MiAxLjY2IDEuNC0xLjQ3LS4yLTIuOC0uNzQtMS4zMy0uNTUtMi40OC0xLjM3LTEuMTUtLjgzLTIuMDgtMS45LS45Mi0xLjA3LTEuNTgtMi4zM1QuMzYgMTQuOTRRMCAxMy41NCAwIDEyLjA2cTAtLjgxLjMyLTEuNDkuMzEtLjY4LjgzLTEuMjMuNTMtLjU1IDEuMi0uOTYuNjYtLjQgMS4zNS0uNjYuNzQtLjI3IDEuNS0uMzkuNzgtLjEyIDEuNTUtLjEyLjcgMCAxLjQyLjEuNzIuMTIgMS40LjM1LjY4LjIzIDEuMzIuNTcuNjMuMzUgMS4xNi44My0uMzUgMC0uNy4wNy0uMzMuMDctLjY1LjIzdi0uMDJxLS42My4yOC0xLjIuNzQtLjU3LjQ2LTEuMDUgMS4wNC0uNDguNTgtLjg3IDEuMjYtLjM4LjY3LS42NSAxLjM5LS4yNy43MS0uNDIgMS40NC0uMTUuNzItLjE1IDEuMzh6TTExLjk2LjA2cTEuNyAwIDMuMzMuMzkgMS42My4zOCAzLjA3IDEuMTUgMS40My43NyAyLjYyIDEuOTMgMS4xOCAxLjE2IDEuOTggMi43LjQ5Ljk0Ljc2IDEuOTYuMjggMSAuMjggMi4wOCAwIC44OS0uMjMgMS43LS4yNC44LS42OSAxLjQ4LS40NS42OC0xLjEgMS4yMi0uNjQuNTMtMS40NS44OC0uNTQuMjQtMS4xMS4zNi0uNTguMTMtMS4xNi4xMy0uNDIgMC0uOTctLjAzLS41NC0uMDMtMS4xLS4xMi0uNTUtLjEtMS4wNS0uMjgtLjUtLjE5LS44NC0uNS0uMTItLjA5LS4yMy0uMjQtLjEtLjE2LS4xLS4zMyAwLS4xNS4xNi0uMzUuMTYtLjIuMzUtLjUuMi0uMjguMzYtLjY4LjE2LS40LjE2LS45NSAwLTEuMDYtLjQtMS45Ni0uNC0uOTEtMS4wNi0xLjY0LS42Ni0uNzQtMS41Mi0xLjI4LS44Ni0uNTUtMS43OS0uODktLjg0LS4zLTEuNzItLjQ0LS44Ny0uMTQtMS43Ni0uMTQtMS41NSAwLTMuMDYuNDVULjk0IDcuNTVxLjcxLTEuNzQgMS44MS0zLjEzIDEuMS0xLjM4IDIuNTItMi4zNVE2LjY4IDEuMSA4LjM3LjU4cTEuNy0uNTIgMy41OC0uNTJaIiBmaWxsPSJ3aGl0ZXNtb2tlIi8+PC9zdmc+
 [img-build]:
-  https://img.shields.io/github/actions/workflow/status/regseb/castkodi/ci.yml?branch=main&logo=github&logoColor=whitesmoke
+  https://img.shields.io/github/actions/workflow/status/regseb/castkodi/ci.yml?branch=main&style=flat-square&logo=github&logoColor=whitesmoke
 [img-coverage]:
-  https://img.shields.io/endpoint?label=coverage&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fregseb%2Fcastkodi%2Fmain
+  https://img.shields.io/endpoint?url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fregseb%2Fcastkodi%2Fmain&style=flat-square&label=coverage
 [link-chrome]:
   https://chromewebstore.google.com/detail/cast-kodi/gojlijimdlgjlliggedhakpefimkedmb
+[link-firefox]: https://addons.mozilla.org/addon/castkodi/
 [link-edge]:
   https://microsoftedge.microsoft.com/addons/detail/cast-kodi/jaodccnfhodnbdibkmlhogdephdlkkgh
-[link-firefox]: https://addons.mozilla.org/addon/castkodi/
 [link-build]:
   https://github.com/regseb/castkodi/actions/workflows/ci.yml?query=branch%3Amain
 [link-coverage]:

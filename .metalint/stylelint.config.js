@@ -27,6 +27,8 @@ export default {
         },
     },
 
+    referenceFiles: "./src/design/color-*.css",
+
     rules: {
         // AVOID ERRORS.
         // Deprecated.
@@ -93,9 +95,7 @@ export default {
         "media-feature-name-value-no-unknown": true,
         "no-unknown-animations": true,
         "no-unknown-custom-media": true,
-        // Désactiver cette règle, car les variables sont déclarées dans
-        // d'autres fichiers.
-        "no-unknown-custom-properties": undefined,
+        "no-unknown-custom-properties": true,
         "property-no-unknown": true,
         "selector-pseudo-class-no-unknown": true,
         "selector-pseudo-element-no-unknown": true,

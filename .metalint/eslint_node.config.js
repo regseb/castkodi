@@ -1,7 +1,9 @@
 /**
  * @license MIT
  * @see https://eslint.org/docs/latest/rules/
+ * @see https://github.com/import-js/eslint-plugin-import#rules
  * @see https://github.com/eslint-community/eslint-plugin-n#-rules
+ * @see https://github.com/sindresorhus/eslint-plugin-unicorn#rules
  * @author Sébastien Règne
  */
 
@@ -93,16 +95,15 @@ export default {
         "n/no-restricted-require": "error",
         "n/no-sync": "error",
         "n/no-top-level-await": "off",
-        // Désactiver les règles n/prefer-global, car aucune variable globale de
-        // Node n'est déclarée, donc si elles sont utilisées : la règle no-undef
-        // remontera une erreur.
-        "n/prefer-global/buffer": "off",
-        "n/prefer-global/console": "off",
-        "n/prefer-global/process": "off",
-        "n/prefer-global/text-decoder": "off",
-        "n/prefer-global/text-encoder": "off",
-        "n/prefer-global/url-search-params": "off",
-        "n/prefer-global/url": "off",
+        "n/prefer-global/buffer": ["error", "never"],
+        "n/prefer-global/console": "error",
+        "n/prefer-global/crypto": "error",
+        "n/prefer-global/process": ["error", "never"],
+        "n/prefer-global/text-decoder": "error",
+        "n/prefer-global/text-encoder": "error",
+        "n/prefer-global/timers": "error",
+        "n/prefer-global/url": "error",
+        "n/prefer-global/url-search-params": "error",
         "n/prefer-node-protocol": "error",
         "n/prefer-promises/dns": "error",
         "n/prefer-promises/fs": "error",

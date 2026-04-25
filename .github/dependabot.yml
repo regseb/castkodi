@@ -3,15 +3,23 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: weekly
+      interval: monthly
     allow:
       - dependency-type: production
     cooldown:
       default-days: 5
+    groups:
+      npm:
+        patterns:
+          - "*"
 
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: weekly
+      interval: monthly
     cooldown:
       default-days: 5
+    groups:
+      github-actions:
+        patterns:
+          - "*"

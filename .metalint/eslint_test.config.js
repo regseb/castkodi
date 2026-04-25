@@ -1,6 +1,9 @@
 /**
  * @license MIT
  * @see https://eslint.org/docs/latest/rules/
+ * @see https://github.com/import-js/eslint-plugin-import#rules
+ * @see https://github.com/mozilla/eslint-plugin-no-unsanitized#rule-details
+ * @see https://github.com/sindresorhus/eslint-plugin-unicorn#rules
  * @author Sébastien Règne
  */
 
