@@ -1,5 +1,25 @@
 # Changelog
 
+## [7.19.0](https://github.com/regseb/castkodi/compare/v7.18.0...v7.19.0) (2026-04-25)
+
+### Features
+
+- Add support of Piped plugin.
+  ([5206013](https://github.com/regseb/castkodi/commit/5206013e6f886e2ba6de72dae7dbadeaadff3525))
+- Added translation using Weblate (Indonesian)
+  ([#158](https://github.com/regseb/castkodi/issues/158))
+  ([5712648](https://github.com/regseb/castkodi/commit/5712648ce1fdc40cba251ab209bb8b38300ab516))
+
+### Bug Fixes
+
+- Emulate button press instead of fixed input.
+  ([#176](https://github.com/regseb/castkodi/issues/176))
+  ([4e6f30e](https://github.com/regseb/castkodi/commit/4e6f30e9a7c588e5f9ee8d6f8e35e1483d17999c))
+- Enable "player process info" only when playing.
+  ([dbdeb9b](https://github.com/regseb/castkodi/commit/dbdeb9b668d657ef813797dd00526b9257f4e7ab))
+- Fix Apple Podcasts scraper.
+  ([4d2aa98](https://github.com/regseb/castkodi/commit/4d2aa9809f251c5bdcc0c2cd77e1b48022e63d67))
+
 ## [7.18.0](https://github.com/regseb/castkodi/compare/v7.17.0...v7.18.0) (2026-01-20)
 
 ### Features
