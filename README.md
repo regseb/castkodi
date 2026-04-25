@@ -71,6 +71,7 @@ Pour certains sites Internet, les add-ons suivants sont nécessaires dans Kodi :
 [Elementum](https://github.com/elgatito/plugin.video.elementum),
 [Invidious](https://github.com/lekma/plugin.video.invidious),
 [Mixcloud](https://kodi.tv/addons/omega/plugin.audio.mixcloud/),
+[Piped](https://kodi.tv/addons/omega/plugin.video.piped/),
 [Plexus](https://github.com/enen92/program.plexus),
 [SendToKodi](https://github.com/firsttris/plugin.video.sendtokodi),
 [SoundCloud](https://kodi.tv/addons/omega/plugin.audio.soundcloud/),

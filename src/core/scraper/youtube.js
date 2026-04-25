@@ -7,6 +7,7 @@
 
 import { kodi } from "../jsonrpc/kodi.js";
 import * as invidiousPlugin from "../plugin/invidious.js";
+import * as pipedPlugin from "../plugin/piped.js";
 import * as sendToKodiPlugin from "../plugin/sendtokodi.js";
 import * as tubedPlugin from "../plugin/tubed.js";
 import * as youTubePlugin from "../plugin/youtube.js";
@@ -29,6 +30,9 @@ const dispatchVideo = async (videoId, { incognito }) => {
     const addons = await kodi.addons.getAddons("video");
     if (addons.some((a) => "plugin.video.youtube" === a.addonid)) {
         return youTubePlugin.generateVideoUrl(videoId, incognito);
+    }
+    if (addons.some((a) => "plugin.video.piped" === a.addonid)) {
+        return pipedPlugin.generateUrl(videoId);
     }
     if (addons.some((a) => "plugin.video.tubed" === a.addonid)) {
         return tubedPlugin.generateVideoUrl(videoId);

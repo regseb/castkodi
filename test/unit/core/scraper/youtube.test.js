@@ -25,6 +25,11 @@ const OTHER_ADDON = {
     author: "lekma",
     type: "xbmc.python.pluginsource",
 };
+const PIPED_ADDON = {
+    addonid: "plugin.video.piped",
+    author: "Syhlx",
+    type: "xbmc.python.pluginsource",
+};
 const SENDTOKODI_ADDON = {
     addonid: "plugin.video.sendtokodi",
     author: "firsttris",
@@ -228,6 +233,7 @@ describe("core/scraper/youtube.js", () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([
                     INVIDIOUS_LEKMA_ADDON,
+                    PIPED_ADDON,
                     SENDTOKODI_ADDON,
                     TUBED_ADDON,
                     YOUTUBE_ADDON,
@@ -244,6 +250,28 @@ describe("core/scraper/youtube.js", () => {
                 "plugin://plugin.video.youtube/play/" +
                     "?video_id=foo&incognito=true",
             );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return video id to piped", async () => {
+            await browser.storage.local.set({ "youtube-playlist": "video" });
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([
+                    INVIDIOUS_LEKMA_ADDON,
+                    PIPED_ADDON,
+                    SENDTOKODI_ADDON,
+                    TUBED_ADDON,
+                ]),
+            );
+
+            const url = new URL("https://www.youtube.com/watch?v=foo");
+            const metadata = undefined;
+            const context = { incognito: true };
+
+            const file = await scraper.extractSearch(url, metadata, context);
+            assert.equal(file, "plugin://plugin.video.piped/watch/foo");
 
             assert.equal(getAddons.mock.callCount(), 1);
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
@@ -676,7 +704,7 @@ describe("core/scraper/youtube.js", () => {
 
         it("should return clip id to youtube", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
-                Promise.resolve([SENDTOKODI_ADDON, TUBED_ADDON, YOUTUBE_ADDON]),
+                Promise.resolve([SENDTOKODI_ADDON, YOUTUBE_ADDON]),
             );
 
             const url = new URL("https://www.youtube.com/clip/foo");

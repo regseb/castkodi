@@ -7,6 +7,7 @@
 import * as dailymotion from "./labeler/dailymotion.js";
 import * as dailymotionPlugin from "./labeler/plugin/dailymotion.js";
 import * as invidiousPlugin from "./labeler/plugin/invidious.js";
+import * as pipedPlugin from "./labeler/plugin/piped.js";
 import * as primeVideoPlugin from "./labeler/plugin/primevideo.js";
 import * as sendToKodiPlugin from "./labeler/plugin/sendtokodi.js";
 import * as soundCloudPlugin from "./labeler/plugin/soundcloud.js";
@@ -31,6 +32,7 @@ const LABELERS = [
     // Lister les labellisateurs des plugins (triées par ordre alphabétique).
     dailymotionPlugin,
     invidiousPlugin,
+    pipedPlugin,
     primeVideoPlugin,
     sendToKodiPlugin,
     soundCloudPlugin,
