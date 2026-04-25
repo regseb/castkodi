@@ -18,7 +18,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 24
 
@@ -37,7 +37,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 24
 
@@ -56,7 +56,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 24
 
@@ -74,9 +74,6 @@ jobs:
       actions: read
       contents: read
       security-events: write
-      # Ajouter cette permission pour le OpenID Connect (OIDC) nécessaire pour
-      # publier les résultats de l'analyse Scorecard.
-      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -101,6 +98,30 @@ jobs:
         with:
           args: --sarif-file-output=snyk.sarif
 
+      - name: Upload SARIF files to GitHub Code Scanning
+        if: ${{ '' != hashFiles('*.sarif') }}
+        uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4.35.2
+        with:
+          sarif_file: .
+
+  # Exécuter l'analyse OpenSSF Scorecard séparément, car l'action
+  # ossf/scorecard-action impose des restrictions sur le job.
+  # https://github.com/marketplace/actions/ossf-scorecard-action#workflow-restrictions
+  openssf:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      # Ajouter cette permission pour le OpenID Connect (OIDC) nécessaire pour
+      # publier les résultats de l'analyse OpenSSF Scorecard.
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
       - name: Run OpenSSF Scorecard analysis
         # Exécuter Scorecard uniquement sur la branche principale, car les
         # autres branches ne sont pas gérées.
@@ -113,6 +134,7 @@ jobs:
           publish_results: true
 
       - name: Upload SARIF files to GitHub Code Scanning
+        if: ${{ '' != hashFiles('*.sarif') }}
         uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4.35.2
         with:
           sarif_file: .
