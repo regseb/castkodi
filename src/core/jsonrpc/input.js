@@ -51,24 +51,26 @@ export const Input = class {
     }
 
     /**
+     * Envoie un évènement d'un bouton.
+     *
+     * @param {string}                    button   La clé du bouton.
+     * @param {"KB" | "XG" | "R1" | "R2"} [keymap] Le type du périphérique
+     *                                             (clavier, manette XBox,
+     *                                             télécommande standard,
+     *                                             télécommande universelle).
+     * @returns {Promise<string>} Une promesse contenant `"OK"`.
+     */
+    buttonEvent(button, keymap = "KB") {
+        return this.#kodi.send("Input.ButtonEvent", { button, keymap });
+    }
+
+    /**
      * Affiche le menu contextuel.
      *
      * @returns {Promise<string>} Une promesse contenant `"OK"`.
      */
     contextMenu() {
         return this.#kodi.send("Input.ContextMenu");
-    }
-
-    /**
-     * Navigue vers le bas dans l'interface.
-     *
-     * @returns {Promise<string>} Une promesse contenant `"OK"`.
-     */
-    down() {
-        return this.#kodi.send("Input.ButtonEvent", {
-            button: "down",
-            keymap: "KB",
-        });
     }
 
     /**
@@ -87,30 +89,6 @@ export const Input = class {
      */
     info() {
         return this.#kodi.send("Input.Info");
-    }
-
-    /**
-     * Navigue vers la gauche dans l'interface.
-     *
-     * @returns {Promise<string>} Une promesse contenant `"OK"`.
-     */
-    left() {
-        return this.#kodi.send("Input.ButtonEvent", {
-            button: "left",
-            keymap: "KB",
-        });
-    }
-
-    /**
-     * Navigue vers la droite dans l'interface.
-     *
-     * @returns {Promise<string>} Une promesse contenant `"OK"`.
-     */
-    right() {
-        return this.#kodi.send("Input.ButtonEvent", {
-            button: "right",
-            keymap: "KB",
-        });
     }
 
     /**
@@ -150,18 +128,6 @@ export const Input = class {
      */
     showPlayerProcessInfo() {
         return this.#kodi.send("Input.ShowPlayerProcessInfo");
-    }
-
-    /**
-     * Navigue vers le haut dans l'interface.
-     *
-     * @returns {Promise<string>} Une promesse contenant `"OK"`.
-     */
-    up() {
-        return this.#kodi.send("Input.ButtonEvent", {
-            button: "up",
-            keymap: "KB",
-        });
     }
 
     /**

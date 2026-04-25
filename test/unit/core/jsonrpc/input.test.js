@@ -29,6 +29,38 @@ describe("core/jsonrpc/input.js", () => {
         });
     });
 
+    describe("buttonEvent()", () => {
+        it("should send request", async () => {
+            const kodi = new Kodi();
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
+
+            const input = new Input(kodi);
+            const result = await input.buttonEvent("foo");
+            assert.equal(result, "OK");
+
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "Input.ButtonEvent",
+                { button: "foo", keymap: "KB" },
+            ]);
+        });
+
+        it("should send request with keymap", async () => {
+            const kodi = new Kodi();
+            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
+
+            const input = new Input(kodi);
+            const result = await input.buttonEvent("foo", "R2");
+            assert.equal(result, "OK");
+
+            assert.equal(send.mock.callCount(), 1);
+            assert.deepEqual(send.mock.calls[0].arguments, [
+                "Input.ButtonEvent",
+                { button: "foo", keymap: "R2" },
+            ]);
+        });
+    });
+
     describe("contextMenu()", () => {
         it("should send request", async () => {
             const kodi = new Kodi();
@@ -41,23 +73,6 @@ describe("core/jsonrpc/input.js", () => {
             assert.equal(send.mock.callCount(), 1);
             assert.deepEqual(send.mock.calls[0].arguments, [
                 "Input.ContextMenu",
-            ]);
-        });
-    });
-
-    describe("down()", () => {
-        it("should send request", async () => {
-            const kodi = new Kodi();
-            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
-
-            const input = new Input(kodi);
-            const result = await input.down();
-            assert.equal(result, "OK");
-
-            assert.equal(send.mock.callCount(), 1);
-            assert.deepEqual(send.mock.calls[0].arguments, [
-                "Input.ButtonEvent",
-                { button: "down", keymap: "KB" },
             ]);
         });
     });
@@ -87,40 +102,6 @@ describe("core/jsonrpc/input.js", () => {
 
             assert.equal(send.mock.callCount(), 1);
             assert.deepEqual(send.mock.calls[0].arguments, ["Input.Info"]);
-        });
-    });
-
-    describe("left()", () => {
-        it("should send request", async () => {
-            const kodi = new Kodi();
-            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
-
-            const input = new Input(kodi);
-            const result = await input.left();
-            assert.equal(result, "OK");
-
-            assert.equal(send.mock.callCount(), 1);
-            assert.deepEqual(send.mock.calls[0].arguments, [
-                "Input.ButtonEvent",
-                { button: "left", keymap: "KB" },
-            ]);
-        });
-    });
-
-    describe("right()", () => {
-        it("should send request", async () => {
-            const kodi = new Kodi();
-            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
-
-            const input = new Input(kodi);
-            const result = await input.right();
-            assert.equal(result, "OK");
-
-            assert.equal(send.mock.callCount(), 1);
-            assert.deepEqual(send.mock.calls[0].arguments, [
-                "Input.ButtonEvent",
-                { button: "right", keymap: "KB" },
-            ]);
         });
     });
 
@@ -196,23 +177,6 @@ describe("core/jsonrpc/input.js", () => {
             assert.equal(send.mock.callCount(), 1);
             assert.deepEqual(send.mock.calls[0].arguments, [
                 "Input.ShowPlayerProcessInfo",
-            ]);
-        });
-    });
-
-    describe("up()", () => {
-        it("should send request", async () => {
-            const kodi = new Kodi();
-            const send = mock.method(kodi, "send", () => Promise.resolve("OK"));
-
-            const input = new Input(kodi);
-            const result = await input.up();
-            assert.equal(result, "OK");
-
-            assert.equal(send.mock.callCount(), 1);
-            assert.deepEqual(send.mock.calls[0].arguments, [
-                "Input.ButtonEvent",
-                { button: "up", keymap: "KB" },
             ]);
         });
     });

@@ -327,7 +327,7 @@ const up = async () => {
     }
 
     try {
-        await kodi.input.up();
+        await kodi.input.buttonEvent("up");
     } catch (err) {
         openError(err);
     }
@@ -355,7 +355,7 @@ const left = async () => {
     }
 
     try {
-        await kodi.input.left();
+        await kodi.input.buttonEvent("left");
     } catch (err) {
         openError(err);
     }
@@ -383,7 +383,7 @@ const right = async () => {
     }
 
     try {
-        await kodi.input.right();
+        await kodi.input.buttonEvent("right");
     } catch (err) {
         openError(err);
     }
@@ -411,7 +411,7 @@ const down = async () => {
     }
 
     try {
-        await kodi.input.down();
+        await kodi.input.buttonEvent("down");
     } catch (err) {
         openError(err);
     }
