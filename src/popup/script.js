@@ -995,6 +995,7 @@ const handleActiveChanged = async (value) => {
         document.querySelector("#next").disabled = false;
 
         document.querySelector("#opensubtitle").disabled = false;
+        document.querySelector("#playerprocessinfo").disabled = false;
 
         for (const input of document.querySelectorAll("#repeat input")) {
             input.disabled = false;
@@ -1011,6 +1012,7 @@ const handleActiveChanged = async (value) => {
         document.querySelector("#next").disabled = true;
 
         document.querySelector("#opensubtitle").disabled = true;
+        document.querySelector("#playerprocessinfo").disabled = true;
 
         // Ne pas activer les boutons pour répéter et mélanger la liste de
         // lecture des vidéos quand le lecteur vidéo est inactif. Et mettre les
@@ -1128,7 +1130,6 @@ const load = async () => {
         document.querySelector("#home").disabled = false;
         document.querySelector("#fullscreen").disabled = false;
         document.querySelector("#opensendtext").disabled = false;
-        document.querySelector("#playerprocessinfo").disabled = false;
         document.querySelector("#openquit").disabled = false;
 
         document.querySelector("#clear").disabled = false;
