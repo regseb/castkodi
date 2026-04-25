@@ -4,12 +4,29 @@
  */
 
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { after, before, describe, it, mock } from "node:test";
 import { extract } from "../../../src/core/scrapers.js";
 import { config } from "../config.js";
 import "../setup.js";
 
 describe("Scraper: Le Monde", () => {
+    before(() => {
+        const originalFetch = fetch;
+        mock.method(globalThis, "fetch", (input, init) => {
+            return originalFetch(input, {
+                ...init,
+                headers: {
+                    ...init?.headers,
+                    "User-Agent": navigator.userAgent,
+                },
+            });
+        });
+    });
+
+    after(() => {
+        mock.reset();
+    });
+
     it("should return undefined when it isn't a video", async () => {
         const url = new URL(
             "https://www.lemonde.fr/pixels/article/2015/02/27" +
