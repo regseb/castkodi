@@ -1,1 +1,425 @@
-{}
+{
+    "manifest_description": {
+        "message": "50 க்கும் மேற்பட்ட தளங்களிலிருந்து (YouTube, Twitch, Vimeo, SoundCloud, torrent, …) கோடிக்கு வீடியோக்கள் மற்றும் இசையை அனுப்பவும்."
+    },
+    "menus_firstParent": {
+        "message": "கோடிக்கு நடிகர்கள்"
+    },
+    "menus_firstSend": {
+        "message": "இப்போது கோடியில் விளையாடு"
+    },
+    "menus_firstInsert": {
+        "message": "கோடிக்கு அடுத்து விளையாடு"
+    },
+    "menus_firstAdd": {
+        "message": "கோடிக்கு வரிசை உருப்படி"
+    },
+    "menus_secondSend": {
+        "message": "இப்போது விளையாடு"
+    },
+    "menus_secondInsert": {
+        "message": "அடுத்து விளையாடு"
+    },
+    "menus_secondAdd": {
+        "message": "வரிசை உருப்படி"
+    },
+    "menus_noName": {
+        "message": "(பெயர் $INDEX$)",
+        "placeholders": {
+            "index": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifications_unknown_title": {
+        "message": "அறியப்படாத பிழை"
+    },
+    "notifications_notGranted_title": {
+        "message": "ஏற்பு வழங்கப்படவில்லை"
+    },
+    "notifications_notGranted_message": {
+        "message": "நீட்டிப்பு இணையதளங்களை அணுக முடியாது."
+    },
+    "notifications_unconfigured_title": {
+        "message": "முகவரி இல்லை"
+    },
+    "notifications_unconfigured_message": {
+        "message": "கோடி வலை சேவையகத்தின் முகவரி விருப்பங்களில் இல்லை."
+    },
+    "notifications_badAddress_title": {
+        "message": "முகவரி தவறானது"
+    },
+    "notifications_badAddress_message": {
+        "message": "கோடி வலை சேவையகத்தின் முகவரி $ADDRESS$ தவறானது.",
+        "placeholders": {
+            "address": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifications_notFound_title": {
+        "message": "கோடி கிடைக்கவில்லை"
+    },
+    "notifications_notFound_message": {
+        "message": "கோடி வலை சேவையகத்தின் முகவரி $ADDRESS$ தவறானது அல்லது கோடியின் ரிமோட் கண்ட்ரோல் இயக்கப்படவில்லை.",
+        "placeholders": {
+            "address": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifications_notSupported_title": {
+        "message": "கோடி பதிப்பு ஆதரிக்கப்படவில்லை"
+    },
+    "notifications_notSupported_message": {
+        "message": "கோடி பதிப்பு $NUMBER$ ($NAME$) தேவை.",
+        "placeholders": {
+            "number": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
+    },
+    "notifications_noLink_title": {
+        "message": "ஆதரிக்கப்படாத இணைப்பு"
+    },
+    "notifications_noLink_message": {
+        "message": "$URL$ இணைப்பு தவறானது.",
+        "placeholders": {
+            "url": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifications_noLinks_title": {
+        "message": "ஆதரிக்கப்படாத இணைப்பு"
+    },
+    "notifications_noLinks_message": {
+        "message": "உரை சரியான இணைப்பு அல்ல."
+    },
+    "popup_send_title": {
+        "message": "கோடிக்கு இப்போதே விளையாடு [P]"
+    },
+    "popup_insert_title": {
+        "message": "கோடிக்கு அடுத்ததாக விளையாடு [N]"
+    },
+    "popup_add_title": {
+        "message": "கோடிக்கான வரிசை உருப்படி [Q]"
+    },
+    "popup_paste_title": {
+        "message": "இணைப்பை ஒட்டவும்… [V]"
+    },
+    "popup_server_title": {
+        "message": "சேவையகத்தை மாற்றவும்"
+    },
+    "popup_previous_title": {
+        "message": "முந்தைய [PageUp]க்குச் செல்"
+    },
+    "popup_rewind_title": {
+        "message": "ரிவைண்ட் [R]"
+    },
+    "popup_stop_title": {
+        "message": "நிறுத்து [X]"
+    },
+    "popup_pause_title": {
+        "message": "இடைநிறுத்தம் [ச்பேச்]"
+    },
+    "popup_play_title": {
+        "message": "விளையாடு [ச்பேச்]"
+    },
+    "popup_forward_title": {
+        "message": "வேகமாக முன்னோக்கி [F]"
+    },
+    "popup_next_title": {
+        "message": "அடுத்த [PageDown]க்குச் செல்"
+    },
+    "popup_volume_title": {
+        "message": "[+/-] $VALUE$%",
+        "placeholders": {
+            "value": {
+                "content": "$1"
+            }
+        }
+    },
+    "popup_mute_title": {
+        "message": "முடக்கு / ஒலியடக்க [F8]"
+    },
+    "popup_contextmenu_title": {
+        "message": "சூழல் மெனுவைத் திற [C]"
+    },
+    "popup_up_title": {
+        "message": "மேலே [அம்பு மேல்]"
+    },
+    "popup_info_title": {
+        "message": "தகவலைக் காட்டு [I]"
+    },
+    "popup_left_title": {
+        "message": "இடது [அம்பு இடது]"
+    },
+    "popup_select_title": {
+        "message": "[Enter] என்பதைத் தேர்ந்தெடுக்கவும்"
+    },
+    "popup_right_title": {
+        "message": "வலது [அம்பு வலது]"
+    },
+    "popup_back_title": {
+        "message": "பின் [Backspace]"
+    },
+    "popup_down_title": {
+        "message": "கீழே [கீழ் அம்பு]"
+    },
+    "popup_osd_title": {
+        "message": "OSD [M]ஐக் காட்டு"
+    },
+    "popup_home_title": {
+        "message": "வீட்டுக்குப் போ"
+    },
+    "popup_fullscreen_title": {
+        "message": "முழுத்திரை [தாவல்]"
+    },
+    "popup_opensendtext_title": {
+        "message": "உரை அனுப்பு…"
+    },
+    "popup_opensubtitle_title": {
+        "message": "வசனத்தை அனுப்பு… [T]"
+    },
+    "popup_playerprocessinfo_title": {
+        "message": "பிளேயர் செயல்முறை தகவலைக் காட்டு [O]"
+    },
+    "popup_openquit_title": {
+        "message": "ஆற்றல் விருப்பங்கள் [S]"
+    },
+    "popup_repeat_title": {
+        "message": "மீண்டும் செய்யவும்"
+    },
+    "popup_shuffle_title": {
+        "message": "கலக்கு"
+    },
+    "popup_clear_title": {
+        "message": "தெளிவு"
+    },
+    "popup_empty_textcontent": {
+        "message": "பிளேலிச்ட் காலியாக உள்ளது"
+    },
+    "popup_playItem_title": {
+        "message": "விளையாடு"
+    },
+    "popup_removeItem_title": {
+        "message": "அகற்று"
+    },
+    "popup_loading_title": {
+        "message": "இணைக்கிறது…"
+    },
+    "popup_web_title": {
+        "message": "கோடி இணைய இடைமுகத்திற்கு செல்க…"
+    },
+    "popup_openfeedback_title": {
+        "message": "பிழையைப் புகாரளிக்கவும்... / அம்சத்தைக் கோரவும்…"
+    },
+    "popup_opendonate_title": {
+        "message": "ஆதரவு…"
+    },
+    "popup_rate_title": {
+        "message": "உங்கள் அனுபவத்தை மதிப்பிடுங்கள்…"
+    },
+    "popup_preferences_title": {
+        "message": "கட்டமைக்கவும்…"
+    },
+    "popup_cancel_textcontent": {
+        "message": "ரத்துசெய்"
+    },
+    "popup_text_placeholder": {
+        "message": "அனுப்ப வேண்டிய உரை"
+    },
+    "popup_done_textcontent": {
+        "message": "அனுப்பிய பின் முடிக்கவும்"
+    },
+    "popup_sendtext_textcontent": {
+        "message": "அனுப்பு"
+    },
+    "popup_subtitle_placeholder": {
+        "message": "வசன இணைப்பு"
+    },
+    "popup_addsubtitle_textcontent": {
+        "message": "அனுப்பு"
+    },
+    "popup_shutdown_textcontent": {
+        "message": "பவர் ஆஃப் சிச்டம்"
+    },
+    "popup_suspend_textcontent": {
+        "message": "சச்பெண்ட்"
+    },
+    "popup_hibernate_textcontent": {
+        "message": "உறக்கநிலை"
+    },
+    "popup_reboot_textcontent": {
+        "message": "மறுதொடக்கம்"
+    },
+    "popup_configure_textcontent": {
+        "message": "கட்டமைக்கவும்"
+    },
+    "popup_text_textcontent": {
+        "message": "சேவையகத்தை மாற்றவும்:"
+    },
+    "options_permissionDescription_textcontent": {
+        "message": "இணையதளங்களை அணுக இசைவு இல்லை. வீடியோக்கள் அல்லது இசைக்கான பக்கங்களை நீட்டிப்பு பகுப்பாய்வு செய்ய முடியாது."
+    },
+    "options_permissionButton_textcontent": {
+        "message": "அணுகலை அனுமதிக்கவும்"
+    },
+    "options_serverTitle_textcontent": {
+        "message": "இணைப்பு"
+    },
+    "options_serverIntro_textcontent": {
+        "message": "கோடியுடன் நீட்டிப்பை இணைக்க, பிற கணினிகளில் உள்ள பயன்பாடுகளிலிருந்து ரிமோட் கண்ட்ரோலை அனுமதிக்க வேண்டும். இந்த விருப்பம் கோடியில் உள்ள அமைப்புகள் / சேவைகள் / கட்டுப்பாடு பக்கத்தில் உள்ளது. கோடியின் ஐபி முகவரியையும் நீங்கள் மீட்டெடுக்க வேண்டும். இந்த செய்தி அமைப்புகள் / கணினி செய்தி / சுருக்கம் பக்கத்தில் காட்டப்படும். பின்னர் கீழே உள்ள புலத்தில் இந்த ஐபி முகவரியை உள்ளிடவும்."
+    },
+    "options_serverModeSingle_textcontent": {
+        "message": "ஒரு சேவையகத்தை உள்ளமைக்கவும்"
+    },
+    "options_serverAddress_textcontent": {
+        "message": "முகவரி:"
+    },
+    "options_serverAddress_title": {
+        "message": "IP முகவரி அல்லது முழு முகவரி (உதாரணமாக: 192.168.0.1, ws://192.168.0.1:9090/jsonrpc, முதலியன)"
+    },
+    "options_serverModeMulti_textcontent": {
+        "message": "பல சேவையகங்களை உள்ளமைக்கவும்"
+    },
+    "options_serverAddresses_textcontent": {
+        "message": "முகவரி"
+    },
+    "options_serverNames_textcontent": {
+        "message": "பெயர்"
+    },
+    "options_serverAdd_textcontent": {
+        "message": "சேவையகத்தைச் சேர்க்கவும்"
+    },
+    "options_serverAddress_placeholder": {
+        "message": "192.168.0.1"
+    },
+    "options_serverName_placeholder": {
+        "message": "முதன்மையான, படுக்கையறை,…"
+    },
+    "options_serverName_error": {
+        "message": "பெயர் இல்லை."
+    },
+    "options_serverRemove_title": {
+        "message": "சேவையகத்தை அகற்று"
+    },
+    "options_serverRemove_alt": {
+        "message": "அகற்று"
+    },
+    "options_serverResultLoading_title": {
+        "message": "இணைக்கிறது…"
+    },
+    "options_serverResultConnected_title": {
+        "message": "கோடிக்கான இணைப்பு வெற்றிகரமாக நிறுவப்பட்டது."
+    },
+    "options_serverFix_title": {
+        "message": "முகவரியை சரிசெய்யவும்"
+    },
+    "options_serverFix_alt": {
+        "message": "சரி"
+    },
+    "options_generalTitle_textcontent": {
+        "message": "பொது"
+    },
+    "options_generalHistoryInput_textcontent": {
+        "message": "உலாவி வரலாற்றில் அனுப்பப்பட்ட இணைப்புகளைச் சேர்க்கவும்"
+    },
+    "options_popupTitle_textcontent": {
+        "message": "மேல்தோன்றல்"
+    },
+    "options_popupClipboardInput_textcontent": {
+        "message": "கிளிப்போர்டின் உள்ளடக்கத்துடன் பாப்அப்பில் உள்ளீட்டு புலத்தை முன் நிரப்பவும்"
+    },
+    "options_popupWheelDescription_textcontent": {
+        "message": "சக்கரத்துடன் தொகுதி கட்டுப்பாடு:"
+    },
+    "options_popupWheelNormal_textcontent": {
+        "message": "இயல்பானது"
+    },
+    "options_popupWheelReverse_textcontent": {
+        "message": "தலைகீழ்"
+    },
+    "options_popupWheelDisabled_textcontent": {
+        "message": "முடக்கப்பட்டது"
+    },
+    "options_menuTitle_textcontent": {
+        "message": "சூழல் பட்டியல்"
+    },
+    "options_menuActionsDescription_textcontent": {
+        "message": "சூழல் பட்டியலில் சேர்க்கப்பட்ட உருப்படிகளைத் தேர்ந்தெடுக்கவும்:"
+    },
+    "options_menuActionsSend_textcontent": {
+        "message": "இப்போது விளையாடு"
+    },
+    "options_menuActionsInsert_textcontent": {
+        "message": "அடுத்து விளையாடு"
+    },
+    "options_menuActionsAdd_textcontent": {
+        "message": "வரிசை உருப்படி"
+    },
+    "options_menuContextsDescription_textcontent": {
+        "message": "சூழல் பட்டியல் சேர்க்கப்பட்டுள்ள உருப்படிகளைக் குறிப்பிடவும்:"
+    },
+    "options_menuContextsAudio_textcontent": {
+        "message": "ஆடியோ"
+    },
+    "options_menuContextsBookmark_textcontent": {
+        "message": "புத்தககுறி"
+    },
+    "options_menuContextsFrame_textcontent": {
+        "message": "IFrame"
+    },
+    "options_menuContextsLink_textcontent": {
+        "message": "இணைப்பு"
+    },
+    "options_menuContextsPage_textcontent": {
+        "message": "பக்கம்"
+    },
+    "options_menuContextsSelection_textcontent": {
+        "message": "தேர்வு"
+    },
+    "options_menuContextsTab_textcontent": {
+        "message": "தாவல்"
+    },
+    "options_menuContextsVideo_textcontent": {
+        "message": "ஒளிதோற்றம்"
+    },
+    "options_youtubeTitle_textcontent": {
+        "message": "YouTube"
+    },
+    "options_youtubePlaylistDescription_textcontent": {
+        "message": "பிளேலிச்ட்டில் வீடியோவிற்கான இணைப்புகளுக்கு:"
+    },
+    "options_youtubePlaylistPlaylist_textcontent": {
+        "message": "பிளேலிச்ட்டின் அனைத்து வீடியோக்களையும் அனுப்பவும்"
+    },
+    "options_youtubePlaylistVideo_textcontent": {
+        "message": "வீடியோவை மட்டும் அனுப்பவும்"
+    },
+    "options_youtubeOrderDescription_textcontent": {
+        "message": "பிளேலிச்ட்களின் வரிசையைத் தேர்ந்தெடுக்கவும்:"
+    },
+    "options_youtubeOrderAsk_textcontent": {
+        "message": "கேள்"
+    },
+    "options_youtubeOrderDefault_textcontent": {
+        "message": "இயல்புநிலை"
+    },
+    "options_youtubeOrderReverse_textcontent": {
+        "message": "தலைகீழ்"
+    },
+    "options_youtubeOrderShuffle_textcontent": {
+        "message": "கலக்கு"
+    },
+    "labeler_youtube_unavailable": {
+        "message": "(வீடியோ கிடைக்கவில்லை)"
+    },
+    "labeler_youtube_mix": {
+        "message": "கலக்கவும்"
+    }
+}
