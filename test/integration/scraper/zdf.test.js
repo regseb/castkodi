@@ -19,16 +19,18 @@ describe("Scraper: ZDF", () => {
 
     it("should return video URL", async () => {
         const url = new URL(
-            "https://www.zdf.de/dokumentation/37-grad" +
-                "/37-im-schuldenstrudel-100.html",
+            "https://www.zdf.de/play/dokus/auslandsjournal-die-doku-130" +
+                "/auslandsjournal---die-doku-auf-der-suche-nach-dolce-vita" +
+                "-vom-22-oktober-2026-102",
         );
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
-        assert.ok(
-            undefined !== file &&
-                new URL(file).pathname.endsWith("/master.m3u8"),
-            `new URL("${file}").pathname.endsWith(...)`,
+        assert.equal(
+            file,
+            "https://nrodlzdf-a.akamaihd.net/none/zdf/26/10" +
+                "/261021_doku_dolce_vita_ajo/1" +
+                "/261021_doku_dolce_vita_ajo_4328k_p19v17.webm",
         );
     });
 });

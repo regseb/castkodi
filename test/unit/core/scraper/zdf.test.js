@@ -37,47 +37,14 @@ describe("core/scraper/zdf.js", () => {
             assert.equal(file, undefined);
         });
 
-        it("should return video URL", async () => {
-            const fetch = mock.method(globalThis, "fetch", () =>
-                Promise.resolve(
-                    Response.json({
-                        priorityList: [
-                            {
-                                formitaeten: [
-                                    {
-                                        qualities: [
-                                            {
-                                                audio: {
-                                                    tracks: [
-                                                        {
-                                                            uri: "https://foo.de/bar.webm",
-                                                        },
-                                                    ],
-                                                },
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                        ],
-                    }),
-                ),
-            );
-
-            const url = new URL("https://www.zdf.de/baz");
+        it("should return undefined when there isn't token", async () => {
+            const url = new URL("https://www.zdf.de/foo");
             const metadata = {
                 html: () =>
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="de"><body>
-                               <button
-                                 class="download-btn"
-                                 data-dialog="${JSON.stringify({
-                                     contentUrl:
-                                         "https://qux.de/{playerId}/quux.json",
-                                     apiToken: "corge",
-                                 }).replaceAll('"', "&quot;")}"
-                               ></button>
+                               <script></script>
                              </body></html>`,
                             "text/html",
                         ),
@@ -85,12 +52,146 @@ describe("core/scraper/zdf.js", () => {
             };
 
             const file = await scraper.extract(url, metadata);
-            assert.equal(file, "https://foo.de/bar.webm");
+            assert.equal(file, undefined);
+        });
+
+        it("should return undefined when no 'ptmdTemplate'", async () => {
+            const fetch = mock.method(globalThis, "fetch", () =>
+                Promise.resolve(Response.json({ data: {} })),
+            );
+
+            const url = new URL("https://www.zdf.de/foo/bar");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            String.raw`<html lang="de"><body>
+                              <script>
+                                {\"videoToken\":{\"apiToken\":\"baz\"}}
+                              </script>
+                            </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extract(url, metadata);
+            assert.equal(file, undefined);
 
             assert.equal(fetch.mock.callCount(), 1);
             assert.deepEqual(fetch.mock.calls[0].arguments, [
-                "https://qux.de/ngplayer_2_4/quux.json",
-                { headers: { "Api-Auth": "Bearer corge" } },
+                "https://api.zdf.de/graphql",
+                {
+                    method: "POST",
+                    headers: {
+                        "Api-Auth": "Bearer baz",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        operationName: "VideoByCanonical",
+                        query:
+                            "query VideoByCanonical($canonical: String!) {" +
+                            "  videoByCanonical(canonical: $canonical) {" +
+                            "    currentMedia { nodes { ptmdTemplate } }" +
+                            "  }" +
+                            "}",
+                        variables: { canonical: "bar" },
+                    }),
+                },
+            ]);
+        });
+
+        it("should return video URL", async () => {
+            const fetch = mock.method(globalThis, "fetch", () => {
+                switch (fetch.mock.callCount()) {
+                    case 0:
+                        return Promise.resolve(
+                            Response.json({
+                                data: {
+                                    videoByCanonical: {
+                                        currentMedia: {
+                                            nodes: [
+                                                {
+                                                    ptmdTemplate:
+                                                        "/foo/{playerId}/bar",
+                                                },
+                                            ],
+                                        },
+                                    },
+                                },
+                            }),
+                        );
+                    case 1:
+                        return Promise.resolve(
+                            Response.json({
+                                priorityList: [
+                                    {
+                                        formitaeten: [
+                                            {
+                                                qualities: [
+                                                    {
+                                                        audio: {
+                                                            tracks: [
+                                                                {
+                                                                    uri: "https://baz.de/qux.webm",
+                                                                },
+                                                            ],
+                                                        },
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            }),
+                        );
+                    default:
+                        throw new Error("Third unexpected call");
+                }
+            });
+
+            const url = new URL("https://www.zdf.de/quxx/corge");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            String.raw`<html lang="de"><body>
+                              <script>
+                                {\"videoToken\":{\"apiToken\":\"grault\"}}
+                              </script>
+                            </body></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extract(url, metadata);
+            assert.equal(file, "https://baz.de/qux.webm");
+
+            assert.equal(fetch.mock.callCount(), 2);
+            assert.deepEqual(fetch.mock.calls[0].arguments, [
+                "https://api.zdf.de/graphql",
+                {
+                    method: "POST",
+                    headers: {
+                        "Api-Auth": "Bearer grault",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        operationName: "VideoByCanonical",
+                        query:
+                            "query VideoByCanonical($canonical: String!) {" +
+                            "  videoByCanonical(canonical: $canonical) {" +
+                            "    currentMedia { nodes { ptmdTemplate } }" +
+                            "  }" +
+                            "}",
+                        variables: { canonical: "corge" },
+                    }),
+                },
+            ]);
+            assert.deepEqual(fetch.mock.calls[1].arguments, [
+                "https://api.zdf.de/foo/ngplayer_2_5/bar",
+                { headers: { "Api-Auth": "Bearer grault" } },
             ]);
         });
     });
