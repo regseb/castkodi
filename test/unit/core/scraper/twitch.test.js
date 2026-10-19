@@ -189,6 +189,23 @@ describe("core/scraper/twitch.js", () => {
             assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
         });
 
+        it("should return video id without 'www'", async () => {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+
+            const url = new URL("https://twitch.tv/videos/foo");
+
+            const file = await scraper.extract(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.twitch/?mode=play&video_id=foo",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
         it("should return video id to twitch", async () => {
             const getAddons = mock.method(kodi.addons, "getAddons", () =>
                 Promise.resolve([TWITCH_ADDON, SENDTOKODI_ADDON]),
@@ -281,6 +298,23 @@ describe("core/scraper/twitch.js", () => {
             );
 
             const url = new URL("https://m.twitch.tv/foo/clip/bar");
+
+            const file = await scraper.extract(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.twitch/?mode=play&slug=bar",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return clip slug without 'www'", async () => {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+
+            const url = new URL("https://twitch.tv/foo/clip/bar");
 
             const file = await scraper.extract(url);
             assert.equal(
@@ -400,6 +434,23 @@ describe("core/scraper/twitch.js", () => {
             );
 
             const url = new URL("https://m.twitch.tv/foo");
+
+            const file = await scraper.extract(url);
+            assert.equal(
+                file,
+                "plugin://plugin.video.twitch/?mode=play&channel_name=foo",
+            );
+
+            assert.equal(getAddons.mock.callCount(), 1);
+            assert.deepEqual(getAddons.mock.calls[0].arguments, ["video"]);
+        });
+
+        it("should return channel name without 'www'", async () => {
+            const getAddons = mock.method(kodi.addons, "getAddons", () =>
+                Promise.resolve([]),
+            );
+
+            const url = new URL("https://twitch.tv/foo");
 
             const file = await scraper.extract(url);
             assert.equal(

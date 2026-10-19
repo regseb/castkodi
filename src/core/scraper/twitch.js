@@ -78,8 +78,8 @@ const dispatchClip = async (slug) => {
  * Extrait les informations nécessaires pour lire un clip sur Kodi.
  *
  * @param {URLMatch} url L'URL d'un clip Twitch.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionClip = ({ pathname, searchParams }) => {
     if ("/embed" === pathname) {
@@ -99,8 +99,8 @@ export const extractClip = matchURLPattern(
  * intégrée sur Kodi.
  *
  * @param {URLMatch} url L'URL d'un _live_ ou d'une vidéo intégré.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionEmbed = ({ searchParams }) => {
     if (searchParams.has("channel")) {
@@ -140,4 +140,5 @@ export const extract = matchURLPattern(
     "https://www.twitch.tv/*",
     "https://go.twitch.tv/*",
     "https://m.twitch.tv/*",
+    "https://twitch.tv/*",
 );

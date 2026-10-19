@@ -42,6 +42,17 @@ describe("Scraper: Twitch", () => {
         );
     });
 
+    it("should return video id without 'www'", async () => {
+        const url = new URL("https://twitch.tv/videos/164088111");
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.equal(
+            file,
+            "plugin://plugin.video.twitch/?mode=play&video_id=164088111",
+        );
+    });
+
     it("should return embed clip slug", async () => {
         const url = new URL(
             "https://clips.twitch.tv/embed" +
@@ -103,6 +114,20 @@ describe("Scraper: Twitch", () => {
     it("should return clip slug from mobile version", async () => {
         const url = new URL(
             "https://m.twitch.tv/twitch/clip/GleamingWildCougarFUNgineer",
+        );
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.equal(
+            file,
+            "plugin://plugin.video.twitch/" +
+                "?mode=play&slug=GleamingWildCougarFUNgineer",
+        );
+    });
+
+    it("should return clip slug without 'www'", async () => {
+        const url = new URL(
+            "https://twitch.tv/twitch/clip/GleamingWildCougarFUNgineer",
         );
         const context = { depth: false, incognito: false };
 
@@ -189,6 +214,17 @@ describe("Scraper: Twitch", () => {
         assert.equal(
             file,
             "plugin://plugin.video.twitch/?mode=play&channel_name=jvtv",
+        );
+    });
+
+    it("should return channel name without 'www'", async () => {
+        const url = new URL("https://twitch.tv/artefr");
+        const context = { depth: false, incognito: false };
+
+        const file = await extract(url, context);
+        assert.equal(
+            file,
+            "plugin://plugin.video.twitch/?mode=play&channel_name=artefr",
         );
     });
 });
