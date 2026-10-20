@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import { afterEach, describe, it, mock } from "node:test";
 // Importer le fichier des scrapers en premier pour contourner un problème de
 // dépendances circulaires.
-// eslint-disable-next-line import/no-unassigned-import
+// eslint-disable-next-line importX/no-unassigned-import
 import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/ok.js";
 import "../../setup.js";
@@ -51,10 +51,10 @@ describe("core/scraper/ok.js", () => {
                             `<html lang="ru"><body>
                                <div data-options="${JSON.stringify({
                                    flashvars: {
-                                       metadata: JSON.stringify({
+                                       metadata: {
                                            hlsManifestUrl:
                                                "https://foo.ru/video.m3u8",
-                                       }),
+                                       },
                                    },
                                }).replaceAll('"', "&quot;")}" />
                              </body></html>`,
@@ -83,10 +83,10 @@ describe("core/scraper/ok.js", () => {
                         `<html lang="ru"><body>
                            <div data-options="${JSON.stringify({
                                flashvars: {
-                                   metadata: JSON.stringify({
+                                   metadata: {
                                        hlsManifestUrl:
                                            "https://foo.ru/video.m3u8",
-                                   }),
+                                   },
                                },
                            }).replaceAll('"', "&quot;")}" />
                          </body></html>`,

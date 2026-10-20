@@ -5,7 +5,7 @@
  * @author Sébastien Règne
  */
 
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 
@@ -20,8 +20,8 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async (_url, metadata) => {
     const doc = await metadata.html();
@@ -31,8 +31,7 @@ const action = async (_url, metadata) => {
     }
 
     const json = JSON.parse(div.dataset.options);
-    const data = JSON.parse(json.flashvars.metadata);
-    return data.hlsManifestUrl;
+    return json.flashvars.metadata.hlsManifestUrl;
 };
 export const extract = matchURLPattern(action, "https://ok.ru/video/*");
 
@@ -49,8 +48,8 @@ export const extract = matchURLPattern(action, "https://ok.ru/video/*");
  *                                     en profondeur.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionMobile = async ({ href }, _metadata, context) => {
     // Ne pas utiliser l'attribut "data-options" de la page mobile, car il ne
