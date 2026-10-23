@@ -1,5 +1,24 @@
 # Changelog
 
+## [7.20.0](https://github.com/regseb/castkodi/compare/v7.19.0...v7.20.0) (2026-10-23)
+
+### Features
+
+- Support microdata HTTPS.
+  ([63d2637](https://github.com/regseb/castkodi/commit/63d2637ef4c87af673ac6cee019cbb8019a05df9))
+
+### Bug Fixes
+
+- Support "twitch.tv" (without "www").
+  ([#205](https://github.com/regseb/castkodi/issues/205))
+  ([b91e5e3](https://github.com/regseb/castkodi/commit/b91e5e379f136b85ed291c62d02838597030e74d))
+- Update OK scraper.
+  ([049f23d](https://github.com/regseb/castkodi/commit/049f23d75b654915e4d4f307b40fbcc3efd39acd))
+- Update Prime Video scraper.
+  ([ecf12aa](https://github.com/regseb/castkodi/commit/ecf12aae41d6eac2986310fdb9b5c51724179586))
+- Update ZDF scraper.
+  ([92ab4c3](https://github.com/regseb/castkodi/commit/92ab4c3d782fb77dacd71906b0ad93dfb244e61b))
+
 ## [7.19.0](https://github.com/regseb/castkodi/compare/v7.18.0...v7.19.0) (2026-04-25)
 
 ### Features
