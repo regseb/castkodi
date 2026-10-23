@@ -24,13 +24,13 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  */
 const action = async (_url, metadata) => {
     const doc = await metadata.html();
-    const script = doc.querySelector('#a-page > script[type="text/template"]');
+    const script = doc.querySelector("script#dv-web-page-hydration-data");
     if (null === script) {
         return undefined;
     }
     const json = JSON.parse(script.text);
-    const body = json.props.body[0];
-    const details = body.props.atf.state.detail.headerDetail[body.args.titleID];
+    const state = json.init.preparations.body.atf.state;
+    const details = state.detail.headerDetail[state.pageTitleId];
     return primeVideoPlugin.generateUrl(details.catalogId, details.title);
 };
 export const extract = matchURLPattern(

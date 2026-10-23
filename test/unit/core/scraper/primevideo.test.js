@@ -40,32 +40,30 @@ describe("core/scraper/primevideo.js", () => {
                     Promise.resolve(
                         new DOMParser().parseFromString(
                             `<html lang="en"><body>
-                               <div id="a-page">
-                                 <script type="text/template">${JSON.stringify({
-                                     props: {
-                                         body: [
-                                             {
-                                                 args: { titleID: "bar" },
-                                                 props: {
-                                                     atf: {
-                                                         state: {
-                                                             detail: {
-                                                                 headerDetail: {
-                                                                     bar: {
-                                                                         catalogId:
-                                                                             "baz",
-                                                                         title: "Qux",
-                                                                     },
-                                                                 },
-                                                             },
-                                                         },
-                                                     },
-                                                 },
-                                             },
-                                         ],
-                                     },
-                                 })}</script>
-                               </div>
+                               <script id="dv-web-page-hydration-data">${JSON.stringify(
+                                   {
+                                       init: {
+                                           preparations: {
+                                               body: {
+                                                   atf: {
+                                                       state: {
+                                                           pageTitleId: "bar",
+                                                           detail: {
+                                                               headerDetail: {
+                                                                   bar: {
+                                                                       catalogId:
+                                                                           "baz",
+                                                                       title: "Qux",
+                                                                   },
+                                                               },
+                                                           },
+                                                       },
+                                                   },
+                                               },
+                                           },
+                                       },
+                                   },
+                               )}</script>
                              </body></html>`,
                             "text/html",
                         ),

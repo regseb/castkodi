@@ -77,7 +77,7 @@ describe("Scraper: Prime Video", () => {
             file,
             "plugin://plugin.video.amazon-test/?mode=PlayVideo" +
                 "&asin=amzn1.dv.gti.a3f19de4-9ec3-4428-a3ea-a7aa4a0792d8" +
-                "&name=Tom%20Clancy%26%2339%3Bs%20Jack%20Ryan",
+                "&name=Tom%20Clancy's%20Jack%20Ryan",
         );
     });
 
