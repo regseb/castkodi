@@ -1,7 +1,7 @@
 /**
  * @license MIT
  * @see https://eslint.org/docs/latest/rules/
- * @see https://github.com/import-js/eslint-plugin-import#rules
+ * @see https://github.com/un-ts/eslint-plugin-import-x#rules
  * @see https://github.com/mozilla/eslint-plugin-no-unsanitized#rule-details
  * @see https://github.com/sindresorhus/eslint-plugin-unicorn#rules
  * @author Sébastien Règne
@@ -33,8 +33,8 @@ export default {
         "max-lines-per-function": "off",
         "max-statements": "off",
 
-        // Plugin eslint-plugin-import.
-        "import/no-unassigned-import": [
+        // Plugin eslint-plugin-import-x.
+        "importX/no-unassigned-import": [
             "error",
             { allow: ["**/polyfill/**", "**/setup.js"] },
         ],
@@ -48,5 +48,6 @@ export default {
         // Autoriser la valeur null pour pouvoir tester cette valeur dans les
         // tests.
         "unicorn/no-null": "off",
+        "unicorn/no-top-level-side-effects": "off",
     },
 };

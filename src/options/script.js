@@ -192,7 +192,7 @@ const save = async (event) => {
             for (const input of event.target.form.querySelectorAll(
                 "tbody input",
             )) {
-                const [type, position] = input.name.split("_");
+                const [type, position] = input.name.split("_", 2);
                 const index = Number(position);
                 if (undefined === list[index]) {
                     list[index] = { [type]: input.value };
@@ -202,7 +202,9 @@ const save = async (event) => {
             }
             await browser.storage.local.set({ "server-list": list });
             event.target.form
-                .querySelectorAll(`input[name="${event.target.name}"]`)
+                .querySelectorAll(
+                    `input[name="${CSS.escape(event.target.name)}"]`,
+                )
                 .forEach(check);
         }
     } else if ("checkbox" === event.target.type) {
@@ -251,8 +253,9 @@ const remove = async (event) => {
     // Recalculer les index des champs pour chaque ligne.
     let index = 0;
     for (const tr of table.querySelectorAll("tbody tr")) {
+        const suffix = `_${index.toString()}`;
         for (const input of tr.querySelectorAll("input")) {
-            input.name = input.name.replace(/_\d+$/v, `_${index.toString()}`);
+            input.name = input.name.replace(/_\d+$/v, () => suffix);
         }
         ++index;
     }

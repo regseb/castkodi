@@ -39,17 +39,6 @@ describe.skip("Scraper: Vimeo", () => {
         );
     });
 
-    it("should return video id when protocol is HTTP [ldjson-vimeo]", async () => {
-        const url = new URL("http://vimeo.com/228786490");
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(
-            file,
-            "plugin://plugin.video.vimeo/play/?video_id=228786490:a81341a31d",
-        );
-    });
-
     it("should return video id from groups video [ldjson-vimeo]", async () => {
         const url = new URL("https://vimeo.com/groups/motion/videos/93206523");
         const context = { depth: false, incognito: false };

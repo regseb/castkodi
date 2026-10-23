@@ -809,11 +809,11 @@ const handleAdd = (item) => {
     }
     const li = document.createElement("li");
     li.dataset.file = item.file;
-    li.addEventListener("dragstart", handleDragStart, false);
-    li.addEventListener("dragover", handleDragOver, false);
-    li.addEventListener("dragleave", handleDragLeave, false);
-    li.addEventListener("drop", handleDrop, false);
-    li.addEventListener("dragend", handleDragEnd, false);
+    li.addEventListener("dragstart", handleDragStart, { capture: false });
+    li.addEventListener("dragover", handleDragOver, { capture: false });
+    li.addEventListener("dragleave", handleDragLeave, { capture: false });
+    li.addEventListener("drop", handleDrop, { capture: false });
+    li.addEventListener("dragend", handleDragEnd, { capture: false });
     li.draggable = true;
     li.append(clone);
 
@@ -885,7 +885,9 @@ const handleShuffledChanged = async (value, only = false) => {
 };
 
 const handleRepeatChanged = (value) => {
-    document.querySelector(`[name="repeat"][value="${value}"]`).checked = true;
+    document.querySelector(
+        `[name="repeat"][value="${CSS.escape(value)}"]`,
+    ).checked = true;
     document.querySelector("#repeat-off").classList.remove("checked");
     document.querySelector("#repeat-all").classList.remove("checked");
     document.querySelector("#repeat-one").classList.remove("checked");
@@ -898,17 +900,15 @@ const handleTimeChanged = (value) => {
     time.valueAsNumber = Math.min(value, max);
 
     time.previousElementSibling.textContent =
-        3600 < max
+        (3600 < max
             ? Math.trunc(time.valueAsNumber / 3600) +
               ":" +
               (Math.trunc(time.valueAsNumber / 60) % 60)
                   .toString()
-                  .padStart(2, "0") +
-              ":" +
-              (time.valueAsNumber % 60).toString().padStart(2, "0")
-            : Math.trunc(time.valueAsNumber / 60) +
-              ":" +
-              (time.valueAsNumber % 60).toString().padStart(2, "0");
+                  .padStart(2, "0")
+            : Math.trunc(time.valueAsNumber / 60)) +
+        ":" +
+        (time.valueAsNumber % 60).toString().padStart(2, "0");
 
     // Utiliser la taille du temps total pour que l'élément ait toujours la
     // même taille (même durant le passage à la dizaine).
@@ -920,8 +920,8 @@ const handleTimeChanged = (value) => {
 const handleTotaltimeChanged = (value) => {
     document.querySelector("#time").max = value.toString();
     document.querySelector("#play").disabled = false;
+    const time = document.querySelector("#time");
     if (0 === value) {
-        const time = document.querySelector("#time");
         time.disabled = true;
         time.previousElementSibling.style.visibility = "hidden";
         time.nextElementSibling.style.visibility = "hidden";
@@ -931,7 +931,6 @@ const handleTotaltimeChanged = (value) => {
 
         time.nextElementSibling.textContent = "0:00";
     } else {
-        const time = document.querySelector("#time");
         time.disabled = false;
         time.previousElementSibling.style.visibility = "visible";
         time.nextElementSibling.style.visibility = "visible";
@@ -940,15 +939,13 @@ const handleTotaltimeChanged = (value) => {
         document.querySelector("#forward").disabled = false;
 
         time.nextElementSibling.textContent =
-            3600 < value
+            (3600 < value
                 ? Math.trunc(value / 3600) +
                   ":" +
-                  (Math.trunc(value / 60) % 60).toString().padStart(2, "0") +
-                  ":" +
-                  (value % 60).toString().padStart(2, "0")
-                : Math.trunc(value / 60) +
-                  ":" +
-                  (value % 60).toString().padStart(2, "0");
+                  (Math.trunc(value / 60) % 60).toString().padStart(2, "0")
+                : Math.trunc(value / 60)) +
+            ":" +
+            (value % 60).toString().padStart(2, "0");
     }
 };
 
@@ -1176,7 +1173,9 @@ const load = async () => {
             .map(([k]) => k.slice(3))
             .forEach((key) => {
                 document
-                    .querySelector(`#dialogquit button[value="${key}"]`)
+                    .querySelector(
+                        `#dialogquit button[value="${CSS.escape(key)}"]`,
+                    )
                     .remove();
             });
     } catch (err) {
@@ -1321,7 +1320,7 @@ const SHORTCUTS = new Map([
 
 // Attention ! Le popup n'a pas automatiquement le focus quand elle est ouverte
 // dans le menu prolongeant la barre d'outils. https://bugzil.la/1623875
-globalThis.addEventListener("keydown", async (event) => {
+addEventListener("keydown", async (event) => {
     // Ignorer les entrées avec une touche de modification.
     if (event.altKey || event.ctrlKey || event.metaKey) {
         return;
@@ -1332,8 +1331,8 @@ globalThis.addEventListener("keydown", async (event) => {
     const dialog = event.target.closest("dialog");
     if (null !== dialog) {
         if ("Enter" === event.key) {
-            dialog.close(dialog.querySelector(".primary").value);
             event.preventDefault();
+            dialog.close(dialog.querySelector(".primary").value);
         }
         return;
     }
@@ -1342,28 +1341,29 @@ globalThis.addEventListener("keydown", async (event) => {
     // touche Entrée qui envoie l'URL saisie).
     if ("TEXTAREA" === event.target.nodeName) {
         if ("Enter" === event.key) {
-            await send();
             event.preventDefault();
+            await send();
         }
         return;
     }
 
     if (SHORTCUTS.has(event.key)) {
-        SHORTCUTS.get(event.key)();
+        // eslint-disable-next-line unicorn/no-late-event-control
         event.preventDefault();
+        SHORTCUTS.get(event.key)();
     }
 
     // Appliquer le traitement par défaut pour les autres entrées.
 });
 
-globalThis.addEventListener("keyup", (event) => {
+addEventListener("keyup", (event) => {
     // Désactiver l'actionnement des boutons avec la touche Espace.
     if (" " === event.key) {
         event.preventDefault();
     }
 });
 
-globalThis.addEventListener(
+addEventListener(
     "wheel",
     async (event) => {
         const config = await browser.storage.local.get(["popup-wheel"]);
@@ -1387,13 +1387,14 @@ globalThis.addEventListener(
             return;
         }
 
+        // eslint-disable-next-line unicorn/no-late-event-control
+        event.preventDefault();
         await setVolume(
             ("normal" === config["popup-wheel"] && 0 > event.deltaY) ||
                 ("reverse" === config["popup-wheel"] && 0 < event.deltaY)
                 ? "increment"
                 : "decrement",
         );
-        event.preventDefault();
     },
     { passive: false },
 );

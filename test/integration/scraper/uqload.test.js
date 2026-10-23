@@ -26,28 +26,28 @@ describe("Scraper: Uqload", () => {
     });
 
     it("should return video URL", async () => {
-        const url = new URL("https://uqload.com/4uedyjqi62e5.html");
+        const url = new URL("https://uqload.com/m47vuxxyk8qm.html");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 file.endsWith(
-                    "/v.mp4|Referer=https://uqload.com/4uedyjqi62e5.html",
+                    "/v.mp4|Referer=https://uqload.com/m47vuxxyk8qm.html",
                 ),
             `"${file}".endsWith(...)`,
         );
     });
 
     it("should return video URL from embed", async () => {
-        const url = new URL("https://uqload.com/embed-4uedyjqi62e5.html");
+        const url = new URL("https://uqload.com/embed-m47vuxxyk8qm.html");
         const context = { depth: false, incognito: false };
 
         const file = await extract(url, context);
         assert.ok(
             undefined !== file &&
                 file.endsWith(
-                    "/v.mp4|Referer=https://uqload.com/embed-4uedyjqi62e5.html",
+                    "/v.mp4|Referer=https://uqload.com/embed-m47vuxxyk8qm.html",
                 ),
             `"${file}".endsWith(...)`,
         );

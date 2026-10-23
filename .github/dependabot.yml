@@ -7,7 +7,7 @@ updates:
     allow:
       - dependency-type: production
     cooldown:
-      default-days: 5
+      default-days: 7
     groups:
       npm:
         patterns:
@@ -18,7 +18,7 @@ updates:
     schedule:
       interval: monthly
     cooldown:
-      default-days: 5
+      default-days: 7
     groups:
       github-actions:
         patterns:

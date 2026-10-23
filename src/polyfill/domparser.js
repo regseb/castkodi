@@ -11,6 +11,15 @@ import * as linkedom from "./lib/linkedom.js";
 if (!("DOMParser" in globalThis)) {
     globalThis.DOMParser = linkedom.DOMParser;
 
+    // Ajouter la méthode `getHTML()` qui n'est pas implémenté dans LinkeDOM.
+    // https://github.com/WebReflection/linkedom/issues/317
+    Object.defineProperty(linkedom.Element.prototype, "getHTML", {
+        value() {
+            // eslint-disable-next-line unicorn/prefer-dom-node-html-methods
+            return this.innerHTML;
+        },
+    });
+
     // Ajouter des propriétés manquantes dans les classes fournies par LinkeDOM.
     // Comme document.querySelector() ne retourne pas la classe spécifique :
     // ajouter les propriétés dans HTMLElement.

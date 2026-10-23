@@ -6,7 +6,7 @@
 
 import * as acast from "./scraper/acast.js";
 import * as aceStream from "./scraper/acestream.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as alloCine from "./scraper/allocine.js";
 import * as aparat from "./scraper/aparat.js";
 import * as applePodcasts from "./scraper/applepodcasts.js";
@@ -20,38 +20,38 @@ import * as cbcListen from "./scraper/cbclisten.js";
 import * as dailymotion from "./scraper/dailymotion.js";
 import * as dmax from "./scraper/dmax.js";
 import * as dumpert from "./scraper/dumpert.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as embed from "./scraper/embed.js";
 import * as facebook from "./scraper/facebook.js";
 import * as flickr from "./scraper/flickr.js";
 import * as franceTv from "./scraper/francetv.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as gamekult from "./scraper/gamekult.js";
 import * as goplay from "./scraper/goplay.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as iframe from "./scraper/iframe.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as invidious from "./scraper/invidious.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as jv from "./scraper/jv.js";
 import * as kcaaStreaming from "./scraper/kcaastreaming.js";
 import * as kick from "./scraper/kick.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as ldJson from "./scraper/ldjson.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as leMonde from "./scraper/lemonde.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as lePoint from "./scraper/lepoint.js";
 import * as media from "./scraper/media.js";
 import * as megaphone from "./scraper/megaphone.js";
 import * as microdata from "./scraper/microdata.js";
 import * as mixcloud from "./scraper/mixcloud.js";
 import * as noscript from "./scraper/noscript.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as ok from "./scraper/ok.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as openGraph from "./scraper/opengraph.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as ouestFrance from "./scraper/ouestfrance.js";
 import * as peerTube from "./scraper/peertube.js";
 import * as podCloud from "./scraper/podcloud.js";
@@ -60,11 +60,11 @@ import * as reddit from "./scraper/reddit.js";
 import * as rumble from "./scraper/rumble.js";
 import * as soundCloud from "./scraper/soundcloud.js";
 import * as srf from "./scraper/srf.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as starGr from "./scraper/stargr.js";
 import * as steam from "./scraper/steam.js";
 import * as template from "./scraper/template.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as theGuardian from "./scraper/theguardian.js";
 import * as tikTok from "./scraper/tiktok.js";
 import * as torrent from "./scraper/torrent.js";
@@ -76,7 +76,7 @@ import * as videoPress from "./scraper/videopress.js";
 import * as vidlox from "./scraper/vidlox.js";
 import * as vidyard from "./scraper/vidyard.js";
 import * as vimeo from "./scraper/vimeo.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import * as vingtMinutes from "./scraper/vingtminutes.js";
 import * as viously from "./scraper/viously.js";
 import * as vrtNu from "./scraper/vrtnu.js";

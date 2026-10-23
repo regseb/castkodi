@@ -86,7 +86,7 @@ td {
 th {
     font-size: 13px;
     font-weight: 500;
-    text-align: left;
+    text-align: start;
     background-color: var(--button-background-color);
 }
 th:not(:first-child) {

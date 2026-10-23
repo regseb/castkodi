@@ -18,7 +18,7 @@ describe("Scraper: Blender Video", () => {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://video.blender.org/static/web-videos" +
+            "https://video.blender.org/object-storage/web_videos" +
                 "/bf1f3fb5-b119-4f9f-9930-8e20e892b898-720.mp4",
         );
     });
@@ -33,7 +33,7 @@ describe("Scraper: Blender Video", () => {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://video.blender.org/static/web-videos" +
+            "https://video.blender.org/object-storage/web_videos" +
                 "/a69d68a5-a0e0-4a80-9d66-49f093c97aaf-804.mp4",
         );
     });

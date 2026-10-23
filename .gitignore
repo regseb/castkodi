@@ -1,5 +1,5 @@
 # Ignorer les répertoires et les fichiers générés.
-/.stryker/
+/.tmp/
 /build/
 /jsdocs/
 /node_modules/

@@ -5,7 +5,7 @@
  * @author Sébastien Règne
  */
 
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import { extract as metaExtract } from "../scrapers.js";
 import { matchURLPattern } from "../tools/urlmatch.js";
 

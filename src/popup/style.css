@@ -94,7 +94,7 @@ dialog {
     inline-size: 100%;
     /* Afficher quatre ligne dans la zone de texte. */
     block-size: 90px;
-    resize: vertical;
+    resize: block;
 }
 
 #dialogquit menu {
@@ -169,7 +169,7 @@ dialog {
 }
 #timing time {
     margin: 0 8px;
-    text-align: right;
+    text-align: end;
 }
 #time {
     flex-grow: 1;
@@ -237,7 +237,7 @@ dialog {
 
 #playlist-items {
     flex-grow: 1;
-    inline-size: 100vw;
+    inline-size: 100vi;
     /* Afficher 4,5 éléments : (1 + 32) * 4 + (1 + 32 / 2) = 149 */
     min-block-size: 149px;
     margin-block-end: 8px;

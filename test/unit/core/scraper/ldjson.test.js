@@ -8,7 +8,7 @@ import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 // Importer le fichier des scrapers en premier pour contourner un problème de
 // dépendances circulaires.
-// eslint-disable-next-line import/no-unassigned-import
+// eslint-disable-next-line importX/no-unassigned-import
 import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/ldjson.js";
 import "../../setup.js";
@@ -73,7 +73,7 @@ describe("core/scraper/ldjson.js", () => {
                             `<html lang="en"><body>
                                <script type="application/ld+json">${JSON.stringify(
                                    {
-                                       "@context": "http://schema.org/",
+                                       "@context": "https://schema.org/",
                                        "@type": "ImageObject",
                                        contentUrl: "https://bar.com/baz.png",
                                    },
@@ -98,7 +98,7 @@ describe("core/scraper/ldjson.js", () => {
                             `<html lang="en"><body>
                                <script type="application/ld+json">${JSON.stringify(
                                    {
-                                       "@context": "http://schema.org/",
+                                       "@context": "https://schema.org/",
                                        "@type": "MusicVideoObject",
                                    },
                                )}</script>
@@ -122,7 +122,7 @@ describe("core/scraper/ldjson.js", () => {
                             `<html lang="en"><body>
                                <script type="application/ld+json">${JSON.stringify(
                                    {
-                                       "@context": "http://schema.org/",
+                                       "@context": "https://schema.org/",
                                        "@type": "VideoObject",
                                        contentUrl: "https://bar.com/baz.mkv",
                                    },
@@ -211,7 +211,7 @@ describe("core/scraper/ldjson.js", () => {
                             `<html lang="en"><body>
                                <script type="application/ld+json">${JSON.stringify(
                                    {
-                                       "@context": "http://schema.org/",
+                                       "@context": "https://schema.org/",
                                        "@type": "VideoObject",
                                        embedUrl:
                                            "https://unknowntube.org/embed/bar",
@@ -219,7 +219,7 @@ describe("core/scraper/ldjson.js", () => {
                                )}</script>
                                <script type="application/ld+json">${JSON.stringify(
                                    {
-                                       "@context": "http://schema.org/",
+                                       "@context": "https://schema.org/",
                                        "@type": "VideoObject",
                                        embedUrl:
                                            "https://www.dailymotion.com/embed" +
@@ -252,7 +252,7 @@ describe("core/scraper/ldjson.js", () => {
                             `<html lang="en"><body>
                                <script type="application/ld+json">${JSON.stringify(
                                    {
-                                       "@context": "http://schema.org/",
+                                       "@context": "https://schema.org/",
                                        "@type": "VideoObject",
                                        embedUrl:
                                            "https://www.dailymotion.com/embed" +
@@ -279,7 +279,7 @@ describe("core/scraper/ldjson.js", () => {
                             `<html lang="en"><body>
                                <script type="application/ld+json">${JSON.stringify(
                                    {
-                                       "@context": "http://schema.org/",
+                                       "@context": "https://schema.org/",
                                        // Le nœud MusicVideoObject devrait avoir
                                        // un "contentUrl" ou un "embedUrl".
                                        "@type": "MusicVideoObject",

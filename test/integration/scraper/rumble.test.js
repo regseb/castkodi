@@ -18,7 +18,7 @@ describe("Scraper: Rumble", () => {
         // redirections (comme le font les navigateurs). Rumble fait une
         // redirection sur la même page et y ajoute des cookies. Sans la
         // transmission des cookies, fetch() suit les redirections indéfiniment.
-        const nativeFetch = globalThis.fetch;
+        const nativeFetch = fetch;
         mock.method(globalThis, "fetch", async (url, options = {}) => {
             const response = await nativeFetch(url, {
                 ...options,
@@ -53,7 +53,7 @@ describe("Scraper: Rumble", () => {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://1a-1791.com/video/s8/2/2/5/p/N/25pNf.haa.mp4",
+            "https://hugh.cdn.rumble.cloud/video/s8/2/2/5/p/N/25pNf.haa.mp4",
         );
     });
 
@@ -64,7 +64,7 @@ describe("Scraper: Rumble", () => {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://1a-1791.com/video/s8/2/-/p/1/G/-p1Gf.haa.mp4",
+            "https://hugh.cdn.rumble.cloud/video/s8/2/-/p/1/G/-p1Gf.haa.mp4",
         );
     });
 });

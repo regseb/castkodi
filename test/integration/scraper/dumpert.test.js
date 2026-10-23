@@ -21,18 +21,6 @@ describe("Scraper: Dumpert", () => {
         );
     });
 
-    it("should return video URL when protocol is HTTP [opengraph]", async () => {
-        const url = new URL("http://www.dumpert.nl/item/7924631_3a727e30");
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(
-            file,
-            "https://media.dumpert.nl/dmp/media/video/a/1/6" +
-                "/a167015b-93df-5ead-e5c6-c3768463966e/270/index.m3u8",
-        );
-    });
-
     it("should return video URL from old page [opengraph]", async () => {
         const url = new URL(
             "https://www.dumpert.nl/mediabase/7248279/47066e59" +

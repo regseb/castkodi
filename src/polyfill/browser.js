@@ -4,13 +4,6 @@
  * @author Sébastien Règne
  */
 
-// Copier la variable "chrome" (qui contient les APIs pour les WebExtensions)
-// dans la variable "browser", car Chromium fournit seulement "chrome".
-// https://issues.chromium.org/40556351 https://issues.chromium.org/489447084
-if (!("browser" in globalThis)) {
-    globalThis.browser = chrome;
-}
-
 // Ajouter une prothèse pour la méthode browser.runtime.getBrowserInfo() qui
 // n'est pas implémentée dans Chromium. https://issues.chromium.org/40671645
 if (!("getBrowserInfo" in browser.runtime)) {
@@ -37,21 +30,4 @@ browser.runtime.getBrowserInfo = async () => {
         ...browserInfo,
         name: browserInfo.name.replace(" Nightly", ""),
     };
-};
-
-// Contourner un bogue dans Firefox sous Android : quand la page des options est
-// ouverte avec la fonction openOptionPage(), la page reste blanche.
-// https://bugzil.la/1795449#c2
-const nativeOpenOptionsPage = browser.runtime.openOptionsPage;
-browser.runtime.openOptionsPage = async () => {
-    // Ne pas sortir la fonction getPlatformInfo(), car les service workers
-    // n'autorisent pas les top-level await.
-    const platformInfo = await browser.runtime.getPlatformInfo();
-    if ("android" === platformInfo.os) {
-        await browser.tabs.create({
-            url: browser.runtime.getManifest().options_ui.page,
-        });
-    } else {
-        await nativeOpenOptionsPage();
-    }
 };

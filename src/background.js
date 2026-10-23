@@ -50,11 +50,7 @@ browser.storage.onChanged.addListener(async (changes) => {
 });
 
 browser.contextMenus.onClicked.addListener(async (info) => {
-    if (
-        "send" === info.menuItemId ||
-        "insert" === info.menuItemId ||
-        "add" === info.menuItemId
-    ) {
+    if (["send", "insert", "add"].includes(info.menuItemId)) {
         await menu.click(info);
     } else if (!info.wasChecked) {
         await menu.change(Number(info.menuItemId));

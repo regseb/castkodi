@@ -7,47 +7,21 @@
 /**
  * Recherche les attributs liés à la localisation.
  *
- * @param {Document} doc Le document HTML.
+ * @param {Document | DocumentFragment} doc Le document HTML ou un fragment de
+ *                                          document dans un template.
  * @returns {Attr[]} La liste des attributs.
  */
 const search = (doc) => {
-    const results = doc.evaluate(
-        "//@*[starts-with(name(), 'data-l10n-')]",
-        doc,
-        // eslint-disable-next-line unicorn/no-null
-        null,
-        XPathResult.ANY_TYPE,
-        // eslint-disable-next-line unicorn/no-null
-        null,
-    );
     const attributes = [];
-    for (
-        let attribut = results.iterateNext();
-        null !== attribut;
-        attribut = results.iterateNext()
-    ) {
-        attributes.push(/** @type {Attr} */ (attribut));
-    }
-    return attributes;
-};
-
-/**
- * Recherche les attributs liés à la localisation dans des éléments
- * `<template>`.
- *
- * @param {Document|DocumentFragment} doc Le document HTML ou un fragment de
- *                                        document dans un template.
- * @returns {Attr[]} La liste des attributs.
- */
-const searchInTemplate = (doc) => {
-    const attributes = [];
-    for (const template of doc.querySelectorAll("template")) {
-        attributes.push(...searchInTemplate(template.content));
-        for (const element of template.content.querySelectorAll("*")) {
+    for (const element of doc.querySelectorAll("*")) {
+        attributes.push(
+            ...Array.from(element.attributes).filter((a) =>
+                a.name.startsWith("data-l10n-"),
+            ),
+        );
+        if ("TEMPLATE" === element.tagName) {
             attributes.push(
-                ...Array.from(element.attributes).filter((a) =>
-                    a.name.startsWith("data-l10n-"),
-                ),
+                ...search(/** @type {HTMLTemplateElement} */ (element).content),
             );
         }
     }
@@ -63,8 +37,7 @@ const searchInTemplate = (doc) => {
  * @throws {Error} Si un attribut n'a pas de valeur.
  */
 export const locate = (doc, page) => {
-    const attributes = [...search(doc), ...searchInTemplate(doc)];
-    for (const attribute of attributes) {
+    for (const attribute of search(doc)) {
         const place = attribute.name.slice(10);
         let key;
         if ("" !== attribute.value) {
@@ -88,7 +61,10 @@ export const locate = (doc, page) => {
             } else {
                 for (const node of attribute.ownerElement.childNodes) {
                     if ("#text" === node.nodeName) {
-                        node.nodeValue = node.nodeValue.replace("{}", value);
+                        node.nodeValue = node.nodeValue.replace(
+                            "{}",
+                            () => value,
+                        );
                     }
                 }
             }

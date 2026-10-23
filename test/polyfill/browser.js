@@ -41,6 +41,12 @@ const data = {
             version: "",
             buildID: "",
         },
+        platformInfo: {
+            os: "linux",
+            arch: "x86-64",
+            // eslint-disable-next-line camelcase
+            nacl_arch: "x86-64",
+        },
     },
 
     storage: {
@@ -202,7 +208,7 @@ export const browser = {
                 (message, placeholder, index) => {
                     return message.replace(
                         `$${placeholder.toUpperCase()}$`,
-                        substitutions[index],
+                        () => substitutions[index],
                     );
                 },
                 messages[key]?.message ?? "",
@@ -326,6 +332,10 @@ export const browser = {
         getBrowserInfo() {
             return Promise.resolve(data.runtime.browserInfo);
         },
+
+        getPlatformInfo() {
+            return Promise.resolve(data.runtime.platformInfo);
+        },
     },
 
     storage: {
@@ -361,7 +371,7 @@ export const browser = {
                     Object.entries(values).map(([key, value]) => {
                         // eslint-disable-next-line unicorn/no-keyword-prefix
                         const change = { newValue: value };
-                        if (key in data.storage.local.data) {
+                        if (Object.hasOwn(data.storage.local.data, key)) {
                             change.oldValue = data.storage.local.data[key];
                         }
                         return [key, change];

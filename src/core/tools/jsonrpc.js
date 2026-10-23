@@ -89,13 +89,14 @@ export const JSONRPC = class extends EventTarget {
      */
     send(method, params) {
         return new Promise((resolve, reject) => {
-            this.#promises.set(++this.#id, { resolve, reject });
+            const id = ++this.#id;
+            this.#promises.set(id, { resolve, reject });
             this.#ws.send(
                 JSON.stringify({
                     jsonrpc: "2.0",
                     method,
                     params,
-                    id: this.#id,
+                    id,
                 }),
             );
         });

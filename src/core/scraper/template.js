@@ -6,11 +6,11 @@
  */
 
 import { matchURLPattern } from "../tools/urlmatch.js";
-/* eslint-disable import/no-cycle */
+/* eslint-disable importX/no-cycle */
 import { extract as embedExtract } from "./embed.js";
 import { extract as iframeExtract } from "./iframe.js";
 import { extract as ldjsonExtract } from "./ldjson.js";
-/* eslint-enable import/no-cycle */
+/* eslint-enable importX/no-cycle */
 import { extract as mediaExtract } from "./media.js";
 
 /**
@@ -56,7 +56,7 @@ const action = async (url, metadata, context) => {
             html: () =>
                 Promise.resolve(
                     new DOMParser().parseFromString(
-                        template.innerHTML,
+                        template.getHTML(),
                         "text/html",
                     ),
                 ),

@@ -56,7 +56,7 @@ export const Kodi = class {
             return "OK";
         } catch (err) {
             if ("notFound" === err.type) {
-                const fix = await Kodi.fix(address);
+                const fix = await this.fix(address);
                 if (undefined !== fix) {
                     throw new PebkacError("notFound", address, {
                         cause: err,
@@ -325,10 +325,11 @@ export const Kodi = class {
      * Ferme la connexion.
      */
     close() {
-        if (undefined !== this.#client) {
-            this.#client.close();
-            this.#client = undefined;
+        if (undefined === this.#client) {
+            return;
         }
+        this.#client.close();
+        this.#client = undefined;
     }
 
     /**

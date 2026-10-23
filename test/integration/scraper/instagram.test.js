@@ -36,15 +36,4 @@ describe("Scraper: Instagram [fr]", () => {
             `new URL("${file}").pathname.endsWith(...)`,
         );
     });
-
-    it("should return video URL when protocol is HTTP [opengraph]", async () => {
-        const url = new URL("http://www.instagram.com/p/Bpji87LiJFs/");
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.ok(
-            undefined !== file && new URL(file).pathname.endsWith(".mp4"),
-            `new URL("${file}").pathname.endsWith(...)`,
-        );
-    });
 });

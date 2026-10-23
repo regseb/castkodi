@@ -12,7 +12,7 @@ import fs from "node:fs/promises";
  */
 const PATHS = [
     // Supprimer les répertoires et les fichiers générés.
-    ".stryker/",
+    ".tmp/",
     "build/",
     "jsdocs/",
     "node_modules/",

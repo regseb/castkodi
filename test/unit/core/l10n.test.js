@@ -33,7 +33,7 @@ describe("core/l10n.js", () => {
             const body = /** @type {HTMLBodyElement} */ (
                 doc.querySelector("body")
             );
-            assert.equal(body.innerHTML.trim(), "");
+            assert.equal(body.getHTML().trim(), "");
         });
 
         it("should insert message in attribut", () => {
@@ -53,7 +53,7 @@ describe("core/l10n.js", () => {
             const p = /** @type {HTMLParagraphElement} */ (
                 doc.querySelector("p")
             );
-            assert.equal(p.innerHTML.trim(), "");
+            assert.equal(p.getHTML().trim(), "");
             assert.deepEqual(objectifyAttributes(p.attributes), {
                 "data-l10n-title": "bar",
                 title: "foo",
@@ -82,7 +82,7 @@ describe("core/l10n.js", () => {
             const p = /** @type {HTMLParagraphElement} */ (
                 doc.querySelector("p")
             );
-            assert.equal(p.innerHTML.trim(), "foo");
+            assert.equal(p.getHTML().trim(), "foo");
             assert.deepEqual(objectifyAttributes(p.attributes), {
                 "data-l10n-textcontent": "bar",
             });
@@ -110,7 +110,7 @@ describe("core/l10n.js", () => {
             const p = /** @type {HTMLParagraphElement} */ (
                 doc.querySelector("p")
             );
-            assert.equal(p.innerHTML.trim(), '<img alt="" src=""> foo');
+            assert.equal(p.getHTML().trim(), '<img alt="" src=""> foo');
             assert.deepEqual(objectifyAttributes(p.attributes), {
                 "data-l10n-textcontent": "bar",
             });
@@ -138,7 +138,7 @@ describe("core/l10n.js", () => {
             const p = /** @type {HTMLParagraphElement} */ (
                 doc.querySelector("p")
             );
-            assert.equal(p.innerHTML.trim(), "");
+            assert.equal(p.getHTML().trim(), "");
             assert.deepEqual(objectifyAttributes(p.attributes), {
                 id: "bar",
                 "data-l10n-title": "",
@@ -168,7 +168,7 @@ describe("core/l10n.js", () => {
             const input = /** @type {HTMLInputElement} */ (
                 doc.querySelector("input")
             );
-            assert.equal(input.innerHTML.trim(), "");
+            assert.equal(input.getHTML().trim(), "");
             assert.deepEqual(objectifyAttributes(input.attributes), {
                 name: "bar",
                 "data-l10n-placeholder": "",
@@ -198,7 +198,7 @@ describe("core/l10n.js", () => {
             const button = /** @type {HTMLButtonElement} */ (
                 doc.querySelector("button")
             );
-            assert.equal(button.innerHTML.trim(), "foo");
+            assert.equal(button.getHTML().trim(), "foo");
             assert.deepEqual(objectifyAttributes(button.attributes), {
                 value: "bar",
                 "data-l10n-textcontent": "",
@@ -227,7 +227,7 @@ describe("core/l10n.js", () => {
             const span = /** @type {HTMLSpanElement} */ (
                 doc.querySelector("span")
             );
-            assert.equal(span.innerHTML.trim(), "foo");
+            assert.equal(span.getHTML().trim(), "foo");
             assert.deepEqual(objectifyAttributes(span.attributes), {
                 "data-l10n-textcontent": "bar-baz-qux",
             });
@@ -277,7 +277,7 @@ describe("core/l10n.js", () => {
             const p = /** @type {HTMLParagraphElement} */ (
                 template.content.querySelector("p")
             );
-            assert.equal(p.innerHTML.trim(), "");
+            assert.equal(p.getHTML().trim(), "");
             assert.deepEqual(objectifyAttributes(p.attributes), {
                 class: "bar",
                 "data-l10n-title": "baz",

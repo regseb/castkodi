@@ -1,8 +1,12 @@
 <svg role="img" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-  <g fill="white">
-    <path
-      d="M15 7H3.414l4.293-4.293a1 1 0 0 0-1.414-1.414l-6 6a1 1 0 0 0 0 1.414l6 6a1 1 0 0 0 1.414-1.414L3.414 9H15a1 1 0 0 0 0-2z"
-      stroke-width="0"
-    />
+  <g
+    fill="none"
+    stroke="white"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <line x1="2" y1="8" x2="15" y2="8" />
+    <polyline points="7,2 1,8 7,14" />
   </g>
 </svg>

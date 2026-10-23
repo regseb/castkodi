@@ -1,4 +1,2 @@
 # https://git-scm.com/docs/gitattributes
-* text eol=lf
-
-*.png binary
+* text=auto eol=lf

@@ -27,7 +27,7 @@ const action = ({ searchParams }, { metaExtract }) => {
         return Promise.resolve(undefined);
     }
 
-    const [videoId, hash] = searchParams.get("video_id").split(":");
+    const [videoId, hash] = searchParams.get("video_id").split(":", 2);
     return metaExtract(
         new URL(
             `https://vimeo.com/${videoId}` +

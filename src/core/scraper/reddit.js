@@ -6,7 +6,7 @@
  */
 
 import { matchURLPattern } from "../tools/urlmatch.js";
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line importX/no-cycle
 import { extract as iframeExtract } from "./iframe.js";
 
 /**

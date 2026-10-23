@@ -164,6 +164,7 @@ export default {
 
         // Package.json property rules.
         "prefer-property-order": ["error", []],
+        "prefer-provenance": "off",
         "no-duplicate-properties": "error",
 
         // Disallowed node rules.

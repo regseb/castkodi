@@ -64,6 +64,7 @@ export default {
         "no-invalid-double-slash-comments": true,
         "no-invalid-position-at-import-rule": true,
         "no-invalid-position-declaration": true,
+        "selector-no-invalid": true,
         "string-no-newline": true,
         "syntax-string-no-invalid": true,
 
@@ -83,6 +84,7 @@ export default {
 
         // Unmatchable
         "selector-anb-no-unmatchable": true,
+        "selector-no-unmatchable": true,
 
         // Unknown.
         "annotation-no-unknown": true,
@@ -191,6 +193,8 @@ export default {
 
         // Layout mappings.
         "property-layout-mappings": "flow-relative",
+        "unit-layout-mappings": "flow-relative",
+        "value-keyword-layout-mappings": "flow-relative",
 
         // Max & min.
         "declaration-block-single-line-max-declarations": 1,

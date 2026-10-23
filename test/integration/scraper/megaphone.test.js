@@ -17,14 +17,6 @@ describe("Scraper: Megaphone", () => {
         assert.equal(file, "https://dcs.megaphone.fm/SLT2646036872.mp3");
     });
 
-    it("should return audio URL when protocol is HTTP ", async () => {
-        const url = new URL("http://player.megaphone.fm/SLT5236779375");
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(file, "https://dcs.megaphone.fm/SLT5236779375.mp3");
-    });
-
     it("should return audio URL from playlist", async () => {
         const url = new URL("https://playlist.megaphone.fm?e=SLT5884670747");
         const context = { depth: false, incognito: false };

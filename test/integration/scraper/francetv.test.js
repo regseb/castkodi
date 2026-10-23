@@ -24,9 +24,7 @@ describe("Scraper: France tv", () => {
         );
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
-        const a = doc.querySelector(
-            'a[aria-label^="Journal 20h00 . Édition du"]',
-        );
+        const a = doc.querySelector("#les-emissions a");
 
         const url = new URL(a.getAttribute("href"), "https://www.france.tv/");
         const context = { depth: false, incognito: false };

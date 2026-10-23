@@ -52,6 +52,7 @@ export const update = async () => {
                 // Passer les contextes aux enfants, car dans Chromium, ils ne
                 // sont pas hérités du parent (et sans contexte, l'option n'est
                 // pas affichée).
+                // https://github.com/w3c/webextensions/issues/774
                 contexts,
                 id: action,
                 parentId,
@@ -64,6 +65,7 @@ export const update = async () => {
                 // Passer les contextes aux enfants, car dans Chromium, ils ne
                 // sont pas hérités du parent (et sans contexte, l'option n'est
                 // pas affichée).
+                // https://github.com/w3c/webextensions/issues/774
                 contexts,
                 id: "separator",
                 parentId,
@@ -81,6 +83,7 @@ export const update = async () => {
                     // Passer les contextes aux enfants, car dans Chromium, ils
                     // ne sont pas hérités du parent (et sans contexte, l'option
                     // n'est pas affichée).
+                    // https://github.com/w3c/webextensions/issues/774
                     contexts,
                     id: index.toString(),
                     parentId,

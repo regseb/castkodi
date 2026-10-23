@@ -7,7 +7,7 @@
   "exclude": [
     ".git/",
     ".idea/",
-    ".stryker/",
+    ".tmp/",
     ".vscode/",
     "build/",
     "jsdocs/",

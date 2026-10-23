@@ -22,7 +22,7 @@ const actionPlayer = ({ pathname }) => {
 };
 export const extractPlayer = matchURLPattern(
     actionPlayer,
-    "*://player.megaphone.fm/*",
+    "https://player.megaphone.fm/*",
 );
 
 /**

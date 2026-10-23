@@ -26,8 +26,8 @@ describe("Scraper: Chaos Computer Club (media.ccc.de)", () => {
         const file = await extract(url, context);
         assert.equal(
             file,
-            "https://cdn.media.ccc.de/contributors/essen/petitfoo/h264-fhd" +
-                "/petitfoo-54995-deu-Youtube-Apps_fhd.mp4",
+            "https://cdn.media.ccc.de/contributors/essen/petitfoo/h264-hd" +
+                "/petitfoo-54995-deu-Youtube-Apps_hd.mp4",
         );
     });
 });

@@ -1,8 +1,6 @@
 <svg role="img" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-  <g fill="white">
-    <path
-      d="M14 7H9V2a1 1 0 0 0-2 0v5H2a1 1 0 1 0 0 2h5v5a1 1 0 0 0 2 0V9h5a1 1 0 0 0 0-2z"
-      stroke-width="0"
-    />
+  <g stroke="white" stroke-width="2" stroke-linecap="round">
+    <line x1="8" y1="2" x2="8" y2="14" />
+    <line x1="2" y1="8" x2="14" y2="8" />
   </g>
 </svg>

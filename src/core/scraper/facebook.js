@@ -25,7 +25,7 @@ const find = (obj, props) => {
     }
     if ("object" === typeof obj) {
         for (const prop of props) {
-            if (prop in obj && null !== obj[prop]) {
+            if (Object.hasOwn(obj, prop) && null !== obj[prop]) {
                 return obj[prop];
             }
         }

@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 // Importer le fichier des scrapers en premier pour contourner un problème de
 // dépendances circulaires.
-// eslint-disable-next-line import/no-unassigned-import
+// eslint-disable-next-line importX/no-unassigned-import
 import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/noscript.js";
 import "../../setup.js";

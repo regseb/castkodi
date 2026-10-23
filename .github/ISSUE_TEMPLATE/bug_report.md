@@ -29,10 +29,10 @@ Steps to reproduce the behavior:
 ### Environment
 
 - Cast Kodi version<!-- e.g. 7.19.0 -->:
-- Browser version<!-- e.g. Chrome 147.0.7727.116, Firefox 150.0, ... -->:
-- OS version<!-- e.g. Windows 11, Ubuntu 24.04, Android 16, ... -->:
+- Browser version<!-- e.g. Chrome 155.0.8059.84, Firefox 158.0, ... -->:
+- OS version<!-- e.g. Windows 11, Ubuntu 26.04, Android 16, ... -->:
 - Kodi version<!-- e.g. 21.3 -->:
-- Kodi add-on version (if appropriate)<!-- e.g. YouTube 7.4.2, ... -->:
+- Kodi add-on version (if appropriate)<!-- e.g. YouTube 7.4.4, ... -->:
 
 ### Additional context
 

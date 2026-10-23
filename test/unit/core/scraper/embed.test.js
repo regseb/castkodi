@@ -8,7 +8,7 @@ import { afterEach, describe, it, mock } from "node:test";
 import { kodi } from "../../../../src/core/jsonrpc/kodi.js";
 // Importer le fichier des scrapers en premier pour contourner un problème de
 // dépendances circulaires.
-// eslint-disable-next-line import/no-unassigned-import
+// eslint-disable-next-line importX/no-unassigned-import
 import "../../../../src/core/scrapers.js";
 import * as scraper from "../../../../src/core/scraper/embed.js";
 import "../../setup.js";

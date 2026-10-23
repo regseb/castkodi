@@ -47,7 +47,7 @@ const action = async (_url, metadata) => {
     const photoId = parts[2];
     const secret = parts[3];
 
-    const apiKey = KEY_REGEXP.exec(doc.documentElement.innerHTML).groups.key;
+    const apiKey = KEY_REGEXP.exec(doc.documentElement.getHTML()).groups.key;
 
     const response = await fetch(
         `${API_URL}&photo_id=${photoId}&secret=${secret}&api_key=${apiKey}`,

@@ -16,7 +16,7 @@ export default {
         "**",
         // Ignorer les répertoires et les fichiers générés.
         "!/.git/**",
-        "!/.stryker/**",
+        "!/.tmp/**",
         "!/build/**",
         "!/jsdocs/**",
         "!/node_modules/**",

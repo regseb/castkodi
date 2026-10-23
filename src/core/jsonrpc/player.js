@@ -126,12 +126,15 @@ export const Player = class {
             });
             return Object.fromEntries(
                 Object.entries({
-                    ...(properties.includes("active") ? { active: true } : {}),
+                    ...(properties.includes("active") && { active: true }),
                     ...results,
                 }).map(([key, value]) => {
-                    return "time" === key || "totaltime" === key
-                        ? [key, toTimestamp(value)]
-                        : [key, value];
+                    return [
+                        key,
+                        "time" === key || "totaltime" === key
+                            ? toTimestamp(value)
+                            : value,
+                    ];
                 }),
             );
         }

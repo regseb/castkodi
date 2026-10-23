@@ -46,6 +46,7 @@ describe("core/index.js", () => {
             const urls = ["www.foo.fr"];
 
             const url = mux(urls);
+            // eslint-disable-next-line unicorn/prefer-https
             assert.equal(url, "http://www.foo.fr");
         });
 

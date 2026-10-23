@@ -1,43 +1,15 @@
 <svg role="img" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-  <g fill="white" stroke="white">
-    <rect
-      x="3"
-      y="4"
-      width="10"
-      height="10"
-      fill="none"
-      stroke-width="2"
-      rx="2"
-      ry="2"
-    />
-    <polyline
-      points="6,3.75 8,2 10,3.75"
-      stroke-width="2"
-      stroke-linejoin="round"
-    />
-    <line
-      x1="6"
-      y1="7"
-      x2="10"
-      y2="7"
-      stroke-width="1"
-      stroke-linecap="round"
-    />
-    <line
-      x1="6"
-      y1="9"
-      x2="10"
-      y2="9"
-      stroke-width="1"
-      stroke-linecap="round"
-    />
-    <line
-      x1="6"
-      y1="11"
-      x2="10"
-      y2="11"
-      stroke-width="1"
-      stroke-linecap="round"
-    />
+  <g
+    fill="white"
+    stroke="white"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="3" y="4" width="10" height="10" fill="none" rx="2" ry="2" />
+    <polyline points="6,3.75 8,2 10,3.75" />
+    <line x1="6" y1="7" x2="10" y2="7" stroke-width="1" />
+    <line x1="6" y1="9" x2="10" y2="9" stroke-width="1" />
+    <line x1="6" y1="11" x2="10" y2="11" stroke-width="1" />
   </g>
 </svg>

@@ -13,7 +13,7 @@
 export default {
     disableTypeChecks: false,
     incremental: true,
-    incrementalFile: ".stryker/incremental.json",
+    incrementalFile: ".tmp/stryker/incremental.json",
     ignoreStatic: true,
     mutate: [
         "src/**/*.js",
@@ -22,7 +22,7 @@ export default {
         "!src/popup/**",
     ],
     reporters: ["dots", "clear-text"],
-    tempDirName: ".stryker/tmp/",
+    tempDirName: ".tmp/stryker/tmp/",
     testRunner: "tap",
     tap: {
         testFiles: ["test/unit/**/*.test.js"],

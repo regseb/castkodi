@@ -54,7 +54,7 @@ const plain = (description) => {
         .replaceAll(/\*\*(?<f>\S)(?<r>.*?\S)??\*\*/gsv, "$<f>$<r>")
         .replaceAll(/_(?<f>\S)(?<r>.*?\S)??_/gsv, "$<f>$<r>")
         .replaceAll(/(?<b>[^\n])\n *(?<a>[^\n \-])/gv, "$<b> $<a>")
-        .replaceAll("&nbsp;", "\u00A0");
+        .replaceAll("&nbsp;", "\u{A0}");
 };
 
 /**

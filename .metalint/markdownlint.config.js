@@ -32,6 +32,7 @@ export default {
     "no-multiple-space-closed-atx": false,
     "blanks-around-headings": false,
     "heading-start-left": false,
+    // https://github.com/DavidAnson/markdownlint/issues/1327
     // eslint-disable-next-line camelcase
     "no-duplicate-heading": { siblings_only: true },
     "single-title": true,

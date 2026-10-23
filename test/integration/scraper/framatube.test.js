@@ -30,13 +30,13 @@ describe("Scraper: Framatube", () => {
             file,
             "https://framatube.org/static/streaming-playlists/hls" +
                 "/0900bd2e-7306-4c39-b48b-2d0cd611742e" +
-                "/11f2c8bb-eb81-4924-8fd5-2083435f5ccb-master.m3u8",
+                "/4de1cc7a-efb5-45ff-a919-c39cf83a90f9-master.m3u8",
         );
     });
 
     it("should return video URL when protocol is HTTP [peertube]", async () => {
         const url = new URL(
-            "http://framatube.org/videos/watch" +
+            "https://framatube.org/videos/watch" +
                 "/0b04f13d-1e18-4f1d-814e-4979aa7c9c44",
         );
         const context = { depth: false, incognito: false };

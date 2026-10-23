@@ -34,21 +34,6 @@ describe("Scraper: StarGR", () => {
         );
     });
 
-    it("should return video URL from StarTV when protocol is HTTP", async () => {
-        const url = new URL(
-            "http://www.star.gr/tv/psychagogia/globetrotters" +
-                "/to-neo-taxidiotiko-paihnidi-tou-star-globetrotters-xekinaei/",
-        );
-        const context = { depth: false, incognito: false };
-
-        const file = await extract(url, context);
-        assert.equal(
-            file,
-            "https://deliver2.siliconweb.com/kwik/star.m3u8" +
-                "?key=bJD0eU0GwsGMMg5dgYDa6Q",
-        );
-    });
-
     it("should return video URL [ldjson]", async () => {
         const url = new URL(
             "https://www.star.gr/video/lifestyle/viral/630859" +

@@ -44,11 +44,7 @@ export const PebkacError = class extends Error {
                 `notifications_${key}_message`,
                 substitutions,
             ),
-            {
-                ...(undefined === options?.cause
-                    ? {}
-                    : { cause: options.cause }),
-            },
+            { ...(undefined !== options?.cause && { cause: options.cause }) },
         );
         this.name = "PebkacError";
         this.#key = key;
