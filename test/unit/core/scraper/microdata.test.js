@@ -44,7 +44,7 @@ describe("core/scraper/microdata.js", () => {
                         new DOMParser().parseFromString(
                             `<html lang="en"><body>
                                <div itemscope
-                                    itemtype="http://schema.org/Event">
+                                    itemtype="https://schema.org/Event">
                                  <meta itemprop="url"
                                        content="https://bar.com/baz.html" />
                                </div>
@@ -67,7 +67,7 @@ describe("core/scraper/microdata.js", () => {
                         new DOMParser().parseFromString(
                             `<html lang="en"><body>
                                <div itemscope
-                                    itemtype="http://schema.org/VideoObject">
+                                    itemtype="https://schema.org/VideoObject">
                                  <meta itemprop="image"
                                        content="https://bar.com/baz.png" />
                                </div>
@@ -90,11 +90,11 @@ describe("core/scraper/microdata.js", () => {
                         new DOMParser().parseFromString(
                             `<html lang="en"><body>
                                <div itemscope
-                                    itemtype="http://schema.org/Person">
+                                    itemtype="https://schema.org/Person">
                                  <span itemprop="name">Bar</span>
                                </div>
                                <div itemscope
-                                    itemtype="http://schema.org/AudioObject">
+                                    itemtype="https://schema.org/AudioObject">
                                  <meta itemprop="url"
                                        content="https://baz.com/qux.mp3" />
                                </div>
@@ -106,6 +106,28 @@ describe("core/scraper/microdata.js", () => {
 
             const file = await scraper.extract(url, metadata);
             assert.equal(file, "https://baz.com/qux.mp3");
+        });
+
+        it("should support HTTP", async () => {
+            const url = new URL("https://foo.com");
+            const metadata = {
+                html: () =>
+                    Promise.resolve(
+                        new DOMParser().parseFromString(
+                            `<html lang="en"><body>
+                               <div itemscope
+                                    itemtype="https://schema.org/MusicVideoObject">
+                                 <meta itemprop="url"
+                                       content="https://bar.com/baz.mkv" />
+                               </div>
+                             </head></html>`,
+                            "text/html",
+                        ),
+                    ),
+            };
+
+            const file = await scraper.extract(url, metadata);
+            assert.equal(file, "https://bar.com/baz.mkv");
         });
     });
 });

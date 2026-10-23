@@ -17,9 +17,14 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  * @type {Set<string>}
  */
 const TYPES = new Set([
+    "https://schema.org/AudioObject",
+    "https://schema.org/MusicVideoObject",
+    "https//schema.org/VideoObject",
+    /* eslint-disable unicorn/prefer-https */
     "http://schema.org/AudioObject",
     "http://schema.org/MusicVideoObject",
     "http://schema.org/VideoObject",
+    /* eslint-enable unicorn/prefer-https */
 ]);
 
 /**
