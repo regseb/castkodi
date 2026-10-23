@@ -65,9 +65,10 @@ export const Application = class {
     /**
      * Change le volume et remet le son.
      *
-     * @param {number|string} volume Le nouveau volume (entre `0` et `100`) ; ou
-     *                               `"increment"` / `"decrement"` pour
-     *                               augmenter ou diminuer le volume d'un cran.
+     * @param {number | string} volume Le nouveau volume (entre `0` et `100`) ;
+     *                                 ou `"increment"` / `"decrement"` pour
+     *                                 augmenter ou diminuer le volume d'un
+     *                                 cran.
      * @returns {Promise<number>} Une promesse contenant la nouvelle valeur du
      *                            son.
      */

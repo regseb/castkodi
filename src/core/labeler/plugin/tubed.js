@@ -19,8 +19,8 @@ import { matchURLPattern } from "../../tools/urlmatch.js";
  * @param {Object}   context             Le contexte du labellisateur.
  * @param {Function} context.metaExtract La fonction parente pour extraire un
  *                                       label.
- * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
- *                                      `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le titre ou
+ *                                        `undefined`.
  */
 const action = ({ searchParams }, { metaExtract }) => {
     if (searchParams.has("video_id")) {

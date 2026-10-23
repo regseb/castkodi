@@ -41,14 +41,14 @@ let speed = 0;
 /**
  * L'identifiant de l'intervalle faisant avancer la barre de progression.
  *
- * @type {ReturnType<typeof setInterval>|undefined}
+ * @type {ReturnType<typeof setInterval> | undefined}
  */
 let interval;
 
 /**
  * L'élément de la liste de lecture en cours de déplacement.
  *
- * @type {HTMLLIElement|undefined}
+ * @type {HTMLLIElement | undefined}
  */
 let dragItem;
 

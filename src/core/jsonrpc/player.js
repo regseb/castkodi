@@ -12,6 +12,8 @@ import { NotificationListener } from "./notificationlistener.js";
  */
 
 /**
+ * Le type des éléments d'un temps.
+ *
  * @typedef {Object} GlobalTime
  * @prop {number} hours        L'heure du temps.
  * @prop {number} minutes      La minute du temps.

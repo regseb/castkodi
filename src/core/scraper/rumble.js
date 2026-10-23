@@ -22,8 +22,8 @@ const API_URL = "https://rumble.com/embedJS/u3/?request=video";
  * Génère l'URL de la vidéo Rumble à partir de son identifiant.
  *
  * @param {string} id L'identifiant de la vidéo.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const generateUrl = async (id) => {
     const response = await fetch(`${API_URL}&v=${id}`);
@@ -38,8 +38,8 @@ const generateUrl = async (id) => {
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async (_url, metadata) => {
     const doc = await metadata.html();
@@ -65,8 +65,8 @@ export const extract = matchURLPattern(action, "https://rumble.com/*.html");
  *
  * @param {URLMatch} urlMatch L'URL d'une vidéo embarquée de Rumble avec
  *                            l'identifiant.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionEmbed = async ({ id }) => {
     return await generateUrl(id);

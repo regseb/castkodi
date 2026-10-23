@@ -38,8 +38,8 @@ const dispatch = async (path) => {
  * Extrait les informations nécessaires pour lire une musique sur Kodi.
  *
  * @param {URLMatch} url L'URL d'une musique Mixcloud.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = ({ pathname }) => {
     return pathname.startsWith("/discover/")

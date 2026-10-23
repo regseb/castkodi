@@ -59,8 +59,8 @@ export const extract = matchURLPattern(
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML ou `undefined`.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  * @see https://developers.dailymotion.com/player/#player-embed-script
  */
 const actionPlayerScript = async (_url, metadata) => {
@@ -86,8 +86,8 @@ export const extractPlayerScript = matchURLPattern(
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URLMatch} url L'URL d'un lecteur Dailymotion avec sa vidéo.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  * @see https://developers.dailymotion.com/player/#player-iframe-embed
  */
 const actionPlayerIframe = ({ searchParams }) => {

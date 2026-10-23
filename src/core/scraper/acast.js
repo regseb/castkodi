@@ -23,8 +23,8 @@ const API_URL = "https://feeder.acast.com/api/v1";
  *
  * @param {URLMatch} urlMatch L'URL d'un son de Acast avec le podcast et
  *                            l'épisode.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async ({ show, episode }) => {
     const response = await fetch(

@@ -29,8 +29,8 @@ export const extractPlayer = matchURLPattern(
  * Extrait les informations nécessaires pour lire un son sur Kodi.
  *
  * @param {URLMatch} url L'URL d'un son (d'une liste de lecture) de Megaphone.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionPlaylist = ({ searchParams }) => {
     return Promise.resolve(

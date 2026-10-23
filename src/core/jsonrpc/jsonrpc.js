@@ -9,6 +9,8 @@
  */
 
 /**
+ * Le type des numéros de la version de l'API de Kodi.
+ *
  * @typedef {Object} Version
  * @prop {number} major Le numéro majeur de la version.
  * @prop {number} minor Le numéro mineur de la version.

@@ -16,8 +16,8 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *
  * @param {URLMatch} urlMatch L'URL d'une vidéo de BitChute avec l'identifiant
  *                            de la vidéo.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async ({ videoId }) => {
     const response = await fetch(

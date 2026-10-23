@@ -16,8 +16,8 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *
  * @param {any} obj   La variable à parcourir.
  * @param {any} props Les propriétés à chercher.
- * @returns {any|undefined} La valeur trouvée ; ou `undefined` si les propriétés
- *                          ne sont pas dans l'objet.
+ * @returns {any | undefined} La valeur trouvée ; ou `undefined` si les
+ *                            propriétés ne sont pas dans l'objet.
  */
 const find = (obj, props) => {
     if (null === obj) {
@@ -53,8 +53,8 @@ const find = (obj, props) => {
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async (_url, metadata) => {
     // Définir l'entête "Accept", car par défaut : fetch() utilise "*/*" et

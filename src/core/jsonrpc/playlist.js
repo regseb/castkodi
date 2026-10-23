@@ -110,8 +110,8 @@ export const Playlist = class {
      * Récupère un élément de la liste de lecture.
      *
      * @param {number} position La position de l'élément.
-     * @returns {Promise<Item|undefined>} Une promesse contenant l'élément de la
-     *                                    liste de lecture ou `undefined`.
+     * @returns {Promise<Item | undefined>} Une promesse contenant l'élément de
+     *                                      la liste de lecture ou `undefined`.
      */
     async getItem(position) {
         const results = await this.#kodi.send("Playlist.GetItems", {

@@ -30,8 +30,8 @@ const URL_REGEXP =
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URLMatch} url L'URL d'un live Kick.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionLive = async ({ pathname }) => {
     const response = await fetch(API_URL + pathname);
@@ -51,8 +51,8 @@ export const extractLive = matchURLPattern(
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionVideo = async (_url, metadata) => {
     const doc = await metadata.html();

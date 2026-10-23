@@ -15,8 +15,8 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  * Extrait le titre d'une vidéo YouTube.
  *
  * @param {URLMatch} url L'URL de la vidéo YouTube.
- * @returns {Promise<string|undefined>} Une promesse contenant le titre ou le
- *                                      texte pour les vidéos non-disponibles.
+ * @returns {Promise<string | undefined>} Une promesse contenant le titre ou le
+ *                                        texte pour les vidéos non-disponibles.
  */
 const actionVideo = async (url) => {
     if (url.searchParams.has("v")) {
@@ -24,7 +24,7 @@ const actionVideo = async (url) => {
         const text = await response.text();
         const doc = new DOMParser().parseFromString(text, "text/html");
         return (
-            /** @type {HTMLMetaElement|null} */ (
+            /** @type {HTMLMetaElement | null} */ (
                 doc.querySelector('meta[property="og:title"]')
             )?.content ?? browser.i18n.getMessage("labeler_youtube_unavailable")
         );
@@ -40,9 +40,9 @@ export const extractVideo = matchURLPattern(
  * Extrait le titre d'une playlist YouTube.
  *
  * @param {URLMatch} url L'URL de la playlist YouTube.
- * @returns {Promise<string|undefined>} Une promesse contenant le titre ou le
- *                                      texte pour les playlists
- *                                      non-disponibles.
+ * @returns {Promise<string | undefined>} Une promesse contenant le titre ou le
+ *                                        texte pour les playlists
+ *                                        non-disponibles.
  */
 const actionPlaylist = async (url) => {
     if (url.searchParams.has("list")) {
@@ -65,7 +65,7 @@ export const extractPlaylist = matchURLPattern(
  * Extrait le titre d'un clip YouTube.
  *
  * @param {URLMatch} url L'URL du clip YouTube.
- * @returns {Promise<string|undefined>} Une promesse contenant le titre.
+ * @returns {Promise<string | undefined>} Une promesse contenant le titre.
  */
 const actionClip = async (url) => {
     const response = await fetch(url);

@@ -9,6 +9,8 @@
  */
 
 /**
+ * Le type des détails d'un addon de Kodi.
+ *
  * @typedef {Object} AddonDetails
  * @prop {string} addonid L'identifiant de l'addon.
  * @prop {string} author  L'auteur de l'addon.

@@ -100,7 +100,7 @@ export const browser = {
          * @param {browser.contextMenus._CreateCreateProperties} item Les
          *                                                            données de
          *                                                            l'élément.
-         * @returns {number|string} L'identifiant de l'élément.
+         * @returns {number | string} L'identifiant de l'élément.
          */
         create(item) {
             data.contextMenus.push(item);
@@ -189,9 +189,9 @@ export const browser = {
         /**
          * Récupère un message.
          *
-         * @param {string}          key            La clé du message.
-         * @param {string|string[]} [substitution] L'élément ou les éléments
-         *                                         insérés dans le message.
+         * @param {string}            key            La clé du message.
+         * @param {string | string[]} [substitution] L'élément ou les éléments
+         *                                           insérés dans le message.
          * @returns {string} Le message.
          */
         getMessage(key, substitution) {

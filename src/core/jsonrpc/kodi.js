@@ -75,10 +75,10 @@ export const Kodi = class {
      *
      * @param {string} address L'adresse IP ou l'adresse complète du service de
      *                         Kodi.
-     * @returns {Promise<string|undefined>} Une promesse contenant une adresse
-     *                                      alternative valide ; ou `undefined`
-     *                                      si aucune adresse alternative a été
-     *                                      trouvée.
+     * @returns {Promise<string | undefined>} Une promesse contenant une adresse
+     *                                        alternative valide ; ou
+     *                                        `undefined` si aucune adresse
+     *                                        alternative a été trouvée.
      */
     static async fix(address) {
         try {
@@ -112,8 +112,8 @@ export const Kodi = class {
             // Ne pas vérifier si l'adresse a été corrigée par le constructeur
             // (par exemple "ws://192" devient "ws://0.0.0.192/"), car il a pu
             // aussi modifier la casse du protocol et de l'host ; ou ajouter une
-            // barre oblique à la fin de l'URL ("HTTP://EXAMPLE.COM" devient
-            // "http://example.com/).
+            // barre oblique à la fin de l'URL ("HTTPS://EXAMPLE.COM" devient
+            // "https://example.com/).
         } catch {
             // Si la création d'une URL avec l'adresse complète n'a pas
             // fonctionné : essayer avec l'adresse IP (en y ajoutant le
@@ -136,7 +136,7 @@ export const Kodi = class {
      * L'adresse IP ou l'adresse complète du service de Kodi ; ou `undefined`
      * pour récupérer l'adresse dans la configuration.
      *
-     * @type {string|undefined}
+     * @type {string | undefined}
      */
     #address;
 
@@ -144,7 +144,7 @@ export const Kodi = class {
      * L'URL du service de Kodi ; ou `undefined` si l'URL n'a pas encore été
      * déterminée.
      *
-     * @type {URL|undefined}
+     * @type {URL | undefined}
      */
     #url;
 
@@ -152,7 +152,7 @@ export const Kodi = class {
      * Le client connecté au service de Kodi ; ou `undefined` si le client n'est
      * pas connecté.
      *
-     * @type {JSONRPCClient|undefined}
+     * @type {JSONRPCClient | undefined}
      */
     #client;
 
@@ -227,8 +227,8 @@ export const Kodi = class {
      * Retourne l'URL du service de Kodi ; ou `undefined` si l'URL n'a pas
      * encore été déterminée.
      *
-     * @returns {URL|undefined} L'URL du service de Kodi ; ou `undefined` si
-     *                          l'URL n'a pas encore été déterminée.
+     * @returns {URL | undefined} L'URL du service de Kodi ; ou `undefined` si
+     *                            l'URL n'a pas encore été déterminée.
      */
     get url() {
         return this.#url;

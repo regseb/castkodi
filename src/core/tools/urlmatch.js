@@ -5,7 +5,7 @@
  */
 
 /**
- * URL avec les groupes nommés du patron.
+ * Type d'une URL avec les groupes nommés du patron.
  *
  * @typedef {URL & Record<string, string>} URLMatch
  */
@@ -13,9 +13,9 @@
 /**
  * Enrobe une fonction avec un filtre d'URL.
  *
- * @param {Function}                      func     La fonction à enrober.
- * @param {...(URLPattern|string|Object)} patterns Les patrons pour filtrer
- *                                                 l'URL.
+ * @param {Function}                          func     La fonction à enrober.
+ * @param {...(URLPattern | string | Object)} patterns Les patrons pour filtrer
+ *                                                     l'URL.
  * @returns {Function} La fonction enrobée.
  */
 export const matchURLPattern = (func, ...patterns) => {
@@ -28,9 +28,9 @@ export const matchURLPattern = (func, ...patterns) => {
      *
      * @param {URL}    url    L'URL qui sera filtrée.
      * @param {...any} others Les autres paramètres.
-     * @returns {Promise<any|undefined>} Une promesse contenant le retour de la
-     *                                   fonction ; ou `undefined` si l'URL ne
-     *                                   respecte pas un des patrons.
+     * @returns {Promise<any | undefined>} Une promesse contenant le retour de
+     *                                     la fonction ; ou `undefined` si l'URL
+     *                                     ne respecte pas un des patrons.
      */
     const wrapped = (url, ...others) => {
         for (const urlPattern of urlPatterns) {

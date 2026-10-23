@@ -23,8 +23,8 @@ const API_URL = "https://api.arte.tv/api/player/v2/config";
  *
  * @param {URLMatch} urlMatch L'URL d'une vidéo Arte avec la langue et
  *                            l'identifiant de la vidéo.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async ({ lang, id }) => {
     const response = await fetch(`${API_URL}/${lang}/${id}`);

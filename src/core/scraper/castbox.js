@@ -24,8 +24,8 @@ const API_URL = "https://everest.castbox.fm/data/episode/v4?eid=";
  *
  * @param {URLMatch} urlMatch L'URL d'un épisode d'un podcast sur Castbox avec
  *                            l'identifiant de l'épisode.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async ({ eid }) => {
     const response = await fetch(API_URL + eid);

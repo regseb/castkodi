@@ -27,16 +27,16 @@ export const PebkacError = class extends Error {
     /**
      * Crée une erreur avec un message et un titre.
      *
-     * @param {string}          key               La clé du message d'erreur.
-     * @param {string|string[]} [substitutions]   La ou les éventuelles
-     *                                            substitutions qui seront
-     *                                            insérées dans le message.
-     * @param {Object}          [options]         Les éventuelles options de
-     *                                            l'erreur.
-     * @param {any}             [options.cause]   L'éventuelle cause de
-     *                                            l'erreur.
-     * @param {Object}          [options.details] Les éventuels détails de
-     *                                            l'erreur.
+     * @param {string}            key               La clé du message d'erreur.
+     * @param {string | string[]} [substitutions]   La ou les éventuelles
+     *                                              substitutions qui seront
+     *                                              insérées dans le message.
+     * @param {Object}            [options]         Les éventuelles options de
+     *                                              l'erreur.
+     * @param {any}               [options.cause]   L'éventuelle cause de
+     *                                              l'erreur.
+     * @param {Object}            [options.details] Les éventuels détails de
+     *                                              l'erreur.
      */
     constructor(key, substitutions, options) {
         super(

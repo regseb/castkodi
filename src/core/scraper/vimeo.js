@@ -17,9 +17,9 @@ import { matchURLPattern } from "../tools/urlmatch.js";
 /**
  * Répartit une vidéo Vimeo à un plugin de Kodi.
  *
- * @param {string}           videoId L'identifiant de la vidéo Vimeo.
- * @param {string|undefined} hash    L'éventuel _hash_ pour accéder à une vidéo
- *                                   non-listée.
+ * @param {string}             videoId L'identifiant de la vidéo Vimeo.
+ * @param {string | undefined} hash    L'éventuel _hash_ pour accéder à une vidéo
+ *                                     non-listée.
  * @returns {Promise<string>} Une promesse contenant le lien du _fichier_.
  */
 const dispatch = async (videoId, hash) => {

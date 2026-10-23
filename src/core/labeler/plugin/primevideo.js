@@ -15,8 +15,8 @@ import { matchURLPattern } from "../../tools/urlmatch.js";
  * Extrait le titre d'une vidéo Prime Video (Amazon).
  *
  * @param {URLMatch} url L'URL utilisant le plugin Amazon Prime Video.
- * @returns {Promise<string|undefined>} Une promesse contenant le titre ou
- *                                      `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le titre ou
+ *                                        `undefined`.
  */
 const action = ({ searchParams }) => {
     return Promise.resolve(searchParams.get("name") ?? undefined);

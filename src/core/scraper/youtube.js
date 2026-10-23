@@ -115,8 +115,8 @@ const dispatchClip = async (clipId, { incognito }) => {
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionSearch = async ({ searchParams }, _metadata, { incognito }) => {
     const config = await browser.storage.local.get(["youtube-playlist"]);
@@ -149,8 +149,8 @@ export const extractSearch = matchURLPattern(
  * @param {Object}   context           Le contexte de l'extraction.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionPlaylist = ({ searchParams }, _metadata, { incognito }) => {
     return searchParams.has("list")

@@ -23,8 +23,8 @@ const API_URL = "https://public-api.wordpress.com/rest/v1.1/videos/";
  *
  * @param {URLMatch} urlMatch L'URL d'une vidéo de VideoPress avec
  *                            l'identifiant.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async ({ id }) => {
     const response = await fetch(API_URL + id);

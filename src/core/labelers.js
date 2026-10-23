@@ -88,8 +88,8 @@ export const strip = (text) => {
  * Extrait le label d'une URL.
  *
  * @param {URL} url L'URL du _fichier_ lu dans Kodi.
- * @returns {Promise<string|undefined>} Une promesse contenant le label ou
- *                                      `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le label ou
+ *                                        `undefined`.
  */
 export const extract = async (url) => {
     for (const labeler of LABELERS) {

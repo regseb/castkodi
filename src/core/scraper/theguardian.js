@@ -25,8 +25,8 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *                                     en profondeur.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionVideo = async (_url, metadata, context) => {
     if (context.depth) {
@@ -58,8 +58,8 @@ export const extractVideo = matchURLPattern(
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionAudio = async (_url, metadata) => {
     const doc = await metadata.html();

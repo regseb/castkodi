@@ -30,8 +30,8 @@ const MAX_PAGE_SIZE = 2_147_483_647;
  * Extrait les informations nécessaires pour lire un audio sur Kodi.
  *
  * @param {URLMatch} urlMatch L'URL d'un clip de CBC Listen.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionClip = async ({ type, show, clip }) => {
     const clipID = Number(clip);
@@ -50,8 +50,8 @@ export const extractClip = matchURLPattern(
  * Extrait les informations nécessaires pour lire un audio sur Kodi.
  *
  * @param {URLMatch} url L'URL d'un podcast de CBC Listen.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionPodcast = async ({ podcast, episode }) => {
     const clipID = Number(episode);

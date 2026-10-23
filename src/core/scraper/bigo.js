@@ -23,8 +23,8 @@ const API_URL =
  * Extrait les informations nécessaires pour lire une vidéo sur Kodi.
  *
  * @param {URLMatch} url L'URL d'une vidéo de Bigo Live.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async ({ pathname }) => {
     const result = /^\/(?:[a-z]{2}\/)?(?<id>\d+)$/iv.exec(pathname);

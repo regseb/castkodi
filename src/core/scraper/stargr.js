@@ -20,8 +20,8 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  * @param {Object}   metadata      Les métadonnées de l'URL.
  * @param {Function} metadata.html La fonction retournant la promesse contenant
  *                                 le document HTML.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionTv = async (_url, metadata) => {
     const doc = await metadata.html();
@@ -47,8 +47,8 @@ export const extractTv = matchURLPattern(actionTv, "https://www.star.gr/tv/*");
  *                                     en profondeur.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const actionVideo = async (_url, metadata, context) => {
     const doc = await metadata.html();

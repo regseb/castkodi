@@ -25,8 +25,8 @@ import { matchURLPattern } from "../tools/urlmatch.js";
  *                                     en profondeur.
  * @param {boolean}  context.incognito La marque indiquant si l'utilisateur est
  *                                     en navigation privée.
- * @returns {Promise<string|undefined>} Une promesse contenant le lien du
- *                                      _fichier_ ou `undefined`.
+ * @returns {Promise<string | undefined>} Une promesse contenant le lien du
+ *                                        _fichier_ ou `undefined`.
  */
 const action = async (url, metadata, context) => {
     if (context.depth) {
